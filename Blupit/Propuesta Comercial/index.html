@@ -28,9 +28,6 @@
         .fade-in { animation: fadeIn 0.5s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        .scale-in { animation: scaleIn 0.3s ease-out forwards; }
-        @keyframes scaleIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
         /* Estilo de las Cajas Negras (Card Master Style) */
         .blupit-card {
             background-color: black;
@@ -75,7 +72,7 @@
                     Tu Ecosistema de <span class="underline decoration-4 decoration-[#e1ef29] underline-offset-4">Engagement</span> en WhatsApp
                 </h1>
                 <p class="text-lg md:text-xl text-neutral-600 font-normal mb-8">
-                    No somos solo un CRM. Somos una plataforma de lealtad, gamificación y monetización. <span class="font-bold whitespace-nowrap">Hecha 100% con IA.</span>
+                    No somos solo un CRM. Somos una plataforma de lealtad, gamificación y monetización.
                 </p>
             </div>
 
@@ -119,152 +116,100 @@
             </div>
         </div>
 
-        <!-- VISTA 2: SAAS -->
+        <!-- VISTA 2: SAAS (PLAN MENSUAL FIJO) -->
         <div id="view-saas" class="hidden fade-in">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Configuración -->
+                
+                <!-- Columna Izquierda: Detalles del Paquete -->
                 <div class="lg:col-span-2 space-y-6">
-                    <div class="blupit-card p-6 md:p-8 rounded-3xl">
-                        <h2 class="text-xl md:text-2xl font-bold mb-2">Arma tu Suscripción Mensual</h2>
-                        <p class="text-sm md:text-base text-neutral-400 mb-6 font-light">Paga solo por lo que necesitas. Sin cláusulas de permanencia.</p>
+                    <div class="blupit-card p-8 rounded-[2.5rem]">
+                        <div class="flex items-center gap-3 mb-6">
+                            <i data-lucide="package" class="w-8 h-8 text-[#e1ef29]"></i>
+                            <h2 class="text-2xl font-bold">Plan All-in-One</h2>
+                        </div>
+                        
+                        <p class="text-neutral-300 mb-8 text-lg font-light">
+                            Todo el poder de Blupit en una sola suscripción. Sin módulos ocultos, todo incluido para <strong>1 Marca</strong>.
+                        </p>
 
-                        <div class="space-y-4">
-                            <!-- CRM Base (Fijo) -->
-                            <div class="flex items-center justify-between p-4 md:p-5 bg-neutral-900 rounded-xl border border-neutral-800">
-                                <div class="flex items-center gap-3 md:gap-4">
-                                    <div class="bg-[#e1ef29] p-2 rounded-lg text-black"><i data-lucide="message-square" class="w-5 h-5 md:w-6 md:h-6"></i></div>
-                                    <div>
-                                        <h4 class="font-bold text-white text-base md:text-lg">Módulo CRM Base</h4>
-                                        <p class="text-xs md:text-sm text-neutral-400">Chat multicanal y gestión de clientes.</p>
-                                    </div>
-                                </div>
-                                <div class="text-right">
-                                    <div class="font-bold text-[#e1ef29] text-base md:text-lg">$ 300.000</div>
-                                    <span class="text-[10px] text-black uppercase font-bold bg-white px-2 py-1 rounded">Obligatorio</span>
-                                </div>
+                        <!-- Lista de Características (Grid 2 columnas) -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                            <div class="flex items-center gap-3 p-3 bg-white/5 rounded-xl border border-white/5">
+                                <i data-lucide="check-circle-2" class="w-5 h-5 text-[#e1ef29]"></i>
+                                <span>CRM Multicanal</span>
                             </div>
+                            <div class="flex items-center gap-3 p-3 bg-white/5 rounded-xl border border-white/5">
+                                <i data-lucide="check-circle-2" class="w-5 h-5 text-[#e1ef29]"></i>
+                                <span>Gamificación Full (Sorteos)</span>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 bg-white/5 rounded-xl border border-white/5">
+                                <i data-lucide="check-circle-2" class="w-5 h-5 text-[#e1ef29]"></i>
+                                <span>IA Integrada al Chatbot</span>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 bg-white/5 rounded-xl border border-white/5">
+                                <i data-lucide="check-circle-2" class="w-5 h-5 text-[#e1ef29]"></i>
+                                <span>Módulo Educación (LMS)</span>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 bg-white/5 rounded-xl border border-white/5">
+                                <i data-lucide="check-circle-2" class="w-5 h-5 text-[#e1ef29]"></i>
+                                <span>Encuestas & Feedback</span>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 bg-white/5 rounded-xl border border-white/5">
+                                <i data-lucide="sparkles" class="w-5 h-5 text-[#e1ef29]"></i>
+                                <span>Próximas Integraciones</span>
+                            </div>
+                        </div>
 
-                            <!-- Toggles Dinámicos -->
-                            <!-- Games -->
-                            <label class="saas-option flex items-center justify-between p-4 md:p-5 rounded-xl border cursor-pointer transition-all bg-neutral-900 border-neutral-800 hover:bg-neutral-800/80" id="lbl-games">
-                                <div class="flex items-center gap-3 md:gap-4">
-                                    <div class="icon-box p-2 rounded-lg bg-white/10 text-neutral-400 transition-colors"><i data-lucide="trophy" class="w-5 h-5 md:w-6 md:h-6"></i></div>
-                                    <div>
-                                        <h4 class="text-title font-bold text-base md:text-lg text-neutral-300 transition-colors">Add-on Gamificación</h4>
-                                        <p class="text-xs md:text-sm text-neutral-400">Sorteos, Trivias y Puntos.</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center gap-3 md:gap-4">
-                                    <div class="price-text font-bold text-sm md:text-lg text-right text-neutral-500 transition-colors">+$ 500.000</div>
-                                    <div class="check-circle w-5 h-5 md:w-6 md:h-6 rounded-full border border-neutral-600 flex items-center justify-center transition-all">
-                                        <i data-lucide="check-circle-2" class="w-3 h-3 md:w-4 md:h-4 text-black opacity-0"></i>
-                                    </div>
-                                    <input type="checkbox" class="hidden" onchange="toggleSaasModule('games')" id="chk-games">
-                                </div>
-                            </label>
-
-                            <!-- Education -->
-                            <label class="saas-option flex items-center justify-between p-4 md:p-5 rounded-xl border cursor-pointer transition-all bg-neutral-900 border-neutral-800 hover:bg-neutral-800/80" id="lbl-education">
-                                <div class="flex items-center gap-3 md:gap-4">
-                                    <div class="icon-box p-2 rounded-lg bg-white/10 text-neutral-400 transition-colors"><i data-lucide="book-open" class="w-5 h-5 md:w-6 md:h-6"></i></div>
-                                    <div>
-                                        <h4 class="text-title font-bold text-base md:text-lg text-neutral-300 transition-colors">Add-on Educación</h4>
-                                        <p class="text-xs md:text-sm text-neutral-400">Cursos, lecciones y evaluaciones.</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center gap-3 md:gap-4">
-                                    <div class="price-text font-bold text-sm md:text-lg text-right text-neutral-500 transition-colors">+$ 400.000</div>
-                                    <div class="check-circle w-5 h-5 md:w-6 md:h-6 rounded-full border border-neutral-600 flex items-center justify-center transition-all">
-                                        <i data-lucide="check-circle-2" class="w-3 h-3 md:w-4 md:h-4 text-black opacity-0"></i>
-                                    </div>
-                                    <input type="checkbox" class="hidden" onchange="toggleSaasModule('education')" id="chk-education">
-                                </div>
-                            </label>
-
-                            <!-- Surveys -->
-                            <label class="saas-option flex items-center justify-between p-4 md:p-5 rounded-xl border cursor-pointer transition-all bg-neutral-900 border-neutral-800 hover:bg-neutral-800/80" id="lbl-surveys">
-                                <div class="flex items-center gap-3 md:gap-4">
-                                    <div class="icon-box p-2 rounded-lg bg-white/10 text-neutral-400 transition-colors"><i data-lucide="clipboard-list" class="w-5 h-5 md:w-6 md:h-6"></i></div>
-                                    <div>
-                                        <h4 class="text-title font-bold text-base md:text-lg text-neutral-300 transition-colors">Add-on Encuestas</h4>
-                                        <p class="text-xs md:text-sm text-neutral-400">Recolección de opinión y datos.</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center gap-3 md:gap-4">
-                                    <div class="price-text font-bold text-sm md:text-lg text-right text-neutral-500 transition-colors">+$ 200.000</div>
-                                    <div class="check-circle w-5 h-5 md:w-6 md:h-6 rounded-full border border-neutral-600 flex items-center justify-center transition-all">
-                                        <i data-lucide="check-circle-2" class="w-3 h-3 md:w-4 md:h-4 text-black opacity-0"></i>
-                                    </div>
-                                    <input type="checkbox" class="hidden" onchange="toggleSaasModule('surveys')" id="chk-surveys">
-                                </div>
-                            </label>
-
-                            <!-- AI -->
-                            <label class="saas-option flex items-center justify-between p-4 md:p-5 rounded-xl border cursor-pointer transition-all bg-neutral-900 border-neutral-800 hover:bg-neutral-800/80" id="lbl-ai">
-                                <div class="flex items-center gap-3 md:gap-4">
-                                    <div class="icon-box p-2 rounded-lg bg-white/10 text-neutral-400 transition-colors"><i data-lucide="bot" class="w-5 h-5 md:w-6 md:h-6"></i></div>
-                                    <div>
-                                        <h4 class="text-title font-bold text-base md:text-lg text-neutral-300 transition-colors">Add-on IA Gemini</h4>
-                                        <p class="text-xs md:text-sm text-neutral-400">Respuestas automáticas inteligentes.</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center gap-3 md:gap-4">
-                                    <div class="price-text font-bold text-sm md:text-lg text-right text-neutral-500 transition-colors">+$ 700.000</div>
-                                    <div class="check-circle w-5 h-5 md:w-6 md:h-6 rounded-full border border-neutral-600 flex items-center justify-center transition-all">
-                                        <i data-lucide="check-circle-2" class="w-3 h-3 md:w-4 md:h-4 text-black opacity-0"></i>
-                                    </div>
-                                    <input type="checkbox" class="hidden" onchange="toggleSaasModule('ai')" id="chk-ai">
-                                </div>
-                            </label>
+                        <div class="flex items-center gap-2 text-sm text-neutral-400 bg-white/10 p-4 rounded-xl">
+                            <i data-lucide="server" class="w-5 h-5 text-white"></i>
+                            <p>Capacidad para <strong>50.000 usuarios recurrentes</strong> (Escalable bajo revisión).</p>
                         </div>
                     </div>
 
-                    <!-- Integraciones -->
-                    <div class="blupit-card p-6 rounded-2xl border border-neutral-800 flex gap-4 opacity-90">
-                        <div class="text-white bg-white/10 p-3 h-fit rounded-lg border border-white/20 shrink-0"><i data-lucide="sparkles" class="w-6 h-6"></i></div>
-                        <div>
-                            <h4 class="font-bold text-white mb-1 text-lg">Próximas Integraciones</h4>
-                            <p class="text-sm text-neutral-400 mb-2 leading-relaxed">
-                                Estamos cocinando nuevas funcionalidades para potenciar tu negocio:
-                            </p>
-                            <div class="flex flex-wrap gap-2 text-xs font-medium text-neutral-500">
-                                <span class="bg-white/5 px-2 py-1 rounded border border-white/5">Shopify</span>
-                                <span class="bg-white/5 px-2 py-1 rounded border border-white/5">HubSpot</span>
-                                <span class="bg-white/5 px-2 py-1 rounded border border-white/5">Pagos Nativos</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Alerta Costos -->
+                    <!-- Alerta Costos Variables -->
                     <div class="bg-neutral-100 p-6 rounded-3xl border border-neutral-200 flex gap-4 shadow-sm">
-                        <div class="bg-black p-3 h-fit rounded-lg text-[#e1ef29] shrink-0"><i data-lucide="alert-triangle" class="w-6 h-6"></i></div>
+                        <div class="bg-black p-3 h-fit rounded-lg text-[#e1ef29] shrink-0"><i data-lucide="credit-card" class="w-6 h-6"></i></div>
                         <div>
-                            <h4 class="font-bold text-black mb-1 text-lg">Costos Variables (Tarjeta de Crédito)</h4>
-                            <p class="text-sm text-neutral-600 mb-2">
-                                Para garantizar transparencia, estos costos se cargan directamente a tu tarjeta según tu consumo real:
+                            <h4 class="font-bold text-black mb-1 text-lg">Setup de Pagos Asistido</h4>
+                            <p class="text-sm text-neutral-600 mb-2 leading-relaxed">
+                                Nosotros configuramos tu cuenta para que los costos variables se debiten directamente de tu tarjeta. Tú tienes el control y la factura llega a tu nombre.
                             </p>
                             <ul class="text-sm text-neutral-500 list-disc list-inside space-y-1">
-                                <li>Mensajería de Marketing WhatsApp (Costo Meta).</li>
-                                <li>Consumo de Tokens IA (Si activas el módulo IA).</li>
+                                <li><strong>Meta:</strong> Pago directo por mensajería WhatsApp.</li>
+                                <li><strong>Google Cloud:</strong> Pago directo por tokens de Gemini.</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
-                <!-- Resumen Sidebar -->
+                <!-- Columna Derecha: Precio Fijo -->
                 <div class="lg:col-span-1">
-                    <div class="bg-black p-6 md:p-8 rounded-3xl sticky top-24 shadow-2xl border border-neutral-800 text-white">
-                        <h3 class="text-xl font-bold mb-6">Tu Inversión Mensual</h3>
-                        <div class="space-y-3 mb-6 border-b border-neutral-800 pb-6" id="saas-summary-list">
-                            <!-- Items inyectados via JS -->
-                            <div class="flex justify-between text-sm"><span class="text-neutral-400">CRM Base</span><span class="text-white font-mono">$ 300.000</span></div>
+                    <div class="blupit-card p-8 rounded-[2.5rem] sticky top-24 text-center">
+                        <h3 class="text-xl font-bold mb-4 text-neutral-400">Inversión Mensual</h3>
+                        
+                        <div class="text-4xl font-extrabold text-[#e1ef29] mb-2 tracking-tight">
+                            $ 4.500.000
                         </div>
-                        <div class="flex justify-between items-end mb-2">
-                            <span class="text-neutral-400 font-medium">Total Mes</span>
-                            <span class="text-2xl md:text-3xl font-bold text-[#e1ef29] tracking-tight" id="saas-total-display">$ 300.000</span>
+                        <p class="text-sm text-neutral-400 mb-8">+ IVA / Mes</p>
+
+                        <div class="space-y-4 text-left border-t border-white/10 pt-6 mb-8 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-neutral-300">Marca</span>
+                                <span class="text-white font-bold">1 Única</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-neutral-300">Usuarios</span>
+                                <span class="text-white font-bold">Hasta 50k</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-neutral-300">Módulos</span>
+                                <span class="text-white font-bold">Todos</span>
+                            </div>
                         </div>
-                        <p class="text-xs text-neutral-500 text-right mb-6">+ IVA</p>
-                        <button class="w-full bg-[#e1ef29] text-black font-bold py-4 rounded-xl hover:bg-[#dce925] transition-colors shadow-lg shadow-[#e1ef29]/20">Contratar Plan</button>
+
+                        <button class="w-full bg-[#e1ef29] text-black font-bold py-4 rounded-xl hover:bg-[#dce925] transition-colors shadow-lg shadow-[#e1ef29]/20 text-lg">
+                            Contratar Plan
+                        </button>
                     </div>
                 </div>
             </div>
@@ -274,16 +219,16 @@
         <div id="view-whitelabel" class="hidden fade-in">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div class="lg:col-span-2 space-y-6">
-                    <div class="blupit-card p-6 md:p-8 rounded-3xl">
-                        <div class="flex flex-col md:flex-row justify-between items-start mb-6 gap-2">
+                    <div class="blupit-card p-8 rounded-[2.5rem]">
+                        <div class="flex flex-col md:flex-row justify-between items-start mb-8 gap-2">
                             <div>
-                                <h2 class="text-xl md:text-2xl font-bold mb-2">Infraestructura Dedicada (White Label)</h2>
-                                <p class="text-sm md:text-base text-neutral-400 font-light">Tu propia plataforma, dominio y DB aislada. Blupit es invisible.</p>
+                                <h2 class="text-2xl md:text-3xl font-bold mb-2">Infraestructura Enterprise</h2>
+                                <p class="text-base text-neutral-400 font-light">Tu propia plataforma, tu dominio, tu base de datos aislada. Blupit es invisible.</p>
                             </div>
-                            <div class="bg-white text-black px-3 py-1 rounded text-xs font-bold uppercase tracking-wider">Enterprise</div>
+                            <div class="bg-white text-black px-4 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider">White Label</div>
                         </div>
 
-                        <div class="space-y-4">
+                        <div class="space-y-6">
                             <!-- Base Setup -->
                             <div class="flex items-center justify-between p-4 md:p-5 bg-neutral-900 rounded-xl border border-neutral-800">
                                 <div class="flex items-center gap-4">
@@ -299,7 +244,7 @@
                                 </div>
                             </div>
 
-                            <!-- IA Setup -->
+                            <!-- IA Setup (Separada) -->
                             <label class="wl-option flex items-center justify-between p-4 md:p-5 rounded-xl border cursor-pointer transition-all bg-neutral-900 border-neutral-800 hover:bg-neutral-800/80" id="lbl-wl-ai">
                                 <div class="flex items-center gap-4">
                                     <div class="icon-box p-2 rounded-lg bg-white/10 text-neutral-400 transition-colors"><i data-lucide="zap" class="w-5 h-5 md:w-6 md:h-6"></i></div>
@@ -319,6 +264,28 @@
                                     <input type="checkbox" class="hidden" onchange="toggleWlModule('aiInfra')" id="chk-wl-ai">
                                 </div>
                             </label>
+
+                            <!-- Feature: Multi-Cliente -->
+                            <div class="flex gap-4 items-start p-4 bg-white/5 rounded-2xl border border-white/5 mt-6">
+                                <div class="bg-[#e1ef29] p-2 rounded-lg text-black shrink-0"><i data-lucide="layout-grid" class="w-6 h-6"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-white text-lg">Panel Super Administrador</h4>
+                                    <p class="text-sm text-neutral-400 mt-1 leading-relaxed">
+                                        Gestiona múltiples clientes desde un solo lugar. Crea accesos independientes para cada una de tus marcas o clientes finales. Tú eres el dueño del SaaS.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Feature: Servers & Support -->
+                            <div class="flex gap-4 items-start p-4 bg-white/5 rounded-2xl border border-white/5">
+                                <div class="bg-white/10 p-2 rounded-lg text-white shrink-0"><i data-lucide="life-buoy" class="w-6 h-6"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-white text-lg">Soporte & Infraestructura</h4>
+                                    <p class="text-sm text-neutral-400 mt-1 leading-relaxed">
+                                        Servidores para <strong>50.000 usuarios</strong>. Soporte básico prioritario con respuesta de <strong>2 a 4 horas</strong>.
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -328,41 +295,45 @@
                         <div>
                             <h4 class="font-bold text-black mb-1 text-lg">Responsabilidad de Consumo</h4>
                             <p class="text-sm text-neutral-600 mb-2">
-                                En el modelo Marca Blanca, tú controlas los costos. Tarjeta de crédito requerida para:
+                                En el modelo Marca Blanca, tú gestionas los costos operativos. Se requiere tarjeta de crédito para:
                             </p>
                             <ul class="text-sm text-neutral-500 space-y-1">
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-3 h-3 text-black"></i> Mensajería WhatsApp (Meta).</li>
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-3 h-3 text-black"></i> Tokens de IA (Google).</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-3 h-3 text-black"></i> Mensajería WhatsApp (Pago a Meta).</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-3 h-3 text-black"></i> Tokens de IA (Pago a Google).</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
+                <!-- Sidebar WL Pricing -->
                 <div class="lg:col-span-1">
-                    <div class="bg-black p-6 md:p-8 rounded-3xl sticky top-24 shadow-2xl border border-neutral-800 text-white">
-                        <h3 class="text-xl font-bold mb-6">Inversión Enterprise</h3>
+                    <div class="blupit-card p-8 rounded-[2.5rem] sticky top-24 text-center">
+                        <h3 class="text-xl font-bold mb-6 text-neutral-400">Inversión Enterprise</h3>
                         
-                        <div class="mb-6">
-                            <span class="text-xs text-neutral-400 uppercase font-bold tracking-wider">Pago Único (Setup)</span>
-                            <div class="flex justify-between text-sm md:text-base mt-4">
-                                <span class="text-neutral-400">Licencia Base</span>
-                                <span class="font-mono text-white">$ 35.000.000</span>
+                        <!-- Setup Fees -->
+                        <div class="mb-6 pb-6 border-b border-white/10">
+                            <span class="text-xs text-[#e1ef29] uppercase font-bold tracking-wider">Setup Único (Vitalicio)</span>
+                            
+                            <div class="flex justify-between items-center mt-4 text-sm text-neutral-300">
+                                <span>Licencia Base</span>
+                                <span class="font-mono text-white text-lg">$ 35M</span>
                             </div>
-                            <div class="flex justify-between text-sm md:text-base mt-2" id="wl-summary-ai" style="display:none">
-                                <span class="text-neutral-400">Setup IA</span>
-                                <span class="font-mono text-white">$ 10.000.000</span>
+                            <div class="flex justify-between items-center mt-2 text-sm text-neutral-300" id="wl-summary-ai" style="display:none">
+                                <span>Setup IA</span>
+                                <span class="font-mono text-white text-lg">$ 10M</span>
                             </div>
-                            <div class="border-t border-neutral-800 mt-4 pt-3 flex justify-between items-end">
-                                <span class="text-[#e1ef29] font-bold">Total Setup</span>
-                                <span class="text-2xl font-bold text-white tracking-tight" id="wl-total-setup">$ 35.000.000</span>
+                            
+                            <div class="mt-4 bg-white/10 rounded-xl p-3">
+                                <div class="text-xs text-neutral-400 mb-1">Total Setup</div>
+                                <div class="text-3xl font-bold text-white tracking-tight" id="wl-total-setup">$ 35.000.000</div>
                             </div>
                         </div>
 
-                        <div class="border-t border-neutral-800 pt-6 mb-8">
-                            <span class="text-xs text-neutral-400 uppercase font-bold">Mantenimiento Mensual</span>
-                            <div class="flex justify-between items-center mt-3">
-                                <span class="text-neutral-200 text-sm">Servidores & Soporte</span>
-                                <span class="text-xl font-bold text-white">$ 2.000.000</span>
+                        <!-- Monthly Fee -->
+                        <div class="mb-8">
+                            <span class="text-xs text-neutral-500 uppercase font-bold">Mantenimiento Mensual (Infra)</span>
+                            <div class="text-2xl font-bold text-[#e1ef29] mt-2 tracking-tight">
+                                $ 2.000.000
                             </div>
                         </div>
 
@@ -417,20 +388,6 @@
             }
         ];
 
-        const prices = {
-            crm: 300000,
-            games: 500000,
-            education: 400000,
-            surveys: 200000,
-            ai: 700000
-        };
-
-        const wlPrices = { base: 35000000, ai: 10000000 };
-
-        // We will read directly from DOM checkboxes to avoid state mismatch
-        // const saasState = { games: false, education: false, surveys: false, ai: false };
-        const wlState = { aiInfra: false };
-
         // --- UTILS ---
         const formatMoney = (val) => new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(val);
 
@@ -464,10 +421,6 @@
                 } else {
                     btn.classList.remove('bg-black', 'text-[#e1ef29]', 'shadow-lg', 'scale-105');
                     btn.classList.add('text-neutral-400');
-                    // Hide labels on mobile for inactive items to save space? Keep consistent for now
-                    if (window.innerWidth < 768) {
-                         // Optional: hide label on mobile for inactive
-                    }
                 }
             });
 
@@ -490,84 +443,15 @@
             lucide.createIcons();
         }
 
-        // --- SAAS LOGIC ---
-        function toggleSaasModule(modKey) {
-            // Read source of truth directly from checkbox
-            const checkbox = document.getElementById('chk-' + modKey);
-            const isChecked = checkbox.checked;
-            
-            const label = document.getElementById('lbl-' + modKey);
-            const priceText = label.querySelector('.price-text');
-            const iconBox = label.querySelector('.icon-box');
-            const title = label.querySelector('.text-title');
-            const checkCircle = label.querySelector('.check-circle');
-            
-            // Fix: Lucide replaces <i> with <svg>, so we try to find svg, fallback to i if not run yet
-            const checkIcon = checkCircle.querySelector('svg') || checkCircle.querySelector('i');
-
-            // Toggle Visuals based on Checked State
-            if (isChecked) {
-                label.classList.replace('bg-neutral-900', 'bg-neutral-800');
-                label.classList.add('border-[#e1ef29]', 'ring-1', 'ring-[#e1ef29]');
-                label.classList.remove('border-neutral-800');
-                
-                iconBox.classList.replace('bg-white/10', 'bg-[#e1ef29]');
-                iconBox.classList.replace('text-neutral-400', 'text-black');
-                
-                title.classList.replace('text-neutral-300', 'text-white');
-                priceText.classList.replace('text-neutral-500', 'text-white');
-                
-                checkCircle.classList.replace('border-neutral-600', 'border-[#e1ef29]');
-                checkCircle.classList.add('bg-[#e1ef29]');
-                if(checkIcon) checkIcon.classList.remove('opacity-0');
-            } else {
-                label.classList.replace('bg-neutral-800', 'bg-neutral-900');
-                label.classList.remove('border-[#e1ef29]', 'ring-1', 'ring-[#e1ef29]');
-                label.classList.add('border-neutral-800');
-                
-                iconBox.classList.replace('bg-[#e1ef29]', 'bg-white/10');
-                iconBox.classList.replace('text-black', 'text-neutral-400');
-                
-                title.classList.replace('text-white', 'text-neutral-300');
-                priceText.classList.replace('text-white', 'text-neutral-500');
-                
-                checkCircle.classList.replace('border-[#e1ef29]', 'border-neutral-600');
-                checkCircle.classList.remove('bg-[#e1ef29]');
-                if(checkIcon) checkIcon.classList.add('opacity-0');
-            }
-
-            calculateSaas();
-        }
-
-        function calculateSaas() {
-            let total = prices.crm;
-            const summaryList = document.getElementById('saas-summary-list');
-            summaryList.innerHTML = `<div class="flex justify-between text-sm"><span class="text-neutral-400">CRM Base</span><span class="text-white font-mono">${formatMoney(prices.crm)}</span></div>`;
-
-            // Check each checkbox directly
-            if (document.getElementById('chk-games').checked) {
-                total += prices.games;
-                summaryList.innerHTML += `<div class="flex justify-between text-sm fade-in"><span class="text-neutral-400">Gamificación</span><span class="text-white font-mono">${formatMoney(prices.games)}</span></div>`;
-            }
-            if (document.getElementById('chk-education').checked) {
-                total += prices.education;
-                summaryList.innerHTML += `<div class="flex justify-between text-sm fade-in"><span class="text-neutral-400">Educación</span><span class="text-white font-mono">${formatMoney(prices.education)}</span></div>`;
-            }
-            if (document.getElementById('chk-surveys').checked) {
-                total += prices.surveys;
-                summaryList.innerHTML += `<div class="flex justify-between text-sm fade-in"><span class="text-neutral-400">Encuestas</span><span class="text-white font-mono">${formatMoney(prices.surveys)}</span></div>`;
-            }
-            if (document.getElementById('chk-ai').checked) {
-                total += prices.ai;
-                summaryList.innerHTML += `<div class="flex justify-between text-sm fade-in"><span class="text-neutral-400">IA Gemini</span><span class="text-white font-mono">${formatMoney(prices.ai)}</span></div>`;
-            }
-
-            document.getElementById('saas-total-display').innerText = formatMoney(total);
-        }
-
         // --- WL LOGIC ---
+        const wlPrices = { base: 35000000, ai: 10000000 };
+        const wlState = { aiInfra: false };
+
         function toggleWlModule(key) {
             wlState[key] = !wlState[key];
+            const checkbox = document.getElementById('chk-wl-ai');
+            const isChecked = checkbox.checked;
+            
             const label = document.getElementById('lbl-wl-ai');
             const iconBox = label.querySelector('.icon-box');
             const title = label.querySelector('.text-title');
@@ -577,7 +461,7 @@
             // Fix: Fallback for svg/i
             const checkIcon = checkCircle.querySelector('svg') || checkCircle.querySelector('i');
 
-            if (wlState[key]) {
+            if (isChecked) {
                 label.classList.replace('bg-neutral-900', 'bg-neutral-800');
                 label.classList.add('border-[#e1ef29]', 'ring-1', 'ring-[#e1ef29]');
                 
@@ -615,9 +499,8 @@
             lucide.createIcons();
             setIntroModule(0); // Cargar primer módulo
             
-            // Force reset checkboxes to prevent browser cache mismatch
+            // Force reset checkboxes
             document.querySelectorAll('input[type="checkbox"]').forEach(el => el.checked = false);
-            calculateSaas();
         };
 
     </script>
