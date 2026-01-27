@@ -1023,7 +1023,7 @@
                                 onClick={() => setActiveTab('routes')}
                                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all ${activeTab === 'routes' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}
                             >
-                                {Map && <Map size={18} />} Rutas & Geo
+                                {MapIcon && <MapIcon size={18} />} Rutas & Geo
                             </button>
                             <button 
                                 onClick={() => setActiveTab('gamification')}
@@ -1050,7 +1050,7 @@
                             <h1 className="text-xl font-bold text-slate-800 flex items-center gap-2">
                                 {activeTab === 'dashboard' && <>{LayoutDashboard && <LayoutDashboard size={20} className="text-slate-400"/>} Control de Operaciones</>}
                                 {activeTab === 'catalogs' && <>{Package && <Package size={20} className="text-slate-400"/>} Smart Catalog & Stock</>}
-                                {activeTab === 'routes' && <>{Map && <Map size={20} className="text-slate-400"/>} Rutas y Geolocalización</>}
+                                {activeTab === 'routes' && <>{MapIcon && <MapIcon size={20} className="text-slate-400"/>} Rutas y Geolocalización</>}
                                 {activeTab === 'gamification' && <>{Award && <Award size={20} className="text-slate-400"/>} Gamificación de Equipo</>}
                             </h1>
                             <div className="flex items-center gap-4">
