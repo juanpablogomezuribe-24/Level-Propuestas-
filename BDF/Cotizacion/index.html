@@ -16,7 +16,7 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     
     <!-- Lucide Icons (Vanilla JS version - More stable for this setup) -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@0.263.1"></script>
 
     <style>
         /* Custom Scrollbar for Chat */
@@ -38,19 +38,33 @@
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
 
-        // --- ICON ADAPTER SYSTEM ---
+        // --- ICON ADAPTER SYSTEM (Robust Version) ---
         // This solves the 'forwardRef' error by manually creating React components from the vanilla Lucide library
         // instead of relying on the potentially broken UMD build of lucide-react.
         
         const createIconComponent = (iconName) => {
-            const iconDef = window.lucide?.icons?.[iconName];
-            if (!iconDef) return () => null;
+            // 1. Safety check: Ensure lucide exists
+            if (!window.lucide || !window.lucide.icons) {
+                return () => null; // Graceful fallback
+            }
 
+            // 2. Get definition
+            const iconDef = window.lucide.icons[iconName];
+            
+            // 3. If definition missing, return null component
+            if (!iconDef) {
+                return () => null;
+            }
+
+            // 4. Return React Component
             return React.forwardRef(({ color = "currentColor", size = 24, strokeWidth = 2, className = "", ...props }, ref) => {
+                // 5. Runtime check: Ensure iconDef is an array [tag, attrs, children]
+                if (!Array.isArray(iconDef)) return null;
+
                 const [tag, attrs, children] = iconDef;
                 
                 return React.createElement(
-                    "svg",
+                    tag,
                     {
                         ref,
                         ...attrs,
@@ -61,9 +75,12 @@
                         className: `lucide lucide-${iconName.toLowerCase()} ${className}`,
                         ...props
                     },
-                    children.map(([childTag, childAttrs], index) => 
-                        React.createElement(childTag, { ...childAttrs, key: index })
-                    )
+                    // 6. Safe mapping of children
+                    Array.isArray(children) 
+                        ? children.map(([childTag, childAttrs], index) => 
+                            React.createElement(childTag, { ...childAttrs, key: index })
+                          )
+                        : null
                 );
             });
         };
