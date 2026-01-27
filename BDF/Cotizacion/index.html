@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloopit Retail Intelligence</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Lucide Icons (Vanilla JS version - More stable for this setup) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Custom Scrollbar for Chat */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        body {
+            background-color: #f8fafc;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        // --- ICON ADAPTER SYSTEM ---
+        // This solves the 'forwardRef' error by manually creating React components from the vanilla Lucide library
+        // instead of relying on the potentially broken UMD build of lucide-react.
+        
+        const createIconComponent = (iconName) => {
+            const iconDef = window.lucide?.icons?.[iconName];
+            if (!iconDef) return () => null;
+
+            return React.forwardRef(({ color = "currentColor", size = 24, strokeWidth = 2, className = "", ...props }, ref) => {
+                const [tag, attrs, children] = iconDef;
+                
+                return React.createElement(
+                    "svg",
+                    {
+                        ref,
+                        ...attrs,
+                        width: size,
+                        height: size,
+                        stroke: color,
+                        strokeWidth: strokeWidth,
+                        className: `lucide lucide-${iconName.toLowerCase()} ${className}`,
+                        ...props
+                    },
+                    children.map(([childTag, childAttrs], index) => 
+                        React.createElement(childTag, { ...childAttrs, key: index })
+                    )
+                );
+            });
+        };
+
+        // Create the icons object manually mapping the ones we use
+        // Note: We map the specific names used in the code to the PascalCase names in Lucide
+        const Icons = {
+            LayoutDashboard: createIconComponent('LayoutDashboard'),
+            Map: createIconComponent('Map'),
+            Package: createIconComponent('Package'),
+            Award: createIconComponent('Award'),
+            Send: createIconComponent('Send'),
+            Menu: createIconComponent('Menu'),
+            Store: createIconComponent('Store'),
+            TrendingUp: createIconComponent('TrendingUp'),
+            AlertCircle: createIconComponent('AlertCircle'),
+            CheckCircle: createIconComponent('CheckCircle'),
+            MessageSquare: createIconComponent('MessageSquare'),
+            BarChart3: createIconComponent('BarChart3'),
+            Search: createIconComponent('Search'),
+            Plus: createIconComponent('Plus'),
+            Users: createIconComponent('Users'),
+            MapPin: createIconComponent('MapPin'),
+            Trophy: createIconComponent('Trophy'),
+            Star: createIconComponent('Star'),
+            ChevronRight: createIconComponent('ChevronRight'),
+            Edit2: createIconComponent('Edit2'),
+            Trash2: createIconComponent('Trash2'),
+            Image: createIconComponent('Image'),
+            Camera: createIconComponent('Camera'),
+            Upload: createIconComponent('Upload'),
+            Layers: createIconComponent('Layers'),
+            Grid: createIconComponent('Grid'),
+            MessageCircle: createIconComponent('MessageCircle'),
+            Smartphone: createIconComponent('Smartphone'),
+            GitMerge: createIconComponent('GitMerge'),
+            FileText: createIconComponent('FileText'),
+            MoveUp: createIconComponent('MoveUp'),
+            MoveDown: createIconComponent('MoveDown'),
+            RefreshCw: createIconComponent('RefreshCw'),
+            MoreVertical: createIconComponent('MoreVertical'),
+            PieChart: createIconComponent('PieChart'),
+            DollarSign: createIconComponent('DollarSign'),
+            Calendar: createIconComponent('Calendar'),
+            Tag: createIconComponent('Tag'),
+            Filter: createIconComponent('Filter'),
+            MoreHorizontal: createIconComponent('MoreHorizontal'),
+            UserPlus: createIconComponent('UserPlus'),
+            Columns: createIconComponent('Columns'),
+            ArrowRight: createIconComponent('ArrowRight'),
+            Settings: createIconComponent('Settings'),
+            List: createIconComponent('List'),
+            PlayCircle: createIconComponent('PlayCircle'),
+            Save: createIconComponent('Save'),
+            Clock: createIconComponent('Clock'),
+            AlertTriangle: createIconComponent('AlertTriangle'),
+            Activity: createIconComponent('Activity'),
+            Database: createIconComponent('Database'),
+            Brain: createIconComponent('Brain'),
+            FileCheck: createIconComponent('FileCheck'),
+            ShoppingBag: createIconComponent('ShoppingBag'),
+            Truck: createIconComponent('Truck'),
+            Zap: createIconComponent('Zap'),
+            Eye: createIconComponent('Eye'),
+            ArrowDownToLine: createIconComponent('ArrowDownToLine'),
+            ArrowUpToLine: createIconComponent('ArrowUpToLine')
+        };
+
+        const { 
+            LayoutDashboard, Map: MapIcon, Package, Award, Send, Menu, Store, 
+            TrendingUp, AlertCircle, CheckCircle, MessageSquare, BarChart3, 
+            Search, Plus, Users, MapPin, Trophy, Star, ChevronRight, 
+            Edit2, Trash2, Image: ImageIcon, Camera, Upload, Layers, 
+            Grid, MessageCircle, Smartphone, GitMerge, FileText, 
+            MoveUp, MoveDown, RefreshCw, MoreVertical, PieChart, 
+            DollarSign, Calendar, Tag, Filter, MoreHorizontal, UserPlus, 
+            Columns, ArrowRight, Settings, List, PlayCircle, Save, 
+            Clock, AlertTriangle, Activity, Database, Brain, FileCheck, 
+            ShoppingBag, Truck, Zap, Eye, ArrowDownToLine, ArrowUpToLine 
+        } = Icons;
+
+        // --- Mock Data ---
+        const STORES = [
+            { id: 1, name: 'Oxxo - Pepe Sierra', chain: 'Oxxo', channel: 'Conveniencia', tier: 'Tier 1', status: 'Pending', lat: 30, lng: 40, assignee: 'Juan Pérez', lastVisit: 'Hace 2 días' },
+            { id: 2, name: 'Éxito - Wow Country', chain: 'Éxito', channel: 'Hipermercado', tier: 'Oro', status: 'Pending', lat: 60, lng: 70, assignee: 'Juan Pérez', lastVisit: 'Hace 3 horas' },
+            { id: 3, name: 'D1 - Las Villas', chain: 'D1', channel: 'Hard Discount', tier: 'Tier 2', status: 'Completed', lat: 20, lng: 80, assignee: 'Maria L.', lastVisit: 'Hace 15 min' },
+            { id: 4, name: 'Jumbo - Calle 80', chain: 'Jumbo', channel: 'Hipermercado', tier: 'Oro', status: 'Pending', lat: 75, lng: 20, assignee: 'Carlos R.', lastVisit: 'Hace 4 días' }, 
+            { id: 5, name: 'Farmatodo - 93', chain: 'Farmatodo', channel: 'Droguería', tier: 'Plata', status: 'Issue', lat: 45, lng: 30, assignee: 'Juan Pérez', lastVisit: 'Ayer' },
+        ];
+
+        const INITIAL_PRODUCTS = [
+            { 
+                id: 101, 
+                sku: 'PLU-8821',
+                name: 'Bebida Energética 250ml', 
+                category: 'Bebidas', 
+                stock: 12, 
+                target: 20, 
+                rotation: 15, 
+                isMustHave: true, 
+                price: '$4.500',
+                image: 'https://placehold.co/200x200/2563eb/white?text=Energia+250ml',
+                alertThreshold: 5,
+                priority: 'Alta',
+                shelfPosition: 'Ojos (Zona Caliente)'
+            },
+            { 
+                id: 102, 
+                sku: 'PLU-9901',
+                name: 'Agua Mineral 500ml', 
+                category: 'Bebidas', 
+                stock: 45, 
+                target: 50, 
+                rotation: 40,
+                isMustHave: false, 
+                price: '$2.000',
+                image: 'https://placehold.co/200x200/3b82f6/white?text=Agua+500ml',
+                alertThreshold: 10,
+                priority: 'Media',
+                shelfPosition: 'Nivel Suelo'
+            },
+            { 
+                id: 103, 
+                sku: 'PLU-1123',
+                name: 'Snack Papas Limón', 
+                category: 'Snacks', 
+                stock: 2, 
+                target: 15, 
+                rotation: 20, 
+                isMustHave: true, 
+                price: '$3.200',
+                image: 'https://placehold.co/200x200/eab308/white?text=Papas+Limon',
+                alertThreshold: 3,
+                priority: 'Alta',
+                shelfPosition: 'Cabecera de Góndola'
+            },
+            { 
+                id: 104, 
+                sku: 'PLU-4452',
+                name: 'Galletas Choco', 
+                category: 'Snacks', 
+                stock: 20, 
+                target: 20, 
+                rotation: 5,
+                isMustHave: false, 
+                price: '$1.500',
+                image: 'https://placehold.co/200x200/78350f/white?text=Galletas',
+                alertThreshold: 5,
+                priority: 'Baja',
+                shelfPosition: 'Nivel Superior'
+            },
+        ];
+
+        const INITIAL_REPORTS = [
+            { id: 1, time: '10:42 AM', store: 'D1 - Las Villas', chain: 'D1', merchandiser: 'Maria L.', product: 'Agua Mineral 500ml', stock: 45, status: 'OK' },
+            { id: 2, time: '10:30 AM', store: 'Farmatodo - 93', chain: 'Farmatodo', merchandiser: 'Juan Pérez', product: 'Bebida Energética 250ml', stock: 4, status: 'CRITICAL' },
+            { id: 3, time: '09:15 AM', store: 'Éxito - Wow', chain: 'Éxito', merchandiser: 'Juan Pérez', product: 'Snack Papas Limón', stock: 15, status: 'OK' },
+            { id: 4, time: '08:45 AM', store: 'Oxxo - Chicó', chain: 'Oxxo', merchandiser: 'Carlos R.', product: 'Galletas Choco', stock: 0, status: 'OUT_OF_STOCK' },
+        ];
+
+        const INITIAL_PLANOGRAMS = [
+            {
+                id: 1,
+                name: 'Cabecera Bebidas Oxxo',
+                description: 'Exhibición estándar para neveras verticales.',
+                image: 'https://placehold.co/600x300/1e293b/white?text=PLANOGRAMA+NEVERA',
+                productsIncluded: 4
+            },
+            {
+                id: 2,
+                name: 'Isla de Snacks',
+                description: 'Montaje para temporada escolar.',
+                image: 'https://placehold.co/600x300/ea580c/white?text=PLANOGRAMA+SNACKS',
+                productsIncluded: 6
+            }
+        ];
+
+        const LEADERBOARD = [
+            { id: 1, name: 'Juan Pérez', points: 1240, level: 'Oro', avatar: 'bg-indigo-500' },
+            { id: 2, name: 'Maria Lopez', points: 1150, level: 'Plata', avatar: 'bg-pink-500' },
+            { id: 3, name: 'Carlos Ruiz', points: 980, level: 'Bronce', avatar: 'bg-emerald-500' },
+        ];
+
+        // --- Main App Component ---
+        function BloopitApp() {
+            const [activeTab, setActiveTab] = useState('dashboard');
+            const [products, setProducts] = useState(INITIAL_PRODUCTS);
+            const [planograms, setPlanograms] = useState(INITIAL_PLANOGRAMS);
+            const [reports, setReports] = useState(INITIAL_REPORTS);
+            const [messages, setMessages] = useState([
+                { id: 1, type: 'bot', text: '👋 Hola Juan, soy tu copiloto con IA 🧠.\n\nEstoy conectado a la base de conocimiento de la empresa. ¿En qué punto de venta te encuentras o a cuál te diriges?' }
+            ]);
+            const [gamificationPoints, setGamificationPoints] = useState(120);
+            const [inputText, setInputText] = useState('');
+            const [selectedStore, setSelectedStore] = useState(null);
+            const scrollRef = useRef(null);
+
+            const [chatState, setChatState] = useState('AWAITING_STORE'); 
+            const [catalogSubTab, setCatalogSubTab] = useState('products'); 
+            const [configProduct, setConfigProduct] = useState(null);
+
+            useEffect(() => {
+                if (scrollRef.current) {
+                    scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+                }
+            }, [messages]);
+
+            // --- Logic Helpers ---
+
+            const handleSendCatalogUpdate = () => {
+                const mustHaves = products.filter(p => p.isMustHave);
+                const textMsg = { 
+                    id: Date.now(), 
+                    type: 'bot', 
+                    text: `📢 ACTUALIZACIÓN DE INFALTABLES: Equipo, estos son los productos foco para hoy. ¡Aseguren exhibición!` 
+                };
+                const imageMsgs = mustHaves.map((p, idx) => ({
+                    id: Date.now() + idx + 1,
+                    type: 'bot',
+                    image: p.image,
+                    caption: `⭐ INFALTABLE: ${p.name} (PLU: ${p.sku})`
+                }));
+                setMessages(prev => [...prev, textMsg, ...imageMsgs]);
+            };
+
+            const handleSendPlanogram = (planogram) => {
+                setMessages(prev => [...prev, {
+                    id: Date.now(),
+                    type: 'bot',
+                    text: `📋 GUÍA DE EXHIBICIÓN: ${planogram.name}\n${planogram.description}`
+                }, {
+                    id: Date.now() + 1,
+                    type: 'bot',
+                    image: planogram.image,
+                    caption: "📸 Así debe verse la góndola hoy. Respeta la planometría."
+                }]);
+            };
+
+            const handleUpdatePlanogramImage = (id) => {
+                const newImage = 'https://placehold.co/600x300/166534/white?text=NUEVA+FOTO+CARGADA';
+                setPlanograms(prev => prev.map(p => 
+                    p.id === id ? { ...p, image: newImage } : p
+                ));
+                alert("¡Foto actualizada con éxito! La nueva imagen ya está disponible para el equipo.");
+            };
+
+            const handleToggleMustHave = (id) => {
+                setProducts(products.map(p => 
+                    p.id === id ? { ...p, isMustHave: !p.isMustHave } : p
+                ));
+            };
+
+            const handleSimulateCheckIn = (store) => {
+                setSelectedStore(store);
+                triggerStoreContext(store);
+            };
+
+            // --- CORE LOGIC: Context & Segmentation ---
+            const triggerStoreContext = (store) => {
+                const mustHaves = products.filter(p => p.isMustHave);
+                
+                const multiplier = store.channel === 'Conveniencia' ? 0.5 : 
+                                   store.channel === 'Droguería' ? 0.3 : 1; 
+
+                const confirmMsg = { 
+                    id: Date.now() + 1, 
+                    type: 'bot', 
+                    text: `✅ Entendido. Estás en **${store.name}**.\n\n🏢 Canal: **${store.channel}** (${store.tier})\n🎯 Te paso la planometría sugerida para ubicar los productos:` 
+                };
+                
+                const productImages = mustHaves.map((p, index) => {
+                    const smartTarget = Math.ceil(p.target * multiplier);
+                    let emoji = '👁️';
+                    if (p.shelfPosition && p.shelfPosition.includes('Suelo')) emoji = '⬇️';
+                    if (p.shelfPosition && p.shelfPosition.includes('Superior')) emoji = '⬆️';
+
+                    return {
+                        id: Date.now() + 3 + index,
+                        type: 'bot',
+                        image: p.image,
+                        caption: `${p.name}\n📍 Ubicación: ${emoji} ${p.shelfPosition}\n🏷️ PLU: ${p.sku}\n🎯 Meta: ${smartTarget} uds`
+                    };
+                });
+
+                const actionMsg = { 
+                    id: Date.now() + 100, 
+                    type: 'bot', 
+                    text: "Usa el PLU para agilizar el pedido si es necesario. 👇" 
+                };
+
+                setMessages(prev => [
+                    ...prev,
+                    confirmMsg,
+                    ...productImages,
+                    actionMsg
+                ]);
+                setChatState('IN_FLOW');
+            };
+
+            const handleReportStock = (productId, qty) => {
+                const product = products.find(p => p.id === productId);
+                
+                const updatedProducts = products.map(p => {
+                    if (p.id === productId) return { ...p, stock: parseInt(qty) };
+                    return p;
+                });
+                setProducts(updatedProducts);
+
+                const newReport = {
+                    id: Date.now(),
+                    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                    store: selectedStore ? selectedStore.name : 'Tienda Desconocida',
+                    chain: selectedStore ? selectedStore.chain : 'N/A',
+                    merchandiser: 'Juan Pérez (Tú)', 
+                    product: product.name,
+                    stock: parseInt(qty),
+                    status: parseInt(qty) === 0 ? 'OUT_OF_STOCK' : parseInt(qty) < product.alertThreshold ? 'CRITICAL' : 'OK'
+                };
+                setReports(prev => [newReport, ...prev]);
+
+                const pointsEarned = 50;
+                setGamificationPoints(prev => prev + pointsEarned);
+                
+                let replyText = `💾 Dato guardado.`;
+                if (parseInt(qty) < product.rotation) {
+                    const suggestion = product.rotation - parseInt(qty);
+                    replyText = `⚠️ **ALERTA DE PEDIDO**\n\nStock insuficiente para la semana.\n\n📝 **PLU:** ${product.sku}\n📦 **Pedir:** +${suggestion} unidades.`;
+                } else {
+                    replyText = `✅ **Stock Saludable**\n\nCubres la rotación semanal.`;
+                }
+
+                setMessages(prev => [
+                    ...prev,
+                    { id: Date.now(), type: 'user', text: `Reporto ${qty} unidades de ${product.name}` },
+                    { id: Date.now() + 1, type: 'bot', text: replyText }
+                ]);
+            };
+
+            const handleManualMessage = (e) => {
+                e.preventDefault();
+                if (!inputText.trim()) return;
+                
+                const userText = inputText;
+                setInputText('');
+                
+                setMessages(prev => [...prev, { id: Date.now(), type: 'user', text: userText }]);
+
+                setTimeout(() => {
+                    if (chatState === 'AWAITING_STORE') {
+                        const lowerText = userText.toLowerCase();
+                        const matchedStore = STORES.find(s => 
+                            lowerText.includes(s.chain.toLowerCase()) || 
+                            lowerText.includes(s.name.toLowerCase()) ||
+                            (lowerText.includes('calle 80') && s.name.includes('80')) ||
+                            (lowerText.includes('pepe') && s.name.includes('Pepe'))
+                        );
+
+                        if (matchedStore) {
+                            setSelectedStore(matchedStore);
+                            triggerStoreContext(matchedStore);
+                        } else {
+                            setMessages(prev => [...prev, { 
+                                id: Date.now(), 
+                                type: 'bot', 
+                                text: '🤔 No encontré esa tienda. Intenta decir "Oxxo" o selecciona en el mapa.' 
+                            }]);
+                        }
+                    } else {
+                        setMessages(prev => [...prev, { id: Date.now(), type: 'bot', text: 'Entendido. ¿Necesitas ayuda con algo más?' }]);
+                    }
+                }, 1000);
+            };
+
+            const handleDeleteProduct = (id) => {
+                if(window.confirm('¿Estás seguro de eliminar este producto del catálogo?')) {
+                    setProducts(prev => prev.filter(p => p.id !== id));
+                }
+            };
+
+            // --- Components/Views ---
+
+            const DashboardView = () => (
+                <div className="space-y-6 animate-in fade-in duration-500">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <p className="text-xs text-slate-500 uppercase font-bold tracking-wider mb-1">Visitas Efectivas</p>
+                                    <h3 className="text-2xl font-bold text-slate-800">82%</h3>
+                                </div>
+                                <div className="p-2 bg-indigo-50 text-indigo-600 rounded-lg">{MapIcon && <MapIcon size={20}/>}</div>
+                            </div>
+                            <p className="text-xs text-slate-400 mt-2">124 de 150 rutas completadas</p>
+                        </div>
+                        <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <p className="text-xs text-slate-500 uppercase font-bold tracking-wider mb-1">Alertas Stock</p>
+                                    <h3 className="text-2xl font-bold text-red-600">8</h3>
+                                </div>
+                                <div className="p-2 bg-red-50 text-red-600 rounded-lg">{AlertTriangle && <AlertTriangle size={20}/>}</div>
+                            </div>
+                            <p className="text-xs text-slate-400 mt-2">2 quiebres críticos reportados</p>
+                        </div>
+                        <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <p className="text-xs text-slate-500 uppercase font-bold tracking-wider mb-1">Personal Activo</p>
+                                    <h3 className="text-2xl font-bold text-emerald-600">14</h3>
+                                </div>
+                                <div className="p-2 bg-emerald-50 text-emerald-600 rounded-lg">{Users && <Users size={20}/>}</div>
+                            </div>
+                            <p className="text-xs text-slate-400 mt-2">De 15 asignados a ruta</p>
+                        </div>
+                        <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <p className="text-xs text-slate-500 uppercase font-bold tracking-wider mb-1">Ult. Actividad</p>
+                                    <h3 className="text-xl font-bold text-slate-800">Hace 2m</h3>
+                                </div>
+                                <div className="p-2 bg-blue-50 text-blue-600 rounded-lg">{Activity && <Activity size={20}/>}</div>
+                            </div>
+                            <p className="text-xs text-slate-400 mt-2">Reporte entrante de Juan P.</p>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-slate-100 flex flex-col overflow-hidden">
+                            <div className="p-5 border-b border-slate-100 bg-slate-50/50 flex justify-between items-center">
+                                <div>
+                                    <h3 className="font-bold text-slate-800 text-lg flex items-center gap-2">
+                                        {Activity && <Activity size={18} className="text-emerald-500 animate-pulse"/>} Reportes de Campo en Vivo
+                                    </h3>
+                                    <p className="text-xs text-slate-500">Monitoreo de inventario en tiempo real.</p>
+                                </div>
+                                <div className="flex gap-2">
+                                    <button className="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-medium text-slate-600 flex items-center gap-2 hover:bg-slate-50">
+                                        {Filter && <Filter size={14}/>} Canal
+                                    </button>
+                                    <button className="px-3 py-1.5 bg-indigo-50 text-indigo-600 rounded-lg text-xs font-bold hover:bg-indigo-100">
+                                        Exportar
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div className="overflow-x-auto">
+                                <table className="w-full text-sm text-left">
+                                    <thead className="bg-slate-50 text-slate-500 uppercase text-xs tracking-wider">
+                                        <tr>
+                                            <th className="p-4 border-b">Hora</th>
+                                            <th className="p-4 border-b">Canal / PDV</th>
+                                            <th className="p-4 border-b">Mercaderista</th>
+                                            <th className="p-4 border-b">Producto</th>
+                                            <th className="p-4 border-b text-center">Stock Real</th>
+                                            <th className="p-4 border-b text-right">Estado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-slate-50">
+                                        {reports.map(r => (
+                                            <tr key={r.id} className="hover:bg-indigo-50/30 transition-colors">
+                                                <td className="p-4 font-mono text-xs text-slate-500">{r.time}</td>
+                                                <td className="p-4">
+                                                    <p className="font-bold text-slate-800 text-xs">{r.store}</p>
+                                                    <span className={`text-[10px] px-1.5 rounded ${
+                                                        r.chain === 'Oxxo' || r.chain === 'Farmatodo' ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700'
+                                                    }`}>{r.chain}</span>
+                                                </td>
+                                                <td className="p-4">
+                                                    <div className="flex items-center gap-2">
+                                                        <div className="w-6 h-6 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-[10px] font-bold">
+                                                            {r.merchandiser.charAt(0)}
+                                                        </div>
+                                                        <span className="text-xs text-slate-700">{r.merchandiser}</span>
+                                                    </div>
+                                                </td>
+                                                <td className="p-4 text-xs font-medium text-slate-600 max-w-[150px] truncate" title={r.product}>
+                                                    {r.product}
+                                                </td>
+                                                <td className="p-4 text-center font-bold text-slate-800">{r.stock}</td>
+                                                <td className="p-4 text-right">
+                                                    <span className={`px-2 py-1 rounded-full text-[10px] font-bold border ${
+                                                        r.status === 'OUT_OF_STOCK' ? 'bg-red-100 text-red-700 border-red-200' :
+                                                        r.status === 'CRITICAL' ? 'bg-amber-100 text-amber-700 border-amber-200' :
+                                                        'bg-emerald-100 text-emerald-700 border-emerald-200'
+                                                    }`}>
+                                                        {r.status === 'OUT_OF_STOCK' ? 'AGOTADO' : r.status === 'CRITICAL' ? 'CRÍTICO' : 'OK'}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div className="space-y-6">
+                            <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-5">
+                                <h4 className="font-bold text-slate-800 mb-4 flex items-center gap-2 text-sm">
+                                    {Store && <Store size={16} className="text-indigo-500"/>} Cumplimiento por Canal
+                                </h4>
+                                <div className="space-y-4">
+                                    <div>
+                                        <div className="flex justify-between text-xs mb-1">
+                                            <span className="font-bold text-slate-700">Hipermercados (Éxito, Jumbo)</span>
+                                            <span className="text-emerald-600">95%</span>
+                                        </div>
+                                        <div className="w-full bg-slate-100 rounded-full h-1.5">
+                                            <div className="bg-emerald-500 h-1.5 rounded-full" style={{width: '95%'}}></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="flex justify-between text-xs mb-1">
+                                            <span className="font-bold text-slate-700">Conveniencia (Oxxo)</span>
+                                            <span className="text-amber-600">70%</span>
+                                        </div>
+                                        <div className="w-full bg-slate-100 rounded-full h-1.5">
+                                            <div className="bg-amber-500 h-1.5 rounded-full" style={{width: '70%'}}></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="flex justify-between text-xs mb-1">
+                                            <span className="font-bold text-slate-700">Droguerías</span>
+                                            <span className="text-slate-600">45%</span>
+                                        </div>
+                                        <div className="w-full bg-slate-100 rounded-full h-1.5">
+                                            <div className="bg-slate-400 h-1.5 rounded-full" style={{width: '45%'}}></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-5">
+                                <h4 className="font-bold text-slate-800 mb-4 flex items-center gap-2 text-sm">
+                                    {TrendingUp && <TrendingUp size={16} className="text-red-500"/>} Top Quiebres (Hoy)
+                                </h4>
+                                <div className="space-y-4">
+                                    <div className="flex items-center gap-3">
+                                        <span className="font-bold text-slate-300 text-lg">1</span>
+                                        <div className="flex-1">
+                                            <div className="flex justify-between mb-1">
+                                                <span className="text-xs font-bold text-slate-700">Galletas Choco</span>
+                                                <span className="text-xs text-red-600 font-bold">12 Tiendas</span>
+                                            </div>
+                                            <div className="w-full bg-slate-100 rounded-full h-1.5">
+                                                <div className="bg-red-500 h-1.5 rounded-full" style={{width: '85%'}}></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center gap-3">
+                                        <span className="font-bold text-slate-300 text-lg">2</span>
+                                        <div className="flex-1">
+                                            <div className="flex justify-between mb-1">
+                                                <span className="text-xs font-bold text-slate-700">Bebida Energética</span>
+                                                <span className="text-xs text-red-600 font-bold">5 Tiendas</span>
+                                            </div>
+                                            <div className="w-full bg-slate-100 rounded-full h-1.5">
+                                                <div className="bg-amber-500 h-1.5 rounded-full" style={{width: '45%'}}></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+
+            const CatalogView = () => (
+                <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500 relative">
+                    <div className="flex justify-between items-center">
+                        <div>
+                            <h2 className="text-2xl font-bold text-slate-800">Smart Catalog & Stock</h2>
+                            <p className="text-slate-500">Configuración de inventario base y planometría.</p>
+                        </div>
+                        <div className="bg-slate-100 p-1 rounded-lg flex">
+                            <button 
+                                onClick={() => setCatalogSubTab('products')}
+                                className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${catalogSubTab === 'products' ? 'bg-white shadow text-slate-800' : 'text-slate-500 hover:text-slate-700'}`}
+                            >
+                                <div className="flex items-center gap-2">{Grid && <Grid size={16}/>} Productos (SKUs)</div>
+                            </button>
+                            <button 
+                                onClick={() => setCatalogSubTab('planograms')}
+                                className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${catalogSubTab === 'planograms' ? 'bg-white shadow text-slate-800' : 'text-slate-500 hover:text-slate-700'}`}
+                            >
+                                <div className="flex items-center gap-2">{Layers && <Layers size={16}/>} Planogramas</div>
+                            </button>
+                        </div>
+                    </div>
+
+                    {catalogSubTab === 'products' ? (
+                        <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
+                            <div className="p-4 border-b border-slate-100 bg-slate-50 flex justify-between items-center">
+                                <h3 className="font-bold text-slate-700">Parametrización de Inventario</h3>
+                                <button className="bg-indigo-600 text-white px-3 py-1.5 rounded-lg flex items-center gap-2 hover:bg-indigo-700 text-xs font-bold transition-colors">
+                                    {Plus && <Plus size={14} />} Agregar SKU
+                                </button>
+                            </div>
+                            <table className="w-full text-left border-collapse">
+                                <thead className="bg-slate-50 text-slate-500 text-sm uppercase tracking-wider">
+                                    <tr>
+                                        <th className="p-4 border-b w-24">SKU / PLU</th>
+                                        <th className="p-4 border-b">Producto</th>
+                                        <th className="p-4 border-b text-center" title="Dónde va en la góndola">Ubicación Lineal</th>
+                                        <th className="p-4 border-b text-center" title="Inventario mínimo en góndola">Base Ideal</th>
+                                        <th className="p-4 border-b text-right">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-slate-100">
+                                    {products.map(p => (
+                                        <tr key={p.id} className="hover:bg-slate-50 transition-colors group">
+                                            <td className="p-4">
+                                                <div className="font-mono text-xs font-bold text-slate-500 bg-slate-100 px-2 py-1 rounded w-fit mb-1">{p.sku}</div>
+                                                <img src={p.image} alt={p.name} className="w-10 h-10 rounded-md object-cover border border-slate-200" />
+                                            </td>
+                                            <td className="p-4 font-medium text-slate-800">
+                                                {p.name}
+                                                <p className="text-xs text-slate-500">{p.category}</p>
+                                            </td>
+                                            <td className="p-4 text-center">
+                                                <span className="inline-block bg-blue-50 text-blue-700 px-2 py-1 rounded-lg text-xs font-bold border border-blue-100 flex items-center justify-center gap-1">
+                                                    {p.shelfPosition.includes('Ojos') && Eye ? <Eye size={12}/> : p.shelfPosition.includes('Suelo') && ArrowDownToLine ? <ArrowDownToLine size={12}/> : ArrowUpToLine && <ArrowUpToLine size={12}/>}
+                                                    {p.shelfPosition}
+                                                </span>
+                                            </td>
+                                            <td className="p-4 text-center">
+                                                <span className="text-sm font-medium text-slate-600">{p.target} uds</span>
+                                            </td>
+                                            <td className="p-4 text-right">
+                                                <div className="flex items-center justify-end gap-2">
+                                                    <button 
+                                                        onClick={() => setConfigProduct(p)} 
+                                                        className="p-2 text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-colors flex items-center gap-1 text-xs font-medium"
+                                                        title="Configuración Avanzada"
+                                                    >
+                                                        {Settings && <Settings size={14}/>} Reglas
+                                                    </button>
+                                                    <button 
+                                                        onClick={() => handleDeleteProduct(p.id)} 
+                                                        className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                                    >
+                                                        {Trash2 && <Trash2 size={16}/>}
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {planograms.map(planogram => (
+                                <div key={planogram.id} className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden flex flex-col group">
+                                    <div className="h-48 bg-slate-200 relative overflow-hidden">
+                                        <img src={planogram.image} alt={planogram.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                                            <button 
+                                                onClick={() => handleUpdatePlanogramImage(planogram.id)}
+                                                className="bg-white/90 text-slate-800 px-4 py-2 rounded-lg font-bold text-sm opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0 flex items-center gap-2 shadow-lg"
+                                            >
+                                                {Upload && <Upload size={16} />} Cambiar Foto
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="p-5 flex-1 flex flex-col">
+                                        <h3 className="font-bold text-slate-800 text-lg mb-1">{planogram.name}</h3>
+                                        <p className="text-slate-500 text-sm mb-4 flex-1">{planogram.description}</p>
+                                        <div className="flex items-center justify-between mt-4 pt-4 border-t border-slate-100">
+                                            <span className="text-xs font-medium text-slate-400 bg-slate-100 px-2 py-1 rounded">
+                                                Incluye {planogram.productsIncluded} productos
+                                            </span>
+                                            <button 
+                                                onClick={() => handleSendPlanogram(planogram)}
+                                                className="text-indigo-600 hover:text-indigo-700 text-sm font-bold flex items-center gap-1 hover:underline"
+                                            >
+                                                {Send && <Send size={14} />} Enviar a WhatsApp
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                            <button className="bg-slate-50 rounded-xl border-2 border-dashed border-slate-300 flex flex-col items-center justify-center p-8 hover:bg-slate-100 hover:border-slate-400 transition-all group min-h-[300px]">
+                                <div className="w-16 h-16 bg-white rounded-full shadow-sm flex items-center justify-center text-slate-400 mb-4 group-hover:text-indigo-500 group-hover:scale-110 transition-all">
+                                    {Plus && <Plus size={32} />}
+                                </div>
+                                <h3 className="font-bold text-slate-600 group-hover:text-indigo-600 transition-colors">Crear Nuevo Planograma</h3>
+                                <p className="text-xs text-slate-400 text-center mt-2 max-w-[200px]">Sube una foto de éxito para que los mercaderistas sepan cómo exhibir.</p>
+                            </button>
+                        </div>
+                    )}
+
+                    {configProduct && (
+                        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 backdrop-blur-sm animate-in fade-in">
+                            <div className="bg-white rounded-xl shadow-2xl w-full max-w-md p-6">
+                                <div className="flex justify-between items-center mb-4">
+                                    <h3 className="font-bold text-lg text-slate-800">Planometría & Abastecimiento</h3>
+                                    <button onClick={() => setConfigProduct(null)} className="text-slate-400 hover:text-slate-600">✕</button>
+                                </div>
+                                <div className="flex items-center gap-4 mb-6 bg-slate-50 p-3 rounded-lg border border-slate-100">
+                                    <img src={configProduct.image} className="w-12 h-12 rounded object-cover" alt="" />
+                                    <div>
+                                        <p className="font-bold text-slate-800">{configProduct.name}</p>
+                                        <p className="text-xs text-slate-500">SKU: {configProduct.sku}</p>
+                                    </div>
+                                </div>
+                                <div className="space-y-4">
+                                    <div>
+                                        <label className="block text-xs font-bold text-slate-500 mb-1 uppercase">Código PLU (Pedido)</label>
+                                        <input type="text" defaultValue={configProduct.sku} className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="block text-xs font-bold text-slate-500 mb-1 uppercase">Ubicación en Lineal</label>
+                                            <select defaultValue={configProduct.shelfPosition} className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                                                <option>Ojos (Zona Caliente)</option>
+                                                <option>Nivel Superior</option>
+                                                <option>Nivel Manos</option>
+                                                <option>Nivel Suelo</option>
+                                                <option>Cabecera de Góndola</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label className="block text-xs font-bold text-slate-500 mb-1 uppercase">Stock Base</label>
+                                            <input type="number" defaultValue={configProduct.target} className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                                        </div>
+                                    </div>
+                                    <div className="p-3 bg-indigo-50 border border-indigo-100 rounded-lg">
+                                        <div className="flex items-center gap-2 mb-1">
+                                            {Eye && <Eye size={14} className="text-indigo-600"/>}
+                                            <span className="text-xs font-bold text-indigo-700">Visual en App</span>
+                                        </div>
+                                        <p className="text-xs text-indigo-600 leading-relaxed">
+                                            Al notificar este infaltable, el bot enviará la instrucción visual: <strong>"Ubicar en {configProduct.shelfPosition}"</strong>.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="flex justify-end gap-2 mt-8">
+                                    <button onClick={() => setConfigProduct(null)} className="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg text-sm font-medium">Cancelar</button>
+                                    <button onClick={() => { setConfigProduct(null); alert('Configuración guardada'); }} className="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700">Guardar Cambios</button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+
+            const RoutesView = () => (
+                <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500 h-full flex flex-col">
+                    <div className="flex justify-between items-center shrink-0">
+                        <div>
+                            <h2 className="text-2xl font-bold text-slate-800">Mapa de Operaciones</h2>
+                            <p className="text-slate-500">Monitoreo de rutas y ubicación de mercaderistas en tiempo real.</p>
+                        </div>
+                        <div className="flex gap-2">
+                            <button className="bg-white border border-slate-300 text-slate-700 px-4 py-2 rounded-lg hover:bg-slate-50 text-sm font-medium">Filtros</button>
+                            <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 text-sm font-medium">Optimizar Rutas</button>
+                        </div>
+                    </div>
+
+                    <div className="flex-1 grid grid-cols-1 lg:grid-cols-3 gap-6 min-h-0">
+                        <div className="lg:col-span-2 bg-slate-200 rounded-xl relative overflow-hidden group border border-slate-300 shadow-inner">
+                            <div className="absolute inset-0 opacity-40" style={{ backgroundImage: 'radial-gradient(#cbd5e1 2px, transparent 2px)', backgroundSize: '30px 30px' }}></div>
+                            {STORES.map((store, idx) => (
+                                <div 
+                                    key={store.id}
+                                    className="absolute transform -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all hover:scale-110 hover:z-10"
+                                    style={{ top: `${store.lat}%`, left: `${store.lng}%` }}
+                                    onClick={() => handleSimulateCheckIn(store)}
+                                >
+                                    <div className={`relative flex flex-col items-center group`}>
+                                        <div className={`w-8 h-8 rounded-full shadow-lg border-2 border-white flex items-center justify-center text-white ${
+                                            store.status === 'Completed' ? 'bg-emerald-500' : 
+                                            store.status === 'Issue' ? 'bg-red-500' : 'bg-indigo-500'
+                                        }`}>
+                                            {Store && <Store size={14} />}
+                                        </div>
+                                        <div className="absolute top-9 bg-white px-2 py-1 rounded shadow-md text-xs font-bold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-20">
+                                            {store.name}
+                                            <div className="text-[9px] font-normal text-slate-500">{store.channel}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="bg-white rounded-xl shadow-sm border border-slate-100 flex flex-col overflow-hidden">
+                            <div className="p-4 border-b border-slate-100 bg-slate-50">
+                                <h3 className="font-bold text-slate-700">Puntos de Venta (Hoy)</h3>
+                            </div>
+                            <div className="flex-1 overflow-y-auto p-2 space-y-2">
+                                {STORES.map(store => (
+                                    <div 
+                                        key={store.id} 
+                                        onClick={() => handleSimulateCheckIn(store)}
+                                        className={`p-3 rounded-lg border cursor-pointer transition-all hover:shadow-md ${
+                                            selectedStore?.id === store.id ? 'border-indigo-500 bg-indigo-50' : 'border-slate-100 bg-white hover:border-indigo-200'
+                                        }`}
+                                    >
+                                        <div className="flex justify-between items-start mb-1">
+                                            <span className="font-bold text-slate-800 text-sm">{store.name}</span>
+                                            <span className={`text-[10px] px-2 py-0.5 rounded-full ${
+                                                store.status === 'Completed' ? 'bg-emerald-100 text-emerald-700' :
+                                                store.status === 'Issue' ? 'bg-red-100 text-red-700' : 'bg-slate-100 text-slate-600'
+                                            }`}>{store.status}</span>
+                                        </div>
+                                        <div className="flex items-center gap-2 text-xs text-slate-500 mb-2">
+                                            {ShoppingBag && <ShoppingBag size={12} />} {store.channel} <span className="text-slate-300">•</span> <span className="text-[10px] bg-slate-100 px-1 rounded">{store.tier}</span>
+                                        </div>
+                                        <div className="flex items-center gap-2 pt-2 border-t border-slate-100">
+                                            <div className="w-5 h-5 rounded-full bg-slate-200 flex items-center justify-center text-[10px] text-slate-600 font-bold">
+                                                {store.assignee.charAt(0)}
+                                            </div>
+                                            <span className="text-xs text-slate-600">{store.assignee}</span>
+                                            {store.id === selectedStore?.id && <span className="ml-auto text-[10px] text-indigo-600 font-bold animate-pulse">Seleccionado</span>}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+
+            const GamificationView = () => (
+                <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div className="col-span-2 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-8 text-white flex items-center justify-between shadow-lg relative overflow-hidden">
+                            <div className="relative z-10">
+                                <h2 className="text-3xl font-bold mb-2">Tabla de Líderes Semanal</h2>
+                                <p className="opacity-90 mb-6">El equipo ha acumulado 15,400 puntos esta semana. ¡Vamos por la meta!</p>
+                                <button className="bg-white text-indigo-600 px-6 py-2 rounded-full font-bold shadow-md hover:scale-105 transition-transform">
+                                    Ver Premios Disponibles
+                                </button>
+                            </div>
+                            <div className="relative z-10 hidden md:block">
+                                {Trophy && <Trophy size={120} className="text-yellow-400 drop-shadow-lg opacity-90" />}
+                            </div>
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-10 rounded-full -mr-16 -mt-16"></div>
+                            <div className="absolute bottom-0 left-0 w-32 h-32 bg-white opacity-10 rounded-full -ml-16 -mb-16"></div>
+                        </div>
+
+                        <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-6 flex flex-col justify-center items-center text-center">
+                            <div className="w-20 h-20 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center mb-4 ring-4 ring-indigo-50">
+                                {Star && <Star size={32} fill="currentColor" />}
+                            </div>
+                            <h3 className="text-xl font-bold text-slate-800">Juan Pérez</h3>
+                            <p className="text-slate-500 text-sm mb-4">Mercaderista Senior</p>
+                            <div className="w-full bg-slate-100 rounded-full h-2 mb-2 overflow-hidden">
+                                <div className="bg-emerald-500 h-2 rounded-full" style={{width: '75%'}}></div>
+                            </div>
+                            <p className="text-xs text-slate-400">75% para Nivel Platino</p>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-6">
+                            <h3 className="font-bold text-slate-800 text-lg mb-6 flex items-center gap-2">
+                                {TrendingUp && <TrendingUp className="text-emerald-500" size={20}/>} Ranking Global
+                            </h3>
+                            <div className="space-y-4">
+                                {LEADERBOARD.map((user, idx) => (
+                                    <div key={user.id} className="flex items-center gap-4 p-3 hover:bg-slate-50 rounded-xl transition-colors">
+                                        <div className="font-bold text-slate-400 w-6 text-center text-lg">#{idx + 1}</div>
+                                        <div className={`w-12 h-12 rounded-full ${user.avatar} text-white flex items-center justify-center font-bold text-lg shadow-sm`}>
+                                            {user.name.charAt(0)}
+                                        </div>
+                                        <div className="flex-1">
+                                            <p className="font-bold text-slate-800">{user.name}</p>
+                                            <p className="text-xs text-slate-500">{user.level}</p>
+                                        </div>
+                                        <div className="text-right">
+                                            <p className="font-bold text-indigo-600 text-lg">{user.points.toLocaleString()}</p>
+                                            <p className="text-[10px] text-slate-400">Puntos</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-6">
+                            <h3 className="font-bold text-slate-800 text-lg mb-6">Insignias Recientes</h3>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="p-4 bg-amber-50 rounded-xl border border-amber-100 flex flex-col items-center text-center">
+                                    <div className="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center text-amber-600 mb-2">
+                                        {Award && <Award size={24} />}
+                                    </div>
+                                    <p className="font-bold text-slate-800 text-sm">Ruta Perfecta</p>
+                                    <p className="text-xs text-slate-500 mt-1">Visitó 5/5 tiendas a tiempo</p>
+                                </div>
+                                <div className="p-4 bg-blue-50 rounded-xl border border-blue-100 flex flex-col items-center text-center">
+                                    <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mb-2">
+                                        {Package && <Package size={24} />}
+                                    </div>
+                                    <p className="font-bold text-slate-800 text-sm">Cazador de Quiebres</p>
+                                    <p className="text-xs text-slate-500 mt-1">Reportó 10 agotados críticos</p>
+                                </div>
+                                <div className="p-4 bg-purple-50 rounded-xl border border-purple-100 flex flex-col items-center text-center">
+                                    <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 mb-2">
+                                        {CheckCircle && <CheckCircle size={24} />}
+                                    </div>
+                                    <p className="font-bold text-slate-800 text-sm">7 Días Racha</p>
+                                    <p className="text-xs text-slate-500 mt-1">Asistencia perfecta semanal</p>
+                                </div>
+                                <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 flex flex-col items-center text-center opacity-50">
+                                    <div className="w-12 h-12 bg-slate-200 rounded-full flex items-center justify-center text-slate-400 mb-2">
+                                        {Award && <Award size={24} />}
+                                    </div>
+                                    <p className="font-bold text-slate-800 text-sm">Super Vendedor</p>
+                                    <p className="text-xs text-slate-500 mt-1">Bloqueado</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+
+            return (
+                <div className="min-h-screen bg-slate-50 font-sans text-slate-900 flex flex-col md:flex-row">
+                    {/* Sidebar (Admin) */}
+                    <aside className="w-full md:w-64 bg-slate-900 text-white flex-shrink-0 flex flex-col z-30">
+                        <div className="p-6 border-b border-slate-800 flex items-center gap-2">
+                            <div className="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center font-bold text-white shadow-lg shadow-indigo-500/20">B</div>
+                            <span className="text-xl font-bold tracking-tight">Bloopit</span>
+                        </div>
+                        <nav className="flex-1 p-4 space-y-1">
+                            <button 
+                                onClick={() => setActiveTab('dashboard')}
+                                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all ${activeTab === 'dashboard' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}
+                            >
+                                {LayoutDashboard && <LayoutDashboard size={18} />} Dashboard
+                            </button>
+                            <button 
+                                onClick={() => setActiveTab('catalogs')}
+                                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all ${activeTab === 'catalogs' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}
+                            >
+                                {Package && <Package size={18} />} Catálogos & Stock
+                            </button>
+                            <button 
+                                onClick={() => setActiveTab('routes')}
+                                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all ${activeTab === 'routes' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}
+                            >
+                                {Map && <Map size={18} />} Rutas & Geo
+                            </button>
+                            <button 
+                                onClick={() => setActiveTab('gamification')}
+                                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all ${activeTab === 'gamification' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}
+                            >
+                                {Award && <Award size={18} />} Gamificación
+                            </button>
+                        </nav>
+                        <div className="p-4 border-t border-slate-800">
+                            <div className="flex items-center gap-3">
+                                <div className="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-xs">AU</div>
+                                <div>
+                                    <p className="text-sm font-medium">Admin User</p>
+                                    <p className="text-xs text-slate-500">Gerente Trade</p>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+
+                    {/* Main Content Area */}
+                    <main className="flex-1 flex flex-col h-screen overflow-hidden">
+                        {/* Header */}
+                        <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 shrink-0 z-20 shadow-sm">
+                            <h1 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+                                {activeTab === 'dashboard' && <>{LayoutDashboard && <LayoutDashboard size={20} className="text-slate-400"/>} Control de Operaciones</>}
+                                {activeTab === 'catalogs' && <>{Package && <Package size={20} className="text-slate-400"/>} Smart Catalog & Stock</>}
+                                {activeTab === 'routes' && <>{Map && <Map size={20} className="text-slate-400"/>} Rutas y Geolocalización</>}
+                                {activeTab === 'gamification' && <>{Award && <Award size={20} className="text-slate-400"/>} Gamificación de Equipo</>}
+                            </h1>
+                            <div className="flex items-center gap-4">
+                                <div className="hidden md:flex items-center gap-2 bg-slate-100 px-3 py-1.5 rounded-full text-sm text-slate-600 transition-all focus-within:ring-2 focus-within:ring-indigo-500 focus-within:bg-white">
+                                    {Search && <Search size={14} />}
+                                    <input type="text" placeholder="Buscar..." className="bg-transparent border-none focus:outline-none text-sm placeholder:text-slate-400 w-32"/>
+                                </div>
+                                <button className="p-2 text-slate-400 hover:text-indigo-600 transition-colors relative">
+                                    {AlertCircle && <AlertCircle size={20} />}
+                                    <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                                </button>
+                            </div>
+                        </header>
+
+                        {/* Content & WhatsApp Wrapper */}
+                        <div className="flex-1 overflow-hidden relative flex">
+                            
+                            {/* Dynamic Content Canvas */}
+                            <div className="flex-1 overflow-y-auto p-6 pb-24 bg-slate-50/50">
+                                {activeTab === 'dashboard' && <DashboardView />}
+                                {activeTab === 'catalogs' && <CatalogView />}
+                                {activeTab === 'routes' && <RoutesView />}
+                                {activeTab === 'gamification' && <GamificationView />}
+                            </div>
+
+                            {/* WhatsApp Simulator (Sticky Right) */}
+                            <div className="w-full md:w-[380px] bg-slate-100 border-l border-slate-200 flex flex-col shadow-2xl absolute md:relative z-40 h-full right-0 top-0">
+                                
+                                {/* Phone Header */}
+                                <div className="bg-emerald-600 p-4 text-white flex items-center gap-3 shadow-md shrink-0">
+                                    <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center overflow-hidden border-2 border-emerald-700">
+                                        <div className="text-emerald-600 font-bold text-lg">B</div>
+                                    </div>
+                                    <div className="flex-1">
+                                        <h3 className="font-bold">Bloopit Bot 🤖</h3>
+                                        <p className="text-xs opacity-90 text-emerald-100 flex items-center gap-1">
+                                            <span className="w-1.5 h-1.5 bg-green-300 rounded-full animate-pulse"></span> En línea
+                                        </p>
+                                    </div>
+                                    <div className="bg-emerald-700/50 px-3 py-1 rounded-full text-[10px] font-mono border border-emerald-500 shadow-sm backdrop-blur-sm">
+                                        {gamificationPoints} PTS
+                                    </div>
+                                </div>
+
+                                {/* Chat Area */}
+                                <div className="flex-1 overflow-y-auto p-4 bg-[#e5ddd5] space-y-3 scroll-smooth scrollbar-hide" ref={scrollRef} style={{ backgroundImage: 'url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png")', backgroundBlendMode: 'soft-light' }}>
+                                    <div className="text-center text-xs text-slate-500 my-4 bg-white/80 py-1 rounded-full mx-auto w-fit px-4 shadow-sm backdrop-blur-sm">
+                                        Hoy
+                                    </div>
+                                    
+                                    {messages.map(msg => (
+                                        <div key={msg.id} className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'} animate-in fade-in slide-in-from-bottom-2`}>
+                                            <div className={`max-w-[85%] rounded-lg shadow-sm relative overflow-hidden ${
+                                                msg.type === 'user' 
+                                                ? 'bg-[#dcf8c6] text-slate-800 rounded-tr-none' 
+                                                : 'bg-white text-slate-800 rounded-tl-none'
+                                            }`}>
+                                                {/* Image Support */}
+                                                {msg.image && (
+                                                    <div className="w-full">
+                                                        <img src={msg.image} alt="Message attachment" className="w-full h-auto block" />
+                                                    </div>
+                                                )}
+                                                
+                                                <div className="p-2 px-3">
+                                                    {msg.caption && <div className="font-bold text-sm mb-1 whitespace-pre-wrap">{msg.caption}</div>}
+                                                    {msg.text && <div className="whitespace-pre-wrap text-sm">{msg.text}</div>}
+                                                    <div className="text-[10px] text-slate-400 text-right mt-1 flex justify-end gap-1">
+                                                        10:42 AM {msg.type === 'user' && <span className="text-blue-400">✓✓</span>}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                    
+                                    {/* Contextual Quick Actions */}
+                                    {messages.length > 0 && messages[messages.length - 1].type === 'bot' && (
+                                        <div className="flex flex-wrap gap-2 justify-center mt-2 animate-in fade-in zoom-in duration-300">
+                                            {selectedStore ? (
+                                                products.map(p => (
+                                                    <button 
+                                                        key={p.id}
+                                                        onClick={() => handleReportStock(p.id, Math.floor(Math.random() * 20))}
+                                                        className="bg-white border border-slate-200 text-slate-700 text-xs px-3 py-2 rounded-full shadow-sm hover:bg-emerald-50 hover:text-emerald-700 active:scale-95 transition-all flex items-center gap-1"
+                                                    >
+                                                        {AlertCircle && <AlertCircle size={10} className={p.isMustHave ? "text-amber-500" : "text-slate-300"} />}
+                                                        Reportar {p.name.split(' ').slice(0, 2).join(' ')}
+                                                    </button>
+                                                ))
+                                            ) : (
+                                                <div className="text-xs text-slate-500 bg-white/90 p-3 rounded-lg text-center w-full shadow-sm border border-slate-100">
+                                                    <p>💬 Escribe el nombre de la tienda para que la IA la busque.</p>
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Input Area */}
+                                <div className="p-3 bg-white border-t border-slate-200 shrink-0">
+                                    <form onSubmit={handleManualMessage} className="flex gap-2">
+                                        <input 
+                                            type="text" 
+                                            value={inputText}
+                                            onChange={(e) => setInputText(e.target.value)}
+                                            placeholder="Escribir mensaje..."
+                                            className="flex-1 bg-slate-100 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-colors"
+                                        />
+                                        <button type="submit" className="bg-emerald-600 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-emerald-700 hover:scale-105 transition-all shadow-md">
+                                            {Send && <Send size={18} />}
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </main>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<BloopitApp />);
+    </script>
+</body>
+</html>
