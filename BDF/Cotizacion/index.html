@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BDF Retail Execution Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Usamos la versión vanilla para el adaptador seguro -->
+    <script src="https://unpkg.com/lucide@0.263.1"></script>
+    <style>
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        body { background-color: #f1f5f9; }
+        .chat-bg { background-image: url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png"); background-blend-mode: soft-light; }
+        .map-bg { 
+            background-color: #e5e7eb;
+            background-image: radial-gradient(#9ca3af 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        // --- ICON ADAPTER SYSTEM (Robust) ---
+        const createIconComponent = (iconName) => {
+            if (!window.lucide || !window.lucide.icons) return () => null;
+            const iconDef = window.lucide.icons[iconName];
+            if (!iconDef) return () => null;
+            return React.forwardRef(({ color = "currentColor", size = 24, strokeWidth = 2, className = "", ...props }, ref) => {
+                if (!Array.isArray(iconDef)) return null;
+                const [tag, attrs, children] = iconDef;
+                return React.createElement(tag, {
+                    ref, ...attrs, width: size, height: size, stroke: color, strokeWidth: strokeWidth,
+                    className: `lucide lucide-${iconName.toLowerCase()} ${className}`, ...props
+                }, Array.isArray(children) ? children.map(([childTag, childAttrs], index) => React.createElement(childTag, { ...childAttrs, key: index })) : null);
+            });
+        };
+
+        const Icons = {
+            LayoutDashboard: createIconComponent('LayoutDashboard'),
+            Users: createIconComponent('Users'),
+            MapPin: createIconComponent('MapPin'),
+            Trophy: createIconComponent('Trophy'),
+            Image: createIconComponent('Image'),
+            MessageSquare: createIconComponent('MessageSquare'),
+            Settings: createIconComponent('Settings'),
+            Search: createIconComponent('Search'),
+            Send: createIconComponent('Send'),
+            Camera: createIconComponent('Camera'),
+            CheckCircle: createIconComponent('CheckCircle'),
+            AlertCircle: createIconComponent('AlertCircle'),
+            BarChart: createIconComponent('BarChart'),
+            Upload: createIconComponent('Upload'),
+            FileText: createIconComponent('FileText'),
+            MoreVertical: createIconComponent('MoreVertical'),
+            Map: createIconComponent('Map'),
+            Flame: createIconComponent('Flame'),
+            Target: createIconComponent('Target'),
+            Phone: createIconComponent('Phone'),
+            Mail: createIconComponent('Mail'),
+            Calendar: createIconComponent('Calendar'),
+            TrendingUp: createIconComponent('TrendingUp'),
+            UserPlus: createIconComponent('UserPlus'),
+            Filter: createIconComponent('Filter'),
+            Plus: createIconComponent('Plus'),
+            Package: createIconComponent('Package'),
+            Store: createIconComponent('Store'),
+            Award: createIconComponent('Award'),
+            BookOpen: createIconComponent('BookOpen'),
+            DollarSign: createIconComponent('DollarSign')
+        };
+
+        const { 
+            LayoutDashboard, Users, MapPin, Trophy, Image: ImageIcon, MessageSquare, 
+            Settings, Search, Send, Camera, CheckCircle, AlertCircle, BarChart, 
+            Upload, FileText, MoreVertical, Map: MapIcon, Flame, Target, Phone, 
+            Mail, Calendar, TrendingUp, UserPlus, Filter, Plus, Package, Store, Award,
+            BookOpen, DollarSign
+        } = Icons;
+
+        // --- MOCK DATA ---
+        const RETAILERS = [
+            { id: 1, name: 'Farmatodo - 93', type: 'Droguería', city: 'Bogotá', status: 'Activo', visits: 145, lat: 20, lng: 30, heat: 'high' },
+            { id: 2, name: 'Cruz Verde - Pepe', type: 'Droguería', city: 'Bogotá', status: 'Activo', visits: 98, lat: 50, lng: 60, heat: 'medium' },
+            { id: 3, name: 'Éxito - Wow', type: 'Retail', city: 'Bogotá', status: 'Activo', visits: 210, lat: 70, lng: 20, heat: 'high' },
+            { id: 4, name: 'Oxxo - Chicó', type: 'Conveniencia', city: 'Bogotá', status: 'Activo', visits: 340, lat: 35, lng: 75, heat: 'high' },
+            { id: 5, name: 'Jumbo - Calle 80', type: 'Retail', city: 'Bogotá', status: 'Inactivo', visits: 12, lat: 80, lng: 80, heat: 'low' },
+        ];
+
+        const INFALTABLES_ASSETS = {
+            'Farmatodo': { flyer: 'https://i.postimg.cc/FFLr3BXZ/infaltables-1.png', plano: 'https://i.postimg.cc/wjKsDmrQ/planograma-nivea.png' },
+            'Cruz Verde': { flyer: 'https://i.postimg.cc/FFLr3BXZ/infaltables-1.png', plano: 'https://i.postimg.cc/wjKsDmrQ/planograma-nivea.png' },
+            'Éxito': { flyer: 'https://i.postimg.cc/FFLr3BXZ/infaltables-1.png', plano: 'https://i.postimg.cc/wjKsDmrQ/planograma-nivea.png' },
+            'Oxxo': { flyer: 'https://i.postimg.cc/FFLr3BXZ/infaltables-1.png', plano: 'https://i.postimg.cc/wjKsDmrQ/planograma-nivea.png' },
+        };
+
+        const GALLERY = [
+            { id: 1, user: 'Maria G.', store: 'Farmatodo - 93', time: '10:30 AM', img: 'https://placehold.co/150x150/png?text=Gondola+OK', score: 10 },
+            { id: 2, user: 'Juan P.', store: 'Oxxo - Chicó', time: '09:15 AM', img: 'https://placehold.co/150x150/png?text=Gondola+OK', score: 10 },
+            { id: 3, user: 'Carlos R.', store: 'Cruz Verde - Pepe', time: '08:45 AM', img: 'https://placehold.co/150x150/png?text=Exhibicion', score: 5 },
+        ];
+
+        const CONTACTS = [
+            { id: 1, name: 'Maria Gonzalez', role: 'Mercaderista Senior', phone: '3001234567', email: 'maria@bdf.com', points: 1250, rank: 1, status: 'En Ruta', zone: 'Norte', streak: 12, totalVisits: 145, tags: ['Experto', 'Zona Norte'] },
+            { id: 2, name: 'Juan Perez', role: 'Mercaderista Junior', phone: '3109876543', email: 'juan@bdf.com', points: 980, rank: 2, status: 'En Ruta', zone: 'Sur', streak: 5, totalVisits: 98, tags: ['Nuevo'] },
+            { id: 3, name: 'Carlos Ruiz', role: 'Mercaderista', phone: '3205551122', email: 'carlos@bdf.com', points: 450, rank: 15, status: 'Inactivo', zone: 'Occidente', streak: 0, totalVisits: 45, tags: ['Riesgo'] },
+            { id: 4, name: 'Ana Lopez', role: 'Mercaderista Senior', phone: '3151112233', email: 'ana@bdf.com', points: 1100, rank: 3, status: 'En Ruta', zone: 'Norte', streak: 8, totalVisits: 130, tags: ['Líder'] },
+        ];
+
+        const RETAIL_STATS = [
+            { name: 'Oxxo', visits: 450, color: 'bg-red-500' },
+            { name: 'Éxito', visits: 320, color: 'bg-yellow-400' },
+            { name: 'Farmatodo', visits: 210, color: 'bg-blue-600' },
+            { name: 'Cruz Verde', visits: 180, color: 'bg-green-600' },
+            { name: 'Jumbo', visits: 120, color: 'bg-green-500' },
+        ];
+
+        // --- APP COMPONENT ---
+        function BDFApp() {
+            const [view, setView] = useState('dashboard');
+            
+            // --- Chat State ---
+            const [messages, setMessages] = useState([
+                { id: 1, from: 'bot', type: 'text', content: '👋 Hola Maria. Bienvenido a tu turno BDF.\n\n📍 ¿Qué punto de venta visitas hoy?' }
+            ]);
+            const [input, setInput] = useState('');
+            const [points, setPoints] = useState(150);
+            const [chatStep, setChatStep] = useState(0); 
+            const [currentStore, setCurrentStore] = useState(null);
+            const chatEndRef = useRef(null);
+
+            useEffect(() => { chatEndRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages]);
+
+            // --- Chat Logic ---
+            const handleSend = (e) => {
+                e.preventDefault();
+                if(!input.trim()) return;
+                
+                const userMsg = { id: Date.now(), from: 'user', type: 'text', content: input };
+                setMessages(prev => [...prev, userMsg]);
+                setInput('');
+
+                setTimeout(() => {
+                    processBotResponse(userMsg.content);
+                }, 1000);
+            };
+
+            const processBotResponse = (text) => {
+                const lowerText = text.toLowerCase();
+                
+                if (chatStep === 0) {
+                    let store = Object.keys(INFALTABLES_ASSETS).find(k => lowerText.includes(k.toLowerCase()));
+                    if (!store) store = 'Farmatodo'; 
+                    
+                    setCurrentStore(store);
+                    setMessages(prev => [
+                        ...prev,
+                        { id: Date.now(), from: 'bot', type: 'text', content: `✅ Perfecto, vas para **${store}**.\n\nAquí tienes el folleto digital de **INFALTABLES** para hoy:` },
+                        { id: Date.now()+1, from: 'bot', type: 'image', content: INFALTABLES_ASSETS[store].flyer, caption: '📄 Folleto Digital BDF' },
+                        { id: Date.now()+2, from: 'bot', type: 'text', content: '¿Quieres ver cómo se deben ver en la góndola? (Sí/No)' }
+                    ]);
+                    setChatStep(1);
+                    return;
+                }
+
+                if (chatStep === 1) {
+                    if (lowerText.includes('si') || lowerText.includes('sí')) {
+                        setMessages(prev => [
+                            ...prev,
+                            { id: Date.now(), from: 'bot', type: 'text', content: 'Aquí tienes la referencia visual:' },
+                            { id: Date.now()+1, from: 'bot', type: 'image', content: INFALTABLES_ASSETS[currentStore].plano, caption: '📸 Foto de Éxito' },
+                            { id: Date.now()+2, from: 'bot', type: 'text', content: 'Avísame cuando llegues al punto y tengas la exhibición lista escribiendo "Listo".' }
+                        ]);
+                    } else {
+                        setMessages(prev => [
+                            ...prev,
+                            { id: Date.now(), from: 'bot', type: 'text', content: 'Ok. Avísame cuando llegues al punto y tengas la exhibición lista escribiendo "Listo".' }
+                        ]);
+                    }
+                    setChatStep(4);
+                    return;
+                }
+
+                if (chatStep === 4) {
+                    setMessages(prev => [
+                        ...prev,
+                        { id: Date.now(), from: 'bot', type: 'text', content: '📍 Geo-localización confirmada en punto de venta.\n\nPor favor envíame una **FOTO** de cómo quedó la góndola para validar tu visita y darte tus puntos. 📸' }
+                    ]);
+                    setChatStep(5);
+                    return;
+                }
+
+                if (chatStep === 5) {
+                    setMessages(prev => [
+                        ...prev,
+                        { id: Date.now(), from: 'bot', type: 'text', content: '🌟 **¡Excelente trabajo!**\n\nFoto recibida y validada. La exhibición cumple con los estándares.\n\n🏆 **+10 Puntos** ganados por esta visita.\nAcumulado del mes: 160 Puntos (Puesto #1)' }
+                    ]);
+                    setPoints(prev => prev + 10);
+                    setChatStep(0);
+                    return;
+                }
+            };
+
+            const simulatePhotoUpload = () => {
+                const userMsg = { id: Date.now(), from: 'user', type: 'image', content: 'https://placehold.co/200x200?text=Mi+Foto', caption: 'Así quedó la góndola' };
+                setMessages(prev => [...prev, userMsg]);
+                setTimeout(() => {
+                    processBotResponse("FOTO_ENVIADA");
+                }, 1000);
+            };
+
+            // --- UI SECTIONS ---
+
+            const renderDashboard = () => {
+                const topMerchandiser = CONTACTS.reduce((prev, current) => (prev.totalVisits > current.totalVisits) ? prev : current);
+
+                return (
+                    <div className="space-y-6 animate-in fade-in">
+                        {/* KPI Cards */}
+                        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                                <div className="flex justify-between items-center mb-2">
+                                    <h3 className="text-slate-500 text-sm font-bold uppercase">Visitas Hoy</h3>
+                                    <div className="bg-blue-100 p-2 rounded-lg text-blue-600">{MapIcon && <MapIcon size={20}/>}</div>
+                                </div>
+                                <p className="text-3xl font-bold text-slate-800">142</p>
+                                <p className="text-xs text-green-600 mt-1">↑ 12% vs ayer</p>
+                            </div>
+                             <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                                <div className="flex justify-between items-center mb-2">
+                                    <h3 className="text-slate-500 text-sm font-bold uppercase">Cobertura</h3>
+                                    <div className="bg-emerald-100 p-2 rounded-lg text-emerald-600">{Target && <Target size={20}/>}</div>
+                                </div>
+                                <p className="text-3xl font-bold text-slate-800">85%</p>
+                                <p className="text-xs text-slate-400 mt-1">Puntos cubiertos</p>
+                            </div>
+                            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                                <div className="flex justify-between items-center mb-2">
+                                    <h3 className="text-slate-500 text-sm font-bold uppercase">Fotos Recibidas</h3>
+                                    <div className="bg-purple-100 p-2 rounded-lg text-purple-600">{Camera && <Camera size={20}/>}</div>
+                                </div>
+                                <p className="text-3xl font-bold text-slate-800">380</p>
+                                <p className="text-xs text-slate-400 mt-1">Evidencia visual</p>
+                            </div>
+                             <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                                <div className="flex justify-between items-center mb-2">
+                                    <h3 className="text-slate-500 text-sm font-bold uppercase">Activos</h3>
+                                    <div className="bg-orange-100 p-2 rounded-lg text-orange-600">{Users && <Users size={20}/>}</div>
+                                </div>
+                                <p className="text-3xl font-bold text-slate-800">45</p>
+                                <p className="text-xs text-green-600 mt-1">En campo</p>
+                            </div>
+                        </div>
+
+                        {/* Middle Section: Retail Stats & Top Performer */}
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            
+                            {/* Visitas por Retail Chart */}
+                            <div className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                                <h3 className="font-bold text-slate-700 mb-6 flex items-center gap-2">
+                                    {BarChart && <BarChart size={20}/>} Visitas por Retail (Mes Actual)
+                                </h3>
+                                <div className="space-y-4">
+                                    {RETAIL_STATS.map((retail) => (
+                                        <div key={retail.name}>
+                                            <div className="flex justify-between text-sm mb-1">
+                                                <span className="font-bold text-slate-700">{retail.name}</span>
+                                                <span className="text-slate-500">{retail.visits} visitas</span>
+                                            </div>
+                                            <div className="w-full bg-slate-100 rounded-full h-2.5">
+                                                <div 
+                                                    className={`h-2.5 rounded-full ${retail.color}`} 
+                                                    style={{ width: `${(retail.visits / 500) * 100}%` }}
+                                                ></div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Top Merchandiser Card */}
+                            <div className="bg-gradient-to-br from-indigo-600 to-blue-700 rounded-xl shadow-lg p-6 text-white flex flex-col items-center justify-center relative overflow-hidden">
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full -mr-16 -mt-16"></div>
+                                <div className="relative z-10 text-center">
+                                    <div className="mb-2 inline-block bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                                        Top Performer
+                                    </div>
+                                    <div className="w-20 h-20 bg-white rounded-full mx-auto mb-3 flex items-center justify-center text-indigo-600 font-bold text-3xl shadow-md border-4 border-indigo-300">
+                                        {topMerchandiser.name.charAt(0)}
+                                    </div>
+                                    <h3 className="text-xl font-bold">{topMerchandiser.name}</h3>
+                                    <p className="text-indigo-100 text-sm mb-4">{topMerchandiser.role}</p>
+                                    
+                                    <div className="grid grid-cols-2 gap-4 w-full bg-white/10 rounded-lg p-3 backdrop-blur-sm">
+                                        <div>
+                                            <p className="text-2xl font-bold">{topMerchandiser.totalVisits}</p>
+                                            <p className="text-[10px] uppercase opacity-70">Visitas Totales</p>
+                                        </div>
+                                        <div>
+                                            <p className="text-2xl font-bold">{topMerchandiser.streak}</p>
+                                            <p className="text-[10px] uppercase opacity-70">Días Racha</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Traceability Gallery */}
+                        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                            <div className="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                                <h3 className="font-bold text-slate-700 flex items-center gap-2">
+                                    {ImageIcon && <ImageIcon size={18}/>} Última Evidencia Recibida
+                                </h3>
+                                <button className="text-blue-600 text-sm font-medium hover:underline">Galería Completa</button>
+                            </div>
+                            <div className="p-4 grid grid-cols-2 md:grid-cols-4 gap-4">
+                                {GALLERY.map(pic => (
+                                    <div key={pic.id} className="relative group rounded-lg overflow-hidden border border-slate-200 shadow-sm cursor-pointer">
+                                        <img src={pic.img} alt="Evidence" className="w-full h-40 object-cover transition-transform group-hover:scale-105" />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-3">
+                                            <p className="text-white font-bold text-sm">{pic.store}</p>
+                                            <div className="flex justify-between items-center">
+                                                <p className="text-slate-200 text-xs">{pic.user}</p>
+                                                <span className="bg-green-500 text-white text-[10px] px-1.5 rounded">{pic.time}</span>
+                                            </div>
+                                        </div>
+                                        <div className="absolute top-2 right-2 bg-yellow-400 text-yellow-900 text-xs font-bold px-2 py-1 rounded-full shadow-sm">
+                                            +{pic.score} pts
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                );
+            };
+
+            const renderContentManager = () => (
+                <div className="space-y-6 animate-in fade-in">
+                    <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                        <h2 className="text-xl font-bold text-slate-800 mb-4">Gestión de Folletos Digitales</h2>
+                        <p className="text-sm text-slate-500 mb-6">Asigna el folleto digital y el planograma visual correspondiente a cada cadena.</p>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {Object.entries(INFALTABLES_ASSETS).map(([chain, assets]) => (
+                                <div key={chain} className="border border-slate-200 rounded-xl p-4 hover:border-blue-300 transition-all bg-slate-50">
+                                    <div className="flex justify-between items-center mb-4">
+                                        <h3 className="font-bold text-lg text-slate-700">{chain}</h3>
+                                        <span className="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded font-bold">Activo</span>
+                                    </div>
+                                    <div className="flex gap-4">
+                                        <div className="flex-1">
+                                            <p className="text-xs font-bold text-slate-500 mb-2 uppercase">Folleto Infaltables</p>
+                                            <div className="aspect-[3/4] bg-white rounded-lg border border-slate-200 flex items-center justify-center relative group cursor-pointer overflow-hidden">
+                                                <img src={assets.flyer} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"/>
+                                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black/20 transition-opacity">
+                                                    <div className="bg-white p-2 rounded-full shadow-lg text-slate-700"><Upload size={16}/></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="flex-1">
+                                            <p className="text-xs font-bold text-slate-500 mb-2 uppercase">Planograma (Foto Éxito)</p>
+                                            <div className="aspect-[3/4] bg-white rounded-lg border border-slate-200 flex items-center justify-center relative group cursor-pointer overflow-hidden">
+                                                <img src={assets.plano} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"/>
+                                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black/20 transition-opacity">
+                                                    <div className="bg-white p-2 rounded-full shadow-lg text-slate-700"><Upload size={16}/></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="mt-4 flex justify-end">
+                                        <button className="text-blue-600 text-xs font-bold hover:underline flex items-center gap-1">
+                                            {Settings && <Settings size={12}/>} Configurar Reglas
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            );
+
+            const renderGamification = () => (
+                <div className="space-y-6 animate-in fade-in">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div className="lg:col-span-2 space-y-6">
+                            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                                <h2 className="text-xl font-bold text-slate-800 mb-4">Reglas del Juego (Configuración)</h2>
+                                <div className="space-y-6">
+                                    <div>
+                                        <div className="flex justify-between mb-2">
+                                            <label className="font-medium text-slate-700">Puntos por Visita Completada</label>
+                                            <span className="font-bold text-blue-600">10 pts</span>
+                                        </div>
+                                        <input type="range" className="w-full accent-blue-600" defaultValue="10" />
+                                    </div>
+                                    <div>
+                                        <div className="flex justify-between mb-2">
+                                            <label className="font-medium text-slate-700">Bono Racha (3 visitas/día)</label>
+                                            <span className="font-bold text-blue-600">50 pts</span>
+                                        </div>
+                                        <input type="range" className="w-full accent-blue-600" defaultValue="50" />
+                                    </div>
+                                    <div>
+                                        <div className="flex justify-between mb-2">
+                                            <label className="font-medium text-slate-700">Bono Semanal (Visita a todas las cadenas)</label>
+                                            <span className="font-bold text-blue-600">100 pts</span>
+                                        </div>
+                                        <input type="range" className="w-full accent-blue-600" defaultValue="100" />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                                <h2 className="text-xl font-bold text-slate-800 mb-4">Ranking Actual</h2>
+                                <table className="w-full text-left">
+                                    <thead className="bg-slate-50 text-slate-500 uppercase text-xs">
+                                        <tr>
+                                            <th className="p-3">#</th>
+                                            <th className="p-3">Mercaderista</th>
+                                            <th className="p-3">Etiquetas</th>
+                                            <th className="p-3 text-right">Puntos</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {CONTACTS.map((c, i) => (
+                                            <tr key={c.id} className="border-b border-slate-100 last:border-0">
+                                                <td className="p-3 font-bold text-slate-400">{c.rank}</td>
+                                                <td className="p-3 font-medium text-slate-800 flex items-center gap-2">
+                                                    <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-xs">
+                                                        {c.name.charAt(0)}
+                                                    </div>
+                                                    {c.name}
+                                                </td>
+                                                <td className="p-3">
+                                                    {c.tags.map(t => (
+                                                        <span key={t} className="bg-slate-100 text-slate-600 text-[10px] px-2 py-1 rounded-full font-bold mr-1">{t}</span>
+                                                    ))}
+                                                </td>
+                                                <td className="p-3 text-right font-bold text-blue-600">{c.points}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div className="space-y-6">
+                            <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-xl p-6 text-white text-center shadow-lg">
+                                <div className="mx-auto bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                                    {Trophy && <Trophy size={32} className="text-yellow-300"/>}
+                                </div>
+                                <h3 className="text-2xl font-bold">Temporada Enero</h3>
+                                <p className="opacity-90 mb-4">Meta Global: 90% Cobertura</p>
+                                <button className="bg-white text-blue-700 font-bold px-6 py-2 rounded-full shadow-sm hover:scale-105 transition-transform text-sm">Ver Premios</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+
+            const renderRoutes = () => (
+                <div className="flex h-full gap-6 animate-in fade-in">
+                    <div className="w-64 bg-white rounded-xl shadow-sm border border-slate-200 p-4 h-fit">
+                        <h3 className="font-bold text-slate-700 mb-4 flex items-center gap-2">
+                            {Filter && <Filter size={18}/>} Filtros de Mapa
+                        </h3>
+                        <div className="space-y-4">
+                            <div>
+                                <label className="text-xs font-bold text-slate-500 uppercase block mb-2">Por Retail</label>
+                                <div className="space-y-2">
+                                    {['Todos', 'Farmatodo', 'Oxxo', 'Éxito'].map(r => (
+                                        <label key={r} className="flex items-center gap-2 text-sm text-slate-600 cursor-pointer">
+                                            <input type="checkbox" className="rounded text-blue-600" defaultChecked={r === 'Todos'} /> {r}
+                                        </label>
+                                    ))}
+                                </div>
+                            </div>
+                            <div>
+                                <label className="text-xs font-bold text-slate-500 uppercase block mb-2">Por Zona</label>
+                                <select className="w-full border border-slate-300 rounded p-2 text-sm">
+                                    <option>Todas las Zonas</option>
+                                    <option>Norte</option>
+                                    <option>Sur</option>
+                                    <option>Occidente</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div className="mt-8 border-t border-slate-100 pt-4">
+                            <h4 className="font-bold text-slate-700 mb-2 text-sm">Top 3 Puntos Más Visitados</h4>
+                            <div className="space-y-2">
+                                {RETAILERS.sort((a,b) => b.visits - a.visits).slice(0,3).map((r, i) => (
+                                    <div key={r.id} className="flex justify-between items-center text-xs">
+                                        <span className="text-slate-600 truncate w-32">{i+1}. {r.name}</span>
+                                        <span className="font-bold text-blue-600">{r.visits}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="flex-1 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col relative">
+                        <div className="absolute top-4 right-4 z-10 bg-white/90 backdrop-blur p-2 rounded-lg shadow-sm border border-slate-200 text-xs">
+                            <div className="flex items-center gap-2 mb-1"><div className="w-3 h-3 rounded-full bg-red-500 opacity-80"></div> Alta Frecuencia</div>
+                            <div className="flex items-center gap-2 mb-1"><div className="w-3 h-3 rounded-full bg-orange-400 opacity-80"></div> Media Frecuencia</div>
+                            <div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-green-400 opacity-80"></div> Baja Frecuencia</div>
+                        </div>
+                        
+                        <div className="flex-1 map-bg relative">
+                            {RETAILERS.map(store => (
+                                <div 
+                                    key={store.id}
+                                    className="absolute group cursor-pointer"
+                                    style={{ top: `${store.lat}%`, left: `${store.lng}%` }}
+                                >
+                                    <div className={`w-8 h-8 rounded-full opacity-40 animate-pulse absolute -top-2 -left-2 ${
+                                        store.heat === 'high' ? 'bg-red-400' : store.heat === 'medium' ? 'bg-orange-300' : 'bg-green-300'
+                                    }`}></div>
+                                    <div className={`relative w-4 h-4 rounded-full border-2 border-white shadow-md ${
+                                        store.heat === 'high' ? 'bg-red-600' : store.heat === 'medium' ? 'bg-orange-500' : 'bg-green-500'
+                                    }`}></div>
+                                    
+                                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-white px-3 py-2 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none">
+                                        <p className="font-bold text-xs text-slate-800">{store.name}</p>
+                                        <p className="text-[10px] text-slate-500">{store.visits} visitas este mes</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            );
+
+            const renderCRM = () => (
+                <div className="space-y-6 animate-in fade-in">
+                    <div className="flex justify-between items-center">
+                        <h2 className="text-xl font-bold text-slate-800">Directorio de Mercaderistas</h2>
+                        <button className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 hover:bg-blue-700">
+                            {UserPlus && <UserPlus size={16}/>} Nuevo Mercaderista
+                        </button>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {CONTACTS.map(contact => (
+                            <div key={contact.id} className="bg-white rounded-xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition-shadow">
+                                <div className="flex justify-between items-start mb-4">
+                                    <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 font-bold text-xl">
+                                        {contact.name.charAt(0)}
+                                    </div>
+                                    <span className={`px-2 py-1 rounded-full text-xs font-bold ${
+                                        contact.status === 'En Ruta' ? 'bg-green-100 text-green-700' : 'bg-slate-100 text-slate-500'
+                                    }`}>
+                                        {contact.status}
+                                    </span>
+                                </div>
+                                <h3 className="font-bold text-lg text-slate-800">{contact.name}</h3>
+                                <p className="text-sm text-slate-500 mb-4">{contact.role}</p>
+                                
+                                <div className="space-y-2 text-sm border-t border-slate-100 pt-4 mb-4">
+                                    <div className="flex items-center gap-2 text-slate-600">
+                                        {Phone && <Phone size={14}/>} {contact.phone}
+                                    </div>
+                                    <div className="flex items-center gap-2 text-slate-600">
+                                        {Mail && <Mail size={14}/>} {contact.email}
+                                    </div>
+                                    <div className="flex items-center gap-2 text-slate-600">
+                                        {MapPin && <MapPin size={14}/>} Zona: {contact.zone}
+                                    </div>
+                                </div>
+
+                                <div className="flex gap-2">
+                                    <button className="flex-1 border border-slate-200 rounded-lg py-2 text-xs font-bold text-slate-600 hover:bg-slate-50">Ver Perfil</button>
+                                    <button className="flex-1 bg-blue-50 text-blue-700 rounded-lg py-2 text-xs font-bold hover:bg-blue-100">Contactar</button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+
+            const renderMessaging = () => (
+                <div className="space-y-6 animate-in fade-in">
+                    <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                        <h2 className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                            {Send && <Send size={20}/>} Nueva Campaña Masiva
+                        </h2>
+                        
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <div className="space-y-4">
+                                <div>
+                                    <label className="block text-sm font-bold text-slate-700 mb-1">Nombre de Campaña</label>
+                                    <input type="text" className="w-full border border-slate-300 rounded-lg p-2 text-sm" placeholder="Ej: Promo Nivea Q1" />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-bold text-slate-700 mb-1">Segmento Objetivo</label>
+                                    <select className="w-full border border-slate-300 rounded-lg p-2 text-sm">
+                                        <option>Todos los Mercaderistas</option>
+                                        <option>Solo Zona Norte</option>
+                                        <option>Inactivos (Reactivación)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-bold text-slate-700 mb-1">Mensaje (WhatsApp)</label>
+                                    <textarea className="w-full border border-slate-300 rounded-lg p-2 text-sm h-32" placeholder="Escribe tu mensaje aquí..."></textarea>
+                                </div>
+                                
+                                <div className="p-4 bg-blue-50 rounded-lg border border-blue-100 flex items-start gap-3">
+                                    <div className="text-blue-600 mt-1">{AlertCircle && <AlertCircle size={16}/>}</div>
+                                    <div>
+                                        <h4 className="text-sm font-bold text-blue-800">Costo Estimado</h4>
+                                        <p className="text-xs text-blue-600 mt-1">
+                                            Enviar a <strong>45 usuarios</strong> (Marketing)<br/>
+                                            Total: <strong>$2.70 USD</strong>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <button className="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 shadow-md">
+                                    Enviar Ahora
+                                </button>
+                            </div>
+
+                            <div className="bg-slate-100 rounded-xl border border-slate-200 p-8 flex items-center justify-center">
+                                <div className="w-64 bg-white rounded-lg shadow-lg overflow-hidden border border-slate-200">
+                                    <div className="bg-[#005e54] h-10 flex items-center px-3">
+                                        <div className="w-6 h-6 bg-white rounded-full"></div>
+                                    </div>
+                                    <div className="p-4 chat-bg h-64 relative">
+                                        <div className="bg-white p-2 rounded-lg text-sm shadow-sm rounded-tl-none relative">
+                                            Hola equipo 👋, recuerden que esta semana tenemos foco especial en Nivea Sun. ¡A ganar!
+                                            <span className="text-[9px] text-slate-400 absolute bottom-1 right-2">10:00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+
+            // --- VISTA PROPUESTA COMERCIAL ---
+            const renderProposal = () => (
+                <div className="space-y-8 animate-in fade-in max-w-4xl mx-auto pb-20">
+                    {/* Header Proposal */}
+                    <div className="bg-gradient-to-r from-slate-800 to-slate-900 rounded-2xl p-8 text-white shadow-xl">
+                        <h1 className="text-3xl font-bold mb-4">Propuesta Comercial: BDF Retail Execution</h1>
+                        <p className="text-lg opacity-90">Transformación digital del Trade Marketing mediante WhatsApp First Strategy.</p>
+                    </div>
+
+                    {/* 1. Objetivos y Solución */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                            <h3 className="text-xl font-bold text-slate-800 mb-3 flex items-center gap-2">
+                                {Target && <Target className="text-blue-600" size={24}/>} Objetivos Estratégicos
+                            </h3>
+                            <ul className="space-y-3 text-slate-600">
+                                <li className="flex gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 flex-shrink-0"></div><span><strong>Evolución Digital:</strong> Llevar la comunicación de infaltables del papel a un entorno 100% digital y ágil.</span></li>
+                                <li className="flex gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 flex-shrink-0"></div><span><strong>Control en Tiempo Real:</strong> Obtener visibilidad inmediata de la ejecución en cada punto de venta.</span></li>
+                                <li className="flex gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 flex-shrink-0"></div><span><strong>Cultura de Excelencia:</strong> Motivar y educar al equipo de campo para alcanzar la "Tienda Perfecta".</span></li>
+                            </ul>
+                        </div>
+                        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                            <h3 className="text-xl font-bold text-slate-800 mb-3 flex items-center gap-2">
+                                {CheckCircle && <CheckCircle className="text-green-500" size={24}/>} La Solución BDF
+                            </h3>
+                            <ul className="space-y-3 text-slate-600">
+                                <li className="flex gap-2"><div className="w-1.5 h-1.5 rounded-full bg-green-500 mt-2 flex-shrink-0"></div><span><strong>WhatsApp Bot:</strong> Un asistente virtual fácil de usar para el día a día del mercaderista.</span></li>
+                                <li className="flex gap-2"><div className="w-1.5 h-1.5 rounded-full bg-green-500 mt-2 flex-shrink-0"></div><span><strong>Contenido Inteligente:</strong> Planogramas y folletos segmentados directo al celular.</span></li>
+                                <li className="flex gap-2"><div className="w-1.5 h-1.5 rounded-full bg-green-500 mt-2 flex-shrink-0"></div><span><strong>Gamificación:</strong> Sistema de puntos y rankings para incentivar el cumplimiento.</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    {/* 2. Módulos Detallados */}
+                    <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                        <div className="p-6 border-b border-slate-100 bg-slate-50">
+                            <h3 className="text-xl font-bold text-slate-800">Alcance Funcional por Módulo</h3>
+                        </div>
+                        <div className="divide-y divide-slate-100">
+                            {[
+                                { title: "1. Dashboard Administrativo (Centro de Comando)", icon: LayoutDashboard && <LayoutDashboard className="text-blue-600"/>, desc: "Panel web para gerentes y KAMs.", items: ["KPIs en tiempo real (Visitas, Cobertura).", "Gestión de usuarios (CRM).", "Mapa de calor y rutas."] },
+                                { title: "2. Gestión de Contenido Digital", icon: FileText && <FileText className="text-purple-600"/>, desc: "Adiós al papel. Actualización instantánea.", items: ["Carga de Folletos de Infaltables por cadena.", "Asignación de Planogramas (Fotos de Éxito).", "Segmentación por Retail (Éxito vs Oxxo)."] },
+                                { title: "3. Chatbot Inteligente (WhatsApp)", icon: MessageSquare && <MessageSquare className="text-green-600"/>, desc: "El copiloto del mercaderista.", items: ["Identificación automática de tienda.", "Envío de material visual educativo.", "Captura de evidencia fotográfica."] },
+                                { title: "4. Gamificación y Incentivos", icon: Trophy && <Trophy className="text-yellow-500"/>, desc: "Motor de motivación.", items: ["Reglas configurables (Puntos por visita, Rachas).", "Rankings y Tablas de Líderes en tiempo real."] },
+                                { title: "5. Mensajería Masiva", icon: Send && <Send className="text-indigo-500"/>, desc: "Comunicación corporativa directa.", items: ["Campañas de marketing a la fuerza de ventas.", "Alertas y notificaciones segmentadas."] }
+                            ].map((mod, i) => (
+                                <div key={i} className="p-6 flex gap-4">
+                                    <div className="mt-1">{mod.icon}</div>
+                                    <div>
+                                        <h4 className="font-bold text-lg text-slate-800">{mod.title}</h4>
+                                        <p className="text-sm text-slate-500 mb-3">{mod.desc}</p>
+                                        <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                            {mod.items.map((item, j) => (
+                                                <li key={j} className="text-sm text-slate-700 flex items-start gap-2">
+                                                    <span className="text-blue-400 mt-1">•</span> {item}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* 3. Estructura de Costos */}
+                    <div className="bg-white p-8 rounded-xl border border-slate-200 shadow-sm">
+                        <h3 className="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                            {DollarSign && <DollarSign className="text-emerald-600"/>} Estructura de Costos Estimada
+                        </h3>
+                        
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <div>
+                                <h4 className="font-bold text-lg text-slate-700 mb-4 border-b pb-2">Costos Variables Mensuales (OpEx)</h4>
+                                <p className="text-sm text-slate-500 mb-4">Se pagan según consumo a proveedores (Meta/Cloud).</p>
+                                <div className="space-y-4">
+                                    <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg">
+                                        <div>
+                                            <p className="font-bold text-slate-800">WhatsApp Service (Utility)</p>
+                                            <p className="text-xs text-slate-500">Reportes diarios iniciados por usuario</p>
+                                        </div>
+                                        <div className="text-right">
+                                            <p className="font-bold text-emerald-600">~$0.40 USD</p>
+                                            <p className="text-[10px] text-slate-400">/usuario/mes</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg">
+                                        <div>
+                                            <p className="font-bold text-slate-800">WhatsApp Marketing</p>
+                                            <p className="text-xs text-slate-500">4 campañas mensuales</p>
+                                        </div>
+                                        <div className="text-right">
+                                            <p className="font-bold text-emerald-600">~$0.24 USD</p>
+                                            <p className="text-[10px] text-slate-400">/usuario/mes</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg">
+                                        <div>
+                                            <p className="font-bold text-slate-800">Inteligencia Artificial</p>
+                                            <p className="text-xs text-slate-500">Procesamiento de lenguaje natural</p>
+                                        </div>
+                                        <div className="text-right">
+                                            <p className="font-bold text-emerald-600">~$1.00 USD</p>
+                                            <p className="text-[10px] text-slate-400">/usuario/mes</p>
+                                        </div>
+                                    </div>
+                                     <div className="p-3 bg-emerald-50 rounded-lg border border-emerald-100 mt-2">
+                                        <div className="flex justify-between items-center">
+                                            <p className="font-bold text-emerald-800">Total Estimado por Usuario</p>
+                                            <p className="font-bold text-xl text-emerald-700">~$2.14 USD</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 className="font-bold text-lg text-slate-700 mb-4 border-b pb-2">Inversión de Setup (CapEx)</h4>
+                                <p className="text-sm text-slate-500 mb-4">Desarrollo e implementación única.</p>
+                                <ul className="space-y-3">
+                                    <li className="flex gap-3 text-sm text-slate-700">
+                                        <div className="bg-blue-100 text-blue-600 p-1 rounded">{CheckCircle && <CheckCircle size={14}/>}</div>
+                                        Configuración WhatsApp Business API.
+                                    </li>
+                                    <li className="flex gap-3 text-sm text-slate-700">
+                                        <div className="bg-blue-100 text-blue-600 p-1 rounded">{CheckCircle && <CheckCircle size={14}/>}</div>
+                                        Desarrollo Dashboard Admin (React + Node).
+                                    </li>
+                                    <li className="flex gap-3 text-sm text-slate-700">
+                                        <div className="bg-blue-100 text-blue-600 p-1 rounded">{CheckCircle && <CheckCircle size={14}/>}</div>
+                                        Programación del Chatbot (Flujos + IA).
+                                    </li>
+                                     <li className="flex gap-3 text-sm text-slate-700">
+                                        <div className="bg-blue-100 text-blue-600 p-1 rounded">{CheckCircle && <CheckCircle size={14}/>}</div>
+                                        Base de Datos y Galería Multimedia.
+                                    </li>
+                                    <li className="flex gap-3 text-sm text-slate-700">
+                                        <div className="bg-blue-100 text-blue-600 p-1 rounded">{CheckCircle && <CheckCircle size={14}/>}</div>
+                                        Capacitación y Onboarding.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+
+            // --- MAIN RENDER ---
+            return (
+                <div className="flex h-screen overflow-hidden font-sans text-slate-900">
+                    
+                    {/* LEFT: ADMIN INTERFACE */}
+                    <div className="flex-1 flex flex-col md:flex-row bg-slate-100 overflow-hidden relative">
+                        
+                        {/* Sidebar */}
+                        <aside className="w-64 bg-slate-900 text-white flex flex-col shrink-0 z-20">
+                            <div className="p-6 border-b border-slate-800 flex items-center gap-3">
+                                <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-bold text-white">B</div>
+                                <div>
+                                    <h1 className="font-bold leading-none">BDF Retail</h1>
+                                    <span className="text-[10px] text-slate-400">Admin Console</span>
+                                </div>
+                            </div>
+                            <nav className="flex-1 p-4 space-y-2">
+                                <button onClick={() => setView('dashboard')} className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium w-full transition-colors ${view === 'dashboard' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}>
+                                    {LayoutDashboard && <LayoutDashboard size={18}/>} Dashboard
+                                </button>
+                                <div className="pt-2 pb-1 px-4 text-xs font-semibold text-slate-500 uppercase">Gestión</div>
+                                <button onClick={() => setView('crm')} className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium w-full transition-colors ${view === 'crm' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}>
+                                    {Users && <Users size={18}/>} RRHH & Contactos
+                                </button>
+                                <button onClick={() => setView('routes')} className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium w-full transition-colors ${view === 'routes' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}>
+                                    {MapPin && <MapPin size={18}/>} Sitios & Rutas
+                                </button>
+                                <button onClick={() => setView('content')} className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium w-full transition-colors ${view === 'content' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}>
+                                    {FileText && <FileText size={18}/>} Gestión Contenido (Folletos)
+                                </button>
+                                <div className="pt-2 pb-1 px-4 text-xs font-semibold text-slate-500 uppercase">Ejecución</div>
+                                <button onClick={() => setView('gamification')} className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium w-full transition-colors ${view === 'gamification' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}>
+                                    {Trophy && <Trophy size={18}/>} Gamificación
+                                </button>
+                                <button onClick={() => setView('messaging')} className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium w-full transition-colors ${view === 'messaging' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}>
+                                    {MessageSquare && <MessageSquare size={18}/>} Mensajería WhatsApp
+                                </button>
+                                
+                                {/* Proposal Button */}
+                                <div className="pt-8">
+                                    <button onClick={() => setView('proposal')} className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-bold w-full transition-colors border border-slate-700 ${view === 'proposal' ? 'bg-blue-600 text-white border-blue-600' : 'text-blue-300 hover:bg-slate-800 hover:text-white'}`}>
+                                        {BookOpen && <BookOpen size={18}/>} Propuesta Comercial
+                                    </button>
+                                </div>
+                            </nav>
+                        </aside>
+
+                        {/* Admin Content */}
+                        <div className="flex-1 flex flex-col h-full overflow-hidden">
+                            <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 shrink-0">
+                                <h2 className="font-bold text-slate-800 text-lg">
+                                    {view === 'dashboard' && 'Panel de Control Principal'}
+                                    {view === 'content' && 'Carga de Folletos & Planogramas'}
+                                    {view === 'gamification' && 'Reglas de Puntos & Ranking'}
+                                    {view === 'routes' && 'Mapa de Calor & Rutas'}
+                                    {view === 'crm' && 'Directorio de Personal'}
+                                    {view === 'messaging' && 'Campañas de Comunicación'}
+                                    {view === 'proposal' && 'Propuesta de Valor BDF'}
+                                </h2>
+                                <div className="flex items-center gap-4">
+                                    <div className="flex items-center gap-2 bg-slate-100 px-3 py-1.5 rounded-full">
+                                        {Search && <Search size={14} className="text-slate-400"/>}
+                                        <input className="bg-transparent text-sm outline-none w-32" placeholder="Buscar..." />
+                                    </div>
+                                    <div className="w-8 h-8 rounded-full bg-slate-300"></div>
+                                </div>
+                            </header>
+                            <div className="flex-1 overflow-y-auto p-6">
+                                {view === 'dashboard' && renderDashboard()}
+                                {view === 'content' && renderContentManager()}
+                                {view === 'gamification' && renderGamification()}
+                                {view === 'routes' && renderRoutes()}
+                                {view === 'crm' && renderCRM()}
+                                {view === 'messaging' && renderMessaging()}
+                                {view === 'proposal' && renderProposal()}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* RIGHT: WHATSAPP INTERFACE (Fixed width) */}
+                    <div className="w-[400px] bg-slate-200 flex flex-col shadow-2xl border-l border-slate-300 relative z-30">
+                        {/* Phone Header */}
+                        <div className="bg-[#005e54] p-3 text-white flex items-center gap-3 shadow-md shrink-0">
+                            <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center font-bold text-[#005e54] text-lg">B</div>
+                            <div className="flex-1">
+                                <h3 className="font-bold text-sm">BDF Asistente 🤖</h3>
+                                <p className="text-xs opacity-80">En línea • Business Account</p>
+                            </div>
+                            <div className="bg-[#004d44] px-2 py-1 rounded text-xs font-mono">{points} PTS</div>
+                        </div>
+
+                        {/* Chat Body */}
+                        <div className="flex-1 overflow-y-auto p-4 space-y-3 chat-bg scrollbar-hide">
+                            <div className="text-center text-xs text-slate-600 bg-slate-100/80 rounded-full py-1 px-3 w-fit mx-auto shadow-sm mb-4">HOY</div>
+                            
+                            {messages.map((msg) => (
+                                <div key={msg.id} className={`flex ${msg.from === 'user' ? 'justify-end' : 'justify-start'}`}>
+                                    <div className={`max-w-[85%] rounded-lg shadow-sm p-2 text-sm relative ${
+                                        msg.from === 'user' ? 'bg-[#dcf8c6] text-slate-800 rounded-tr-none' : 'bg-white text-slate-800 rounded-tl-none'
+                                    }`}>
+                                        {msg.type === 'text' && <p className="whitespace-pre-wrap">{msg.content}</p>}
+                                        {msg.type === 'image' && (
+                                            <div>
+                                                <img src={msg.content} alt="Attachment" className="rounded-lg mb-1 w-full" />
+                                                {msg.caption && <p className="font-bold">{msg.caption}</p>}
+                                            </div>
+                                        )}
+                                        <div className="text-[9px] text-slate-400 text-right mt-1 flex justify-end gap-1 items-center">
+                                            10:42 AM {msg.from === 'user' && (CheckCircle && <CheckCircle size={10} className="text-blue-400"/>)}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                            <div ref={chatEndRef} />
+                            
+                            {/* Contextual Actions (Quick Replies) */}
+                            {chatStep === 5 && (
+                                <div className="flex justify-center mt-2">
+                                    <button onClick={simulatePhotoUpload} className="bg-white text-slate-700 text-xs font-bold px-4 py-2 rounded-full shadow-md flex items-center gap-2 hover:bg-slate-50 transition-transform active:scale-95">
+                                        {Camera && <Camera size={14}/>} Enviar Foto de Góndola
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Chat Input */}
+                        <div className="p-2 bg-[#f0f0f0] shrink-0 flex items-center gap-2">
+                            <input 
+                                value={input}
+                                onChange={(e) => setInput(e.target.value)}
+                                onKeyDown={(e) => e.key === 'Enter' && handleSend(e)}
+                                type="text" 
+                                placeholder="Escribe un mensaje..." 
+                                className="flex-1 rounded-full px-4 py-2 text-sm border-none focus:ring-0 focus:outline-none"
+                            />
+                            <button onClick={handleSend} className="bg-[#005e54] text-white p-2 rounded-full shadow-sm hover:opacity-90">
+                                {Send && <Send size={18}/>}
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<BDFApp />);
+    </script>
+</body>
+</html>
