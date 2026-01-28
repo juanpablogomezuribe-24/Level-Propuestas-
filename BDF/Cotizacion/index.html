@@ -74,7 +74,14 @@
             Store: createIconComponent('Store'),
             Award: createIconComponent('Award'),
             BookOpen: createIconComponent('BookOpen'),
-            DollarSign: createIconComponent('DollarSign')
+            DollarSign: createIconComponent('DollarSign'),
+            Smartphone: createIconComponent('Smartphone'),
+            Server: createIconComponent('Server'),
+            Zap: createIconComponent('Zap'),
+            ShieldCheck: createIconComponent('ShieldCheck'),
+            Eye: createIconComponent('Eye'),
+            ArrowDownToLine: createIconComponent('ArrowDownToLine'),
+            ArrowUpToLine: createIconComponent('ArrowUpToLine')
         };
 
         const { 
@@ -82,7 +89,7 @@
             Settings, Search, Send, Camera, CheckCircle, AlertCircle, BarChart, 
             Upload, FileText, MoreVertical, Map: MapIcon, Flame, Target, Phone, 
             Mail, Calendar, TrendingUp, UserPlus, Filter, Plus, Package, Store, Award,
-            BookOpen, DollarSign
+            BookOpen, DollarSign, Smartphone, Server, Zap, ShieldCheck, Eye, ArrowDownToLine, ArrowUpToLine
         } = Icons;
 
         // --- MOCK DATA ---
@@ -127,12 +134,13 @@
             const [view, setView] = useState('dashboard');
             
             // --- Chat State ---
+            // Initial state is asking for credentials
             const [messages, setMessages] = useState([
-                { id: 1, from: 'bot', type: 'text', content: '👋 Hola Maria. Bienvenido a tu turno BDF.\n\n📍 ¿Qué punto de venta visitas hoy?' }
+                { id: 1, from: 'bot', type: 'text', content: '👋 Bienvenido a la plataforma BDF Retail.\n\nPara iniciar tu turno, por favor ingresa tu **Nombre Completo** y **Cédula**.' }
             ]);
             const [input, setInput] = useState('');
             const [points, setPoints] = useState(150);
-            const [chatStep, setChatStep] = useState(0); 
+            const [chatStep, setChatStep] = useState('LOGIN'); // NEW: Login step
             const [currentStore, setCurrentStore] = useState(null);
             const chatEndRef = useRef(null);
 
@@ -154,7 +162,18 @@
 
             const processBotResponse = (text) => {
                 const lowerText = text.toLowerCase();
+
+                // STEP: LOGIN (New)
+                if (chatStep === 'LOGIN') {
+                    setMessages(prev => [
+                        ...prev,
+                        { id: Date.now(), from: 'bot', type: 'text', content: `✅ Gracias **${text}**. Datos validados correctamente.\n\n📍 ¿Qué punto de venta visitas hoy?` }
+                    ]);
+                    setChatStep(0); // Move to Store Selection
+                    return;
+                }
                 
+                // Paso 0: Identificar Tienda
                 if (chatStep === 0) {
                     let store = Object.keys(INFALTABLES_ASSETS).find(k => lowerText.includes(k.toLowerCase()));
                     if (!store) store = 'Farmatodo'; 
@@ -648,145 +667,218 @@
 
             // --- VISTA PROPUESTA COMERCIAL ---
             const renderProposal = () => (
-                <div className="space-y-8 animate-in fade-in max-w-4xl mx-auto pb-20">
-                    {/* Header Proposal */}
-                    <div className="bg-gradient-to-r from-slate-800 to-slate-900 rounded-2xl p-8 text-white shadow-xl">
-                        <h1 className="text-3xl font-bold mb-4">Propuesta Comercial: BDF Retail Execution</h1>
-                        <p className="text-lg opacity-90">Transformación digital del Trade Marketing mediante WhatsApp First Strategy.</p>
+                <div className="space-y-12 animate-in fade-in max-w-5xl mx-auto pb-20 bg-white shadow-xl rounded-2xl overflow-hidden border border-slate-100">
+                    
+                    {/* 1. Header Hero */}
+                    <div className="bg-slate-900 text-white p-12 text-center relative overflow-hidden">
+                        <div className="relative z-10">
+                            <div className="inline-flex items-center gap-2 bg-blue-600/30 px-4 py-1.5 rounded-full border border-blue-500/50 mb-6 backdrop-blur-sm">
+                                <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                                <span className="text-xs font-bold tracking-wide uppercase text-blue-100">Propuesta Oficial</span>
+                            </div>
+                            <h1 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
+                                Sistema de Gestión y Trazabilidad <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">para Mercaderistas</span>
+                            </h1>
+                        </div>
+                        {/* Decorative Background */}
+                        <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
                     </div>
 
-                    {/* 1. Objetivos y Solución */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                            <h3 className="text-xl font-bold text-slate-800 mb-3 flex items-center gap-2">
-                                {Target && <Target className="text-blue-600" size={24}/>} Objetivos Estratégicos
-                            </h3>
-                            <ul className="space-y-3 text-slate-600">
-                                <li className="flex gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 flex-shrink-0"></div><span><strong>Evolución Digital:</strong> Llevar la comunicación de infaltables del papel a un entorno 100% digital y ágil.</span></li>
-                                <li className="flex gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 flex-shrink-0"></div><span><strong>Control en Tiempo Real:</strong> Obtener visibilidad inmediata de la ejecución en cada punto de venta.</span></li>
-                                <li className="flex gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 flex-shrink-0"></div><span><strong>Cultura de Excelencia:</strong> Motivar y educar al equipo de campo para alcanzar la "Tienda Perfecta".</span></li>
-                            </ul>
-                        </div>
-                        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                            <h3 className="text-xl font-bold text-slate-800 mb-3 flex items-center gap-2">
-                                {CheckCircle && <CheckCircle className="text-green-500" size={24}/>} La Solución BDF
-                            </h3>
-                            <ul className="space-y-3 text-slate-600">
-                                <li className="flex gap-2"><div className="w-1.5 h-1.5 rounded-full bg-green-500 mt-2 flex-shrink-0"></div><span><strong>WhatsApp Bot:</strong> Un asistente virtual fácil de usar para el día a día del mercaderista.</span></li>
-                                <li className="flex gap-2"><div className="w-1.5 h-1.5 rounded-full bg-green-500 mt-2 flex-shrink-0"></div><span><strong>Contenido Inteligente:</strong> Planogramas y folletos segmentados directo al celular.</span></li>
-                                <li className="flex gap-2"><div className="w-1.5 h-1.5 rounded-full bg-green-500 mt-2 flex-shrink-0"></div><span><strong>Gamificación:</strong> Sistema de puntos y rankings para incentivar el cumplimiento.</span></li>
-                            </ul>
-                        </div>
-                    </div>
+                    <div className="px-8 md:px-16 space-y-16">
+                        
+                        {/* 1. RESUMEN EJECUTIVO */}
+                        <section>
+                            <div className="flex items-center gap-3 mb-6">
+                                <div className="bg-blue-100 p-2 rounded-lg text-blue-700">{BookOpen && <BookOpen size={24}/>}</div>
+                                <h2 className="text-2xl font-bold text-slate-800">1. Resumen Ejecutivo</h2>
+                            </div>
+                            <p className="text-slate-600 leading-relaxed text-lg">
+                                La presente propuesta detalla el desarrollo e implementación de una solución tecnológica integral para la gestión, trazabilidad y supervisión de actividades de mercaderistas en puntos de venta a nivel nacional.
+                                <br/><br/>
+                                El sistema combina una <strong>interfaz conversacional vía WhatsApp</strong> para mercaderistas en campo con un <strong>panel administrativo web</strong> para supervisión y análisis, permitiendo optimizar la operación, garantizar trazabilidad completa de visitas y generar información estratégica en tiempo real. Incluye un repositorio centralizado de material de referencia visual para estándares de exhibición por marca.
+                            </p>
+                        </section>
 
-                    {/* 2. Módulos Detallados */}
-                    <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-                        <div className="p-6 border-b border-slate-100 bg-slate-50">
-                            <h3 className="text-xl font-bold text-slate-800">Alcance Funcional por Módulo</h3>
-                        </div>
-                        <div className="divide-y divide-slate-100">
-                            {[
-                                { title: "1. Dashboard Administrativo (Centro de Comando)", icon: LayoutDashboard && <LayoutDashboard className="text-blue-600"/>, desc: "Panel web para gerentes y KAMs.", items: ["KPIs en tiempo real (Visitas, Cobertura).", "Gestión de usuarios (CRM).", "Mapa de calor y rutas."] },
-                                { title: "2. Gestión de Contenido Digital", icon: FileText && <FileText className="text-purple-600"/>, desc: "Adiós al papel. Actualización instantánea.", items: ["Carga de Folletos de Infaltables por cadena.", "Asignación de Planogramas (Fotos de Éxito).", "Segmentación por Retail (Éxito vs Oxxo)."] },
-                                { title: "3. Chatbot Inteligente (WhatsApp)", icon: MessageSquare && <MessageSquare className="text-green-600"/>, desc: "El copiloto del mercaderista.", items: ["Identificación automática de tienda.", "Envío de material visual educativo.", "Captura de evidencia fotográfica."] },
-                                { title: "4. Gamificación y Incentivos", icon: Trophy && <Trophy className="text-yellow-500"/>, desc: "Motor de motivación.", items: ["Reglas configurables (Puntos por visita, Rachas).", "Rankings y Tablas de Líderes en tiempo real."] },
-                                { title: "5. Mensajería Masiva", icon: Send && <Send className="text-indigo-500"/>, desc: "Comunicación corporativa directa.", items: ["Campañas de marketing a la fuerza de ventas.", "Alertas y notificaciones segmentadas."] }
-                            ].map((mod, i) => (
-                                <div key={i} className="p-6 flex gap-4">
-                                    <div className="mt-1">{mod.icon}</div>
+                        <hr className="border-slate-100"/>
+
+                        {/* 2. CONTEXTO Y NECESIDAD */}
+                        <section>
+                            <div className="flex items-center gap-3 mb-6">
+                                <div className="bg-amber-100 p-2 rounded-lg text-amber-700">{Target && <Target size={24}/>}</div>
+                                <h2 className="text-2xl font-bold text-slate-800">2. Contexto y Necesidad</h2>
+                            </div>
+                            <p className="text-slate-600 mb-6">FDJ requiere una plataforma que permita:</p>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                {[
+                                    "Registrar y trazar todas las visitas de mercaderistas a puntos de venta",
+                                    "Mantener evidencia fotográfica del estado de góndolas y productos",
+                                    "Gestionar información de múltiples marcas y retailers",
+                                    "Georreferenciar todas las actividades de campo",
+                                    "Proporcionar material de referencia visual para estándares de exhibición",
+                                    "Consultar manuales y planogramas desde campo",
+                                    "Implementar un sistema de recompensas para incentivar desempeño",
+                                    "Centralizar información para análisis y toma de decisiones"
+                                ].map((item, i) => (
+                                    <div key={i} className="flex items-start gap-3 p-3 bg-slate-50 rounded-lg border border-slate-100">
+                                        <div className="mt-1 text-green-500">{CheckCircle && <CheckCircle size={16}/>}</div>
+                                        <span className="text-sm text-slate-700 font-medium">{item}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </section>
+
+                        <hr className="border-slate-100"/>
+
+                        {/* 3. SOLUCIÓN PROPUESTA */}
+                        <section>
+                            <div className="flex items-center gap-3 mb-8">
+                                <div className="bg-purple-100 p-2 rounded-lg text-purple-700">{Zap && <Zap size={24}/>}</div>
+                                <h2 className="text-2xl font-bold text-slate-800">3. Solución Propuesta</h2>
+                            </div>
+                            
+                            <div className="space-y-12">
+                                {/* 3.1 Arquitectura */}
+                                <div>
+                                    <h3 className="text-xl font-bold text-slate-800 mb-4 border-l-4 border-purple-500 pl-3">3.1 Arquitectura de la Solución</h3>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                        <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 hover:border-purple-300 transition-colors">
+                                            <div className="flex items-center gap-3 mb-4">
+                                                <div className="bg-green-100 p-2 rounded-full text-green-600">{MessageSquare && <MessageSquare size={20}/>}</div>
+                                                <h4 className="font-bold text-lg text-slate-800">A. Interfaz Mercaderista</h4>
+                                            </div>
+                                            <p className="text-sm text-slate-500 mb-4 uppercase font-bold tracking-wide">WhatsApp Business API</p>
+                                            <ul className="space-y-2 text-sm text-slate-600">
+                                                <li>• Basada en chatbot conversacional</li>
+                                                <li>• Registro de visitas guiado paso a paso</li>
+                                                <li>• Captura de ubicación GPS y fotografías</li>
+                                                <li>• Consulta de material de referencia visual</li>
+                                                <li>• Sistema de puntos y reconocimiento</li>
+                                                <li>• <strong>Sin instalación de aplicaciones</strong></li>
+                                            </ul>
+                                        </div>
+                                        <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 hover:border-purple-300 transition-colors">
+                                            <div className="flex items-center gap-3 mb-4">
+                                                <div className="bg-blue-100 p-2 rounded-full text-blue-600">{LayoutDashboard && <LayoutDashboard size={20}/>}</div>
+                                                <h4 className="font-bold text-lg text-slate-800">B. Panel Administrativo Web</h4>
+                                            </div>
+                                            <p className="text-sm text-slate-500 mb-4 uppercase font-bold tracking-wide">Control Total</p>
+                                            <ul className="space-y-2 text-sm text-slate-600">
+                                                <li>• Gestión de maestros (tiendas, marcas, productos)</li>
+                                                <li>• Monitoreo en tiempo real de visitas</li>
+                                                <li>• Biblioteca de material de referencia</li>
+                                                <li>• Sistema de reportes y analítica</li>
+                                                <li>• Visualización geográfica de actividades</li>
+                                                <li>• Gestión de recompensas y ranking</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* 3.2 Funcionalidades */}
+                                <div>
+                                    <h3 className="text-xl font-bold text-slate-800 mb-6 border-l-4 border-purple-500 pl-3">3.2 Funcionalidades Principales</h3>
+                                    
+                                    <div className="space-y-8">
+                                        {/* Mercaderistas */}
+                                        <div>
+                                            <h4 className="font-bold text-green-700 mb-3 flex items-center gap-2">
+                                                {Smartphone && <Smartphone size={18}/>} Para Mercaderistas (WhatsApp)
+                                            </h4>
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 text-sm text-slate-600">
+                                                <li className="list-none flex gap-2"><span className="text-green-500">✓</span>Check-in inteligente (Geofencing)</li>
+                                                <li className="list-none flex gap-2"><span className="text-green-500">✓</span>Registro manual de tiendas (Fallback)</li>
+                                                <li className="list-none flex gap-2"><span className="text-green-500">✓</span>Selección de marcas a auditar</li>
+                                                <li className="list-none flex gap-2"><span className="text-green-500">✓</span>Consulta visual de estándares</li>
+                                                <li className="list-none flex gap-2"><span className="text-green-500">✓</span>Carga de fotos de evidencia</li>
+                                                <li className="list-none flex gap-2"><span className="text-green-500">✓</span>Registro de estado de productos</li>
+                                                <li className="list-none flex gap-2"><span className="text-green-500">✓</span>Ranking y Puntos</li>
+                                            </div>
+                                        </div>
+
+                                        {/* Admins */}
+                                        <div>
+                                            <h4 className="font-bold text-blue-700 mb-3 flex items-center gap-2">
+                                                {Settings && <Settings size={18}/>} Para Administradores (Web)
+                                            </h4>
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 text-sm text-slate-600">
+                                                <li className="list-none flex gap-2"><span className="text-blue-500">✓</span>CRUD Completo (Tiendas, Retailers, Marcas)</li>
+                                                <li className="list-none flex gap-2"><span className="text-blue-500">✓</span>Gestión de Material Visual</li>
+                                                <li className="list-none flex gap-2"><span className="text-blue-500">✓</span>Dashboard con KPIs</li>
+                                                <li className="list-none flex gap-2"><span className="text-blue-500">✓</span>Mapa de visitas en tiempo real</li>
+                                                <li className="list-none flex gap-2"><span className="text-blue-500">✓</span>Galería fotográfica por visita</li>
+                                                <li className="list-none flex gap-2"><span className="text-blue-500">✓</span>Comparación foto vs referencia</li>
+                                                <li className="list-none flex gap-2"><span className="text-blue-500">✓</span>Importación masiva de datos</li>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <hr className="border-slate-100"/>
+
+                        {/* 4. ALCANCE */}
+                        <section>
+                            <div className="flex items-center gap-3 mb-6">
+                                <div className="bg-teal-100 p-2 rounded-lg text-teal-700">{CheckCircle && <CheckCircle size={24}/>}</div>
+                                <h2 className="text-2xl font-bold text-slate-800">4. Alcance del Proyecto</h2>
+                            </div>
+                            
+                            <div className="bg-slate-50 rounded-xl p-6 border border-slate-200">
+                                <h3 className="text-lg font-bold text-slate-800 mb-4">Fase 1: Desarrollo del MVP (Incluido)</h3>
+                                <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-slate-600">
+                                    <li>• Integración WhatsApp Business API</li>
+                                    <li>• Chatbot con flujos inteligentes</li>
+                                    <li>• Sistema de geofencing (Check-in)</li>
+                                    <li>• Panel administrativo responsive</li>
+                                    <li>• Módulos CRUD completos</li>
+                                    <li>• Gestión de Material de Referencia</li>
+                                    <li>• Dashboard y Reportes básicos</li>
+                                    <li>• Roles (Admin, Supervisor, Mercaderista)</li>
+                                    <li>• Almacenamiento en nube optimizado</li>
+                                    <li>• CDN para entrega rápida</li>
+                                </ul>
+                            </div>
+                        </section>
+
+                        <hr className="border-slate-100"/>
+
+                        {/* 5. INFRAESTRUCTURA */}
+                        <section>
+                            <div className="flex items-center gap-3 mb-6">
+                                <div className="bg-indigo-100 p-2 rounded-lg text-indigo-700">{Server && <Server size={24}/>}</div>
+                                <h2 className="text-2xl font-bold text-slate-800">5. Infraestructura Incluida</h2>
+                            </div>
+                            
+                            <div className="bg-gradient-to-r from-slate-800 to-slate-900 rounded-xl p-8 text-white shadow-lg">
+                                <h3 className="text-xl font-bold mb-2">Cluster Independiente de Alto Rendimiento</h3>
+                                <p className="opacity-80 mb-6 text-sm">Garantía de operación continua y escalable.</p>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <div>
-                                        <h4 className="font-bold text-lg text-slate-800">{mod.title}</h4>
-                                        <p className="text-sm text-slate-500 mb-3">{mod.desc}</p>
-                                        <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                                            {mod.items.map((item, j) => (
-                                                <li key={j} className="text-sm text-slate-700 flex items-start gap-2">
-                                                    <span className="text-blue-400 mt-1">•</span> {item}
-                                                </li>
-                                            ))}
+                                        <h4 className="font-bold text-indigo-300 mb-3 text-sm uppercase">Arquitectura & Potencia</h4>
+                                        <ul className="space-y-2 text-sm opacity-90">
+                                            <li>• Infraestructura containerizada</li>
+                                            <li>• Balanceo de carga inteligente</li>
+                                            <li>• <strong>Hasta 10.000 mercaderistas concurrentes</strong></li>
+                                            <li>• Almacenamiento de <strong>2 TB</strong></li>
+                                            <li>• Transferencia de 2TB/mes</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 className="font-bold text-indigo-300 mb-3 text-sm uppercase">Seguridad & Gestión</h4>
+                                        <ul className="space-y-2 text-sm opacity-90">
+                                            <li>• Sistema de colas robusto (Async)</li>
+                                            <li>• Monitoreo 24/7 con alertas</li>
+                                            <li>• Backups diarios automáticos</li>
+                                            <li>• Certificados SSL/TLS</li>
+                                            <li>• Protección Anti-DDoS</li>
                                         </ul>
                                     </div>
                                 </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* 3. Estructura de Costos */}
-                    <div className="bg-white p-8 rounded-xl border border-slate-200 shadow-sm">
-                        <h3 className="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
-                            {DollarSign && <DollarSign className="text-emerald-600"/>} Estructura de Costos Estimada
-                        </h3>
-                        
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                            <div>
-                                <h4 className="font-bold text-lg text-slate-700 mb-4 border-b pb-2">Costos Variables Mensuales (OpEx)</h4>
-                                <p className="text-sm text-slate-500 mb-4">Se pagan según consumo a proveedores (Meta/Cloud).</p>
-                                <div className="space-y-4">
-                                    <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg">
-                                        <div>
-                                            <p className="font-bold text-slate-800">WhatsApp Service (Utility)</p>
-                                            <p className="text-xs text-slate-500">Reportes diarios iniciados por usuario</p>
-                                        </div>
-                                        <div className="text-right">
-                                            <p className="font-bold text-emerald-600">~$0.40 USD</p>
-                                            <p className="text-[10px] text-slate-400">/usuario/mes</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg">
-                                        <div>
-                                            <p className="font-bold text-slate-800">WhatsApp Marketing</p>
-                                            <p className="text-xs text-slate-500">4 campañas mensuales</p>
-                                        </div>
-                                        <div className="text-right">
-                                            <p className="font-bold text-emerald-600">~$0.24 USD</p>
-                                            <p className="text-[10px] text-slate-400">/usuario/mes</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg">
-                                        <div>
-                                            <p className="font-bold text-slate-800">Inteligencia Artificial</p>
-                                            <p className="text-xs text-slate-500">Procesamiento de lenguaje natural</p>
-                                        </div>
-                                        <div className="text-right">
-                                            <p className="font-bold text-emerald-600">~$1.00 USD</p>
-                                            <p className="text-[10px] text-slate-400">/usuario/mes</p>
-                                        </div>
-                                    </div>
-                                     <div className="p-3 bg-emerald-50 rounded-lg border border-emerald-100 mt-2">
-                                        <div className="flex justify-between items-center">
-                                            <p className="font-bold text-emerald-800">Total Estimado por Usuario</p>
-                                            <p className="font-bold text-xl text-emerald-700">~$2.14 USD</p>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
+                        </section>
 
-                            <div>
-                                <h4 className="font-bold text-lg text-slate-700 mb-4 border-b pb-2">Inversión de Setup (CapEx)</h4>
-                                <p className="text-sm text-slate-500 mb-4">Desarrollo e implementación única.</p>
-                                <ul className="space-y-3">
-                                    <li className="flex gap-3 text-sm text-slate-700">
-                                        <div className="bg-blue-100 text-blue-600 p-1 rounded">{CheckCircle && <CheckCircle size={14}/>}</div>
-                                        Configuración WhatsApp Business API.
-                                    </li>
-                                    <li className="flex gap-3 text-sm text-slate-700">
-                                        <div className="bg-blue-100 text-blue-600 p-1 rounded">{CheckCircle && <CheckCircle size={14}/>}</div>
-                                        Desarrollo Dashboard Admin (React + Node).
-                                    </li>
-                                    <li className="flex gap-3 text-sm text-slate-700">
-                                        <div className="bg-blue-100 text-blue-600 p-1 rounded">{CheckCircle && <CheckCircle size={14}/>}</div>
-                                        Programación del Chatbot (Flujos + IA).
-                                    </li>
-                                     <li className="flex gap-3 text-sm text-slate-700">
-                                        <div className="bg-blue-100 text-blue-600 p-1 rounded">{CheckCircle && <CheckCircle size={14}/>}</div>
-                                        Base de Datos y Galería Multimedia.
-                                    </li>
-                                    <li className="flex gap-3 text-sm text-slate-700">
-                                        <div className="bg-blue-100 text-blue-600 p-1 rounded">{CheckCircle && <CheckCircle size={14}/>}</div>
-                                        Capacitación y Onboarding.
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
                 </div>
             );
