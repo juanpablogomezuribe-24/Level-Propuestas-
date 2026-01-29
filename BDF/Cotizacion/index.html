@@ -81,7 +81,21 @@
             ShieldCheck: createIconComponent('ShieldCheck'),
             Eye: createIconComponent('Eye'),
             ArrowDownToLine: createIconComponent('ArrowDownToLine'),
-            ArrowUpToLine: createIconComponent('ArrowUpToLine')
+            ArrowUpToLine: createIconComponent('ArrowUpToLine'),
+            User: createIconComponent('User'),
+            Paperclip: createIconComponent('Paperclip'),
+            Mic: createIconComponent('Mic'),
+            Smile: createIconComponent('Smile'),
+            CheckCheck: createIconComponent('CheckCheck'),
+            ThumbsUp: createIconComponent('ThumbsUp'),
+            ThumbsDown: createIconComponent('ThumbsDown'),
+            GitBranch: createIconComponent('GitBranch'),
+            Hash: createIconComponent('Hash'),
+            Tag: createIconComponent('Tag'),
+            List: createIconComponent('List'),
+            MessageCircle: createIconComponent('MessageCircle'),
+            Clock: createIconComponent('Clock'),
+            Layout: createIconComponent('Layout')
         };
 
         const { 
@@ -89,10 +103,19 @@
             Settings, Search, Send, Camera, CheckCircle, AlertCircle, BarChart, 
             Upload, FileText, MoreVertical, Map: MapIcon, Flame, Target, Phone, 
             Mail, Calendar, TrendingUp, UserPlus, Filter, Plus, Package, Store, Award,
-            BookOpen, DollarSign, Smartphone, Server, Zap, ShieldCheck, Eye, ArrowDownToLine, ArrowUpToLine
+            BookOpen, DollarSign, Smartphone, Server, Zap, ShieldCheck, Eye, 
+            ArrowDownToLine, ArrowUpToLine, User, Paperclip, Mic, Smile, CheckCheck,
+            ThumbsUp, ThumbsDown, GitBranch, Hash, Tag, List, MessageCircle, Clock, Layout
         } = Icons;
 
         // --- MOCK DATA ---
+        const CONTACTS = [
+            { id: 1, name: 'Maria Gonzalez', role: 'Mercaderista Senior', phone: '3001234567', email: 'maria@bdf.com', points: 1250, rank: 1, status: 'En Ruta', zone: 'Norte', streak: 12, totalVisits: 145, tags: ['Experto', 'Zona Norte'], lastMsg: 'Ya envié la foto de Farmatodo', time: '18:19', unread: 2 },
+            { id: 2, name: 'Juan Perez', role: 'Mercaderista Junior', phone: '3109876543', email: 'juan@bdf.com', points: 980, rank: 2, status: 'En Ruta', zone: 'Sur', streak: 5, totalVisits: 98, tags: ['Nuevo'], lastMsg: '¿Me confirmas los puntos?', time: '18:15', unread: 0 },
+            { id: 3, name: 'Carlos Ruiz', role: 'Mercaderista', phone: '3205551122', email: 'carlos@bdf.com', points: 450, rank: 15, status: 'Inactivo', zone: 'Occidente', streak: 0, totalVisits: 45, tags: ['Riesgo'], lastMsg: 'Check-in realizado', time: '17:40', unread: 0 },
+            { id: 4, name: 'Ana Lopez', role: 'Mercaderista Senior', phone: '3151112233', email: 'ana@bdf.com', points: 1100, rank: 3, status: 'En Ruta', zone: 'Norte', streak: 8, totalVisits: 130, tags: ['Líder'], lastMsg: 'Hola', time: '16:00', unread: 0 },
+        ];
+
         const RETAILERS = [
             { id: 1, name: 'Farmatodo - 93', type: 'Droguería', city: 'Bogotá', status: 'Activo', visits: 145, lat: 20, lng: 30, heat: 'high' },
             { id: 2, name: 'Cruz Verde - Pepe', type: 'Droguería', city: 'Bogotá', status: 'Activo', visits: 98, lat: 50, lng: 60, heat: 'medium' },
@@ -108,20 +131,7 @@
             'Oxxo': { flyer: 'https://i.postimg.cc/FFLr3BXZ/infaltables-1.png', plano: 'https://i.postimg.cc/wjKsDmrQ/planograma-nivea.png' },
         };
 
-        const GALLERY = [
-            { id: 1, user: 'Maria G.', store: 'Farmatodo - 93', time: '10:30 AM', img: 'https://placehold.co/150x150/png?text=Gondola+OK', score: 10 },
-            { id: 2, user: 'Juan P.', store: 'Oxxo - Chicó', time: '09:15 AM', img: 'https://placehold.co/150x150/png?text=Gondola+OK', score: 10 },
-            { id: 3, user: 'Carlos R.', store: 'Cruz Verde - Pepe', time: '08:45 AM', img: 'https://placehold.co/150x150/png?text=Exhibicion', score: 5 },
-        ];
-
-        const CONTACTS = [
-            { id: 1, name: 'Maria Gonzalez', role: 'Mercaderista Senior', phone: '3001234567', email: 'maria@bdf.com', points: 1250, rank: 1, status: 'En Ruta', zone: 'Norte', streak: 12, totalVisits: 145, tags: ['Experto', 'Zona Norte'] },
-            { id: 2, name: 'Juan Perez', role: 'Mercaderista Junior', phone: '3109876543', email: 'juan@bdf.com', points: 980, rank: 2, status: 'En Ruta', zone: 'Sur', streak: 5, totalVisits: 98, tags: ['Nuevo'] },
-            { id: 3, name: 'Carlos Ruiz', role: 'Mercaderista', phone: '3205551122', email: 'carlos@bdf.com', points: 450, rank: 15, status: 'Inactivo', zone: 'Occidente', streak: 0, totalVisits: 45, tags: ['Riesgo'] },
-            { id: 4, name: 'Ana Lopez', role: 'Mercaderista Senior', phone: '3151112233', email: 'ana@bdf.com', points: 1100, rank: 3, status: 'En Ruta', zone: 'Norte', streak: 8, totalVisits: 130, tags: ['Líder'] },
-        ];
-
-        const RETAIL_STATS = [
+         const RETAIL_STATS = [
             { name: 'Oxxo', visits: 450, color: 'bg-red-500' },
             { name: 'Éxito', visits: 320, color: 'bg-yellow-400' },
             { name: 'Farmatodo', visits: 210, color: 'bg-blue-600' },
@@ -129,18 +139,59 @@
             { name: 'Jumbo', visits: 120, color: 'bg-green-500' },
         ];
 
+        const GALLERY = [
+            { id: 1, user: 'Maria G.', store: 'Farmatodo - 93', time: '10:30 AM', img: 'https://placehold.co/150x150/png?text=Gondola+OK', score: 10 },
+            { id: 2, user: 'Juan P.', store: 'Oxxo - Chicó', time: '09:15 AM', img: 'https://placehold.co/150x150/png?text=Gondola+OK', score: 10 },
+            { id: 3, user: 'Carlos R.', store: 'Cruz Verde - Pepe', time: '08:45 AM', img: 'https://placehold.co/150x150/png?text=Exhibicion', score: 5 },
+        ];
+
+        const CHAT_HISTORY_MOCK = [
+            { id: 1, from: 'bot', text: '👋 Hola Maria. Bienvenido a tu turno BDF. Ingresa tu cédula.', time: '08:00' },
+            { id: 2, from: 'user', text: '52345678', time: '08:01' },
+            { id: 3, from: 'bot', text: 'Validado. ¿Qué punto visitas hoy?', time: '08:01' },
+            { id: 4, from: 'user', text: 'Farmatodo 93', time: '08:05' },
+            { id: 5, from: 'bot', text: 'Entendido. Aquí tienes los infaltables.', time: '08:05', image: 'https://i.postimg.cc/FFLr3BXZ/infaltables-1.png' },
+            { id: 6, from: 'user', text: 'Listo, ya organicé.', time: '08:45' },
+            { id: 7, from: 'bot', text: 'Por favor envía foto de evidencia.', time: '08:45' },
+            { id: 8, from: 'user', text: 'Aquí está', time: '08:46', image: 'https://placehold.co/300x400/png?text=FOTO+GONDOLA' },
+        ];
+
+        const TAGS_LIST = [
+            { id: 1, name: 'Zona Norte', color: 'bg-blue-100 text-blue-700' },
+            { id: 2, name: 'Riesgo Fuga', color: 'bg-red-100 text-red-700' },
+            { id: 3, name: 'Nuevo', color: 'bg-green-100 text-green-700' },
+            { id: 4, name: 'Experto', color: 'bg-purple-100 text-purple-700' },
+        ];
+
+        const PIPELINE_STAGES = [
+            { id: 1, name: 'Nuevo Ingreso', count: 5, color: 'bg-slate-100' },
+            { id: 2, name: 'Capacitación', count: 12, color: 'bg-blue-50' },
+            { id: 3, name: 'En Ruta', count: 45, color: 'bg-green-50' },
+            { id: 4, name: 'Inactivo', count: 3, color: 'bg-red-50' },
+        ];
+
+        const WA_TEMPLATES = [
+            { id: 1, name: 'bienvenida_bdf', type: 'utility', lang: 'es', status: 'aprobado' },
+            { id: 2, name: 'alerta_stock_nivea', type: 'marketing', lang: 'es', status: 'aprobado' },
+            { id: 3, name: 'recordatorio_visita', type: 'utility', lang: 'es', status: 'pendiente' },
+        ];
+
+        const INFALTABLES_IMG = 'https://i.postimg.cc/FFLr3BXZ/infaltables-1.png';
+        const PLANOGRAMA_IMG = 'https://i.postimg.cc/wjKsDmrQ/planograma-nivea.png';
+
         // --- APP COMPONENT ---
         function BDFApp() {
             const [view, setView] = useState('dashboard');
+            const [scenario, setScenario] = useState('manual'); 
+            const [waView, setWaView] = useState('chats'); // chats, contacts, stages, tags, templates, marketing
             
-            // --- Chat State ---
-            // Initial state is asking for credentials
+            // --- Chat State (Simulator) ---
             const [messages, setMessages] = useState([
                 { id: 1, from: 'bot', type: 'text', content: '👋 Bienvenido a la plataforma BDF Retail.\n\nPara iniciar tu turno, por favor ingresa tu **Nombre Completo** y **Cédula**.' }
             ]);
             const [input, setInput] = useState('');
             const [points, setPoints] = useState(150);
-            const [chatStep, setChatStep] = useState('LOGIN'); // NEW: Login step
+            const [chatStep, setChatStep] = useState('LOGIN'); 
             const [currentStore, setCurrentStore] = useState(null);
             const chatEndRef = useRef(null);
 
@@ -150,92 +201,57 @@
             const handleSend = (e) => {
                 e.preventDefault();
                 if(!input.trim()) return;
-                
                 const userMsg = { id: Date.now(), from: 'user', type: 'text', content: input };
                 setMessages(prev => [...prev, userMsg]);
                 setInput('');
-
-                setTimeout(() => {
-                    processBotResponse(userMsg.content);
-                }, 1000);
+                setTimeout(() => { processBotResponse(userMsg.content); }, 1000);
             };
 
             const processBotResponse = (text) => {
-                const lowerText = text.toLowerCase();
-
-                // STEP: LOGIN (New)
                 if (chatStep === 'LOGIN') {
-                    setMessages(prev => [
-                        ...prev,
-                        { id: Date.now(), from: 'bot', type: 'text', content: `✅ Gracias **${text}**. Datos validados correctamente.\n\n📍 ¿Qué punto de venta visitas hoy?` }
-                    ]);
-                    setChatStep(0); // Move to Store Selection
-                    return;
+                    setMessages(prev => [...prev, { id: Date.now(), from: 'bot', type: 'text', content: `✅ Gracias **${text}**. Datos validados correctamente.\n\n📍 ¿Qué punto de venta visitas hoy?` }]);
+                    setChatStep(0); return;
                 }
-                
-                // Paso 0: Identificar Tienda
                 if (chatStep === 0) {
-                    let store = Object.keys(INFALTABLES_ASSETS).find(k => lowerText.includes(k.toLowerCase()));
-                    if (!store) store = 'Farmatodo'; 
-                    
-                    setCurrentStore(store);
+                    setCurrentStore('Farmatodo');
                     setMessages(prev => [
                         ...prev,
-                        { id: Date.now(), from: 'bot', type: 'text', content: `✅ Perfecto, vas para **${store}**.\n\nAquí tienes el folleto digital de **INFALTABLES** para hoy:` },
-                        { id: Date.now()+1, from: 'bot', type: 'image', content: INFALTABLES_ASSETS[store].flyer, caption: '📄 Folleto Digital BDF' },
+                        { id: Date.now(), from: 'bot', type: 'text', content: `✅ Perfecto, vas para **Farmatodo**.\n\nAquí tienes el folleto digital de **INFALTABLES** para hoy:` },
+                        { id: Date.now()+1, from: 'bot', type: 'image', content: INFALTABLES_IMG, caption: '📄 Folleto Digital BDF' },
                         { id: Date.now()+2, from: 'bot', type: 'text', content: '¿Quieres ver cómo se deben ver en la góndola? (Sí/No)' }
                     ]);
-                    setChatStep(1);
-                    return;
+                    setChatStep(1); return;
                 }
-
                 if (chatStep === 1) {
-                    if (lowerText.includes('si') || lowerText.includes('sí')) {
-                        setMessages(prev => [
-                            ...prev,
-                            { id: Date.now(), from: 'bot', type: 'text', content: 'Aquí tienes la referencia visual:' },
-                            { id: Date.now()+1, from: 'bot', type: 'image', content: INFALTABLES_ASSETS[currentStore].plano, caption: '📸 Foto de Éxito' },
-                            { id: Date.now()+2, from: 'bot', type: 'text', content: 'Avísame cuando llegues al punto y tengas la exhibición lista escribiendo "Listo".' }
-                        ]);
-                    } else {
-                        setMessages(prev => [
-                            ...prev,
-                            { id: Date.now(), from: 'bot', type: 'text', content: 'Ok. Avísame cuando llegues al punto y tengas la exhibición lista escribiendo "Listo".' }
-                        ]);
-                    }
-                    setChatStep(4);
-                    return;
+                    setMessages(prev => [
+                        ...prev,
+                        { id: Date.now(), from: 'bot', type: 'image', content: PLANOGRAMA_IMG, caption: '📸 Foto de Éxito' },
+                        { id: Date.now()+1, from: 'bot', type: 'text', content: 'Avísame cuando termines de exhibir escribiendo "Listo".' }
+                    ]);
+                    setChatStep(4); return;
                 }
-
                 if (chatStep === 4) {
-                    setMessages(prev => [
-                        ...prev,
-                        { id: Date.now(), from: 'bot', type: 'text', content: '📍 Geo-localización confirmada en punto de venta.\n\nPor favor envíame una **FOTO** de cómo quedó la góndola para validar tu visita y darte tus puntos. 📸' }
-                    ]);
-                    setChatStep(5);
-                    return;
-                }
-
-                if (chatStep === 5) {
-                    setMessages(prev => [
-                        ...prev,
-                        { id: Date.now(), from: 'bot', type: 'text', content: '🌟 **¡Excelente trabajo!**\n\nFoto recibida y validada. La exhibición cumple con los estándares.\n\n🏆 **+10 Puntos** ganados por esta visita.\nAcumulado del mes: 160 Puntos (Puesto #1)' }
-                    ]);
-                    setPoints(prev => prev + 10);
-                    setChatStep(0);
-                    return;
+                    setMessages(prev => [...prev, { id: Date.now(), from: 'bot', type: 'text', content: '📍 Geo-localización confirmada.\n\nPor favor envíame una **FOTO** de cómo quedó la góndola.' }]);
+                    setChatStep(5); return;
                 }
             };
 
             const simulatePhotoUpload = () => {
                 const userMsg = { id: Date.now(), from: 'user', type: 'image', content: 'https://placehold.co/200x200?text=Mi+Foto', caption: 'Así quedó la góndola' };
                 setMessages(prev => [...prev, userMsg]);
+                
                 setTimeout(() => {
-                    processBotResponse("FOTO_ENVIADA");
-                }, 1000);
+                    if (scenario === 'manual') {
+                        setMessages(prev => [...prev, { id: Date.now(), from: 'bot', type: 'text', content: '📩 **Foto Recibida.**\n\nTu supervisor revisará la evidencia y te asignará los puntos en breve. ¡Sigue con la siguiente visita!' }]);
+                    } else {
+                        setMessages(prev => [...prev, { id: Date.now(), from: 'bot', type: 'text', content: '🤖 **IA Analizando...**\n\n✅ Planometría: 95% Correcta\n✅ Infaltables: 5/5 detectados.\n\n🏆 **+50 Puntos** asignados automáticamente.' }]);
+                        setPoints(prev => prev + 50);
+                    }
+                    setChatStep(0);
+                }, 1500);
             };
 
-            // --- UI SECTIONS ---
+            // --- VISTAS RESTAURADAS ---
 
             const renderDashboard = () => {
                 const topMerchandiser = CONTACTS.reduce((prev, current) => (prev.totalVisits > current.totalVisits) ? prev : current);
@@ -278,10 +294,8 @@
                             </div>
                         </div>
 
-                        {/* Middle Section: Retail Stats & Top Performer */}
+                        {/* Middle Section */}
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                            
-                            {/* Visitas por Retail Chart */}
                             <div className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-slate-200 p-6">
                                 <h3 className="font-bold text-slate-700 mb-6 flex items-center gap-2">
                                     {BarChart && <BarChart size={20}/>} Visitas por Retail (Mes Actual)
@@ -304,252 +318,109 @@
                                 </div>
                             </div>
 
-                            {/* Top Merchandiser Card */}
                             <div className="bg-gradient-to-br from-indigo-600 to-blue-700 rounded-xl shadow-lg p-6 text-white flex flex-col items-center justify-center relative overflow-hidden">
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full -mr-16 -mt-16"></div>
                                 <div className="relative z-10 text-center">
-                                    <div className="mb-2 inline-block bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
-                                        Top Performer
-                                    </div>
+                                    <div className="mb-2 inline-block bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">Top Performer</div>
                                     <div className="w-20 h-20 bg-white rounded-full mx-auto mb-3 flex items-center justify-center text-indigo-600 font-bold text-3xl shadow-md border-4 border-indigo-300">
                                         {topMerchandiser.name.charAt(0)}
                                     </div>
                                     <h3 className="text-xl font-bold">{topMerchandiser.name}</h3>
                                     <p className="text-indigo-100 text-sm mb-4">{topMerchandiser.role}</p>
-                                    
-                                    <div className="grid grid-cols-2 gap-4 w-full bg-white/10 rounded-lg p-3 backdrop-blur-sm">
-                                        <div>
-                                            <p className="text-2xl font-bold">{topMerchandiser.totalVisits}</p>
-                                            <p className="text-[10px] uppercase opacity-70">Visitas Totales</p>
-                                        </div>
-                                        <div>
-                                            <p className="text-2xl font-bold">{topMerchandiser.streak}</p>
-                                            <p className="text-[10px] uppercase opacity-70">Días Racha</p>
-                                        </div>
-                                    </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        {/* Traceability Gallery */}
-                        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-                            <div className="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
-                                <h3 className="font-bold text-slate-700 flex items-center gap-2">
-                                    {ImageIcon && <ImageIcon size={18}/>} Última Evidencia Recibida
-                                </h3>
-                                <button className="text-blue-600 text-sm font-medium hover:underline">Galería Completa</button>
-                            </div>
-                            <div className="p-4 grid grid-cols-2 md:grid-cols-4 gap-4">
-                                {GALLERY.map(pic => (
-                                    <div key={pic.id} className="relative group rounded-lg overflow-hidden border border-slate-200 shadow-sm cursor-pointer">
-                                        <img src={pic.img} alt="Evidence" className="w-full h-40 object-cover transition-transform group-hover:scale-105" />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-3">
-                                            <p className="text-white font-bold text-sm">{pic.store}</p>
-                                            <div className="flex justify-between items-center">
-                                                <p className="text-slate-200 text-xs">{pic.user}</p>
-                                                <span className="bg-green-500 text-white text-[10px] px-1.5 rounded">{pic.time}</span>
-                                            </div>
-                                        </div>
-                                        <div className="absolute top-2 right-2 bg-yellow-400 text-yellow-900 text-xs font-bold px-2 py-1 rounded-full shadow-sm">
-                                            +{pic.score} pts
-                                        </div>
-                                    </div>
-                                ))}
                             </div>
                         </div>
                     </div>
                 );
             };
 
-            const renderContentManager = () => (
-                <div className="space-y-6 animate-in fade-in">
-                    <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-                        <h2 className="text-xl font-bold text-slate-800 mb-4">Gestión de Folletos Digitales</h2>
-                        <p className="text-sm text-slate-500 mb-6">Asigna el folleto digital y el planograma visual correspondiente a cada cadena.</p>
-                        
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {Object.entries(INFALTABLES_ASSETS).map(([chain, assets]) => (
-                                <div key={chain} className="border border-slate-200 rounded-xl p-4 hover:border-blue-300 transition-all bg-slate-50">
-                                    <div className="flex justify-between items-center mb-4">
-                                        <h3 className="font-bold text-lg text-slate-700">{chain}</h3>
-                                        <span className="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded font-bold">Activo</span>
+            const renderGamification = () => {
+                const top3 = CONTACTS.slice(0, 3);
+                return (
+                    <div className="space-y-8 animate-in fade-in">
+                        <div className="flex flex-col items-center justify-center py-6">
+                            <h2 className="text-2xl font-bold text-slate-800 mb-8 flex items-center gap-2">
+                                {Trophy && <Trophy size={28} className="text-yellow-500"/>} Podio de Campeones (Enero)
+                            </h2>
+                            <div className="flex items-end gap-4 md:gap-8">
+                                <div className="flex flex-col items-center">
+                                    <div className="w-16 h-16 rounded-full border-4 border-slate-300 overflow-hidden mb-2 relative">
+                                        <div className="w-full h-full bg-slate-200 flex items-center justify-center text-slate-500 font-bold text-xl">{top3[1].name.charAt(0)}</div>
+                                        <div className="absolute bottom-0 right-0 bg-slate-300 text-white text-xs font-bold px-1.5 rounded-full">2</div>
                                     </div>
-                                    <div className="flex gap-4">
-                                        <div className="flex-1">
-                                            <p className="text-xs font-bold text-slate-500 mb-2 uppercase">Folleto Infaltables</p>
-                                            <div className="aspect-[3/4] bg-white rounded-lg border border-slate-200 flex items-center justify-center relative group cursor-pointer overflow-hidden">
-                                                <img src={assets.flyer} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"/>
-                                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black/20 transition-opacity">
-                                                    <div className="bg-white p-2 rounded-full shadow-lg text-slate-700"><Upload size={16}/></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="flex-1">
-                                            <p className="text-xs font-bold text-slate-500 mb-2 uppercase">Planograma (Foto Éxito)</p>
-                                            <div className="aspect-[3/4] bg-white rounded-lg border border-slate-200 flex items-center justify-center relative group cursor-pointer overflow-hidden">
-                                                <img src={assets.plano} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"/>
-                                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black/20 transition-opacity">
-                                                    <div className="bg-white p-2 rounded-full shadow-lg text-slate-700"><Upload size={16}/></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="mt-4 flex justify-end">
-                                        <button className="text-blue-600 text-xs font-bold hover:underline flex items-center gap-1">
-                                            {Settings && <Settings size={12}/>} Configurar Reglas
-                                        </button>
-                                    </div>
+                                    <p className="font-bold text-slate-700 text-sm">{top3[1].name}</p>
+                                    <p className="text-blue-600 font-bold text-sm">{top3[1].points} pts</p>
                                 </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            );
-
-            const renderGamification = () => (
-                <div className="space-y-6 animate-in fade-in">
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                        <div className="lg:col-span-2 space-y-6">
-                            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-                                <h2 className="text-xl font-bold text-slate-800 mb-4">Reglas del Juego (Configuración)</h2>
-                                <div className="space-y-6">
-                                    <div>
-                                        <div className="flex justify-between mb-2">
-                                            <label className="font-medium text-slate-700">Puntos por Visita Completada</label>
-                                            <span className="font-bold text-blue-600">10 pts</span>
-                                        </div>
-                                        <input type="range" className="w-full accent-blue-600" defaultValue="10" />
+                                <div className="flex flex-col items-center">
+                                    <div className="mb-2">{Trophy && <Trophy size={32} className="text-yellow-500 animate-bounce"/>}</div>
+                                    <div className="w-20 h-20 rounded-full border-4 border-yellow-400 overflow-hidden mb-2 relative shadow-lg">
+                                        <div className="w-full h-full bg-yellow-100 flex items-center justify-center text-yellow-600 font-bold text-2xl">{top3[0].name.charAt(0)}</div>
+                                        <div className="absolute bottom-0 right-0 bg-yellow-400 text-white text-xs font-bold px-2 rounded-full">1</div>
                                     </div>
-                                    <div>
-                                        <div className="flex justify-between mb-2">
-                                            <label className="font-medium text-slate-700">Bono Racha (3 visitas/día)</label>
-                                            <span className="font-bold text-blue-600">50 pts</span>
-                                        </div>
-                                        <input type="range" className="w-full accent-blue-600" defaultValue="50" />
+                                    <p className="font-bold text-slate-800">{top3[0].name}</p>
+                                    <p className="text-blue-600 font-bold">{top3[0].points} pts</p>
+                                </div>
+                                <div className="flex flex-col items-center">
+                                    <div className="w-16 h-16 rounded-full border-4 border-orange-300 overflow-hidden mb-2 relative">
+                                        <div className="w-full h-full bg-orange-100 flex items-center justify-center text-orange-500 font-bold text-xl">{top3[2].name.charAt(0)}</div>
+                                        <div className="absolute bottom-0 right-0 bg-orange-300 text-white text-xs font-bold px-1.5 rounded-full">3</div>
                                     </div>
-                                    <div>
-                                        <div className="flex justify-between mb-2">
-                                            <label className="font-medium text-slate-700">Bono Semanal (Visita a todas las cadenas)</label>
-                                            <span className="font-bold text-blue-600">100 pts</span>
-                                        </div>
-                                        <input type="range" className="w-full accent-blue-600" defaultValue="100" />
-                                    </div>
+                                    <p className="font-bold text-slate-700 text-sm">{top3[2].name}</p>
+                                    <p className="text-blue-600 font-bold text-sm">{top3[2].points} pts</p>
                                 </div>
                             </div>
-                            
-                            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-                                <h2 className="text-xl font-bold text-slate-800 mb-4">Ranking Actual</h2>
-                                <table className="w-full text-left">
-                                    <thead className="bg-slate-50 text-slate-500 uppercase text-xs">
-                                        <tr>
-                                            <th className="p-3">#</th>
-                                            <th className="p-3">Mercaderista</th>
-                                            <th className="p-3">Etiquetas</th>
-                                            <th className="p-3 text-right">Puntos</th>
+                        </div>
+
+                        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                            <div className="p-4 bg-slate-50 border-b border-slate-200">
+                                <h3 className="font-bold text-slate-700">Ranking General</h3>
+                            </div>
+                            <table className="w-full text-left">
+                                <thead className="bg-white text-slate-500 text-xs uppercase border-b border-slate-100">
+                                    <tr><th className="p-4">Rank</th><th className="p-4">Mercaderista</th><th className="p-4 text-center">Racha</th><th className="p-4 text-right">Puntos</th></tr>
+                                </thead>
+                                <tbody className="divide-y divide-slate-50 text-sm">
+                                    {CONTACTS.map((c) => (
+                                        <tr key={c.id} className="hover:bg-slate-50 transition-colors">
+                                            <td className="p-4 font-bold text-slate-400">#{c.rank}</td>
+                                            <td className="p-4 font-medium text-slate-800">{c.name}</td>
+                                            <td className="p-4 text-center">{c.streak} días</td>
+                                            <td className="p-4 text-right font-bold text-blue-600">{c.points}</td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        {CONTACTS.map((c, i) => (
-                                            <tr key={c.id} className="border-b border-slate-100 last:border-0">
-                                                <td className="p-3 font-bold text-slate-400">{c.rank}</td>
-                                                <td className="p-3 font-medium text-slate-800 flex items-center gap-2">
-                                                    <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-xs">
-                                                        {c.name.charAt(0)}
-                                                    </div>
-                                                    {c.name}
-                                                </td>
-                                                <td className="p-3">
-                                                    {c.tags.map(t => (
-                                                        <span key={t} className="bg-slate-100 text-slate-600 text-[10px] px-2 py-1 rounded-full font-bold mr-1">{t}</span>
-                                                    ))}
-                                                </td>
-                                                <td className="p-3 text-right font-bold text-blue-600">{c.points}</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div className="space-y-6">
-                            <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-xl p-6 text-white text-center shadow-lg">
-                                <div className="mx-auto bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mb-4">
-                                    {Trophy && <Trophy size={32} className="text-yellow-300"/>}
-                                </div>
-                                <h3 className="text-2xl font-bold">Temporada Enero</h3>
-                                <p className="opacity-90 mb-4">Meta Global: 90% Cobertura</p>
-                                <button className="bg-white text-blue-700 font-bold px-6 py-2 rounded-full shadow-sm hover:scale-105 transition-transform text-sm">Ver Premios</button>
-                            </div>
+                                    ))}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                </div>
-            );
+                );
+            };
 
             const renderRoutes = () => (
                 <div className="flex h-full gap-6 animate-in fade-in">
                     <div className="w-64 bg-white rounded-xl shadow-sm border border-slate-200 p-4 h-fit">
-                        <h3 className="font-bold text-slate-700 mb-4 flex items-center gap-2">
-                            {Filter && <Filter size={18}/>} Filtros de Mapa
-                        </h3>
+                        <h3 className="font-bold text-slate-700 mb-4 flex items-center gap-2">{Filter && <Filter size={18}/>} Filtros</h3>
                         <div className="space-y-4">
-                            <div>
-                                <label className="text-xs font-bold text-slate-500 uppercase block mb-2">Por Retail</label>
-                                <div className="space-y-2">
-                                    {['Todos', 'Farmatodo', 'Oxxo', 'Éxito'].map(r => (
-                                        <label key={r} className="flex items-center gap-2 text-sm text-slate-600 cursor-pointer">
-                                            <input type="checkbox" className="rounded text-blue-600" defaultChecked={r === 'Todos'} /> {r}
-                                        </label>
-                                    ))}
-                                </div>
-                            </div>
-                            <div>
-                                <label className="text-xs font-bold text-slate-500 uppercase block mb-2">Por Zona</label>
-                                <select className="w-full border border-slate-300 rounded p-2 text-sm">
-                                    <option>Todas las Zonas</option>
-                                    <option>Norte</option>
-                                    <option>Sur</option>
-                                    <option>Occidente</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div className="mt-8 border-t border-slate-100 pt-4">
-                            <h4 className="font-bold text-slate-700 mb-2 text-sm">Top 3 Puntos Más Visitados</h4>
                             <div className="space-y-2">
-                                {RETAILERS.sort((a,b) => b.visits - a.visits).slice(0,3).map((r, i) => (
-                                    <div key={r.id} className="flex justify-between items-center text-xs">
-                                        <span className="text-slate-600 truncate w-32">{i+1}. {r.name}</span>
-                                        <span className="font-bold text-blue-600">{r.visits}</span>
-                                    </div>
+                                {['Todos', 'Farmatodo', 'Oxxo', 'Éxito'].map(r => (
+                                    <label key={r} className="flex items-center gap-2 text-sm text-slate-600 cursor-pointer">
+                                        <input type="checkbox" className="rounded text-blue-600" defaultChecked={r === 'Todos'} /> {r}
+                                    </label>
                                 ))}
                             </div>
                         </div>
                     </div>
-
                     <div className="flex-1 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col relative">
                         <div className="absolute top-4 right-4 z-10 bg-white/90 backdrop-blur p-2 rounded-lg shadow-sm border border-slate-200 text-xs">
-                            <div className="flex items-center gap-2 mb-1"><div className="w-3 h-3 rounded-full bg-red-500 opacity-80"></div> Alta Frecuencia</div>
-                            <div className="flex items-center gap-2 mb-1"><div className="w-3 h-3 rounded-full bg-orange-400 opacity-80"></div> Media Frecuencia</div>
-                            <div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-green-400 opacity-80"></div> Baja Frecuencia</div>
+                            <div className="flex items-center gap-2 mb-1"><div className="w-3 h-3 rounded-full bg-red-500 opacity-80"></div> Alta</div>
+                            <div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-green-400 opacity-80"></div> Baja</div>
                         </div>
-                        
                         <div className="flex-1 map-bg relative">
                             {RETAILERS.map(store => (
-                                <div 
-                                    key={store.id}
-                                    className="absolute group cursor-pointer"
-                                    style={{ top: `${store.lat}%`, left: `${store.lng}%` }}
-                                >
-                                    <div className={`w-8 h-8 rounded-full opacity-40 animate-pulse absolute -top-2 -left-2 ${
-                                        store.heat === 'high' ? 'bg-red-400' : store.heat === 'medium' ? 'bg-orange-300' : 'bg-green-300'
-                                    }`}></div>
-                                    <div className={`relative w-4 h-4 rounded-full border-2 border-white shadow-md ${
-                                        store.heat === 'high' ? 'bg-red-600' : store.heat === 'medium' ? 'bg-orange-500' : 'bg-green-500'
-                                    }`}></div>
-                                    
+                                <div key={store.id} className="absolute group cursor-pointer" style={{ top: `${store.lat}%`, left: `${store.lng}%` }}>
+                                    <div className={`w-8 h-8 rounded-full opacity-40 animate-pulse absolute -top-2 -left-2 ${store.heat === 'high' ? 'bg-red-400' : 'bg-green-300'}`}></div>
+                                    <div className={`relative w-4 h-4 rounded-full border-2 border-white shadow-md ${store.heat === 'high' ? 'bg-red-600' : 'bg-green-500'}`}></div>
                                     <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-white px-3 py-2 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none">
                                         <p className="font-bold text-xs text-slate-800">{store.name}</p>
-                                        <p className="text-[10px] text-slate-500">{store.visits} visitas este mes</p>
                                     </div>
                                 </div>
                             ))}
@@ -561,43 +432,21 @@
             const renderCRM = () => (
                 <div className="space-y-6 animate-in fade-in">
                     <div className="flex justify-between items-center">
-                        <h2 className="text-xl font-bold text-slate-800">Directorio de Mercaderistas</h2>
-                        <button className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 hover:bg-blue-700">
-                            {UserPlus && <UserPlus size={16}/>} Nuevo Mercaderista
-                        </button>
+                        <h2 className="text-xl font-bold text-slate-800">Directorio</h2>
+                        <button className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 hover:bg-blue-700">{UserPlus && <UserPlus size={16}/>} Nuevo</button>
                     </div>
-
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {CONTACTS.map(contact => (
                             <div key={contact.id} className="bg-white rounded-xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition-shadow">
                                 <div className="flex justify-between items-start mb-4">
-                                    <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 font-bold text-xl">
-                                        {contact.name.charAt(0)}
-                                    </div>
-                                    <span className={`px-2 py-1 rounded-full text-xs font-bold ${
-                                        contact.status === 'En Ruta' ? 'bg-green-100 text-green-700' : 'bg-slate-100 text-slate-500'
-                                    }`}>
-                                        {contact.status}
-                                    </span>
+                                    <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 font-bold text-xl">{contact.name.charAt(0)}</div>
+                                    <span className="px-2 py-1 rounded-full text-xs font-bold bg-green-100 text-green-700">{contact.status}</span>
                                 </div>
                                 <h3 className="font-bold text-lg text-slate-800">{contact.name}</h3>
                                 <p className="text-sm text-slate-500 mb-4">{contact.role}</p>
-                                
                                 <div className="space-y-2 text-sm border-t border-slate-100 pt-4 mb-4">
-                                    <div className="flex items-center gap-2 text-slate-600">
-                                        {Phone && <Phone size={14}/>} {contact.phone}
-                                    </div>
-                                    <div className="flex items-center gap-2 text-slate-600">
-                                        {Mail && <Mail size={14}/>} {contact.email}
-                                    </div>
-                                    <div className="flex items-center gap-2 text-slate-600">
-                                        {MapPin && <MapPin size={14}/>} Zona: {contact.zone}
-                                    </div>
-                                </div>
-
-                                <div className="flex gap-2">
-                                    <button className="flex-1 border border-slate-200 rounded-lg py-2 text-xs font-bold text-slate-600 hover:bg-slate-50">Ver Perfil</button>
-                                    <button className="flex-1 bg-blue-50 text-blue-700 rounded-lg py-2 text-xs font-bold hover:bg-blue-100">Contactar</button>
+                                    <div className="flex items-center gap-2 text-slate-600">{Phone && <Phone size={14}/>} {contact.phone}</div>
+                                    <div className="flex items-center gap-2 text-slate-600">{Mail && <Mail size={14}/>} {contact.email}</div>
                                 </div>
                             </div>
                         ))}
@@ -608,6 +457,131 @@
             const renderMessaging = () => (
                 <div className="space-y-6 animate-in fade-in">
                     <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                        <h2 className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">{Send && <Send size={20}/>} Nueva Campaña Masiva</h2>
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <div className="space-y-4">
+                                <div>
+                                    <label className="block text-sm font-bold text-slate-700 mb-1">Nombre</label>
+                                    <input type="text" className="w-full border border-slate-300 rounded-lg p-2 text-sm" placeholder="Ej: Promo Nivea Q1" />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-bold text-slate-700 mb-1">Mensaje</label>
+                                    <textarea className="w-full border border-slate-300 rounded-lg p-2 text-sm h-32" placeholder="Escribe tu mensaje aquí..."></textarea>
+                                </div>
+                                <button className="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 shadow-md">Enviar Ahora</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+
+            const renderContentManager = () => (
+                <div className="space-y-6 animate-in fade-in">
+                    <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                        <h2 className="text-xl font-bold text-slate-800 mb-4">Gestión de Folletos Digitales</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {Object.entries(INFALTABLES_ASSETS).map(([chain, assets]) => (
+                                <div key={chain} className="border border-slate-200 rounded-xl p-4 hover:border-blue-300 transition-all bg-slate-50">
+                                    <div className="flex justify-between items-center mb-4">
+                                        <h3 className="font-bold text-lg text-slate-700">{chain}</h3>
+                                        <span className="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded font-bold">Activo</span>
+                                    </div>
+                                    <div className="flex gap-4">
+                                        <div className="flex-1">
+                                            <p className="text-xs font-bold text-slate-500 mb-2 uppercase">Folleto</p>
+                                            <img src={assets.flyer} className="w-full h-32 object-cover rounded border border-slate-200"/>
+                                        </div>
+                                        <div className="flex-1">
+                                            <p className="text-xs font-bold text-slate-500 mb-2 uppercase">Planograma</p>
+                                            <img src={assets.plano} className="w-full h-32 object-cover rounded border border-slate-200"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            );
+
+            // --- SUB-VISTAS WHATSAPP CENTER ---
+            const renderWaContacts = () => (
+                <div className="flex-1 bg-white p-6 overflow-y-auto">
+                    <h2 className="text-xl font-bold mb-4 flex items-center gap-2">{Users && <Users size={24}/>} Contactos</h2>
+                    <table className="w-full text-left text-sm">
+                        <thead className="bg-slate-50 text-slate-500 uppercase"><tr><th className="p-3">Nombre</th><th className="p-3">Teléfono</th><th className="p-3">Etiquetas</th><th className="p-3">Estado</th></tr></thead>
+                        <tbody className="divide-y">
+                            {CONTACTS.map(c => (
+                                <tr key={c.id} className="hover:bg-slate-50">
+                                    <td className="p-3 font-bold">{c.name}</td>
+                                    <td className="p-3 font-mono text-slate-500">{c.phone}</td>
+                                    <td className="p-3 flex gap-1">{c.tags.map(t => <span key={t} className="bg-blue-100 text-blue-700 px-2 rounded-full text-xs">{t}</span>)}</td>
+                                    <td className="p-3"><span className="text-green-600 bg-green-50 px-2 py-1 rounded text-xs font-bold">{c.status}</span></td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            );
+
+            const renderWaStages = () => (
+                 <div className="flex-1 bg-white p-6 overflow-x-auto">
+                    <h2 className="text-xl font-bold mb-6 flex items-center gap-2">{GitBranch && <GitBranch size={24}/>} Etapas (Pipeline)</h2>
+                    <div className="flex gap-4 min-w-max h-[400px]">
+                        {PIPELINE_STAGES.map(stage => (
+                            <div key={stage.id} className="w-64 bg-slate-50 rounded-xl p-3 flex flex-col border border-slate-200">
+                                <div className="font-bold text-slate-700 mb-3 flex justify-between">{stage.name} <span className="bg-white px-2 rounded shadow-sm text-xs py-0.5">{stage.count}</span></div>
+                                <div className="flex-1 space-y-2 overflow-y-auto">
+                                    {[...Array(stage.count > 3 ? 3 : stage.count)].map((_, i) => (
+                                        <div key={i} className="bg-white p-3 rounded-lg shadow-sm border border-slate-100 cursor-pointer hover:shadow-md">
+                                            <div className="w-8 h-8 rounded-full bg-slate-200 mb-2"></div>
+                                            <div className="h-2 w-24 bg-slate-100 rounded mb-1"></div>
+                                            <div className="h-2 w-16 bg-slate-100 rounded"></div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                 </div>
+            );
+
+            const renderWaTags = () => (
+                 <div className="flex-1 bg-white p-6 overflow-y-auto">
+                    <h2 className="text-xl font-bold mb-4 flex items-center gap-2">{Tag && <Tag size={24}/>} Etiquetas</h2>
+                    <div className="grid grid-cols-4 gap-4">
+                        {TAGS_LIST.map(tag => (
+                            <div key={tag.id} className={`p-4 rounded-xl border border-slate-200 ${tag.color} bg-opacity-20`}>
+                                <span className="font-bold">{tag.name}</span>
+                            </div>
+                        ))}
+                        <div className="p-4 rounded-xl border-2 border-dashed border-slate-300 flex items-center justify-center text-slate-400 cursor-pointer hover:border-blue-400 hover:text-blue-500">
+                            + Crear Etiqueta
+                        </div>
+                    </div>
+                 </div>
+            );
+
+            const renderWaTemplates = () => (
+                 <div className="flex-1 bg-white p-6 overflow-y-auto">
+                    <h2 className="text-xl font-bold mb-4 flex items-center gap-2">{FileText && <FileText size={24}/>} Plantillas HSM</h2>
+                    <div className="grid grid-cols-2 gap-4">
+                        {WA_TEMPLATES.map(t => (
+                            <div key={t.id} className="border border-slate-200 p-4 rounded-xl hover:border-green-400 transition-colors">
+                                <div className="flex justify-between mb-2">
+                                    <h4 className="font-bold text-slate-800">{t.name}</h4>
+                                    <span className={`text-xs px-2 py-0.5 rounded uppercase font-bold ${t.status === 'aprobado' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>{t.status}</span>
+                                </div>
+                                <p className="text-xs text-slate-500 mb-2">{t.type} • {t.lang}</p>
+                                <div className="bg-slate-50 p-2 rounded text-xs text-slate-600 italic">Hola {"{{1}}"}, recuerda enviar tu reporte...</div>
+                            </div>
+                        ))}
+                    </div>
+                 </div>
+            );
+
+            const renderWaMarketing = () => (
+                 <div className="flex-1 bg-white p-6 overflow-y-auto">
+                    <div className="bg-white rounded-xl shadow-none border-none">
                         <h2 className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
                             {Send && <Send size={20}/>} Nueva Campaña Masiva
                         </h2>
@@ -665,215 +639,266 @@
                 </div>
             );
 
+            const renderWhatsappCenter = () => (
+                <div className="flex h-full bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden animate-in fade-in">
+                    <div className="w-48 bg-slate-900 text-slate-300 flex flex-col border-r border-slate-800">
+                        <div className="p-4 border-b border-slate-800 font-bold text-white flex items-center gap-2">
+                           {MessageSquare && <MessageSquare size={20} className="text-green-400"/>} WhatsApp
+                        </div>
+                        <div className="flex-1 py-2 space-y-1">
+                            <div onClick={() => setWaView('chats')} className={`px-4 py-2 cursor-pointer flex items-center gap-3 ${waView === 'chats' ? 'bg-slate-800 text-white border-l-2 border-green-400' : 'hover:bg-slate-800'}`}>
+                                {MessageCircle && <MessageCircle size={16}/>} Chats
+                            </div>
+                            <div onClick={() => setWaView('contacts')} className={`px-4 py-2 cursor-pointer flex items-center gap-3 ${waView === 'contacts' ? 'bg-slate-800 text-white border-l-2 border-green-400' : 'hover:bg-slate-800'}`}>
+                                {Users && <Users size={16}/>} Contactos
+                            </div>
+                            <div onClick={() => setWaView('stages')} className={`px-4 py-2 cursor-pointer flex items-center gap-3 ${waView === 'stages' ? 'bg-slate-800 text-white border-l-2 border-green-400' : 'hover:bg-slate-800'}`}>
+                                {GitBranch && <GitBranch size={16}/>} Etapas
+                            </div>
+                            <div onClick={() => setWaView('tags')} className={`px-4 py-2 cursor-pointer flex items-center gap-3 ${waView === 'tags' ? 'bg-slate-800 text-white border-l-2 border-green-400' : 'hover:bg-slate-800'}`}>
+                                {Tag && <Tag size={16}/>} Tags
+                            </div>
+                            <div onClick={() => setWaView('templates')} className={`px-4 py-2 cursor-pointer flex items-center gap-3 ${waView === 'templates' ? 'bg-slate-800 text-white border-l-2 border-green-400' : 'hover:bg-slate-800'}`}>
+                                {FileText && <FileText size={16}/>} Plantillas
+                            </div>
+                            <div className="px-4 py-2 hover:bg-slate-800 cursor-pointer flex items-center gap-3 opacity-50">
+                                {Hash && <Hash size={16}/>} Números
+                            </div>
+                            <div onClick={() => setWaView('marketing')} className={`px-4 py-2 cursor-pointer flex items-center gap-3 ${waView === 'marketing' ? 'bg-slate-800 text-white border-l-2 border-green-400' : 'hover:bg-slate-800'}`}>
+                                {Target && <Target size={16}/>} Marketing
+                            </div>
+                        </div>
+                    </div>
+                    {waView === 'chats' ? (
+                        <>
+                            <div className="w-80 border-r border-slate-200 flex flex-col bg-white">
+                                <div className="p-3 border-b border-slate-100">
+                                    <div className="relative">
+                                        <input type="text" placeholder="Buscar conversación..." className="w-full bg-slate-100 rounded-lg pl-8 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                                        {Search && <Search size={14} className="absolute left-2.5 top-3 text-slate-400"/>}
+                                    </div>
+                                </div>
+                                <div className="flex-1 overflow-y-auto">
+                                    {CONTACTS.map(contact => (
+                                        <div key={contact.id} className={`p-4 border-b border-slate-50 hover:bg-slate-50 cursor-pointer ${contact.id === 1 ? 'bg-blue-50' : ''}`}>
+                                            <div className="flex justify-between mb-1">
+                                                <h4 className="font-bold text-slate-800 text-sm">{contact.name}</h4>
+                                                <span className="text-xs text-slate-400">{contact.time}</span>
+                                            </div>
+                                            <p className="text-xs text-slate-500 truncate">{contact.lastMsg}</p>
+                                            <div className="flex justify-between items-center mt-2">
+                                                <span className="bg-blue-100 text-blue-700 text-[10px] px-2 py-0.5 rounded font-bold uppercase">Entrantes</span>
+                                                {contact.unread > 0 && <span className="bg-green-500 text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full">{contact.unread}</span>}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                            <div className="flex-1 flex flex-col bg-[#e5ddd5] relative">
+                                <div className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-4 shrink-0">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-10 h-10 bg-yellow-400 rounded-full flex items-center justify-center font-bold text-yellow-800">MG</div>
+                                        <div>
+                                            <h3 className="font-bold text-slate-800">Maria Gonzalez</h3>
+                                            <p className="text-xs text-green-600 flex items-center gap-1"><span className="w-2 h-2 bg-green-500 rounded-full"></span> En línea</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        {scenario === 'manual' && (
+                                            <div className="flex gap-2 mr-4">
+                                                <button className="bg-green-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1 hover:bg-green-700 shadow-sm" onClick={() => alert("Puntos asignados: +10")}>
+                                                    {ThumbsUp && <ThumbsUp size={14}/>} Validar & Asignar
+                                                </button>
+                                                <button className="bg-red-500 text-white px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1 hover:bg-red-600 shadow-sm">
+                                                    {ThumbsDown && <ThumbsDown size={14}/>} Rechazar
+                                                </button>
+                                            </div>
+                                        )}
+                                        <div className="p-2 hover:bg-slate-100 rounded-full cursor-pointer">{MoreVertical && <MoreVertical size={20} className="text-slate-500"/>}</div>
+                                    </div>
+                                </div>
+                                <div className="flex-1 overflow-y-auto p-8 space-y-4" style={{backgroundImage: 'url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png")', backgroundBlendMode: 'soft-light'}}>
+                                    <div className="bg-yellow-100 text-yellow-800 text-xs px-3 py-1 rounded shadow-sm mx-auto w-fit">Hoy</div>
+                                    {CHAT_HISTORY_MOCK.map(msg => (
+                                        <div key={msg.id} className={`flex ${msg.from === 'user' ? 'justify-start' : 'justify-end'}`}>
+                                            <div className={`max-w-[70%] p-3 rounded-lg shadow-sm text-sm ${msg.from === 'user' ? 'bg-white rounded-tl-none' : 'bg-[#dcf8c6] rounded-tr-none'}`}>
+                                                {msg.text}
+                                                {msg.image && <img src={msg.image} className="mt-2 rounded-lg w-64 cursor-pointer hover:opacity-90"/>}
+                                                <div className="text-[10px] text-slate-400 text-right mt-1 flex justify-end gap-1">
+                                                    {msg.time} {msg.from === 'bot' && (CheckCheck && <CheckCheck size={14} className="text-blue-500"/>)}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                                <div className="p-3 bg-[#f0f0f0] shrink-0 flex items-center gap-2">
+                                    <div className="p-2 text-slate-500 hover:bg-slate-200 rounded-full cursor-pointer">{Paperclip && <Paperclip size={24}/>}</div>
+                                    <input type="text" placeholder="Escribe un mensaje" className="flex-1 bg-white rounded-lg px-4 py-2.5 text-sm focus:outline-none border-none"/>
+                                    <div className="p-2 text-slate-500 hover:bg-slate-200 rounded-full cursor-pointer">{Mic && <Mic size={24}/>}</div>
+                                </div>
+                            </div>
+                        </>
+                    ) : waView === 'contacts' ? renderWaContacts() :
+                      waView === 'stages' ? renderWaStages() :
+                      waView === 'tags' ? renderWaTags() :
+                      waView === 'templates' ? renderWaTemplates() :
+                      waView === 'marketing' ? renderWaMarketing() : null
+                    }
+                </div>
+            );
+
             // --- VISTA PROPUESTA COMERCIAL ---
             const renderProposal = () => (
-                <div className="space-y-12 animate-in fade-in max-w-5xl mx-auto pb-20 bg-white shadow-xl rounded-2xl overflow-hidden border border-slate-100">
-                    
-                    {/* 1. Header Hero */}
+                <div className="space-y-8 animate-in fade-in max-w-5xl mx-auto pb-20 bg-white shadow-xl rounded-2xl overflow-hidden border border-slate-100">
                     <div className="bg-slate-900 text-white p-12 text-center relative overflow-hidden">
                         <div className="relative z-10">
-                            <div className="inline-flex items-center gap-2 bg-blue-600/30 px-4 py-1.5 rounded-full border border-blue-500/50 mb-6 backdrop-blur-sm">
-                                <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-                                <span className="text-xs font-bold tracking-wide uppercase text-blue-100">Propuesta Oficial</span>
-                            </div>
-                            <h1 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
-                                Sistema de Gestión y Trazabilidad <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">para Mercaderistas</span>
-                            </h1>
+                            <h1 className="text-4xl font-extrabold mb-4">Propuesta Comercial: Sistema de Gestión y Trazabilidad</h1>
+                            <p className="text-lg opacity-80">Para Mercaderistas FDJ</p>
                         </div>
-                        {/* Decorative Background */}
-                        <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
                     </div>
 
-                    <div className="px-8 md:px-16 space-y-16">
-                        
-                        {/* 1. RESUMEN EJECUTIVO */}
+                    <div className="px-8 md:px-16 space-y-12">
+                        {/* 1. Resumen Ejecutivo */}
                         <section>
-                            <div className="flex items-center gap-3 mb-6">
-                                <div className="bg-blue-100 p-2 rounded-lg text-blue-700">{BookOpen && <BookOpen size={24}/>}</div>
-                                <h2 className="text-2xl font-bold text-slate-800">1. Resumen Ejecutivo</h2>
-                            </div>
-                            <p className="text-slate-600 leading-relaxed text-lg">
+                            <h2 className="text-2xl font-bold text-slate-800 mb-4">1. RESUMEN EJECUTIVO</h2>
+                            <p className="text-slate-600 text-sm leading-relaxed">
                                 La presente propuesta detalla el desarrollo e implementación de una solución tecnológica integral para la gestión, trazabilidad y supervisión de actividades de mercaderistas en puntos de venta a nivel nacional.
                                 <br/><br/>
-                                El sistema combina una <strong>interfaz conversacional vía WhatsApp</strong> para mercaderistas en campo con un <strong>panel administrativo web</strong> para supervisión y análisis, permitiendo optimizar la operación, garantizar trazabilidad completa de visitas y generar información estratégica en tiempo real. Incluye un repositorio centralizado de material de referencia visual para estándares de exhibición por marca.
+                                El sistema combina una interfaz conversacional vía WhatsApp para mercaderistas en campo con un panel administrativo web para supervisión y análisis, permitiendo optimizar la operación, garantizar trazabilidad completa de visitas y generar información estratégica en tiempo real. Incluye un repositorio centralizado de material de referencia visual para estándares de exhibición por marca.
                             </p>
                         </section>
 
                         <hr className="border-slate-100"/>
 
-                        {/* 2. CONTEXTO Y NECESIDAD */}
+                        {/* 2. Contexto */}
                         <section>
-                            <div className="flex items-center gap-3 mb-6">
-                                <div className="bg-amber-100 p-2 rounded-lg text-amber-700">{Target && <Target size={24}/>}</div>
-                                <h2 className="text-2xl font-bold text-slate-800">2. Contexto y Necesidad</h2>
-                            </div>
-                            <p className="text-slate-600 mb-6">FDJ requiere una plataforma que permita:</p>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                {[
-                                    "Registrar y trazar todas las visitas de mercaderistas a puntos de venta",
-                                    "Mantener evidencia fotográfica del estado de góndolas y productos",
-                                    "Gestionar información de múltiples marcas y retailers",
-                                    "Georreferenciar todas las actividades de campo",
-                                    "Proporcionar material de referencia visual para estándares de exhibición",
-                                    "Consultar manuales y planogramas desde campo",
-                                    "Implementar un sistema de recompensas para incentivar desempeño",
-                                    "Centralizar información para análisis y toma de decisiones"
-                                ].map((item, i) => (
-                                    <div key={i} className="flex items-start gap-3 p-3 bg-slate-50 rounded-lg border border-slate-100">
-                                        <div className="mt-1 text-green-500">{CheckCircle && <CheckCircle size={16}/>}</div>
-                                        <span className="text-sm text-slate-700 font-medium">{item}</span>
-                                    </div>
-                                ))}
-                            </div>
+                            <h2 className="text-2xl font-bold text-slate-800 mb-4">2. CONTEXTO Y NECESIDAD</h2>
+                            <p className="text-slate-600 text-sm mb-4">FDJ requiere una plataforma que permita:</p>
+                            <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-slate-600">
+                                <li className="flex gap-2"><div className="w-1.5 h-1.5 rounded-full bg-slate-400 mt-2"></div>Registrar y trazar todas las visitas de mercaderistas.</li>
+                                <li className="flex gap-2"><div className="w-1.5 h-1.5 rounded-full bg-slate-400 mt-2"></div>Mantener evidencia fotográfica del estado de góndolas.</li>
+                                <li className="flex gap-2"><div className="w-1.5 h-1.5 rounded-full bg-slate-400 mt-2"></div>Gestionar información de múltiples marcas y retailers.</li>
+                                <li className="flex gap-2"><div className="w-1.5 h-1.5 rounded-full bg-slate-400 mt-2"></div>Georreferenciar todas las actividades de campo.</li>
+                            </ul>
                         </section>
 
                         <hr className="border-slate-100"/>
 
-                        {/* 3. SOLUCIÓN PROPUESTA */}
+                        {/* 3. Solución Propuesta (Escenarios) */}
                         <section>
-                            <div className="flex items-center gap-3 mb-8">
-                                <div className="bg-purple-100 p-2 rounded-lg text-purple-700">{Zap && <Zap size={24}/>}</div>
-                                <h2 className="text-2xl font-bold text-slate-800">3. Solución Propuesta</h2>
+                            <h2 className="text-2xl font-bold text-slate-800 mb-6">3. SOLUCIÓN PROPUESTA Y MODELOS DE OPERACIÓN</h2>
+                            <p className="text-slate-600 mb-6 text-sm">Ofrecemos dos escenarios operativos escalables según la necesidad del cliente:</p>
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                                {/* Escenario Chinomatico */}
+                                <div className="border-2 border-blue-200 rounded-xl p-6 bg-blue-50/50 relative">
+                                    <h3 className="text-lg font-bold text-blue-800 mb-2">Escenario 1: Validación Humana ("Chinómatico")</h3>
+                                    <p className="text-sm text-slate-600 mb-4">Bajo costo operativo, control manual.</p>
+                                    <ul className="space-y-2 text-sm text-slate-700">
+                                        <li>• Mercaderista envía foto por WhatsApp.</li>
+                                        <li>• Un humano revisa en el <strong>WhatsApp Center</strong>.</li>
+                                        <li>• Validación y asignación de puntos manual.</li>
+                                        <li>• <strong>Costo IA: $0 USD</strong>.</li>
+                                    </ul>
+                                </div>
+                                {/* Escenario IA */}
+                                <div className="border-2 border-purple-200 rounded-xl p-6 bg-purple-50/50 relative">
+                                    <h3 className="text-lg font-bold text-purple-800 mb-2">Escenario 2: Validación con IA</h3>
+                                    <p className="text-sm text-slate-600 mb-4">Automatización total y escalabilidad.</p>
+                                    <ul className="space-y-2 text-sm text-slate-700">
+                                        <li>• Mercaderista envía foto por WhatsApp.</li>
+                                        <li>• <strong>IA analiza la imagen</strong> (Planograma vs Real).</li>
+                                        <li>• Asignación automática de puntos inmediata.</li>
+                                        <li>• <strong>Costo IA: $4.42 USD / 1M tokens</strong>.</li>
+                                    </ul>
+                                </div>
                             </div>
                             
-                            <div className="space-y-12">
-                                {/* 3.1 Arquitectura */}
-                                <div>
-                                    <h3 className="text-xl font-bold text-slate-800 mb-4 border-l-4 border-purple-500 pl-3">3.1 Arquitectura de la Solución</h3>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                        <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 hover:border-purple-300 transition-colors">
-                                            <div className="flex items-center gap-3 mb-4">
-                                                <div className="bg-green-100 p-2 rounded-full text-green-600">{MessageSquare && <MessageSquare size={20}/>}</div>
-                                                <h4 className="font-bold text-lg text-slate-800">A. Interfaz Mercaderista</h4>
-                                            </div>
-                                            <p className="text-sm text-slate-500 mb-4 uppercase font-bold tracking-wide">WhatsApp Business API</p>
-                                            <ul className="space-y-2 text-sm text-slate-600">
-                                                <li>• Basada en chatbot conversacional</li>
-                                                <li>• Registro de visitas guiado paso a paso</li>
-                                                <li>• Captura de ubicación GPS y fotografías</li>
-                                                <li>• Consulta de material de referencia visual</li>
-                                                <li>• Sistema de puntos y reconocimiento</li>
-                                                <li>• <strong>Sin instalación de aplicaciones</strong></li>
-                                            </ul>
-                                        </div>
-                                        <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 hover:border-purple-300 transition-colors">
-                                            <div className="flex items-center gap-3 mb-4">
-                                                <div className="bg-blue-100 p-2 rounded-full text-blue-600">{LayoutDashboard && <LayoutDashboard size={20}/>}</div>
-                                                <h4 className="font-bold text-lg text-slate-800">B. Panel Administrativo Web</h4>
-                                            </div>
-                                            <p className="text-sm text-slate-500 mb-4 uppercase font-bold tracking-wide">Control Total</p>
-                                            <ul className="space-y-2 text-sm text-slate-600">
-                                                <li>• Gestión de maestros (tiendas, marcas, productos)</li>
-                                                <li>• Monitoreo en tiempo real de visitas</li>
-                                                <li>• Biblioteca de material de referencia</li>
-                                                <li>• Sistema de reportes y analítica</li>
-                                                <li>• Visualización geográfica de actividades</li>
-                                                <li>• Gestión de recompensas y ranking</li>
-                                            </ul>
-                                        </div>
+                            <div>
+                                <h3 className="font-bold text-lg text-slate-700 mb-3">3.1 Arquitectura de la Solución</h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                                        <h4 className="font-bold text-slate-800 mb-2">A. Interfaz Mercaderista (WhatsApp)</h4>
+                                        <ul className="text-sm text-slate-600 space-y-1">
+                                            <li>• Registro de visitas guiado paso a paso.</li>
+                                            <li>• Captura de ubicación GPS y fotografías.</li>
+                                            <li>• Consulta de material visual por marca.</li>
+                                            <li>• Sistema de puntos y reconocimiento.</li>
+                                        </ul>
                                     </div>
-                                </div>
-
-                                {/* 3.2 Funcionalidades */}
-                                <div>
-                                    <h3 className="text-xl font-bold text-slate-800 mb-6 border-l-4 border-purple-500 pl-3">3.2 Funcionalidades Principales</h3>
-                                    
-                                    <div className="space-y-8">
-                                        {/* Mercaderistas */}
-                                        <div>
-                                            <h4 className="font-bold text-green-700 mb-3 flex items-center gap-2">
-                                                {Smartphone && <Smartphone size={18}/>} Para Mercaderistas (WhatsApp)
-                                            </h4>
-                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 text-sm text-slate-600">
-                                                <li className="list-none flex gap-2"><span className="text-green-500">✓</span>Check-in inteligente (Geofencing)</li>
-                                                <li className="list-none flex gap-2"><span className="text-green-500">✓</span>Registro manual de tiendas (Fallback)</li>
-                                                <li className="list-none flex gap-2"><span className="text-green-500">✓</span>Selección de marcas a auditar</li>
-                                                <li className="list-none flex gap-2"><span className="text-green-500">✓</span>Consulta visual de estándares</li>
-                                                <li className="list-none flex gap-2"><span className="text-green-500">✓</span>Carga de fotos de evidencia</li>
-                                                <li className="list-none flex gap-2"><span className="text-green-500">✓</span>Registro de estado de productos</li>
-                                                <li className="list-none flex gap-2"><span className="text-green-500">✓</span>Ranking y Puntos</li>
-                                            </div>
-                                        </div>
-
-                                        {/* Admins */}
-                                        <div>
-                                            <h4 className="font-bold text-blue-700 mb-3 flex items-center gap-2">
-                                                {Settings && <Settings size={18}/>} Para Administradores (Web)
-                                            </h4>
-                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 text-sm text-slate-600">
-                                                <li className="list-none flex gap-2"><span className="text-blue-500">✓</span>CRUD Completo (Tiendas, Retailers, Marcas)</li>
-                                                <li className="list-none flex gap-2"><span className="text-blue-500">✓</span>Gestión de Material Visual</li>
-                                                <li className="list-none flex gap-2"><span className="text-blue-500">✓</span>Dashboard con KPIs</li>
-                                                <li className="list-none flex gap-2"><span className="text-blue-500">✓</span>Mapa de visitas en tiempo real</li>
-                                                <li className="list-none flex gap-2"><span className="text-blue-500">✓</span>Galería fotográfica por visita</li>
-                                                <li className="list-none flex gap-2"><span className="text-blue-500">✓</span>Comparación foto vs referencia</li>
-                                                <li className="list-none flex gap-2"><span className="text-blue-500">✓</span>Importación masiva de datos</li>
-                                            </div>
-                                        </div>
+                                    <div className="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                                        <h4 className="font-bold text-slate-800 mb-2">B. Panel Administrativo Web</h4>
+                                        <ul className="text-sm text-slate-600 space-y-1">
+                                            <li>• Gestión completa de maestros (tiendas, marcas).</li>
+                                            <li>• Monitoreo en tiempo real de visitas.</li>
+                                            <li>• Biblioteca de material de referencia.</li>
+                                            <li>• Sistema de reportes y analítica.</li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
                         </section>
+                        
+                         <hr className="border-slate-100"/>
 
-                        <hr className="border-slate-100"/>
-
-                        {/* 4. ALCANCE */}
+                        {/* 4. Alcance */}
                         <section>
-                            <div className="flex items-center gap-3 mb-6">
-                                <div className="bg-teal-100 p-2 rounded-lg text-teal-700">{CheckCircle && <CheckCircle size={24}/>}</div>
-                                <h2 className="text-2xl font-bold text-slate-800">4. Alcance del Proyecto</h2>
+                             <h2 className="text-2xl font-bold text-slate-800 mb-4">4. ALCANCE DEL PROYECTO</h2>
+                             <div className="bg-slate-50 rounded-xl p-6 border border-slate-200">
+                                <h3 className="text-sm font-bold text-slate-800 mb-4 uppercase">Fase 1: Desarrollo del MVP</h3>
+                                <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 text-sm text-slate-600">
+                                    <li>• Integración WhatsApp Business API (Meta).</li>
+                                    <li>• Chatbot conversacional con flujos inteligentes.</li>
+                                    <li>• Sistema de detección de tiendas (geofencing).</li>
+                                    <li>• Registro manual de tiendas como fallback.</li>
+                                    <li>• Captura y almacenamiento de fotografías.</li>
+                                    <li>• Sistema de puntos básico.</li>
+                                    <li>• Panel administrativo web responsive.</li>
+                                    <li>• Módulos CRUD completos.</li>
+                                    <li>• Gestión de Material de Referencia (Carga/Org).</li>
+                                    <li>• Visualización de planogramas en móvil.</li>
+                                    <li>• Dashboard con métricas y mapa.</li>
+                                </ul>
                             </div>
-                            
-                            <div className="bg-slate-50 rounded-xl p-6 border border-slate-200">
-                                <h3 className="text-lg font-bold text-slate-800 mb-4">Fase 1: Desarrollo del MVP (Incluido)</h3>
-                                <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-slate-600">
-                                    <li>• Integración WhatsApp Business API</li>
-                                    <li>• Chatbot con flujos inteligentes</li>
-                                    <li>• Sistema de geofencing (Check-in)</li>
-                                    <li>• Panel administrativo responsive</li>
-                                    <li>• Módulos CRUD completos</li>
-                                    <li>• Gestión de Material de Referencia</li>
-                                    <li>• Dashboard y Reportes básicos</li>
-                                    <li>• Roles (Admin, Supervisor, Mercaderista)</li>
-                                    <li>• Almacenamiento en nube optimizado</li>
-                                    <li>• CDN para entrega rápida</li>
+                             <div className="mt-4 bg-slate-50 rounded-xl p-6 border border-slate-200 opacity-75">
+                                <h3 className="text-sm font-bold text-slate-800 mb-4 uppercase">Fase 2: Funcionalidades Avanzadas (Opcional)</h3>
+                                <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 text-sm text-slate-600">
+                                    <li>• Reconocimiento de imágenes con IA.</li>
+                                    <li>• Comparación automática foto vs planograma.</li>
+                                    <li>• Alertas automáticas de quiebres de stock.</li>
+                                    <li>• Reportes avanzados y predictivos.</li>
+                                    <li>• Integración con ERP/CRM.</li>
+                                    <li>• Realidad aumentada para guías.</li>
                                 </ul>
                             </div>
                         </section>
 
                         <hr className="border-slate-100"/>
 
-                        {/* 5. INFRAESTRUCTURA */}
+                        {/* 5. Infraestructura y Costos */}
                         <section>
-                            <div className="flex items-center gap-3 mb-6">
-                                <div className="bg-indigo-100 p-2 rounded-lg text-indigo-700">{Server && <Server size={24}/>}</div>
-                                <h2 className="text-2xl font-bold text-slate-800">5. Infraestructura Incluida</h2>
-                            </div>
-                            
-                            <div className="bg-gradient-to-r from-slate-800 to-slate-900 rounded-xl p-8 text-white shadow-lg">
-                                <h3 className="text-xl font-bold mb-2">Cluster Independiente de Alto Rendimiento</h3>
-                                <p className="opacity-80 mb-6 text-sm">Garantía de operación continua y escalable.</p>
-
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                    <div>
-                                        <h4 className="font-bold text-indigo-300 mb-3 text-sm uppercase">Arquitectura & Potencia</h4>
-                                        <ul className="space-y-2 text-sm opacity-90">
-                                            <li>• Infraestructura containerizada</li>
-                                            <li>• Balanceo de carga inteligente</li>
-                                            <li>• <strong>Hasta 10.000 mercaderistas concurrentes</strong></li>
-                                            <li>• Almacenamiento de <strong>2 TB</strong></li>
-                                            <li>• Transferencia de 2TB/mes</li>
-                                        </ul>
-                                    </div>
-                                    <div>
-                                        <h4 className="font-bold text-indigo-300 mb-3 text-sm uppercase">Seguridad & Gestión</h4>
-                                        <ul className="space-y-2 text-sm opacity-90">
-                                            <li>• Sistema de colas robusto (Async)</li>
-                                            <li>• Monitoreo 24/7 con alertas</li>
-                                            <li>• Backups diarios automáticos</li>
-                                            <li>• Certificados SSL/TLS</li>
-                                            <li>• Protección Anti-DDoS</li>
-                                        </ul>
+                            <h2 className="text-2xl font-bold text-slate-800 mb-6">5. INFRAESTRUCTURA Y COSTOS VARIABLES</h2>
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                <div className="bg-slate-50 p-6 rounded-xl border border-slate-200">
+                                    <h3 className="font-bold text-slate-800 mb-3">Infraestructura Incluida (Cluster)</h3>
+                                    <ul className="text-sm text-slate-600 space-y-1">
+                                        <li>• Hasta 10.000 mercaderistas concurrentes.</li>
+                                        <li>• Almacenamiento de 2 Tb.</li>
+                                        <li>• Monitoreo 24/7 y Backups diarios.</li>
+                                        <li>• Certificados SSL/TLS y Firewall.</li>
+                                    </ul>
+                                </div>
+                                <div className="bg-slate-50 p-6 rounded-xl border border-slate-200">
+                                    <h3 className="font-bold text-slate-800 mb-3">Costos Variables (OpEx)</h3>
+                                    <div className="space-y-3">
+                                        <div className="flex justify-between text-sm border-b border-slate-200 pb-2">
+                                            <span>Mensajería Marketing</span>
+                                            <span className="font-bold text-emerald-600">$0.022 USD / mensaje</span>
+                                        </div>
+                                        <div className="flex justify-between text-sm border-b border-slate-200 pb-2">
+                                            <span>Inteligencia Artificial</span>
+                                            <span className="font-bold text-emerald-600">$4.42 USD / 1M Tokens</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -889,7 +914,6 @@
                     
                     {/* LEFT: ADMIN INTERFACE */}
                     <div className="flex-1 flex flex-col md:flex-row bg-slate-100 overflow-hidden relative">
-                        
                         {/* Sidebar */}
                         <aside className="w-64 bg-slate-900 text-white flex flex-col shrink-0 z-20">
                             <div className="p-6 border-b border-slate-800 flex items-center gap-3">
@@ -899,131 +923,90 @@
                                     <span className="text-[10px] text-slate-400">Admin Console</span>
                                 </div>
                             </div>
+                            <div className="p-4 border-b border-slate-800">
+                                <label className="text-[10px] text-slate-400 uppercase font-bold block mb-2">Escenario Operativo</label>
+                                <div className="flex bg-slate-800 rounded-lg p-1">
+                                    <button onClick={() => setScenario('manual')} className={`flex-1 text-xs py-1 rounded ${scenario === 'manual' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white'}`}>Manual</button>
+                                    <button onClick={() => setScenario('ai')} className={`flex-1 text-xs py-1 rounded ${scenario === 'ai' ? 'bg-purple-600 text-white' : 'text-slate-400 hover:text-white'}`}>IA</button>
+                                </div>
+                            </div>
                             <nav className="flex-1 p-4 space-y-2">
                                 <button onClick={() => setView('dashboard')} className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium w-full transition-colors ${view === 'dashboard' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}>
                                     {LayoutDashboard && <LayoutDashboard size={18}/>} Dashboard
                                 </button>
-                                <div className="pt-2 pb-1 px-4 text-xs font-semibold text-slate-500 uppercase">Gestión</div>
-                                <button onClick={() => setView('crm')} className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium w-full transition-colors ${view === 'crm' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}>
-                                    {Users && <Users size={18}/>} RRHH & Contactos
-                                </button>
-                                <button onClick={() => setView('routes')} className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium w-full transition-colors ${view === 'routes' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}>
-                                    {MapPin && <MapPin size={18}/>} Sitios & Rutas
+                                <button onClick={() => setView('whatsapp_center')} className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium w-full transition-colors ${view === 'whatsapp_center' ? 'bg-green-600 text-white' : 'text-green-400 hover:bg-slate-800 hover:text-white'}`}>
+                                    {MessageSquare && <MessageSquare size={18}/>} WhatsApp Center
                                 </button>
                                 <button onClick={() => setView('content')} className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium w-full transition-colors ${view === 'content' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}>
-                                    {FileText && <FileText size={18}/>} Gestión Contenido (Folletos)
+                                    {FileText && <FileText size={18}/>} Folletos Digitales
                                 </button>
-                                <div className="pt-2 pb-1 px-4 text-xs font-semibold text-slate-500 uppercase">Ejecución</div>
                                 <button onClick={() => setView('gamification')} className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium w-full transition-colors ${view === 'gamification' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}>
                                     {Trophy && <Trophy size={18}/>} Gamificación
                                 </button>
-                                <button onClick={() => setView('messaging')} className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium w-full transition-colors ${view === 'messaging' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}>
-                                    {MessageSquare && <MessageSquare size={18}/>} Mensajería WhatsApp
-                                </button>
-                                
-                                {/* Proposal Button */}
-                                <div className="pt-8">
-                                    <button onClick={() => setView('proposal')} className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-bold w-full transition-colors border border-slate-700 ${view === 'proposal' ? 'bg-blue-600 text-white border-blue-600' : 'text-blue-300 hover:bg-slate-800 hover:text-white'}`}>
+                                <div className="mt-auto pt-4 border-t border-slate-800">
+                                    <button onClick={() => setView('proposal')} className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-bold w-full transition-colors border border-slate-600 ${view === 'proposal' ? 'bg-slate-700 text-white' : 'text-slate-300 hover:bg-slate-800 hover:text-white'}`}>
                                         {BookOpen && <BookOpen size={18}/>} Propuesta Comercial
                                     </button>
                                 </div>
                             </nav>
                         </aside>
 
-                        {/* Admin Content */}
+                        {/* Content Area */}
                         <div className="flex-1 flex flex-col h-full overflow-hidden">
                             <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 shrink-0">
                                 <h2 className="font-bold text-slate-800 text-lg">
-                                    {view === 'dashboard' && 'Panel de Control Principal'}
-                                    {view === 'content' && 'Carga de Folletos & Planogramas'}
-                                    {view === 'gamification' && 'Reglas de Puntos & Ranking'}
-                                    {view === 'routes' && 'Mapa de Calor & Rutas'}
-                                    {view === 'crm' && 'Directorio de Personal'}
-                                    {view === 'messaging' && 'Campañas de Comunicación'}
-                                    {view === 'proposal' && 'Propuesta de Valor BDF'}
+                                    {view === 'whatsapp_center' ? 'WhatsApp CRM Center' : 
+                                     view === 'proposal' ? 'Propuesta Comercial' : 'Panel de Control'}
                                 </h2>
-                                <div className="flex items-center gap-4">
-                                    <div className="flex items-center gap-2 bg-slate-100 px-3 py-1.5 rounded-full">
-                                        {Search && <Search size={14} className="text-slate-400"/>}
-                                        <input className="bg-transparent text-sm outline-none w-32" placeholder="Buscar..." />
-                                    </div>
-                                    <div className="w-8 h-8 rounded-full bg-slate-300"></div>
-                                </div>
                             </header>
-                            <div className="flex-1 overflow-y-auto p-6">
+                            <div className="flex-1 overflow-y-auto p-6 relative">
                                 {view === 'dashboard' && renderDashboard()}
+                                {view === 'whatsapp_center' && renderWhatsappCenter()}
+                                {view === 'proposal' && renderProposal()}
                                 {view === 'content' && renderContentManager()}
                                 {view === 'gamification' && renderGamification()}
                                 {view === 'routes' && renderRoutes()}
                                 {view === 'crm' && renderCRM()}
                                 {view === 'messaging' && renderMessaging()}
-                                {view === 'proposal' && renderProposal()}
                             </div>
                         </div>
                     </div>
 
-                    {/* RIGHT: WHATSAPP INTERFACE (Fixed width) */}
+                    {/* RIGHT: SIMULATOR */}
                     <div className="w-[400px] bg-slate-200 flex flex-col shadow-2xl border-l border-slate-300 relative z-30">
-                        {/* Phone Header */}
                         <div className="bg-[#005e54] p-3 text-white flex items-center gap-3 shadow-md shrink-0">
                             <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center font-bold text-[#005e54] text-lg">B</div>
                             <div className="flex-1">
                                 <h3 className="font-bold text-sm">BDF Asistente 🤖</h3>
-                                <p className="text-xs opacity-80">En línea • Business Account</p>
+                                <p className="text-xs opacity-80">
+                                    {scenario === 'manual' ? 'Modo: Humano (E1)' : 'Modo: IA (E2)'}
+                                </p>
                             </div>
-                            <div className="bg-[#004d44] px-2 py-1 rounded text-xs font-mono">{points} PTS</div>
                         </div>
-
-                        {/* Chat Body */}
                         <div className="flex-1 overflow-y-auto p-4 space-y-3 chat-bg scrollbar-hide">
-                            <div className="text-center text-xs text-slate-600 bg-slate-100/80 rounded-full py-1 px-3 w-fit mx-auto shadow-sm mb-4">HOY</div>
-                            
                             {messages.map((msg) => (
                                 <div key={msg.id} className={`flex ${msg.from === 'user' ? 'justify-end' : 'justify-start'}`}>
-                                    <div className={`max-w-[85%] rounded-lg shadow-sm p-2 text-sm relative ${
-                                        msg.from === 'user' ? 'bg-[#dcf8c6] text-slate-800 rounded-tr-none' : 'bg-white text-slate-800 rounded-tl-none'
-                                    }`}>
-                                        {msg.type === 'text' && <p className="whitespace-pre-wrap">{msg.content}</p>}
-                                        {msg.type === 'image' && (
-                                            <div>
-                                                <img src={msg.content} alt="Attachment" className="rounded-lg mb-1 w-full" />
-                                                {msg.caption && <p className="font-bold">{msg.caption}</p>}
-                                            </div>
-                                        )}
-                                        <div className="text-[9px] text-slate-400 text-right mt-1 flex justify-end gap-1 items-center">
-                                            10:42 AM {msg.from === 'user' && (CheckCircle && <CheckCircle size={10} className="text-blue-400"/>)}
-                                        </div>
+                                    <div className={`max-w-[85%] rounded-lg shadow-sm p-2 text-sm relative ${msg.from === 'user' ? 'bg-[#dcf8c6]' : 'bg-white'}`}>
+                                        {msg.type === 'text' ? <p className="whitespace-pre-wrap">{msg.content}</p> : 
+                                         <img src={msg.content} className="rounded-lg mb-1 w-full"/>}
+                                        <div className="text-[9px] text-slate-400 text-right mt-1">10:42 AM</div>
                                     </div>
                                 </div>
                             ))}
                             <div ref={chatEndRef} />
-                            
-                            {/* Contextual Actions (Quick Replies) */}
                             {chatStep === 5 && (
                                 <div className="flex justify-center mt-2">
                                     <button onClick={simulatePhotoUpload} className="bg-white text-slate-700 text-xs font-bold px-4 py-2 rounded-full shadow-md flex items-center gap-2 hover:bg-slate-50 transition-transform active:scale-95">
-                                        {Camera && <Camera size={14}/>} Enviar Foto de Góndola
+                                        {Camera && <Camera size={14}/>} Enviar Foto
                                     </button>
                                 </div>
                             )}
                         </div>
-
-                        {/* Chat Input */}
                         <div className="p-2 bg-[#f0f0f0] shrink-0 flex items-center gap-2">
-                            <input 
-                                value={input}
-                                onChange={(e) => setInput(e.target.value)}
-                                onKeyDown={(e) => e.key === 'Enter' && handleSend(e)}
-                                type="text" 
-                                placeholder="Escribe un mensaje..." 
-                                className="flex-1 rounded-full px-4 py-2 text-sm border-none focus:ring-0 focus:outline-none"
-                            />
-                            <button onClick={handleSend} className="bg-[#005e54] text-white p-2 rounded-full shadow-sm hover:opacity-90">
-                                {Send && <Send size={18}/>}
-                            </button>
+                            <input value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleSend(e)} type="text" placeholder="Escribe un mensaje..." className="flex-1 rounded-full px-4 py-2 text-sm border-none focus:ring-0 focus:outline-none"/>
+                            <button onClick={handleSend} className="bg-[#005e54] text-white p-2 rounded-full shadow-sm hover:opacity-90">{Send && <Send size={18}/>}</button>
                         </div>
                     </div>
-
                 </div>
             );
         }
