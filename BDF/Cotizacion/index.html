@@ -8,7 +8,6 @@
     <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <!-- Usamos la versión vanilla para el adaptador seguro -->
     <script src="https://unpkg.com/lucide@0.263.1"></script>
     <style>
         .scrollbar-hide::-webkit-scrollbar { display: none; }
@@ -94,26 +93,25 @@
             Tag: createIconComponent('Tag'),
             List: createIconComponent('List'),
             MessageCircle: createIconComponent('MessageCircle'),
-            Clock: createIconComponent('Clock'),
-            Layout: createIconComponent('Layout')
+            Lock: createIconComponent('Lock'),
+            Unlock: createIconComponent('Unlock')
         };
 
         const { 
             LayoutDashboard, Users, MapPin, Trophy, Image: ImageIcon, MessageSquare, 
             Settings, Search, Send, Camera, CheckCircle, AlertCircle, BarChart, 
-            Upload, FileText, MoreVertical, Map: MapIcon, Flame, Target, Phone, 
+            Upload, FileText, MoreVertical, Map: MapIcon, Target, Phone, 
             Mail, Calendar, TrendingUp, UserPlus, Filter, Plus, Package, Store, Award,
             BookOpen, DollarSign, Smartphone, Server, Zap, ShieldCheck, Eye, 
-            ArrowDownToLine, ArrowUpToLine, User, Paperclip, Mic, Smile, CheckCheck,
-            ThumbsUp, ThumbsDown, GitBranch, Hash, Tag, List, MessageCircle, Clock, Layout
+            User, Paperclip, Mic, Smile, CheckCheck, Lock, Unlock,
+            ThumbsUp, ThumbsDown, GitBranch, Hash, Tag, List, MessageCircle 
         } = Icons;
 
         // --- MOCK DATA ---
         const CONTACTS = [
-            { id: 1, name: 'Maria Gonzalez', role: 'Mercaderista Senior', phone: '3001234567', email: 'maria@bdf.com', points: 1250, rank: 1, status: 'En Ruta', zone: 'Norte', streak: 12, totalVisits: 145, tags: ['Experto', 'Zona Norte'], lastMsg: 'Ya envié la foto de Farmatodo', time: '18:19', unread: 2 },
-            { id: 2, name: 'Juan Perez', role: 'Mercaderista Junior', phone: '3109876543', email: 'juan@bdf.com', points: 980, rank: 2, status: 'En Ruta', zone: 'Sur', streak: 5, totalVisits: 98, tags: ['Nuevo'], lastMsg: '¿Me confirmas los puntos?', time: '18:15', unread: 0 },
-            { id: 3, name: 'Carlos Ruiz', role: 'Mercaderista', phone: '3205551122', email: 'carlos@bdf.com', points: 450, rank: 15, status: 'Inactivo', zone: 'Occidente', streak: 0, totalVisits: 45, tags: ['Riesgo'], lastMsg: 'Check-in realizado', time: '17:40', unread: 0 },
-            { id: 4, name: 'Ana Lopez', role: 'Mercaderista Senior', phone: '3151112233', email: 'ana@bdf.com', points: 1100, rank: 3, status: 'En Ruta', zone: 'Norte', streak: 8, totalVisits: 130, tags: ['Líder'], lastMsg: 'Hola', time: '16:00', unread: 0 },
+            { id: 1, name: 'Maria Gonzalez', role: 'Mercaderista Senior', phone: '3001234567', email: 'maria@bdf.com', visits: 145, status: 'En Ruta', zone: 'Norte', lastMsg: 'Ya envié la foto de Farmatodo', time: '18:19', unread: 2 },
+            { id: 2, name: 'Juan Perez', role: 'Mercaderista Junior', phone: '3109876543', email: 'juan@bdf.com', visits: 98, status: 'En Ruta', zone: 'Sur', lastMsg: 'Recibido', time: '18:15', unread: 0 },
+            { id: 3, name: 'Carlos Ruiz', role: 'Mercaderista', phone: '3205551122', email: 'carlos@bdf.com', visits: 45, status: 'Inactivo', zone: 'Occidente', lastMsg: 'Check-in realizado', time: '17:40', unread: 0 },
         ];
 
         const RETAILERS = [
@@ -124,14 +122,26 @@
             { id: 5, name: 'Jumbo - Calle 80', type: 'Retail', city: 'Bogotá', status: 'Inactivo', visits: 12, lat: 80, lng: 80, heat: 'low' },
         ];
 
+        // NEW: Nested Categories Structure
         const INFALTABLES_ASSETS = {
-            'Farmatodo': { flyer: 'https://i.postimg.cc/FFLr3BXZ/infaltables-1.png', plano: 'https://i.postimg.cc/wjKsDmrQ/planograma-nivea.png' },
-            'Cruz Verde': { flyer: 'https://i.postimg.cc/FFLr3BXZ/infaltables-1.png', plano: 'https://i.postimg.cc/wjKsDmrQ/planograma-nivea.png' },
-            'Éxito': { flyer: 'https://i.postimg.cc/FFLr3BXZ/infaltables-1.png', plano: 'https://i.postimg.cc/wjKsDmrQ/planograma-nivea.png' },
-            'Oxxo': { flyer: 'https://i.postimg.cc/FFLr3BXZ/infaltables-1.png', plano: 'https://i.postimg.cc/wjKsDmrQ/planograma-nivea.png' },
+            'Farmatodo': { 
+                'Salud': { flyer: 'https://i.postimg.cc/FFLr3BXZ/infaltables-1.png', plano: 'https://placehold.co/400x300/e2e8f0/1e293b?text=Plano+Salud' },
+                'Belleza': { flyer: 'https://placehold.co/300x400/ffe4e1/000000?text=Folleto+Belleza', plano: 'https://i.postimg.cc/wjKsDmrQ/planograma-nivea.png' },
+                'Dermocosmética': { flyer: 'https://placehold.co/300x400/e0f7fa/000000?text=Folleto+Dermo', plano: 'https://placehold.co/400x300/e2e8f0/1e293b?text=Plano+Dermo' }
+            },
+            'Cruz Verde': { 
+                'General': { flyer: 'https://i.postimg.cc/FFLr3BXZ/infaltables-1.png', plano: 'https://i.postimg.cc/wjKsDmrQ/planograma-nivea.png' }
+            },
+            'Éxito': { 
+                'Cuidado Personal': { flyer: 'https://i.postimg.cc/FFLr3BXZ/infaltables-1.png', plano: 'https://i.postimg.cc/wjKsDmrQ/planograma-nivea.png' },
+                'Solares': { flyer: 'https://placehold.co/300x400/fff9c4/000000?text=Folleto+Solares', plano: 'https://placehold.co/400x300/e2e8f0/1e293b?text=Plano+Solares' }
+            },
+            'Oxxo': { 
+                'Caja': { flyer: 'https://i.postimg.cc/FFLr3BXZ/infaltables-1.png', plano: 'https://i.postimg.cc/wjKsDmrQ/planograma-nivea.png' }
+            },
         };
 
-         const RETAIL_STATS = [
+        const RETAIL_STATS = [
             { name: 'Oxxo', visits: 450, color: 'bg-red-500' },
             { name: 'Éxito', visits: 320, color: 'bg-yellow-400' },
             { name: 'Farmatodo', visits: 210, color: 'bg-blue-600' },
@@ -140,9 +150,9 @@
         ];
 
         const GALLERY = [
-            { id: 1, user: 'Maria G.', store: 'Farmatodo - 93', time: '10:30 AM', img: 'https://placehold.co/150x150/png?text=Gondola+OK', score: 10 },
-            { id: 2, user: 'Juan P.', store: 'Oxxo - Chicó', time: '09:15 AM', img: 'https://placehold.co/150x150/png?text=Gondola+OK', score: 10 },
-            { id: 3, user: 'Carlos R.', store: 'Cruz Verde - Pepe', time: '08:45 AM', img: 'https://placehold.co/150x150/png?text=Exhibicion', score: 5 },
+            { id: 1, user: 'Maria G.', store: 'Farmatodo - 93', time: '10:30 AM', img: 'https://placehold.co/150x150/png?text=Gondola+OK', validation: 'Pendiente' },
+            { id: 2, user: 'Juan P.', store: 'Oxxo - Chicó', time: '09:15 AM', img: 'https://placehold.co/150x150/png?text=Gondola+OK', validation: 'Aprobado' },
+            { id: 3, user: 'Carlos R.', store: 'Cruz Verde - Pepe', time: '08:45 AM', img: 'https://placehold.co/150x150/png?text=Exhibicion', validation: 'Rechazado' },
         ];
 
         const CHAT_HISTORY_MOCK = [
@@ -150,7 +160,7 @@
             { id: 2, from: 'user', text: '52345678', time: '08:01' },
             { id: 3, from: 'bot', text: 'Validado. ¿Qué punto visitas hoy?', time: '08:01' },
             { id: 4, from: 'user', text: 'Farmatodo 93', time: '08:05' },
-            { id: 5, from: 'bot', text: 'Entendido. Aquí tienes los infaltables.', time: '08:05', image: 'https://i.postimg.cc/FFLr3BXZ/infaltables-1.png' },
+            { id: 5, from: 'bot', text: 'Entendido. Aquí tienes los infaltables de Salud.', time: '08:05', image: 'https://i.postimg.cc/FFLr3BXZ/infaltables-1.png' },
             { id: 6, from: 'user', text: 'Listo, ya organicé.', time: '08:45' },
             { id: 7, from: 'bot', text: 'Por favor envía foto de evidencia.', time: '08:45' },
             { id: 8, from: 'user', text: 'Aquí está', time: '08:46', image: 'https://placehold.co/300x400/png?text=FOTO+GONDOLA' },
@@ -176,14 +186,11 @@
             { id: 3, name: 'recordatorio_visita', type: 'utility', lang: 'es', status: 'pendiente' },
         ];
 
-        const INFALTABLES_IMG = 'https://i.postimg.cc/FFLr3BXZ/infaltables-1.png';
-        const PLANOGRAMA_IMG = 'https://i.postimg.cc/wjKsDmrQ/planograma-nivea.png';
-
         // --- APP COMPONENT ---
         function BDFApp() {
             const [view, setView] = useState('dashboard');
-            const [scenario, setScenario] = useState('manual'); 
-            const [waView, setWaView] = useState('chats'); // chats, contacts, stages, tags, templates, marketing
+            const [role, setRole] = useState('superadmin'); // 'superadmin' vs 'admin' (viewer)
+            const [waView, setWaView] = useState('chats'); 
             
             // --- Chat State (Simulator) ---
             const [messages, setMessages] = useState([
@@ -194,6 +201,9 @@
             const [chatStep, setChatStep] = useState('LOGIN'); 
             const [currentStore, setCurrentStore] = useState(null);
             const chatEndRef = useRef(null);
+
+            // New State for Content Manager Category Filtering
+            const [selectedChain, setSelectedChain] = useState('Farmatodo');
 
             useEffect(() => { chatEndRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages]);
 
@@ -208,30 +218,38 @@
             };
 
             const processBotResponse = (text) => {
+                const lowerText = text.toLowerCase();
                 if (chatStep === 'LOGIN') {
-                    setMessages(prev => [...prev, { id: Date.now(), from: 'bot', type: 'text', content: `✅ Gracias **${text}**. Datos validados correctamente.\n\n📍 ¿Qué punto de venta visitas hoy?` }]);
+                    setMessages(prev => [...prev, { id: Date.now(), from: 'bot', type: 'text', content: `✅ Gracias **${text}**. Datos validados.\n\n📍 ¿Qué punto de venta visitas hoy?` }]);
                     setChatStep(0); return;
                 }
                 if (chatStep === 0) {
-                    setCurrentStore('Farmatodo');
+                    let store = Object.keys(INFALTABLES_ASSETS).find(k => lowerText.includes(k.toLowerCase())) || 'Farmatodo';
+                    setCurrentStore(store);
+                    // Default to first category available
+                    const firstCategory = Object.keys(INFALTABLES_ASSETS[store])[0];
+                    const assets = INFALTABLES_ASSETS[store][firstCategory];
+
                     setMessages(prev => [
                         ...prev,
-                        { id: Date.now(), from: 'bot', type: 'text', content: `✅ Perfecto, vas para **Farmatodo**.\n\nAquí tienes el folleto digital de **INFALTABLES** para hoy:` },
-                        { id: Date.now()+1, from: 'bot', type: 'image', content: INFALTABLES_IMG, caption: '📄 Folleto Digital BDF' },
-                        { id: Date.now()+2, from: 'bot', type: 'text', content: '¿Quieres ver cómo se deben ver en la góndola? (Sí/No)' }
+                        { id: Date.now(), from: 'bot', type: 'text', content: `✅ Perfecto, vas para **${store}**.\n\nAquí tienes el folleto digital de **${firstCategory}**:` },
+                        { id: Date.now()+1, from: 'bot', type: 'image', content: assets.flyer, caption: `📄 Folleto ${firstCategory}` },
+                        { id: Date.now()+2, from: 'bot', type: 'text', content: '¿Quieres ver el planograma de exhibición? (Sí/No)' }
                     ]);
                     setChatStep(1); return;
                 }
                 if (chatStep === 1) {
+                    const firstCategory = Object.keys(INFALTABLES_ASSETS[currentStore])[0];
+                    const assets = INFALTABLES_ASSETS[currentStore][firstCategory];
                     setMessages(prev => [
                         ...prev,
-                        { id: Date.now(), from: 'bot', type: 'image', content: PLANOGRAMA_IMG, caption: '📸 Foto de Éxito' },
-                        { id: Date.now()+1, from: 'bot', type: 'text', content: 'Avísame cuando termines de exhibir escribiendo "Listo".' }
+                        { id: Date.now(), from: 'bot', type: 'image', content: assets.plano, caption: '📸 Foto de Éxito' },
+                        { id: Date.now()+1, from: 'bot', type: 'text', content: 'Avísame cuando llegues al punto y tengas la exhibición lista escribiendo "Listo".' }
                     ]);
                     setChatStep(4); return;
                 }
                 if (chatStep === 4) {
-                    setMessages(prev => [...prev, { id: Date.now(), from: 'bot', type: 'text', content: '📍 Geo-localización confirmada.\n\nPor favor envíame una **FOTO** de cómo quedó la góndola.' }]);
+                    setMessages(prev => [...prev, { id: Date.now(), from: 'bot', type: 'text', content: '📍 Geo-localización confirmada.\n\nPor favor envíame una **FOTO** de la góndola terminada.' }]);
                     setChatStep(5); return;
                 }
             };
@@ -239,237 +257,110 @@
             const simulatePhotoUpload = () => {
                 const userMsg = { id: Date.now(), from: 'user', type: 'image', content: 'https://placehold.co/200x200?text=Mi+Foto', caption: 'Así quedó la góndola' };
                 setMessages(prev => [...prev, userMsg]);
-                
                 setTimeout(() => {
-                    if (scenario === 'manual') {
-                        setMessages(prev => [...prev, { id: Date.now(), from: 'bot', type: 'text', content: '📩 **Foto Recibida.**\n\nTu supervisor revisará la evidencia y te asignará los puntos en breve. ¡Sigue con la siguiente visita!' }]);
-                    } else {
-                        setMessages(prev => [...prev, { id: Date.now(), from: 'bot', type: 'text', content: '🤖 **IA Analizando...**\n\n✅ Planometría: 95% Correcta\n✅ Infaltables: 5/5 detectados.\n\n🏆 **+50 Puntos** asignados automáticamente.' }]);
-                        setPoints(prev => prev + 50);
-                    }
+                    setMessages(prev => [...prev, { id: Date.now(), from: 'bot', type: 'text', content: '📩 **Foto Recibida.**\n\nQueda en revisión por tu supervisor. ¡Gracias por tu gestión!' }]);
                     setChatStep(0);
                 }, 1500);
             };
 
-            // --- VISTAS RESTAURADAS ---
+            // --- VISTAS ---
 
-            const renderDashboard = () => {
-                const topMerchandiser = CONTACTS.reduce((prev, current) => (prev.totalVisits > current.totalVisits) ? prev : current);
-
-                return (
-                    <div className="space-y-6 animate-in fade-in">
-                        {/* KPI Cards */}
-                        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-                                <div className="flex justify-between items-center mb-2">
-                                    <h3 className="text-slate-500 text-sm font-bold uppercase">Visitas Hoy</h3>
-                                    <div className="bg-blue-100 p-2 rounded-lg text-blue-600">{MapIcon && <MapIcon size={20}/>}</div>
-                                </div>
-                                <p className="text-3xl font-bold text-slate-800">142</p>
-                                <p className="text-xs text-green-600 mt-1">↑ 12% vs ayer</p>
+            const renderDashboard = () => (
+                <div className="space-y-6 animate-in fade-in">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                            <div className="flex justify-between items-center mb-2">
+                                <h3 className="text-slate-500 text-sm font-bold uppercase">Visitas Hoy</h3>
+                                <div className="bg-blue-100 p-2 rounded-lg text-blue-600">{MapIcon && <MapIcon size={20}/>}</div>
                             </div>
-                             <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-                                <div className="flex justify-between items-center mb-2">
-                                    <h3 className="text-slate-500 text-sm font-bold uppercase">Cobertura</h3>
-                                    <div className="bg-emerald-100 p-2 rounded-lg text-emerald-600">{Target && <Target size={20}/>}</div>
-                                </div>
-                                <p className="text-3xl font-bold text-slate-800">85%</p>
-                                <p className="text-xs text-slate-400 mt-1">Puntos cubiertos</p>
-                            </div>
-                            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-                                <div className="flex justify-between items-center mb-2">
-                                    <h3 className="text-slate-500 text-sm font-bold uppercase">Fotos Recibidas</h3>
-                                    <div className="bg-purple-100 p-2 rounded-lg text-purple-600">{Camera && <Camera size={20}/>}</div>
-                                </div>
-                                <p className="text-3xl font-bold text-slate-800">380</p>
-                                <p className="text-xs text-slate-400 mt-1">Evidencia visual</p>
-                            </div>
-                             <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-                                <div className="flex justify-between items-center mb-2">
-                                    <h3 className="text-slate-500 text-sm font-bold uppercase">Activos</h3>
-                                    <div className="bg-orange-100 p-2 rounded-lg text-orange-600">{Users && <Users size={20}/>}</div>
-                                </div>
-                                <p className="text-3xl font-bold text-slate-800">45</p>
-                                <p className="text-xs text-green-600 mt-1">En campo</p>
-                            </div>
+                            <p className="text-3xl font-bold text-slate-800">142</p>
+                            <p className="text-xs text-green-600 mt-1">↑ 12% vs ayer</p>
                         </div>
+                         <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                            <div className="flex justify-between items-center mb-2">
+                                <h3 className="text-slate-500 text-sm font-bold uppercase">Cobertura</h3>
+                                <div className="bg-emerald-100 p-2 rounded-lg text-emerald-600">{Target && <Target size={20}/>}</div>
+                            </div>
+                            <p className="text-3xl font-bold text-slate-800">85%</p>
+                            <p className="text-xs text-slate-400 mt-1">Puntos cubiertos</p>
+                        </div>
+                        <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                            <div className="flex justify-between items-center mb-2">
+                                <h3 className="text-slate-500 text-sm font-bold uppercase">Fotos Recibidas</h3>
+                                <div className="bg-purple-100 p-2 rounded-lg text-purple-600">{Camera && <Camera size={20}/>}</div>
+                            </div>
+                            <p className="text-3xl font-bold text-slate-800">380</p>
+                            <p className="text-xs text-slate-400 mt-1">Evidencia visual</p>
+                        </div>
+                         <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                            <div className="flex justify-between items-center mb-2">
+                                <h3 className="text-slate-500 text-sm font-bold uppercase">Activos</h3>
+                                <div className="bg-orange-100 p-2 rounded-lg text-orange-600">{Users && <Users size={20}/>}</div>
+                            </div>
+                            <p className="text-3xl font-bold text-slate-800">45</p>
+                            <p className="text-xs text-green-600 mt-1">En campo</p>
+                        </div>
+                    </div>
 
-                        {/* Middle Section */}
-                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                            <div className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-                                <h3 className="font-bold text-slate-700 mb-6 flex items-center gap-2">
-                                    {BarChart && <BarChart size={20}/>} Visitas por Retail (Mes Actual)
-                                </h3>
-                                <div className="space-y-4">
-                                    {RETAIL_STATS.map((retail) => (
-                                        <div key={retail.name}>
-                                            <div className="flex justify-between text-sm mb-1">
-                                                <span className="font-bold text-slate-700">{retail.name}</span>
-                                                <span className="text-slate-500">{retail.visits} visitas</span>
-                                            </div>
-                                            <div className="w-full bg-slate-100 rounded-full h-2.5">
-                                                <div 
-                                                    className={`h-2.5 rounded-full ${retail.color}`} 
-                                                    style={{ width: `${(retail.visits / 500) * 100}%` }}
-                                                ></div>
-                                            </div>
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                            <h3 className="font-bold text-slate-700 mb-6 flex items-center gap-2">
+                                {BarChart && <BarChart size={20}/>} Visitas por Retail (Mes Actual)
+                            </h3>
+                            <div className="space-y-4">
+                                {RETAIL_STATS.map((retail) => (
+                                    <div key={retail.name}>
+                                        <div className="flex justify-between text-sm mb-1">
+                                            <span className="font-bold text-slate-700">{retail.name}</span>
+                                            <span className="text-slate-500">{retail.visits} visitas</span>
                                         </div>
-                                    ))}
-                                </div>
-                            </div>
-
-                            <div className="bg-gradient-to-br from-indigo-600 to-blue-700 rounded-xl shadow-lg p-6 text-white flex flex-col items-center justify-center relative overflow-hidden">
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full -mr-16 -mt-16"></div>
-                                <div className="relative z-10 text-center">
-                                    <div className="mb-2 inline-block bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">Top Performer</div>
-                                    <div className="w-20 h-20 bg-white rounded-full mx-auto mb-3 flex items-center justify-center text-indigo-600 font-bold text-3xl shadow-md border-4 border-indigo-300">
-                                        {topMerchandiser.name.charAt(0)}
+                                        <div className="w-full bg-slate-100 rounded-full h-2.5">
+                                            <div className={`h-2.5 rounded-full ${retail.color}`} style={{ width: `${(retail.visits / 500) * 100}%` }}></div>
+                                        </div>
                                     </div>
-                                    <h3 className="text-xl font-bold">{topMerchandiser.name}</h3>
-                                    <p className="text-indigo-100 text-sm mb-4">{topMerchandiser.role}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                );
-            };
-
-            const renderGamification = () => {
-                const top3 = CONTACTS.slice(0, 3);
-                return (
-                    <div className="space-y-8 animate-in fade-in">
-                        <div className="flex flex-col items-center justify-center py-6">
-                            <h2 className="text-2xl font-bold text-slate-800 mb-8 flex items-center gap-2">
-                                {Trophy && <Trophy size={28} className="text-yellow-500"/>} Podio de Campeones (Enero)
-                            </h2>
-                            <div className="flex items-end gap-4 md:gap-8">
-                                <div className="flex flex-col items-center">
-                                    <div className="w-16 h-16 rounded-full border-4 border-slate-300 overflow-hidden mb-2 relative">
-                                        <div className="w-full h-full bg-slate-200 flex items-center justify-center text-slate-500 font-bold text-xl">{top3[1].name.charAt(0)}</div>
-                                        <div className="absolute bottom-0 right-0 bg-slate-300 text-white text-xs font-bold px-1.5 rounded-full">2</div>
-                                    </div>
-                                    <p className="font-bold text-slate-700 text-sm">{top3[1].name}</p>
-                                    <p className="text-blue-600 font-bold text-sm">{top3[1].points} pts</p>
-                                </div>
-                                <div className="flex flex-col items-center">
-                                    <div className="mb-2">{Trophy && <Trophy size={32} className="text-yellow-500 animate-bounce"/>}</div>
-                                    <div className="w-20 h-20 rounded-full border-4 border-yellow-400 overflow-hidden mb-2 relative shadow-lg">
-                                        <div className="w-full h-full bg-yellow-100 flex items-center justify-center text-yellow-600 font-bold text-2xl">{top3[0].name.charAt(0)}</div>
-                                        <div className="absolute bottom-0 right-0 bg-yellow-400 text-white text-xs font-bold px-2 rounded-full">1</div>
-                                    </div>
-                                    <p className="font-bold text-slate-800">{top3[0].name}</p>
-                                    <p className="text-blue-600 font-bold">{top3[0].points} pts</p>
-                                </div>
-                                <div className="flex flex-col items-center">
-                                    <div className="w-16 h-16 rounded-full border-4 border-orange-300 overflow-hidden mb-2 relative">
-                                        <div className="w-full h-full bg-orange-100 flex items-center justify-center text-orange-500 font-bold text-xl">{top3[2].name.charAt(0)}</div>
-                                        <div className="absolute bottom-0 right-0 bg-orange-300 text-white text-xs font-bold px-1.5 rounded-full">3</div>
-                                    </div>
-                                    <p className="font-bold text-slate-700 text-sm">{top3[2].name}</p>
-                                    <p className="text-blue-600 font-bold text-sm">{top3[2].points} pts</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-                            <div className="p-4 bg-slate-50 border-b border-slate-200">
-                                <h3 className="font-bold text-slate-700">Ranking General</h3>
-                            </div>
-                            <table className="w-full text-left">
-                                <thead className="bg-white text-slate-500 text-xs uppercase border-b border-slate-100">
-                                    <tr><th className="p-4">Rank</th><th className="p-4">Mercaderista</th><th className="p-4 text-center">Racha</th><th className="p-4 text-right">Puntos</th></tr>
-                                </thead>
-                                <tbody className="divide-y divide-slate-50 text-sm">
-                                    {CONTACTS.map((c) => (
-                                        <tr key={c.id} className="hover:bg-slate-50 transition-colors">
-                                            <td className="p-4 font-bold text-slate-400">#{c.rank}</td>
-                                            <td className="p-4 font-medium text-slate-800">{c.name}</td>
-                                            <td className="p-4 text-center">{c.streak} días</td>
-                                            <td className="p-4 text-right font-bold text-blue-600">{c.points}</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                );
-            };
-
-            const renderRoutes = () => (
-                <div className="flex h-full gap-6 animate-in fade-in">
-                    <div className="w-64 bg-white rounded-xl shadow-sm border border-slate-200 p-4 h-fit">
-                        <h3 className="font-bold text-slate-700 mb-4 flex items-center gap-2">{Filter && <Filter size={18}/>} Filtros</h3>
-                        <div className="space-y-4">
-                            <div className="space-y-2">
-                                {['Todos', 'Farmatodo', 'Oxxo', 'Éxito'].map(r => (
-                                    <label key={r} className="flex items-center gap-2 text-sm text-slate-600 cursor-pointer">
-                                        <input type="checkbox" className="rounded text-blue-600" defaultChecked={r === 'Todos'} /> {r}
-                                    </label>
                                 ))}
                             </div>
                         </div>
-                    </div>
-                    <div className="flex-1 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col relative">
-                        <div className="absolute top-4 right-4 z-10 bg-white/90 backdrop-blur p-2 rounded-lg shadow-sm border border-slate-200 text-xs">
-                            <div className="flex items-center gap-2 mb-1"><div className="w-3 h-3 rounded-full bg-red-500 opacity-80"></div> Alta</div>
-                            <div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-green-400 opacity-80"></div> Baja</div>
+
+                         {/* Mercaderista Top - Sin gamificación, solo datos */}
+                        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 flex flex-col items-center justify-center text-center">
+                            <div className="mb-2 uppercase text-xs font-bold text-slate-400 tracking-wider">Mayor Productividad</div>
+                            <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-2xl mb-3">M</div>
+                            <h3 className="text-lg font-bold text-slate-800">Maria Gonzalez</h3>
+                            <p className="text-sm text-slate-500 mb-4">Mercaderista Senior</p>
+                            <div className="flex gap-4 text-center w-full">
+                                <div className="flex-1 bg-slate-50 p-2 rounded">
+                                    <span className="block font-bold text-slate-800">145</span>
+                                    <span className="text-[10px] text-slate-500">Visitas</span>
+                                </div>
+                                <div className="flex-1 bg-slate-50 p-2 rounded">
+                                    <span className="block font-bold text-slate-800">12</span>
+                                    <span className="text-[10px] text-slate-500">Días Activa</span>
+                                </div>
+                            </div>
                         </div>
-                        <div className="flex-1 map-bg relative">
-                            {RETAILERS.map(store => (
-                                <div key={store.id} className="absolute group cursor-pointer" style={{ top: `${store.lat}%`, left: `${store.lng}%` }}>
-                                    <div className={`w-8 h-8 rounded-full opacity-40 animate-pulse absolute -top-2 -left-2 ${store.heat === 'high' ? 'bg-red-400' : 'bg-green-300'}`}></div>
-                                    <div className={`relative w-4 h-4 rounded-full border-2 border-white shadow-md ${store.heat === 'high' ? 'bg-red-600' : 'bg-green-500'}`}></div>
-                                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-white px-3 py-2 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none">
-                                        <p className="font-bold text-xs text-slate-800">{store.name}</p>
+                    </div>
+
+                    <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div className="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                            <h3 className="font-bold text-slate-700 flex items-center gap-2">
+                                {ImageIcon && <ImageIcon size={18}/>} Trazabilidad: Últimas Góndolas
+                            </h3>
+                            <button className="text-blue-600 text-sm font-medium hover:underline">Ver todas</button>
+                        </div>
+                        <div className="p-4 grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {GALLERY.map(pic => (
+                                <div key={pic.id} className="relative group rounded-lg overflow-hidden border border-slate-200 shadow-sm cursor-pointer">
+                                    <img src={pic.img} alt="Evidence" className="w-full h-40 object-cover transition-transform group-hover:scale-105" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-3">
+                                        <p className="text-white font-bold text-sm">{pic.store}</p>
+                                        <div className="flex justify-between items-center">
+                                            <p className="text-slate-200 text-xs">{pic.user}</p>
+                                            <span className={`text-[9px] px-1.5 rounded font-bold ${pic.validation === 'Aprobado' ? 'bg-green-500 text-white' : pic.validation === 'Rechazado' ? 'bg-red-500 text-white' : 'bg-yellow-500 text-white'}`}>{pic.validation}</span>
+                                        </div>
                                     </div>
                                 </div>
                             ))}
-                        </div>
-                    </div>
-                </div>
-            );
-
-            const renderCRM = () => (
-                <div className="space-y-6 animate-in fade-in">
-                    <div className="flex justify-between items-center">
-                        <h2 className="text-xl font-bold text-slate-800">Directorio</h2>
-                        <button className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 hover:bg-blue-700">{UserPlus && <UserPlus size={16}/>} Nuevo</button>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {CONTACTS.map(contact => (
-                            <div key={contact.id} className="bg-white rounded-xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition-shadow">
-                                <div className="flex justify-between items-start mb-4">
-                                    <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 font-bold text-xl">{contact.name.charAt(0)}</div>
-                                    <span className="px-2 py-1 rounded-full text-xs font-bold bg-green-100 text-green-700">{contact.status}</span>
-                                </div>
-                                <h3 className="font-bold text-lg text-slate-800">{contact.name}</h3>
-                                <p className="text-sm text-slate-500 mb-4">{contact.role}</p>
-                                <div className="space-y-2 text-sm border-t border-slate-100 pt-4 mb-4">
-                                    <div className="flex items-center gap-2 text-slate-600">{Phone && <Phone size={14}/>} {contact.phone}</div>
-                                    <div className="flex items-center gap-2 text-slate-600">{Mail && <Mail size={14}/>} {contact.email}</div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            );
-
-            const renderMessaging = () => (
-                <div className="space-y-6 animate-in fade-in">
-                    <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-                        <h2 className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">{Send && <Send size={20}/>} Nueva Campaña Masiva</h2>
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                            <div className="space-y-4">
-                                <div>
-                                    <label className="block text-sm font-bold text-slate-700 mb-1">Nombre</label>
-                                    <input type="text" className="w-full border border-slate-300 rounded-lg p-2 text-sm" placeholder="Ej: Promo Nivea Q1" />
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-bold text-slate-700 mb-1">Mensaje</label>
-                                    <textarea className="w-full border border-slate-300 rounded-lg p-2 text-sm h-32" placeholder="Escribe tu mensaje aquí..."></textarea>
-                                </div>
-                                <button className="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 shadow-md">Enviar Ahora</button>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -477,33 +368,70 @@
 
             const renderContentManager = () => (
                 <div className="space-y-6 animate-in fade-in">
+                    <div className="flex gap-4 overflow-x-auto pb-2">
+                        {Object.keys(INFALTABLES_ASSETS).map(chain => (
+                            <button 
+                                key={chain}
+                                onClick={() => setSelectedChain(chain)}
+                                className={`px-4 py-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors ${selectedChain === chain ? 'bg-blue-600 text-white shadow-md' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'}`}
+                            >
+                                {chain}
+                            </button>
+                        ))}
+                    </div>
+
                     <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-                        <h2 className="text-xl font-bold text-slate-800 mb-4">Gestión de Folletos Digitales</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {Object.entries(INFALTABLES_ASSETS).map(([chain, assets]) => (
-                                <div key={chain} className="border border-slate-200 rounded-xl p-4 hover:border-blue-300 transition-all bg-slate-50">
-                                    <div className="flex justify-between items-center mb-4">
-                                        <h3 className="font-bold text-lg text-slate-700">{chain}</h3>
-                                        <span className="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded font-bold">Activo</span>
+                        <h2 className="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            {FileText && <FileText size={20}/>} Contenido Digital: {selectedChain}
+                        </h2>
+                        <p className="text-sm text-slate-500 mb-6">Gestiona los folletos y planogramas visibles para los mercaderistas, organizados por categoría.</p>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {Object.entries(INFALTABLES_ASSETS[selectedChain]).map(([category, assets]) => (
+                                <div key={category} className="border border-slate-200 rounded-xl overflow-hidden hover:border-blue-300 transition-all bg-slate-50">
+                                    <div className="bg-slate-100 p-3 border-b border-slate-200 flex justify-between items-center">
+                                        <h3 className="font-bold text-sm text-slate-700">{category}</h3>
+                                        <span className="bg-green-100 text-green-700 text-[10px] px-2 py-0.5 rounded font-bold">Visible</span>
                                     </div>
-                                    <div className="flex gap-4">
-                                        <div className="flex-1">
-                                            <p className="text-xs font-bold text-slate-500 mb-2 uppercase">Folleto</p>
-                                            <img src={assets.flyer} className="w-full h-32 object-cover rounded border border-slate-200"/>
+                                    <div className="p-4 space-y-4">
+                                        <div>
+                                            <p className="text-[10px] font-bold text-slate-400 mb-1 uppercase">Folleto Infaltables</p>
+                                            <div className="h-32 bg-white rounded border border-slate-200 overflow-hidden relative group">
+                                                <img src={assets.flyer} className="w-full h-full object-cover"/>
+                                                {role === 'superadmin' && (
+                                                    <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+                                                        <div className="bg-white p-1.5 rounded-full"><Upload size={14}/></div>
+                                                    </div>
+                                                )}
+                                            </div>
                                         </div>
-                                        <div className="flex-1">
-                                            <p className="text-xs font-bold text-slate-500 mb-2 uppercase">Planograma</p>
-                                            <img src={assets.plano} className="w-full h-32 object-cover rounded border border-slate-200"/>
+                                        <div>
+                                            <p className="text-[10px] font-bold text-slate-400 mb-1 uppercase">Planograma</p>
+                                            <div className="h-32 bg-white rounded border border-slate-200 overflow-hidden relative group">
+                                                <img src={assets.plano} className="w-full h-full object-cover"/>
+                                                {role === 'superadmin' && (
+                                                    <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+                                                        <div className="bg-white p-1.5 rounded-full"><Upload size={14}/></div>
+                                                    </div>
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             ))}
+                            
+                            {role === 'superadmin' && (
+                                <div className="border-2 border-dashed border-slate-300 rounded-xl p-4 flex flex-col items-center justify-center text-slate-400 hover:border-blue-400 hover:text-blue-500 cursor-pointer min-h-[300px]">
+                                    <Plus size={32}/>
+                                    <span className="font-bold mt-2 text-sm">Nueva Categoría</span>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
             );
 
-            // --- SUB-VISTAS WHATSAPP CENTER ---
+            // --- WHATSAPP CENTER VISTAS ---
             const renderWaContacts = () => (
                 <div className="flex-1 bg-white p-6 overflow-y-auto">
                     <h2 className="text-xl font-bold mb-4 flex items-center gap-2">{Users && <Users size={24}/>} Contactos</h2>
@@ -586,55 +514,50 @@
                             {Send && <Send size={20}/>} Nueva Campaña Masiva
                         </h2>
                         
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                            <div className="space-y-4">
-                                <div>
-                                    <label className="block text-sm font-bold text-slate-700 mb-1">Nombre de Campaña</label>
-                                    <input type="text" className="w-full border border-slate-300 rounded-lg p-2 text-sm" placeholder="Ej: Promo Nivea Q1" />
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-bold text-slate-700 mb-1">Segmento Objetivo</label>
-                                    <select className="w-full border border-slate-300 rounded-lg p-2 text-sm">
-                                        <option>Todos los Mercaderistas</option>
-                                        <option>Solo Zona Norte</option>
-                                        <option>Inactivos (Reactivación)</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-bold text-slate-700 mb-1">Mensaje (WhatsApp)</label>
-                                    <textarea className="w-full border border-slate-300 rounded-lg p-2 text-sm h-32" placeholder="Escribe tu mensaje aquí..."></textarea>
-                                </div>
-                                
-                                <div className="p-4 bg-blue-50 rounded-lg border border-blue-100 flex items-start gap-3">
-                                    <div className="text-blue-600 mt-1">{AlertCircle && <AlertCircle size={16}/>}</div>
+                        {role === 'superadmin' ? (
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                <div className="space-y-4">
                                     <div>
-                                        <h4 className="text-sm font-bold text-blue-800">Costo Estimado</h4>
-                                        <p className="text-xs text-blue-600 mt-1">
-                                            Enviar a <strong>45 usuarios</strong> (Marketing)<br/>
-                                            Total: <strong>$2.70 USD</strong>
-                                        </p>
+                                        <label className="block text-sm font-bold text-slate-700 mb-1">Nombre de Campaña</label>
+                                        <input type="text" className="w-full border border-slate-300 rounded-lg p-2 text-sm" placeholder="Ej: Promo Nivea Q1" />
                                     </div>
+                                    <div>
+                                        <label className="block text-sm font-bold text-slate-700 mb-1">Segmento Objetivo</label>
+                                        <select className="w-full border border-slate-300 rounded-lg p-2 text-sm">
+                                            <option>Todos los Mercaderistas</option>
+                                            <option>Solo Zona Norte</option>
+                                            <option>Inactivos (Reactivación)</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-bold text-slate-700 mb-1">Mensaje (WhatsApp)</label>
+                                        <textarea className="w-full border border-slate-300 rounded-lg p-2 text-sm h-32" placeholder="Escribe tu mensaje aquí..."></textarea>
+                                    </div>
+                                    <button className="w-full bg-green-600 text-white font-bold py-3 rounded-lg hover:bg-green-700 shadow-md flex items-center justify-center gap-2">
+                                        {Send && <Send size={16}/>} Enviar Ahora
+                                    </button>
                                 </div>
 
-                                <button className="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 shadow-md">
-                                    Enviar Ahora
-                                </button>
-                            </div>
-
-                            <div className="bg-slate-100 rounded-xl border border-slate-200 p-8 flex items-center justify-center">
-                                <div className="w-64 bg-white rounded-lg shadow-lg overflow-hidden border border-slate-200">
-                                    <div className="bg-[#005e54] h-10 flex items-center px-3">
-                                        <div className="w-6 h-6 bg-white rounded-full"></div>
-                                    </div>
-                                    <div className="p-4 chat-bg h-64 relative">
-                                        <div className="bg-white p-2 rounded-lg text-sm shadow-sm rounded-tl-none relative">
-                                            Hola equipo 👋, recuerden que esta semana tenemos foco especial en Nivea Sun. ¡A ganar!
-                                            <span className="text-[9px] text-slate-400 absolute bottom-1 right-2">10:00</span>
+                                <div className="bg-slate-100 rounded-xl border border-slate-200 p-8 flex items-center justify-center">
+                                    <div className="w-64 bg-white rounded-lg shadow-lg overflow-hidden border border-slate-200">
+                                        <div className="bg-[#005e54] h-10 flex items-center px-3">
+                                            <div className="w-6 h-6 bg-white rounded-full"></div>
+                                        </div>
+                                        <div className="p-4 chat-bg h-64 relative">
+                                            <div className="bg-white p-2 rounded-lg text-sm shadow-sm rounded-tl-none relative">
+                                                Hola equipo 👋, recuerden que esta semana tenemos foco especial en Nivea Sun. ¡A ganar!
+                                                <span className="text-[9px] text-slate-400 absolute bottom-1 right-2">10:00</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        ) : (
+                            <div className="p-8 text-center text-slate-500 bg-slate-50 rounded-xl border border-slate-200">
+                                {Lock && <Lock size={32} className="mx-auto mb-2 opacity-50"/>}
+                                <p>Tu rol de <strong>Analista</strong> no tiene permisos para enviar campañas de marketing.</p>
+                            </div>
+                        )}
                     </div>
                 </div>
             );
@@ -704,10 +627,10 @@
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        {scenario === 'manual' && (
+                                        {role === 'superadmin' && (
                                             <div className="flex gap-2 mr-4">
                                                 <button className="bg-green-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1 hover:bg-green-700 shadow-sm" onClick={() => alert("Puntos asignados: +10")}>
-                                                    {ThumbsUp && <ThumbsUp size={14}/>} Validar & Asignar
+                                                    {ThumbsUp && <ThumbsUp size={14}/>} Validar
                                                 </button>
                                                 <button className="bg-red-500 text-white px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1 hover:bg-red-600 shadow-sm">
                                                     {ThumbsDown && <ThumbsDown size={14}/>} Rechazar
@@ -731,11 +654,13 @@
                                         </div>
                                     ))}
                                 </div>
-                                <div className="p-3 bg-[#f0f0f0] shrink-0 flex items-center gap-2">
-                                    <div className="p-2 text-slate-500 hover:bg-slate-200 rounded-full cursor-pointer">{Paperclip && <Paperclip size={24}/>}</div>
-                                    <input type="text" placeholder="Escribe un mensaje" className="flex-1 bg-white rounded-lg px-4 py-2.5 text-sm focus:outline-none border-none"/>
-                                    <div className="p-2 text-slate-500 hover:bg-slate-200 rounded-full cursor-pointer">{Mic && <Mic size={24}/>}</div>
-                                </div>
+                                {role === 'superadmin' && (
+                                    <div className="p-3 bg-[#f0f0f0] shrink-0 flex items-center gap-2">
+                                        <div className="p-2 text-slate-500 hover:bg-slate-200 rounded-full cursor-pointer">{Paperclip && <Paperclip size={24}/>}</div>
+                                        <input type="text" placeholder="Escribe un mensaje" className="flex-1 bg-white rounded-lg px-4 py-2.5 text-sm focus:outline-none border-none"/>
+                                        <div className="p-2 text-slate-500 hover:bg-slate-200 rounded-full cursor-pointer">{Mic && <Mic size={24}/>}</div>
+                                    </div>
+                                )}
                             </div>
                         </>
                     ) : waView === 'contacts' ? renderWaContacts() :
@@ -744,6 +669,62 @@
                       waView === 'templates' ? renderWaTemplates() :
                       waView === 'marketing' ? renderWaMarketing() : null
                     }
+                </div>
+            );
+
+            const renderRoutes = () => (
+                <div className="flex h-full gap-6 animate-in fade-in">
+                    <div className="w-64 bg-white rounded-xl shadow-sm border border-slate-200 p-4 h-fit">
+                        <h3 className="font-bold text-slate-700 mb-4 flex items-center gap-2">{Filter && <Filter size={18}/>} Filtros de Mapa</h3>
+                        <div className="space-y-4">
+                            <div className="space-y-2">
+                                {['Todos', 'Farmatodo', 'Oxxo', 'Éxito'].map(r => (
+                                    <label key={r} className="flex items-center gap-2 text-sm text-slate-600 cursor-pointer">
+                                        <input type="checkbox" className="rounded text-blue-600" defaultChecked={r === 'Todos'} /> {r}
+                                    </label>
+                                ))}
+                            </div>
+                            <div>
+                                <label className="text-xs font-bold text-slate-500 uppercase block mb-2">Por Zona</label>
+                                <select className="w-full border border-slate-300 rounded p-2 text-sm">
+                                    <option>Todas las Zonas</option>
+                                    <option>Norte</option>
+                                    <option>Sur</option>
+                                    <option>Occidente</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div className="mt-8 border-t border-slate-100 pt-4">
+                            <h4 className="font-bold text-slate-700 mb-2 text-sm">Top 3 Puntos Más Visitados</h4>
+                            <div className="space-y-2">
+                                {RETAILERS.sort((a,b) => b.visits - a.visits).slice(0,3).map((r, i) => (
+                                    <div key={r.id} className="flex justify-between items-center text-xs">
+                                        <span className="text-slate-600 truncate w-32">{i+1}. {r.name}</span>
+                                        <span className="font-bold text-blue-600">{r.visits}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex-1 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col relative">
+                        <div className="absolute top-4 right-4 z-10 bg-white/90 backdrop-blur p-2 rounded-lg shadow-sm border border-slate-200 text-xs">
+                            <div className="flex items-center gap-2 mb-1"><div className="w-3 h-3 rounded-full bg-red-500 opacity-80"></div> Alta Frecuencia</div>
+                            <div className="flex items-center gap-2 mb-1"><div className="w-3 h-3 rounded-full bg-orange-400 opacity-80"></div> Media Frecuencia</div>
+                            <div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-green-400 opacity-80"></div> Baja Frecuencia</div>
+                        </div>
+                        <div className="flex-1 map-bg relative">
+                            {RETAILERS.map(store => (
+                                <div key={store.id} className="absolute group cursor-pointer" style={{ top: `${store.lat}%`, left: `${store.lng}%` }}>
+                                    <div className={`w-8 h-8 rounded-full opacity-40 animate-pulse absolute -top-2 -left-2 ${store.heat === 'high' ? 'bg-red-400' : store.heat === 'medium' ? 'bg-orange-300' : 'bg-green-300'}`}></div>
+                                    <div className={`relative w-4 h-4 rounded-full border-2 border-white shadow-md ${store.heat === 'high' ? 'bg-red-600' : store.heat === 'medium' ? 'bg-orange-500' : 'bg-green-500'}`}></div>
+                                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-white px-3 py-2 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none">
+                                        <p className="font-bold text-xs text-slate-800">{store.name}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             );
 
@@ -776,43 +757,15 @@
                             <p className="text-slate-600 text-sm mb-4">FDJ requiere una plataforma que permita:</p>
                             <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-slate-600">
                                 <li className="flex gap-2"><div className="w-1.5 h-1.5 rounded-full bg-slate-400 mt-2"></div>Registrar y trazar todas las visitas de mercaderistas.</li>
-                                <li className="flex gap-2"><div className="w-1.5 h-1.5 rounded-full bg-slate-400 mt-2"></div>Mantener evidencia fotográfica del estado de góndolas.</li>
                                 <li className="flex gap-2"><div className="w-1.5 h-1.5 rounded-full bg-slate-400 mt-2"></div>Gestionar información de múltiples marcas y retailers.</li>
-                                <li className="flex gap-2"><div className="w-1.5 h-1.5 rounded-full bg-slate-400 mt-2"></div>Georreferenciar todas las actividades de campo.</li>
                             </ul>
                         </section>
 
                         <hr className="border-slate-100"/>
 
-                        {/* 3. Solución Propuesta (Escenarios) */}
+                        {/* 3. Solución Propuesta */}
                         <section>
-                            <h2 className="text-2xl font-bold text-slate-800 mb-6">3. SOLUCIÓN PROPUESTA Y MODELOS DE OPERACIÓN</h2>
-                            <p className="text-slate-600 mb-6 text-sm">Ofrecemos dos escenarios operativos escalables según la necesidad del cliente:</p>
-                            
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                                {/* Escenario Chinomatico */}
-                                <div className="border-2 border-blue-200 rounded-xl p-6 bg-blue-50/50 relative">
-                                    <h3 className="text-lg font-bold text-blue-800 mb-2">Escenario 1: Validación Humana ("Chinómatico")</h3>
-                                    <p className="text-sm text-slate-600 mb-4">Bajo costo operativo, control manual.</p>
-                                    <ul className="space-y-2 text-sm text-slate-700">
-                                        <li>• Mercaderista envía foto por WhatsApp.</li>
-                                        <li>• Un humano revisa en el <strong>WhatsApp Center</strong>.</li>
-                                        <li>• Validación y asignación de puntos manual.</li>
-                                        <li>• <strong>Costo IA: $0 USD</strong>.</li>
-                                    </ul>
-                                </div>
-                                {/* Escenario IA */}
-                                <div className="border-2 border-purple-200 rounded-xl p-6 bg-purple-50/50 relative">
-                                    <h3 className="text-lg font-bold text-purple-800 mb-2">Escenario 2: Validación con IA</h3>
-                                    <p className="text-sm text-slate-600 mb-4">Automatización total y escalabilidad.</p>
-                                    <ul className="space-y-2 text-sm text-slate-700">
-                                        <li>• Mercaderista envía foto por WhatsApp.</li>
-                                        <li>• <strong>IA analiza la imagen</strong> (Planograma vs Real).</li>
-                                        <li>• Asignación automática de puntos inmediata.</li>
-                                        <li>• <strong>Costo IA: $4.42 USD / 1M tokens</strong>.</li>
-                                    </ul>
-                                </div>
-                            </div>
+                            <h2 className="text-2xl font-bold text-slate-800 mb-6">3. SOLUCIÓN PROPUESTA</h2>
                             
                             <div>
                                 <h3 className="font-bold text-lg text-slate-700 mb-3">3.1 Arquitectura de la Solución</h3>
@@ -821,20 +774,30 @@
                                         <h4 className="font-bold text-slate-800 mb-2">A. Interfaz Mercaderista (WhatsApp)</h4>
                                         <ul className="text-sm text-slate-600 space-y-1">
                                             <li>• Registro de visitas guiado paso a paso.</li>
-                                            <li>• Captura de ubicación GPS y fotografías.</li>
                                             <li>• Consulta de material visual por marca.</li>
-                                            <li>• Sistema de puntos y reconocimiento.</li>
+                                            <li>• Sin instalación de apps.</li>
                                         </ul>
                                     </div>
                                     <div className="bg-slate-50 p-4 rounded-lg border border-slate-200">
                                         <h4 className="font-bold text-slate-800 mb-2">B. Panel Administrativo Web</h4>
                                         <ul className="text-sm text-slate-600 space-y-1">
-                                            <li>• Gestión completa de maestros (tiendas, marcas).</li>
+                                            <li>• <strong>Superadministrador:</strong> Gestiona contenidos y marketing.</li>
+                                            <li>• <strong>Analista (Admin):</strong> Solo visualización y analítica.</li>
                                             <li>• Monitoreo en tiempo real de visitas.</li>
                                             <li>• Biblioteca de material de referencia.</li>
-                                            <li>• Sistema de reportes y analítica.</li>
                                         </ul>
                                     </div>
+                                </div>
+                            </div>
+
+                            <div className="mt-8">
+                                <h3 className="font-bold text-lg text-slate-700 mb-3">3.2 Funcionalidades Principales</h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 text-sm text-slate-600">
+                                    <li>• Check-in inteligente.</li>
+                                    <li>• Registro manual de tiendas (Fallback).</li>
+                                    <li>• Carga de planogramas por categoría (Salud, Belleza).</li>
+                                    <li>• Visualización de estándares de exhibición.</li>
+                                    <li>• Dashboard con métricas clave.</li>
                                 </div>
                             </div>
                         </section>
@@ -848,11 +811,7 @@
                                 <h3 className="text-sm font-bold text-slate-800 mb-4 uppercase">Fase 1: Desarrollo del MVP</h3>
                                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 text-sm text-slate-600">
                                     <li>• Integración WhatsApp Business API (Meta).</li>
-                                    <li>• Chatbot conversacional con flujos inteligentes.</li>
-                                    <li>• Sistema de detección de tiendas (geofencing).</li>
                                     <li>• Registro manual de tiendas como fallback.</li>
-                                    <li>• Captura y almacenamiento de fotografías.</li>
-                                    <li>• Sistema de puntos básico.</li>
                                     <li>• Panel administrativo web responsive.</li>
                                     <li>• Módulos CRUD completos.</li>
                                     <li>• Gestión de Material de Referencia (Carga/Org).</li>
@@ -863,12 +822,8 @@
                              <div className="mt-4 bg-slate-50 rounded-xl p-6 border border-slate-200 opacity-75">
                                 <h3 className="text-sm font-bold text-slate-800 mb-4 uppercase">Fase 2: Funcionalidades Avanzadas (Opcional)</h3>
                                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 text-sm text-slate-600">
-                                    <li>• Reconocimiento de imágenes con IA.</li>
-                                    <li>• Comparación automática foto vs planograma.</li>
-                                    <li>• Alertas automáticas de quiebres de stock.</li>
+                                    <li>• Score de cumplimiento automático.</li>
                                     <li>• Reportes avanzados y predictivos.</li>
-                                    <li>• Integración con ERP/CRM.</li>
-                                    <li>• Realidad aumentada para guías.</li>
                                 </ul>
                             </div>
                         </section>
@@ -892,12 +847,8 @@
                                     <h3 className="font-bold text-slate-800 mb-3">Costos Variables (OpEx)</h3>
                                     <div className="space-y-3">
                                         <div className="flex justify-between text-sm border-b border-slate-200 pb-2">
-                                            <span>Mensajería Marketing</span>
+                                            <span>Mensajería Marketing (WhatsApp)</span>
                                             <span className="font-bold text-emerald-600">$0.022 USD / mensaje</span>
-                                        </div>
-                                        <div className="flex justify-between text-sm border-b border-slate-200 pb-2">
-                                            <span>Inteligencia Artificial</span>
-                                            <span className="font-bold text-emerald-600">$4.42 USD / 1M Tokens</span>
                                         </div>
                                     </div>
                                 </div>
@@ -924,24 +875,29 @@
                                 </div>
                             </div>
                             <div className="p-4 border-b border-slate-800">
-                                <label className="text-[10px] text-slate-400 uppercase font-bold block mb-2">Escenario Operativo</label>
+                                <label className="text-[10px] text-slate-400 uppercase font-bold block mb-2">Rol Actual</label>
                                 <div className="flex bg-slate-800 rounded-lg p-1">
-                                    <button onClick={() => setScenario('manual')} className={`flex-1 text-xs py-1 rounded ${scenario === 'manual' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white'}`}>Manual</button>
-                                    <button onClick={() => setScenario('ai')} className={`flex-1 text-xs py-1 rounded ${scenario === 'ai' ? 'bg-purple-600 text-white' : 'text-slate-400 hover:text-white'}`}>IA</button>
+                                    <button onClick={() => setRole('superadmin')} className={`flex-1 text-xs py-1 rounded ${role === 'superadmin' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white'}`}>SuperAdmin</button>
+                                    <button onClick={() => setRole('admin')} className={`flex-1 text-xs py-1 rounded ${role === 'admin' ? 'bg-purple-600 text-white' : 'text-slate-400 hover:text-white'}`}>Analista</button>
                                 </div>
                             </div>
                             <nav className="flex-1 p-4 space-y-2">
                                 <button onClick={() => setView('dashboard')} className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium w-full transition-colors ${view === 'dashboard' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}>
                                     {LayoutDashboard && <LayoutDashboard size={18}/>} Dashboard
                                 </button>
-                                <button onClick={() => setView('whatsapp_center')} className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium w-full transition-colors ${view === 'whatsapp_center' ? 'bg-green-600 text-white' : 'text-green-400 hover:bg-slate-800 hover:text-white'}`}>
+                                <button 
+                                    onClick={() => role === 'superadmin' && setView('whatsapp_center')} 
+                                    className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium w-full transition-colors ${view === 'whatsapp_center' ? 'bg-green-600 text-white' : role === 'superadmin' ? 'text-green-400 hover:bg-slate-800 hover:text-white' : 'text-slate-600 cursor-not-allowed opacity-50'}`}
+                                    disabled={role !== 'superadmin'}
+                                >
                                     {MessageSquare && <MessageSquare size={18}/>} WhatsApp Center
+                                    {role !== 'superadmin' && <Lock size={12} className="ml-auto"/>}
                                 </button>
                                 <button onClick={() => setView('content')} className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium w-full transition-colors ${view === 'content' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}>
                                     {FileText && <FileText size={18}/>} Folletos Digitales
                                 </button>
-                                <button onClick={() => setView('gamification')} className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium w-full transition-colors ${view === 'gamification' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}>
-                                    {Trophy && <Trophy size={18}/>} Gamificación
+                                <button onClick={() => setView('routes')} className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium w-full transition-colors ${view === 'routes' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}>
+                                    {MapIcon && <MapIcon size={18}/>} Rutas & Geo
                                 </button>
                                 <div className="mt-auto pt-4 border-t border-slate-800">
                                     <button onClick={() => setView('proposal')} className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-bold w-full transition-colors border border-slate-600 ${view === 'proposal' ? 'bg-slate-700 text-white' : 'text-slate-300 hover:bg-slate-800 hover:text-white'}`}>
@@ -964,10 +920,7 @@
                                 {view === 'whatsapp_center' && renderWhatsappCenter()}
                                 {view === 'proposal' && renderProposal()}
                                 {view === 'content' && renderContentManager()}
-                                {view === 'gamification' && renderGamification()}
                                 {view === 'routes' && renderRoutes()}
-                                {view === 'crm' && renderCRM()}
-                                {view === 'messaging' && renderMessaging()}
                             </div>
                         </div>
                     </div>
@@ -978,9 +931,7 @@
                             <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center font-bold text-[#005e54] text-lg">B</div>
                             <div className="flex-1">
                                 <h3 className="font-bold text-sm">BDF Asistente 🤖</h3>
-                                <p className="text-xs opacity-80">
-                                    {scenario === 'manual' ? 'Modo: Humano (E1)' : 'Modo: IA (E2)'}
-                                </p>
+                                <p className="text-xs opacity-80">En línea</p>
                             </div>
                         </div>
                         <div className="flex-1 overflow-y-auto p-4 space-y-3 chat-bg scrollbar-hide">
