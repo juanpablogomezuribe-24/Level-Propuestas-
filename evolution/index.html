@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evolution Strategy Framework</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body { font-family: 'Inter', sans-serif; }
+
+        /* Animaciones personalizadas para replicar animate-in de React */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes bounceSlow {
+            0%, 100% { transform: translateY(-5%); }
+            50% { transform: translateY(5%); }
+        }
+
+        .animate-fade-in { animation: fadeIn 0.7s ease-out forwards; }
+        .animate-slide-in { animation: slideInRight 0.5s ease-out forwards; }
+        .animate-zoom-in { animation: zoomIn 0.5s ease-out forwards; }
+        .animate-bounce-slow { animation: bounceSlow 2s infinite ease-in-out; }
+        
+        /* Scrollbar oculta para limpieza visual */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-white text-black selection:bg-black selection:text-white flex flex-col relative overflow-hidden">
+
+    <!-- TRANSITION OVERLAY -->
+    <div id="transition-overlay" class="fixed inset-0 z-[100] bg-white hidden flex items-center justify-center animate-fade-in">
+        <div class="flex flex-col items-center animate-bounce-slow">
+            <img src="https://i.postimg.cc/dV4ZFJQV/evolution-global-logo.jpg" alt="Evolution Global" class="w-48 md:w-64 animate-pulse">
+            <p class="mt-4 text-gray-400 text-sm tracking-widest uppercase animate-pulse">Cargando Propuesta...</p>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="px-8 py-6 flex justify-between items-center border-b border-gray-100 sticky top-0 bg-white/90 backdrop-blur-sm z-50">
+        <div class="flex items-center gap-2">
+            <img src="https://i.postimg.cc/63WPv5Vn/evolution-logo.webp" alt="Evolution Logo" class="h-8 md:h-10 object-contain">
+        </div>
+        
+        <nav id="main-nav" class="hidden md:flex gap-4">
+            <!-- Navigation buttons will be injected here -->
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main id="main-container" class="flex-1 container mx-auto max-w-7xl overflow-hidden relative h-full flex flex-col">
+        <!-- Views will be injected here -->
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="py-6 text-center text-xs text-gray-400 border-t border-gray-50 pb-8">
+        © 2024 Evolution Strategy Framework.
+    </footer>
+
+    <!-- PROGRESS BAR -->
+    <div class="fixed bottom-0 left-0 w-full h-2 bg-gray-100 z-[60]">
+        <div id="progress-bar" class="h-full bg-black transition-all duration-[2500ms] ease-out" style="width: 25%"></div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- DATA ---
+        const cardsData = [
+            {
+                id: 1,
+                label: "ACTIVIDAD 1",
+                title: "Influencer Squad",
+                icon: "users",
+                desc: "El influenciador asume el rol de Host, guiando la experiencia de apuesta.",
+                summary: "El influenciador deja de ser un espectador para convertirse en el protagonista (Host). Su rol es guiar, educar y acompañar al usuario, generando la confianza necesaria para que la audiencia realice sus primeras apuestas.",
+                impact: { virality: 95, retention: 85, revenue: 80 },
+                phases: {
+                    previa: "Marketing de Contenidos: El influencer crea expectativa en sus redes sobre su debut como Host oficial, educando a la audiencia sobre la dinámica.",
+                    durante: "Show en Vivo: El influencer conduce el juego (Livespins), explica reglas e interactúa con el chat en tiempo real, humanizando la marca.",
+                    post: "Edición y Producción: Creación de clips virales (Reels/TikTok) con las mejores reacciones, ganancias y 'bloopers' para las redes del operador."
+                }
+            },
+            {
+                id: 2,
+                label: "ACTIVIDAD 2",
+                title: "Adaptación Cultural",
+                icon: "message-circle",
+                desc: "Tropicalización de juegos (ej. 'La Hora Loca') y producción de contenido local.",
+                summary: "No es solo traducir, es interpretar. Ajustamos el tono, el humor y la estética de juegos globales para que el jugador colombiano sienta que el producto fue hecho específicamente para él, eliminando barreras culturales.",
+                impact: { virality: 90, retention: 95, revenue: 75 },
+                phases: {
+                    previa: "Producción Creativa: Adaptación de guiones y assets visuales a la cultura colombiana. Casting de hosts con acento y jerga local.",
+                    durante: "Ejecución: Lanzamiento del juego con narrativa local. Los hosts conectan culturalmente, haciendo que el usuario se sienta en casa.",
+                    post: "Content Factory: Edición de los momentos más graciosos o culturalmente relevantes para generar comunidad e identidad en redes sociales."
+                }
+            },
+            {
+                id: 3,
+                label: "ACTIVIDAD 3",
+                title: "Mystery Box",
+                icon: "package",
+                desc: "Experiencia de 3 fases centrada en una caja misteriosa enviada al influencer.",
+                summary: "Una narrativa transmedia que comienza días antes del juego. Utilizamos la curiosidad natural sobre 'qué hay en la caja' para garantizar un pico de audiencia (hype) y participación masiva durante la transmisión en vivo.",
+                impact: { virality: 98, retention: 70, revenue: 65 },
+                phases: {
+                    previa: "La Previa (8 días): Envío de la caja. El influencer genera contenido diario especulando sobre su contenido en calle y redes (Hype).",
+                    durante: "El Evento: Unboxing en vivo dentro de la transmisión de Livespins. La revelación detona premios instantáneos para los espectadores.",
+                    post: "Amplificación: Producción de un video resumen de la dinámica y reacciones a los premios para extender la vida de la campaña en digital."
+                }
+            },
+            {
+                id: 4,
+                label: "ACTIVIDAD 4",
+                title: "Landing Promocional",
+                icon: "laptop",
+                desc: "Micrositio exclusivo donde el influencer regala bonos a su audiencia.",
+                summary: "La herramienta definitiva de conversión. Un sitio web dedicado que simplifica el viaje del usuario: del contenido del influencer al registro en el casino en un solo clic, impulsado por la promesa de bonos exclusivos.",
+                impact: { virality: 80, retention: 60, revenue: 90 },
+                phases: {
+                    previa: "Desarrollo y Teaser: Creación de la landing brandeada. El influencer invita a sus seguidores a registrarse para obtener beneficios únicos.",
+                    durante: "Tráfico Masivo: Llamados a la acción constantes durante el stream para que los usuarios canjeen códigos en la plataforma del operador.",
+                    post: "Retargeting y Data: Reporte de conversiones y creación de testimonios de ganadores para generar prueba social en futuras campañas."
+                }
+            },
+            {
+                id: 5,
+                label: "ACTIVIDAD 5",
+                title: "White Label Assets",
+                icon: "palette",
+                desc: "Personalización visual de marca dentro de los elementos del juego.",
+                summary: "Integración profunda de marca. Hacemos que el juego parezca propiedad exclusiva del operador, fortaleciendo su branding y la lealtad del jugador, quien percibe mayor seguridad al ver los logos de su casino favorito.",
+                impact: { virality: 50, retention: 90, revenue: 85 },
+                phases: {
+                    previa: "Diseño Gráfico: Integración del branding del operador en mesas, cartas y UI. Aprobación de visuales exclusivos.",
+                    durante: "Experiencia VIP: Despliegue en vivo. El jugador percibe exclusividad y confianza al ver la marca del operador en todo el entorno.",
+                    post: "Material Promocional: Edición de fotos y videos de alta calidad de la mesa brandeada para uso en pauta publicitaria (Ads)."
+                }
+            },
+            {
+                id: 6,
+                label: "ACTIVIDAD 6",
+                title: "Evolution Challenge",
+                icon: "trophy",
+                desc: "Retos semanales gamificados para los 10 primeros ganadores con cobertura en redes.",
+                summary: "Gamificación social recurrente. Transformamos el juego solitario en una competencia comunitaria, donde ganar no es solo dinero, sino estatus y reconocimiento público a través de las redes sociales del operador.",
+                impact: { virality: 92, retention: 88, revenue: 70 },
+                phases: {
+                    previa: "Anuncio del Reto: Publicación semanal del desafío (ej. 'Los 10 primeros en ganar con Blackjack'). Influencers explican la mecánica.",
+                    durante: "Tracking en Vivo: El Host recuerda el reto activo. Los jugadores compiten en tiempo real sabiendo que hay cupos limitados.",
+                    post: "Hall of Fame: Publicación de los ganadores en redes sociales (Storytelling de gloria). Entrega de premios y clips de las victorias."
+                }
+            }
+        ];
+
+        // --- STATE ---
+        let state = {
+            activeView: 'intro', // intro, comparison, cards, nextSteps
+            selectedCardId: null,
+            showTransition: false
+        };
+
+        const LOGO_GLOBAL = "https://i.postimg.cc/dV4ZFJQV/evolution-global-logo.jpg";
+
+        // --- RENDER FUNCTIONS ---
+
+        function updateProgress() {
+            const bar = document.getElementById('progress-bar');
+            let width = 25;
+            if (state.showTransition) {
+                width = 75;
+            } else {
+                switch(state.activeView) {
+                    case 'intro': width = 25; break;
+                    case 'comparison': width = 50; break;
+                    case 'cards': width = 75; break;
+                    case 'nextSteps': width = 100; break;
+                }
+            }
+            bar.style.width = `${width}%`;
+        }
+
+        function renderNav() {
+            const nav = document.getElementById('main-nav');
+            if (state.activeView === 'intro' || state.showTransition) {
+                nav.innerHTML = '';
+                return;
+            }
+
+            const views = [
+                { id: 'comparison', label: 'Estrategia' },
+                { id: 'cards', label: 'Marketplace' },
+                { id: 'nextSteps', label: 'Cierre' }
+            ];
+
+            nav.innerHTML = views.map(v => `
+                <button 
+                    onclick="navigateTo('${v.id}')"
+                    class="px-4 py-2 text-sm font-medium transition-all duration-300 border-b-2 ${state.activeView === v.id ? 'border-black text-black' : 'border-transparent text-gray-400 hover:text-gray-600'}"
+                >
+                    ${v.label}
+                </button>
+            `).join('');
+        }
+
+        function renderIntro() {
+            return `
+                <div class="flex flex-col items-center justify-center h-full text-center animate-fade-in px-4 py-12">
+                    <h1 class="text-4xl md:text-6xl font-extrabold tracking-tighter text-black mb-12 max-w-5xl leading-tight">
+                        ¿Cuál es el objetivo de Evolution Gaming a nivel digital en Colombia?
+                    </h1>
+                    <div class="max-w-4xl text-lg md:text-xl text-gray-600 font-light leading-relaxed mb-10 space-y-4">
+                        <p>
+                            Contamos con una <strong class="text-black font-semibold">base B2B sólida en Colombia</strong> y somos el <strong class="text-black font-semibold">líder mundial</strong> en la categoría de mesas.
+                        </p>
+                        <p>
+                            El reto ahora es <span class="bg-black text-white px-2 py-0.5 rounded">penetrar el mercado de Livespins</span> en el país.
+                        </p>
+                        <p class="text-base text-gray-500">
+                            Lo lograremos construyendo una propuesta de valor donde el <strong class="text-black">jugador final</strong> se convierta en nuestro mejor aliado comercial.
+                        </p>
+                    </div>
+                    <button 
+                        onclick="navigateTo('comparison')"
+                        class="group bg-black text-white px-10 py-4 rounded-full text-lg font-medium hover:bg-gray-800 hover:scale-105 transition-all flex items-center gap-3 shadow-xl"
+                    >
+                        Ver el plan de trabajo <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                </div>
+            `;
+        }
+
+        function renderComparison() {
+            return `
+                <div class="h-full flex flex-col items-center justify-center p-8 animate-slide-in overflow-y-auto pb-24">      
+                    <div class="bg-black text-white px-8 py-6 rounded-lg shadow-lg mb-12 text-center max-w-3xl transform hover:scale-105 transition-transform duration-300">
+                        <p class="text-xl md:text-2xl font-bold tracking-wide">
+                        "Para ganar en Livespins, necesitamos que el jugador exija el producto."
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-11 gap-4 w-full max-w-6xl items-stretch">
+                        <!-- Left -->
+                        <div class="md:col-span-5 p-8 border border-gray-200 rounded-xl bg-gray-50 flex flex-col hover:border-gray-300 transition-colors">
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="p-2 bg-gray-200 rounded-lg"><i data-lucide="layers" class="w-5 h-5 text-gray-600"></i></div>
+                                <h3 class="text-xl font-bold text-gray-700">La Fortaleza Actual</h3>
+                            </div>
+                            <div class="flex flex-col gap-6 mt-auto">
+                                <div class="flex items-start gap-3 text-gray-600">
+                                    <i data-lucide="target" class="w-5 h-5 mt-1 text-gray-800"></i>
+                                    <div>
+                                        <span class="font-bold text-gray-800 block">1. Liderazgo en Mesas</span>
+                                        <span class="text-sm">Dominio en el mercado de mesas en vivo.</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3 text-gray-600">
+                                    <i data-lucide="map-pin" class="w-5 h-5 mt-1 text-gray-800"></i>
+                                    <div>
+                                        <span class="font-bold text-gray-800 block">2. Alta Capacidad Operativa</span>
+                                        <span class="text-sm">Tienen la sede en Medellín con más de 80 crupiers.</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3 text-gray-600">
+                                    <i data-lucide="layers" class="w-5 h-5 mt-1 text-gray-800"></i>
+                                    <div>
+                                        <span class="font-bold text-gray-800 block">3. Relación con Operadores</span>
+                                        <span class="text-sm">Alta capacidad operativa y acuerdos sólidos con BetPlay, Stake, etc.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Plus -->
+                        <div class="md:col-span-1 flex flex-col items-center justify-center py-4">
+                            <div class="w-12 h-12 rounded-full bg-black text-white flex items-center justify-center font-bold text-3xl shadow-lg z-10 hover:rotate-90 transition-transform duration-500">+</div>
+                        </div>
+
+                        <!-- Right -->
+                        <div class="md:col-span-5 p-8 border-2 border-black rounded-xl bg-white shadow-xl flex flex-col relative overflow-hidden group">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-gray-100 rounded-bl-full -mr-16 -mt-16 opacity-50 group-hover:scale-110 transition-transform duration-500"></div>
+                            
+                            <div class="flex items-center gap-3 mb-6 relative z-10">
+                                <div class="p-2 bg-black text-white rounded-lg"><i data-lucide="trending-up" class="w-5 h-5"></i></div>
+                                <h3 class="text-xl font-bold text-black">Objetivo: Consolidar Livespins</h3>
+                            </div>
+                            
+                            <div class="flex flex-col gap-6 mt-auto relative z-10">
+                                <div class="flex items-start gap-3 text-black">
+                                    <i data-lucide="users" class="w-5 h-5 mt-1"></i>
+                                    <div>
+                                        <span class="font-bold block">1. El Jugador como Aliado</span>
+                                        <span class="text-sm text-gray-600">Generar demanda orgánica del nuevo producto.</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3 text-black">
+                                    <i data-lucide="smile" class="w-5 h-5 mt-1"></i>
+                                    <div>
+                                        <span class="font-bold block">2. Humanización de la Marca</span>
+                                        <span class="text-sm text-gray-600">A través de influencers o hosts carismáticos.</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3 text-black">
+                                    <i data-lucide="tv" class="w-5 h-5 mt-1"></i>
+                                    <div>
+                                        <span class="font-bold block">3. Contenido + Show</span>
+                                        <span class="text-sm text-gray-600">Livespins requiere entretenimiento y marketing de contenidos, no solo apuestas.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button 
+                        onclick="startTransitionProposal()"
+                        class="mt-12 group relative bg-black text-white px-8 py-3 rounded text-sm font-bold uppercase tracking-widest hover:bg-gray-800 transition-all shadow-lg overflow-hidden"
+                    >
+                        <span class="relative z-10">Esta sería la propuesta de valor</span>
+                        <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                    </button>
+                </div>
+            `;
+        }
+
+        function renderCards() {
+            const cardGrid = cardsData.map(card => `
+                <div 
+                    onclick="selectCard(${card.id})"
+                    class="group cursor-pointer rounded-2xl p-4 transition-all duration-300 relative overflow-hidden flex flex-col items-center text-center aspect-[3/4] justify-between shadow-md hover:shadow-2xl hover:-translate-y-2
+                    ${state.selectedCardId === card.id ? 'bg-black text-white ring-4 ring-gray-200' : 'bg-white border border-gray-200 text-black hover:border-black'}"
+                >
+                    <div class="w-full flex justify-center mb-2">
+                        <img src="${LOGO_GLOBAL}" alt="Global Logo" class="h-6 object-contain opacity-80">
+                    </div>
+                    <div class="flex flex-col items-center gap-3 my-auto">
+                        <div class="p-3 rounded-full ${state.selectedCardId === card.id ? 'bg-white/20' : 'bg-gray-100'}">
+                            <i data-lucide="${card.icon}"></i>
+                        </div>
+                        <h3 class="font-bold text-lg leading-tight px-2">${card.title}</h3>
+                    </div>
+                    <div class="text-xs font-bold uppercase tracking-widest py-2 w-full border-t ${state.selectedCardId === card.id ? 'border-white/20 text-gray-300' : 'border-gray-100 text-gray-400'}">
+                        ${card.label}
+                    </div>
+                </div>
+            `).join('');
+
+            let detailPanel = '';
+            if (state.selectedCardId) {
+                const card = cardsData.find(c => c.id === state.selectedCardId);
+                detailPanel = `
+                    <div class="lg:w-1/2 bg-white rounded-2xl p-8 border border-gray-200 animate-slide-in flex flex-col shadow-2xl h-fit lg:h-auto lg:overflow-y-auto relative mb-12">
+                        <button onclick="selectCard(null)" class="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full transition-colors">
+                            <i data-lucide="x" class="w-6 h-6"></i>
+                        </button>
+                        
+                        <div class="flex flex-col items-center mb-6">
+                            <img src="${LOGO_GLOBAL}" alt="Global Logo" class="h-10 mb-3">
+                            <h2 class="text-3xl font-extrabold text-center mb-1">${card.title}</h2>
+                        </div>
+
+                        <!-- SUMMARY -->
+                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 mb-6 flex items-start gap-3">
+                            <i data-lucide="lightbulb" class="w-5 h-5 text-black flex-shrink-0 mt-1"></i>
+                            <p class="text-sm text-gray-700 leading-relaxed font-medium">
+                                ${card.summary}
+                            </p>
+                        </div>
+
+                        <!-- TIMELINE -->
+                        <div class="space-y-4 mb-8">
+                            <div class="relative pl-8 border-l-2 border-gray-100">
+                                <div class="absolute left-[-9px] top-0 bg-gray-100 text-gray-500 rounded-full p-1"><i data-lucide="clock" class="w-3 h-3"></i></div>
+                                <h4 class="font-bold text-sm uppercase tracking-wider text-gray-400 mb-1">La Previa</h4>
+                                <p class="text-sm text-gray-700 leading-relaxed">${card.phases.previa}</p>
+                            </div>
+                            <div class="relative pl-8 border-l-2 border-black">
+                                <div class="absolute left-[-9px] top-0 bg-black text-white rounded-full p-1"><i data-lucide="play" class="w-3 h-3"></i></div>
+                                <h4 class="font-bold text-sm uppercase tracking-wider text-black mb-1">Durante</h4>
+                                <p class="text-sm text-gray-900 font-medium leading-relaxed">${card.phases.durante}</p>
+                            </div>
+                            <div class="relative pl-8 border-l-2 border-gray-100">
+                                <div class="absolute left-[-9px] top-0 bg-gray-100 text-gray-500 rounded-full p-1"><i data-lucide="check-circle" class="w-3 h-3"></i></div>
+                                <h4 class="font-bold text-sm uppercase tracking-wider text-gray-400 mb-1">El Post</h4>
+                                <p class="text-sm text-gray-700 leading-relaxed">${card.phases.post}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-auto bg-gray-50 p-5 rounded-xl">
+                            <h4 class="font-bold text-xs uppercase tracking-wider text-gray-400 mb-3">KPIs Impactados</h4>
+                            <div class="flex justify-between gap-4 text-center">
+                                <div class="flex-1"><span class="block font-bold text-xl">${card.impact.virality}%</span><span class="text-[10px] text-gray-500 uppercase">Viralidad</span></div>
+                                <div class="flex-1 border-l border-gray-200"><span class="block font-bold text-xl">${card.impact.retention}%</span><span class="text-[10px] text-gray-500 uppercase">Retención</span></div>
+                                <div class="flex-1 border-l border-gray-200"><span class="block font-bold text-xl">${card.impact.revenue}%</span><span class="text-[10px] text-gray-500 uppercase">B2B</span></div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            return `
+                <div class="h-full flex flex-col p-6 animate-fade-in pb-20">
+                    <div class="flex flex-col md:flex-row justify-between items-end mb-6">
+                        <div>
+                            <h2 class="text-3xl font-bold">Ecosistema Livespins</h2>
+                            <p class="text-gray-500 mt-2">Selecciona una tarjeta para ver el plan de acción.</p>
+                        </div>
+                        <button 
+                            onclick="navigateTo('nextSteps')"
+                            class="mt-4 md:mt-0 flex items-center gap-2 bg-black text-white px-6 py-2 rounded-full font-medium hover:bg-gray-800 transition-all"
+                        >
+                            Definir siguientes pasos <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+
+                    <div class="flex-1 flex flex-col lg:flex-row gap-6 relative h-full overflow-hidden pb-12">
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 transition-all duration-500 overflow-y-auto pr-2 pb-20 ${state.selectedCardId ? 'lg:w-1/2' : 'w-full max-w-5xl mx-auto'}">
+                            ${cardGrid}
+                        </div>
+                        ${detailPanel}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderNextSteps() {
+            return `
+                <div class="flex flex-col items-center justify-center h-full text-center animate-fade-in px-4 py-12">
+                    <div class="mb-8 p-6 bg-black text-white rounded-full shadow-2xl">
+                        <i data-lucide="flag" class="w-12 h-12"></i>
+                    </div>
+                    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tighter text-black mb-8">
+                        ¿Cuál es el paso a seguir?
+                    </h1>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl w-full mb-12 text-left">
+                        <div class="p-6 bg-gray-50 rounded-xl border border-gray-100 hover:border-black transition-colors">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="p-2 bg-white rounded-full shadow-sm"><i data-lucide="target" class="w-5 h-5"></i></div>
+                                <div class="font-bold text-lg">1. Alcance</div>
+                            </div>
+                            <p class="text-gray-600 text-sm">¿Con qué presupuesto contamos para arrancar?</p>
+                        </div>
+                        <div class="p-6 bg-gray-50 rounded-xl border border-gray-100 hover:border-black transition-colors">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="p-2 bg-white rounded-full shadow-sm"><i data-lucide="clipboard-list" class="w-5 h-5"></i></div>
+                                <div class="font-bold text-lg">2. Selección</div>
+                            </div>
+                            <p class="text-gray-600 text-sm">¿Qué ideas del Marketplace vamos a priorizar?</p>
+                        </div>
+                        <div class="p-6 bg-gray-50 rounded-xl border border-gray-100 hover:border-black transition-colors">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="p-2 bg-white rounded-full shadow-sm"><i data-lucide="bar-chart-3" class="w-5 h-5"></i></div>
+                                <div class="font-bold text-lg">3. Métricas</div>
+                            </div>
+                            <p class="text-gray-600 text-sm">¿Qué KPIs actuales usaremos como línea base?</p>
+                        </div>
+                    </div>
+
+                    <div class="max-w-2xl bg-black text-white p-8 rounded-2xl shadow-xl relative overflow-hidden group cursor-default">
+                        <div class="relative z-10">
+                            <h3 class="text-2xl font-bold mb-4">Objetivo: Montar el Piloto</h3>
+                            <p class="text-lg font-light opacity-90 leading-relaxed">
+                                Con estos insumos, armaremos la <strong class="font-bold text-white">estrategia interna</strong> y diseñaremos la <strong class="font-bold text-white">propuesta final para el operador</strong>.
+                            </p>
+                        </div>
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-gray-800 rounded-bl-full -mr-16 -mt-16 opacity-50 group-hover:scale-110 transition-transform duration-700"></div>
+                    </div>
+                    
+                    <div class="mt-8 text-sm text-gray-400">
+                        Juntos vamos a cambiar las reglas del juego.
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- CONTROLLER ---
+
+        function render() {
+            const container = document.getElementById('main-container');
+            container.innerHTML = '';
+            
+            if (state.activeView === 'intro') container.innerHTML = renderIntro();
+            else if (state.activeView === 'comparison') container.innerHTML = renderComparison();
+            else if (state.activeView === 'cards') container.innerHTML = renderCards();
+            else if (state.activeView === 'nextSteps') container.innerHTML = renderNextSteps();
+
+            renderNav();
+            updateProgress();
+            lucide.createIcons();
+        }
+
+        function navigateTo(view) {
+            state.activeView = view;
+            state.selectedCardId = null; // Reset selection on nav
+            render();
+        }
+
+        function selectCard(id) {
+            state.selectedCardId = id;
+            render();
+        }
+
+        function startTransitionProposal() {
+            state.showTransition = true;
+            document.getElementById('transition-overlay').classList.remove('hidden');
+            updateProgress();
+
+            setTimeout(() => {
+                state.activeView = 'cards';
+                state.showTransition = false;
+                document.getElementById('transition-overlay').classList.add('hidden');
+                render();
+            }, 2500);
+        }
+
+        // Initial Render
+        window.onload = () => {
+            render();
+        }
+
+    </script>
+</body>
+</html>
