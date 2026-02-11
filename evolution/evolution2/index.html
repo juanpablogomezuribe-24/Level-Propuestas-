@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level Colombia - Content Proposal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap');
+        
+        body { font-family: 'Inter', sans-serif; }
+
+        /* Custom Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideRight {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .animate-fade-in { animation: fadeIn 0.6s ease-out forwards; }
+        .animate-slide-up { animation: slideUp 0.6s ease-out forwards; }
+        .animate-slide-right { animation: slideRight 0.5s ease-out forwards; }
+        .animate-scale-in { animation: scaleIn 0.4s ease-out forwards; }
+        
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="min-h-screen bg-white text-black selection:bg-black selection:text-white flex flex-col relative overflow-x-hidden">
+
+    <!-- HEADER -->
+    <header class="px-6 md:px-12 py-5 flex justify-between items-center border-b border-gray-100 sticky top-0 bg-white/90 backdrop-blur-xl z-[100]">
+        <div class="flex items-center gap-4">
+           <div class="font-black text-2xl tracking-tighter">LEVEL<span class="text-black">.</span></div>
+           <span class="text-gray-200 h-6 w-px"></span>
+           <img src="https://i.postimg.cc/63WPv5Vn/evolution-logo.webp" alt="Evolution" class="h-6 object-contain" />
+        </div>
+        
+        <nav id="nav-container" class="hidden md:flex gap-1 bg-gray-100 p-1 rounded-2xl">
+            <!-- Nav buttons injected by JS -->
+        </nav>
+
+        <div class="flex items-center gap-3">
+          <div class="hidden sm:block text-right">
+            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Partner Status</p>
+            <p class="text-xs font-black text-black flex items-center justify-end gap-1">
+              <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span> ACTIVE
+            </p>
+          </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT AREA -->
+    <main id="main-content" class="flex-1 container mx-auto max-w-7xl relative py-10 px-6">
+        <!-- Views injected by JS -->
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="py-10 px-10 text-center border-t border-gray-100 mt-20 bg-white">
+        <p class="text-xs text-gray-400 font-medium tracking-wide">
+          © 2026 Level Colombia & Evolution - Propuesta Confidencial.
+        </p>
+    </footer>
+
+    <!-- MODAL CONTAINER -->
+    <div id="modal-container" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+        <!-- Modal content injected by JS -->
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- DATA & CONSTANTS ---
+        const LOGO_GLOBAL = "https://i.postimg.cc/dV4ZFJQV/evolution-global-logo.jpg";
+        const IMAGE_STREET = "https://i.postimg.cc/Y0hjmbT7/Whats-App-Image-2026-02-09-at-5-11-58-PM.jpg";
+        const IMAGE_SUMMARY = "https://i.postimg.cc/Kz4gnGMZ/Whats-App-Image-2026-02-09-at-2-31-52-PM.jpg";
+
+        const state = {
+            activeTab: 'strategy',
+            selectedPackage: 1,
+            strategyStep: 1,
+            influencerMode: false,
+            showRefModal: null,
+            selectedLiveInfluencer: 'conragen'
+        };
+
+        const liveInfluencers = {
+            conragen: { name: "Conragen", cost: 2000000, image: "https://i.postimg.cc/jqzRCCWt/conragen.jpg" },
+            tati: { name: "Tati Barrera", cost: 1400000, image: "https://i.postimg.cc/NMh6pvKW/tati-barrera.png" },
+            camilo: { name: "Camilo MD", cost: 2500000, image: "https://i.postimg.cc/NFV6Wb15/camilo-md.jpg" },
+            pipe: { name: "Pipe Sierra", cost: 1200000, image: "https://i.postimg.cc/cL6q7JJw/pipe-Sierra-2.webp" }
+        };
+
+        const influencersData = [
+            { name: "Julian Valencia", category: "Motos y Entretenimiento", status: "available", partner: null, image: "https://i.postimg.cc/XJbbFKK1/julian_valencia.jpg", link: "https://www.instagram.com/julianvalenciatmk/", icon: "instagram" },
+            { name: "Salome Fajardo", category: "Periodista Deportiva", status: "busy", partner: "Rushbet", image: "https://i.postimg.cc/nzj9tz7s/salome.jpg", link: "https://www.instagram.com/salomefajardo04/", icon: "instagram" },
+            { name: "Felipe Cerón", category: "Deportes y Fútbol", status: "busy", partner: "Wplay", image: "https://i.postimg.cc/mDN18qW0/Media_Kit_Valentina_Taguado_(1).png", link: "https://www.tiktok.com/@felipefcb10", icon: "video" },
+            { name: "Laura Ortiz", category: "Influencer Deportes", status: "busy", partner: "Wplay", image: "https://i.postimg.cc/3NPKVWcS/laurix06.jpg", link: "https://www.tiktok.com/@lauriix06", icon: "video" },
+            { name: "El Sai", category: "Deportes", status: "available", partner: null, image: "https://i.postimg.cc/Qd44Qq4j/Whats-App-Image-2026-02-09-at-5-59-28-PM.jpg", link: "https://www.instagram.com/el_saii/", icon: "instagram" },
+            { name: "Alejo Sossa", category: "Deportes", status: "busy", partner: "Rushbet", image: "https://i.postimg.cc/RFMWvcmD/Alejo-Sossa.jpg", link: "https://www.instagram.com/_alejo.sosa", icon: "instagram" },
+            { name: "Jorge Bermudez", category: "Periodista Deportivo (#1 YT)", status: "busy", partner: "Stake", image: "https://i.postimg.cc/252zkt3g/Jorge-bermudez.png", link: "https://www.youtube.com/@JorgeBermudezFutbol", icon: "youtube" },
+            { name: "Cristian Gonzáles", category: "Entretenimiento", status: "available", partner: null, image: "https://i.postimg.cc/NGWrvK3h/Whats-App-Image-2026-02-10-at-8-03-14-PM.jpg", link: "https://youtube.com/@elcristiangonzalez9091?si=_JsE0HfwxTgC7iKn", icon: "youtube" },
+            { name: "Steven Garay", category: "Entretenimiento", status: "available", partner: null, image: "https://i.postimg.cc/pTmygvkT/Whats-App-Image-2026-02-10-at-8-03-15-PM.jpg", link: "https://www.instagram.com/garay_st?igsh=OXlqdnduMXd4OHBs", icon: "instagram" },
+            { name: "Conragen", category: "Streamer FIFA", status: "available", partner: null, image: "https://i.postimg.cc/jqzRCCWt/conragen.jpg", link: "https://www.youtube.com/conragen", icon: "youtube" },
+            { name: "Pipe Sierra", category: "Periodista Deportivo", status: "busy", partner: "Stake", image: "https://i.postimg.cc/cL6q7JJw/pipe-Sierra-2.webp", link: "https://kick.com/psierrar?source=kicklogz", icon: "video" },
+            { name: "Eduardo Luis Lopez", category: "Periodista Deportivo", status: "busy", partner: "Wplay", image: "https://i.postimg.cc/13FBZxCb/eduardo-luis.avif", link: "https://www.youtube.com/@EduardoLuisOficial", icon: "youtube" },
+            { name: "Camilo MD", category: "Streamer Deportivo", status: "busy", partner: "Stake", image: "https://i.postimg.cc/NFV6Wb15/camilo-md.jpg", link: "https://www.youtube.com/@CAMILOMD", icon: "youtube" },
+            { name: "Paula Dazzle", category: "Streamer y Gamer", status: "busy", partner: "Betplay", image: "https://i.postimg.cc/rp6qXp2x/paula-dazzle.jpg", link: "https://www.instagram.com/paudazzle/", icon: "instagram" },
+            { name: "Tati Barrera", category: "Streamer", status: "available", partner: null, image: "https://i.postimg.cc/NMh6pvKW/tati-barrera.png", link: "https://www.twitch.tv/tatibarrera", icon: "twitch" }
+        ];
+
+        const packages = {
+            1: {
+                title: "Paquete 1: Full Content",
+                subtitle: "5 Contenidos",
+                desc: "Producción in-house completa.",
+                price: "$15.000.000 COP",
+                scope: {
+                    previa: "1 Street Marketing + 1 Reacciones Reales + 1 Cápsula Educativa.",
+                    durante: "No incluye cobertura en vivo.",
+                    post: "1 Clip Mejores Momentos (Max 45s) + 1 Teaser Resumen."
+                },
+                features: ["Creatividad y Guiones", "Grabación con Presentador Level", "Edición y Correcciones", "Derechos Totales"]
+            },
+            2: {
+                title: "Paquete 2: Essential",
+                subtitle: "3 Contenidos",
+                desc: "Producción in-house esencial.",
+                price: "$10.000.000 COP",
+                scope: {
+                    previa: "1 Cápsula Educativa + 1 Street Marketing.",
+                    durante: "No incluye cobertura en vivo.",
+                    post: "1 Clip Mejores Momentos (Max 45s)."
+                },
+                features: ["Creatividad y Guiones", "Grabación con Presentador Level", "Edición y Correcciones", "Derechos Totales"]
+            },
+            3: {
+                title: "Paquete 3: Influencer",
+                subtitle: "A la Medida",
+                desc: "Dependiendo el creador de contenido que se escoja, el presupuesto o los KPIs propuestos se definen la cantidad de contenidos.",
+                price: "Cotización según perfil",
+                scope: {
+                    previa: "Definir según estrategia (Collab/Teaser).",
+                    durante: "Definir según estrategia (Host/Jugador).",
+                    post: "Definir según estrategia (Clips/Reacciones)."
+                },
+                features: ["Gestión de Talento", "Negociación Derechos", "Producción Técnica", "Estrategia Amplificación"]
+            }
+        };
+
+        const strategySteps = [
+            {
+                id: 1,
+                label: "CONTEXTO",
+                icon: "briefcase",
+                title: "El Desafío del Mercado",
+                content: "El mercado B2B de casinos está saturado. Hoy en día, todos los proveedores pelean por los mismos espacios premium (Home, Banners Principales) ofreciendo lo mismo: Revenue Share.",
+                type: "visuals_1"
+            },
+            {
+                id: 2,
+                label: "PROPUESTA DE VALOR",
+                icon: "star",
+                title: "Contenido como Estrategia",
+                content: "Cambiamos las reglas del juego: Ofrecemos una estrategia de contenidos como valor agregado. Creamos narrativas de alto impacto para cada evento, listas para que los clientes las publiquen, generen conversación real y muevan los números del negocio.",
+                highlight: "Dejamos de ser proveedores para ser aliados de marketing del operador.",
+                type: "cycle"
+            },
+            {
+                id: 3,
+                label: "OBJETIVO LEVEL",
+                icon: "target",
+                title: "La Agencia",
+                content: "Nuestro objetivo es ser la agencia in-house de Evolution para la creación, producción y edición de todos los contenidos que luego serán entregados al cliente de Evolution.",
+                type: "visuals_3"
+            },
+            {
+                id: 4,
+                label: "¿QUÉ VAMOS A HACER?",
+                icon: "rocket",
+                title: "El Plan de Acción",
+                content: "1. Crear una estrategia de 3 momentos (Previa, Durante, Post).\n2. Integrar Influence Marketing en escenarios clave.\n3. Apoyo comercial para Evolutión.",
+                type: "visuals_4"
+            }
+        ];
+
+        // --- HELPER: FORMAT CURRENCY ---
+        function formatCOP(amount) {
+            return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }).format(amount);
+        }
+
+        // --- RENDER FUNCTIONS ---
+
+        function renderNav() {
+            const tabs = [
+                { id: 'strategy', label: 'Estrategia' },
+                { id: 'methodology', label: 'Metodología' },
+                { id: 'influencers', label: 'Influenciadores' },
+                { id: 'packages', label: 'Paquetes' },
+                { id: 'livespins', label: 'Live Spins' }
+            ];
+
+            const navHTML = tabs.map(tab => `
+                <button 
+                    onclick="setTab('${tab.id}')" 
+                    class="px-6 py-2 rounded-[0.9rem] text-xs font-bold uppercase tracking-wider transition-all 
+                    ${state.activeTab === tab.id ? 'bg-black shadow-md text-white' : 'text-gray-400 hover:text-black'}">
+                    ${tab.label}
+                </button>
+            `).join('');
+            
+            document.getElementById('nav-container').innerHTML = navHTML;
+        }
+
+        function renderStrategy() {
+            const step = strategySteps[state.strategyStep - 1];
+            
+            // Progress Bar
+            const progressHTML = strategySteps.map(s => `
+                <div class="h-1.5 rounded-full transition-all duration-500 ${s.id === state.strategyStep ? 'w-12 bg-black' : s.id < state.strategyStep ? 'w-4 bg-gray-800' : 'w-4 bg-gray-200'}"></div>
+            `).join('');
+
+            // Content Right Side Logic
+            let contentRight = '';
+            
+            if (step.type === 'visuals_1') {
+                contentRight = `
+                    <div class="flex flex-wrap gap-4 mt-8">
+                       <div class="flex items-center gap-2 bg-white px-4 py-3 rounded-xl border border-gray-200 shadow-sm">
+                          <div class="bg-black p-1.5 rounded-full text-white"><i data-lucide="trophy" class="w-4 h-4"></i></div>
+                          <span class="text-xs font-bold uppercase tracking-wide">Visibilidad #1</span>
+                       </div>
+                       <div class="flex items-center gap-2 bg-white px-4 py-3 rounded-xl border border-gray-200 shadow-sm">
+                          <div class="bg-black p-1.5 rounded-full text-white"><i data-lucide="star" class="w-4 h-4"></i></div>
+                          <span class="text-xs font-bold uppercase tracking-wide">Diferenciación</span>
+                       </div>
+                       <div class="flex items-center gap-2 bg-white px-4 py-3 rounded-xl border border-gray-200 shadow-sm">
+                          <div class="bg-black p-1.5 rounded-full text-white"><i data-lucide="monitor-play" class="w-4 h-4"></i></div>
+                          <span class="text-xs font-bold uppercase tracking-wide">Estrategia</span>
+                       </div>
+                    </div>`;
+            } else if (step.type === 'visuals_3') {
+                contentRight = `
+                    <div class="flex flex-wrap gap-3 mt-8">
+                       <div class="flex items-center gap-2 bg-white px-3 py-2 rounded-lg border border-gray-200 shadow-sm">
+                          <div class="bg-black p-1 rounded-full text-white"><i data-lucide="trending-up" class="w-3 h-3"></i></div>
+                          <span class="text-[10px] font-bold uppercase tracking-wide">Tendencias</span>
+                       </div>
+                       <div class="flex items-center gap-2 bg-white px-3 py-2 rounded-lg border border-gray-200 shadow-sm">
+                          <div class="bg-black p-1 rounded-full text-white"><i data-lucide="lightbulb" class="w-3 h-3"></i></div>
+                          <span class="text-[10px] font-bold uppercase tracking-wide">Innovación</span>
+                       </div>
+                       <div class="flex items-center gap-2 bg-white px-3 py-2 rounded-lg border border-gray-200 shadow-sm">
+                          <div class="bg-black p-1 rounded-full text-white"><i data-lucide="zap" class="w-3 h-3"></i></div>
+                          <span class="text-[10px] font-bold uppercase tracking-wide">Velocidad</span>
+                       </div>
+                    </div>`;
+            } else if (step.type === 'visuals_4') {
+                contentRight = `
+                    <div class="flex flex-wrap gap-3 mt-8">
+                       <div class="flex items-center gap-2 bg-white px-3 py-2 rounded-lg border border-gray-200 shadow-sm">
+                          <div class="bg-black p-1 rounded-full text-white"><i data-lucide="layers" class="w-3 h-3"></i></div>
+                          <span class="text-[10px] font-bold uppercase tracking-wide">Fábrica de Contenido</span>
+                       </div>
+                       <div class="flex items-center gap-2 bg-white px-3 py-2 rounded-lg border border-gray-200 shadow-sm">
+                          <div class="bg-black p-1 rounded-full text-white"><i data-lucide="users" class="w-3 h-3"></i></div>
+                          <span class="text-[10px] font-bold uppercase tracking-wide">Influence Marketing</span>
+                       </div>
+                       <div class="flex items-center gap-2 bg-white px-3 py-2 rounded-lg border border-gray-200 shadow-sm">
+                          <div class="bg-black p-1 rounded-full text-white"><i data-lucide="handshake" class="w-3 h-3"></i></div>
+                          <span class="text-[10px] font-bold uppercase tracking-wide">Soluciones B2B</span>
+                       </div>
+                    </div>`;
+            } else if (step.type === 'cycle') {
+                contentRight = `
+                    <div class="mt-6">
+                        <div class="bg-gray-50 border-l-4 border-black p-4 rounded-r-xl mb-6">
+                            <p class="text-sm font-bold text-gray-800 italic">"${step.highlight}"</p>
+                        </div>
+                        
+                        <div class="bg-white border border-gray-100 p-6 rounded-2xl shadow-sm">
+                            <h4 class="text-xs font-black uppercase tracking-widest text-gray-400 mb-4">El Flujo Level</h4>
+                            
+                            <!-- LEVEL SECTION -->
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 relative">
+                                <!-- Creatividad -->
+                                <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 hover:border-black transition-colors">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <div class="bg-black p-1.5 rounded-lg text-white"><i data-lucide="lightbulb" class="w-4 h-4"></i></div>
+                                        <span class="font-bold text-sm">Creatividad</span>
+                                    </div>
+                                    <p class="text-[10px] text-gray-600 leading-relaxed">
+                                        Aquí está el ADN del contenido. Nos inventamos los 'hooks' o ganchos para que la gente pare de hacer scroll y se quede viendo. Escribimos historias que conectan de una con el jugador.
+                                    </p>
+                                </div>
+                                
+                                <!-- Producción -->
+                                <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 hover:border-black transition-colors">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <div class="bg-black p-1.5 rounded-lg text-white"><i data-lucide="camera" class="w-4 h-4"></i></div>
+                                        <span class="font-bold text-sm">Producción</span>
+                                    </div>
+                                    <p class="text-[10px] text-gray-600 leading-relaxed">
+                                        Grabamos con calidad de cine. Usamos cámaras 4K, luces pro y dirigimos todo el talento para que el video se vea increíble. Nada amateur.
+                                    </p>
+                                </div>
+                                
+                                <!-- Edición -->
+                                <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 hover:border-black transition-colors">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <div class="bg-black p-1.5 rounded-lg text-white"><i data-lucide="scissors" class="w-4 h-4"></i></div>
+                                        <span class="font-bold text-sm">Edición</span>
+                                    </div>
+                                    <p class="text-[10px] text-gray-600 leading-relaxed">
+                                        Le ponemos la magia final. Editamos con ritmo rápido para Reels y TikTok, metiendo gráficos y sonidos que atrapan para que nadie se salte el video.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <!-- HANDOFF -->
+                            <div class="flex items-center justify-center mb-6">
+                                <div class="bg-black text-white px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2">
+                                    Entrega al Cliente <i data-lucide="arrow-down" class="w-3 h-3"></i>
+                                </div>
+                            </div>
+
+                            <!-- CLIENT SECTION -->
+                            <div class="flex flex-col md:flex-row items-center justify-between gap-4 bg-green-50/50 p-4 rounded-xl border border-green-100">
+                                 <div class="flex flex-col items-center text-center gap-1">
+                                    <div class="w-8 h-8 bg-green-100 text-green-700 rounded-full flex items-center justify-center"><i data-lucide="share-2" class="w-4 h-4"></i></div>
+                                    <span class="text-[9px] font-bold uppercase tracking-wider text-green-700 mt-1">Publicación</span>
+                                 </div>
+                                 <i data-lucide="arrow-right" class="w-3 h-3 text-green-300 hidden md:block"></i>
+                                 <div class="flex flex-col items-center text-center gap-1">
+                                    <div class="w-8 h-8 bg-green-100 text-green-700 rounded-full flex items-center justify-center"><i data-lucide="message-circle" class="w-4 h-4"></i></div>
+                                    <span class="text-[9px] font-bold uppercase tracking-wider text-green-700 mt-1">Conversación</span>
+                                 </div>
+                                 <i data-lucide="arrow-right" class="w-3 h-3 text-green-300 hidden md:block"></i>
+                                 <div class="flex flex-col items-center text-center gap-1">
+                                    <div class="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center shadow-md shadow-green-200"><i data-lucide="trending-up" class="w-4 h-4"></i></div>
+                                    <span class="text-[9px] font-bold uppercase tracking-wider text-green-800 mt-1">Resultados</span>
+                                 </div>
+                            </div>
+                        </div>
+                    </div>`;
+            }
+
+            // Wrapper
+            return `
+                <div class="animate-slide-up p-4 md:p-10 max-w-5xl mx-auto h-full flex flex-col justify-center">
+                    <div class="flex justify-center items-center gap-2 mb-8">${progressHTML}</div>
+                    
+                    <div class="bg-white rounded-[2.5rem] shadow-2xl border border-gray-100 overflow-hidden relative min-h-[450px] flex flex-col md:flex-row">
+                        <div class="md:w-1/3 bg-black text-white p-8 flex flex-col justify-between relative overflow-hidden">
+                             <div class="absolute top-0 right-0 p-6 opacity-20">
+                                 <img src="${LOGO_GLOBAL}" class="h-32 opacity-20 invert rotate-12" alt="Evolution" />
+                             </div>
+                             <div class="relative z-10">
+                               <span class="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase mb-2 block">Paso 0${step.id}</span>
+                               <h3 class="text-2xl font-black uppercase tracking-tight">${step.label}</h3>
+                             </div>
+                             <div class="relative z-10 mt-8 md:mt-0 flex justify-center">
+                               <i data-lucide="${step.icon}" class="w-24 h-24 text-white stroke-1"></i>
+                             </div>
+                             <div class="hidden md:block"></div>
+                        </div>
+                        
+                        <div class="md:w-2/3 p-8 md:p-12 flex flex-col justify-center overflow-y-auto max-h-[80vh] md:max-h-none">
+                            <h2 class="text-3xl md:text-4xl font-extrabold text-black mb-4 leading-tight animate-fade-in">${step.title}</h2>
+                            <p class="text-gray-600 text-base md:text-lg leading-relaxed whitespace-pre-line animate-fade-in">${step.content}</p>
+                            ${contentRight}
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center mt-8 px-4">
+                        <button onclick="prevStrategyStep()" class="flex items-center gap-2 text-gray-400 font-bold hover:text-black transition-colors ${state.strategyStep === 1 ? 'opacity-0 pointer-events-none' : 'opacity-100'}">
+                            <i data-lucide="chevron-left" class="w-5 h-5"></i> Anterior
+                        </button>
+                        <button onclick="nextStrategyStep()" class="group bg-black text-white px-8 py-3 rounded-full font-bold uppercase tracking-wider text-sm hover:bg-gray-800 transition-all shadow-lg flex items-center gap-2">
+                            ${state.strategyStep === 4 ? 'Ver Metodología' : 'Siguiente'} 
+                            <i data-lucide="chevron-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderMethodology() {
+            const im = state.influencerMode;
+            
+            return `
+            <div class="animate-slide-right p-4 md:p-10 max-w-7xl mx-auto h-full flex flex-col justify-center">
+              <div class="text-center mb-12">
+                <h2 class="text-4xl font-extrabold mb-4 uppercase">Los 3 Momentos</h2>
+                <p class="text-gray-500 max-w-2xl mx-auto mb-6">Nuestra estrategia de contenido cubre todo el ciclo de vida del evento.</p>
+                
+                <div class="flex flex-col items-center gap-3">
+                    <div onclick="toggleInfluencerMode()" class="inline-flex items-center gap-3 px-6 py-2 rounded-full cursor-pointer transition-all duration-300 border-2 ${im ? 'bg-black border-black text-white shadow-lg' : 'bg-white border-gray-200 text-gray-500'}">
+                      <div class="font-bold text-sm uppercase tracking-wider">Modo Influencer</div>
+                      ${im ? '<i data-lucide="toggle-right" class="w-8 h-8 text-green-400"></i>' : '<i data-lucide="toggle-left" class="w-8 h-8 text-gray-300"></i>'}
+                    </div>
+                    ${im ? `<div class="flex items-center gap-2 text-xs text-gray-500 animate-fade-in"><i data-lucide="star" class="w-3 h-3 text-yellow-400 fill-yellow-400"></i> Indica formato potenciado con Influencer</div>` : ''}
+                </div>
+              </div>
+              
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+                <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-gray-200 -z-10 transform -translate-y-1/2"></div>
+
+                <!-- PREVIA -->
+                <div class="p-8 rounded-xl border-2 transition-all group relative bg-white ${im ? 'border-black shadow-lg' : 'border-gray-100'}">
+                  <div class="w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl mb-6 mx-auto transition-all ${im ? 'bg-black text-white scale-110' : 'bg-gray-100 text-gray-400'}">1</div>
+                  <h3 class="text-xl font-black text-center mb-2 uppercase">La Previa</h3>
+                  <p class="text-xs text-center text-gray-400 uppercase tracking-widest mb-6">Expectativa & Educación</p>
+                  
+                  <div class="space-y-3">
+                    <button onclick="openModal('street')" class="w-full text-left p-3 rounded-lg transition-all flex items-center justify-between group/item border ${im ? 'bg-black text-white border-black' : 'bg-gray-50 text-gray-800 border-gray-100 hover:border-gray-300'}">
+                      <div>
+                        <strong class="block text-sm flex items-center gap-2">Street Content ${im ? '<i data-lucide="star" class="w-3 h-3 text-yellow-400 fill-yellow-400"></i>' : ''}</strong>
+                        <span class="text-[10px] ${im ? 'opacity-80' : 'opacity-70'}">Retos en calle (Tablets)</span>
+                      </div>
+                      <i data-lucide="external-link" class="w-4 h-4 opacity-0 group-hover/item:opacity-100"></i>
+                    </button>
+
+                    <button onclick="openModal('reactions')" class="w-full text-left p-3 rounded-lg transition-all flex items-center justify-between group/item border ${im ? 'bg-black text-white border-black' : 'bg-gray-50 text-gray-800 border-gray-100 hover:border-gray-300'}">
+                      <div>
+                        <strong class="block text-sm flex items-center gap-2">Interacción con el juego ${im ? '<i data-lucide="star" class="w-3 h-3 text-yellow-400 fill-yellow-400"></i>' : ''}</strong>
+                        <span class="text-[10px] ${im ? 'opacity-80' : 'opacity-70'}">Usuarios ganando (Efecto Pantalla)</span>
+                      </div>
+                      <i data-lucide="external-link" class="w-4 h-4 opacity-0 group-hover/item:opacity-100"></i>
+                    </button>
+
+                    <button onclick="openModal('capsules')" class="w-full text-left p-3 rounded-lg transition-all flex items-center justify-between group/item border ${im ? 'bg-black text-white border-black' : 'bg-gray-50 text-gray-800 border-gray-100 hover:border-gray-300'}">
+                      <div>
+                        <strong class="block text-sm flex items-center gap-2">Cápsulas Educativas ${im ? '<i data-lucide="star" class="w-3 h-3 text-yellow-400 fill-yellow-400"></i>' : ''}</strong>
+                        <span class="text-[10px] ${im ? 'opacity-80' : 'opacity-70'}">Explicar de forma entretenida</span>
+                      </div>
+                      <i data-lucide="external-link" class="w-4 h-4 opacity-0 group-hover/item:opacity-100"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- DURANTE -->
+                <div class="p-8 rounded-xl shadow-xl transform md:-translate-y-4 transition-all ${im ? 'bg-black text-white scale-105 ring-4 ring-yellow-400/20' : 'bg-gray-900 text-white'}">
+                  <div class="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center font-bold text-xl mb-6 mx-auto animate-pulse">2</div>
+                  <h3 class="text-xl font-black text-center mb-2 uppercase">El Durante</h3>
+                  <p class="text-xs text-center text-gray-400 uppercase tracking-widest mb-6">Cobertura en Vivo</p>
+                  
+                  <ul class="space-y-4 text-sm">
+                    <li class="flex gap-3 items-start">
+                      <div class="bg-white/20 p-1.5 rounded-full"><i data-lucide="instagram" class="w-4 h-4"></i></div>
+                      <div>
+                        <strong class="block font-bold">Historias Proveedor</strong>
+                        <span class="text-xs text-gray-400">Cobertura básica en tiempo real.</span>
+                      </div>
+                    </li>
+                    ${im ? `
+                    <div class="animate-fade-in pt-4 border-t border-white/20 space-y-4">
+                        <li class="flex gap-3 items-start">
+                          <div class="bg-yellow-400 p-1.5 rounded-full text-black"><i data-lucide="star" class="w-4 h-4 fill-black"></i></div>
+                          <div>
+                            <strong class="block font-bold text-yellow-400">Talento en Vivo</strong>
+                            <span class="text-xs text-gray-300">Influencer como animador.</span>
+                          </div>
+                        </li>
+                        <li class="flex gap-3 items-start">
+                          <div class="bg-yellow-400 p-1.5 rounded-full text-black"><i data-lucide="external-link" class="w-4 h-4"></i></div>
+                          <div>
+                            <strong class="block font-bold text-yellow-400">Tráfico Web</strong>
+                            <span class="text-xs text-gray-300">Stories con Link directo al juego.</span>
+                          </div>
+                        </li>
+                    </div>` : ''}
+                  </ul>
+                </div>
+
+                <!-- POST -->
+                <div class="p-8 rounded-xl border-2 transition-all group bg-white ${im ? 'border-black shadow-lg' : 'border-gray-100'}">
+                  <div class="w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl mb-6 mx-auto transition-all ${im ? 'bg-black text-white scale-110' : 'bg-gray-100 text-gray-400'}">3</div>
+                  <h3 class="text-xl font-black text-center mb-2 uppercase">El Post</h3>
+                  <p class="text-xs text-center text-gray-400 uppercase tracking-widest mb-6">Amplificación</p>
+                  
+                  <div class="space-y-3">
+                    <button onclick="openModal('highlights')" class="w-full text-left p-3 rounded-lg transition-all flex items-center justify-between group/item border ${im ? 'bg-black text-white border-black' : 'bg-gray-50 text-gray-800 border-gray-100 hover:border-gray-300'}">
+                      <div>
+                        <strong class="block text-sm flex items-center gap-2">Mejores Momentos ${im ? '<i data-lucide="star" class="w-3 h-3 text-yellow-400 fill-yellow-400"></i>' : ''}</strong>
+                        <span class="text-[10px] ${im ? 'opacity-80' : 'opacity-70'}">Clips / Reacciones</span>
+                      </div>
+                      <i data-lucide="external-link" class="w-4 h-4 opacity-0 group-hover/item:opacity-100"></i>
+                    </button>
+
+                    <button onclick="openModal('summary')" class="w-full text-left p-3 rounded-lg transition-all flex items-center justify-between group/item border ${im ? 'bg-black text-white border-black' : 'bg-gray-50 text-gray-800 border-gray-100 hover:border-gray-300'}">
+                      <div>
+                        <strong class="block text-sm flex items-center gap-2">${im ? 'Behind The Scenes' : 'Teaser Resumen'} ${im ? '<i data-lucide="star" class="w-3 h-3 text-yellow-400 fill-yellow-400"></i>' : ''}</strong>
+                        <span class="text-[10px] ${im ? 'opacity-80' : 'opacity-70'}">${im ? 'Haciendo el recap con el influencer' : 'Recap cinematográfico'}</span>
+                      </div>
+                      <i data-lucide="external-link" class="w-4 h-4 opacity-0 group-hover/item:opacity-100"></i>
+                    </button>
+
+                    <div class="w-full text-left p-3 rounded-lg border ${im ? 'bg-black text-white border-black' : 'bg-gray-50 text-gray-800 border-gray-100'}">
+                      <strong class="block text-sm flex items-center gap-2">Backstage Exclusivo ${im ? '<i data-lucide="star" class="w-3 h-3 text-yellow-400 fill-yellow-400"></i>' : ''}</strong>
+                      <span class="text-[10px] ${im ? 'opacity-80' : 'opacity-70'}">Jugadores + Talento</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-16 text-center">
+                <button onclick="setTab('influencers')" class="bg-black text-white px-8 py-3 rounded-full font-bold uppercase tracking-wider text-sm hover:bg-gray-800 transition-all shadow-lg">
+                  Ver Roster de Influenciadores
+                </button>
+              </div>
+            </div>`;
+        }
+
+        function renderInfluencers() {
+            const gridHTML = influencersData.map(inf => `
+                <div class="group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer bg-gray-100 shadow-sm border border-gray-200">
+                    <img src="${inf.image}" alt="${inf.name}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0" />
+                    <div class="absolute top-3 right-3 z-10">
+                        ${inf.status === 'available' 
+                            ? `<span class="bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-lg flex items-center gap-1"><i data-lucide="unlock" class="w-3 h-3"></i> DISPONIBLE</span>` 
+                            : `<span class="bg-gray-900 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-lg flex items-center gap-1"><i data-lucide="lock" class="w-3 h-3"></i> ${inf.partner}</span>`
+                        }
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 p-4 w-full text-white">
+                        <h3 class="font-bold text-lg leading-tight mb-1">${inf.name}</h3>
+                        <p class="text-xs text-gray-300 mb-3">${inf.category}</p>
+                        <a href="${inf.link}" target="_blank" class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-3 py-1.5 rounded-lg text-[10px] font-bold hover:bg-white hover:text-black transition-colors">
+                            <i data-lucide="${inf.icon}" class="w-3 h-3"></i> Ver Perfil
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+
+            return `
+                <div class="animate-slide-right p-4 md:p-10 max-w-7xl mx-auto">
+                    <div class="text-center mb-10">
+                        <h2 class="text-3xl font-extrabold mb-2 uppercase">Nuestro Squad</h2>
+                        <p class="text-gray-500">Talento seleccionado para amplificar el mensaje de Evolution.</p>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-6">${gridHTML}</div>
+                    <div class="mt-12 text-center">
+                        <button onclick="setTab('packages')" class="bg-black text-white px-8 py-3 rounded-full font-bold uppercase tracking-wider text-sm hover:bg-gray-800 transition-all shadow-lg">
+                            Ver Paquetes Comerciales
+                        </button>
+                    </div>
+                </div>`;
+        }
+
+        function renderPackages() {
+            const pkg = packages[state.selectedPackage];
+            
+            const buttonsHTML = [1, 2, 3].map(id => `
+                <button onclick="selectPackage(${id})" class="w-full text-left p-6 rounded-2xl border-2 transition-all group relative overflow-hidden ${state.selectedPackage === id ? 'border-black bg-black text-white shadow-xl scale-[1.02]' : 'border-gray-100 bg-white text-gray-400 hover:border-gray-300'}">
+                    <div class="relative z-10 flex justify-between items-center">
+                        <div>
+                            <h3 class="font-bold text-lg ${state.selectedPackage === id ? 'text-white' : 'text-black'}">${packages[id].title}</h3>
+                            <p class="text-xs uppercase tracking-widest font-bold mt-1 text-gray-400">${packages[id].subtitle}</p>
+                        </div>
+                        ${state.selectedPackage === id ? '<i data-lucide="check-circle" class="w-6 h-6 text-white"></i>' : ''}
+                    </div>
+                </button>
+            `).join('');
+
+            return `
+                <div class="animate-slide-right p-4 md:p-10 max-w-7xl mx-auto pb-20">
+                    <div class="text-center mb-10">
+                        <h2 class="text-3xl font-extrabold mb-2 uppercase">Paquetes para Evolution</h2>
+                        <p class="text-gray-500">Selecciona una opción para ver el alcance detallado.</p>
+                    </div>
+                    <div class="flex flex-col lg:flex-row gap-8 items-start">
+                        <div class="w-full lg:w-1/3 space-y-4">${buttonsHTML}</div>
+                        <div class="w-full lg:w-2/3">
+                            <div class="bg-white p-8 rounded-[2rem] border border-gray-200 shadow-xl relative overflow-hidden min-h-[500px]">
+                                <div class="absolute top-0 right-0 p-8 opacity-5">
+                                    <img src="${LOGO_GLOBAL}" class="h-12" alt="Evolution" />
+                                </div>
+                                <div class="relative z-10">
+                                    <div class="mb-8 border-b border-gray-100 pb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                                        <div>
+                                            <h3 class="text-3xl font-black mb-2">${pkg.title}</h3>
+                                            <p class="text-lg text-gray-500 font-medium leading-relaxed">${pkg.desc}</p>
+                                        </div>
+                                        <div class="bg-black text-white px-6 py-3 rounded-xl shadow-lg">
+                                            <span class="block text-xs font-bold uppercase tracking-wider opacity-70">Inversión</span>
+                                            <span class="text-2xl font-black">${pkg.price}</span>
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                                        <div>
+                                            <h4 class="font-bold text-sm uppercase tracking-widest mb-4 flex items-center gap-2"><i data-lucide="layout" class="w-4 h-4"></i> Alcance por Fase</h4>
+                                            <ul class="space-y-4">
+                                                <li class="bg-gray-50 p-3 rounded-lg border-l-4 border-gray-300"><span class="block text-xs font-bold text-gray-400 uppercase">Previa</span><span class="text-sm font-medium text-gray-800">${pkg.scope.previa}</span></li>
+                                                <li class="bg-gray-50 p-3 rounded-lg border-l-4 border-black"><span class="block text-xs font-bold text-gray-400 uppercase">Durante</span><span class="text-sm font-medium text-gray-800">${pkg.scope.durante}</span></li>
+                                                <li class="bg-gray-50 p-3 rounded-lg border-l-4 border-gray-300"><span class="block text-xs font-bold text-gray-400 uppercase">Post</span><span class="text-sm font-medium text-gray-800">${pkg.scope.post}</span></li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-sm uppercase tracking-widest mb-4 flex items-center gap-2"><i data-lucide="star" class="w-4 h-4"></i> Incluye</h4>
+                                            <div class="flex flex-wrap gap-2 mb-8">
+                                                ${pkg.features.map(f => `<span class="px-3 py-1.5 bg-black text-white rounded-md text-xs font-bold">${f}</span>`).join('')}
+                                            </div>
+                                            <div class="p-4 bg-yellow-50 border border-yellow-100 rounded-xl flex items-start gap-3">
+                                                <i data-lucide="tag" class="w-5 h-5 text-yellow-600 mt-0.5"></i>
+                                                <p class="text-xs text-yellow-800 font-medium italic leading-relaxed">
+                                                    "Este paquete está diseñado para ${state.selectedPackage === 1 ? 'maximizar el valor de producción y cobertura' : state.selectedPackage === 2 ? 'lanzamientos rápidos y efectivos' : 'campañas de alto impacto con tracción de audiencia externa'}."
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Removed Select Package Button -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+        }
+        
+        function renderLiveSpins() {
+            // Get selected influencer or default
+            const influencerKey = state.selectedLiveInfluencer;
+            const influencer = liveInfluencers[influencerKey];
+
+            // Calculate totals (Fee * 1.30)
+            const weeklyCost = (influencer.cost * 4) * 1.3;
+            const intensiveCost = (influencer.cost * 12) * 1.3;
+
+            return `
+                <div class="animate-slide-right p-4 md:p-10 max-w-7xl mx-auto pb-20">
+                    <div class="text-center mb-8">
+                        <div class="inline-block px-4 py-1.5 mb-4 rounded-full bg-red-600 text-white text-xs font-bold uppercase tracking-wider animate-pulse">
+                            NUEVO PILOTO
+                        </div>
+                        <h2 class="text-3xl font-extrabold mb-4 uppercase">Propuesta Live Spins</h2>
+                        <p class="text-gray-500 max-w-2xl mx-auto">Selecciona un talento para calcular la inversión del piloto.</p>
+                    </div>
+
+                    <!-- INFLUENCER SELECTOR -->
+                    <div class="flex justify-center gap-4 mb-12 flex-wrap">
+                        ${Object.keys(liveInfluencers).map(key => `
+                            <button onclick="selectLiveInfluencer('${key}')" 
+                                class="flex flex-col items-center gap-2 p-3 rounded-xl border-2 transition-all w-28 md:w-32 group hover:scale-105
+                                ${state.selectedLiveInfluencer === key ? 'border-black bg-gray-50 shadow-md' : 'border-transparent hover:border-gray-200'}">
+                                <img src="${liveInfluencers[key].image}" class="w-16 h-16 rounded-full object-cover shadow-sm ${state.selectedLiveInfluencer === key ? 'ring-2 ring-black' : ''}" />
+                                <span class="text-xs font-bold text-center leading-tight ${state.selectedLiveInfluencer === key ? 'text-black' : 'text-gray-500'}">${liveInfluencers[key].name}</span>
+                            </button>
+                        `).join('')}
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                        <!-- Package 1: Semanal -->
+                        <div class="bg-white p-8 rounded-[2rem] border border-gray-200 shadow-xl relative overflow-hidden group hover:border-black transition-all">
+                             <div class="absolute top-0 right-0 p-6 opacity-10">
+                                <img src="${LOGO_GLOBAL}" class="h-8" alt="Evolution" />
+                             </div>
+                             <div class="mb-6 border-b border-gray-100 pb-4">
+                                <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Opción 1</span>
+                                <h3 class="text-2xl font-black mt-1">Piloto Semanal</h3>
+                                <p class="text-sm text-gray-500 mt-2">Prueba de concepto y medición de tracción inicial.</p>
+                             </div>
+                             
+                             <ul class="space-y-4 mb-8">
+                                <li class="flex items-center gap-3">
+                                    <div class="bg-black p-1.5 rounded-full text-white"><i data-lucide="calendar" class="w-4 h-4"></i></div>
+                                    <span class="text-sm font-medium"><strong>1 Transmisión</strong> semanal</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <div class="bg-black p-1.5 rounded-full text-white"><i data-lucide="clock" class="w-4 h-4"></i></div>
+                                    <span class="text-sm font-medium">Duración: <strong>2 Horas</strong> por sesión</span>
+                                </li>
+                                 <li class="flex items-center gap-3">
+                                    <div class="bg-black p-1.5 rounded-full text-white"><i data-lucide="user" class="w-4 h-4"></i></div>
+                                    <span class="text-sm font-medium">Talento: <strong>${influencer.name}</strong></span>
+                                </li>
+                                 <li class="flex items-center gap-3">
+                                    <div class="bg-black p-1.5 rounded-full text-white"><i data-lucide="bar-chart" class="w-4 h-4"></i></div>
+                                    <span class="text-sm font-medium">Total: <strong>4 Transmisiones</strong> al mes</span>
+                                </li>
+                             </ul>
+
+                             <div class="bg-gray-50 p-4 rounded-xl mb-6">
+                                <h4 class="text-xs font-bold uppercase tracking-wide mb-2 text-gray-500">Gestión Level Incluida:</h4>
+                                <p class="text-xs text-gray-600 leading-relaxed">
+                                    Coordinación completa, educación sobre producto, informes de rendimiento y pago al talento.
+                                </p>
+                             </div>
+
+                             <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
+                                <span class="text-xs font-bold text-gray-400 uppercase">Inversión Total</span>
+                                <span class="text-xl font-black text-black">${formatCOP(weeklyCost)}</span>
+                             </div>
+                        </div>
+
+                        <!-- Package 2: Intensivo -->
+                        <div class="bg-black text-white p-8 rounded-[2rem] shadow-2xl relative overflow-hidden group transform md:-translate-y-4">
+                             <div class="absolute top-0 right-0 p-6 opacity-20">
+                                <img src="${LOGO_GLOBAL}" class="h-8 invert" alt="Evolution" />
+                             </div>
+                             <div class="mb-6 border-b border-white/20 pb-4">
+                                <span class="text-xs font-bold text-yellow-400 uppercase tracking-widest">Opción 2</span>
+                                <h3 class="text-2xl font-black mt-1">Piloto Intensivo</h3>
+                                <p class="text-sm text-gray-400 mt-2">Generación de hábito y comunidad recurrente.</p>
+                             </div>
+                             
+                             <ul class="space-y-4 mb-8">
+                                <li class="flex items-center gap-3">
+                                    <div class="bg-white/20 p-1.5 rounded-full text-white"><i data-lucide="calendar" class="w-4 h-4"></i></div>
+                                    <span class="text-sm font-medium"><strong>3 Transmisiones</strong> semanales</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <div class="bg-white/20 p-1.5 rounded-full text-white"><i data-lucide="clock" class="w-4 h-4"></i></div>
+                                    <span class="text-sm font-medium">Duración: <strong>2 Horas</strong> por sesión</span>
+                                </li>
+                                 <li class="flex items-center gap-3">
+                                    <div class="bg-white/20 p-1.5 rounded-full text-white"><i data-lucide="user" class="w-4 h-4"></i></div>
+                                    <span class="text-sm font-medium">Talento: <strong>${influencer.name}</strong></span>
+                                </li>
+                                 <li class="flex items-center gap-3">
+                                    <div class="bg-white/20 p-1.5 rounded-full text-white"><i data-lucide="bar-chart" class="w-4 h-4"></i></div>
+                                    <span class="text-sm font-medium">Total: <strong>12 Transmisiones</strong> al mes</span>
+                                </li>
+                             </ul>
+
+                             <div class="bg-white/10 p-4 rounded-xl mb-6">
+                                <h4 class="text-xs font-bold uppercase tracking-wide mb-2 text-gray-400">Gestión Level Incluida:</h4>
+                                <p class="text-xs text-gray-300 leading-relaxed">
+                                    Coordinación completa, educación sobre producto, informes de rendimiento y pago al talento.
+                                </p>
+                             </div>
+
+                             <div class="flex items-center justify-between mt-auto pt-4 border-t border-white/20">
+                                <span class="text-xs font-bold text-gray-400 uppercase">Inversión Total</span>
+                                <span class="text-xl font-black text-yellow-400">${formatCOP(intensiveCost)}</span>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- CONTROLLER ---
+
+        function render() {
+            renderNav();
+            const container = document.getElementById('main-content');
+            
+            if (state.activeTab === 'strategy') container.innerHTML = renderStrategy();
+            else if (state.activeTab === 'methodology') container.innerHTML = renderMethodology();
+            else if (state.activeTab === 'influencers') container.innerHTML = renderInfluencers();
+            else if (state.activeTab === 'packages') container.innerHTML = renderPackages();
+            else if (state.activeTab === 'livespins') container.innerHTML = renderLiveSpins();
+
+            lucide.createIcons();
+        }
+
+        function setTab(tab) {
+            state.activeTab = tab;
+            state.strategyStep = 1; // Reset strategy on tab change
+            state.influencerMode = false; // Reset toggle
+            render();
+        }
+        
+        function selectLiveInfluencer(key) {
+            state.selectedLiveInfluencer = key;
+            render();
+        }
+
+        function nextStrategyStep() {
+            if (state.strategyStep < 4) {
+                state.strategyStep++;
+                render();
+            } else {
+                setTab('methodology');
+            }
+        }
+
+        function prevStrategyStep() {
+            if (state.strategyStep > 1) {
+                state.strategyStep--;
+                render();
+            }
+        }
+
+        function toggleInfluencerMode() {
+            state.influencerMode = !state.influencerMode;
+            render();
+        }
+
+        function selectPackage(id) {
+            state.selectedPackage = id;
+            render();
+        }
+
+        function openModal(type) {
+            state.showRefModal = type;
+            renderModal();
+        }
+
+        function closeModal() {
+            state.showRefModal = null;
+            document.getElementById('modal-container').classList.add('hidden');
+        }
+
+        function renderModal() {
+            const modalContainer = document.getElementById('modal-container');
+            const type = state.showRefModal;
+            const im = state.influencerMode;
+            
+            if (!type) {
+                modalContainer.classList.add('hidden');
+                return;
+            }
+
+            let content = '';
+            
+            if (type === 'street') {
+                content = `
+                    <div class="flex flex-col">
+                        <img src="${IMAGE_STREET}" class="w-full h-64 object-cover" />
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Referencia: Street Content</h3>
+                            <p class="text-sm text-gray-600 mb-4">Retos en la calle, vox pop y cualquier contenido donde interactuemos con usuarios en la calle. (Uso de tablets o celulares).</p>
+                            <a href="https://www.tiktok.com/@yefersoncossiowayuufans/video/7323319982702464262?_r=1&_t=ZS-93hrk3cZ28d" target="_blank" class="w-full bg-black text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-gray-800 transition-colors">
+                                Ver Video de Referencia <i data-lucide="external-link" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </div>`;
+            } else if (type === 'reactions') {
+                content = `
+                    <div class="p-8 text-center">
+                        <div class="bg-gradient-to-tr from-green-400 to-green-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"><i data-lucide="video" class="w-8 h-8 text-white"></i></div>
+                        <h3 class="text-xl font-bold mb-2">Referencia: Interacción con el juego</h3>
+                        <p class="text-sm text-gray-600 mb-6">Usuarios ganando (Efecto Pantalla).</p>
+                        <a href="https://www.instagram.com/p/C3LpaCBgF57/" target="_blank" class="w-full bg-black text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-gray-800 transition-colors">
+                            Ver Video en Instagram <i data-lucide="external-link" class="w-4 h-4"></i>
+                        </a>
+                    </div>`;
+            } else if (type === 'capsules') {
+                content = `
+                    <div class="p-8 text-center">
+                        <div class="bg-gradient-to-tr from-purple-600 to-orange-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"><i data-lucide="video" class="w-8 h-8 text-white"></i></div>
+                        <h3 class="text-xl font-bold mb-2">Referencia: Cápsulas Educativas</h3>
+                        <p class="text-sm text-gray-600 mb-6">Explicar de forma entretenida cómo funcionan los juegos.</p>
+                        <div class="space-y-3">
+                            <a href="https://www.tiktok.com/@capital_inteligente/video/7552656596384484619?_r=1&_t=ZS-93mwyerXf0S" target="_blank" class="w-full bg-black text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-gray-800 transition-colors">
+                                Ver Referencia 1 (TikTok) <i data-lucide="external-link" class="w-4 h-4"></i>
+                            </a>
+                            <a href="https://www.instagram.com/reels/DBHxPfgJ_CD/" target="_blank" class="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+                                Ver Referencia 2 (Instagram) <i data-lucide="external-link" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </div>`;
+            } else if (type === 'highlights') {
+                content = `
+                    <div class="p-8 text-center">
+                        <div class="bg-gradient-to-tr from-yellow-400 to-orange-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"><i data-lucide="star" class="w-8 h-8 text-white"></i></div>
+                        <h3 class="text-xl font-bold mb-2">Referencia: Mejores Momentos</h3>
+                        <p class="text-sm text-gray-600 mb-6">Clips de alto impacto y emoción (con Influencer).</p>
+                        <a href="https://youtube.com/shorts/p0Vdxq4fLG0?si=6Ncoyi5mud1hdcyR" target="_blank" class="w-full bg-black text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-gray-800 transition-colors">
+                            Ver Video en YouTube <i data-lucide="external-link" class="w-4 h-4"></i>
+                        </a>
+                    </div>`;
+            } else if (type === 'summary') {
+                // Determine title based on influencer mode
+                const title = im ? "Behind The Scenes" : "Teaser Resumen";
+                const desc = im ? "Haciendo el recap con el influencer" : "Resumen cinematográfico de la experiencia del evento";
+
+                content = `
+                    <div class="flex flex-col">
+                        <img src="${IMAGE_SUMMARY}" class="w-full h-64 object-cover" />
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Referencia: ${title}</h3>
+                            <p class="text-sm text-gray-600 mb-4">${desc}</p>
+                            <a href="https://www.instagram.com/p/DPO7FHbEgU9/" target="_blank" class="w-full bg-black text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-gray-800 transition-colors">
+                                Ver Reel de Referencia <i data-lucide="external-link" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </div>`;
+            }
+
+            modalContainer.innerHTML = `
+                <div class="bg-white rounded-2xl overflow-hidden max-w-lg w-full relative animate-scale-in" onclick="event.stopPropagation()">
+                    <button onclick="closeModal()" class="absolute top-4 right-4 bg-black/50 text-white p-2 rounded-full hover:bg-black transition-colors z-10">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                    ${content}
+                </div>
+            `;
+            
+            modalContainer.classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        // Close modal on outside click
+        document.getElementById('modal-container').addEventListener('click', closeModal);
+
+        // Init
+        render();
+
+    </script>
+</body>
+</html>
