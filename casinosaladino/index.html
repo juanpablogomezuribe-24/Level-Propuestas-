@@ -3,437 +3,1090 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casinos Aladino - El Picadito</title>
+    <title>Level Colombia - Content Proposal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap');
         
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #020617;
-            color: #e2e8f0;
+        body { font-family: 'Inter', sans-serif; }
+
+        /* Custom Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideRight {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
 
-        .chat-bg {
-            background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
-            background-blend-mode: overlay;
-            background-color: #0b141a;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #334155;
-            border-radius: 10px;
-        }
-
-        .tab-active {
-            background-color: #f59e0b;
-            color: #020617;
-            box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.3);
-            transform: translateY(-2px);
-        }
+        .animate-fade-in { animation: fadeIn 0.6s ease-out forwards; }
+        .animate-slide-up { animation: slideUp 0.6s ease-out forwards; }
+        .animate-slide-right { animation: slideRight 0.5s ease-out forwards; }
+        .animate-scale-in { animation: scaleIn 0.4s ease-out forwards; }
+        .animate-grow-width { animation: growWidth 1s ease-out forwards; }
+        
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="p-4 md:p-8">
+<body class="min-h-screen bg-white text-black selection:bg-black selection:text-white flex flex-col relative overflow-x-hidden">
 
-    <div class="max-w-5xl mx-auto">
-        <!-- Header Branding -->
-        <header class="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-6 border-b border-slate-800 pb-6">
-            <div class="flex items-center gap-4">
-                <div class="bg-gradient-to-br from-amber-400 to-amber-600 p-3 rounded-2xl shadow-lg rotate-3">
-                    <i data-lucide="trophy" class="text-slate-900 w-8 h-8"></i>
-                </div>
-                <div>
-                    <h1 class="text-3xl font-black text-white tracking-tight italic uppercase">
-                        CASINOS ALADINO <span class="text-amber-500 text-2xl">EL PICADITO</span>
-                    </h1>
-                    <p class="text-slate-400 font-medium text-xs">Propuesta de Fidelización Automatizada • Blupit WhatsApp API</p>
-                </div>
-            </div>
-            <div class="bg-amber-500/10 border border-amber-500/30 px-4 py-1.5 rounded-full text-[10px] font-bold text-amber-500 uppercase tracking-widest">
-                Proyecto Mundial 2026
-            </div>
-        </header>
-
-        <!-- Navigation -->
-        <nav class="flex flex-wrap gap-2 mb-8">
-            <button onclick="switchTab('contexto')" id="tab-contexto" class="tab-btn flex items-center gap-2 px-6 py-3 rounded-xl transition-all font-bold text-sm bg-slate-900 text-slate-500 hover:bg-slate-800 tab-active">
-                <i data-lucide="target" class="w-4 h-4"></i> Estrategia
-            </button>
-            <button onclick="switchTab('flujo')" id="tab-flujo" class="tab-btn flex items-center gap-2 px-6 py-3 rounded-xl transition-all font-bold text-sm bg-slate-900 text-slate-500 hover:bg-slate-800">
-                <i data-lucide="message-square" class="w-4 h-4"></i> Simulador WhatsApp
-            </button>
-            <button onclick="switchTab('logica')" id="tab-logica" class="tab-btn flex items-center gap-2 px-6 py-3 rounded-xl transition-all font-bold text-sm bg-slate-900 text-slate-500 hover:bg-slate-800">
-                <i data-lucide="bar-chart-3" class="w-4 h-4"></i> Lógica del Juego
-            </button>
-            <button onclick="switchTab('admin')" id="tab-admin" class="tab-btn flex items-center gap-2 px-6 py-3 rounded-xl transition-all font-bold text-sm bg-slate-900 text-slate-500 hover:bg-slate-800">
-                <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard Admin
-            </button>
+    <!-- HEADER -->
+    <header class="px-6 md:px-12 py-5 flex justify-between items-center border-b border-gray-100 sticky top-0 bg-white/90 backdrop-blur-xl z-[100]">
+        <div class="flex items-center gap-4">
+           <div class="font-black text-2xl tracking-tighter">LEVEL<span class="text-black">.</span></div>
+           <span class="text-gray-200 h-6 w-px"></span>
+           <img src="https://i.postimg.cc/63WPv5Vn/evolution-logo.webp" alt="Evolution" class="h-6 object-contain" />
+        </div>
+        
+        <nav id="nav-container" class="hidden md:flex gap-1 bg-gray-100 p-1 rounded-2xl">
+            <!-- Nav buttons injected by JS -->
         </nav>
 
-        <!-- Main Content Area -->
-        <main class="bg-slate-900/30 backdrop-blur-sm rounded-3xl border border-slate-800 p-6 md:p-10 shadow-inner min-h-[550px]">
-            
-            <!-- SECCIÓN: CONTEXTO -->
-            <section id="content-contexto" class="content-section space-y-6">
-                <div class="bg-amber-500/10 p-6 rounded-xl border border-amber-500/30">
-                    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2 text-amber-500 uppercase italic">
-                        <i data-lucide="trophy" class="w-6 h-6"></i> El Objetivo Estratégico
-                    </h2>
-                    <p class="text-gray-300 leading-relaxed text-sm md:text-base">
-                        Crear una experiencia masiva de fidelización para <b>Casinos Aladino</b> durante el Mundial. 
-                        Cada una de las <b>31 sedes</b> funciona como un equipo independiente, motivando a los clientes 
-                        a participar para que su casino favorito sea el campeón nacional.
-                    </p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="p-4 bg-slate-900 rounded-lg border border-slate-800">
-                        <h3 class="font-bold text-white mb-2 flex items-center gap-2">
-                            <i data-lucide="users" class="w-5 h-5 text-blue-400"></i> Dinámica de Participantes
-                        </h3>
-                        <ul class="text-xs text-gray-400 space-y-2">
-                            <li>• Registro único vinculado a la <b>Cédula</b>.</li>
-                            <li>• Los clientes pueden defender una o varias sedes Aladino.</li>
-                            <li>• Participación 100% automatizada vía WhatsApp.</li>
-                        </ul>
-                    </div>
-                    <div class="p-4 bg-slate-900 rounded-lg border border-slate-800">
-                        <h3 class="font-bold text-white mb-2 flex items-center gap-2">
-                            <i data-lucide="calendar" class="w-5 h-5 text-red-400"></i> Evento de Cierre
-                        </h3>
-                        <p class="text-xs text-gray-400">
-                            <strong>16 de Julio:</strong> Gran premiación física. Solo los jugadores del
-                            <b> Casino Campeón</b> entran en el sorteo de los premios mayores.
-                        </p>
-                    </div>
-                </div>
-            </section>
+        <div class="flex items-center gap-3">
+          <div class="hidden sm:block text-right">
+            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Partner Status</p>
+            <p class="text-xs font-black text-black flex items-center justify-end gap-1">
+              <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span> ACTIVE
+            </p>
+          </div>
+        </div>
+    </header>
 
-            <!-- SECCIÓN: FLUJO (SIMULADOR) -->
-            <section id="content-flujo" class="content-section hidden grid grid-cols-1 lg:grid-cols-12 gap-8">
-                <div class="lg:col-span-5 space-y-4">
-                    <div class="p-4 bg-amber-500/10 rounded-xl border border-amber-500/20">
-                        <h4 class="font-bold text-amber-500 text-sm mb-2 flex items-center gap-2">
-                            <i data-lucide="smartphone" class="w-4 h-4"></i> Guía del Simulador
-                        </h4>
-                        <div class="space-y-3">
-                            <div class="flex gap-3 items-start">
-                                <span class="bg-amber-500 text-slate-900 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black shrink-0">1</span>
-                                <p class="text-[11px] text-gray-300"><b>Registro:</b> Ingresa Nombre y Cédula mediante texto libre.</p>
-                            </div>
-                            <div class="flex gap-3 items-start">
-                                <span class="bg-amber-500 text-slate-900 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black shrink-0">2</span>
-                                <p class="text-[11px] text-gray-300"><b>Botones:</b> El bot usa opciones interactivas para confirmar.</p>
-                            </div>
-                            <div class="flex gap-3 items-start">
-                                <span class="bg-amber-500 text-slate-900 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black shrink-0">3</span>
-                                <p class="text-[11px] text-gray-300"><b>Polla:</b> Responde preguntas A, B o C con un solo toque.</p>
-                            </div>
-                        </div>
-                        <button onclick="resetSimulator()" class="mt-6 flex items-center gap-2 text-[10px] text-amber-500 font-bold hover:underline uppercase tracking-widest">
-                            <i data-lucide="refresh-ccw" class="w-3 h-3"></i> Reiniciar Simulación
-                        </button>
-                    </div>
-                </div>
+    <!-- MAIN CONTENT AREA -->
+    <main id="main-content" class="flex-1 container mx-auto max-w-7xl relative py-10 px-6">
+        <!-- Views injected by JS -->
+    </main>
 
-                <div class="lg:col-span-7 bg-[#0b141a] rounded-[2.5rem] border-[8px] border-slate-800 shadow-2xl flex flex-col h-[550px] relative overflow-hidden">
-                    <!-- WhatsApp Header -->
-                    <div class="bg-[#202c33] p-4 flex items-center gap-3 border-b border-slate-700/30 shrink-0">
-                        <div class="w-8 h-8 bg-amber-500 rounded-full flex items-center justify-center text-slate-900 font-black text-xs">AL</div>
-                        <div>
-                            <p class="text-white text-xs font-bold leading-none mb-1">Aladino: El Picadito 🧞‍♂️</p>
-                            <p class="text-emerald-500 text-[10px] flex items-center gap-1 font-medium uppercase tracking-widest">
-                                <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span> En línea
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Chat Messages -->
-                    <div id="chat-window" class="chat-bg flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar">
-                        <!-- Mensajes cargados dinámicamente -->
-                    </div>
-                    <!-- Input Bar -->
-                    <div id="chat-input-container" class="p-3 bg-[#202c33] shrink-0">
-                        <form id="chat-form" class="flex items-center gap-2">
-                            <input id="user-input" type="text" placeholder="Escribe tu respuesta..." class="flex-1 bg-[#2a3942] border-none rounded-lg py-2 px-4 text-xs focus:ring-1 focus:ring-amber-500 outline-none text-white">
-                            <button type="submit" class="bg-amber-500 p-2 rounded-full text-slate-900 shadow-lg active:scale-90 transition-transform">
-                                <i data-lucide="send" class="w-4 h-4"></i>
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </section>
+    <!-- FOOTER -->
+    <footer class="py-10 px-10 text-center border-t border-gray-100 mt-20 bg-white">
+        <p class="text-xs text-gray-400 font-medium tracking-wide">
+          © 2026 Level Colombia & Evolution - Propuesta Confidencial.
+        </p>
+    </footer>
 
-            <!-- SECCIÓN: LÓGICA -->
-            <section id="content-logica" class="content-section hidden space-y-6">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-                    <div class="bg-amber-500/10 p-6 rounded-xl border border-amber-500/20">
-                        <p class="text-amber-500 text-xs font-bold uppercase">Acierto Polla</p>
-                        <p class="text-3xl font-black text-white mt-2">+10 pts</p>
-                    </div>
-                    <div class="bg-blue-900/40 p-6 rounded-xl border border-blue-800/30">
-                        <p class="text-blue-400 text-xs font-bold uppercase">Suma Colectiva</p>
-                        <p class="text-3xl font-black text-white mt-2">Σ Sede</p>
-                    </div>
-                    <div class="bg-emerald-900/40 p-6 rounded-xl border border-emerald-800/30">
-                        <p class="text-emerald-400 text-xs font-bold uppercase">Premios</p>
-                        <p class="text-3xl font-black text-white mt-2">16 JULIO</p>
-                    </div>
-                </div>
-                <div class="bg-slate-900 p-6 rounded-xl border border-slate-800">
-                    <h3 class="font-bold text-white mb-2">Mecánica Multisede</h3>
-                    <p class="text-xs text-gray-400 leading-relaxed">
-                        Un usuario puede registrarse en varias sedes de Aladino. Si el usuario gana 10 puntos en la semana, 
-                        estos puntos se replican en cada casino que eligió.
-                    </p>
-                </div>
-            </section>
-
-            <!-- SECCIÓN: ADMIN -->
-            <section id="content-admin" class="content-section hidden space-y-4">
-                <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2 uppercase">
-                    <i data-lucide="layout-dashboard" class="text-amber-500"></i> Vista Administrativa
-                </h3>
-                <div class="bg-slate-900 p-4 rounded-xl overflow-x-auto border border-slate-800">
-                    <table class="w-full text-left text-[11px] min-w-[400px]">
-                        <thead>
-                            <tr class="border-b border-slate-800 text-slate-500 uppercase font-black tracking-widest">
-                                <th class="pb-3 px-2">Pos.</th>
-                                <th className="pb-3">Sede Aladino</th>
-                                <th className="pb-3 text-center">Jugadores</th>
-                                <th className="pb-3 text-right">Puntos Totales</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-gray-300">
-                            <tr class="border-b border-slate-800/50">
-                                <td class="py-3 px-2">🥇 1</td>
-                                <td class="py-3 font-bold">ALADINO CENTRAL</td>
-                                <td class="py-3 text-center">1,240</td>
-                                <td class="py-3 text-right font-black text-amber-500">12,400</td>
-                            </tr>
-                            <tr class="border-b border-slate-800/50">
-                                <td class="py-3 px-2">🥈 2</td>
-                                <td class="py-3 font-bold">ALADINO NORTE</td>
-                                <td class="py-3 text-center">980</td>
-                                <td class="py-3 text-right font-black">9,800</td>
-                            </tr>
-                            <tr>
-                                <td class="py-3 px-2">🥉 3</td>
-                                <td class="py-3 font-bold">ALADINO EL DORADO</td>
-                                <td class="py-3 text-center">850</td>
-                                <td class="py-3 text-right font-black text-amber-800">8,500</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-        </main>
-
-        <!-- Footer -->
-        <footer class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 opacity-40">
-            <div class="flex items-start gap-3">
-                <i data-lucide="smartphone" class="w-4 h-4 text-amber-500 mt-1"></i>
-                <p class="text-[10px] leading-tight text-slate-400 uppercase font-bold">API Blupit Integrada</p>
-            </div>
-            <div class="flex items-start gap-3">
-                <i data-lucide="map-pin" class="w-4 h-4 text-amber-500 mt-1"></i>
-                <p class="text-[10px] leading-tight text-slate-400 uppercase font-bold">31 Sedes Nacionales</p>
-            </div>
-            <div class="flex items-start gap-3">
-                <i data-lucide="check-circle" class="w-4 h-4 text-amber-500 mt-1"></i>
-                <p class="text-[10px] leading-tight text-slate-400 uppercase font-bold">CRM Aladino Sync</p>
-            </div>
-        </footer>
+    <!-- MODAL CONTAINER -->
+    <div id="modal-container" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+        <!-- Modal content injected by JS -->
     </div>
 
+    <!-- JAVASCRIPT LOGIC -->
     <script>
-        // Inicializar iconos
-        lucide.createIcons();
+        // --- DATA & CONSTANTS ---
+        const LOGO_GLOBAL = "https://i.postimg.cc/dV4ZFJQV/evolution-global-logo.jpg";
+        const IMAGE_STREET = "https://i.postimg.cc/Y0hjmbT7/Whats-App-Image-2026-02-09-at-5-11-58-PM.jpg";
+        const IMAGE_SUMMARY = "https://i.postimg.cc/Kz4gnGMZ/Whats-App-Image-2026-02-09-at-2-31-52-PM.jpg";
 
-        // Lógica de Tabs
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('tab-active'));
-            document.querySelectorAll('.content-section').forEach(sec => sec.classList.add('hidden'));
+        const state = {
+            activeTab: 'strategy',
+            selectedPackage: 1,
+            strategyStep: 1,
+            influencerMode: false,
+            showRefModal: null,
+            selectedLiveInfluencer: 'conragen',
+            selectedDemographics: null
+        };
 
-            document.getElementById(`tab-${tabId}`).classList.add('tab-active');
-            document.getElementById(`content-${tabId}`).classList.remove('hidden');
-            
-            if (tabId === 'flujo') {
-                scrollToBottom();
-            }
-        }
+        // RATES IN EUROS (Approx conversion)
+        // Paula Dazzle updated to ~750 EUR (3.2M COP)
+        // Julian Valencia removed from Live Spins selector
+        const liveInfluencers = {
+            conragen: { name: "Conragen", cost: 470, image: "https://i.postimg.cc/jqzRCCWt/conragen.jpg" },
+            tati: { name: "Tati Barrera", cost: 330, image: "https://i.postimg.cc/NMh6pvKW/tati-barrera.png" },
+            camilo: { name: "Camilo MD", cost: 590, image: "https://i.postimg.cc/NFV6Wb15/camilo-md.jpg" },
+            pipe: { name: "Pipe Sierra", cost: 280, image: "https://i.postimg.cc/cL6q7JJw/pipe-Sierra-2.webp" },
+            paula: { name: "Paula Dazzle", cost: 750, image: "https://i.postimg.cc/rp6qXp2x/paula-dazzle.jpg" }
+        };
 
-        // LÓGICA DEL SIMULADOR
-        const chatWindow = document.getElementById('chat-window');
-        const chatForm = document.getElementById('chat-form');
-        const userInput = document.getElementById('user-input');
-        const chatInputContainer = document.getElementById('chat-input-container');
-
-        let step = 'name';
-        let userData = { name: '', id: '', casino: '' };
-        let messages = [
-            { role: 'bot', text: '¡Hola! ⚽ Bienvenido al Picadito de Casinos Aladino. Soy tu asistente virtual.' },
-            { role: 'bot', text: 'Para empezar a ganar puntos para tu casino, ¿cómo te llamas?' }
+        // INFLUENCERS DATA (Full Roster)
+        const influencersData = [
+            { 
+                name: "Julian Valencia", 
+                category: "Motos y Entretenimiento", 
+                status: "available", 
+                partner: null, 
+                image: "https://i.postimg.cc/XJbbFKK1/julian_valencia.jpg", 
+                link: "https://www.instagram.com/julianvalenciatmk/", 
+                icon: "instagram",
+                mainPlatform: "Instagram",
+                gender: "Mayoría Hombres",
+                audience: "Hombres 18-35, Urbano, Pasión por motores.",
+                demographics: [
+                    { label: "18-24 años", value: 24.7 },
+                    { label: "25-34 años", value: 49.3 },
+                    { label: "35-44 años", value: 19.1 }
+                ]
+            },
+            { 
+                name: "Salome Fajardo", 
+                category: "Periodista Deportiva", 
+                status: "busy", 
+                partner: "Rushbet", 
+                image: "https://i.postimg.cc/nzj9tz7s/salome.jpg", 
+                link: "https://www.instagram.com/salomefajardo04/", 
+                icon: "instagram",
+                mainPlatform: "Instagram",
+                gender: "Mayoría Hombres",
+                audience: "Hombres/Mujeres 18-40, Aficionados FPC, Credibilidad.",
+                demographics: [
+                    { label: "18-24 años", value: 12.0 },
+                    { label: "25-34 años", value: 31.7 },
+                    { label: "35-44 años", value: 27.9 },
+                    { label: "45-54 años", value: 17.0 },
+                    { label: "+55 años", value: 10.5 }
+                ]
+            },
+             { 
+                name: "Camilo MD", 
+                category: "Streamer Deportivo", 
+                status: "busy", 
+                partner: "Stake", 
+                image: "https://i.postimg.cc/NFV6Wb15/camilo-md.jpg", 
+                link: "https://www.youtube.com/@CAMILOMD", 
+                icon: "youtube",
+                mainPlatform: "YouTube",
+                gender: "Mayoría Hombres",
+                audience: "Gen Z, Gamers, Nicho apuestas en vivo.",
+                demographics: [
+                    { label: "13-17 años", value: 2.3 },
+                    { label: "18-24 años", value: 15.1 },
+                    { label: "25-34 años", value: 37.8 },
+                    { label: "35-44 años", value: 20.4 },
+                    { label: "45-54 años", value: 11.4 },
+                    { label: "+55 años", value: 12.9 }
+                ]
+            },
+            { 
+                name: "Jorge Bermudez", 
+                category: "Periodista Deportivo (#1 YT)", 
+                status: "busy", 
+                partner: "Stake", 
+                image: "https://i.postimg.cc/252zkt3g/Jorge-bermudez.png", 
+                link: "https://www.youtube.com/@JorgeBermudezFutbol", 
+                icon: "youtube", 
+                mainPlatform: "YouTube",
+                gender: "Mayoría Hombres",
+                audience: "Hombres 25-50, Debate serio, Opinión crítica.",
+                demographics: [
+                    { label: "13-17 años", value: 3.0 },
+                    { label: "18-24 años", value: 36.1 },
+                    { label: "25-34 años", value: 35.3 },
+                    { label: "35-44 años", value: 12.3 },
+                    { label: "45-64 años", value: 5.7 }
+                ]
+            },
+            { name: "Felipe Cerón", category: "Deportes y Fútbol", status: "busy", partner: "Wplay", image: "https://i.postimg.cc/mDN18qW0/Media_Kit_Valentina_Taguado_(1).png", link: "https://www.tiktok.com/@felipefcb10", icon: "video", mainPlatform: "TikTok" },
+            { name: "Laura Ortiz", category: "Influencer Deportes", status: "busy", partner: "Wplay", image: "https://i.postimg.cc/3NPKVWcS/laurix06.jpg", link: "https://www.tiktok.com/@lauriix06", icon: "video", mainPlatform: "TikTok" },
+            { name: "El Sai", category: "Deportes", status: "available", partner: null, image: "https://i.postimg.cc/Qd44Qq4j/Whats-App-Image-2026-02-09-at-5-59-28-PM.jpg", link: "https://www.instagram.com/el_saii/", icon: "instagram", mainPlatform: "Instagram" },
+            { name: "Alejo Sossa", category: "Deportes", status: "busy", partner: "Rushbet", image: "https://i.postimg.cc/RFMWvcmD/Alejo-Sossa.jpg", link: "https://www.instagram.com/_alejo.sosa", icon: "instagram", mainPlatform: "Instagram" },
+            { name: "Cristian Gonzáles", category: "Entretenimiento", status: "available", partner: null, image: "https://i.postimg.cc/NGWrvK3h/Whats-App-Image-2026-02-10-at-8-03-14-PM.jpg", link: "https://youtube.com/@elcristiangonzalez9091?si=_JsE0HfwxTgC7iKn", icon: "youtube", mainPlatform: "YouTube" },
+            { name: "Steven Garay", category: "Entretenimiento", status: "available", partner: null, image: "https://i.postimg.cc/pTmygvkT/Whats-App-Image-2026-02-10-at-8-03-15-PM.jpg", link: "https://www.instagram.com/garay_st?igsh=OXlqdnduMXd4OHBs", icon: "instagram", mainPlatform: "Instagram" },
+            { name: "Conragen", category: "Streamer FIFA", status: "available", partner: null, image: "https://i.postimg.cc/jqzRCCWt/conragen.jpg", link: "https://www.youtube.com/conragen", icon: "youtube", mainPlatform: "YouTube" },
+            { name: "Pipe Sierra", category: "Periodista Deportivo", status: "busy", partner: "Stake", image: "https://i.postimg.cc/cL6q7JJw/pipe-Sierra-2.webp", link: "https://kick.com/psierrar?source=kicklogz", icon: "video", mainPlatform: "Kick" },
+            { name: "Eduardo Luis Lopez", category: "Periodista Deportivo", status: "busy", partner: "Wplay", image: "https://i.postimg.cc/13FBZxCb/eduardo-luis.avif", link: "https://www.youtube.com/@EduardoLuisOficial", icon: "youtube", mainPlatform: "YouTube" },
+            { name: "Camilo MD", category: "Streamer Deportivo", status: "busy", partner: "Stake", image: "https://i.postimg.cc/NFV6Wb15/camilo-md.jpg", link: "https://www.youtube.com/@CAMILOMD", icon: "youtube" },
+            { name: "Paula Dazzle", category: "Streamer y Gamer", status: "busy", partner: "Betplay", image: "https://i.postimg.cc/rp6qXp2x/paula-dazzle.jpg", link: "https://www.instagram.com/paudazzle/", icon: "instagram", mainPlatform: "Instagram" },
+            { name: "Tati Barrera", category: "Streamer", status: "available", partner: null, image: "https://i.postimg.cc/NMh6pvKW/tati-barrera.png", link: "https://www.twitch.tv/tatibarrera", icon: "twitch", mainPlatform: "Twitch" }
         ];
 
-        function renderMessages() {
-            chatWindow.innerHTML = '';
-            messages.forEach((msg, index) => {
-                const div = document.createElement('div');
-                div.className = `flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-in slide-in-from-bottom-2`;
-                
-                let buttonsHtml = '';
-                if (msg.options && msg.options.length > 0) {
-                    buttonsHtml = `
-                        <div class="mt-3 flex flex-col gap-2 border-t border-slate-700 pt-2">
-                            ${msg.options.map(opt => `
-                                <button onclick="handleOptionClick('${opt}')" class="bg-[#2a3942] hover:bg-slate-700 text-amber-500 font-bold py-2 rounded-lg text-[11px] border border-slate-700 active:scale-95 transition-all">
-                                    ${opt}
-                                </button>
-                            `).join('')}
-                        </div>
-                    `;
-                }
+        // PAQUETES CON KPIS ESTIMADOS (BetPlay Stats)
+        const packages = {
+            1: {
+                title: "Paquete 1: Full Content",
+                subtitle: "5 Contenidos",
+                desc: "Producción in-house completa.",
+                price: "€3,500",
+                scope: {
+                    previa: "1 Street Marketing + 1 Interacción con el juego + 1 Cápsula Educativa.",
+                    durante: "No incluye cobertura en vivo.",
+                    post: "1 Clip Mejores Momentos (Max 45s) + 1 Teaser Resumen."
+                },
+                kpis: [
+                    "Previa (3 Videos): <strong>~39.000 Views</strong>",
+                    "Post (2 Videos): <strong>~26.000 Views</strong>",
+                    "ALCANCE TOTAL: <strong>>65.000 Impresiones</strong>", 
+                    "Interacción Est.: >1.500 (Likes/Comentarios)",
+                    "<span class='italic opacity-70'>* El buen contenido impulsa estos números.</span>"
+                ],
+                features: ["Creatividad y Guiones", "Grabación con Presentador Level", "Edición y Correcciones", "Derechos Totales"]
+            },
+            2: {
+                title: "Paquete 2: Essential",
+                subtitle: "3 Contenidos",
+                desc: "Producción in-house esencial.",
+                price: "€2,350",
+                scope: {
+                    previa: "1 Cápsula Educativa + 1 Street Marketing.",
+                    durante: "No incluye cobertura en vivo.",
+                    post: "1 Clip Mejores Momentos (Max 45s)."
+                },
+                kpis: [
+                    "Previa (2 Videos): <strong>~26.000 Views</strong>",
+                    "Post (1 Video): <strong>~13.000 Views</strong>",
+                    "ALCANCE TOTAL: <strong>>39.000 Impresiones</strong>",
+                    "Interacción Est.: >900 (Likes/Comentarios)",
+                    "<span class='italic opacity-70'>* El buen contenido impulsa estos números.</span>"
+                ],
+                features: ["Creatividad y Guiones", "Grabación con Presentador Level", "Edición y Correcciones", "Derechos Totales"]
+            },
+            3: {
+                title: "Paquete 3: Modo Influencer",
+                subtitle: "Ejemplo: Julián Valencia",
+                desc: "Estrategia de alto impacto validada con talento. Cifras estimadas para perfil tipo Julián Valencia.",
+                price: "€6,400",
+                scope: {
+                    previa: "Street Marketing Collab (Betplay). <strong>€2,800</strong> <br/><span class='text-xs text-gray-500'>KPIs: 90k views + 1.200 interacciones.</span>",
+                    durante: "Host Evento (2h) + 1 Historia Link + <strong>BONUS: 1 Historia Extra</strong>. <strong>€2,100</strong> <br/><span class='text-xs text-gray-500'>KPIs: ~120k views + 3.600 clics.</span>",
+                    post: "Reel Mejores Momentos (Collab). <strong>€1,500</strong> <br/><span class='text-xs text-gray-500'>KPIs: 90k views + 1.200 interacciones.</span>"
+                },
+                kpis: [
+                    "Previa: <strong>90.000 Views + 1.200 Int.</strong>",
+                    "Durante: <strong>120.000 Views + 3.600 Clics</strong>",
+                    "Post: <strong>90.000 Views + 1.200 Int.</strong>",
+                    "ALCANCE TOTAL: <strong>>300.000 Impresiones</strong>"
+                ],
+                features: ["Gestión de Talento", "Negociación Derechos", "Producción Técnica", "Estrategia Amplificación"],
+                benefits: [
+                    "<strong>Credibilidad:</strong> La audiencia confía en la recomendación.",
+                    "<strong>Tráfico Directo:</strong> Clics al juego desde Stories.",
+                    "<strong>Humanización:</strong> Rostro conocido asociado a Evolution."
+                ]
+            }
+        };
 
-                div.innerHTML = `
-                    <div class="max-w-[85%] p-2 rounded-xl text-[13px] shadow-sm ${msg.role === 'user' ? 'bg-[#005c4b] text-white rounded-tr-none' : 'bg-[#202c33] text-gray-200 rounded-tl-none'}">
-                        <div class="whitespace-pre-wrap">${msg.text}</div>
-                        ${buttonsHtml}
-                        <div class="text-[9px] text-right mt-1 opacity-50">Hoy ${new Date().getHours()}:${new Date().getMinutes().toString().padStart(2, '0')}</div>
-                    </div>
-                `;
-                chatWindow.appendChild(div);
-            });
-            scrollToBottom();
-            toggleInputVisibility();
+        const strategySteps = [
+            {
+                id: 1,
+                label: "CONTEXTO",
+                icon: "briefcase",
+                title: "El Desafío del Mercado",
+                content: "El mercado B2B de casinos está saturado. Hoy en día, todos los proveedores pelean por los mismos espacios premium (Home, Banners Principales) ofreciendo lo mismo: Revenue Share.",
+                type: "visuals_1"
+            },
+            {
+                id: 2,
+                label: "PROPUESTA DE VALOR",
+                icon: "star",
+                title: "Contenido como Estrategia",
+                content: "Cambiamos las reglas del juego: Ofrecemos una estrategia de contenidos como valor agregado. Creamos narrativas de alto impacto para cada evento, listas para que los clientes las publiquen, generen conversación real y muevan los números del negocio.",
+                highlight: "Dejamos de ser proveedores para ser aliados de marketing del operador.",
+                type: "cycle"
+            },
+            {
+                id: 3,
+                label: "OBJETIVO LEVEL",
+                icon: "target",
+                title: "La Agencia",
+                content: "Nuestro objetivo es ser la agencia in-house de Evolution para la creación, producción y edición de todos los contenidos que luego serán entregados al cliente de Evolution.",
+                type: "visuals_3"
+            },
+            {
+                id: 4,
+                label: "¿QUÉ VAMOS A HACER?",
+                icon: "rocket",
+                title: "El Plan de Acción",
+                content: "1. Crear una estrategia de 3 momentos (Previa, Durante, Post).\n2. Integrar Influence Marketing en escenarios clave.\n3. Apoyo comercial para Evolutión.",
+                type: "visuals_4"
+            }
+        ];
+
+        // --- HELPER: FORMAT CURRENCY ---
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0 }).format(amount);
         }
 
-        function toggleInputVisibility() {
-            // Solo mostramos el input de texto en ciertos pasos
-            const textSteps = ['name', 'id', 'casino_search'];
-            if (textSteps.includes(step)) {
-                chatInputContainer.innerHTML = `
-                    <form id="chat-form" onsubmit="handleFormSubmit(event)" class="flex items-center gap-2">
-                        <input id="user-input" type="text" placeholder="Escribe aquí..." class="flex-1 bg-[#2a3942] border-none rounded-lg py-2 px-4 text-xs focus:ring-1 focus:ring-amber-500 outline-none text-white">
-                        <button type="submit" class="bg-amber-500 p-2 rounded-full text-slate-900 shadow-lg">
-                            <i data-lucide="send" class="w-4 h-4"></i>
-                        </button>
-                    </form>
-                `;
-                lucide.createIcons();
-            } else {
-                chatInputContainer.innerHTML = `
-                    <div class="text-center py-1">
-                        <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest italic italic">Usa los botones del chat</p>
+        // --- RENDER FUNCTIONS ---
+
+        function renderNav() {
+            const tabs = [
+                { id: 'strategy', label: 'Estrategia' },
+                { id: 'methodology', label: 'Metodología' },
+                { id: 'influencers', label: 'Influenciadores' },
+                { id: 'packages', label: 'Paquetes' },
+                { id: 'livespins', label: 'Live Spins' }
+            ];
+
+            const navHTML = tabs.map(tab => `
+                <button 
+                    onclick="setTab('${tab.id}')" 
+                    class="px-6 py-2 rounded-[0.9rem] text-xs font-bold uppercase tracking-wider transition-all 
+                    ${state.activeTab === tab.id ? 'bg-black shadow-md text-white' : 'text-gray-400 hover:text-black'}">
+                    ${tab.label}
+                </button>
+            `).join('');
+            
+            document.getElementById('nav-container').innerHTML = navHTML;
+        }
+
+        function renderStrategy() {
+            const step = strategySteps[state.strategyStep - 1];
+            
+            // Progress Bar
+            const progressHTML = strategySteps.map(s => `
+                <div class="h-1.5 rounded-full transition-all duration-500 ${s.id === state.strategyStep ? 'w-12 bg-black' : s.id < state.strategyStep ? 'w-4 bg-gray-800' : 'w-4 bg-gray-200'}"></div>
+            `).join('');
+
+            // Content Right Side Logic
+            let contentRight = '';
+            
+            if (step.type === 'visuals_1') {
+                contentRight = `
+                    <div class="flex flex-wrap gap-4 mt-8">
+                       <div class="flex items-center gap-2 bg-white px-4 py-3 rounded-xl border border-gray-200 shadow-sm">
+                          <div class="bg-black p-1.5 rounded-full text-white"><i data-lucide="trophy" class="w-4 h-4"></i></div>
+                          <span class="text-xs font-bold uppercase tracking-wide">Visibilidad #1</span>
+                       </div>
+                       <div class="flex items-center gap-2 bg-white px-4 py-3 rounded-xl border border-gray-200 shadow-sm">
+                          <div class="bg-black p-1.5 rounded-full text-white"><i data-lucide="star" class="w-4 h-4"></i></div>
+                          <span class="text-xs font-bold uppercase tracking-wide">Diferenciación</span>
+                       </div>
+                       <div class="flex items-center gap-2 bg-white px-4 py-3 rounded-xl border border-gray-200 shadow-sm">
+                          <div class="bg-black p-1.5 rounded-full text-white"><i data-lucide="monitor-play" class="w-4 h-4"></i></div>
+                          <span class="text-xs font-bold uppercase tracking-wide">Estrategia</span>
+                       </div>
+                    </div>`;
+            } else if (step.type === 'visuals_3') {
+                contentRight = `
+                    <div class="flex flex-wrap gap-3 mt-8">
+                       <div class="flex items-center gap-2 bg-white px-3 py-2 rounded-lg border border-gray-200 shadow-sm">
+                          <div class="bg-black p-1 rounded-full text-white"><i data-lucide="trending-up" class="w-3 h-3"></i></div>
+                          <span class="text-[10px] font-bold uppercase tracking-wide">Tendencias</span>
+                       </div>
+                       <div class="flex items-center gap-2 bg-white px-3 py-2 rounded-lg border border-gray-200 shadow-sm">
+                          <div class="bg-black p-1 rounded-full text-white"><i data-lucide="lightbulb" class="w-3 h-3"></i></div>
+                          <span class="text-[10px] font-bold uppercase tracking-wide">Innovación</span>
+                       </div>
+                       <div class="flex items-center gap-2 bg-white px-3 py-2 rounded-lg border border-gray-200 shadow-sm">
+                          <div class="bg-black p-1 rounded-full text-white"><i data-lucide="zap" class="w-3 h-3"></i></div>
+                          <span class="text-[10px] font-bold uppercase tracking-wide">Velocidad</span>
+                       </div>
+                    </div>`;
+            } else if (step.type === 'visuals_4') {
+                contentRight = `
+                    <div class="flex flex-wrap gap-3 mt-8">
+                       <div class="flex items-center gap-2 bg-white px-3 py-2 rounded-lg border border-gray-200 shadow-sm">
+                          <div class="bg-black p-1 rounded-full text-white"><i data-lucide="layers" class="w-3 h-3"></i></div>
+                          <span class="text-[10px] font-bold uppercase tracking-wide">Fábrica de Contenido</span>
+                       </div>
+                       <div class="flex items-center gap-2 bg-white px-3 py-2 rounded-lg border border-gray-200 shadow-sm">
+                          <div class="bg-black p-1 rounded-full text-white"><i data-lucide="users" class="w-3 h-3"></i></div>
+                          <span class="text-[10px] font-bold uppercase tracking-wide">Influence Marketing</span>
+                       </div>
+                       <div class="flex items-center gap-2 bg-white px-3 py-2 rounded-lg border border-gray-200 shadow-sm">
+                          <div class="bg-black p-1 rounded-full text-white"><i data-lucide="handshake" class="w-3 h-3"></i></div>
+                          <span class="text-[10px] font-bold uppercase tracking-wide">Soluciones B2B</span>
+                       </div>
+                    </div>`;
+            } else if (step.type === 'cycle') {
+                contentRight = `
+                    <div class="mt-6">
+                        <div class="bg-gray-50 border-l-4 border-black p-4 rounded-r-xl mb-6">
+                            <p class="text-sm font-bold text-gray-800 italic">"${step.highlight}"</p>
+                        </div>
+                        
+                        <div class="bg-white border border-gray-100 p-6 rounded-2xl shadow-sm">
+                            <h4 class="text-xs font-black uppercase tracking-widest text-gray-400 mb-4">El Flujo Level</h4>
+                            
+                            <!-- LEVEL SECTION -->
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 relative">
+                                <!-- Creatividad -->
+                                <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 hover:border-black transition-colors">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <div class="bg-black p-1.5 rounded-lg text-white"><i data-lucide="lightbulb" class="w-4 h-4"></i></div>
+                                        <span class="font-bold text-sm">Creatividad</span>
+                                    </div>
+                                    <p class="text-[10px] text-gray-600 leading-relaxed">
+                                        Revisamos tendencias de contenido. Pensamos en ideas innovadoras. Construimos guiones y ganchos visuales para tener mejores resultados.
+                                    </p>
+                                </div>
+                                
+                                <!-- Producción -->
+                                <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 hover:border-black transition-colors">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <div class="bg-black p-1.5 rounded-lg text-white"><i data-lucide="camera" class="w-4 h-4"></i></div>
+                                        <span class="font-bold text-sm">Producción</span>
+                                    </div>
+                                    <p class="text-[10px] text-gray-600 leading-relaxed">
+                                        Coordinamos fechas, tiempos y lugares para la grabación con equipos profesionales.
+                                    </p>
+                                </div>
+                                
+                                <!-- Edición -->
+                                <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 hover:border-black transition-colors">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <div class="bg-black p-1.5 rounded-lg text-white"><i data-lucide="scissors" class="w-4 h-4"></i></div>
+                                        <span class="font-bold text-sm">Edición</span>
+                                    </div>
+                                    <p class="text-[10px] text-gray-600 leading-relaxed">
+                                        Revisamos el material y montamos la linea grafica y narrativa del contenido buscando tener los mejores resultados.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <!-- HANDOFF -->
+                            <div class="flex items-center justify-center mb-6">
+                                <div class="bg-black text-white px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2">
+                                    Entrega al Cliente <i data-lucide="arrow-down" class="w-3 h-3"></i>
+                                </div>
+                            </div>
+
+                            <!-- CLIENT SECTION -->
+                            <div class="flex flex-col md:flex-row items-center justify-between gap-4 bg-green-50/50 p-4 rounded-xl border border-green-100">
+                                 <div class="flex flex-col items-center text-center gap-1">
+                                    <div class="w-8 h-8 bg-green-100 text-green-700 rounded-full flex items-center justify-center"><i data-lucide="share-2" class="w-4 h-4"></i></div>
+                                    <span class="text-[9px] font-bold uppercase tracking-wider text-green-700 mt-1">Publicación</span>
+                                 </div>
+                                 <i data-lucide="arrow-right" class="w-3 h-3 text-green-300 hidden md:block"></i>
+                                 <div class="flex flex-col items-center text-center gap-1">
+                                    <div class="w-8 h-8 bg-green-100 text-green-700 rounded-full flex items-center justify-center"><i data-lucide="message-circle" class="w-4 h-4"></i></div>
+                                    <span class="text-[9px] font-bold uppercase tracking-wider text-green-700 mt-1">Conversación</span>
+                                 </div>
+                                 <i data-lucide="arrow-right" class="w-3 h-3 text-green-300 hidden md:block"></i>
+                                 <div class="flex flex-col items-center text-center gap-1">
+                                    <div class="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center shadow-md shadow-green-200"><i data-lucide="trending-up" class="w-4 h-4"></i></div>
+                                    <span class="text-[9px] font-bold uppercase tracking-wider text-green-800 mt-1">Resultados</span>
+                                 </div>
+                            </div>
+                        </div>
+                    </div>`;
+            }
+
+            // Wrapper
+            return `
+                <div class="animate-slide-up p-4 md:p-10 max-w-5xl mx-auto h-full flex flex-col justify-center">
+                    <div class="flex justify-center items-center gap-2 mb-8">${progressHTML}</div>
+                    
+                    <div class="bg-white rounded-[2.5rem] shadow-2xl border border-gray-100 overflow-hidden relative min-h-[450px] flex flex-col md:flex-row">
+                        <div class="md:w-1/3 bg-black text-white p-8 flex flex-col justify-between relative overflow-hidden">
+                             <div class="absolute top-0 right-0 p-6 opacity-20">
+                                 <img src="${LOGO_GLOBAL}" class="h-32 opacity-20 invert rotate-12" alt="Evolution" />
+                             </div>
+                             <div class="relative z-10">
+                               <span class="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase mb-2 block">Paso 0${step.id}</span>
+                               <h3 class="text-2xl font-black uppercase tracking-tight">${step.label}</h3>
+                             </div>
+                             <div class="relative z-10 mt-8 md:mt-0 flex justify-center">
+                               <i data-lucide="${step.icon}" class="w-24 h-24 text-white stroke-1"></i>
+                             </div>
+                             <div class="hidden md:block"></div>
+                        </div>
+                        
+                        <div class="md:w-2/3 p-8 md:p-12 flex flex-col justify-center overflow-y-auto max-h-[80vh] md:max-h-none">
+                            <h2 class="text-3xl md:text-4xl font-extrabold text-black mb-4 leading-tight animate-fade-in">${step.title}</h2>
+                            <p class="text-gray-600 text-base md:text-lg leading-relaxed whitespace-pre-line animate-fade-in">${step.content}</p>
+                            ${contentRight}
+                        </div>
                     </div>
-                `;
+
+                    <div class="flex justify-between items-center mt-8 px-4">
+                        <button onclick="prevStrategyStep()" class="flex items-center gap-2 text-gray-400 font-bold hover:text-black transition-colors ${state.strategyStep === 1 ? 'opacity-0 pointer-events-none' : 'opacity-100'}">
+                            <i data-lucide="chevron-left" class="w-5 h-5"></i> Anterior
+                        </button>
+                        <button onclick="nextStrategyStep()" class="group bg-black text-white px-8 py-3 rounded-full font-bold uppercase tracking-wider text-sm hover:bg-gray-800 transition-all shadow-lg flex items-center gap-2">
+                            ${state.strategyStep === 4 ? 'Ver Metodología' : 'Siguiente'} 
+                            <i data-lucide="chevron-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderMethodology() {
+            const im = state.influencerMode;
+            
+            return `
+            <div class="animate-slide-right p-4 md:p-10 max-w-7xl mx-auto h-full flex flex-col justify-center">
+              <div class="text-center mb-12">
+                <h2 class="text-4xl font-extrabold mb-4 uppercase">Los 3 Momentos</h2>
+                <p class="text-gray-500 max-w-2xl mx-auto mb-6">Nuestra estrategia de contenido cubre todo el ciclo de vida del evento.</p>
+                
+                <div class="flex flex-col items-center gap-3">
+                    <div onclick="toggleInfluencerMode()" class="inline-flex items-center gap-3 px-6 py-2 rounded-full cursor-pointer transition-all duration-300 border-2 ${im ? 'bg-black border-black text-white shadow-lg' : 'bg-white border-gray-200 text-gray-500'}">
+                      <div class="font-bold text-sm uppercase tracking-wider">Modo Influencer</div>
+                      ${im ? '<i data-lucide="toggle-right" class="w-8 h-8 text-green-400"></i>' : '<i data-lucide="toggle-left" class="w-8 h-8 text-gray-300"></i>'}
+                    </div>
+                    ${im ? `<div class="flex items-center gap-2 text-xs text-gray-500 animate-fade-in"><i data-lucide="star" class="w-3 h-3 text-yellow-400 fill-yellow-400"></i> Indica formato potenciado con Influencer</div>` : ''}
+                </div>
+              </div>
+              
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+                <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-gray-200 -z-10 transform -translate-y-1/2"></div>
+
+                <!-- PREVIA -->
+                <div class="p-8 rounded-xl border-2 transition-all group relative bg-white ${im ? 'border-black shadow-lg' : 'border-gray-100'}">
+                  <div class="w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl mb-6 mx-auto transition-all ${im ? 'bg-black text-white scale-110' : 'bg-gray-100 text-gray-400'}">1</div>
+                  <h3 class="text-xl font-black text-center mb-2 uppercase">La Previa</h3>
+                  <p class="text-xs text-center text-gray-400 uppercase tracking-widest mb-6">Expectativa & Educación</p>
+                  
+                  <div class="space-y-3">
+                    <button onclick="openModal('street')" class="w-full text-left p-3 rounded-lg transition-all flex items-center justify-between group/item border ${im ? 'bg-black text-white border-black' : 'bg-gray-50 text-gray-800 border-gray-100 hover:border-gray-300'}">
+                      <div>
+                        <strong class="block text-sm flex items-center gap-2">Street Content ${im ? '<i data-lucide="star" class="w-3 h-3 text-yellow-400 fill-yellow-400"></i>' : ''}</strong>
+                        <span class="text-[10px] ${im ? 'opacity-80' : 'opacity-70'}">Retos en la calle, vox pop e interacción (Tablets)</span>
+                      </div>
+                      <i data-lucide="external-link" class="w-4 h-4 opacity-0 group-hover/item:opacity-100"></i>
+                    </button>
+
+                    <button onclick="openModal('reactions')" class="w-full text-left p-3 rounded-lg transition-all flex items-center justify-between group/item border ${im ? 'bg-black text-white border-black' : 'bg-gray-50 text-gray-800 border-gray-100 hover:border-gray-300'}">
+                      <div>
+                        <strong class="block text-sm flex items-center gap-2">Interacción con el juego ${im ? '<i data-lucide="star" class="w-3 h-3 text-yellow-400 fill-yellow-400"></i>' : ''}</strong>
+                        <span class="text-[10px] ${im ? 'opacity-80' : 'opacity-70'}">Usuarios ganando (Efecto Pantalla)</span>
+                      </div>
+                      <i data-lucide="external-link" class="w-4 h-4 opacity-0 group-hover/item:opacity-100"></i>
+                    </button>
+
+                    <button onclick="openModal('capsules')" class="w-full text-left p-3 rounded-lg transition-all flex items-center justify-between group/item border ${im ? 'bg-black text-white border-black' : 'bg-gray-50 text-gray-800 border-gray-100 hover:border-gray-300'}">
+                      <div>
+                        <strong class="block text-sm flex items-center gap-2">Cápsulas Educativas ${im ? '<i data-lucide="star" class="w-3 h-3 text-yellow-400 fill-yellow-400"></i>' : ''}</strong>
+                        <span class="text-[10px] ${im ? 'opacity-80' : 'opacity-70'}">Explicar de forma entretenida</span>
+                      </div>
+                      <i data-lucide="external-link" class="w-4 h-4 opacity-0 group-hover/item:opacity-100"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- DURANTE -->
+                <div class="p-8 rounded-xl shadow-xl transform md:-translate-y-4 transition-all ${im ? 'bg-black text-white scale-105 ring-4 ring-yellow-400/20' : 'bg-gray-900 text-white'}">
+                  <div class="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center font-bold text-xl mb-6 mx-auto animate-pulse">2</div>
+                  <h3 class="text-xl font-black text-center mb-2 uppercase">El Durante</h3>
+                  <p class="text-xs text-center text-gray-400 uppercase tracking-widest mb-6">Cobertura en Vivo</p>
+                  
+                  <ul class="space-y-4 text-sm">
+                    <li class="flex gap-3 items-start">
+                      <div class="bg-white/20 p-1.5 rounded-full"><i data-lucide="instagram" class="w-4 h-4"></i></div>
+                      <div>
+                        <strong class="block font-bold">Historias Proveedor</strong>
+                        <span class="text-xs text-gray-400">Cobertura básica en tiempo real.</span>
+                      </div>
+                    </li>
+                    ${im ? `
+                    <div class="animate-fade-in pt-4 border-t border-white/20 space-y-4">
+                        <li class="flex gap-3 items-start">
+                          <div class="bg-yellow-400 p-1.5 rounded-full text-black"><i data-lucide="star" class="w-4 h-4 fill-black"></i></div>
+                          <div>
+                            <strong class="block font-bold text-yellow-400">Talento en Vivo</strong>
+                            <span class="text-xs text-gray-300">Influencer como animador.</span>
+                          </div>
+                        </li>
+                        <li class="flex gap-3 items-start">
+                          <div class="bg-yellow-400 p-1.5 rounded-full text-black"><i data-lucide="external-link" class="w-4 h-4"></i></div>
+                          <div>
+                            <strong class="block font-bold text-yellow-400">Tráfico Web</strong>
+                            <span class="text-xs text-gray-300">Stories con Link directo al juego.</span>
+                          </div>
+                        </li>
+                    </div>` : ''}
+                  </ul>
+                </div>
+
+                <!-- POST -->
+                <div class="p-8 rounded-xl border-2 transition-all group bg-white ${im ? 'border-black shadow-lg' : 'border-gray-100'}">
+                  <div class="w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl mb-6 mx-auto transition-all ${im ? 'bg-black text-white scale-110' : 'bg-gray-100 text-gray-400'}">3</div>
+                  <h3 class="text-xl font-black text-center mb-2 uppercase">El Post</h3>
+                  <p class="text-xs text-center text-gray-400 uppercase tracking-widest mb-6">Amplificación</p>
+                  
+                  <div class="space-y-3">
+                    <button onclick="openModal('highlights')" class="w-full text-left p-3 rounded-lg transition-all flex items-center justify-between group/item border ${im ? 'bg-black text-white border-black' : 'bg-gray-50 text-gray-800 border-gray-100 hover:border-gray-300'}">
+                      <div>
+                        <strong class="block text-sm flex items-center gap-2">Mejores Momentos ${im ? '<i data-lucide="star" class="w-3 h-3 text-yellow-400 fill-yellow-400"></i>' : ''}</strong>
+                        <span class="text-[10px] ${im ? 'opacity-80' : 'opacity-70'}">Clips / Reacciones</span>
+                      </div>
+                      <i data-lucide="external-link" class="w-4 h-4 opacity-0 group-hover/item:opacity-100"></i>
+                    </button>
+
+                    <button onclick="openModal('summary')" class="w-full text-left p-3 rounded-lg transition-all flex items-center justify-between group/item border ${im ? 'bg-black text-white border-black' : 'bg-gray-50 text-gray-800 border-gray-100 hover:border-gray-300'}">
+                      <div>
+                        <strong class="block text-sm flex items-center gap-2">${im ? 'Behind The Scenes' : 'Teaser Resumen'} ${im ? '<i data-lucide="star" class="w-3 h-3 text-yellow-400 fill-yellow-400"></i>' : ''}</strong>
+                        <span class="text-[10px] ${im ? 'opacity-80' : 'opacity-70'}">${im ? 'Haciendo el recap con el influencer' : 'Recap cinematográfico'}</span>
+                      </div>
+                      <i data-lucide="external-link" class="w-4 h-4 opacity-0 group-hover/item:opacity-100"></i>
+                    </button>
+
+                    <div class="w-full text-left p-3 rounded-lg border ${im ? 'bg-black text-white border-black' : 'bg-gray-50 text-gray-800 border-gray-100'}">
+                      <strong class="block text-sm flex items-center gap-2">Backstage Exclusivo ${im ? '<i data-lucide="star" class="w-3 h-3 text-yellow-400 fill-yellow-400"></i>' : ''}</strong>
+                      <span class="text-[10px] ${im ? 'opacity-80' : 'opacity-70'}">Jugadores + Talento</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-16 text-center">
+                <button onclick="setTab('influencers')" class="bg-black text-white px-8 py-3 rounded-full font-bold uppercase tracking-wider text-sm hover:bg-gray-800 transition-all shadow-lg">
+                  Ver Roster de Influenciadores
+                </button>
+              </div>
+            </div>`;
+        }
+
+        function renderInfluencers() {
+            const gridHTML = influencersData.map(inf => `
+                <div class="group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer bg-gray-100 shadow-sm border border-gray-200 hover:shadow-xl transition-all">
+                    <img src="${inf.image}" alt="${inf.name}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0" />
+                    <div class="absolute top-3 right-3 z-10">
+                        ${inf.status === 'available' 
+                            ? `<span class="bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-lg flex items-center gap-1"><i data-lucide="unlock" class="w-3 h-3"></i> DISPONIBLE</span>` 
+                            : `<span class="bg-gray-900 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-lg flex items-center gap-1"><i data-lucide="lock" class="w-3 h-3"></i> ${inf.partner}</span>`
+                        }
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 p-4 w-full text-white">
+                        <h3 class="font-bold text-lg leading-tight mb-1">${inf.name}</h3>
+                        <p class="text-xs text-gray-300 mb-2">${inf.category}</p>
+                        ${inf.audience ? `<div class="mb-3 flex items-start gap-1"><i data-lucide="users" class="w-3 h-3 mt-0.5 text-gray-400"></i> <span class="text-[10px] text-gray-200 leading-tight">${inf.audience}</span></div>` : ''}
+                        
+                        <div class="flex items-center gap-2">
+                             <a href="${inf.link}" target="_blank" class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-3 py-1.5 rounded-lg text-[10px] font-bold hover:bg-white hover:text-black transition-colors">
+                                <i data-lucide="${inf.icon}" class="w-3 h-3"></i> Ver Perfil
+                            </a>
+                            <div class="flex items-center gap-1">
+                                <span class="bg-white/20 backdrop-blur-md px-2 py-1.5 rounded-lg text-[10px] font-bold text-white">${inf.gender}</span>
+                                ${inf.mainPlatform ? `<span class="bg-${inf.mainPlatform === 'Instagram' ? 'pink-500' : inf.mainPlatform === 'YouTube' ? 'red-600' : inf.mainPlatform === 'TikTok' ? 'black' : 'purple-500'} text-white px-2 py-1.5 rounded-lg text-[10px] font-bold">${inf.mainPlatform}</span>` : ''}
+                            </div>
+                        </div>
+
+                         ${inf.demographics ? `
+                            <button onclick="openDemographics('${inf.name}')" class="mt-3 w-full bg-white text-black text-[10px] font-bold py-2 rounded-lg hover:bg-gray-200 transition-colors flex items-center justify-center gap-2">
+                                <i data-lucide="bar-chart-2" class="w-3 h-3"></i> Ver Audiencia
+                            </button>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
+
+            return `
+                <div class="animate-slide-right p-4 md:p-10 max-w-7xl mx-auto">
+                    <div class="text-center mb-10">
+                        <h2 class="text-3xl font-extrabold mb-2 uppercase">Nuestro Squad</h2>
+                        <p class="text-gray-500">Talento seleccionado para amplificar el mensaje de Evolution.</p>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-6">${gridHTML}</div>
+                    <div class="mt-12 text-center">
+                        <button onclick="setTab('packages')" class="bg-black text-white px-8 py-3 rounded-full font-bold uppercase tracking-wider text-sm hover:bg-gray-800 transition-all shadow-lg">
+                            Ver Paquetes Comerciales
+                        </button>
+                    </div>
+                </div>`;
+        }
+
+        function renderPackages() {
+            const pkg = packages[state.selectedPackage];
+            
+            const buttonsHTML = [1, 2, 3].map(id => `
+                <button onclick="selectPackage(${id})" class="w-full text-left p-6 rounded-2xl border-2 transition-all group relative overflow-hidden ${state.selectedPackage === id ? 'border-black bg-black text-white shadow-xl scale-[1.02]' : 'border-gray-100 bg-white text-gray-400 hover:border-gray-300'}">
+                    <div class="relative z-10 flex justify-between items-center">
+                        <div>
+                            <h3 class="font-bold text-lg ${state.selectedPackage === id ? 'text-white' : 'text-black'}">${packages[id].title}</h3>
+                            <p class="text-xs uppercase tracking-widest font-bold mt-1 text-gray-400">${packages[id].subtitle}</p>
+                        </div>
+                        ${state.selectedPackage === id ? '<i data-lucide="check-circle" class="w-6 h-6 text-white"></i>' : ''}
+                    </div>
+                </button>
+            `).join('');
+
+            let kpisHTML = '';
+            if (pkg.kpis) {
+                kpisHTML = `
+                <div class="mt-6 p-4 bg-green-50 border border-green-100 rounded-xl">
+                    <h5 class="text-xs font-bold uppercase tracking-widest text-green-800 mb-3 flex items-center gap-2"><i data-lucide="bar-chart-3" class="w-4 h-4"></i> KPIs Esperados</h5>
+                    <ul class="grid grid-cols-1 gap-2">
+                        ${pkg.kpis.map(kpi => `<li class="flex items-center gap-2 text-xs text-green-900"><div class="w-1.5 h-1.5 rounded-full bg-green-500"></div> ${kpi}</li>`).join('')}
+                    </ul>
+                </div>`;
+            }
+
+            let benefitsHTML = '';
+            if (pkg.benefits) {
+                 benefitsHTML = `
+                <div class="mt-4 p-4 bg-purple-50 border border-purple-100 rounded-xl">
+                    <h5 class="text-xs font-bold uppercase tracking-widest text-purple-800 mb-3 flex items-center gap-2"><i data-lucide="sparkles" class="w-4 h-4"></i> Beneficios Influencer</h5>
+                    <ul class="grid grid-cols-1 gap-2">
+                        ${pkg.benefits.map(b => `<li class="flex items-start gap-2 text-xs text-purple-900"><i data-lucide="check" class="w-3 h-3 mt-0.5"></i> <span>${b}</span></li>`).join('')}
+                    </ul>
+                </div>`;
+            }
+
+            return `
+                <div class="animate-slide-right p-4 md:p-10 max-w-7xl mx-auto pb-20">
+                    <div class="text-center mb-10">
+                        <h2 class="text-3xl font-extrabold mb-2 uppercase">Paquetes para Evolution</h2>
+                        <p class="text-gray-500">Selecciona una opción para ver el alcance detallado.</p>
+                    </div>
+                    <div class="flex flex-col lg:flex-row gap-8 items-start">
+                        <div class="w-full lg:w-1/3 space-y-4">${buttonsHTML}</div>
+                        <div class="w-full lg:w-2/3">
+                            <div class="bg-white p-8 rounded-[2rem] border border-gray-200 shadow-xl relative overflow-hidden min-h-[500px]">
+                                <div class="absolute top-0 right-0 p-8 opacity-5">
+                                    <img src="${LOGO_GLOBAL}" class="h-12" alt="Evolution" />
+                                </div>
+                                <div class="relative z-10">
+                                    <div class="mb-8 border-b border-gray-100 pb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                                        <div>
+                                            <h3 class="text-3xl font-black mb-2">${pkg.title}</h3>
+                                            <p class="text-lg text-gray-500 font-medium leading-relaxed">${pkg.desc}</p>
+                                        </div>
+                                        <div class="bg-black text-white px-6 py-3 rounded-xl shadow-lg">
+                                            <span class="block text-xs font-bold uppercase tracking-wider opacity-70">Inversión</span>
+                                            <span class="text-2xl font-black">${pkg.price}</span>
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                                        <div>
+                                            <h4 class="font-bold text-sm uppercase tracking-widest mb-4 flex items-center gap-2"><i data-lucide="layout" class="w-4 h-4"></i> Alcance por Fase</h4>
+                                            <ul class="space-y-4">
+                                                <li class="bg-gray-50 p-3 rounded-lg border-l-4 border-gray-300"><span class="block text-xs font-bold text-gray-400 uppercase">Previa</span><span class="text-sm font-medium text-gray-800">${pkg.scope.previa}</span></li>
+                                                <li class="bg-gray-50 p-3 rounded-lg border-l-4 border-black"><span class="block text-xs font-bold text-gray-400 uppercase">Durante</span><span class="text-sm font-medium text-gray-800">${pkg.scope.durante}</span></li>
+                                                <li class="bg-gray-50 p-3 rounded-lg border-l-4 border-gray-300"><span class="block text-xs font-bold text-gray-400 uppercase">Post</span><span class="text-sm font-medium text-gray-800">${pkg.scope.post}</span></li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-sm uppercase tracking-widest mb-4 flex items-center gap-2"><i data-lucide="star" class="w-4 h-4"></i> Incluye</h4>
+                                            <div class="flex flex-wrap gap-2 mb-8">
+                                                ${pkg.features.map(f => `<span class="px-3 py-1.5 bg-black text-white rounded-md text-xs font-bold">${f}</span>`).join('')}
+                                            </div>
+                                            ${kpisHTML}
+                                            ${benefitsHTML}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+        }
+        
+        function renderLiveSpins() {
+            // Get selected influencer or default
+            const influencerKey = state.selectedLiveInfluencer;
+            const influencer = liveInfluencers[influencerKey];
+
+            // Calculate totals (Fee * 1.30)
+            const weeklyCost = (influencer.cost * 4) * 1.3;
+            const intensiveCost = (influencer.cost * 12) * 1.3;
+
+            return `
+                <div class="animate-slide-right p-4 md:p-10 max-w-7xl mx-auto pb-20">
+                    <div class="text-center mb-8">
+                        <div class="inline-block px-4 py-1.5 mb-4 rounded-full bg-red-600 text-white text-xs font-bold uppercase tracking-wider animate-pulse">
+                            NUEVO PILOTO
+                        </div>
+                        <h2 class="text-3xl font-extrabold mb-4 uppercase">Propuesta Live Spins</h2>
+                        <p class="text-gray-500 max-w-2xl mx-auto">Selecciona un talento para calcular la inversión del piloto.</p>
+                    </div>
+
+                    <!-- INFLUENCER SELECTOR -->
+                    <div class="flex justify-center gap-4 mb-12 flex-wrap">
+                        ${Object.keys(liveInfluencers).map(key => `
+                            <button onclick="selectLiveInfluencer('${key}')" 
+                                class="flex flex-col items-center gap-2 p-3 rounded-xl border-2 transition-all w-28 md:w-32 group hover:scale-105
+                                ${state.selectedLiveInfluencer === key ? 'border-black bg-gray-50 shadow-md' : 'border-transparent hover:border-gray-200'}">
+                                <img src="${liveInfluencers[key].image}" class="w-16 h-16 rounded-full object-cover shadow-sm ${state.selectedLiveInfluencer === key ? 'ring-2 ring-black' : ''}" />
+                                <span class="text-xs font-bold text-center leading-tight ${state.selectedLiveInfluencer === key ? 'text-black' : 'text-gray-500'}">${liveInfluencers[key].name}</span>
+                            </button>
+                        `).join('')}
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                        <!-- Package 1: Semanal -->
+                        <div class="bg-white p-8 rounded-[2rem] border border-gray-200 shadow-xl relative overflow-hidden group hover:border-black transition-all">
+                             <div class="absolute top-0 right-0 p-6 opacity-10">
+                                <img src="${LOGO_GLOBAL}" class="h-8" alt="Evolution" />
+                             </div>
+                             <div class="mb-6 border-b border-gray-100 pb-4">
+                                <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Opción 1</span>
+                                <h3 class="text-2xl font-black mt-1">Piloto Semanal</h3>
+                                <p class="text-sm text-gray-500 mt-2">Prueba de concepto y medición de tracción inicial.</p>
+                             </div>
+                             
+                             <ul class="space-y-4 mb-8">
+                                <li class="flex items-center gap-3">
+                                    <div class="bg-black p-1.5 rounded-full text-white"><i data-lucide="calendar" class="w-4 h-4"></i></div>
+                                    <span class="text-sm font-medium"><strong>1 Transmisión</strong> semanal</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <div class="bg-black p-1.5 rounded-full text-white"><i data-lucide="clock" class="w-4 h-4"></i></div>
+                                    <span class="text-sm font-medium">Duración: <strong>2 Horas</strong> por sesión</span>
+                                </li>
+                                 <li class="flex items-center gap-3">
+                                    <div class="bg-black p-1.5 rounded-full text-white"><i data-lucide="user" class="w-4 h-4"></i></div>
+                                    <span class="text-sm font-medium">Talento: <strong>${influencer.name}</strong></span>
+                                </li>
+                                 <li class="flex items-center gap-3">
+                                    <div class="bg-black p-1.5 rounded-full text-white"><i data-lucide="bar-chart" class="w-4 h-4"></i></div>
+                                    <span class="text-sm font-medium">Total: <strong>4 Transmisiones</strong> al mes</span>
+                                </li>
+                             </ul>
+
+                             <div class="bg-gray-50 p-4 rounded-xl mb-6">
+                                <h4 class="text-xs font-bold uppercase tracking-wide mb-2 text-gray-500">Gestión Level Incluida:</h4>
+                                <p class="text-xs text-gray-600 leading-relaxed">
+                                    Coordinación completa, educación sobre producto, informes de rendimiento y pago al talento.
+                                </p>
+                             </div>
+
+                             <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
+                                <span class="text-xs font-bold text-gray-400 uppercase">Inversión Total</span>
+                                <span class="text-xl font-black text-black">${formatCurrency(weeklyCost)}</span>
+                             </div>
+                        </div>
+
+                        <!-- Package 2: Intensivo -->
+                        <div class="bg-black text-white p-8 rounded-[2rem] shadow-2xl relative overflow-hidden group transform md:-translate-y-4">
+                             <div class="absolute top-0 right-0 p-6 opacity-20">
+                                <img src="${LOGO_GLOBAL}" class="h-8 invert" alt="Evolution" />
+                             </div>
+                             <div class="mb-6 border-b border-white/20 pb-4">
+                                <span class="text-xs font-bold text-yellow-400 uppercase tracking-widest">Opción 2</span>
+                                <h3 class="text-2xl font-black mt-1">Piloto Intensivo</h3>
+                                <p class="text-sm text-gray-400 mt-2">Generación de hábito y comunidad recurrente.</p>
+                             </div>
+                             
+                             <ul class="space-y-4 mb-8">
+                                <li class="flex items-center gap-3">
+                                    <div class="bg-white/20 p-1.5 rounded-full text-white"><i data-lucide="calendar" class="w-4 h-4"></i></div>
+                                    <span class="text-sm font-medium"><strong>3 Transmisiones</strong> semanales</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <div class="bg-white/20 p-1.5 rounded-full text-white"><i data-lucide="clock" class="w-4 h-4"></i></div>
+                                    <span class="text-sm font-medium">Duración: <strong>2 Horas</strong> por sesión</span>
+                                </li>
+                                 <li class="flex items-center gap-3">
+                                    <div class="bg-white/20 p-1.5 rounded-full text-white"><i data-lucide="user" class="w-4 h-4"></i></div>
+                                    <span class="text-sm font-medium">Talento: <strong>${influencer.name}</strong></span>
+                                </li>
+                                 <li class="flex items-center gap-3">
+                                    <div class="bg-white/20 p-1.5 rounded-full text-white"><i data-lucide="bar-chart" class="w-4 h-4"></i></div>
+                                    <span class="text-sm font-medium">Total: <strong>12 Transmisiones</strong> al mes</span>
+                                </li>
+                             </ul>
+
+                             <div class="bg-white/10 p-4 rounded-xl mb-6">
+                                <h4 class="text-xs font-bold uppercase tracking-wide mb-2 text-gray-400">Gestión Level Incluida:</h4>
+                                <p class="text-xs text-gray-300 leading-relaxed">
+                                    Coordinación completa, educación sobre producto, informes de rendimiento y pago al talento.
+                                </p>
+                             </div>
+
+                             <div class="flex items-center justify-between mt-auto pt-4 border-t border-white/20">
+                                <span class="text-xs font-bold text-gray-400 uppercase">Inversión Total</span>
+                                <span class="text-xl font-black text-yellow-400">${formatCurrency(intensiveCost)}</span>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- CONTROLLER ---
+
+        function render() {
+            renderNav();
+            const container = document.getElementById('main-content');
+            
+            if (state.activeTab === 'strategy') container.innerHTML = renderStrategy();
+            else if (state.activeTab === 'methodology') container.innerHTML = renderMethodology();
+            else if (state.activeTab === 'influencers') container.innerHTML = renderInfluencers();
+            else if (state.activeTab === 'packages') container.innerHTML = renderPackages();
+            else if (state.activeTab === 'livespins') container.innerHTML = renderLiveSpins();
+
+            lucide.createIcons();
+        }
+
+        function setTab(tab) {
+            state.activeTab = tab;
+            state.strategyStep = 1; // Reset strategy on tab change
+            state.influencerMode = false; // Reset toggle
+            render();
+        }
+        
+        function selectLiveInfluencer(key) {
+            state.selectedLiveInfluencer = key;
+            render();
+        }
+
+        function nextStrategyStep() {
+            if (state.strategyStep < 4) {
+                state.strategyStep++;
+                render();
+            } else {
+                setTab('methodology');
             }
         }
 
-        function scrollToBottom() {
-            chatWindow.scrollTop = chatWindow.scrollHeight;
+        function prevStrategyStep() {
+            if (state.strategyStep > 1) {
+                state.strategyStep--;
+                render();
+            }
         }
 
-        function handleFormSubmit(e) {
-            e.preventDefault();
-            const input = document.getElementById('user-input');
-            const val = input.value.trim();
-            if (val) processStep(val);
+        function toggleInfluencerMode() {
+            state.influencerMode = !state.influencerMode;
+            render();
         }
 
-        function handleOptionClick(val) {
-            processStep(val);
+        function selectPackage(id) {
+            state.selectedPackage = id;
+            render();
         }
 
-        function processStep(val) {
-            messages.push({ role: 'user', text: val });
-            renderMessages();
-
-            setTimeout(() => {
-                switch(step) {
-                    case 'name':
-                        userData.name = val;
-                        messages.push({ role: 'bot', text: `Mucho gusto, ${val}. Ahora, por favor ingresa tu número de cédula (documento) para validar tus premios.` });
-                        step = 'id';
-                        break;
-                    case 'id':
-                        userData.id = val;
-                        messages.push({ 
-                            role: 'bot', 
-                            text: `Confirmemos tus datos:\n👤 Nombre: ${userData.name}\n🆔 Cédula: ${val}\n\n¿Los datos son correctos?`,
-                            options: ['Sí, continuar', 'No, corregir']
-                        });
-                        step = 'confirm_data';
-                        break;
-                    case 'confirm_data':
-                        if (val.includes('Sí')) {
-                            messages.push({ role: 'bot', text: '¡Excelente! Ahora, escribe el nombre del casino Aladino donde sueles jugar para asignarte a tu equipo.' });
-                            step = 'casino_search';
-                        } else {
-                            messages.push({ role: 'bot', text: 'Entendido. Empecemos de nuevo. ¿Cómo te llamas?' });
-                            step = 'name';
-                        }
-                        break;
-                    case 'casino_search':
-                        userData.casino = val;
-                        messages.push({ 
-                            role: 'bot', 
-                            text: `He encontrado la sede: "ALADINO ${val.toUpperCase()}". ¿Es esta tu sede correcta?`,
-                            options: ['Sí, es esta', 'No, es otra']
-                        });
-                        step = 'casino_confirm';
-                        break;
-                    case 'casino_confirm':
-                        if (val.includes('Sí')) {
-                            messages.push({ role: 'bot', text: `¡Perfecto! Ya eres parte del equipo ALADINO ${userData.casino.toUpperCase()}. 🏟️` });
-                            messages.push({ 
-                                role: 'bot', 
-                                text: '¡QUE ARRANQUE EL JUEGO! ⚽ Primera pregunta de la polla:\n\n¿Quién ganará el partido inaugural?',
-                                options: ['A. Equipo Local', 'B. Visitante', 'C. Empate']
-                            });
-                            step = 'q1';
-                        } else {
-                            messages.push({ role: 'bot', text: `Por favor, escribe el nombre de tu sede Aladino correctamente.` });
-                            step = 'casino_search';
-                        }
-                        break;
-                    case 'q1':
-                        messages.push({ 
-                            role: 'bot', 
-                            text: '¡Respuesta registrada! Vamos con la segunda pregunta:\n\n¿Cuántos goles se marcarán en el primer tiempo?',
-                            options: ['A. 0 goles', 'B. 1 gol', 'C. 2 o más']
-                        });
-                        step = 'q2';
-                        break;
-                    case 'q2':
-                        messages.push({ 
-                            role: 'bot', 
-                            text: `¡Felicidades ${userData.name}! 🎉 Has completado la polla semanal.\n\nSumaste puntos para ALADINO ${userData.casino.toUpperCase()}.\n\n¡Sigue atento al ranking para la final del 16 de Julio! 🏆`
-                        });
-                        step = 'end';
-                        break;
-                }
-                renderMessages();
-            }, 800);
+        function openModal(type) {
+            state.showRefModal = type;
+            renderModal();
         }
 
-        function resetSimulator() {
-            step = 'name';
-            userData = { name: '', id: '', casino: '' };
-            messages = [
-                { role: 'bot', text: '¡Hola! ⚽ Bienvenido al Picadito de Casinos Aladino. Soy tu asistente virtual.' },
-                { role: 'bot', text: 'Para empezar a ganar puntos para tu casino, ¿cómo te llamas?' }
-            ];
-            renderMessages();
+        function openDemographics(name) {
+            const influencer = influencersData.find(inf => inf.name === name);
+            if (influencer) {
+                state.selectedDemographics = influencer;
+                state.showRefModal = 'demographics';
+                renderModal();
+            }
         }
 
-        // Carga inicial
-        renderMessages();
+        function closeModal() {
+            state.showRefModal = null;
+            state.selectedDemographics = null;
+            document.getElementById('modal-container').classList.add('hidden');
+        }
+
+        function renderModal() {
+            const modalContainer = document.getElementById('modal-container');
+            const type = state.showRefModal;
+            
+            if (!type) {
+                modalContainer.classList.add('hidden');
+                return;
+            }
+
+            let content = '';
+            
+            if (type === 'demographics') {
+                const inf = state.selectedDemographics;
+                const bars = inf.demographics.map((demo, index) => {
+                    // Normalize width for visual representation (max approx 80%)
+                    const width = Math.min(demo.value * 1.5, 100); 
+                    return `
+                        <div class="mb-3">
+                            <div class="flex justify-between text-xs font-bold mb-1">
+                                <span>${demo.label}</span>
+                                <span>${demo.value}%</span>
+                            </div>
+                            <div class="w-full bg-gray-100 rounded-full h-2">
+                                <div class="bg-black h-2 rounded-full animate-grow-width" style="--target-width: ${width}%"></div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                content = `
+                    <div class="p-6">
+                        <div class="flex items-center gap-4 mb-6">
+                            <img src="${inf.image}" class="w-16 h-16 rounded-full object-cover border-2 border-gray-100" />
+                            <div>
+                                <h3 class="text-xl font-bold">${inf.name}</h3>
+                                <p class="text-xs text-gray-500 flex items-center gap-2">
+                                    <span class="bg-black text-white px-2 py-0.5 rounded text-[10px] uppercase">${inf.mainPlatform}</span>
+                                    <span>${inf.gender}</span>
+                                </p>
+                            </div>
+                        </div>
+                        <h4 class="text-xs font-black uppercase tracking-widest text-gray-400 mb-4">Distribución por Edad</h4>
+                        <div>${bars}</div>
+                    </div>
+                `;
+            } else if (type === 'street') {
+                content = `
+                    <div class="flex flex-col">
+                        <img src="${IMAGE_STREET}" class="w-full h-64 object-cover" />
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Referencia: Street Content</h3>
+                            <p class="text-sm text-gray-600 mb-4">Retos en la calle, vox pop y cualquier contenido donde interactuemos con usuarios en la calle. (Uso de tablets o celulares).</p>
+                            <a href="https://www.tiktok.com/@yefersoncossiowayuufans/video/7323319982702464262?_r=1&_t=ZS-93hrk3cZ28d" target="_blank" class="w-full bg-black text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-gray-800 transition-colors">
+                                Ver Video de Referencia <i data-lucide="external-link" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </div>`;
+            } else if (type === 'reactions') {
+                content = `
+                    <div class="p-8 text-center">
+                        <div class="bg-gradient-to-tr from-green-400 to-green-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"><i data-lucide="video" class="w-8 h-8 text-white"></i></div>
+                        <h3 class="text-xl font-bold mb-2">Referencia: Interacción con el juego</h3>
+                        <p class="text-sm text-gray-600 mb-6">Usuarios ganando (Efecto Pantalla).</p>
+                        <a href="https://www.instagram.com/p/C3LpaCBgF57/" target="_blank" class="w-full bg-black text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-gray-800 transition-colors">
+                            Ver Video en Instagram <i data-lucide="external-link" class="w-4 h-4"></i>
+                        </a>
+                    </div>`;
+            } else if (type === 'capsules') {
+                content = `
+                    <div class="p-8 text-center">
+                        <div class="bg-gradient-to-tr from-purple-600 to-orange-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"><i data-lucide="video" class="w-8 h-8 text-white"></i></div>
+                        <h3 class="text-xl font-bold mb-2">Referencia: Cápsulas Educativas</h3>
+                        <p class="text-sm text-gray-600 mb-6">Explicar de forma entretenida cómo funcionan los juegos.</p>
+                        <div class="space-y-3">
+                            <a href="https://www.tiktok.com/@capital_inteligente/video/7552656596384484619?_r=1&_t=ZS-93mwyerXf0S" target="_blank" class="w-full bg-black text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-gray-800 transition-colors">
+                                Ver Referencia 1 (TikTok) <i data-lucide="external-link" class="w-4 h-4"></i>
+                            </a>
+                            <a href="https://www.instagram.com/reels/DBHxPfgJ_CD/" target="_blank" class="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+                                Ver Referencia 2 (Instagram) <i data-lucide="external-link" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </div>`;
+            } else if (type === 'highlights') {
+                content = `
+                    <div class="p-8 text-center">
+                        <div class="bg-gradient-to-tr from-yellow-400 to-orange-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"><i data-lucide="star" class="w-8 h-8 text-white"></i></div>
+                        <h3 class="text-xl font-bold mb-2">Referencia: Mejores Momentos</h3>
+                        <p class="text-sm text-gray-600 mb-6">Clips de alto impacto y emoción (con Influencer).</p>
+                        <a href="https://youtube.com/shorts/p0Vdxq4fLG0?si=6Ncoyi5mud1hdcyR" target="_blank" class="w-full bg-black text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-gray-800 transition-colors">
+                            Ver Video en YouTube <i data-lucide="external-link" class="w-4 h-4"></i>
+                        </a>
+                    </div>`;
+            } else if (type === 'summary') {
+                const title = state.influencerMode ? "Behind The Scenes" : "Teaser Resumen";
+                const desc = state.influencerMode ? "Haciendo el recap con el influencer" : "Resumen cinematográfico de la experiencia del evento";
+
+                content = `
+                    <div class="flex flex-col">
+                        <img src="${IMAGE_SUMMARY}" class="w-full h-64 object-cover" />
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Referencia: ${title}</h3>
+                            <p class="text-sm text-gray-600 mb-4">${desc}</p>
+                            <a href="https://www.instagram.com/p/DPO7FHbEgU9/" target="_blank" class="w-full bg-black text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-gray-800 transition-colors">
+                                Ver Reel de Referencia <i data-lucide="external-link" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </div>`;
+            }
+
+            modalContainer.innerHTML = `
+                <div class="bg-white rounded-2xl overflow-hidden max-w-lg w-full relative animate-scale-in" onclick="event.stopPropagation()">
+                    <button onclick="closeModal()" class="absolute top-4 right-4 bg-black/50 text-white p-2 rounded-full hover:bg-black transition-colors z-10">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                    ${content}
+                </div>
+            `;
+            
+            modalContainer.classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        // Close modal on outside click
+        document.getElementById('modal-container').addEventListener('click', closeModal);
+
+        // Init
+        render();
+
     </script>
 </body>
 </html>
