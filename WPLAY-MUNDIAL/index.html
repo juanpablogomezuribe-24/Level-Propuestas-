@@ -3,18 +3,416 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WPLAY - Estrategia Mundial 2026</title>
+    <title>Propuesta Mundial 2026 - Wplay & Level</title>
+    <!-- Tailwind CSS para el diseño -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React y Babel Standalone para que funcione sin compilar -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
-        body { background-color: #0d0d0d; color: white; font-family: 'Arial', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
-        h1 { color: #ffd700; text-transform: uppercase; letter-spacing: 2px; }
-        p { font-size: 1.2rem; margin-bottom: 30px; opacity: 0.8; }
-        .btn { background-color: #ffd700; color: black; padding: 15px 40px; text-decoration: none; font-weight: bold; border-radius: 50px; transition: 0.3s; }
-        .btn:hover { background-color: white; transform: scale(1.05); }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; overflow-x: hidden; background-color: #0f172a; }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #1e293b; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #f59e0b; }
+        .aspect-9-16 { aspect-ratio: 9 / 16; }
+        .summary-card:hover { transform: translateY(-2px); transition: all 0.2s ease; }
     </style>
 </head>
 <body>
-    <h1>WPLAY MUNDIAL 2026</h1>
-    <p>Revisión de Activos y Propuesta Jorge Barón</p>
-    <a href="/WPLAY-MUNDIAL/jorgebaronpropuesta" class="btn">ENTRAR A LA PROPUESTA</a>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        // --- ICONOS SVG MANUALES ---
+        const Icon = ({ name, className = "w-5 h-5" }) => {
+            const icons = {
+                Calendar: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>,
+                MapPin: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>,
+                Trophy: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"></path></svg>,
+                Plane: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path></svg>,
+                ExternalLink: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>,
+                Mic2: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>,
+                Gift: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>,
+                Zap: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>,
+                Heart: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>,
+                Award: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>,
+                Target: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>,
+                Layout: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>,
+                List: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>,
+                BarChart: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>,
+                Video: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m22 8-6 4 6 4V8Z"></path><rect width="14" height="12" x="2" y="6" rx="2" ry="2"></rect></svg>
+            };
+            return <span className={className + " flex items-center justify-center"}>{icons[name] || icons.Zap}</span>;
+        };
+
+        const App = () => {
+            const [activeDay, setActiveDay] = useState(1);
+            const [viewMode, setViewMode] = useState('summary');
+
+            const contentTypes = {
+                desahogo: { name: "El Desahogo", icon: "Mic2", color: "text-red-500" },
+                promesa: { name: "La Promesa", icon: "Gift", color: "text-purple-500" },
+                reto: { name: "El Reto", icon: "Zap", color: "text-amber-500" },
+                marcador: { name: "Marcador Exacto", icon: "Target", color: "text-emerald-500" },
+                cultura: { name: "Cultura Hincha", icon: "Heart", color: "text-pink-500" },
+                top_hincha: { name: "Top del Hincha", icon: "Award", color: "text-blue-500" }
+            };
+
+            const itinerary = [
+                {
+                    date: "15 Jun", city: "Ciudad de México", title: "Desembarco y Scouting",
+                    description: "Llega a Ciudad de México por parte del equipo de Wplay y Level para mapeo de puntos estratégicos.",
+                    type: "logistica", contents: []
+                },
+                {
+                    date: "16 Jun", city: "Ciudad de México", title: "Cubrimiento Banderazo",
+                    description: "Previo al primer partido de Colombia asistiremos al Banderazo que realizan los hinchas para realizar varios contenidos: Marcador Exacto, La Promesa y El reto.",
+                    type: "produccion",
+                    contents: [
+                        { type: 'marcador', format: "9:16", hook: "¿Cuánto queda mañana? ¡Páguelo en Wplay!", img: "https://i.postimg.cc/6pPDjzD2/Whats-App-Image-2026-01-14-at-4-49-45-PM.jpg", ref: "https://www.instagram.com/reel/C87erLovpaq/" },
+                        { type: 'promesa', format: "9:16", hook: "¿Qué promesa cumplirías si Colombia es campeón? ¿Serías capaz de cortarte el pelo?", img: "https://i.postimg.cc/8CMfsXGR/Whats-App-Image-2026-01-14-at-7-17-47-PM.jpg", ref: "https://www.instagram.com/reel/DLaXwJLyKWo/" },
+                        { type: 'reto', format: "9:16", hook: "¿Qué tanto sabes realmente de la Selección Colombia? Buscamos al hincha más sabio.", img: "https://i.postimg.cc/x8t0cMqP/Whats-App-Image-2026-01-14-at-7-00-55-PM.jpg", ref: "https://www.instagram.com/reel/DLDPkgcxeeP/" }
+                    ]
+                },
+                {
+                    date: "17 Jun", city: "Ciudad de México", title: "MATCH DAY: COL vs UZB",
+                    description: "Realizaremos el cubrimiento del partido antes y después con la realización de dos contenidos: Top del hincha (Antes) y El Desahogo (Después).",
+                    type: "partido", match: "Colombia vs Uzbekistán",
+                    contents: [
+                        { type: 'top_hincha', format: "9:16", hook: "¿Cuál es el top 3 de jugadores en la historia de la selección?", img: "https://i.postimg.cc/xdzTtXF9/Whats-App-Image-2026-01-14-at-6-59-38-PM.jpg", ref: "https://www.instagram.com/reel/DQsUeV5kWQd/" },
+                        { type: 'desahogo', format: "9:16", hook: "¿James debe ser titular siempre?", img: "https://i.postimg.cc/sftGzR7N/Whats-App-Image-2026-01-14-at-6-24-32-PM.jpg", ref: "https://www.tiktok.com/@futbolsinlimite/video/7478906523519880503" }
+                    ]
+                },
+                {
+                    date: "18 Jun", city: "Ciudad de México", title: "Día de Edición",
+                    description: "El día antes o en el banderazo habremos grabado más contenido y ese día nos sentamos a editar contenido frío y atemporal.",
+                    type: "publicacion",
+                    contents: [
+                        { type: 'cultura', format: "9:16", hook: "¿Quién es leyenda, crack, ídolo de la Selección?", img: "https://i.postimg.cc/NG7F3rG0/Whats-App-Image-2026-01-14-at-6-58-02-PM.jpg", ref: "https://www.instagram.com/reel/DQEmB-sEUJC/" }
+                    ]
+                },
+                {
+                    date: "19 Jun", city: "Guadalajara", title: "Llegada a Guadalajara",
+                    description: "Traslado a la segunda sede mundialista y preparación para búsqueda de historias.",
+                    type: "logistica", contents: []
+                },
+                {
+                    date: "20 Jun", city: "Guadalajara", title: "Búsqueda de Historias",
+                    description: "Tenemos que ir a los lugares de concentración donde están los hinchas colombianos para grabar el reto y el top del hincha.",
+                    type: "produccion",
+                    contents: [
+                        { type: 'reto', format: "9:16", hook: "Buscamos al hincha sabio en Guadalajara.", img: "https://i.postimg.cc/3xyKxyhG/Whats-App-Image-2026-01-14-at-7-01-53-PM.jpg", ref: "https://www.instagram.com/reel/DKhOpFmsfIt/" },
+                        { type: 'top_hincha', format: "9:16", hook: "¿Quién es más grande? ¿Ospina o Higuita?", img: "https://i.postimg.cc/8cPmGmLB/Whats-App-Image-2026-01-14-at-4-39-39-PM.jpg", ref: "https://www.instagram.com/reels/DOWEl8IjoUm/" }
+                    ]
+                },
+                {
+                    date: "21 Jun", city: "Guadalajara", title: "Búsqueda de Historias II",
+                    description: "Haremos lo mismo que el día anterior, rastrear los puntos de mayor vibración para buscar historias del hincha.",
+                    type: "produccion",
+                    contents: [
+                        { type: 'reto', format: "9:16", hook: "¿Cuánto sabes de James Rodríguez?", img: "https://i.postimg.cc/mkb8DsWc/Whats-App-Image-2026-01-14-at-4-38-57-PM.jpg", ref: "https://www.instagram.com/reels/DMyU9mkoJQL/" }
+                    ]
+                },
+                {
+                    date: "22 Jun", city: "Guadalajara", title: "Banderazo Tapatío",
+                    description: "Asistiremos al banderazo previo al partido para Marcador Exacto y La Promesa.",
+                    type: "produccion",
+                    contents: [
+                        { type: 'marcador', format: "9:16", hook: "Predicciones antes del segundo partido.", img: "https://i.postimg.cc/6pPDjzD2/Whats-App-Image-2026-01-14-at-4-49-45-PM.jpg", ref: "https://www.instagram.com/reel/C87erLovpaq/" },
+                        { type: 'promesa', format: "9:16", hook: "¿Capaz de dejar el licor por un año?", img: "https://i.postimg.cc/PJBXkh7c/Whats-App-Image-2026-01-14-at-4-49-41-PM.jpg", ref: "https://www.instagram.com/reel/C9avSkEPy5A/" }
+                    ]
+                },
+                {
+                    date: "23 Jun", city: "Guadalajara", title: "MATCH DAY: COL vs REPE",
+                    description: "Cubrimiento antes (Top del Hincha) y después (El Desahogo) igual que en el primer partido.",
+                    type: "partido",
+                    contents: [
+                        { type: 'top_hincha', format: "9:16", hook: "¿De qué equipo son los hinchas en Guadalajara?", img: "https://i.postimg.cc/yYjJZ3w8/Whats-App-Image-2026-01-14-at-4-50-57-PM.jpg", ref: "https://www.instagram.com/reels/DOWEl8IjoUm/" },
+                        { type: 'desahogo', format: "9:16", hook: "¿Quién fue el guerrero de hoy?", img: "https://i.postimg.cc/sftGzR7N/Whats-App-Image-2026-01-14-at-6-24-32-PM.jpg", ref: "https://www.tiktok.com/@futbolsinlimite/video/7478906523519880503" }
+                    ]
+                },
+                {
+                    date: "24 Jun", city: "Guadalajara", title: "Cierre México",
+                    description: "Subir un contenido de todo lo que editamos, igual que el anterior de cierre de ciudad.",
+                    type: "publicacion",
+                    contents: [
+                        { type: 'reto', format: "9:16", hook: "Trivia final de México.", img: "https://i.postimg.cc/x8t0cMqP/Whats-App-Image-2026-01-14-at-7-00-55-PM.jpg", ref: "https://www.instagram.com/reel/DLDPkgcxeeP/" }
+                    ]
+                },
+                {
+                    date: "25 Jun", city: "Miami", title: "Traslado a Miami",
+                    description: "Salto a EE.UU. para el cierre de fase de grupos en Florida.",
+                    type: "logistica", contents: []
+                },
+                {
+                    date: "26 Jun", city: "Miami", title: "Banderazo Miami",
+                    description: "Gran activación latina. Grabaremos Marcador Exacto y La Promesa con los hinchas en Florida.",
+                    type: "produccion",
+                    contents: [
+                        { type: 'marcador', format: "9:16", hook: "¿Cómo le ganamos a Portugal?", img: "https://i.postimg.cc/6pPDjzD2/Whats-App-Image-2026-01-14-at-4-49-45-PM.jpg", ref: "https://www.instagram.com/reel/C87erLovpaq/" },
+                        { type: 'promesa', format: "9:16", hook: "Promesas extremas en Miami.", img: "https://i.postimg.cc/T29mrsDQ/Whats-App-Image-2026-01-14-at-7-17-46-PM.jpg", ref: "https://www.instagram.com/reel/DOYfJj7kc0R/" }
+                    ]
+                },
+                {
+                    date: "27 Jun", city: "Miami", title: "MATCH DAY: COL vs POR",
+                    description: "Duelo estelar. Grabaremos El Reto y El Desahogo final de fase de grupos.",
+                    type: "partido",
+                    contents: [
+                        { type: 'reto', format: "9:16", hook: "¿Máximo goleador histórico?", img: "https://i.postimg.cc/mkb8DsWc/Whats-App-Image-2026-01-14-at-4-38-57-PM.jpg", ref: "https://www.instagram.com/reels/DMyU9mkoJQL/" },
+                        { type: 'desahogo', format: "9:16", hook: "¿Estamos para ser campeones?", img: "https://i.postimg.cc/sftGzR7N/Whats-App-Image-2026-01-14-at-6-24-32-PM.jpg", ref: "https://www.tiktok.com/@futbolsinlimite/video/7478906523519880503" }
+                    ]
+                },
+                {
+                    date: "28 Jun", city: "Miami", title: "Resumen Mundialista",
+                    description: "Publicación de cultura mundialista y Marcador Exacto para el siguiente partido de Colombia.",
+                    type: "publicacion",
+                    contents: [
+                        { type: 'cultura', format: "9:16", hook: "Especial: Cultura en Miami.", img: "https://i.postimg.cc/NG7F3rG0/Whats-App-Image-2026-01-14-at-6-58-02-PM.jpg", ref: "https://www.instagram.com/reels/DMBzFgFx42k/" },
+                        { type: 'marcador', format: "9:16", hook: "¿Cuánto queda el siguiente partido?", img: "https://i.postimg.cc/6pPDjzD2/Whats-App-Image-2026-01-14-at-4-49-45-PM.jpg", ref: "https://www.instagram.com/reel/C87erLovpaq/" }
+                    ]
+                },
+                {
+                    date: "29 Jun", city: "Bogotá", title: "Regreso",
+                    description: "Cierre de operación y retorno del equipo a Colombia.",
+                    type: "logistica", contents: []
+                }
+            ];
+
+            const summaryGroups = [
+                { 
+                    city: "Ciudad de México", color: "border-green-500", iconColor: "text-green-500", 
+                    days: itinerary.slice(0, 4), 
+                    breakdown: [
+                        { label: "Marcador Exacto", val: 1 }, { label: "La Promesa", val: 1 }, 
+                        { label: "El Reto", val: 1 }, { label: "Top del Hincha", val: 1 }, 
+                        { label: "El Desahogo", val: 1 }, { label: "Cultura", val: 1 }
+                    ],
+                    total: 6
+                },
+                { 
+                    city: "Guadalajara", color: "border-blue-500", iconColor: "text-blue-500", 
+                    days: itinerary.slice(4, 10), 
+                    breakdown: [
+                        { label: "El Reto", val: 3 }, { label: "Top del Hincha", val: 2 }, 
+                        { label: "Marcador Exacto", val: 1 }, { label: "La Promesa", val: 1 }, 
+                        { label: "El Desahogo", val: 1 }
+                    ],
+                    total: 8
+                },
+                { 
+                    city: "Miami", color: "border-orange-500", iconColor: "text-orange-500", 
+                    days: itinerary.slice(10, 15), 
+                    breakdown: [
+                        { label: "Marcador Exacto", val: 2 }, { label: "El Desahogo", val: 1 }, 
+                        { label: "El Reto", val: 1 }, { label: "La Promesa", val: 1 }, 
+                        { label: "Cultura", val: 1 }
+                    ],
+                    total: 6
+                }
+            ];
+
+            return (
+                <div className="min-h-screen p-4 md:p-8">
+                    {/* Header con títulos en Blanco/Amarillo */}
+                    <div className="max-w-7xl mx-auto mb-10">
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-l-4 border-amber-500 pl-6">
+                            <div>
+                                <h4 className="text-amber-500 font-bold tracking-widest uppercase text-[10px]">Propuesta Estratégica Mundial 2026</h4>
+                                <h1 className="text-4xl md:text-5xl font-black italic tracking-tighter uppercase leading-none text-white">RESUMEN DE PRODUCCIÓN</h1>
+                                <div className="flex items-center gap-3 mt-1 text-white">
+                                    <span className="text-xl text-slate-400">Level x</span>
+                                    <span className="text-2xl text-amber-500 font-black italic uppercase">WPLAY.CO</span>
+                                </div>
+                            </div>
+
+                            <div className="flex bg-slate-800 p-1.5 rounded-2xl border border-slate-700 shadow-xl self-start">
+                                <button 
+                                    onClick={() => setViewMode('summary')}
+                                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-black uppercase transition-all ${viewMode === 'summary' ? 'bg-amber-500 text-slate-900 shadow-lg' : 'text-slate-400 hover:text-white'}`}
+                                >
+                                    <Icon name="List" className="w-4 h-4" /> Resumen Ejecutivo
+                                </button>
+                                <button 
+                                    onClick={() => setViewMode('detailed')}
+                                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-black uppercase transition-all ${viewMode === 'detailed' ? 'bg-amber-500 text-slate-900 shadow-lg' : 'text-slate-400 hover:text-white'}`}
+                                >
+                                    <Icon name="Layout" className="w-4 h-4" /> Parrilla Detallada
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    {viewMode === 'summary' ? (
+                        /* VISTA RESUMEN */
+                        <div className="max-w-7xl mx-auto space-y-12">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                {summaryGroups.map((group, idx) => (
+                                    <div key={idx} className={`bg-slate-800/40 border-t-4 ${group.color} rounded-3xl p-6 shadow-2xl flex flex-col h-full backdrop-blur-md`}>
+                                        <div className="flex items-center justify-between mb-8">
+                                            <div className="flex items-center gap-3">
+                                                <Icon name="MapPin" className={`w-6 h-6 ${group.iconColor}`} />
+                                                <h3 className="text-2xl font-black italic tracking-tighter uppercase text-white">{group.city}</h3>
+                                            </div>
+                                            <div className="bg-amber-500/10 px-4 py-1 rounded-full border border-amber-500/30">
+                                                <span className="text-[12px] font-black text-amber-500 uppercase leading-none">{group.total} VIDEOS</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div className="space-y-4 mb-10 flex-grow">
+                                            {group.days.map((day, dIdx) => (
+                                                <div key={dIdx} className="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 summary-card">
+                                                    <div className="flex justify-between items-start mb-2">
+                                                        <span className="text-[10px] font-black text-amber-500 uppercase tracking-widest leading-none">{day.date}</span>
+                                                        <span className={`text-[7px] font-bold px-1.5 py-0.5 rounded-full border ${day.type === 'partido' ? 'border-red-500 text-red-500' : 'border-slate-500 text-slate-400'} uppercase`}>
+                                                            {day.type}
+                                                        </span>
+                                                    </div>
+                                                    <h4 className="text-[14px] font-black text-white uppercase leading-tight mb-2 tracking-tight">{day.title}</h4>
+                                                    <p className="text-[10px] text-slate-400 leading-snug italic">{day.description}</p>
+                                                </div>
+                                            ))}
+                                        </div>
+
+                                        {/* DESGLOSE DE PRODUCCIÓN POR CIUDAD CON TOTAL */}
+                                        <div className="bg-slate-900/80 p-5 rounded-2xl border border-slate-700">
+                                            <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-700/50">
+                                                <h5 className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Desglose de Producción</h5>
+                                                <span className="text-[11px] font-black text-amber-500 uppercase tracking-tighter">Total: {group.total}</span>
+                                            </div>
+                                            <div className="grid grid-cols-2 gap-2">
+                                                {group.breakdown.map((item, ii) => (
+                                                    <div key={ii} className="flex justify-between items-center bg-slate-800/40 p-2 rounded-xl border border-slate-700/30">
+                                                        <span className="text-[9px] text-slate-300 font-bold uppercase">{item.label}</span>
+                                                        <span className="text-[11px] font-black text-white">x{item.val}</span>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* Panel Métricas Finales */}
+                            <div className="bg-slate-800 p-8 rounded-[3rem] border border-slate-700 shadow-2xl relative overflow-hidden">
+                                <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 blur-[100px] rounded-full -mr-48 -mt-48"></div>
+                                <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10">
+                                    <div className="text-center md:text-left">
+                                        <h3 className="text-3xl font-black italic tracking-tighter text-white uppercase mb-3 leading-none">TOTAL ENTREGABLES FASE DE GRUPOS</h3>
+                                        <p className="text-slate-400 text-sm max-w-md italic">Proyección final de piezas de video producidas y editadas durante los 14 días de operación.</p>
+                                    </div>
+                                    <div className="flex flex-wrap justify-center gap-6 text-white">
+                                        <div className="bg-slate-900 p-8 rounded-3xl border border-slate-700 min-w-[200px] text-center shadow-xl">
+                                            <p className="text-[11px] font-black text-amber-500 uppercase tracking-[0.3em] mb-2">GRAN TOTAL</p>
+                                            <p className="text-7xl font-black italic leading-none tracking-tighter">20</p>
+                                            <p className="text-[10px] text-slate-500 mt-3 font-bold uppercase">VIDEOS PRODUCIDOS</p>
+                                        </div>
+                                        <div className="bg-slate-900 p-8 rounded-3xl border border-slate-700 min-w-[200px] text-center shadow-xl">
+                                            <p className="text-[11px] font-black text-amber-500 uppercase tracking-[0.3em] mb-2">PERSONAL</p>
+                                            <p className="text-7xl font-black italic leading-none tracking-tighter">03</p>
+                                            <p className="text-[10px] text-slate-500 mt-3 font-bold uppercase">EQUIPO NIVEL/FSL</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ) : (
+                        /* VISTA DETALLADA */
+                        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+                            <div className="lg:col-span-1 bg-slate-800/80 backdrop-blur-md rounded-3xl p-6 border border-slate-700 shadow-2xl h-[750px] flex flex-col">
+                                <h3 className="flex items-center gap-2 font-black mb-6 text-slate-300 text-xs uppercase tracking-widest">
+                                    <Icon name="Calendar" className="w-5 h-5 text-amber-500" /> RUTA CRONOLÓGICA
+                                </h3>
+                                <div className="overflow-y-auto pr-2 space-y-2 custom-scrollbar text-white">
+                                    {itinerary.map((day, idx) => (
+                                        <button
+                                            key={idx}
+                                            onClick={() => setActiveDay(idx)}
+                                            className={`w-full flex items-center p-3 rounded-2xl transition-all border ${
+                                                activeDay === idx 
+                                                    ? 'bg-amber-500 border-amber-400 text-slate-900 scale-[1.03] shadow-lg font-bold' 
+                                                    : 'bg-slate-700/40 border-slate-600/50 hover:bg-slate-700 text-slate-400'
+                                            }`}
+                                        >
+                                            <div className="w-10 text-left text-[10px] font-black uppercase opacity-60 leading-none">{day.date}</div>
+                                            <div className="flex-1 text-xs truncate text-left font-bold">{day.title}</div>
+                                            {day.type === 'partido' && <Icon name="Trophy" className={activeDay === idx ? 'w-4 h-4 text-slate-900' : 'w-4 h-4 text-red-500'} />}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="lg:col-span-2 space-y-6">
+                                <div className="bg-slate-800 rounded-3xl p-8 border border-slate-700 shadow-xl overflow-hidden relative min-h-[750px]">
+                                    <div className="flex items-center justify-between mb-4">
+                                        <div className="flex items-center gap-2 text-[10px] font-black uppercase text-amber-500 tracking-widest">
+                                            <Icon name="MapPin" className="w-4 h-4" /> {itinerary[activeDay].city}
+                                        </div>
+                                        <span className={`px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest border ${
+                                            itinerary[activeDay].type === 'partido' ? 'bg-red-500/10 border-red-500 text-red-500' : 
+                                            itinerary[activeDay].type === 'produccion' ? 'bg-amber-500/10 border-amber-500 text-amber-500' : 'bg-slate-600/10 border-slate-500 text-slate-400'
+                                        }`}>
+                                            {itinerary[activeDay].type}
+                                        </span>
+                                    </div>
+                                    
+                                    <h2 className="text-4xl font-black mb-4 tracking-tighter italic uppercase text-white leading-none">
+                                        {itinerary[activeDay].title}
+                                    </h2>
+                                    <p className="text-slate-400 text-sm leading-relaxed mb-8 max-w-xl italic border-l-2 border-slate-600 pl-4">
+                                        "{itinerary[activeDay].description}"
+                                    </p>
+
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                        {itinerary[activeDay].contents.map((content, i) => {
+                                            const info = contentTypes[content.type];
+                                            return (
+                                                <div key={i} className="bg-slate-900 border border-slate-700 rounded-[2.5rem] overflow-hidden flex flex-col hover:border-amber-500 transition-all group shadow-2xl">
+                                                    <div className="aspect-9-16 overflow-hidden relative bg-slate-950">
+                                                        <img src={content.img} alt={info.name} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-1000" />
+                                                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-black/30"></div>
+                                                        <div className="absolute top-4 left-4 right-4 flex justify-between items-center">
+                                                            <div className="bg-black/60 backdrop-blur-md p-2 rounded-xl border border-white/10">
+                                                                <Icon name={info.icon} className={`w-5 h-5 ${info.color}`} />
+                                                            </div>
+                                                            <span className="text-[10px] font-black bg-amber-500 px-2 py-1 rounded-md text-slate-900 border border-amber-400">
+                                                                {content.format}
+                                                            </span>
+                                                        </div>
+                                                        <div className="absolute bottom-6 left-6 right-6">
+                                                            <h4 className="font-black text-2xl text-white mb-4 uppercase italic tracking-tighter drop-shadow-lg leading-tight">{info.name}</h4>
+                                                            <div className="bg-black/40 backdrop-blur-md p-4 rounded-2xl border border-white/10 mb-4">
+                                                                <p className="text-[9px] font-black text-slate-400 uppercase mb-1 font-bold tracking-widest">Gancho sugerido:</p>
+                                                                <p className="text-xs italic text-slate-100 font-medium leading-snug">"{content.hook}"</p>
+                                                            </div>
+                                                            <a href={content.ref} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 w-full py-3 bg-white text-slate-900 rounded-2xl font-black text-xs uppercase hover:bg-amber-500 transition-all shadow-xl active:scale-95">
+                                                                <Icon name="ExternalLink" className="w-4 h-4 text-slate-900" /> Ver Referencia FSL
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                        {itinerary[activeDay].contents.length === 0 && (
+                                            <div className="md:col-span-2 py-32 text-center border-2 border-dashed border-slate-700 rounded-3xl opacity-50 bg-slate-800/20">
+                                                <Icon name="Plane" className="w-12 h-12 mx-auto text-slate-600 mb-4" />
+                                                <p className="text-slate-500 font-black uppercase text-xs tracking-[0.3em]">Operación Logística</p>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
 </body>
 </html>
