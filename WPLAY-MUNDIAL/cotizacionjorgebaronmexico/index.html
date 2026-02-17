@@ -3,28 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cotización Viaje Jorge Barón - Mundial 2026</title>
+    <title>Itinerario Viaje Jorge Barón - Mundial 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        .activity-card:hover .icon-box { background-color: #2563eb; color: white; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900 pb-20">
     <div class="bg-blue-900 h-2 w-full"></div>
 
-    <div class="max-w-6xl mx-auto p-4 md:p-10 bg-white shadow-2xl min-h-screen border-x border-slate-100">
+    <div class="max-w-5xl mx-auto p-4 md:p-10 bg-white shadow-2xl min-h-screen border-x border-slate-100">
         
         <!-- Header -->
-        <header class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 mb-12">
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-12">
             <div class="space-y-2">
                 <div class="flex items-center gap-3">
                     <div class="bg-blue-600 w-12 h-12 flex items-center justify-center rounded-2xl shadow-lg shadow-blue-200">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
                     </div>
-                    <h1 class="text-3xl font-black text-blue-950 tracking-tight italic uppercase">Cotización Viaje Jorge Barón</h1>
+                    <h1 class="text-3xl font-black text-blue-950 tracking-tight italic uppercase">Itinerario de Viaje</h1>
                 </div>
                 <p class="text-slate-500 font-medium ml-1 flex items-center gap-2">
                     <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Mundial 2026</span>
@@ -32,159 +33,90 @@
                     México (CDMX) | 15 - 18 Jun
                 </p>
             </div>
-
-            <div class="bg-blue-950 text-white p-6 rounded-3xl flex items-center gap-6 shadow-xl border-b-4 border-blue-600">
+            
+            <div class="hidden md:block">
                 <div class="text-right">
-                    <p class="text-xs font-bold text-blue-400 uppercase tracking-widest mb-1">Presupuesto Consolidado</p>
-                    <h2 id="grand-total" class="text-4xl font-black font-mono tracking-tighter">$ 0</h2>
-                    <p id="total-label" class="text-[10px] text-blue-300 mt-1 uppercase font-bold tracking-widest">COP Total Final</p>
+                    <p class="text-[10px] font-black text-blue-600 uppercase tracking-[0.2em] mb-1">Pasajero Principal</p>
+                    <p class="text-lg font-bold text-blue-950 italic">Jorge Barón</p>
                 </div>
             </div>
         </header>
 
-        <!-- Controles -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-            <div class="bg-white border-2 border-blue-600 p-6 rounded-3xl shadow-lg relative group">
-                <div class="absolute -top-3 left-6 bg-blue-600 text-white px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">Configuración</div>
-                <p class="text-[11px] font-black text-blue-600 uppercase mb-2">Total Viajeros</p>
-                <div class="flex items-center justify-between">
-                    <span id="people-count" class="text-3xl font-black text-blue-950">4 Personas</span>
-                    <div class="flex gap-2">
-                        <button onclick="changePeople(-1)" class="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center hover:bg-red-50 hover:text-red-600 transition-all border border-slate-200">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-                        </button>
-                        <button onclick="changePeople(1)" class="w-10 h-10 bg-blue-600 text-white rounded-xl flex items-center justify-center hover:bg-blue-700 transition-all shadow-md">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
-                        </button>
+        <!-- Navegación de Días -->
+        <div class="flex items-center gap-3 mb-10 overflow-x-auto py-2 scrollbar-hide" id="tab-container"></div>
+
+        <!-- Contenido del Itinerario -->
+        <div class="animate-in fade-in duration-500">
+            <div class="bg-white border border-slate-200 rounded-[2.5rem] shadow-sm overflow-hidden">
+                <div class="p-8 bg-slate-50 border-b border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <h2 id="day-title" class="text-2xl font-black text-blue-950 uppercase italic tracking-tighter">Cargando itinerario...</h2>
+                        <p id="day-subtitle" class="text-sm text-slate-500 font-medium mt-1">Detalle logístico y actividades programadas</p>
                     </div>
-                </div>
-            </div>
-
-            <div class="bg-blue-50 border border-blue-100 p-6 rounded-3xl flex flex-col justify-center">
-                <p class="text-[11px] font-black text-blue-700 uppercase mb-1">Jornada de Itinerario</p>
-                <p id="day-title" class="text-xl font-bold text-blue-900 leading-tight uppercase italic">Cargando...</p>
-            </div>
-
-            <div class="bg-slate-900 text-white p-6 rounded-3xl flex flex-col justify-center shadow-lg">
-                <p class="text-[11px] font-black text-slate-400 uppercase mb-1">Subtotal de este día</p>
-                <p id="day-subtotal" class="text-2xl font-black font-mono text-blue-400">$ 0</p>
-            </div>
-        </div>
-
-        <!-- Pestañas -->
-        <div class="flex items-center gap-3 mb-8 overflow-x-auto py-2 scrollbar-hide" id="tab-container">
-            <!-- Inyectado por JS -->
-        </div>
-
-        <!-- Contenido -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
-            <div class="lg:col-span-8 space-y-4">
-                <div class="bg-white border border-slate-200 rounded-[2.5rem] shadow-sm overflow-hidden">
-                    <div class="p-6 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
-                        <h3 class="text-sm font-black text-blue-950 uppercase tracking-widest">Detalle de Gastos Discriminados</h3>
-                        <span class="text-[10px] font-black bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full uppercase">Cifras en COP</span>
-                    </div>
-
-                    <div id="expense-list" class="divide-y divide-slate-50">
-                        <!-- Inyectado por JS -->
-                    </div>
-
-                    <div class="p-6 bg-blue-50/30 flex justify-between items-center border-t border-blue-100">
-                        <span class="font-black text-blue-900 uppercase tracking-widest text-xs">Total del día</span>
-                        <span id="footer-day-total" class="text-2xl font-black font-mono text-blue-950 underline decoration-blue-400 underline-offset-4 decoration-2">$ 0</span>
+                    <div class="flex items-center gap-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-2xl text-xs font-black uppercase">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        Operación Confirmada
                     </div>
                 </div>
 
-                <!-- Nota Legal -->
-                <div class="bg-amber-50 border border-amber-200 p-6 rounded-[2rem] flex gap-4 items-start">
-                    <svg class="text-amber-600 shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-                    <p class="text-[11px] leading-relaxed text-amber-800 font-medium uppercase tracking-tight">
-                        <span class="font-black block mb-1">Nota Legal sobre Condiciones de Precio:</span>
-                        Los precios indicados en la presente cotización están calculados con base en las condiciones vigentes al 6 de febrero del año 2026. Cualquier variación o incremento posterior a esta fecha será informado oportunamente y podrá representar un costo adicional para el cliente.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Sidebar -->
-            <div class="lg:col-span-4 space-y-6">
-                <div class="bg-blue-950 text-white p-8 rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
-                   <div class="relative z-10">
-                     <h3 class="text-xl font-black italic uppercase tracking-tighter mb-8 underline decoration-blue-500 decoration-4 underline-offset-8">Finanzas del Viaje</h3>
-                     <div class="space-y-8">
-                        <div>
-                          <p class="text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-2">Inversión p/p (Estadía Completa)</p>
-                          <p id="per-person-total" class="text-3xl font-mono font-bold tracking-tighter">$ 0</p>
-                        </div>
-                        <div class="mt-8 p-4 bg-white/5 rounded-2xl border border-white/10 flex gap-3">
-                          <svg class="text-blue-400 shrink-0" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-                          <p class="text-[10px] leading-relaxed text-blue-100 uppercase font-bold tracking-tight">
-                            Los enlaces externos incluyen menús en PDF o sitios de reserva directa de aliados estratégicos.
-                          </p>
-                        </div>
-                     </div>
-                   </div>
+                <div id="activity-list" class="divide-y divide-slate-100">
+                    <!-- Las actividades se inyectan aquí -->
                 </div>
             </div>
         </div>
 
         <footer class="mt-20 pt-8 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-400 text-[10px] font-black uppercase tracking-[0.2em]">
             <p>Propuesta Hecha por Level Colombia</p>
-            <div>MUNDIAL 2026</div>
+            <div class="flex items-center gap-2">
+                <div class="w-2 h-2 rounded-full bg-blue-600"></div>
+                <span>MUNDIAL 2026</span>
+            </div>
         </footer>
     </div>
 
     <script>
-        let numPeople = 4;
         let activeTab = '15';
 
-        const MASTER_DATA = {
+        const ITINERARY_DATA = {
             '15': {
                 title: "Viaje de ida + Acomodación",
-                items: [
-                    { icon: 'car', title: "Transporte Jorge (BOG)", desc: "Hacia el aeropuerto El Dorado", unit: 130000, type: 'fixed_jorge' },
-                    { icon: 'plane', title: "Vuelo Jorge (Primera Clase)", desc: "Bogotá - CDMX (Avianca) 2:15 pm", unit: 7600000, type: 'fixed_jorge', highlight: true, adjunto: "Vuelo" },
-                    { icon: 'plane', title: "Vuelos Acompañantes (Económica)", desc: "Bogotá - CDMX (Avianca) 2:15 pm", unit: 17760000 / 3, type: 'variable_extra', adjunto: "Vuelo" },
-                    { icon: 'car', title: "Transporte Aeropuerto - Hotel", desc: "Servicio para el grupo (CDMX)", unit: 650000, type: 'fixed', adjunto: "Recogida" },
-                    { icon: 'hotel', title: "Hotel Royal Pedregal", desc: "Habitación individual (Estadía completa)", unit: 18457369 / 4, type: 'variable', adjunto: "Ver Hotel", link: "https://www.booking.com/hotel/mx/royal-pedregal.es.html?aid=318615&checkin=2026-06-15&checkout=2026-06-19&group_adults=1&no_rooms=1" },
-                    { icon: 'car', title: "Transporte al Restaurante", desc: "Ida y vuelta grupal exclusivo", unit: 367000, type: 'fixed' },
-                    { icon: 'utensils', title: "Cena Restaurante Rocasal", desc: "Menú degustación alta cocina", unit: 2400000 / 4, type: 'variable', adjunto: "Ver Menú", link: "https://rocasal.mx/wp-content/uploads/2025/07/ALIMENTOS.pdf" },
-                    { icon: 'alert', title: "Imprevistos", desc: "Fondo de seguridad Día 1", unit: 1000000, type: 'fixed' }
+                activities: [
+                    { icon: 'car', time: 'Mañana', title: "Traslado Jorge (BOG)", desc: "Recogida y transporte privado hacia el Aeropuerto El Dorado." },
+                    { icon: 'plane', time: '02:15 PM', title: "Vuelo Bogotá - CDMX", desc: "Vuelo directo vía Avianca. Jorge Barón en Primera Clase, acompañantes en Clase Económica." },
+                    { icon: 'car', time: '06:05 PM', title: "Llegada y Traslado CDMX", desc: "Recogida en Aeropuerto Benito Juárez y traslado grupal al hotel." },
+                    { icon: 'hotel', time: 'Noche', title: "Check-in Hotel Royal Pedregal", desc: "Acomodación en 4 habitaciones individuales. Calificación 8.8/10." },
+                    { icon: 'utensils', time: 'Noche', title: "Cena: Restaurante Rocasal", desc: "Experiencia gastronómica gourmet. Incluye traslados privados ida y vuelta.", link: "https://rocasal.mx/wp-content/uploads/2025/07/ALIMENTOS.pdf" }
                 ]
             },
             '16': {
-                title: "Banderazo",
-                items: [
-                    { icon: 'coffee', title: "Desayuno Buffet", desc: "Dentro del hotel", unit: 870000 / 4, type: 'variable' },
-                    { icon: 'utensils', title: "Almuerzo El Bajío", desc: "Restaurante en La Reforma", unit: 3200000 / 4, type: 'variable', adjunto: "Ver Menú", link: "https://www.restauranteelbajio.com.mx/uploads/comidas.pdf?uid=9c7b784ea6df3d0081024c3a40f731c4" },
-                    { icon: 'car', title: "Transporte Hotel Banderazo", desc: "Ida y vuelta grupal", unit: 874000, type: 'fixed' },
-                    { icon: 'beer', title: "Snacks y Bebidas", desc: "Consumo durante el evento", unit: 750000, type: 'fixed' },
-                    { icon: 'utensils', title: "Comida Restaurante Niza", desc: "Zona Pedregal", unit: 1600000 / 4, type: 'variable', adjunto: "Sitio Web", link: "https://www.niza.mx/" },
-                    { icon: 'alert', title: "Imprevistos", desc: "Fondo de seguridad Día 2", unit: 1000000, type: 'fixed' }
+                title: "Día de Banderazo",
+                activities: [
+                    { icon: 'coffee', time: 'Mañana', title: "Desayuno Buffet", desc: "Servicio completo dentro de las instalaciones del hotel." },
+                    { icon: 'utensils', time: 'Tarde', title: "Almuerzo: El Bajío", desc: "Restaurante tradicional en Paseo de la Reforma.", link: "https://www.restauranteelbajio.com.mx/uploads/comidas.pdf?uid=9c7b784ea6df3d0081024c3a40f731c4" },
+                    { icon: 'users', time: 'Tarde', title: "Banderazo de la Selección", desc: "Transporte privado ida y vuelta al hotel de concentración para el apoyo a la Selección Colombia." },
+                    { icon: 'beer', time: 'Tarde', title: "Social y Snacks", desc: "Espacio de integración y bebidas durante los eventos del día." },
+                    { icon: 'utensils', time: 'Noche', title: "Cena: Restaurante Niza", desc: "Ubicado en la zona de Pedregal.", link: "https://www.niza.mx/" }
                 ]
             },
             '17': {
-                title: "Piscina + Día del Partido",
-                items: [
-                    { icon: 'coffee', title: "Desayuno Hotel", desc: "Servicio matutino", unit: 870000 / 4, type: 'variable' },
-                    { icon: 'beer', title: "Snacks y Bebidas Hotel", desc: "Consumo área de piscina", unit: 780000 / 4, type: 'variable' },
-                    { icon: 'utensils', title: "Almuerzo Hotel", desc: "Restaurante interno", unit: 2200000 / 4, type: 'variable' },
-                    { icon: 'car', title: "Transporte al Estadio", desc: "Servicio Uber grupal", unit: 430000, type: 'fixed' },
-                    { icon: 'ticket', title: "Boletas Estadio Azteca", desc: "Categoría 3 (COL vs UZB)", unit: 14500000 / 4, type: 'variable', adjunto: "Link Boletas" },
-                    { icon: 'beer', title: "Snacks Estadio", desc: "Consumo durante el partido", unit: 2000000 / 4, type: 'variable' },
-                    { icon: 'utensils', title: "Comida afuera del Estadio", desc: "Cena post-partido", unit: 3300000 / 4, type: 'variable' },
-                    { icon: 'car', title: "Transporte al Hotel", desc: "Regreso desde el Azteca", unit: 650000, type: 'fixed' },
-                    { icon: 'alert', title: "Imprevistos", desc: "Fondo de seguridad Día 3", unit: 1000000, type: 'fixed' }
+                title: "⚽ Día del Partido",
+                activities: [
+                    { icon: 'coffee', time: 'Mañana', title: "Desayuno Energético", desc: "Servicio matutino en el hotel previo a la jornada de estadio." },
+                    { icon: 'beer', time: 'Mañana', title: "Mañana de Piscina", desc: "Tiempo libre y snacks en el área social del hotel." },
+                    { icon: 'utensils', time: '12:00 PM', title: "Almuerzo de Grupo", desc: "Menú ejecutivo programado en el restaurante del hotel." },
+                    { icon: 'car', time: 'Tarde', title: "Logística Estadio Azteca", desc: "Traslado coordinado hacia el Coloso de Santa Úrsula." },
+                    { icon: 'ticket', time: 'Evento', title: "COLOMBIA vs UZBEKISTÁN", desc: "Acceso al estadio con boletas Categoría 3. Disfrute del partido del Mundial." },
+                    { icon: 'utensils', time: 'Noche', title: "Cena Post-Partido", desc: "Alimentación y bebidas en los alrededores del estadio o regreso al hotel." },
+                    { icon: 'car', time: 'Noche', title: "Regreso al Hotel", desc: "Transporte privado de retorno para descanso tras la jornada deportiva." }
                 ]
             },
             '18': {
                 title: "Regreso a Bogotá",
-                items: [
-                    { icon: 'coffee', title: "Desayuno Hotel", desc: "Último día", unit: 740000 / 4, type: 'variable' },
-                    { icon: 'car', title: "Transporte Aeropuerto", desc: "Traslado grupal CDMX", unit: 560000, type: 'fixed' },
-                    { icon: 'plane', title: "Vuelo Jorge (Primera Clase)", desc: "CDMX - Bogotá (Regreso)", unit: 6803000, type: 'fixed_jorge', highlight: true },
-                    { icon: 'plane', title: "Vuelo Acompañantes (Económica)", desc: "CDMX - Bogotá (Regreso)", unit: 17901000 / 3, type: 'variable_extra', adjunto: "Vuelos" },
-                    { icon: 'utensils', title: "Comida Aeropuerto BOG", desc: "Alimentación llegada", unit: 1600000, type: 'fixed' },
-                    { icon: 'alert', title: "Imprevistos", desc: "Fondo de seguridad Día 4", unit: 1000000, type: 'fixed' }
+                activities: [
+                    { icon: 'coffee', time: 'Mañana', title: "Desayuno de Cierre", desc: "Último servicio en el Hotel Royal Pedregal." },
+                    { icon: 'car', time: 'Mediodía', title: "Traslado al Aeropuerto", desc: "Transporte privado del hotel al Aeropuerto de Ciudad de México." },
+                    { icon: 'plane', time: '02:00 PM', title: "Vuelo CDMX - Bogotá", desc: "Vuelo de retorno vía Avianca con llegada estimada a las 7:00 PM." },
+                    { icon: 'utensils', time: 'Noche', title: "Llegada y Alimentación", desc: "Cierre de itinerario con alimentación en el Aeropuerto El Dorado." }
                 ]
             }
         };
@@ -197,97 +129,44 @@
             coffee: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>',
             beer: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 11h1a3 3 0 0 1 0 6h-1"/><path d="M7 10h10v10a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2Z"/><path d="M6 2h12a2 2 0 0 1 2 2v3H4V4a2 2 0 0 1 2-2Z"/></svg>',
             ticket: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/></svg>',
-            alert: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
-            star: '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>'
+            users: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>'
         };
 
-        function formatCurrency(val) {
-            return new Intl.NumberFormat('es-CO', {
-                style: 'currency',
-                currency: 'COP',
-                minimumFractionDigits: 0,
-            }).format(val);
-        }
-
         function render() {
-            const extraPeople = Math.max(0, numPeople - 1);
-            let grandTotal = 0;
-
             // Render Tabs
             const tabContainer = document.getElementById('tab-container');
-            tabContainer.innerHTML = Object.keys(MASTER_DATA).map(day => {
+            tabContainer.innerHTML = Object.keys(ITINERARY_DATA).map(day => {
                 const isActive = activeTab === day;
                 return `
                     <button onclick="activeTab='${day}'; render();" class="px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest transition-all whitespace-nowrap ${isActive ? 'bg-blue-950 text-white shadow-xl scale-105 border-b-4 border-blue-600' : 'bg-white text-slate-400 border border-slate-200 hover:border-blue-300'}">
-                        ${day} Junio ${day === '17' ? '• Partido ⚽' : ''}
+                        ${day} Junio ${day === '17' ? '⚽' : ''}
                     </button>
                 `;
             }).join('');
 
-            // Data logic
-            const currentData = MASTER_DATA[activeTab];
-            document.getElementById('day-title').textContent = currentData.title;
-            
-            let dayTotal = 0;
-            const expenseList = document.getElementById('expense-list');
-            expenseList.innerHTML = currentData.items.map(item => {
-                let quantity = 1;
-                if (item.type === 'variable') quantity = numPeople;
-                if (item.type === 'variable_extra') quantity = extraPeople;
-                
-                const itemTotal = item.unit * quantity;
-                dayTotal += itemTotal;
+            // Day Info
+            const currentData = ITINERARY_DATA[activeTab];
+            document.getElementById('day-title').textContent = `Día ${activeTab === '15' ? '1' : activeTab === '16' ? '2' : activeTab === '17' ? '3' : '4'}: ${currentData.title}`;
 
-                return `
-                    <div class="flex flex-col md:flex-row md:items-center justify-between p-5 border-b border-blue-50 last:border-0 hover:bg-slate-50 transition-all group ${item.highlight ? 'bg-blue-50/40' : ''}">
-                        <div class="flex items-start gap-4">
-                            <div class="mt-1 p-2.5 rounded-xl group-hover:bg-blue-600 group-hover:text-white transition-colors shadow-sm ${item.highlight ? 'bg-blue-600 text-white shadow-blue-200' : 'bg-white text-blue-600 border border-slate-100'}">
-                                ${icons[item.icon]}
-                            </div>
-                            <div class="flex-1">
-                                <div class="flex items-center gap-2">
-                                    <h4 class="font-bold ${item.highlight ? 'text-blue-900' : 'text-slate-800'}">${item.title}</h4>
-                                    ${item.isFixed ? '<span class="text-[9px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded font-bold uppercase tracking-tight">Costo Fijo</span>' : ''}
-                                    ${item.highlight ? '<span class="text-[9px] bg-amber-400 text-amber-900 px-2 py-0.5 rounded font-bold uppercase flex items-center gap-1">'+icons.star+' Jorge Barón</span>' : ''}
-                                </div>
-                                <p class="text-sm text-slate-500 mt-0.5 leading-relaxed">${item.desc}</p>
-                                <div class="flex flex-wrap items-center gap-4 mt-2">
-                                    <div class="text-[11px] font-bold text-slate-400 uppercase">👤 ${quantity} Personas</div>
-                                    <div class="text-[11px] font-bold text-slate-400 uppercase">🏷️ ${formatCurrency(item.unit)} u</div>
-                                    ${item.adjunto ? `<a href="${item.link || '#'}" target="_blank" class="text-[11px] text-blue-600 font-bold uppercase hover:underline">🔗 ${item.adjunto}</a>` : ''}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mt-4 md:mt-0 text-right">
-                            <p class="text-xl font-mono font-black ${item.highlight ? 'text-blue-900' : 'text-blue-950'}">${formatCurrency(itemTotal)}</p>
+            // Render Activities
+            const activityList = document.getElementById('activity-list');
+            activityList.innerHTML = currentData.activities.map(activity => `
+                <div class="activity-card flex flex-col md:flex-row gap-6 p-8 transition-all hover:bg-slate-50">
+                    <div class="flex flex-col items-center gap-2 md:w-24 shrink-0">
+                        <span class="text-[10px] font-black text-blue-600 uppercase tracking-widest">${activity.time}</span>
+                        <div class="icon-box w-12 h-12 rounded-2xl bg-white border border-slate-200 flex items-center justify-center text-blue-600 shadow-sm transition-colors">
+                            ${icons[activity.icon]}
                         </div>
                     </div>
-                `;
-            }).join('');
-
-            // Totals
-            document.getElementById('day-subtotal').textContent = formatCurrency(dayTotal);
-            document.getElementById('footer-day-total').textContent = formatCurrency(dayTotal);
-            document.getElementById('people-count').textContent = numPeople + (numPeople === 1 ? ' Persona' : ' Personas');
-
-            // Grand total calculation
-            let totalGeneral = 0;
-            Object.values(MASTER_DATA).forEach(day => {
-                day.items.forEach(item => {
-                    let qty = 1;
-                    if (item.type === 'variable') qty = numPeople;
-                    if (item.type === 'variable_extra') qty = extraPeople;
-                    totalGeneral += (item.unit * qty);
-                });
-            });
-
-            document.getElementById('grand-total').textContent = formatCurrency(totalGeneral);
-            document.getElementById('per-person-total').textContent = formatCurrency(totalGeneral / numPeople);
-        }
-
-        function changePeople(val) {
-            numPeople = Math.max(1, numPeople + val);
-            render();
+                    <div class="flex-1 space-y-2">
+                        <div class="flex items-center gap-3">
+                            <h3 class="text-xl font-bold text-blue-950">${activity.title}</h3>
+                            ${activity.link ? `<a href="${activity.link}" target="_blank" class="text-blue-500 hover:text-blue-700"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a>` : ''}
+                        </div>
+                        <p class="text-slate-500 leading-relaxed font-medium">${activity.desc}</p>
+                    </div>
+                </div>
+            `).join('');
         }
 
         window.onload = render;
