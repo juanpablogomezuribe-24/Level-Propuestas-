@@ -35,6 +35,13 @@
             pointer-events: none;
         }
 
+        .soccer-field-lines::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 0; right: 0;
+            height: 2px; background: rgba(255, 255, 255, 0.05);
+        }
+
         .hero-overlay {
             background: linear-gradient(to top, rgba(2, 6, 23, 1) 0%, rgba(2, 6, 23, 0.6) 40%, rgba(2, 6, 23, 0) 100%);
         }
@@ -122,6 +129,10 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
+        
+        .text-glow {
+            text-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -172,7 +183,7 @@
             </div>
         </section>
 
-        <!-- SECCIÓN 2: ESTRATEGIA INTERACTIVA -->
+        <!-- SECCIÓN 2: ESTRATEGIA PASO A PASO -->
         <section class="py-24 px-8 md:px-20 bg-slate-950/80">
             <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-16 space-y-4">
@@ -181,6 +192,7 @@
                 </div>
 
                 <div class="grid lg:grid-cols-5 gap-8 items-start">
+                    <!-- Caja Táctica Paso a Paso -->
                     <div class="lg:col-span-3 space-y-4">
                         <div class="card-glass p-8 rounded-3xl tactical-step group">
                             <div class="flex gap-6">
@@ -225,7 +237,7 @@
                             <div class="card-glass p-10 rounded-[3rem] border-l-8 border-yellow-500 relative bg-slate-900/60 shadow-2xl">
                                 <i data-lucide="mic" class="text-yellow-500 w-12 h-12 mb-6 opacity-40"></i>
                                 <p class="text-2xl font-light italic leading-relaxed text-white">
-                                    "¿Mis seleccionados para hoy? <span class="text-yellow-500 font-bold">James</span>, <span class="text-yellow-500 font-bold">Luis Díaz</span> y un <span class="text-white font-bold">televisor Hisense</span> con un <span class="text-white font-bold">six pack de Águila</span> que consigues solo en el <span class="text-yellow-500 font-bold uppercase">Éxito</span>."
+                                    "¿Mis seleccionados para hoy? <span class="text-yellow-500 font-bold">James</span>, <span class="text-yellow-500 font-bold">Luis Díaz</span> y un <span class="text-white font-bold">televisor Hisense</span> con un <span class="text-white font-bold">six pack de Águila</span> que consigues solo en el <span class="text-yellow-500 font-bold uppercase text-glow">Éxito</span>."
                                 </p>
                             </div>
                         </div>
@@ -234,16 +246,16 @@
             </div>
         </section>
 
-        <!-- SECCIÓN 3: ALINEACIONES (DIFERENCIACIÓN CLARA) -->
+        <!-- SECCIÓN 3: ALINEACIONES (MODELOS DE INVERSIÓN) -->
         <section class="py-24 px-8 md:px-20">
             <div class="text-center mb-20">
                 <h3 class="text-4xl md:text-6xl bold-italic italic text-white uppercase tracking-tighter">Alineaciones de <span class="text-blue-500">Valor</span></h3>
-                <p class="text-slate-500 uppercase tracking-[0.4em] text-[10px] font-bold mt-4 italic">Comparativa de Inversión 2026</p>
+                <p class="text-slate-500 uppercase tracking-[0.4em] text-[10px] font-bold mt-4 italic">Comparativa Estratégica 2026</p>
             </div>
 
             <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-10">
                 
-                <!-- ALINEACIÓN 1 -->
+                <!-- ALINEACIÓN 1: TÁCTICA DIGITAL -->
                 <div class="card-glass p-8 md:p-12 rounded-[3.5rem] flex flex-col h-full border-t-8 border-slate-700 hover:border-blue-500 transition-all soccer-pitch-bg">
                     <div class="pitch-lines"></div>
                     <div class="pitch-center-circle"></div>
@@ -251,35 +263,36 @@
                     <div class="mb-10 relative z-10">
                         <span class="px-4 py-1.5 bg-slate-800 text-slate-400 rounded-full text-[10px] font-black uppercase tracking-widest">Opción 1</span>
                         <h5 class="text-4xl bold-italic mt-4 italic text-white uppercase">Alineación 1</h5>
-                        <p class="text-slate-300 mt-2 font-bold uppercase tracking-tighter text-xs italic">Campaña Digital & Eventos</p>
+                        <p class="text-slate-300 mt-2 font-bold uppercase tracking-tighter text-xs italic">Estrategia de Contenido Digital</p>
                     </div>
 
                     <div class="space-y-8 flex-grow relative z-10">
+                        <!-- Mix de Contenido Alineación 1 -->
                         <div class="bg-slate-950/80 p-6 rounded-2xl border border-slate-700 backdrop-blur-sm">
-                            <p class="text-[10px] font-black uppercase text-blue-500 tracking-widest mb-4">Plan de 16 Contenidos:</p>
-                            <div class="grid grid-cols-3 gap-3 text-center">
-                                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800"><span class="block text-2xl font-black italic text-white">6</span><span class="text-[9px] uppercase text-slate-500 font-bold">Reels Colab</span></div>
-                                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 relative overflow-hidden"><span class="block text-2xl font-black italic text-white">4</span><span class="text-[9px] uppercase text-slate-500 font-bold italic uppercase">TikToks*</span><div class="absolute bottom-0 inset-x-0 bg-blue-500/10 text-[6px] py-0.5 text-blue-400">RÉPLICAS</div></div>
-                                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800"><span class="block text-2xl font-black italic text-white">4</span><span class="text-[9px] uppercase text-slate-500 font-bold">Stories</span></div>
+                            <p class="text-[10px] font-black uppercase text-blue-500 tracking-widest mb-4">Plan de 22 Piezas de Contenido:</p>
+                            <div class="grid grid-cols-2 gap-3 text-center">
+                                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800"><span class="block text-2xl font-black italic text-white">8</span><span class="text-[9px] uppercase text-slate-500 font-bold">Reels Únicos</span></div>
+                                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800"><span class="block text-2xl font-black italic text-white">4</span><span class="text-[9px] uppercase text-slate-500 font-bold">TikToks Únicos</span></div>
+                                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 relative overflow-hidden"><span class="block text-2xl font-black italic text-white">4</span><span class="text-[9px] uppercase text-slate-500 font-bold italic uppercase">Réplicas*</span><div class="absolute bottom-0 inset-x-0 bg-blue-500/10 text-[6px] py-0.5 text-blue-400">EN TIKTOK</div></div>
+                                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800"><span class="block text-2xl font-black italic text-white">6</span><span class="text-[9px] uppercase text-slate-500 font-bold">Stories</span></div>
                             </div>
-                            <p class="text-[8px] text-slate-400 italic mt-4 text-center">Los TikToks son réplicas de los Reels para cobertura multiplataforma.</p>
+                            <p class="text-[8px] text-slate-400 italic mt-4 text-center">Réplicas TikTok extraídas de la producción de Reels.</p>
                         </div>
 
                         <ul class="space-y-4 text-sm">
-                            <li class="flex items-start gap-3"><i data-lucide="calendar" class="text-blue-500 w-5 h-5 shrink-0"></i><span class="text-slate-100 font-semibold uppercase text-[12px]">4 Eventos de Marca (3h)</span></li>
                             <li class="flex items-start gap-3"><i data-lucide="image" class="text-blue-500 w-5 h-5 shrink-0"></i><span class="text-slate-100 font-semibold uppercase text-[12px]">Derechos Digitales Canales Marca</span></li>
                             <li class="flex items-start gap-3 pb-3 border-b border-white/10"><i data-lucide="shield" class="text-blue-500 w-5 h-5 shrink-0"></i><span class="text-white font-black uppercase text-[12px] italic">Exclusividad Retail: 4 meses + 2 adicionales.</span></li>
                         </ul>
                     </div>
                     
                     <div class="mt-12 pt-8 border-t border-white/10 text-right relative z-10">
-                        <span class="text-[10px] uppercase font-bold text-slate-300 tracking-widest italic">Inversión Táctica</span>
+                        <span class="text-[10px] uppercase font-bold text-slate-300 tracking-widest italic">Inversión Neta Pack 1</span>
                         <p class="text-4xl font-black italic tracking-tighter text-white font-mono">$90.000.000</p>
-                        <span class="text-[10px] text-slate-400 font-bold uppercase tracking-widest italic">Neto + IVA</span>
+                        <span class="text-[10px] text-slate-400 font-bold uppercase tracking-widest italic">+ IVA</span>
                     </div>
                 </div>
 
-                <!-- ALINEACIÓN 2: PREMIUM DIFERENCIADO -->
+                <!-- ALINEACIÓN 2: EMBAJADOR INTEGRAL -->
                 <div class="card-glass p-8 md:p-12 rounded-[3.5rem] flex flex-col h-full border-t-8 border-yellow-500 bg-yellow-500/5 relative overflow-hidden shadow-2xl shadow-yellow-900/20 hover:scale-[1.02] transition-all soccer-pitch-bg">
                     <div class="pitch-lines"></div>
                     <div class="pitch-center-circle"></div>
@@ -288,7 +301,7 @@
                     <div class="mb-10 relative z-10">
                         <span class="px-4 py-1.5 bg-yellow-500 text-black rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl">Opción Embajador</span>
                         <h5 class="text-4xl bold-italic mt-4 italic text-yellow-500 uppercase">Alineación 2</h5>
-                        <p class="text-yellow-200 mt-2 font-bold uppercase tracking-tighter text-xs italic">Alianza Omnicanal • Valor Máximo</p>
+                        <p class="text-yellow-200 mt-2 font-bold uppercase tracking-tighter text-xs italic">Alianza Omnicanal • Hitos & Eventos</p>
                     </div>
                     
                     <div class="space-y-6 flex-grow relative z-10">
@@ -302,9 +315,9 @@
                             </div>
                         </div>
 
-                        <!-- Términos Base -->
+                        <!-- Términos Base (Eventos incluidos aquí) -->
                         <ul class="space-y-2 text-[11px] text-slate-200 uppercase font-bold tracking-tight">
-                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-yellow-500/80"></i> 4 Eventos de Marca (3h c/u)</li>
+                            <li class="flex items-center gap-2 bg-slate-900/50 p-2 rounded-lg border border-white/5"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-yellow-500"></i> 4 Eventos de Marca (3h c/u)</li>
                             <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-yellow-500/80"></i> Derechos Digitales Incluidos</li>
                             <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-yellow-500/80"></i> Exclusividad Retail (4 + 2 meses)</li>
                         </ul>
@@ -327,17 +340,16 @@
                                 <div class="p-2 bg-red-600 rounded-lg shadow-lg"><i data-lucide="youtube" class="text-white w-6 h-6"></i></div>
                                 <div class="flex flex-col">
                                     <span class="text-xs font-black text-yellow-500 uppercase tracking-widest">Super Bonus Embajador</span>
-                                    <span class="text-sm font-bold text-white uppercase">Presencia en 10 Videos de YouTube</span>
-                                    <span class="text-[10px] text-yellow-100 mt-1 italic leading-tight">Menciones de 60s en canal líder.</span>
+                                    <span class="text-sm font-bold text-white uppercase leading-tight">Presencia en 10 Videos de YouTube</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
                     <div class="mt-12 pt-8 border-t border-white/10 relative z-10 text-right">
-                        <span class="text-[10px] uppercase font-bold text-yellow-400 tracking-widest italic">Inversión Única Premium</span>
+                        <span class="text-[10px] uppercase font-bold text-yellow-400 tracking-widest italic">Inversión Neta Pack 2</span>
                         <p class="text-5xl font-black italic tracking-tighter text-white font-mono">$130.000.000</p>
-                        <span class="text-[10px] text-yellow-200 font-bold uppercase tracking-widest italic">Neto + IVA</span>
+                        <span class="text-[10px] text-yellow-200 font-bold uppercase tracking-widest italic">+ IVA</span>
                     </div>
                 </div>
             </div>
