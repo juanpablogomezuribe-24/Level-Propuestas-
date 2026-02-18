@@ -3,173 +3,415 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Itinerario Viaje Jorge Barón - Mundial 2026</title>
+    <title>Propuesta Éxito - Los Seleccionados</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-        .activity-card:hover .icon-box { background-color: #2563eb; color: white; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #020617;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        /* Pantalla de Inicio Estilo Estadio */
+        #splash-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: radial-gradient(circle at center, #1e3a8a 0%, #020617 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.8s cubic-bezier(0.87, 0, 0.13, 1);
+        }
+
+        .soccer-field-lines {
+            position: absolute;
+            inset: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            pointer-events: none;
+        }
+
+        .soccer-field-lines::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 0; right: 0;
+            height: 2px; background: rgba(255, 255, 255, 0.05);
+        }
+
+        .hero-overlay {
+            background: linear-gradient(to top, rgba(2, 6, 23, 1) 0%, rgba(2, 6, 23, 0.6) 40%, rgba(2, 6, 23, 0) 100%);
+        }
+
+        .card-glass {
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Fondo de Cancha para las Alineaciones */
+        .soccer-pitch-bg {
+            background-image: 
+                linear-gradient(rgba(2, 6, 23, 0.85), rgba(2, 6, 23, 0.85)),
+                repeating-linear-gradient(90deg, transparent 0, transparent 40px, rgba(255,255,255,0.03) 40px, rgba(255,255,255,0.03) 80px),
+                linear-gradient(to bottom, #064e3b, #022c22);
+            background-size: cover;
+        }
+        
+        .pitch-lines {
+            position: absolute;
+            inset: 0;
+            border: 1px solid rgba(255,255,255,0.05);
+            margin: 20px;
+            pointer-events: none;
+        }
+        .pitch-center-circle {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px; height: 100px;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+
+        .bold-italic {
+            font-weight: 900;
+            font-style: italic;
+            text-transform: uppercase;
+            letter-spacing: -0.03em;
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .exito-yellow { color: #fbbf24; }
+        .stadium-text { text-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+
+        .fade-in-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tactical-step {
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .tactical-step:hover {
+            border-left-color: #fbbf24;
+            background: rgba(251, 191, 36, 0.05);
+        }
+        
+        .badge-bonus {
+            background: #ef4444;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 8px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .text-glow {
+            text-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 pb-20">
-    <div class="bg-blue-900 h-2 w-full"></div>
+<body class="antialiased">
 
-    <div class="max-w-5xl mx-auto p-4 md:p-10 bg-white shadow-2xl min-h-screen border-x border-slate-100">
-        
-        <!-- Header -->
-        <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-12">
-            <div class="space-y-2">
-                <div class="flex items-center gap-3">
-                    <div class="bg-blue-600 w-12 h-12 flex items-center justify-center rounded-2xl shadow-lg shadow-blue-200">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                    </div>
-                    <h1 class="text-3xl font-black text-blue-950 tracking-tight italic uppercase">Itinerario de Viaje</h1>
+    <!-- INTRODUCCIÓN INTERACTIVA (PITAZO INICIAL) -->
+    <div id="splash-screen">
+        <div class="soccer-field-lines"></div>
+        <div class="relative z-10 text-center px-6">
+            <div class="mb-8 animate-float">
+                <div class="w-24 h-24 bg-yellow-500 rounded-full mx-auto flex items-center justify-center shadow-[0_0_60px_rgba(251,191,36,0.6)]">
+                    <i data-lucide="shopping-cart" class="w-12 h-12 text-black"></i>
                 </div>
-                <p class="text-slate-500 font-medium ml-1 flex items-center gap-2">
-                    <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Mundial 2026</span>
-                    <span class="text-slate-300">|</span>
-                    México (CDMX) | 15 - 18 Jun
-                </p>
             </div>
+            <h2 class="text-3xl md:text-5xl bold-italic mb-2 tracking-tighter stadium-text text-white">Los Seleccionados por</h2>
+            <h1 class="text-5xl md:text-8xl bold-italic text-blue-500 mb-12 uppercase italic">Juan Felipe...</h1>
             
-            <div class="hidden md:block">
-                <div class="text-right">
-                    <p class="text-[10px] font-black text-blue-600 uppercase tracking-[0.2em] mb-1">Pasajero Principal</p>
-                    <p class="text-lg font-bold text-blue-950 italic">Jorge Barón</p>
-                </div>
-            </div>
-        </header>
-
-        <!-- Navegación de Días -->
-        <div class="flex items-center gap-3 mb-10 overflow-x-auto py-2 scrollbar-hide" id="tab-container"></div>
-
-        <!-- Contenido del Itinerario -->
-        <div class="animate-in fade-in duration-500">
-            <div class="bg-white border border-slate-200 rounded-[2.5rem] shadow-sm overflow-hidden">
-                <div class="p-8 bg-slate-50 border-b border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                    <div>
-                        <h2 id="day-title" class="text-2xl font-black text-blue-950 uppercase italic tracking-tighter">Cargando itinerario...</h2>
-                        <p id="day-subtitle" class="text-sm text-slate-500 font-medium mt-1">Detalle logístico y actividades programadas</p>
-                    </div>
-                    <div class="flex items-center gap-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-2xl text-xs font-black uppercase">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                        Operación Confirmada
-                    </div>
-                </div>
-
-                <div id="activity-list" class="divide-y divide-slate-100">
-                    <!-- Las actividades se inyectan aquí -->
-                </div>
-            </div>
+            <button onclick="startConvocatoria()" class="group relative px-12 py-6 bg-white text-black font-black uppercase italic rounded-full text-xl hover:bg-yellow-500 transition-all active:scale-95 shadow-2xl overflow-hidden">
+                <span class="relative z-10 flex items-center gap-3">
+                    Pitazo Inicial <i data-lucide="play" class="fill-current w-6 h-6"></i>
+                </span>
+                <div class="absolute inset-0 bg-yellow-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
+            </button>
+            <p class="mt-8 text-slate-500 font-bold uppercase tracking-[0.4em] text-[10px]">Almacenes Éxito • Carulla • Estrategia 2026</p>
         </div>
+    </div>
 
-        <footer class="mt-20 pt-8 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-400 text-[10px] font-black uppercase tracking-[0.2em]">
-            <p>Propuesta Hecha por Level Colombia</p>
-            <div class="flex items-center gap-2">
-                <div class="w-2 h-2 rounded-full bg-blue-600"></div>
-                <span>MUNDIAL 2026</span>
+    <!-- CONTENIDO PRINCIPAL -->
+    <div id="main-content" class="hidden opacity-0 transition-opacity duration-1000">
+        
+        <!-- SECCIÓN 1: PERFIL DEL EMBAJADOR -->
+        <section class="relative h-screen w-full flex flex-col justify-end overflow-hidden">
+            <img src="https://i.postimg.cc/ZRSMD4CL/Whats-App-Image-2026-01-09-at-6-48-50-PM.jpg" 
+                 alt="Juan Felipe Cadavid" 
+                 class="absolute inset-0 w-full h-full object-cover object-top">
+            <div class="absolute inset-0 hero-overlay"></div>
+            
+            <div class="relative z-10 px-8 pb-20 md:px-20">
+                <div class="max-w-4xl space-y-4">
+                    <div class="flex items-center gap-2 text-yellow-500 font-black uppercase tracking-widest text-[10px]">
+                        <i data-lucide="award" class="w-4 h-4"></i> Embajador Oficial
+                    </div>
+                    <h2 class="text-6xl md:text-9xl bold-italic leading-[0.9] text-white">Juan Felipe <br><span class="text-blue-500">Cadavid</span></h2>
+                    <p class="text-xl md:text-3xl font-light text-slate-200 max-w-2xl leading-tight">Más de 18 años construyendo la comunicación deportiva más respetada y creíble del país.</p>
+                </div>
             </div>
+            <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce opacity-40">
+                <i data-lucide="chevron-down" class="w-8 h-8 text-white"></i>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: ESTRATEGIA PASO A PASO -->
+        <section class="py-24 px-8 md:px-20 bg-slate-950/80">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16 space-y-4">
+                    <h3 class="text-blue-500 font-black uppercase tracking-[0.3em] text-xs italic">Estrategia de Juego</h3>
+                    <h4 class="text-4xl md:text-7xl bold-italic italic text-white uppercase">"LOS <span class="exito-yellow">SELECCIONADOS</span>"</h4>
+                </div>
+
+                <div class="grid lg:grid-cols-5 gap-8 items-start">
+                    <!-- Caja Táctica Paso a Paso -->
+                    <div class="lg:col-span-3 space-y-4">
+                        <div class="card-glass p-8 rounded-3xl tactical-step group">
+                            <div class="flex gap-6">
+                                <div class="w-12 h-12 rounded-full bg-blue-600/20 flex items-center justify-center text-blue-500 font-black text-xl shrink-0 border border-blue-500/30">01</div>
+                                <div class="space-y-3">
+                                    <h5 class="text-xl bold-italic text-white italic uppercase tracking-tight">El Análisis del Hincha</h5>
+                                    <p class="text-slate-400 leading-relaxed text-sm md:text-base">
+                                        Todos los <span class="text-white font-bold uppercase">colombianos</span> llevamos un <span class="text-yellow-500 font-bold uppercase">técnico de fútbol</span> por dentro. Nos apasiona <span class="text-white font-bold uppercase">jugar con la alineación</span>, debatir sobre táctica y, sobre todo, <span class="text-yellow-500 font-bold uppercase">convocar</span> a los mejores para nuestro <span class="text-white font-bold uppercase">equipo ideal</span>.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-glass p-8 rounded-3xl tactical-step group">
+                            <div class="flex gap-6">
+                                <div class="w-12 h-12 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-500 font-black text-xl shrink-0 border border-yellow-500/30">02</div>
+                                <div class="space-y-3">
+                                    <h5 class="text-xl bold-italic text-white italic text-yellow-500 uppercase tracking-tight">La Convocatoria del Jefe</h5>
+                                    <p class="text-slate-400 leading-relaxed text-sm md:text-base">
+                                        En esta campaña, <span class="text-yellow-500 font-bold uppercase">Juan Felipe Cadavid</span> asume el rol de <span class="text-white font-bold uppercase">Entrenador Jefe</span>. Su convocatoria no es de futbolistas; él selecciona los <span class="text-yellow-500 font-bold uppercase">mejores productos</span> de <span class="text-white font-bold uppercase">Almacenes Éxito y Carulla</span> para cada momento estratégico del año.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-glass p-8 rounded-3xl tactical-step group">
+                            <div class="flex gap-6">
+                                <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 font-black text-xl shrink-0 border border-blue-500/30">03</div>
+                                <div class="space-y-3">
+                                    <h5 class="text-xl bold-italic text-white italic text-blue-400 uppercase tracking-tight">La Victoria en el Hogar</h5>
+                                    <p class="text-slate-400 leading-relaxed text-sm md:text-base">
+                                        Juan Felipe le dirá al país cuáles son los productos <span class="text-yellow-500 font-bold uppercase">seleccionados</span> para ganar en el hogar, uniendo su <span class="text-white font-bold uppercase">autoridad</span> con la <span class="text-yellow-500 font-bold uppercase">variedad</span> de la marca en <span class="text-white font-bold uppercase">amistosos internacionales</span> y en la <span class="text-yellow-500 font-bold uppercase">canasta familiar</span>.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-2 sticky top-32">
+                        <div class="relative group">
+                            <div class="absolute -inset-4 bg-yellow-500/10 rounded-[3rem] blur-2xl transition-all"></div>
+                            <div class="card-glass p-10 rounded-[3rem] border-l-8 border-yellow-500 relative bg-slate-900/60 shadow-2xl">
+                                <i data-lucide="mic" class="text-yellow-500 w-12 h-12 mb-6 opacity-40"></i>
+                                <p class="text-2xl font-light italic leading-relaxed text-white">
+                                    "¿Mis seleccionados para hoy? <span class="text-yellow-500 font-bold">James</span>, <span class="text-yellow-500 font-bold">Luis Díaz</span> y un <span class="text-white font-bold">televisor Hisense</span> con un <span class="text-white font-bold">six pack de Águila</span> que consigues solo en el <span class="text-yellow-500 font-bold uppercase text-glow">Éxito</span>."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: ALINEACIONES (MODELOS DE INVERSIÓN) -->
+        <section class="py-24 px-8 md:px-20">
+            <div class="text-center mb-20">
+                <h3 class="text-4xl md:text-6xl bold-italic italic text-white uppercase tracking-tighter">Alineaciones de <span class="text-blue-500">Valor</span></h3>
+                <p class="text-slate-500 uppercase tracking-[0.4em] text-[10px] font-bold mt-4 italic">Comparativa Estratégica 2026</p>
+            </div>
+
+            <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-10">
+                
+                <!-- ALINEACIÓN 1: TÁCTICA DIGITAL -->
+                <div class="card-glass p-8 md:p-12 rounded-[3.5rem] flex flex-col h-full border-t-8 border-slate-700 hover:border-blue-500 transition-all soccer-pitch-bg">
+                    <div class="pitch-lines"></div>
+                    <div class="pitch-center-circle"></div>
+                    
+                    <div class="mb-10 relative z-10">
+                        <span class="px-4 py-1.5 bg-slate-800 text-slate-400 rounded-full text-[10px] font-black uppercase tracking-widest">Opción 1</span>
+                        <h5 class="text-4xl bold-italic mt-4 italic text-white uppercase">Alineación 1</h5>
+                        <p class="text-slate-300 mt-2 font-bold uppercase tracking-tighter text-xs italic">Estrategia de Contenido Digital</p>
+                    </div>
+
+                    <div class="space-y-8 flex-grow relative z-10">
+                        <!-- Mix de Contenido Alineación 1 -->
+                        <div class="bg-slate-950/80 p-6 rounded-2xl border border-slate-700 backdrop-blur-sm">
+                            <p class="text-[10px] font-black uppercase text-blue-500 tracking-widest mb-4">Plan de 22 Piezas de Contenido:</p>
+                            <div class="grid grid-cols-2 gap-3 text-center">
+                                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800"><span class="block text-2xl font-black italic text-white">8</span><span class="text-[9px] uppercase text-slate-500 font-bold">Reels Únicos</span></div>
+                                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800"><span class="block text-2xl font-black italic text-white">4</span><span class="text-[9px] uppercase text-slate-500 font-bold">TikToks Únicos</span></div>
+                                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 relative overflow-hidden"><span class="block text-2xl font-black italic text-white">4</span><span class="text-[9px] uppercase text-slate-500 font-bold italic uppercase">Réplicas*</span><div class="absolute bottom-0 inset-x-0 bg-blue-500/10 text-[6px] py-0.5 text-blue-400">EN TIKTOK</div></div>
+                                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800"><span class="block text-2xl font-black italic text-white">6</span><span class="text-[9px] uppercase text-slate-500 font-bold">Stories</span></div>
+                            </div>
+                            <p class="text-[8px] text-slate-400 italic mt-4 text-center">Réplicas TikTok extraídas de la producción de Reels.</p>
+                        </div>
+
+                        <ul class="space-y-4 text-sm">
+                            <li class="flex items-start gap-3"><i data-lucide="image" class="text-blue-500 w-5 h-5 shrink-0"></i><span class="text-slate-100 font-semibold uppercase text-[12px]">Derechos Digitales Canales Marca</span></li>
+                            <li class="flex items-start gap-3 pb-3 border-b border-white/10"><i data-lucide="shield" class="text-blue-500 w-5 h-5 shrink-0"></i><span class="text-white font-black uppercase text-[12px] italic">Exclusividad Retail: 4 meses + 2 adicionales.</span></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mt-12 pt-8 border-t border-white/10 text-right relative z-10">
+                        <span class="text-[10px] uppercase font-bold text-slate-300 tracking-widest italic">Inversión Neta Pack 1</span>
+                        <p class="text-4xl font-black italic tracking-tighter text-white font-mono">$90.000.000</p>
+                        <span class="text-[10px] text-slate-400 font-bold uppercase tracking-widest italic">+ IVA</span>
+                    </div>
+                </div>
+
+                <!-- ALINEACIÓN 2: EMBAJADOR INTEGRAL -->
+                <div class="card-glass p-8 md:p-12 rounded-[3.5rem] flex flex-col h-full border-t-8 border-yellow-500 bg-yellow-500/5 relative overflow-hidden shadow-2xl shadow-yellow-900/20 hover:scale-[1.02] transition-all soccer-pitch-bg">
+                    <div class="pitch-lines"></div>
+                    <div class="pitch-center-circle"></div>
+                    <div class="absolute -right-10 -top-10 p-16 opacity-10 rotate-12 group-hover:rotate-0 transition-all duration-1000"><i data-lucide="crown" class="w-32 h-32 text-yellow-500"></i></div>
+
+                    <div class="mb-10 relative z-10">
+                        <span class="px-4 py-1.5 bg-yellow-500 text-black rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl">Opción Embajador</span>
+                        <h5 class="text-4xl bold-italic mt-4 italic text-yellow-500 uppercase">Alineación 2</h5>
+                        <p class="text-yellow-200 mt-2 font-bold uppercase tracking-tighter text-xs italic">Alianza Omnicanal • Hitos & Eventos</p>
+                    </div>
+                    
+                    <div class="space-y-6 flex-grow relative z-10">
+                        <!-- Mix de Contenido Alineación 2 -->
+                        <div class="bg-yellow-500/10 p-6 rounded-2xl border border-yellow-500/30 backdrop-blur-sm">
+                            <p class="text-[10px] font-black uppercase text-yellow-500 tracking-widest mb-4 italic text-center">Convocatoria Expandida de 22 Contenidos:</p>
+                            <div class="grid grid-cols-3 gap-3 text-center">
+                                <div class="bg-black/60 p-4 rounded-xl border border-yellow-500/20"><span class="block text-2xl font-black italic text-white">8</span><span class="text-[9px] uppercase text-yellow-500/80 font-bold">Reels Colab</span></div>
+                                <div class="bg-black/60 p-4 rounded-xl border border-yellow-500/20 relative overflow-hidden"><span class="block text-2xl font-black italic text-white">6</span><span class="text-[9px] uppercase text-yellow-500/80 font-bold italic uppercase">TikToks*</span><div class="absolute bottom-0 inset-x-0 bg-yellow-500/10 text-[6px] py-0.5 text-yellow-500/60 uppercase">RÉPLICAS</div></div>
+                                <div class="bg-black/60 p-4 rounded-xl border border-yellow-500/20"><span class="block text-2xl font-black italic text-white">8</span><span class="text-[9px] uppercase text-yellow-500/80 font-bold">Stories</span></div>
+                            </div>
+                        </div>
+
+                        <!-- Términos Base (Eventos incluidos aquí) -->
+                        <ul class="space-y-2 text-[11px] text-slate-200 uppercase font-bold tracking-tight">
+                            <li class="flex items-center gap-2 bg-slate-900/50 p-2 rounded-lg border border-white/5"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-yellow-500"></i> 4 Eventos de Marca (3h c/u)</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-yellow-500/80"></i> Derechos Digitales Incluidos</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-yellow-500/80"></i> Exclusividad Retail (4 + 2 meses)</li>
+                        </ul>
+
+                        <!-- Beneficios Bonus Destacados -->
+                        <div class="space-y-2 pt-2">
+                            <div class="flex items-center justify-between p-3 bg-yellow-500/10 rounded-xl border border-yellow-500/40 shadow-lg">
+                                <div class="flex items-center gap-3"><i data-lucide="tv" class="text-yellow-500 w-5 h-5"></i><span class="text-white font-black uppercase text-[10px]">Derechos Radio y TV Nacional</span></div>
+                                <span class="badge-bonus">Bonus</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-yellow-500/10 rounded-xl border border-yellow-500/40 shadow-lg">
+                                <div class="flex items-center gap-3"><i data-lucide="mic-2" class="text-yellow-500 w-5 h-5"></i><span class="text-white font-black uppercase text-[10px]">Voz de Marca (Locución Campaña)</span></div>
+                                <span class="badge-bonus">Bonus</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-blue-600/30 rounded-xl border border-blue-400/40">
+                                <div class="flex items-center gap-3"><i data-lucide="facebook" class="text-blue-400 w-5 h-5"></i><span class="text-blue-100 font-bold italic uppercase text-[10px]">Amplificación Reels en Facebook</span></div>
+                                <span class="badge-bonus" style="background:#3b82f6;">Plus</span>
+                            </div>
+                            <div class="flex items-start gap-4 bg-yellow-500/30 p-5 rounded-2xl border border-yellow-500/50 shadow-xl">
+                                <div class="p-2 bg-red-600 rounded-lg shadow-lg"><i data-lucide="youtube" class="text-white w-6 h-6"></i></div>
+                                <div class="flex flex-col">
+                                    <span class="text-xs font-black text-yellow-500 uppercase tracking-widest">Super Bonus Embajador</span>
+                                    <span class="text-sm font-bold text-white uppercase leading-tight">Presencia en 10 Videos de YouTube</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-12 pt-8 border-t border-white/10 relative z-10 text-right">
+                        <span class="text-[10px] uppercase font-bold text-yellow-400 tracking-widest italic">Inversión Neta Pack 2</span>
+                        <p class="text-5xl font-black italic tracking-tighter text-white font-mono">$130.000.000</p>
+                        <span class="text-[10px] text-yellow-200 font-bold uppercase tracking-widest italic">+ IVA</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA FINAL -->
+        <section class="py-32 px-8 text-center bg-gradient-to-b from-transparent to-blue-900/10">
+            <div class="max-w-4xl mx-auto space-y-12">
+                <h3 class="text-5xl md:text-8xl bold-italic italic tracking-tighter text-white">¿Hacemos la <br><span class="text-blue-500 text-glow">Convocatoria?</span></h3>
+                <p class="text-slate-400 text-xl font-light leading-relaxed max-w-2xl mx-auto">
+                    Juan Felipe Cadavid está preparado para liderar la conversación y convertir a cada cliente del Éxito en el mejor Director Técnico de Colombia.
+                </p>
+                <div class="pt-8">
+                    <a href="mailto:contacto@juanfelipecadavid.com" class="px-20 py-8 bg-blue-600 text-white font-black uppercase italic rounded-3xl text-2xl shadow-2xl shadow-blue-900/40 hover:scale-105 active:scale-95 transition-all inline-block">
+                        Aceptar Selección
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="py-16 px-8 border-t border-slate-900 text-center text-slate-700">
+            <p class="text-[10px] uppercase tracking-[0.5em] mb-2 font-bold text-slate-500 uppercase tracking-tighter">Juan Felipe Cadavid • Media Kit Comercial</p>
+            <p class="text-[9px] italic uppercase tracking-widest">Propuesta Confidencial para Almacenes Éxito S.A. y Carulla • 2026</p>
         </footer>
     </div>
 
     <script>
-        let activeTab = '15';
+        lucide.createIcons();
 
-        const ITINERARY_DATA = {
-            '15': {
-                title: "Viaje de ida + Acomodación",
-                activities: [
-                    { icon: 'car', time: 'Mañana', title: "Traslado Jorge (BOG)", desc: "Recogida y transporte privado hacia el Aeropuerto El Dorado." },
-                    { icon: 'plane', time: '02:15 PM', title: "Vuelo Bogotá - CDMX", desc: "Vuelo directo vía Avianca. Jorge Barón en Primera Clase, acompañantes en Clase Económica." },
-                    { icon: 'car', time: '06:05 PM', title: "Llegada y Traslado CDMX", desc: "Recogida en Aeropuerto Benito Juárez y traslado grupal al hotel." },
-                    { icon: 'hotel', time: 'Noche', title: "Check-in Hotel Royal Pedregal", desc: "Acomodación en 4 habitaciones individuales. Calificación 8.8/10." },
-                    { icon: 'utensils', time: 'Noche', title: "Cena: Restaurante Rocasal", desc: "Experiencia gastronómica gourmet. Incluye traslados privados ida y vuelta.", link: "https://rocasal.mx/wp-content/uploads/2025/07/ALIMENTOS.pdf" }
-                ]
-            },
-            '16': {
-                title: "Día de Banderazo",
-                activities: [
-                    { icon: 'coffee', time: 'Mañana', title: "Desayuno Buffet", desc: "Servicio completo dentro de las instalaciones del hotel." },
-                    { icon: 'utensils', time: 'Tarde', title: "Almuerzo: El Bajío", desc: "Restaurante tradicional en Paseo de la Reforma.", link: "https://www.restauranteelbajio.com.mx/uploads/comidas.pdf?uid=9c7b784ea6df3d0081024c3a40f731c4" },
-                    { icon: 'users', time: 'Tarde', title: "Banderazo de la Selección", desc: "Transporte privado ida y vuelta al hotel de concentración para el apoyo a la Selección Colombia." },
-                    { icon: 'beer', time: 'Tarde', title: "Social y Snacks", desc: "Espacio de integración y bebidas durante los eventos del día." },
-                    { icon: 'utensils', time: 'Noche', title: "Cena: Restaurante Niza", desc: "Ubicado en la zona de Pedregal.", link: "https://www.niza.mx/" }
-                ]
-            },
-            '17': {
-                title: "⚽ Día del Partido",
-                activities: [
-                    { icon: 'coffee', time: 'Mañana', title: "Desayuno Energético", desc: "Servicio matutino en el hotel previo a la jornada de estadio." },
-                    { icon: 'beer', time: 'Mañana', title: "Mañana de Piscina", desc: "Tiempo libre y snacks en el área social del hotel." },
-                    { icon: 'utensils', time: '12:00 PM', title: "Almuerzo de Grupo", desc: "Menú ejecutivo programado en el restaurante del hotel." },
-                    { icon: 'car', time: 'Tarde', title: "Logística Estadio Azteca", desc: "Traslado coordinado hacia el Coloso de Santa Úrsula." },
-                    { icon: 'ticket', time: 'Evento', title: "COLOMBIA vs UZBEKISTÁN", desc: "Acceso al estadio con boletas Categoría 3. Disfrute del partido del Mundial." },
-                    { icon: 'utensils', time: 'Noche', title: "Cena Post-Partido", desc: "Alimentación y bebidas en los alrededores del estadio o regreso al hotel." },
-                    { icon: 'car', time: 'Noche', title: "Regreso al Hotel", desc: "Transporte privado de retorno para descanso tras la jornada deportiva." }
-                ]
-            },
-            '18': {
-                title: "Regreso a Bogotá",
-                activities: [
-                    { icon: 'coffee', time: 'Mañana', title: "Desayuno de Cierre", desc: "Último servicio en el Hotel Royal Pedregal." },
-                    { icon: 'car', time: 'Mediodía', title: "Traslado al Aeropuerto", desc: "Transporte privado del hotel al Aeropuerto de Ciudad de México." },
-                    { icon: 'plane', time: '02:00 PM', title: "Vuelo CDMX - Bogotá", desc: "Vuelo de retorno vía Avianca con llegada estimada a las 7:00 PM." },
-                    { icon: 'utensils', time: 'Noche', title: "Llegada y Alimentación", desc: "Cierre de itinerario con alimentación en el Aeropuerto El Dorado." }
-                ]
-            }
-        };
-
-        const icons = {
-            plane: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-1.1.1-1.5.5l-.3.3c-.4.4-.5 1-.3 1.5L9 12l-3.1 3.1-2-.8c-.4-.1-.9 0-1.2.3l-.3.3c-.4.4-.4 1.1 0 1.5L7 21l4.6-4.6.3-.3c.3-.3.4-.8.3-1.2l-.8-2L14.5 10l8.2 1.8c.5.1 1.1-.1 1.5-.5l.3-.3c.4-.4.5-1 .3-1.5Z"/></svg>',
-            car: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>',
-            hotel: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 22v-6.57"/><path d="M12 11h.01"/><path d="M12 7h.01"/><path d="M14 15.43V22"/><path d="M15 16a5 5 0 0 0-6 0"/><path d="M16 11h.01"/><path d="M16 7h.01"/><path d="M18 22V8a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14"/><path d="M20 22h2"/><path d="M22 22v-4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v4"/><path d="M2 22h2"/><path d="M8 11h.01"/><path d="M8 7h.01"/></svg>',
-            utensils: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>',
-            coffee: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>',
-            beer: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 11h1a3 3 0 0 1 0 6h-1"/><path d="M7 10h10v10a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2Z"/><path d="M6 2h12a2 2 0 0 1 2 2v3H4V4a2 2 0 0 1 2-2Z"/></svg>',
-            ticket: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/></svg>',
-            users: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>'
-        };
-
-        function render() {
-            // Render Tabs
-            const tabContainer = document.getElementById('tab-container');
-            tabContainer.innerHTML = Object.keys(ITINERARY_DATA).map(day => {
-                const isActive = activeTab === day;
-                return `
-                    <button onclick="activeTab='${day}'; render();" class="px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest transition-all whitespace-nowrap ${isActive ? 'bg-blue-950 text-white shadow-xl scale-105 border-b-4 border-blue-600' : 'bg-white text-slate-400 border border-slate-200 hover:border-blue-300'}">
-                        ${day} Junio ${day === '17' ? '⚽' : ''}
-                    </button>
-                `;
-            }).join('');
-
-            // Day Info
-            const currentData = ITINERARY_DATA[activeTab];
-            document.getElementById('day-title').textContent = `Día ${activeTab === '15' ? '1' : activeTab === '16' ? '2' : activeTab === '17' ? '3' : '4'}: ${currentData.title}`;
-
-            // Render Activities
-            const activityList = document.getElementById('activity-list');
-            activityList.innerHTML = currentData.activities.map(activity => `
-                <div class="activity-card flex flex-col md:flex-row gap-6 p-8 transition-all hover:bg-slate-50">
-                    <div class="flex flex-col items-center gap-2 md:w-24 shrink-0">
-                        <span class="text-[10px] font-black text-blue-600 uppercase tracking-widest">${activity.time}</span>
-                        <div class="icon-box w-12 h-12 rounded-2xl bg-white border border-slate-200 flex items-center justify-center text-blue-600 shadow-sm transition-colors">
-                            ${icons[activity.icon]}
-                        </div>
-                    </div>
-                    <div class="flex-1 space-y-2">
-                        <div class="flex items-center gap-3">
-                            <h3 class="text-xl font-bold text-blue-950">${activity.title}</h3>
-                            ${activity.link ? `<a href="${activity.link}" target="_blank" class="text-blue-500 hover:text-blue-700"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a>` : ''}
-                        </div>
-                        <p class="text-slate-500 leading-relaxed font-medium">${activity.desc}</p>
-                    </div>
-                </div>
-            `).join('');
+        function startConvocatoria() {
+            const splash = document.getElementById('splash-screen');
+            const main = document.getElementById('main-content');
+            
+            splash.style.transform = 'translateY(-100%)';
+            
+            setTimeout(() => {
+                main.classList.remove('hidden');
+                setTimeout(() => {
+                    main.classList.add('opacity-100');
+                    initScrollObserver();
+                }, 50);
+                splash.style.display = 'none';
+            }, 800);
         }
 
-        window.onload = render;
+        function initScrollObserver() {
+            const sections = document.querySelectorAll('section');
+            const observerOptions = { threshold: 0.1 };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                section.classList.add('fade-in-section');
+                observer.observe(section);
+            });
+        }
     </script>
 </body>
 </html>
