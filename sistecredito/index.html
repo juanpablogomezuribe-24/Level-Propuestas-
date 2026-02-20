@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propuesta Polla Mundialista Sistecredito</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .pitch-gradient {
+            background: #166534;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.05) 2px, transparent 2px),
+                linear-gradient(90deg, rgba(255,255,255,0.05) 2px, transparent 2px);
+            background-size: 50px 50px;
+        }
+
+        .ball-animation {
+            transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .reveal-word {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.7s ease-out;
+        }
+
+        .reveal-word.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .modal-backdrop {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 overflow-x-hidden">
+
+    <!-- LANDING VIEW -->
+    <div id="landing-view" class="fixed inset-0 z-[100] bg-[#001a3d] flex flex-col items-center justify-center p-6 transition-opacity duration-700">
+        <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,_rgba(0,69,149,0.3)_0%,_transparent_70%)]"></div>
+        
+        <div class="relative z-10 w-full max-w-5xl flex flex-col items-center">
+            <!-- Título que se revela -->
+            <div id="title-container" class="text-center mb-16 h-32 flex flex-wrap justify-center items-center">
+                <!-- Generado por JS -->
+            </div>
+
+            <!-- Animación del Balón -->
+            <div class="relative w-full h-24 mb-12 flex justify-center items-center">
+                <div id="ball" class="absolute text-7xl ball-animation -left-32">⚽</div>
+            </div>
+
+            <!-- Botón Quiero Jugar -->
+            <button id="start-btn" class="opacity-0 translate-y-20 transition-all duration-1000 group relative flex items-center gap-4 px-16 py-8 bg-[#6cc04a] text-[#004595] rounded-full font-black text-3xl shadow-[0_0_50px_rgba(108,192,74,0.3)] hover:scale-105 active:scale-95">
+                QUIERO JUGAR
+                <i data-lucide="chevron-right" class="w-10 h-10 group-hover:translate-x-2 transition-transform"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN DASHBOARD -->
+    <div id="main-view" class="hidden min-h-screen flex flex-col lg:flex-row opacity-0 transition-opacity duration-700">
+        
+        <!-- Sidebar -->
+        <aside class="w-full lg:w-96 bg-white border-r border-gray-200 p-6 z-20 shadow-xl overflow-y-auto flex flex-col">
+            <div class="mb-10 text-center lg:text-left">
+                <img src="https://i.postimg.cc/43xxXKQp/logo-sistecredito-transparente-(1).png" alt="Logo Sistecredito" class="h-16 mx-auto lg:mx-0 mb-6 object-contain">
+                <h2 class="text-2xl font-black text-[#004595] italic uppercase tracking-tighter">Plan de Ataque 2026</h2>
+                <p class="text-gray-500 text-sm font-medium italic">Selecciona tu alineación ganadora.</p>
+            </div>
+
+            <div id="lineup-buttons" class="space-y-4 flex-1">
+                <!-- Botones inyectados por JS -->
+            </div>
+
+            <!-- Soporte 24/7 -->
+            <div class="mt-12 p-8 bg-[#004595] rounded-[2.5rem] text-white relative overflow-hidden shadow-2xl">
+                <div class="relative z-10 text-center">
+                    <div class="bg-white/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-md">
+                        <i data-lucide="headphones" class="w-8 h-8 text-[#6cc04a]"></i>
+                    </div>
+                    <h5 class="font-black text-[#6cc04a] mb-2 uppercase tracking-tighter text-lg">SOPORTE 24/7</h5>
+                    <p class="text-xs text-blue-100 leading-relaxed font-bold italic">
+                        Asistencia técnica y operativa total para los 200.000 usuarios durante todo el mundial.
+                    </p>
+                </div>
+                <div class="absolute -right-8 -bottom-8 w-32 h-32 bg-white/5 rounded-full blur-2xl"></div>
+            </div>
+        </aside>
+
+        <!-- Pitch Area -->
+        <main class="flex-1 p-4 lg:p-8 flex flex-col gap-6 relative">
+            <div class="flex-1 pitch-gradient rounded-[3.5rem] relative shadow-2xl border-[12px] border-[#14532d] overflow-hidden flex flex-col">
+                
+                <!-- Marcaciones de cancha -->
+                <div class="absolute inset-6 border-2 border-white/10 rounded-[2.8rem] pointer-events-none"></div>
+                <div class="absolute top-1/2 left-0 w-full h-px bg-white/10 pointer-events-none"></div>
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 border-2 border-white/10 rounded-full pointer-events-none"></div>
+
+                <!-- Cabecera Cancha -->
+                <div class="p-10 relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center">
+                    <div class="text-white">
+                        <h3 id="current-name" class="text-4xl font-black italic uppercase tracking-tighter drop-shadow-2xl">Alineación 1</h3>
+                        <p id="current-tagline" class="text-green-200 font-bold tracking-wide uppercase text-xs opacity-80">TAGLINE</p>
+                    </div>
+                    
+                    <div class="mt-6 md:mt-0 flex gap-4 items-center">
+                        <button onclick="toggleModal(true)" class="bg-white text-[#004595] px-8 py-4 rounded-2xl font-black flex items-center gap-3 shadow-2xl hover:bg-[#6cc04a] hover:text-white transition-all transform hover:scale-105">
+                            <i data-lucide="play-circle" class="w-6 h-6"></i> VER DEMOSTRACIÓN
+                        </button>
+                        <div class="bg-black/20 backdrop-blur-md px-8 py-4 rounded-2xl border border-white/10 text-white flex flex-col items-end shadow-xl">
+                            <span class="text-[10px] font-black uppercase block opacity-60 tracking-[0.2em]">Campaña Mundial</span>
+                            <span id="current-price" class="text-3xl font-black tracking-tight">$0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tablero Táctico -->
+                <div id="tactical-field" class="flex-1 relative m-8 lg:m-12">
+                    <!-- Iconos inyectados por JS -->
+                    <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-20">
+                        <path id="tactical-path" d="" stroke="white" stroke-width="4" stroke-dasharray="15,15" fill="none" />
+                    </svg>
+                </div>
+
+                <!-- Features Footer -->
+                <div id="features-container" class="bg-black/60 backdrop-blur-2xl p-8 flex flex-wrap gap-5 justify-center border-t border-white/5">
+                    <!-- Features inyectadas -->
+                </div>
+            </div>
+
+            <!-- Stats Inferiores -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-8 rounded-[2.5rem] shadow-xl border border-gray-100 flex flex-col justify-center">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="font-black text-gray-400 uppercase text-[10px] tracking-[0.2em]">Alcance</span>
+                        <span id="stat-reach" class="font-black text-[#004595] text-xl">0%</span>
+                    </div>
+                    <div class="w-full bg-gray-100 h-4 rounded-full overflow-hidden p-1">
+                        <div id="reach-bar" class="h-full bg-[#004595] rounded-full transition-all duration-1000" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-[2.5rem] shadow-xl border border-gray-100 flex flex-col justify-center">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="font-black text-gray-400 uppercase text-[10px] tracking-[0.2em]">Infraestructura</span>
+                        <span class="font-black text-[#6cc04a] text-xl uppercase italic">200k Usuarios</span>
+                    </div>
+                    <div class="w-full bg-gray-100 h-4 rounded-full overflow-hidden p-1">
+                        <div class="h-full bg-gradient-to-r from-[#6cc04a] to-green-300 rounded-full w-full"></div>
+                    </div>
+                </div>
+                <div class="bg-[#004595] p-8 rounded-[2.5rem] shadow-2xl text-white group cursor-pointer overflow-hidden relative flex flex-col justify-center">
+                    <div class="relative z-10 flex justify-between items-center">
+                        <div>
+                            <p class="text-[10px] font-black text-blue-200 uppercase tracking-[0.2em] mb-2">Mensajes Marketing</p>
+                            <p class="text-4xl font-black italic">$80 <span class="text-xs font-normal opacity-60 not-italic tracking-normal">COP / MSG</span></p>
+                        </div>
+                        <div class="p-4 bg-white/10 rounded-3xl group-hover:bg-[#6cc04a] group-hover:rotate-12 transition-all duration-500 shadow-xl">
+                            <i data-lucide="trending-up" class="w-8 h-8"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODAL DEMO -->
+    <div id="demo-modal" class="fixed inset-0 z-[200] hidden modal-backdrop flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-6xl rounded-[4rem] overflow-hidden shadow-2xl flex flex-col max-h-[92vh] animate-in slide-in-from-bottom duration-300">
+            <div class="p-8 md:p-12 flex justify-between items-center border-b border-gray-100 bg-gray-50/50">
+                <div>
+                    <img src="https://i.postimg.cc/43xxXKQp/logo-sistecredito-transparente-(1).png" alt="Logo" class="h-12 mb-2 object-contain">
+                    <h4 class="text-3xl font-black text-[#004595] italic uppercase tracking-tighter">Vista Previa Real</h4>
+                    <p class="text-gray-500 font-medium italic">Soporte operativo para 200.000 usuarios.</p>
+                </div>
+                <button onclick="toggleModal(false)" class="p-4 hover:bg-gray-200 rounded-full transition-all text-gray-400 hover:text-gray-800">
+                    <i data-lucide="x" class="w-10 h-10"></i>
+                </button>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto p-8 md:p-16">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div id="modal-images" class="space-y-8 flex flex-col sm:flex-row gap-6">
+                        <!-- Imagenes inyectadas -->
+                    </div>
+                    
+                    <div class="bg-[#f8fafc] p-10 md:p-14 rounded-[3.5rem] border border-gray-200 shadow-inner">
+                        <div class="w-20 h-20 bg-green-100 rounded-3xl flex items-center justify-center mb-8">
+                            <i data-lucide="headphones" class="w-10 h-10 text-[#004595]"></i>
+                        </div>
+                        <h5 class="text-3xl font-black text-[#004595] mb-6 italic uppercase tracking-tighter">Garantía Operativa</h5>
+                        <p id="modal-description" class="text-gray-600 text-lg leading-relaxed mb-10 italic font-medium"></p>
+                        
+                        <div id="modal-features" class="space-y-5 mb-12">
+                            <!-- Lista de features -->
+                        </div>
+
+                        <a id="demo-link" href="#" target="_blank" class="hidden w-full bg-[#004595] text-white py-6 rounded-3xl font-black flex items-center justify-center gap-4 shadow-2xl hover:bg-[#6cc04a] transition-all transform hover:scale-105 text-xl tracking-tighter italic">
+                            PROBAR DEMO EN VIVO <i data-lucide="external-link" class="w-6 h-6"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DATA
+        const lineups = [
+            {
+                id: 1,
+                name: "Alineación 1: Solo Web",
+                tagline: "Control Total y Estética Premium",
+                price: "$24.000.000",
+                link: "https://www.pollaremakia.com",
+                images: [
+                    "https://i.postimg.cc/SQ5tmwkK/Whats-App-Image-2026-02-19-at-7-28-26-PM.jpg",
+                    "https://i.postimg.cc/PxJ2jM75/Whats-App-Image-2026-02-19-at-7-29-19-PM.jpg"
+                ],
+                description: "Plataforma web de alto rendimiento. Experiencia visual inmersiva para los 200.000 usuarios de Sistecredito.",
+                stats: { alcance: "85%", velocidad: "95%" },
+                features: ["Customización total de marca", "Panel admin avanzado", "Soporte técnico 24/7", "Capacidad (200k)"],
+                tactics: [
+                    { top: '20%', left: '50%', label: 'Cloud Servers', icon: 'globe' },
+                    { top: '50%', left: '20%', label: 'UX/UI Custom', icon: 'layout' },
+                    { top: '50%', left: '80%', label: 'Data Analysis', icon: 'bar-chart' },
+                    { top: '80%', left: '50%', label: 'Dominio Propio', icon: 'zap' }
+                ],
+                path: "M 50% 20% L 20% 50% M 50% 20% L 80% 50% M 20% 50% L 50% 80% M 80% 50% L 50% 80%"
+            },
+            {
+                id: 2,
+                name: "Alineación 2: Solo WhatsApp",
+                tagline: "Conexión Directa e Innovación",
+                price: "$18.000.000",
+                images: [
+                    "https://i.postimg.cc/XqMHkC2y/Whats-App-Image-2026-02-19-at-7-32-01-PM.jpg",
+                    "https://i.postimg.cc/Px0cVcqn/Whats-App-Image-2026-02-19-at-5-45-41-PM-(1).jpg"
+                ],
+                description: "Interacción directa vía WhatsApp. Ideal para máxima conversión y cercanía mediante flujos automatizados.",
+                stats: { alcance: "98%", velocidad: "90%" },
+                features: ["Partner Oficial de Meta", "Soporte operativo 24/7", "Carga de facturas", "$80 COP por mensaje"],
+                tactics: [
+                    { top: '20%', left: '50%', label: 'Meta API', icon: 'message-circle' },
+                    { top: '45%', left: '20%', label: 'Chatbot AI', icon: 'cpu' },
+                    { top: '45%', left: '80%', label: 'Notificaciones', icon: 'bell' },
+                    { top: '80%', left: '50%', label: 'Soporte 24/7', icon: 'headphones' }
+                ],
+                path: "M 50% 20% L 20% 45% M 50% 20% L 80% 45% M 20% 45% L 50% 80% M 80% 45% L 50% 80%"
+            },
+            {
+                id: 3,
+                name: "Alineación 3: Web + WhatsApp",
+                tagline: "El Equipo Campeón (Omnicanal)",
+                price: "$36.000.000",
+                isPopular: true,
+                link: "https://www.pollaremakia.com",
+                images: [
+                    "https://i.postimg.cc/SQ5tmwkK/Whats-App-Image-2026-02-19-at-7-28-26-PM.jpg",
+                    "https://i.postimg.cc/XqMHkC2y/Whats-App-Image-2026-02-19-at-7-32-01-PM.jpg"
+                ],
+                description: "La potencia de la web con la inmediatez de WhatsApp. Sincronización total para una campaña sin precedentes.",
+                stats: { alcance: "100%", velocidad: "98%" },
+                features: ["Sincronización real", "Ahorro de $6M", "Soporte 24/7 total", "Reportes unificados"],
+                tactics: [
+                    { top: '15%', left: '50%', label: 'Omnicanalidad', icon: 'zap' },
+                    { top: '40%', left: '30%', label: 'Web Platform', icon: 'globe' },
+                    { top: '40%', left: '70%', label: 'WhatsApp Flow', icon: 'message-square' },
+                    { top: '65%', left: '50%', label: 'Sync Database', icon: 'database' },
+                    { top: '85%', left: '50%', label: 'Éxito Mundial', icon: 'trophy' }
+                ],
+                path: "M 50% 15% L 30% 40% M 50% 15% L 70% 40% M 30% 40% L 50% 65% M 70% 40% L 50% 65% M 50% 65% L 50% 85%"
+            }
+        ];
+
+        let activeIdx = 0;
+
+        // ANIMATION INITIAL
+        window.onload = () => {
+            const titleContainer = document.getElementById('title-container');
+            const words = ["CONOCE", "LA", "MEJOR", "POLLA", "MUNDIALISTA", "DE", "SISTECREDITO"];
+            
+            words.forEach((word, i) => {
+                const span = document.createElement('span');
+                span.innerText = word;
+                span.className = 'reveal-word text-3xl md:text-6xl font-black text-white italic uppercase mr-4 tracking-tighter';
+                if (word === "SISTECREDITO") span.style.color = "#6cc04a";
+                titleContainer.appendChild(span);
+                
+                setTimeout(() => span.classList.add('visible'), 500 + (i * 150));
+            });
+
+            const ball = document.getElementById('ball');
+            setTimeout(() => {
+                ball.style.left = '45%';
+            }, 500);
+
+            setTimeout(() => {
+                ball.style.transform = 'translateY(-48px) rotate(1080deg) scale(0.8)';
+                document.getElementById('start-btn').classList.remove('opacity-0', 'translate-y-20');
+            }, 2500);
+
+            lucide.createIcons();
+            renderSidebar();
+            updateDashboard();
+        };
+
+        // NAVIGATION
+        document.getElementById('start-btn').onclick = () => {
+            document.getElementById('landing-view').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('landing-view').classList.add('hidden');
+                document.getElementById('main-view').classList.remove('hidden');
+                setTimeout(() => document.getElementById('main-view').style.opacity = '1', 50);
+            }, 700);
+        };
+
+        function renderSidebar() {
+            const container = document.getElementById('lineup-buttons');
+            container.innerHTML = '';
+            lineups.forEach((l, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `w-full text-left p-6 rounded-3xl transition-all border-2 relative overflow-hidden group ${
+                    activeIdx === idx 
+                    ? 'border-[#004595] bg-[#004595] text-white shadow-2xl translate-x-2' 
+                    : 'border-gray-100 bg-gray-50 text-gray-700 hover:border-gray-300'
+                }`;
+                
+                btn.onclick = () => {
+                    activeIdx = idx;
+                    renderSidebar();
+                    updateDashboard();
+                };
+
+                btn.innerHTML = `
+                    <div class="relative z-10">
+                        <div class="flex justify-between items-center mb-1">
+                           <span class="text-[10px] font-bold uppercase tracking-widest opacity-60">Opción ${l.id}</span>
+                           ${l.isPopular ? '<span class="bg-[#6cc04a] text-[#004595] px-3 py-1 rounded-full text-[10px] font-black uppercase">OMNICHANNEL</span>' : ''}
+                        </div>
+                        <h4 class="font-black text-xl">${l.name}</h4>
+                        <p class="text-sm font-bold ${activeIdx === idx ? 'text-green-300' : 'text-gray-400'}">${l.price}</p>
+                    </div>
+                `;
+                container.appendChild(btn);
+            });
+        }
+
+        function updateDashboard() {
+            const current = lineups[activeIdx];
+            document.getElementById('current-name').innerText = current.name;
+            document.getElementById('current-tagline').innerText = current.tagline;
+            document.getElementById('current-price').innerText = current.price;
+            
+            // Stats
+            document.getElementById('stat-reach').innerText = current.stats.alcance;
+            document.getElementById('reach-bar').style.width = current.stats.alcance;
+
+            // Tactics
+            const field = document.getElementById('tactical-field');
+            const svgPath = document.getElementById('tactical-path');
+            
+            // Limpiar iconos anteriores (excepto el SVG)
+            Array.from(field.children).forEach(child => {
+                if (child.tagName !== 'svg') child.remove();
+            });
+
+            svgPath.setAttribute('d', current.path);
+
+            current.tactics.forEach((t, i) => {
+                const dot = document.createElement('div');
+                dot.className = 'absolute flex flex-col items-center animate-float';
+                dot.style.top = t.top;
+                dot.style.left = t.left;
+                dot.style.animationDelay = `${i * 0.2}s`;
+                
+                dot.innerHTML = `
+                    <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-2xl group cursor-help transition-transform hover:scale-125 border-4 border-[#004595]">
+                       <i data-lucide="${t.icon}" class="w-6 h-6 text-[#004595]"></i>
+                       <div class="absolute bottom-16 bg-[#004595] text-white px-4 py-2 rounded-xl text-[10px] font-black whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all shadow-2xl uppercase">
+                          ${t.label}
+                       </div>
+                    </div>
+                `;
+                field.appendChild(dot);
+            });
+
+            // Features
+            const featContainer = document.getElementById('features-container');
+            featContainer.innerHTML = '';
+            current.features.forEach(f => {
+                const div = document.createElement('div');
+                div.className = 'flex items-center gap-3 text-white/90 text-[10px] font-black bg-white/5 px-5 py-2.5 rounded-2xl border border-white/10 uppercase tracking-widest shadow-lg';
+                div.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4 text-[#6cc04a]"></i> ${f}`;
+                featContainer.appendChild(div);
+            });
+
+            lucide.createIcons();
+        }
+
+        function toggleModal(show) {
+            const modal = document.getElementById('demo-modal');
+            const current = lineups[activeIdx];
+            
+            if (show) {
+                // Inyectar contenido
+                document.getElementById('modal-description').innerText = current.description;
+                
+                const imgContainer = document.getElementById('modal-images');
+                imgContainer.innerHTML = '';
+                current.images.forEach((img, i) => {
+                    const div = document.createElement('div');
+                    div.className = `relative group rounded-[2.5rem] overflow-hidden border-8 border-gray-50 shadow-2xl transform transition-all hover:scale-105 ${i%2===0?'hover:-rotate-1':'hover:rotate-1'}`;
+                    div.innerHTML = `<img src="${img}" alt="Ref" class="w-full h-auto">`;
+                    imgContainer.appendChild(div);
+                });
+
+                const featList = document.getElementById('modal-features');
+                featList.innerHTML = '';
+                current.features.forEach(f => {
+                    const div = document.createElement('div');
+                    div.className = 'flex items-center gap-4 font-bold text-gray-700 text-sm';
+                    div.innerHTML = `<div class="w-8 h-8 bg-[#6cc04a]/10 rounded-full flex items-center justify-center"><i data-lucide="check-circle" class="w-5 h-5 text-[#6cc04a]"></i></div> ${f.toUpperCase()}`;
+                    featList.appendChild(div);
+                });
+
+                const linkBtn = document.getElementById('demo-link');
+                if (current.link) {
+                    linkBtn.href = current.link;
+                    linkBtn.classList.remove('hidden');
+                } else {
+                    linkBtn.classList.add('hidden');
+                }
+
+                modal.classList.remove('hidden');
+                lucide.createIcons();
+            } else {
+                modal.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
