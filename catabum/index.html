@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Framework Estratégico Catabum | Level Colombia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0b0f1a;
+            color: #ffffff;
+            scroll-behavior: smooth;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tab-btn {
+            position: relative;
+            transition: all 0.3s ease;
+            opacity: 0.6;
+        }
+
+        .tab-btn.active {
+            color: #ff0080;
+            opacity: 1;
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #ff0080, #7928ca);
+            border-radius: 10px;
+        }
+
+        .scqa-step {
+            border-left: 2px solid rgba(255, 255, 255, 0.1);
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .scqa-step::before {
+            content: '';
+            position: absolute;
+            left: -9px;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #ff0080;
+        }
+
+        .bg-gradient-fede {
+            background: linear-gradient(135deg, #ff0080 0%, #7928ca 100%);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #ff0080;
+            border-radius: 10px;
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #ff0080 0%, #7928ca 100%);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <!-- Encabezado Principal -->
+    <header class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
+        <div>
+            <h1 class="text-3xl font-black italic tracking-tighter uppercase text-white">Level <span class="text-pink-500">Colombia</span></h1>
+            <p class="text-slate-400 text-[10px] font-bold uppercase tracking-[0.3em] mt-1 italic">Aliado Estratégico & Consultoría de Negocio</p>
+        </div>
+        <div class="flex items-center space-x-4 bg-white/5 px-6 py-3 rounded-2xl border border-white/10">
+            <div class="text-right">
+                <p class="text-[10px] text-slate-500 uppercase font-bold italic">Meta Lanzamiento</p>
+                <p class="text-xl font-black text-pink-500 uppercase">19 DE MARZO</p>
+            </div>
+            <div class="h-10 w-px bg-white/10"></div>
+            <div class="text-indigo-400 text-2xl"><i class="fas fa-calendar-check"></i></div>
+        </div>
+    </header>
+
+    <!-- Navegación de Pestañas -->
+    <nav class="max-w-7xl mx-auto mb-12 flex flex-wrap gap-8 border-b border-white/5 pb-2">
+        <button onclick="switchTab('negociacion')" class="tab-btn active text-xs font-black uppercase tracking-widest" id="btn-negociacion">0. Negociación</button>
+        <button onclick="switchTab('scqa')" class="tab-btn text-xs font-black uppercase tracking-widest" id="btn-scqa">1. Análisis SCQA</button>
+        <button onclick="switchTab('marketing')" class="tab-btn text-xs font-black uppercase tracking-widest" id="btn-marketing">2. Estrategia MKT</button>
+        <button onclick="switchTab('operacion')" class="tab-btn text-xs font-black uppercase tracking-widest" id="btn-operacion">3. Calendario Operativo</button>
+        <button onclick="switchTab('preview')" class="tab-btn text-xs font-black uppercase tracking-widest text-pink-500" id="btn-preview">4. Preview Federico</button>
+    </nav>
+
+    <main class="max-w-7xl mx-auto">
+
+        <!-- PESTAÑA 0: NEGOCIACIÓN -->
+        <div id="tab-negociacion" class="tab-content grid lg:grid-cols-12 gap-10">
+            <div class="lg:col-span-7 space-y-8">
+                <h2 class="text-5xl font-black italic uppercase leading-none tracking-tighter">Propuesta <br><span class="text-indigo-500">Comercial</span></h2>
+                
+                <div class="glass-card p-10 rounded-[40px] border-indigo-500/20 bg-indigo-600/5 shadow-2xl">
+                    <div class="flex items-center justify-between mb-8">
+                        <span class="bg-indigo-600 text-white px-4 py-1 rounded-full text-[10px] font-black uppercase italic tracking-widest">Fee Mensual</span>
+                        <div class="text-right">
+                            <p class="text-5xl font-black text-white">$5'000.000</p>
+                            <p class="text-[10px] text-slate-500 uppercase font-bold italic">COP / Mes</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-sm uppercase text-indigo-400 border-b border-white/5 pb-2 italic">Alcance de la Consultoría</h4>
+                        <ul class="space-y-4 text-sm text-slate-300">
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span><strong>Dirección de Marketing:</strong> Asesoría en toda la estrategia de atracción y conversión de audiencias.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span><strong>Modelo de Negocio:</strong> Revisión y optimización de las mejores soluciones operativas.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span><strong>Análisis Tech & Operativo:</strong> Búsqueda de las mejores soluciones tecnológicas para no depender de desarrollos lentos.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:col-span-5 flex items-center justify-center">
+                <div class="text-center p-10 glass-card rounded-[40px] border-white/5">
+                    <i class="fas fa-chart-line text-7xl text-pink-500 mb-6"></i>
+                    <h3 class="text-2xl font-black uppercase italic mb-2">Enfoque a Resultados</h3>
+                    <p class="text-slate-400 text-sm italic">Nuestro objetivo es que la tecnología deje de ser el freno y se convierta en el motor de la caja.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- PESTAÑA 1: SCQA -->
+        <div id="tab-scqa" class="tab-content hidden grid lg:grid-cols-12 gap-10">
+            <div class="lg:col-span-8 space-y-12">
+                <h2 class="text-5xl font-black italic uppercase leading-none tracking-tighter">Diagnóstico <br><span class="text-pink-500">Estratégico</span></h2>
+                
+                <div class="space-y-10">
+                    <div class="scqa-step">
+                        <span class="text-pink-500 font-bold text-xs uppercase tracking-widest">S: Situación Actual</span>
+                        <h3 class="text-xl font-bold mt-1 text-white italic">Activos Listos, Caja Frenada</h3>
+                        <p class="text-slate-400 mt-2 text-sm leading-relaxed italic">
+                            Catabum sigue en fase técnica lenta (Billetera). Los <strong>socios exigen resultados hoy</strong>. El plan de MKT está listo, pero la tracción comercial es nula.
+                        </p>
+                    </div>
+
+                    <div class="scqa-step" style="border-left-color: #ef4444;">
+                        <div class="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-red-500"></div>
+                        <span class="text-red-500 font-bold text-xs uppercase tracking-widest">C: Complicaciones Críticas</span>
+                        <div class="grid gap-4 mt-4">
+                            <div class="bg-red-500/10 p-5 rounded-2xl border border-red-500/30">
+                                <p class="text-red-400 font-bold text-xs uppercase tracking-widest mb-1 italic">1. Fuga de Talento (Crítico)</p>
+                                <p class="text-white text-sm font-bold">En este momento perdimos a Federico. El influencer se retiró por las demoras.</p>
+                                <p class="text-slate-400 text-xs mt-2 italic font-bold">Urge recuperarlo demostrando que Catabum ya tiene la operación 100% lista para salir.</p>
+                            </div>
+                            <div class="bg-white/5 p-4 rounded-2xl border border-red-500/20 text-xs italic">
+                                <p class="text-red-400 font-bold uppercase mb-1">2. Tecnología Estancada</p>
+                                <p class="text-slate-400">Billetera al 30% bloqueando la facturación total.</p>
+                            </div>
+                            <div class="bg-white/5 p-4 rounded-2xl border border-red-500/20 text-xs italic">
+                                <p class="text-red-400 font-bold uppercase mb-1">3. Freno Fiscal</p>
+                                <p class="text-slate-400">El modelo actual quema el 19% de margen en IVA.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="scqa-step" style="border-left-color: #22c55e;">
+                        <div class="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-green-500"></div>
+                        <span class="text-green-500 font-bold text-xs uppercase tracking-widest">A: Respuesta</span>
+                        <h3 class="text-xl font-bold mt-1 text-white italic">Plan de Recuperación</h3>
+                        <p class="text-slate-400 mt-2 text-sm leading-relaxed font-bold italic italic">
+                            Salida inmediata: Buscar comunidades existentes y presentar un modelo de negocio con operatividad real. Recuperar a Federico demostrando capacidad de lanzamiento inmediato.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:col-span-4">
+                <div class="glass-card p-8 rounded-[40px] border-white/5 sticky top-8">
+                    <h4 class="font-black uppercase text-xs text-slate-500 mb-6 italic">Monitor de Riesgo</h4>
+                    <div class="space-y-4 text-xs">
+                        <div class="p-4 bg-red-600 rounded-xl flex justify-between items-center shadow-lg">
+                            <span class="font-black italic">FEDERICO</span>
+                            <span class="font-black">PERDIDO</span>
+                        </div>
+                        <div class="p-4 bg-white/5 rounded-xl flex justify-between items-center border border-white/10">
+                            <span>Socio Inquieto</span>
+                            <span class="text-orange-500 font-black italic">NIVEL 10</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PESTAÑA 2: ESTRATEGIA MKT (Actualizada con los 4 pasos) -->
+        <div id="tab-marketing" class="tab-content hidden space-y-12">
+            <div class="max-w-4xl">
+                <h2 class="text-5xl font-black italic uppercase leading-none tracking-tighter mb-4 italic">Estrategia de <br><span class="text-pink-500">Activación</span></h2>
+                <p class="text-slate-400 text-lg">Hoja de ruta para validar la caja en tiempo récord.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- PASO 1 -->
+                <div class="glass-card p-6 rounded-[32px] border-white/5 relative flex flex-col h-full">
+                    <div class="text-pink-500 text-2xl mb-4 font-black">01</div>
+                    <h3 class="font-black italic uppercase text-sm mb-3 text-white">Comunidades Reales</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed italic">
+                        Ir directamente por comunidades ya existentes y segmentadas. No buscamos "tráfico frío", buscamos fans leales.
+                    </p>
+                </div>
+                <!-- PASO 2 -->
+                <div class="glass-card p-6 rounded-[32px] border-white/5 relative flex flex-col h-full">
+                    <div class="text-pink-500 text-2xl mb-4 font-black">02</div>
+                    <h3 class="font-black italic uppercase text-sm mb-3 text-white">Experiencia de Autor</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed italic">
+                        Personalizar el ambiente del juego con la estética y el "vibe" del creador. Que el fan sienta que está en la sala de su ídolo.
+                    </p>
+                </div>
+                <!-- PASO 3 -->
+                <div class="glass-card p-6 rounded-[32px] border-white/5 relative flex flex-col h-full">
+                    <div class="text-pink-500 text-2xl mb-4 font-black">03</div>
+                    <h3 class="font-black italic uppercase text-sm mb-3 text-white">Marca de Respaldo</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed italic">
+                        Posicionar a Catabum en la parte inferior como el motor tecnológico. Capturamos la data del fan para monetizarla después.
+                    </p>
+                </div>
+                <!-- PASO 4 -->
+                <div class="glass-card p-6 rounded-[32px] border-indigo-500/30 bg-indigo-600/5 relative flex flex-col h-full">
+                    <div class="text-indigo-400 text-2xl mb-4 font-black">04</div>
+                    <h3 class="font-black italic uppercase text-sm mb-3 text-indigo-400">Validación de Caja</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed italic">
+                        Cero dependencias: Sin billeteras, sin contenido de redes complejo. <strong>3 influencers en 3 meses</strong> para validar si la gente paga.
+                    </p>
+                </div>
+            </div>
+
+            <!-- KPIs Federico Example -->
+            <div class="bg-white/5 p-8 rounded-[40px] border border-white/10 mt-12 grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h4 class="text-2xl font-black italic uppercase mb-4 italic">Caso Federico: Proyección KPI</h4>
+                    <p class="text-slate-400 text-sm italic mb-6">De su comunidad de 900.000 seguidores en TikTok:</p>
+                    <div class="space-y-3">
+                        <div class="flex justify-between text-xs border-b border-white/5 pb-2"><span>Registros Base de Datos (1%)</span><span class="font-black text-pink-500">9.000</span></div>
+                        <div class="flex justify-between text-xs border-b border-white/5 pb-2"><span>Transacciones Reales (10% de Reg)</span><span class="font-black text-green-400">900</span></div>
+                        <div class="flex justify-between text-xs font-black text-white pt-2 uppercase italic"><span>Caja Bruta Estimada</span><span>$18.000.000</span></div>
+                    </div>
+                </div>
+                <div class="text-center italic">
+                    <div class="p-6 glass-card rounded-3xl border-indigo-500/20">
+                        <p class="text-indigo-400 font-black text-4xl mb-2">3 x 3</p>
+                        <p class="text-xs text-slate-400 font-bold uppercase tracking-widest">3 Influencers en 3 Meses</p>
+                        <p class="text-[10px] text-slate-500 mt-2">Construir el Puente Transaccional definitivo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PESTAÑA 3: CALENDARIO OPERATIVO -->
+        <div id="tab-operacion" class="tab-content hidden space-y-12">
+            <h2 class="text-5xl font-black italic uppercase leading-none tracking-tighter mb-4 italic">Calendario <br><span class="text-green-500">Operativo</span></h2>
+
+            <div class="grid lg:grid-cols-2 gap-10">
+                <div class="space-y-6">
+                    <!-- PASO 1 -->
+                    <div class="glass-card p-6 rounded-3xl border-white/5 relative overflow-hidden italic">
+                        <div class="flex items-start gap-4">
+                            <div class="step-number shrink-0">1</div>
+                            <div>
+                                <h3 class="text-lg font-bold uppercase italic">Scouting de 10</h3>
+                                <p class="text-slate-400 text-xs mt-1 italic">Hacer el listado de mínimo 10 influenciadores con comunidades potentes para asegurar el volumen.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- PASO 2 -->
+                    <div class="glass-card p-6 rounded-3xl border-indigo-500/20 bg-indigo-600/5 italic">
+                        <div class="flex items-start gap-4">
+                            <div class="step-number shrink-0">2</div>
+                            <div class="w-full">
+                                <h3 class="text-lg font-bold uppercase italic italic italic">Solucionar Producto</h3>
+                                <div class="mt-4 space-y-3">
+                                    <div class="p-3 bg-white/5 rounded-xl border border-white/10">
+                                        <p class="text-[10px] font-bold text-indigo-400 uppercase italic">2.1 Integración de Pago</p>
+                                        <p class="text-[9px] text-white font-black italic mt-1 uppercase">RECOMENDACIÓN: ¡SIN BILLETERA! Conexión directa.</p>
+                                    </div>
+                                    <div class="p-3 bg-white/5 rounded-xl border border-white/10">
+                                        <p class="text-[10px] font-bold text-indigo-400 uppercase italic">2.2 Personalización de Web</p>
+                                        <p class="text-[9px] text-slate-400 mt-1 italic">Adaptación basada en influencer, **preservando colores y logo de Catabum** siempre.</p>
+                                    </div>
+                                    <div class="p-3 bg-white/5 rounded-xl border border-white/10">
+                                        <p class="text-[10px] font-bold text-indigo-400 uppercase italic text-center">2.3 Perfección UX/UI</p>
+                                        <p class="text-[8px] text-center text-slate-500 italic mt-1">Landing impecable para maximizar conversión.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- PASO 3 -->
+                    <div class="glass-card p-6 rounded-3xl border-pink-500/30 bg-pink-600/5 italic">
+                        <div class="flex items-start gap-4 text-pink-500">
+                            <div class="step-number shrink-0 text-white font-black">3</div>
+                            <div>
+                                <h3 class="text-lg font-bold uppercase italic italic">Hito: Jueves 19 de Marzo</h3>
+                                <p class="text-slate-400 text-xs mt-1 italic">Evento Semilla: Cupón 100% Gratis para capturar base de datos obligando al registro.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- PASO 4 -->
+                    <div class="glass-card p-6 rounded-3xl border-white/5 italic">
+                        <div class="flex items-start gap-4">
+                            <div class="step-number shrink-0">4</div>
+                            <div class="w-full">
+                                <h3 class="text-lg font-bold uppercase italic italic">Atención al Cliente</h3>
+                                <div class="grid grid-cols-2 gap-3 mt-4 italic italic">
+                                    <div class="p-3 bg-green-500/10 rounded-xl border border-green-500/20 text-center">
+                                        <i class="fab fa-whatsapp text-green-500 mb-2"></i>
+                                        <p class="text-[8px] font-bold uppercase italic italic italic">WhatsApp PQRS</p>
+                                    </div>
+                                    <div class="p-3 bg-blue-500/10 rounded-xl border border-blue-500/20 text-center">
+                                        <i class="fas fa-envelope text-blue-500 mb-2"></i>
+                                        <p class="text-[8px] font-bold uppercase italic italic italic">Correo PQRS</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- PASO 5 -->
+                    <div class="glass-card p-6 rounded-3xl border-white/5 italic">
+                        <div class="flex items-start gap-4">
+                            <div class="step-number shrink-0 font-black">5</div>
+                            <div>
+                                <h3 class="text-lg font-bold uppercase italic italic">Evaluación KPIs</h3>
+                                <p class="text-slate-400 text-xs mt-1 italic italic italic">Medición de transacciones y calidad de data.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="w-full bg-white text-black py-5 rounded-[25px] font-black uppercase text-xl italic shadow-2xl hover:bg-green-500 hover:text-white transition">
+                        ¡DEMOSTRAR OPERACIÓN LISTA!
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PESTAÑA 4: PREVIEW FEDERICO -->
+        <div id="tab-preview" class="tab-content hidden max-w-5xl mx-auto">
+            <div class="rounded-[60px] overflow-hidden shadow-[0_50px_100px_rgba(0,0,0,0.5)] border-8 border-white/5 bg-[#0f021b] h-[750px] overflow-y-auto custom-scrollbar relative">
+                
+                <!-- PANTALLA 1: LANDING HOME -->
+                <div id="preview-home">
+                    <nav class="p-8 flex justify-between items-center">
+                        <div class="flex items-center space-x-2">
+                            <div class="h-6 w-6 bg-pink-600 rounded flex items-center justify-center text-white font-black text-[8px]">C</div>
+                            <div class="text-xl font-black italic text-white tracking-tighter">CATABUM</div>
+                        </div>
+                        <div class="hidden md:flex space-x-6 text-[10px] font-black uppercase tracking-widest text-gray-400 italic">
+                            <span>Packs Culturales</span>
+                            <span>Premios</span>
+                            <span>Info Fiscal</span>
+                        </div>
+                        <button class="bg-pink-600 px-6 py-2 rounded-full font-bold text-xs uppercase italic italic">Entrar</button>
+                    </nav>
+                    
+                    <div class="py-12 px-10 flex flex-col md:flex-row items-center gap-12 text-center md:text-left">
+                        <div class="md:w-1/2">
+                            <span class="bg-yellow-400 text-black px-3 py-1 font-black text-[10px] uppercase mb-4 inline-block rounded italic italic">¡Evento Exclusivo!</span>
+                            <h2 class="text-6xl font-black italic uppercase leading-none tracking-tighter italic">¿QUÉ TAN <br> <span class="text-transparent bg-clip-text bg-gradient-fede italic italic italic">GOMELA</span> ERES?</h2>
+                            <p class="text-gray-400 text-sm my-8 leading-relaxed italic italic italic">Federico Montoya te reta a la trivia más intensa de Catabum. Adquiere tu pack cultural y demuestra que sabes más que una "Pupi".</p>
+                            <div class="flex gap-4 justify-center md:justify-start">
+                                <button onclick="togglePreviewScreen()" class="bg-gradient-fede px-8 py-4 rounded-2xl font-black text-sm uppercase italic shadow-lg shadow-pink-500/20">Jugar Ahora</button>
+                                <button class="bg-white/5 px-8 py-4 rounded-2xl font-black text-sm uppercase border border-white/10 italic">Ver Premios</button>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2 relative">
+                            <img src="https://i.postimg.cc/7hPrvrVm/Whats-App-Image-2026-02-25-at-10-07-01-AM.jpg" class="w-80 mx-auto rounded-[40px] shadow-2xl border-4 border-white/5 grayscale">
+                            <div class="absolute bottom-6 left-1/2 -translate-x-1/2 text-yellow-400 font-bold italic text-sm text-center w-full">"¿O sea, te lo juro?"</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANTALLA 2: LOBBY / SALA -->
+                <div id="preview-lobby" class="hidden">
+                    <div class="p-8 text-white">
+                        <button onclick="togglePreviewScreen()" class="bg-white/5 p-3 rounded-xl mb-8 text-xs font-bold uppercase italic"><i class="fas fa-arrow-left mr-2"></i> Volver</button>
+                        <h2 class="text-4xl font-black uppercase italic mb-8 tracking-tighter italic">Sala de <span class="text-pink-500">FedeXx</span></h2>
+                        
+                        <div class="grid md:grid-cols-3 gap-8">
+                            <div class="md:col-span-2 space-y-6">
+                                <div class="relative h-64 rounded-[40px] overflow-hidden shadow-2xl border border-white/10">
+                                    <img src="https://i.postimg.cc/KjbBxJ3X/Whats-App-Image-2026-02-25-at-10-13-32-AM.jpg" class="w-full h-full object-cover opacity-60">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-[#0f021b] to-transparent"></div>
+                                    <div class="absolute bottom-8 left-8">
+                                        <span class="bg-pink-600 text-white text-[9px] font-black px-2 py-1 rounded mb-2 inline-block">MISIÓN ESPECIAL</span>
+                                        <h3 class="text-4xl font-black italic uppercase tracking-tighter">CATABUM <br><span class="text-pink-500 italic">BATTLE ARENA</span></h3>
+                                        <p class="text-yellow-400 text-xs font-bold uppercase mt-2 italic italic">¿ERES UNA PUPI O TE COPIAS?</p>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-3 gap-4">
+                                    <div class="bg-white/5 p-4 rounded-2xl border border-white/10 text-center">
+                                        <p class="text-[9px] font-bold text-gray-500 uppercase italic">Nivel</p>
+                                        <p class="text-xs font-black uppercase italic">Gomela Pro</p>
+                                    </div>
+                                    <div class="bg-white/5 p-4 rounded-2xl border border-white/10 text-center">
+                                        <p class="text-[9px] font-bold text-gray-500 uppercase italic">Temática</p>
+                                        <p class="text-xs font-black uppercase italic">Ñera Style</p>
+                                    </div>
+                                    <div class="bg-white/5 p-4 rounded-2xl border border-white/10 text-center">
+                                        <p class="text-[9px] font-bold text-gray-500 uppercase italic">Rondas</p>
+                                        <p class="text-xs font-black uppercase italic">15 Preguntas</p>
+                                    </div>
+                                </div>
+                                <button class="w-full bg-pink-600 py-6 rounded-3xl font-black text-2xl uppercase italic italic shadow-xl shadow-pink-500/20">¡COMENZAR BATALLA!</button>
+                            </div>
+                            <div class="glass-card p-6 rounded-[32px] border-white/5">
+                                <h4 class="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-6 italic italic">RANKING TOP 10</h4>
+                                <div class="flex items-center justify-between p-3 bg-pink-600/10 rounded-xl border border-pink-500/20">
+                                    <div class="flex items-center space-x-3">
+                                        <span class="font-black italic text-pink-500">01</span>
+                                        <span class="text-xs font-bold italic">Majo_Pupi</span>
+                                    </div>
+                                    <span class="text-[10px] font-black text-yellow-500 italic italic">1,450 pt</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-8 border-t border-white/5 text-center mt-10">
+                    <div class="flex justify-center items-center space-x-6 opacity-30 grayscale italic">
+                        <span class="font-black italic tracking-tighter text-white">CATABUM</span>
+                        <span class="font-black italic tracking-tighter text-pink-500">FEDEXX</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            document.getElementById('btn-' + tabId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function togglePreviewScreen() {
+            const home = document.getElementById('preview-home');
+            const lobby = document.getElementById('preview-lobby');
+            if(home.classList.contains('hidden')) {
+                home.classList.remove('hidden');
+                lobby.classList.add('hidden');
+            } else {
+                home.classList.add('hidden');
+                lobby.classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
