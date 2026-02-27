@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>La Patadita Mundialista - Wplay</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        body {
+            background-color: #e5ddd5;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overscroll-behavior-y: contain;
+        }
+        .whatsapp-bg {
+            background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
+            background-repeat: repeat;
+            background-attachment: local;
+        }
+        .message-in {
+            animation: slideIn 0.25s ease-out forwards;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .loading-shimmer {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite linear;
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        .sticker-img {
+            max-width: 180px;
+            height: auto;
+            mix-blend-mode: multiply;
+            filter: contrast(1.1);
+            display: block;
+        }
+        .kick-box {
+            background: #f8f9fa;
+            border: 2px dashed #075e54;
+            border-radius: 12px;
+            aspect-ratio: 1/1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 2rem;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .kick-box:active {
+            transform: scale(0.9);
+            background: #e9ecef;
+        }
+        #chat-container::-webkit-scrollbar {
+            width: 4px;
+        }
+        #chat-container::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="flex justify-center h-screen overflow-hidden bg-gray-200">
+
+    <div class="flex flex-col w-full max-w-md bg-white shadow-2xl relative h-full sm:h-[95vh] sm:mt-[2.5vh] sm:rounded-xl overflow-hidden">
+        
+        <!-- Cabecera estilo WhatsApp -->
+        <div class="bg-[#075e54] text-white p-3 flex items-center justify-between shadow-md z-30 shrink-0">
+            <div class="flex items-center space-x-3">
+                <i data-lucide="chevron-left" class="w-6 h-6 cursor-pointer opacity-80"></i>
+                <div class="relative">
+                    <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center overflow-hidden border border-white/20">
+                        <img src="https://i.postimg.cc/9QrssmwN/Whats-App-Image-2026-02-12-at-3-01-03-PM.jpg" alt="Jorge Barón" class="w-full h-full object-cover">
+                    </div>
+                    <div class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-400 border-2 border-[#075e54] rounded-full"></div>
+                </div>
+                <div class="leading-tight">
+                    <h1 class="font-bold text-sm tracking-tight">La patadita Mundialista 🎤</h1>
+                    <p class="text-[10px] opacity-80">en línea</p>
+                </div>
+            </div>
+            <div class="flex space-x-4 opacity-80">
+                <i data-lucide="video" class="w-5 h-5 cursor-pointer"></i>
+                <i data-lucide="phone" class="w-5 h-5 cursor-pointer"></i>
+                <i data-lucide="more-vertical" class="w-5 h-5 cursor-pointer"></i>
+            </div>
+        </div>
+
+        <!-- Contenedor del Chat -->
+        <div id="chat-container" class="flex-1 overflow-y-auto p-4 space-y-4 whatsapp-bg scroll-smooth flex flex-col">
+            <div id="welcome-action" class="flex justify-center my-8">
+                <button onclick="triggerInitialGreeting()" class="bg-white px-6 py-3 rounded-full shadow-lg text-[#075e54] font-bold border border-gray-100 hover:bg-gray-50 active:scale-95 transition-all flex items-center space-x-2">
+                    <span>Hola Jorge, ¡quiero mi patadita! 🦵</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Indicador de escritura -->
+        <div id="typing-indicator" class="hidden absolute bottom-20 left-4 bg-white rounded-2xl px-4 py-2 shadow-md z-10">
+            <div class="flex space-x-1.5 items-center">
+                <div class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce"></div>
+                <div class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce [animation-delay:0.2s]"></div>
+                <div class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce [animation-delay:0.4s]"></div>
+            </div>
+        </div>
+
+        <!-- Área de entrada de mensajes -->
+        <div class="bg-[#f0f0f0] p-3 flex items-center space-x-2 z-20 shrink-0 border-t border-gray-200">
+            <div class="flex items-center">
+                <label id="camera-label" for="file-input" class="hidden cursor-pointer p-2 text-gray-500 hover:text-[#075e54] active:scale-90 transition-transform">
+                    <i data-lucide="camera" class="w-6 h-6"></i>
+                    <input type="file" id="file-input" accept="image/*" class="hidden" onchange="handleImageUpload(event)">
+                </label>
+                <button class="p-2 text-gray-500">
+                    <i data-lucide="plus" class="w-6 h-6"></i>
+                </button>
+            </div>
+            
+            <div class="flex-1 relative">
+                <input type="text" id="chat-input" 
+                    placeholder="Escribe un mensaje"
+                    class="w-full bg-white rounded-full px-4 py-2.5 text-sm outline-none shadow-sm border-none focus:ring-0">
+            </div>
+
+            <button id="send-btn" class="bg-[#075e54] p-3 rounded-full text-white shadow-md active:scale-90 transition-transform flex items-center justify-center">
+                <i data-lucide="send" class="w-5 h-5"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // --- CONFIGURACIÓN ---
+        const apiKey = ""; 
+        let currentStep = 'start';
+        let userData = { name: '', id: '', selfieBase64: null };
+        
+        // Imagen final configurada
+        const mandatoryFinalImage = "https://i.postimg.cc/MHLGkBcr/Gemini-Generated-Image-9xwmqw9xwmqw9xwm.png";
+        const introSticker = "https://i.postimg.cc/7L5ZXGLL/Diseno-sin-titulo-(2).png";
+        const pataditaSticker = "https://i.postimg.cc/7PQW752H/patadita.png";
+        
+        const chatContainer = document.getElementById('chat-container');
+        const chatInput = document.getElementById('chat-input');
+        const sendBtn = document.getElementById('send-btn');
+        const typingIndicator = document.getElementById('typing-indicator');
+        const cameraLabel = document.getElementById('camera-label');
+
+        lucide.createIcons();
+
+        // --- FUNCIONES CORE ---
+
+        function addMessage(text, type = 'received', media = null, buttons = []) {
+            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `flex ${type === 'sent' ? 'justify-end' : 'justify-start'} w-full message-in mb-3 px-1`;
+
+            let mediaHtml = '';
+            if (media && media.type === 'image') {
+                if (media.isLoading) {
+                    mediaHtml = `
+                        <div class="mb-2 w-full aspect-video rounded-lg loading-shimmer flex flex-col items-center justify-center text-xs text-gray-500 italic p-4 text-center">
+                            <i data-lucide="loader-2" class="w-5 h-5 animate-spin mb-2"></i>
+                            <span>${media.loadingText || 'Cargando...'}</span>
+                        </div>`;
+                } else {
+                    const isSticker = media.url === pataditaSticker || media.url === introSticker;
+                    mediaHtml = `
+                        <div class="mb-2 rounded-lg overflow-hidden ${!isSticker ? 'shadow-inner border border-gray-100' : ''}">
+                            <img src="${media.url}" class="${isSticker ? 'sticker-img' : 'w-full h-auto object-cover'}" alt="Media">
+                        </div>`;
+                }
+            }
+
+            let buttonsHtml = '';
+            if (buttons.length > 0) {
+                buttonsHtml = `<div class="mt-3 space-y-2">`;
+                buttons.forEach(btn => {
+                    buttonsHtml += `
+                        <button onclick="handleButtonClick('${btn.id}', '${btn.label}')" 
+                            class="w-full py-3 bg-gray-50/80 border border-gray-100 text-[#007aff] rounded-xl text-sm font-semibold active:bg-gray-200 transition-colors shadow-sm flex items-center justify-center space-x-2 text-center">
+                            ${btn.icon ? `<i data-lucide="${btn.icon}" class="w-4 h-4"></i>` : ''}
+                            <span>${btn.label}</span>
+                        </button>`;
+                });
+                buttonsHtml += `</div>`;
+            }
+
+            let gameHtml = '';
+            if (media && media.type === 'game') {
+                gameHtml = `
+                    <div class="grid grid-cols-3 gap-3 mt-3">
+                        <div class="kick-box" onclick="playGoldenKick(1)">📦</div>
+                        <div class="kick-box" onclick="playGoldenKick(2)">📦</div>
+                        <div class="kick-box" onclick="playGoldenKick(3)">📦</div>
+                    </div>`;
+            }
+
+            const bubbleClass = type === 'sent' ? 'bg-[#dcf8c6] rounded-tr-none' : 'bg-white rounded-tl-none';
+            const isPureSticker = media && (media.url === pataditaSticker || media.url === introSticker) && !text;
+
+            messageDiv.innerHTML = `
+                <div class="max-w-[85%] relative">
+                    <div class="${!isPureSticker ? 'p-2.5 shadow-sm ' + bubbleClass + ' rounded-2xl' : ''}">
+                        ${mediaHtml}
+                        ${text ? `<p class="text-[14.5px] leading-relaxed whitespace-pre-wrap text-gray-800">${formatText(text)}</p>` : ''}
+                        ${gameHtml}
+                        <div class="flex items-center justify-end space-x-1 mt-1 opacity-60">
+                            <span class="text-[10px] uppercase font-medium">${time}</span>
+                            ${type === 'sent' ? '<i data-lucide="check-check" class="w-3 h-3 text-blue-500"></i>' : ''}
+                        </div>
+                    </div>
+                    ${buttonsHtml}
+                </div>`;
+
+            chatContainer.appendChild(messageDiv);
+            scrollToBottom();
+            lucide.createIcons();
+            return messageDiv;
+        }
+
+        function formatText(t) {
+            return t.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold">$1</strong>');
+        }
+
+        function scrollToBottom() {
+            chatContainer.scrollTo({ top: chatContainer.scrollHeight, behavior: 'smooth' });
+        }
+
+        function simulateTyping(callback, delay = 1200) {
+            typingIndicator.classList.remove('hidden');
+            scrollToBottom();
+            setTimeout(() => {
+                typingIndicator.classList.add('hidden');
+                callback();
+            }, delay);
+        }
+
+        // --- FLUJO DEL BOT ---
+
+        async function triggerInitialGreeting() {
+            document.getElementById('welcome-action').classList.add('hidden');
+            addMessage("Hola Jorge Barón, ¡quiero recibir mi patadita! 🦵", 'sent');
+            
+            setTimeout(() => {
+                addMessage("", 'received', { type: 'image', url: introSticker });
+                simulateTyping(() => {
+                    addMessage("¡Entusiasmo! 🎤 Aquí habla **Jorge Barón**. Estoy listo para darte la **patadita de la buena suerte** mundialista.\n\nPrimero cuéntame, ¿cuál es tu nombre?", 'received');
+                    currentStep = 'awaiting_name';
+                }, 1500);
+            }, 600);
+        }
+
+        async function handleInputSubmit() {
+            const val = chatInput.value.trim();
+            if (!val) return;
+            chatInput.value = '';
+            addMessage(val, 'sent');
+
+            if (currentStep === 'finished') {
+                simulateTyping(() => {
+                    addMessage("¡Gracias por participar! Si quieres volver a empezar, escribe 'reiniciar'.", 'received');
+                    if(val.toLowerCase() === 'reiniciar') location.reload();
+                });
+                return;
+            }
+
+            switch(currentStep) {
+                case 'awaiting_name':
+                    userData.name = val;
+                    simulateTyping(() => {
+                        addMessage(`¡Qué elegancia, **${val}**! 🕺 Ahora, por favor, dime tu **número de cédula** para validar tu registro y asegurar que tu bono sea personal e intransferible.`, 'received');
+                        currentStep = 'awaiting_id';
+                    });
+                    break;
+                case 'awaiting_id':
+                    userData.id = val;
+                    simulateTyping(() => {
+                        addMessage(
+                            `¡Perfecto! Confirma si estos datos son correctos:\n\n👤 **Nombre:** ${userData.name}\n🆔 **Cédula:** ${userData.id}`,
+                            'received',
+                            null,
+                            [
+                                { id: 'confirm_data', label: '✅ Sí, son correctos' },
+                                { id: 'edit_name', label: '✏️ Corregir nombre' }
+                            ]
+                        );
+                        currentStep = 'awaiting_confirmation';
+                    });
+                    break;
+                case 'consejos_active':
+                    await handleConsejosIA(val);
+                    break;
+                default:
+                    simulateTyping(() => addMessage("¡Entusiasmo! Sigue las instrucciones para ganar. 🎤", 'received'));
+            }
+        }
+
+        async function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                const base64 = e.target.result.split(',')[1];
+                userData.selfieBase64 = base64;
+                if (currentStep === 'awaiting_selfie') {
+                    addMessage("Aquí está mi selfie mundialista 📸", 'sent', { type: 'image', url: e.target.result });
+                    cameraLabel.classList.add('hidden');
+                    processSelfieReceived();
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function processSelfieReceived() {
+            simulateTyping(() => {
+                addMessage("¡Eso es! Sales con mucha energía. Estamos preparando tu momento estelar en el escenario...", 'received');
+                
+                setTimeout(() => {
+                    addMessage("", 'received', { type: 'image', url: pataditaSticker });
+                    
+                    setTimeout(() => {
+                        const loadingMsg = addMessage(``, 'received', { 
+                            type: 'image', 
+                            isLoading: true, 
+                            loadingText: 'Renderizando tu patadita oficial de la suerte...' 
+                        });
+                        
+                        setTimeout(() => {
+                            loadingMsg.remove();
+                            const luckyCode = "WPLAY-" + Math.random().toString(36).substr(2, 6).toUpperCase();
+                            
+                            addMessage(`¡QUÉ NIVEL! 🦵✨ **${userData.name}**, aquí tienes tu patadita oficial.`, 'received', { type: 'image', url: mandatoryFinalImage });
+
+                            simulateTyping(() => {
+                                addMessage(
+                                    `Tu código único de la suerte es: **${luckyCode}** 🎫\n\n¡Felicidades! Has ganado un **BONO DE $50.000** para apostar hoy mismo.\n\nHaz clic en el botón para reclamarlo.`,
+                                    'received', 
+                                    null, 
+                                    [{ id: 'redeem', label: '💰 RECLAMAR BONO EN WPLAY.CO', icon: 'external-link' }]
+                                );
+
+                                simulateTyping(() => {
+                                    addMessage("¡Entusiasmo! 🎉 ¿Qué más te gustaría hacer ahora?", 'received', null, [
+                                        { id: 'polla', label: '🏆 Polla de la Semana', icon: 'trophy' },
+                                        { id: 'aguita_mi_gente', label: '💧 Agüita para mi gente', icon: 'droplets' },
+                                        { id: 'physical_kick', label: '🦵 Quiero mi patadita física', icon: 'package' }
+                                    ]);
+                                }, 1500);
+                            }, 1000);
+                        }, 2500);
+                    }, 1000);
+                }, 1000);
+            }, 1200);
+        }
+
+        window.handleButtonClick = function(id, label) {
+            addMessage(label, 'sent');
+            
+            if (id === 'confirm_data') {
+                simulateTyping(() => {
+                    addMessage("¡Excelente! Ahora, para que el sistema te ponga en el escenario mundialista, **necesito que te tomes una selfie**. 📸", 'received');
+                    addMessage("Usa el botón de la cámara para capturar tu mejor ángulo.", 'received');
+                    cameraLabel.classList.remove('hidden');
+                    currentStep = 'awaiting_selfie';
+                });
+            } else if (id === 'edit_name') {
+                simulateTyping(() => {
+                    addMessage("Dime tu nombre completo de nuevo:", 'received');
+                    currentStep = 'awaiting_name';
+                });
+            } else if (id === 'aguita_mi_gente') {
+                handleAguitaFlow();
+            } else if (id === 'physical_kick') {
+                simulateTyping(() => {
+                    addMessage("¡Claro que sí! 🎤 Por compras o recargas superiores a **$200.000 pesos**, podrás recibir la **patadita de Jorge Barón en físico** en nuestros puntos autorizados.\n\n¡No te quedes sin la tuya! ✨", 'received', null, [
+                         { id: 'redeem', label: 'Ir a Wplay.co para recargar', icon: 'credit-card' }
+                    ]);
+                });
+            } else if (id === 'aguita_yes') {
+                simulateTyping(() => {
+                    addMessage("¡Eso! 💃 Encuentra la **Patadita de Oro** escondida en una caja para ganar $20.000 extra.", 'received', { type: 'game' });
+                });
+            } else if (id === 'redeem') {
+                window.open('https://wplay.co', '_blank');
+            } else if (id === 'advice') {
+                currentStep = 'consejos_active';
+                simulateTyping(() => addMessage("🔮 Escribe el nombre de un equipo o partido y te daré mis datos de la suerte.", 'received'));
+            } else if (id === 'polla') {
+                handlePolla(1);
+            } else if (id.startsWith('p_')) {
+                const step = parseInt(id.split('_')[1]);
+                if (step < 3) handlePolla(step + 1);
+                else {
+                    simulateTyping(() => {
+                        addMessage("✅ **¡Pronósticos guardados!** Mucha suerte en el sorteo. ¡Entusiasmo! 🎤✨", 'received');
+                        currentStep = 'finished';
+                    });
+                }
+            }
+        };
+
+        function handleAguitaFlow() {
+            simulateTyping(() => {
+                addMessage("¡Ánimo mi gente! 🇨🇴 Jorge Barón siempre tiene un as bajo la manga para ustedes.", 'received');
+                setTimeout(() => {
+                    addMessage("¿Quieres un chorrito de **agüita de la suerte** y probar tu puntería en el minijuego?", 'received', null, [
+                        { id: 'aguita_yes', label: '✅ ¡Sí, tráeme el agüita!' },
+                        { id: 'aguita_no', label: '❌ No, gracias' }
+                    ]);
+                }, 1000);
+            });
+        }
+
+        window.playGoldenKick = function(choice) {
+            const win = Math.floor(Math.random() * 3) + 1;
+            const boxes = document.querySelectorAll('.kick-box');
+            
+            boxes.forEach((b, i) => {
+                if (i + 1 === win) {
+                    b.innerHTML = "🦵✨";
+                    b.classList.add('border-yellow-500', 'bg-yellow-50');
+                } else {
+                    b.innerHTML = "💨";
+                }
+                b.onclick = null;
+            });
+
+            setTimeout(() => {
+                if (choice === win) {
+                    addMessage("¡GOOOOOL! ⚽ Encontraste la patadita. Te has ganado **$20.000** adicionales. ¡Qué entusiasmo!", 'received');
+                } else {
+                    addMessage("¡Casi! Pero Jorge Barón no deja a nadie con las manos vacías. Recibe **$5.000** por tu buena actitud. 🎁", 'received');
+                }
+                currentStep = 'finished';
+            }, 1000);
+        }
+
+        function handlePolla(q) {
+            const qs = ["", "1. ¿Quién gana el próximo gran partido? ⚽", "2. ¿Cuántos goles totales habrá? 🥅", "3. ¿Quién será el jugador del partido? 🏃‍♂️"];
+            const opts = [
+                [],
+                [{id:'p_1', label:'Local'}, {id:'p_1', label:'Empate'}, {id:'p_1', label:'Visitante'}],
+                [{id:'p_2', label:'Más de 2.5'}, {id:'p_2', label:'Exacto 2'}, {id:'p_2', label:'Menos de 1.5'}],
+                [{id:'p_3', label:'Delantero 1'}, {id:'p_3', label:'Portero'}, {id:'p_3', label:'Otro'}]
+            ];
+            simulateTyping(() => addMessage(qs[q], 'received', null, opts[q]));
+        }
+
+        // --- INTEGRACIÓN CON IA ---
+
+        async function handleConsejosIA(query) {
+            const system = "Eres Jorge Barón. Tono entusiasta. Muletillas: '¡Entusiasmo!', '¡Caramba!'. Embajador de Wplay. Da 2 datos breves.";
+            
+            const fetchWithRetry = async (url, options, retries = 5, backoff = 1000) => {
+                try {
+                    const response = await fetch(url, options);
+                    if (!response.ok) throw new Error('API Error');
+                    return await response.json();
+                } catch (err) {
+                    if (retries <= 0) throw err;
+                    await new Promise(r => setTimeout(r, backoff));
+                    return fetchWithRetry(url, options, retries - 1, backoff * 2);
+                }
+            };
+
+            try {
+                const res = await fetchWithRetry(
+                    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`,
+                    {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: query }] }],
+                            systemInstruction: { parts: [{ text: system }] }
+                        })
+                    }
+                );
+                const text = res.candidates?.[0]?.content?.parts?.[0]?.text || "¡Caramba! No pude conectar. ¡Intenta de nuevo!";
+                simulateTyping(() => addMessage(text, 'received', null, [{id:'redeem', label:'¡Apostar ahora!'} ]));
+            } catch (e) {
+                addMessage("¡Ay caramba! Mis satélites están fallando.", 'received');
+            }
+        }
+
+        sendBtn.addEventListener('click', handleInputSubmit);
+        chatInput.addEventListener('keypress', (e) => e.key === 'Enter' && handleInputSubmit());
+
+    </script>
+</body>
+</html>
