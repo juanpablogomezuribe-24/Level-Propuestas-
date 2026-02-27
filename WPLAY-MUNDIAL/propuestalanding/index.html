@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WPlay - La Patadita Mundialista</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #001b3a;
+        }
+        .text-shadow-xl {
+            text-shadow: 0 10px 20px rgba(0,0,0,0.8);
+        }
+        @keyframes bounce-slow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        .animate-kick {
+            animation: bounce-slow 2s infinite ease-in-out;
+        }
+        .bg-gold-gradient {
+            background: linear-gradient(to bottom, #f2b705, #b88a00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* Transiciones de la Intro */
+        #intro-overlay.fade-out {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease-out;
+        }
+    </style>
+</head>
+<body class="text-white selection:bg-[#f2b705] selection:text-[#001b3a] overflow-x-hidden">
+
+    <!-- Pantalla de Intro Animada -->
+    <div id="intro-overlay" class="fixed inset-0 z-[1000] bg-[#001b3a] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_#f2b70515_0%,_transparent_70%)]"></div>
+        <div class="relative flex flex-col items-center text-center">
+            <div id="intro-content" class="transition-all duration-700 transform translate-y-10 opacity-0">
+                <h2 class="text-[#f2b705] text-xs font-black uppercase tracking-[0.5em] mb-4">WPlay Presenta</h2>
+                <h1 class="text-5xl md:text-8xl font-black text-white italic uppercase tracking-tighter leading-none">
+                    LA PATADITA <br> <span class="text-[#f2b705]">MUNDIALISTA</span>
+                </h1>
+            </div>
+            <!-- Icono de Patada (Zap) -->
+            <div id="kick-visual" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-500 scale-0 opacity-0">
+                <i data-lucide="zap" class="w-32 h-32 md:w-64 md:h-64 text-[#f2b705] drop-shadow-[0_0_30px_rgba(242,183,5,0.8)] animate-kick" stroke-width="3"></i>
+            </div>
+            <div class="absolute bottom-12 text-white/20 text-[10px] uppercase tracking-[0.3em] font-bold">Cargando la Suerte...</div>
+        </div>
+    </div>
+
+    <!-- Navegación -->
+    <nav id="navbar" class="fixed top-0 w-full z-[100] transition-all duration-300 py-6">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <img src="https://i.postimg.cc/9FP5mpzw/Logos-Wplay-Mesa-de-trabajo-1-(1).png" alt="WPlay Logo" class="h-8 md:h-10 drop-shadow-lg">
+                <div class="hidden lg:block h-6 w-px bg-white/20"></div>
+                <p class="hidden lg:block text-[9px] font-black uppercase tracking-widest text-[#f2b705]">Patrocinador oficial de los hinchas <br> que lo dan todo</p>
+            </div>
+            
+            <div class="hidden md:flex gap-8 items-center text-[10px] font-black uppercase tracking-widest">
+                <a href="#kpis" class="hover:text-[#f2b705] transition-colors">KPIs</a>
+                <a href="#estrategia" class="hover:text-[#f2b705] transition-colors">Continuidad</a>
+                <a href="#pasos" class="hover:text-[#f2b705] transition-colors">El Paso a Paso</a>
+                <a href="#propuesta" class="hover:text-[#f2b705] transition-colors text-[#f2b705]">Inversión</a>
+                <a href="https://wa.link/blupit" target="_blank" class="bg-[#f2b705] text-[#001b3a] px-6 py-2 rounded-sm hover:bg-[#ffcc33] transition-colors shadow-lg">Entrar al Chat</a>
+            </div>
+            <!-- Mobile Button -->
+            <button class="md:hidden text-white" onclick="toggleMenu()">
+                <i data-lucide="menu" id="menu-icon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-[150] bg-[#001b3a] hidden flex-col items-center justify-center p-6 text-center">
+        <button class="absolute top-8 right-8 text-white" onclick="toggleMenu()">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        <div class="flex flex-col gap-8">
+            <a href="#kpis" onclick="toggleMenu()" class="text-3xl font-black italic uppercase text-white hover:text-[#f2b705]">KPIs</a>
+            <a href="#estrategia" onclick="toggleMenu()" class="text-3xl font-black italic uppercase text-white hover:text-[#f2b705]">Continuidad</a>
+            <a href="#pasos" onclick="toggleMenu()" class="text-3xl font-black italic uppercase text-white hover:text-[#f2b705]">El Paso a Paso</a>
+            <a href="#propuesta" onclick="toggleMenu()" class="text-3xl font-black italic uppercase text-[#f2b705]">Inversión</a>
+            <a href="https://wa.link/blupit" class="mt-8 bg-[#f2b705] text-[#001b3a] px-10 py-4 rounded-sm font-black uppercase italic shadow-2xl">Activar Amuleto</a>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://i.postimg.cc/tTM8q42K/Whats-App-Image-2026-02-25-at-10-35-59-AM.jpg" alt="Jorge Barón" class="w-full h-full object-cover object-center opacity-40">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#001b3a] via-[#001b3a]/40 to-transparent"></div>
+        </div>
+
+        <div class="max-w-6xl mx-auto text-center relative z-10 px-6 pt-20">
+            <div class="inline-flex items-center gap-2 px-5 py-2 rounded-sm bg-[#f2b705]/20 border border-[#f2b705]/40 text-[#f2b705] text-[11px] font-black uppercase tracking-[0.3em] mb-8 backdrop-blur-md">
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i> El Mayor Activo de la Suerte en Colombia
+            </div>
+            
+            <h1 class="text-6xl md:text-[10rem] font-black mb-6 tracking-tighter leading-[0.8] italic uppercase text-white text-shadow-xl">
+                LA PATADITA <br> <span class="bg-gold-gradient">MUNDIALISTA</span>
+            </h1>
+
+            <p class="text-xl md:text-3xl font-bold text-white mb-12 max-w-4xl mx-auto uppercase tracking-tighter italic">
+                "SI LA SELE NO LLEGA AL PODIO, <span class="text-[#f2b705]">JUBILO MI PATADITA</span>"
+            </p>
+
+            <a href="#kpis" class="inline-flex items-center gap-3 bg-white text-[#001b3a] font-black px-10 py-5 rounded-sm uppercase italic tracking-tighter hover:bg-[#f2b705] transition-all group">
+                Ver Objetivos de Campaña <i data-lucide="arrow-right" class="group-hover:translate-x-2 transition-transform"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- KPI Section -->
+    <section id="kpis" class="py-32 px-6 bg-[#001b3a] border-b border-white/5">
+        <div class="max-w-6xl mx-auto">
+            <div class="bg-[#00244d]/30 border border-white/10 p-10 md:p-16 rounded-sm text-center mb-16 relative overflow-hidden group">
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_#f2b70505_0%,_transparent_70%)]"></div>
+                <h3 class="text-xl md:text-2xl font-black text-white italic uppercase tracking-tighter mb-4 relative z-10">
+                    WPLAY SE APROPIA DEL MAYOR ACTIVO DE LA SUERTE EN COLOMBIA:
+                </h3>
+                <div class="h-px w-24 bg-[#f2b705] mx-auto mb-6 relative z-10"></div>
+                <p class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter text-white leading-none relative z-10">
+                    <span class="text-[#f2b705]">YA NO SE DA POR TV,</span> SE DA POR <span class="text-[#00ff00]">WHATSAPP</span> <br> 
+                    ENFOCADA A CONSEGUIR ESTOS KPIS:
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                <!-- KPI Card 1 -->
+                <div class="flex flex-col items-center gap-4 p-8 bg-[#00244d] border border-white/5 rounded-sm group hover:border-[#f2b705] transition-all text-center">
+                    <i data-lucide="user-plus" class="text-[#f2b705] w-8 h-8 group-hover:scale-125 transition-transform"></i>
+                    <h4 class="text-sm font-black uppercase tracking-widest text-white leading-none">Registros</h4>
+                    <p class="text-[9px] font-bold uppercase tracking-tighter text-slate-500">Nuevos Hinchas</p>
+                </div>
+                <!-- KPI Card 2 -->
+                <div class="flex flex-col items-center gap-4 p-8 bg-[#00244d] border border-white/5 rounded-sm group hover:border-[#f2b705] transition-all text-center">
+                    <i data-lucide="circle-dollar-sign" class="text-[#00ff00] w-8 h-8 group-hover:scale-125 transition-transform"></i>
+                    <h4 class="text-sm font-black uppercase tracking-widest text-white leading-none">Recargas</h4>
+                    <p class="text-[9px] font-bold uppercase tracking-tighter text-slate-500">Depósitos</p>
+                </div>
+                <!-- KPI Card 3 -->
+                <div class="flex flex-col items-center gap-4 p-8 bg-[#00244d] border border-white/5 rounded-sm group hover:border-[#f2b705] transition-all text-center">
+                    <i data-lucide="zap" class="text-[#f2b705] w-8 h-8 group-hover:scale-125 transition-transform"></i>
+                    <h4 class="text-sm font-black uppercase tracking-widest text-white leading-none">Reactivación</h4>
+                    <p class="text-[9px] font-bold uppercase tracking-tighter text-slate-500">Usuarios Inactivos</p>
+                </div>
+                <!-- KPI Card 4 -->
+                <div class="flex flex-col items-center gap-4 p-8 bg-[#00244d] border border-white/5 rounded-sm group hover:border-[#f2b705] transition-all text-center">
+                    <i data-lucide="bar-chart-3" class="text-[#00ff00] w-8 h-8 group-hover:scale-125 transition-transform"></i>
+                    <h4 class="text-sm font-black uppercase tracking-widest text-white leading-none">Rejuego</h4>
+                    <p class="text-[9px] font-bold uppercase tracking-tighter text-slate-500">Frecuencia</p>
+                </div>
+                <!-- KPI Card 5 -->
+                <div class="flex flex-col items-center gap-4 p-8 bg-[#00244d] border border-white/5 rounded-sm group hover:border-[#f2b705] transition-all text-center">
+                    <i data-lucide="star" class="text-[#f2b705] w-8 h-8 group-hover:scale-125 transition-transform"></i>
+                    <h4 class="text-sm font-black uppercase tracking-widest text-white leading-none">Reputación</h4>
+                    <p class="text-[9px] font-bold uppercase tracking-tighter text-slate-500">Top of Mind</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Motor de Permanencia -->
+    <section id="estrategia" class="py-32 px-6 bg-gradient-to-b from-[#001b3a] to-[#00142b]">
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 items-center">
+            <div class="flex-1 space-y-10">
+                <div class="space-y-4">
+                    <h2 class="text-xs font-black text-[#00ff00] uppercase tracking-[0.4em] flex items-center gap-4 italic">
+                        <div class="h-px w-12 bg-[#00ff00]"></div> El Motor de Permanencia
+                    </h2>
+                    <h3 class="text-5xl md:text-[5.5rem] font-black italic uppercase tracking-tighter text-white leading-[0.85]">
+                        WHATSAPP COMO <br> <span class="text-[#f2b705]">CONTINUIDAD DE CAMPAÑA</span>
+                    </h3>
+                </div>
+                
+                <p class="text-slate-300 text-xl leading-relaxed font-medium">
+                    WPlay elimina el riesgo del "impacto efímero". WhatsApp no es solo una landing, es la herramienta que <span class="text-white font-black underline decoration-[#f2b705] decoration-2 underline-offset-8 italic">impulsa y mantiene viva la campaña</span> a través de una acción interactiva diaria.
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                    <div class="p-8 bg-[#00244d] border-l-4 border-[#f2b705] rounded-r-sm shadow-lg group hover:bg-[#002b5c] transition-all">
+                        <div class="text-4xl font-black text-white mb-2">0% Miedo</div>
+                        <p class="text-[10px] font-black uppercase tracking-widest text-[#f2b705] mb-3">Continuidad Garantizada</p>
+                        <p class="text-xs text-slate-400 leading-relaxed font-bold uppercase tracking-tighter">
+                            Evitamos que la campaña muera tras el primer gran impacto, creando un túnel de conversión infinito.
+                        </p>
+                    </div>
+                    <div class="p-8 bg-[#00244d] border-l-4 border-[#00ff00] rounded-r-sm shadow-lg group hover:bg-[#002b5c] transition-all">
+                        <div class="text-4xl font-black text-white mb-2">Patadita #ID</div>
+                        <p class="text-[10px] font-black uppercase tracking-widest text-[#00ff00] mb-3">Identidad del Hincha</p>
+                        <p class="text-xs text-slate-400 leading-relaxed font-bold uppercase tracking-tighter">
+                            Hacemos parte a todos los colombianos con un amuleto personalizado que lleva su número de serie único.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex-1">
+                <div class="relative group p-[1px] bg-gradient-to-br from-[#f2b705] to-[#00ff00] rounded-sm shadow-2xl">
+                    <div class="bg-[#001b3a] p-10 md:p-12 rounded-sm relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-10 opacity-5 group-hover:opacity-10 transition-opacity">
+                            <i data-lucide="message-circle" class="w-40 h-40"></i>
+                        </div>
+                        <h4 class="text-2xl md:text-3xl font-black italic uppercase text-white mb-8 tracking-tighter leading-none relative z-10">
+                            Más que una Imagen, <br> <span class="text-[#f2b705]">una Conversación</span>
+                        </h4>
+                        <p class="text-2xl md:text-3xl font-serif italic text-white mb-10 leading-snug relative z-10">
+                            "La campaña no termina cuando el usuario recibe su código. <span class="text-[#f2b705] font-black uppercase not-italic text-shadow-xl">AHÍ EMPIEZA LA CONVERSIÓN real,</span> integrando al hincha en un ecosistema que lo premia por su pasión diaria."
+                        </p>
+                        <div class="flex items-center gap-5 relative z-10">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#f2b705] to-[#b88a00] flex items-center justify-center text-[#001b3a] shadow-lg">
+                                <i data-lucide="target" class="w-6 h-6"></i>
+                            </div>
+                            <p class="font-black uppercase italic tracking-tighter text-[#00ff00]">Impulso de Conversión: Selección WPlay</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Paso a Paso Flow -->
+    <section id="pasos" class="py-32 px-6 bg-[#001b3a] relative overflow-hidden">
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="flex flex-col lg:flex-row gap-20 items-center">
+                <div class="lg:w-2/5 space-y-8 text-center lg:text-left">
+                    <div class="space-y-4">
+                        <h2 class="text-xs font-black text-[#f2b705] uppercase tracking-[0.5em] italic">User Journey</h2>
+                        <h3 class="text-5xl md:text-7xl font-black italic uppercase tracking-tighter text-white leading-[0.85]">EL PASO A PASO <br> <span class="text-[#f2b705]">HACIA EL GOL</span></h3>
+                    </div>
+                    <p class="text-slate-400 text-lg font-medium leading-relaxed italic">
+                        WhatsApp nos permite acompañar al hincha en cada momento clave del mundial, transformando la nostalgia en interacción real.
+                    </p>
+                    <div class="pt-6">
+                        <img src="https://i.postimg.cc/j2nmLY1H/Whats-App-Image-2026-02-26-at-3-34-06-PM.jpg" alt="WhatsApp Mockup" class="rounded-3xl shadow-2xl border-4 border-white/5 rotate-2 hover:rotate-0 transition-transform duration-700 w-full max-w-sm mx-auto">
+                    </div>
+                </div>
+
+                <div class="lg:w-3/5 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Step 1 -->
+                    <div class="group bg-[#00244d] border border-white/5 p-8 rounded-sm hover:border-[#f2b705] transition-all flex items-start gap-6 shadow-xl">
+                        <div class="shrink-0 w-12 h-12 rounded-sm bg-[#001b3a] text-[#f2b705] flex items-center justify-center font-black text-lg group-hover:bg-[#f2b705] group-hover:text-[#001b3a] transition-all">
+                            <i data-lucide="message-circle"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <h4 class="font-black text-sm text-white uppercase tracking-widest mb-2 italic">1. Entrada WhatsApp</h4>
+                            <p class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter leading-relaxed">Inicia chat oficial y acepta T&C.</p>
+                        </div>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="group bg-[#00244d] border border-white/5 p-8 rounded-sm hover:border-[#f2b705] transition-all flex items-start gap-6 shadow-xl">
+                        <div class="shrink-0 w-12 h-12 rounded-sm bg-[#001b3a] text-[#f2b705] flex items-center justify-center font-black text-lg group-hover:bg-[#f2b705] group-hover:text-[#001b3a] transition-all">
+                            <i data-lucide="sparkles"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <h4 class="font-black text-sm text-white uppercase tracking-widest mb-2 italic">2. Saludo de Jorge</h4>
+                            <p class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter leading-relaxed">Bienvenida con el carisma de Jorge Barón.</p>
+                        </div>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="group bg-[#00244d] border border-white/5 p-8 rounded-sm hover:border-[#f2b705] transition-all flex items-start gap-6 shadow-xl">
+                        <div class="shrink-0 w-12 h-12 rounded-sm bg-[#001b3a] text-[#f2b705] flex items-center justify-center font-black text-lg group-hover:bg-[#f2b705] group-hover:text-[#001b3a] transition-all">
+                            <i data-lucide="user-check"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <h4 class="font-black text-sm text-white uppercase tracking-widest mb-2 italic">3. Validación Legal</h4>
+                            <p class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter leading-relaxed">Solicitud de cédula y mayoría de edad.</p>
+                        </div>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="group bg-[#00244d] border border-white/5 p-8 rounded-sm hover:border-[#f2b705] transition-all flex items-start gap-6 shadow-xl">
+                        <div class="shrink-0 w-12 h-12 rounded-sm bg-[#001b3a] text-[#f2b705] flex items-center justify-center font-black text-lg group-hover:bg-[#f2b705] group-hover:text-[#001b3a] transition-all">
+                            <i data-lucide="camera"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <h4 class="font-black text-sm text-white uppercase tracking-widest mb-2 italic">4. Selfie del Hincha</h4>
+                            <p class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter leading-relaxed">Captura de foto para iniciar la magia.</p>
+                        </div>
+                    </div>
+                    <!-- Step 5 -->
+                    <div class="group bg-[#00244d] border border-white/5 p-8 rounded-sm hover:border-[#f2b705] transition-all flex items-start gap-6 shadow-xl">
+                        <div class="shrink-0 w-12 h-12 rounded-sm bg-[#001b3a] text-[#f2b705] flex items-center justify-center font-black text-lg group-hover:bg-[#f2b705] group-hover:text-[#001b3a] transition-all">
+                            <i data-lucide="hash"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <h4 class="font-black text-sm text-white uppercase tracking-widest mb-2 italic">5. Tu Patadita #ID</h4>
+                            <p class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter leading-relaxed">IA genera caricatura + código único seriado.</p>
+                        </div>
+                    </div>
+                    <!-- Step 6 -->
+                    <div class="group bg-[#00244d] border border-white/5 p-8 rounded-sm hover:border-[#f2b705] transition-all flex items-start gap-6 shadow-xl">
+                        <div class="shrink-0 w-12 h-12 rounded-sm bg-[#001b3a] text-[#f2b705] flex items-center justify-center font-black text-lg group-hover:bg-[#f2b705] group-hover:text-[#001b3a] transition-all">
+                            <i data-lucide="gift"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <h4 class="font-black text-sm text-white uppercase tracking-widest mb-2 italic">6. Bono Patadita</h4>
+                            <p class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter leading-relaxed">Bono de la buena suerte para redimir.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Propuesta Económica -->
+    <section id="propuesta" class="py-32 px-6 bg-[#00142b] border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20 space-y-4">
+                <h2 class="text-xs font-black text-[#f2b705] uppercase tracking-[0.4em] italic">Inversión Estratégica</h2>
+                <h3 class="text-5xl md:text-7xl font-black italic uppercase tracking-tighter text-white">PLANES DE <span class="text-[#00ff00]">EJECUCIÓN</span></h3>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-10">
+                <!-- Premium Plan -->
+                <div class="group relative bg-[#00244d] border border-[#f2b705]/20 rounded-2xl p-10 hover:border-[#f2b705] transition-all duration-500 shadow-2xl flex flex-col">
+                    <div class="absolute top-0 right-0 p-8">
+                        <div class="bg-[#f2b705] text-[#001b3a] text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-xl">PREMIUM AI</div>
+                    </div>
+                    <div class="mb-10">
+                        <h3 class="text-3xl font-black mb-2 text-white uppercase italic tracking-tighter">Experiencia IA Facial</h3>
+                        <p class="text-[#f2b705] font-black text-6xl mb-6 tracking-tighter">$120.000.000 <span class="text-xl font-normal ml-1">COP</span></p>
+                        <div class="flex gap-6 text-[10px] uppercase font-bold text-slate-400">
+                            <span class="flex items-center gap-2"><i data-lucide="clock" class="w-3.5 h-3.5 text-[#f2b705]"></i> 80 Días</span>
+                            <span class="flex items-center gap-2"><i data-lucide="users" class="w-3.5 h-3.5 text-[#f2b705]"></i> 100k Usuarios</span>
+                        </div>
+                    </div>
+                    <ul class="space-y-4 mb-12 flex-grow text-slate-300 text-sm" id="premium-list"></ul>
+                    <div class="p-6 bg-[#001b3a] rounded-xl border border-[#f2b705]/20">
+                        <p class="text-[10px] font-black text-[#f2b705] mb-2 uppercase tracking-[0.2em]">Factor Estratégico</p>
+                        <p class="text-xs text-slate-400 italic font-medium leading-relaxed">Máximo impacto emocional y viralidad orgánica. Ideal para posicionar la marca con tecnología de vanguardia.</p>
+                    </div>
+                </div>
+
+                <!-- Standard Plan -->
+                <div class="relative bg-[#00244d] border border-white/5 rounded-2xl p-10 hover:border-[#00ff00] transition-all duration-500 shadow-2xl flex flex-col">
+                    <div class="absolute top-0 right-0 p-8">
+                        <div class="bg-slate-700 text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-xl">STANDARD</div>
+                    </div>
+                    <div class="mb-10">
+                        <h3 class="text-3xl font-black mb-2 text-white uppercase italic tracking-tighter">Versión Gamificada</h3>
+                        <p class="text-white font-black text-6xl mb-6 tracking-tighter">$75.000.000 <span class="text-xl font-normal ml-1">COP</span></p>
+                        <div class="flex gap-6 text-[10px] uppercase font-bold text-slate-400">
+                            <span class="flex items-center gap-2"><i data-lucide="clock" class="w-3.5 h-3.5 text-[#00ff00]"></i> 80 Días</span>
+                            <span class="flex items-center gap-2"><i data-lucide="users" class="w-3.5 h-3.5 text-[#00ff00]"></i> 100k Usuarios</span>
+                        </div>
+                    </div>
+                    <ul class="space-y-4 mb-12 flex-grow text-slate-300 text-sm" id="standard-list"></ul>
+                    <div class="p-6 bg-[#001b3a] rounded-xl border border-white/10">
+                        <p class="text-[10px] font-black text-slate-500 mb-2 uppercase tracking-[0.2em]">Factor Estratégico</p>
+                        <p class="text-xs text-slate-500 italic font-medium leading-relaxed">Implementación rápida y costo-eficiente centrada en la adquisición masiva de leads de calidad.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-40 px-6 text-center bg-gradient-to-b from-[#00142b] to-black relative overflow-hidden">
+        <div class="absolute inset-0 z-0 opacity-10">
+            <img src="https://i.postimg.cc/tTM8q42K/Whats-App-Image-2026-02-25-at-10-35-59-AM.jpg" alt="Footer Background" class="w-full h-full object-cover grayscale">
+        </div>
+        <div class="max-w-4xl mx-auto space-y-16 relative z-10">
+            <div class="space-y-6">
+                <p class="text-[#f2b705] font-black text-xs uppercase tracking-[0.8em] italic">WPlay.co</p>
+                <h2 class="text-6xl md:text-[8rem] font-black text-white leading-[0.8] uppercase italic tracking-tighter drop-shadow-2xl">
+                    HACEMOS QUE LA <br> CAMPAÑA <br> <span class="text-[#f2b705]">NUNCA SE DETENGA</span>
+                </h2>
+            </div>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-12 pt-16 border-t border-white/10">
+                <img src="https://i.postimg.cc/9FP5mpzw/Logos-Wplay-Mesa-de-trabajo-1-(1).png" alt="WPlay Logo" class="h-12">
+                <div class="hidden md:block w-px h-12 bg-white/10"></div>
+                <p class="text-[10px] text-white/40 font-bold uppercase tracking-[0.3em] italic max-w-xs leading-relaxed">
+                    Patrocinador oficial de los hinchas que lo dan todo. <br> Propuesta de Continuidad Mundialista 2026.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- FAB -->
+    <div class="fixed bottom-8 right-8 z-[200]">
+        <a href="https://wa.link/blupit" target="_blank" class="flex items-center gap-4 bg-[#f2b705] text-[#001b3a] font-black px-8 py-5 rounded-sm shadow-[0_20px_60px_rgba(242,183,5,0.4)] transition-all hover:-translate-y-2 active:scale-95 group uppercase text-sm italic tracking-tighter decoration-none no-underline">
+            <div class="bg-[#001b3a] p-2 rounded-sm text-[#f2b705] group-hover:rotate-12 transition-transform">
+                <i data-lucide="message-circle" class="w-5 h-5"></i>
+            </div>
+            <span>Unirme a la Selección</span>
+            <i data-lucide="chevron-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+        </a>
+    </div>
+
+    <script>
+        // Inicializar Lucide Icons
+        lucide.createIcons();
+
+        // Control de Animación Intro
+        window.addEventListener('load', () => {
+            const intro = document.getElementById('intro-overlay');
+            const introContent = document.getElementById('intro-content');
+            const kickVisual = document.getElementById('kick-visual');
+
+            // 1. Mostrar texto
+            setTimeout(() => {
+                introContent.classList.remove('translate-y-10', 'opacity-0');
+                introContent.classList.add('translate-y-0', 'opacity-100');
+            }, 500);
+
+            // 2. Mostrar la patada
+            setTimeout(() => {
+                kickVisual.classList.remove('scale-0', 'opacity-0');
+                kickVisual.classList.add('scale-150', 'opacity-100');
+            }, 1500);
+
+            // 3. Salida de intro
+            setTimeout(() => {
+                intro.classList.add('fade-out');
+            }, 2500);
+
+            // 4. Remover del DOM
+            setTimeout(() => {
+                intro.style.display = 'none';
+            }, 3000);
+        });
+
+        // Control de Navbar en Scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-[#001b3a]/95', 'backdrop-blur-md', 'shadow-2xl', 'border-b', 'border-[#f2b705]/20', 'py-3');
+                nav.classList.remove('py-6');
+            } else {
+                nav.classList.remove('bg-[#001b3a]/95', 'backdrop-blur-md', 'shadow-2xl', 'border-b', 'border-[#f2b705]/20', 'py-3');
+                nav.classList.add('py-6');
+            }
+        });
+
+        // Toggle Menú Móvil
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu.style.display === 'flex') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'flex';
+            }
+        }
+
+        // Renderizar listas de propuestas
+        const proposalItems = [
+            { text: "AI facial: Selfie integrada con una imagen del rostro del usuario.", bold: true, icon: "cpu" },
+            { text: "Generación de Código Único Premiado", bold: true, icon: "hash" },
+            { text: "Solicitud y elaboración portafolio oficial Meta", bold: true, icon: "file-text" },
+            { text: "WhatsApp Business API Oficial", bold: false, icon: "message-circle" },
+            { text: "Ecosistema de Ranking y Pollas", bold: false, icon: "trophy" },
+            { text: "Infraestructura de Alta Disponibilidad", bold: false, icon: "cloud" },
+            { text: "Soporte Técnico 24/7", bold: false, icon: "phone" }
+        ];
+
+        function renderList(targetId, colorClass) {
+            const container = document.getElementById(targetId);
+            proposalItems.forEach(item => {
+                const li = document.createElement('li');
+                li.className = 'flex items-start gap-4';
+                li.innerHTML = `
+                    <div class="w-5 h-5 ${colorClass}/10 rounded flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-[#f2b705] transition-colors">
+                        <i data-lucide="${item.icon}" class="w-3 h-3 ${colorClass} group-hover:text-[#001b3a]"></i>
+                    </div>
+                    <span class="${item.bold ? 'font-black text-white' : ''}">${item.text}</span>
+                `;
+                container.appendChild(li);
+            });
+        }
+
+        renderList('premium-list', 'text-[#f2b705]');
+        renderList('standard-list', 'text-[#00ff00]');
+        
+        // Re-crear iconos después de inyectar listas dinámicas
+        lucide.createIcons();
+    </script>
+</body>
+</html>
