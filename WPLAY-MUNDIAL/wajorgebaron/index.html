@@ -1,486 +1,471 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>La Patadita Mundialista - Wplay</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WPlay - La Patadita Mundialista</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-        :root {
-            --app-height: 100%;
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #001b3a;
         }
-
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: #e5ddd5;
-            font-family: 'Inter', sans-serif;
-            /* Evita el scroll elástico en iOS */
-            position: fixed;
-            width: 100%;
+        .text-shadow-xl {
+            text-shadow: 0 10px 20px rgba(0,0,0,0.8);
         }
-
-        /* Contenedor principal para manejar alturas en móvil */
-        .app-wrapper {
-            display: flex;
-            flex-direction: column;
-            height: 100dvh; /* Altura dinámica del viewport */
-            width: 100%;
-            max-width: 500px;
-            margin: 0 auto;
-            background: white;
-            position: relative;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        @keyframes bounce-slow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
         }
-
-        .whatsapp-bg {
-            background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
-            background-repeat: repeat;
-            background-attachment: local;
-            background-color: #e5ddd5;
+        .animate-kick {
+            animation: bounce-slow 2s infinite ease-in-out;
         }
-
-        .message-in {
-            animation: slideIn 0.2s ease-out forwards;
+        .bg-gold-gradient {
+            background: linear-gradient(to bottom, #f2b705, #b88a00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .loading-shimmer {
-            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite linear;
-        }
-
-        @keyframes shimmer {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-
-        .sticker-img {
-            max-width: 150px;
-            height: auto;
-            mix-blend-mode: multiply;
-            filter: contrast(1.1);
-            display: block;
-        }
-
-        .kick-box {
-            background: #f8f9fa;
-            border: 2px dashed #075e54;
-            border-radius: 12px;
-            aspect-ratio: 1/1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 1.5rem;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        /* Ajustes de scrollbar */
-        #chat-container::-webkit-scrollbar {
-            width: 4px;
-        }
-        #chat-container::-webkit-scrollbar-thumb {
-            background: rgba(0,0,0,0.1);
-            border-radius: 10px;
-        }
-
-        /* Asegurar que el input no se deforme en móviles */
-        input[type="text"] {
-            font-size: 16px !important; /* Evita zoom automático en iOS */
+        /* Transiciones de la Intro */
+        #intro-overlay.fade-out {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease-out;
         }
     </style>
 </head>
-<body class="flex justify-center items-center">
+<body class="text-white selection:bg-[#f2b705] selection:text-[#001b3a] overflow-x-hidden">
 
-    <div class="app-wrapper overflow-hidden shadow-2xl">
-        
-        <!-- Cabecera -->
-        <header class="bg-[#075e54] text-white p-3 flex items-center justify-between shadow-md z-30 shrink-0">
-            <div class="flex items-center space-x-2">
-                <i data-lucide="chevron-left" class="w-6 h-6 cursor-pointer"></i>
-                <div class="relative">
-                    <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center overflow-hidden border border-white/10">
-                        <img src="https://i.postimg.cc/9QrssmwN/Whats-App-Image-2026-02-12-at-3-01-03-PM.jpg" alt="Jorge Barón" class="w-full h-full object-cover">
-                    </div>
-                    <div class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-400 border-2 border-[#075e54] rounded-full"></div>
-                </div>
-                <div>
-                    <h1 class="font-bold text-sm leading-none">La patadita Mundialista 🎤</h1>
-                    <span class="text-[10px] opacity-80">en línea</span>
-                </div>
+    <!-- Pantalla de Intro Animada -->
+    <div id="intro-overlay" class="fixed inset-0 z-[1000] bg-[#001b3a] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_#f2b70515_0%,_transparent_70%)]"></div>
+        <div class="relative flex flex-col items-center text-center">
+            <div id="intro-content" class="transition-all duration-700 transform translate-y-10 opacity-0">
+                <h2 class="text-[#f2b705] text-xs font-black uppercase tracking-[0.5em] mb-4">WPlay Presenta</h2>
+                <h1 class="text-5xl md:text-8xl font-black text-white italic uppercase tracking-tighter leading-none">
+                    LA PATADITA <br> <span class="text-[#f2b705]">MUNDIALISTA</span>
+                </h1>
             </div>
-            <div class="flex space-x-3 opacity-80">
-                <i data-lucide="video" class="w-5 h-5"></i>
-                <i data-lucide="phone" class="w-5 h-5"></i>
-                <i data-lucide="more-vertical" class="w-5 h-5"></i>
+            <!-- Icono de Patada (Zap) -->
+            <div id="kick-visual" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-500 scale-0 opacity-0">
+                <i data-lucide="zap" class="w-32 h-32 md:w-64 md:h-64 text-[#f2b705] drop-shadow-[0_0_30px_rgba(242,183,5,0.8)] animate-kick" stroke-width="3"></i>
             </div>
-        </header>
+            <div class="absolute bottom-12 text-white/20 text-[10px] uppercase tracking-[0.3em] font-bold">Cargando la Suerte...</div>
+        </div>
+    </div>
 
-        <!-- Contenedor del Chat -->
-        <main id="chat-container" class="flex-1 overflow-y-auto p-4 space-y-4 whatsapp-bg relative">
-            <div id="welcome-action" class="flex justify-center my-6">
-                <button onclick="triggerInitialGreeting()" class="bg-white px-6 py-3 rounded-full shadow-lg text-[#075e54] font-bold border border-gray-100 hover:bg-gray-50 active:scale-95 transition-all text-sm">
-                    Hola Jorge, ¡quiero mi patadita! 🦵
-                </button>
+    <!-- Navegación -->
+    <nav id="navbar" class="fixed top-0 w-full z-[100] transition-all duration-300 py-6">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <img src="https://i.postimg.cc/9FP5mpzw/Logos-Wplay-Mesa-de-trabajo-1-(1).png" alt="WPlay Logo" class="h-8 md:h-10 drop-shadow-lg">
+                <div class="hidden lg:block h-6 w-px bg-white/20"></div>
+                <p class="hidden lg:block text-[9px] font-black uppercase tracking-widest text-[#f2b705]">Patrocinador oficial de los hinchas <br> que lo dan todo</p>
             </div>
-        </main>
+            
+            <div class="hidden md:flex gap-8 items-center text-[10px] font-black uppercase tracking-widest">
+                <a href="#kpis" class="hover:text-[#f2b705] transition-colors">KPIs</a>
+                <a href="#estrategia" class="hover:text-[#f2b705] transition-colors">Continuidad</a>
+                <a href="#pasos" class="hover:text-[#f2b705] transition-colors">El Paso a Paso</a>
+                <a href="#propuesta" class="hover:text-[#f2b705] transition-colors">Inversión</a>
+                <a href="https://wa.link/blupit" target="_blank" class="bg-[#f2b705] text-[#001b3a] px-6 py-2 rounded-sm hover:bg-[#ffcc33] transition-colors shadow-lg">Entrar al Chat</a>
+            </div>
+            <!-- Botón Móvil -->
+            <button class="md:hidden text-white" onclick="toggleMenu()">
+                <i data-lucide="menu" id="menu-icon"></i>
+            </button>
+        </div>
+    </nav>
 
-        <!-- Typing Indicator Floating -->
-        <div id="typing-indicator" class="hidden absolute bottom-20 left-4 bg-white rounded-2xl px-4 py-2 shadow-md z-10 transition-all">
-            <div class="flex space-x-1.5 items-center">
-                <div class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce"></div>
-                <div class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce [animation-delay:0.2s]"></div>
-                <div class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce [animation-delay:0.4s]"></div>
-            </div>
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-[150] bg-[#001b3a] hidden flex-col items-center justify-center p-6 text-center">
+        <button class="absolute top-8 right-8 text-white" onclick="toggleMenu()">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        <div class="flex flex-col gap-8">
+            <a href="#kpis" onclick="toggleMenu()" class="text-3xl font-black italic uppercase text-white hover:text-[#f2b705]">KPIs</a>
+            <a href="#estrategia" onclick="toggleMenu()" class="text-3xl font-black italic uppercase text-white hover:text-[#f2b705]">Continuidad</a>
+            <a href="#pasos" onclick="toggleMenu()" class="text-3xl font-black italic uppercase text-white hover:text-[#f2b705]">El Paso a Paso</a>
+            <a href="#propuesta" onclick="toggleMenu()" class="text-3xl font-black italic uppercase text-white hover:text-[#f2b705]">Inversión</a>
+            <a href="https://wa.link/blupit" class="mt-8 bg-[#f2b705] text-[#001b3a] px-10 py-4 rounded-sm font-black uppercase italic shadow-2xl">Activar Amuleto</a>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://i.postimg.cc/tTM8q42K/Whats-App-Image-2026-02-25-at-10-35-59-AM.jpg" alt="Jorge Barón" class="w-full h-full object-cover object-center opacity-40">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#001b3a] via-[#001b3a]/40 to-transparent"></div>
         </div>
 
-        <!-- Área de Entrada de Mensaje -->
-        <footer class="bg-[#f0f0f0] p-2 sm:p-3 flex items-center space-x-2 z-20 shrink-0">
-            <div class="flex items-center">
-                <label id="camera-label" for="file-input" class="hidden cursor-pointer p-2 text-gray-500 active:scale-90 transition-transform">
-                    <i data-lucide="camera" class="w-6 h-6"></i>
-                    <input type="file" id="file-input" accept="image/*" class="hidden" onchange="handleImageUpload(event)">
-                </label>
-                <button class="p-2 text-gray-500">
-                    <i data-lucide="plus" class="w-6 h-6"></i>
-                </button>
+        <div class="max-w-6xl mx-auto text-center relative z-10 px-6 pt-20">
+            <div class="inline-flex items-center gap-2 px-5 py-2 rounded-sm bg-[#f2b705]/20 border border-[#f2b705]/40 text-[#f2b705] text-[11px] font-black uppercase tracking-[0.3em] mb-8 backdrop-blur-md">
+                <i data-lucide="star" class="w-4 h-4 fill-current"></i> El Mayor Activo de la Suerte en Colombia
+            </div>
+            
+            <h1 class="text-6xl md:text-[10rem] font-black mb-6 tracking-tighter leading-[0.8] italic uppercase text-white text-shadow-xl">
+                LA PATADITA <br> <span class="bg-gold-gradient">MUNDIALISTA</span>
+            </h1>
+
+            <p class="text-xl md:text-3xl font-bold text-white mb-12 max-w-4xl mx-auto uppercase tracking-tighter italic">
+                "SI LA SELE NO LLEGA AL PODIO, <span class="text-[#f2b705]">JUBILO MI PATADITA</span>"
+            </p>
+
+            <a href="#kpis" class="inline-flex items-center gap-3 bg-white text-[#001b3a] font-black px-10 py-5 rounded-sm uppercase italic tracking-tighter hover:bg-[#f2b705] transition-all group">
+                Ver Objetivos de Campaña <i data-lucide="arrow-right" class="group-hover:translate-x-2 transition-transform"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- KPI Section -->
+    <section id="kpis" class="py-32 px-6 bg-[#001b3a] border-b border-white/5">
+        <div class="max-w-6xl mx-auto">
+            <div class="bg-[#00244d]/30 border border-white/10 p-10 md:p-16 rounded-sm text-center mb-16 relative overflow-hidden group">
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_#f2b70505_0%,_transparent_70%)]"></div>
+                <h3 class="text-xl md:text-2xl font-black text-white italic uppercase tracking-tighter mb-4 relative z-10">
+                    WPLAY SE APROPIA DEL MAYOR ACTIVO DE LA SUERTE EN COLOMBIA:
+                </h3>
+                <div class="h-px w-24 bg-[#f2b705] mx-auto mb-6 relative z-10"></div>
+                <p class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter text-white leading-none relative z-10">
+                    <span class="text-[#f2b705]">YA NO SE DA POR TV,</span> SE DA POR <span class="text-[#00ff00]">WHATSAPP</span> <br> 
+                    ENFOCADA A CONSEGUIR ESTOS KPIS:
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                <div class="flex flex-col items-center gap-4 p-8 bg-[#00244d] border border-white/5 rounded-sm group hover:border-[#f2b705] transition-all text-center">
+                    <i data-lucide="user-plus" class="text-[#f2b705] w-8 h-8 group-hover:scale-125 transition-transform"></i>
+                    <h4 class="text-sm font-black uppercase tracking-widest text-white leading-none">Registros</h4>
+                    <p class="text-[9px] font-bold uppercase tracking-tighter text-slate-500">Nuevos Hinchas</p>
+                </div>
+                <div class="flex flex-col items-center gap-4 p-8 bg-[#00244d] border border-white/5 rounded-sm group hover:border-[#f2b705] transition-all text-center">
+                    <i data-lucide="circle-dollar-sign" class="text-[#00ff00] w-8 h-8 group-hover:scale-125 transition-transform"></i>
+                    <h4 class="text-sm font-black uppercase tracking-widest text-white leading-none">Recargas</h4>
+                    <p class="text-[9px] font-bold uppercase tracking-tighter text-slate-500">Depósitos</p>
+                </div>
+                <div class="flex flex-col items-center gap-4 p-8 bg-[#00244d] border border-white/5 rounded-sm group hover:border-[#f2b705] transition-all text-center">
+                    <i data-lucide="zap" class="text-[#f2b705] w-8 h-8 group-hover:scale-125 transition-transform"></i>
+                    <h4 class="text-sm font-black uppercase tracking-widest text-white leading-none">Reactivación</h4>
+                    <p class="text-[9px] font-bold uppercase tracking-tighter text-slate-500">Usuarios Inactivos</p>
+                </div>
+                <div class="flex flex-col items-center gap-4 p-8 bg-[#00244d] border border-white/5 rounded-sm group hover:border-[#f2b705] transition-all text-center">
+                    <i data-lucide="bar-chart-3" class="text-[#00ff00] w-8 h-8 group-hover:scale-125 transition-transform"></i>
+                    <h4 class="text-sm font-black uppercase tracking-widest text-white leading-none">Rejuego</h4>
+                    <p class="text-[9px] font-bold uppercase tracking-tighter text-slate-500">Frecuencia</p>
+                </div>
+                <div class="flex flex-col items-center gap-4 p-8 bg-[#00244d] border border-white/5 rounded-sm group hover:border-[#f2b705] transition-all text-center">
+                    <i data-lucide="star" class="text-[#f2b705] w-8 h-8 group-hover:scale-125 transition-transform"></i>
+                    <h4 class="text-sm font-black uppercase tracking-widest text-white leading-none">Reputación</h4>
+                    <p class="text-[9px] font-bold uppercase tracking-tighter text-slate-500">Top of Mind</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Motor de Permanencia -->
+    <section id="estrategia" class="py-32 px-6 bg-gradient-to-b from-[#001b3a] to-[#00142b]">
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 items-center">
+            <div class="flex-1 space-y-10">
+                <div class="space-y-4">
+                    <h2 class="text-xs font-black text-[#00ff00] uppercase tracking-[0.4em] flex items-center gap-4 italic">
+                        <div class="h-px w-12 bg-[#00ff00]"></div> El Motor de Permanencia
+                    </h2>
+                    <h3 class="text-5xl md:text-[5.5rem] font-black italic uppercase tracking-tighter text-white leading-[0.85]">
+                        WHATSAPP COMO <br> <span class="text-[#f2b705]">CONTINUIDAD DE CAMPAÑA</span>
+                    </h3>
+                </div>
+                
+                <p class="text-slate-300 text-xl leading-relaxed font-medium">
+                    WPlay elimina el riesgo del "impacto efímero". WhatsApp no es solo una landing, es la herramienta que <span class="text-white font-black underline decoration-[#f2b705] decoration-2 underline-offset-8 italic">impulsa y mantiene viva la campaña</span> a través de una acción interactiva diaria.
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                    <div class="p-8 bg-[#00244d] border-l-4 border-[#f2b705] rounded-r-sm shadow-lg group hover:bg-[#002b5c] transition-all">
+                        <div class="text-4xl font-black text-white mb-2">0% Miedo</div>
+                        <p class="text-[10px] font-black uppercase tracking-widest text-[#f2b705] mb-3">Continuidad Garantizada</p>
+                        <p class="text-xs text-slate-400 leading-relaxed font-bold uppercase tracking-tighter">
+                            Evitamos que la campaña muera tras el primer gran impacto, creando un túnel de conversión infinito.
+                        </p>
+                    </div>
+                    <div class="p-8 bg-[#00244d] border-l-4 border-[#00ff00] rounded-r-sm shadow-lg group hover:bg-[#002b5c] transition-all">
+                        <div class="text-4xl font-black text-white mb-2">Patadita #ID</div>
+                        <p class="text-[10px] font-black uppercase tracking-widest text-[#00ff00] mb-3">Identidad del Hincha</p>
+                        <p class="text-xs text-slate-400 leading-relaxed font-bold uppercase tracking-tighter">
+                            Hacemos parte a todos los colombianos con un amuleto personalizado que lleva su número de serie único.
+                        </p>
+                    </div>
+                </div>
             </div>
             
             <div class="flex-1">
-                <input type="text" id="chat-input" 
-                    placeholder="Escribe un mensaje"
-                    autocomplete="off"
-                    class="w-full bg-white rounded-full px-4 py-2 text-sm outline-none shadow-sm border-none focus:ring-0">
+                <div class="relative group p-[1px] bg-gradient-to-br from-[#f2b705] to-[#00ff00] rounded-sm shadow-2xl">
+                    <div class="bg-[#001b3a] p-10 md:p-12 rounded-sm relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-10 opacity-5 group-hover:opacity-10 transition-opacity">
+                            <i data-lucide="message-circle" class="w-40 h-40"></i>
+                        </div>
+                        <h4 class="text-2xl md:text-3xl font-black italic uppercase text-white mb-8 tracking-tighter leading-none relative z-10">
+                            Más que una Imagen, <br> <span class="text-[#f2b705]">una Conversación</span>
+                        </h4>
+                        <p class="text-2xl md:text-3xl font-serif italic text-white mb-10 leading-snug relative z-10">
+                            "La campaña no termina cuando el usuario recibe su código. <span class="text-[#f2b705] font-black uppercase not-italic text-shadow-xl text-white">AHÍ EMPIEZA LA CONVERSIÓN real,</span> integrando al hincha en un ecosistema que lo premia por su pasión diaria."
+                        </p>
+                        <div class="flex items-center gap-5 relative z-10">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#f2b705] to-[#b88a00] flex items-center justify-center text-[#001b3a] shadow-lg">
+                                <i data-lucide="target" class="w-6 h-6"></i>
+                            </div>
+                            <p class="font-black uppercase italic tracking-tighter text-[#00ff00]">Impulso de Conversión: Selección WPlay</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Paso a Paso Flow -->
+    <section id="pasos" class="py-32 px-6 bg-[#001b3a] relative overflow-hidden">
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="flex flex-col lg:flex-row gap-20 items-center">
+                <div class="lg:w-2/5 space-y-8 text-center lg:text-left">
+                    <div class="space-y-4">
+                        <h2 class="text-xs font-black text-[#f2b705] uppercase tracking-[0.5em] italic">User Journey</h2>
+                        <h3 class="text-5xl md:text-7xl font-black italic uppercase tracking-tighter text-white leading-[0.85]">EL PASO A PASO <br> <span class="text-[#f2b705]">HACIA EL GOL</span></h3>
+                    </div>
+                    <p class="text-slate-400 text-lg font-medium leading-relaxed italic">
+                        WhatsApp nos permite acompañar al hincha en cada momento clave del mundial, transformando la nostalgia en interacción real.
+                    </p>
+                    <div class="pt-6">
+                        <img src="https://i.postimg.cc/j2nmLY1H/Whats-App-Image-2026-02-26-at-3-34-06-PM.jpg" alt="WhatsApp Mockup" class="rounded-3xl shadow-2xl border-4 border-white/5 rotate-2 hover:rotate-0 transition-transform duration-700 w-full max-w-sm mx-auto">
+                    </div>
+                </div>
+
+                <div class="lg:w-3/5 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="group bg-[#00244d] border border-white/5 p-8 rounded-sm hover:border-[#f2b705] transition-all flex items-start gap-6 shadow-xl">
+                        <div class="shrink-0 w-12 h-12 rounded-sm bg-[#001b3a] text-[#f2b705] flex items-center justify-center font-black text-lg group-hover:bg-[#f2b705] group-hover:text-[#001b3a] transition-all">
+                            <i data-lucide="message-circle"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <h4 class="font-black text-sm text-white uppercase tracking-widest mb-2 italic">1. Entrada WhatsApp</h4>
+                            <p class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter leading-relaxed">Inicia chat oficial y acepta T&C.</p>
+                        </div>
+                    </div>
+                    <div class="group bg-[#00244d] border border-white/5 p-8 rounded-sm hover:border-[#f2b705] transition-all flex items-start gap-6 shadow-xl">
+                        <div class="shrink-0 w-12 h-12 rounded-sm bg-[#001b3a] text-[#f2b705] flex items-center justify-center font-black text-lg group-hover:bg-[#f2b705] group-hover:text-[#001b3a] transition-all">
+                            <i data-lucide="sparkles"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <h4 class="font-black text-sm text-white uppercase tracking-widest mb-2 italic">2. Saludo de Jorge</h4>
+                            <p class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter leading-relaxed">Bienvenida con el carisma de Jorge Barón.</p>
+                        </div>
+                    </div>
+                    <div class="group bg-[#00244d] border border-white/5 p-8 rounded-sm hover:border-[#f2b705] transition-all flex items-start gap-6 shadow-xl">
+                        <div class="shrink-0 w-12 h-12 rounded-sm bg-[#001b3a] text-[#f2b705] flex items-center justify-center font-black text-lg group-hover:bg-[#f2b705] group-hover:text-[#001b3a] transition-all">
+                            <i data-lucide="user-check"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <h4 class="font-black text-sm text-white uppercase tracking-widest mb-2 italic">3. Validación Legal</h4>
+                            <p class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter leading-relaxed">Solicitud de cédula y mayoría de edad.</p>
+                        </div>
+                    </div>
+                    <div class="group bg-[#00244d] border border-white/5 p-8 rounded-sm hover:border-[#f2b705] transition-all flex items-start gap-6 shadow-xl">
+                        <div class="shrink-0 w-12 h-12 rounded-sm bg-[#001b3a] text-[#f2b705] flex items-center justify-center font-black text-lg group-hover:bg-[#f2b705] group-hover:text-[#001b3a] transition-all">
+                            <i data-lucide="camera"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <h4 class="font-black text-sm text-white uppercase tracking-widest mb-2 italic">4. Selfie del Hincha</h4>
+                            <p class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter leading-relaxed">Captura de foto para iniciar la magia.</p>
+                        </div>
+                    </div>
+                    <div class="group bg-[#00244d] border border-white/5 p-8 rounded-sm hover:border-[#f2b705] transition-all flex items-start gap-6 shadow-xl">
+                        <div class="shrink-0 w-12 h-12 rounded-sm bg-[#001b3a] text-[#f2b705] flex items-center justify-center font-black text-lg group-hover:bg-[#f2b705] group-hover:text-[#001b3a] transition-all">
+                            <i data-lucide="hash"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <h4 class="font-black text-sm text-white uppercase tracking-widest mb-2 italic">5. Tu Patadita #ID</h4>
+                            <p class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter leading-relaxed">IA genera caricatura + código único seriado.</p>
+                        </div>
+                    </div>
+                    <div class="group bg-[#00244d] border border-white/5 p-8 rounded-sm hover:border-[#f2b705] transition-all flex items-start gap-6 shadow-xl">
+                        <div class="shrink-0 w-12 h-12 rounded-sm bg-[#001b3a] text-[#f2b705] flex items-center justify-center font-black text-lg group-hover:bg-[#f2b705] group-hover:text-[#001b3a] transition-all">
+                            <i data-lucide="gift"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <h4 class="font-black text-sm text-white uppercase tracking-widest mb-2 italic">6. Bono Patadita</h4>
+                            <p class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter leading-relaxed">Bono de la buena suerte para redimir.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Propuesta Económica -->
+    <section id="propuesta" class="py-32 px-6 bg-[#00142b] border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20 space-y-4">
+                <h2 class="text-xs font-black text-[#f2b705] uppercase tracking-[0.4em] italic">Inversión Estratégica</h2>
+                <h3 class="text-5xl md:text-7xl font-black italic uppercase tracking-tighter text-white">PLANES DE <span class="text-[#00ff00]">EJECUCIÓN</span></h3>
             </div>
 
-            <button id="send-btn" class="bg-[#075e54] p-2.5 rounded-full text-white shadow-md active:scale-90 transition-transform flex items-center justify-center">
-                <i data-lucide="send" class="w-5 h-5"></i>
-            </button>
-        </footer>
+            <div class="grid md:grid-cols-2 gap-10">
+                <!-- Premium Plan -->
+                <div class="group relative bg-[#00244d] border border-[#f2b705]/20 rounded-2xl p-10 hover:border-[#f2b705] transition-all duration-500 shadow-2xl flex flex-col">
+                    <div class="absolute top-0 right-0 p-8">
+                        <div class="bg-[#f2b705] text-[#001b3a] text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-xl">PREMIUM AI</div>
+                    </div>
+                    <div class="mb-10 text-center lg:text-left">
+                        <h3 class="text-3xl font-black mb-2 text-white uppercase italic tracking-tighter">Experiencia IA Facial</h3>
+                        <p class="text-[#f2b705] font-black text-6xl mb-6 tracking-tighter">$150.000.000 <span class="text-xl font-normal ml-1">COP</span></p>
+                        <div class="flex flex-wrap justify-center lg:justify-start gap-6 text-[10px] uppercase font-bold text-slate-400">
+                            <span class="flex items-center gap-2"><i data-lucide="clock" class="w-3.5 h-3.5 text-[#f2b705]"></i> 80 Días</span>
+                            <span class="flex items-center gap-2"><i data-lucide="users" class="w-3.5 h-3.5 text-[#f2b705]"></i> 100k Usuarios</span>
+                        </div>
+                    </div>
+                    <ul class="space-y-4 mb-12 flex-grow text-slate-300 text-sm" id="premium-list"></ul>
+                    <div class="p-6 bg-[#001b3a] rounded-xl border border-[#f2b705]/20">
+                        <p class="text-[10px] font-black text-[#f2b705] mb-2 uppercase tracking-[0.2em]">Factor Estratégico</p>
+                        <p class="text-xs text-slate-400 italic font-medium leading-relaxed">Máximo impacto emocional y viralidad orgánica. Ideal para posicionar la marca con tecnología de vanguardia.</p>
+                    </div>
+                </div>
+
+                <!-- Standard Plan -->
+                <div class="relative bg-[#00244d] border border-white/5 rounded-2xl p-10 hover:border-[#00ff00] transition-all duration-500 shadow-2xl flex flex-col">
+                    <div class="absolute top-0 right-0 p-8">
+                        <div class="bg-slate-700 text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-xl">STANDARD</div>
+                    </div>
+                    <div class="mb-10 text-center lg:text-left">
+                        <h3 class="text-3xl font-black mb-2 text-white uppercase italic tracking-tighter">Versión Gamificada</h3>
+                        <p class="text-white font-black text-6xl mb-6 tracking-tighter">$95.000.000 <span class="text-xl font-normal ml-1">COP</span></p>
+                        <div class="flex flex-wrap justify-center lg:justify-start gap-6 text-[10px] uppercase font-bold text-slate-400">
+                            <span class="flex items-center gap-2"><i data-lucide="clock" class="w-3.5 h-3.5 text-[#00ff00]"></i> 80 Días</span>
+                            <span class="flex items-center gap-2"><i data-lucide="users" class="w-3.5 h-3.5 text-[#00ff00]"></i> 100k Usuarios</span>
+                        </div>
+                    </div>
+                    <ul class="space-y-4 mb-12 flex-grow text-slate-300 text-sm" id="standard-list"></ul>
+                    <div class="p-6 bg-[#001b3a] rounded-xl border border-white/10">
+                        <p class="text-[10px] font-black text-slate-500 mb-2 uppercase tracking-[0.2em]">Factor Estratégico</p>
+                        <p class="text-xs text-slate-500 italic font-medium leading-relaxed">Implementación rápida y costo-eficiente centrada en la adquisición masiva de leads de calidad.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-40 px-6 text-center bg-gradient-to-b from-[#00142b] to-black relative overflow-hidden">
+        <div class="absolute inset-0 z-0 opacity-10">
+            <img src="https://i.postimg.cc/tTM8q42K/Whats-App-Image-2026-02-25-at-10-35-59-AM.jpg" alt="Footer Background" class="w-full h-full object-cover grayscale">
+        </div>
+        <div class="max-w-4xl mx-auto space-y-16 relative z-10">
+            <div class="space-y-6">
+                <p class="text-[#f2b705] font-black text-xs uppercase tracking-[0.8em] italic">WPlay.co</p>
+                <h2 class="text-6xl md:text-[8rem] font-black text-white leading-[0.8] uppercase italic tracking-tighter drop-shadow-2xl">
+                    HACEMOS QUE LA <br> CAMPAÑA <br> <span class="text-[#f2b705]">NUNCA SE DETENGA</span>
+                </h2>
+            </div>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-12 pt-16 border-t border-white/10">
+                <img src="https://i.postimg.cc/9FP5mpzw/Logos-Wplay-Mesa-de-trabajo-1-(1).png" alt="WPlay Logo" class="h-12">
+                <div class="hidden md:block w-px h-12 bg-white/10"></div>
+                <p class="text-[10px] text-white/40 font-bold uppercase tracking-[0.3em] italic max-w-xs leading-relaxed">
+                    Patrocinador oficial de los hinchas que lo dan todo. <br> Propuesta de Continuidad Mundialista 2026.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- FAB -->
+    <div class="fixed bottom-8 right-8 z-[200]">
+        <a href="https://wa.link/blupit" target="_blank" class="flex items-center gap-4 bg-[#f2b705] text-[#001b3a] font-black px-8 py-5 rounded-sm shadow-[0_20px_60px_rgba(242,183,5,0.4)] transition-all hover:-translate-y-2 active:scale-95 group uppercase text-sm italic tracking-tighter decoration-none no-underline">
+            <div class="bg-[#001b3a] p-2 rounded-sm text-[#f2b705] group-hover:rotate-12 transition-transform">
+                <i data-lucide="message-circle" class="w-5 h-5"></i>
+            </div>
+            <span>Unirme a la Selección</span>
+            <i data-lucide="chevron-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+        </a>
     </div>
 
     <script>
-        const apiKey = ""; 
-        let currentStep = 'start';
-        let userData = { name: '', id: '', selfieBase64: null };
-        
-        const mandatoryFinalImage = "https://i.postimg.cc/MHLGkBcr/Gemini-Generated-Image-9xwmqw9xwmqw9xwm.png";
-        const introSticker = "https://i.postimg.cc/7L5ZXGLL/Diseno-sin-titulo-(2).png";
-        const pataditaSticker = "https://i.postimg.cc/7PQW752H/patadita.png";
-        
-        const chatContainer = document.getElementById('chat-container');
-        const chatInput = document.getElementById('chat-input');
-        const sendBtn = document.getElementById('send-btn');
-        const typingIndicator = document.getElementById('typing-indicator');
-        const cameraLabel = document.getElementById('camera-label');
-
         lucide.createIcons();
 
-        // Función para autoscroll
-        function scrollToBottom() {
-            chatContainer.scrollTo({
-                top: chatContainer.scrollHeight,
-                behavior: 'smooth'
-            });
-        }
+        // Control Intro
+        window.addEventListener('load', () => {
+            const intro = document.getElementById('intro-overlay');
+            const introContent = document.getElementById('intro-content');
+            const kickVisual = document.getElementById('kick-visual');
 
-        // Manejar enfoque del teclado en móvil
-        chatInput.addEventListener('focus', () => {
-            setTimeout(scrollToBottom, 300);
+            setTimeout(() => {
+                introContent.classList.remove('translate-y-10', 'opacity-0');
+                introContent.classList.add('translate-y-0', 'opacity-100');
+            }, 500);
+
+            setTimeout(() => {
+                kickVisual.classList.remove('scale-0', 'opacity-0');
+                kickVisual.classList.add('scale-150', 'opacity-100');
+            }, 1500);
+
+            setTimeout(() => {
+                intro.classList.add('fade-out');
+            }, 2500);
+
+            setTimeout(() => {
+                intro.style.display = 'none';
+            }, 3000);
         });
 
-        function addMessage(text, type = 'received', media = null, buttons = []) {
-            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `flex ${type === 'sent' ? 'justify-end' : 'justify-start'} w-full message-in mb-3`;
-
-            let mediaHtml = '';
-            if (media && media.type === 'image') {
-                if (media.isLoading) {
-                    mediaHtml = `
-                        <div class="mb-2 w-full aspect-video rounded-lg loading-shimmer flex flex-col items-center justify-center text-xs text-gray-400 p-4">
-                            <i data-lucide="loader-2" class="w-5 h-5 animate-spin mb-2"></i>
-                            <span>${media.loadingText || 'Cargando...'}</span>
-                        </div>`;
-                } else {
-                    const isSticker = media.url === pataditaSticker || media.url === introSticker;
-                    mediaHtml = `
-                        <div class="mb-2 rounded-lg overflow-hidden ${!isSticker ? 'shadow-inner' : ''}">
-                            <img src="${media.url}" class="${isSticker ? 'sticker-img' : 'w-full h-auto'}" alt="Media">
-                        </div>`;
-                }
+        // Navbar Scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-[#001b3a]/95', 'backdrop-blur-md', 'shadow-2xl', 'border-b', 'border-[#f2b705]/20', 'py-3');
+                nav.classList.remove('py-6');
+            } else {
+                nav.classList.remove('bg-[#001b3a]/95', 'backdrop-blur-md', 'shadow-2xl', 'border-b', 'border-[#f2b705]/20', 'py-3');
+                nav.classList.add('py-6');
             }
+        });
 
-            let buttonsHtml = '';
-            if (buttons.length > 0) {
-                buttonsHtml = `<div class="mt-3 space-y-2">`;
-                buttons.forEach(btn => {
-                    buttonsHtml += `
-                        <button onclick="handleButtonClick('${btn.id}', '${btn.label}')" 
-                            class="w-full py-2.5 bg-gray-50/90 border border-gray-200 text-[#007aff] rounded-xl text-sm font-semibold active:bg-gray-200 shadow-sm">
-                            ${btn.label}
-                        </button>`;
-                });
-                buttonsHtml += `</div>`;
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu.style.display === 'flex') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'flex';
             }
+        }
 
-            let gameHtml = '';
-            if (media && media.type === 'game') {
-                gameHtml = `
-                    <div class="grid grid-cols-3 gap-2 mt-3">
-                        <div class="kick-box" onclick="playGoldenKick(1)">📦</div>
-                        <div class="kick-box" onclick="playGoldenKick(2)">📦</div>
-                        <div class="kick-box" onclick="playGoldenKick(3)">📦</div>
-                    </div>`;
-            }
+        // Entregables actualizados
+        const proposalItems = [
+            { text: "Imagen Personalizada con nombre y código", bold: true, icon: "image" },
+            { text: "Generación de Código Único Premiado", bold: true, icon: "hash" },
+            { text: "Solicitud y elaboración portafolio oficial Meta", bold: true, icon: "file-text" },
+            { text: "WhatsApp Business API Oficial", bold: false, icon: "message-circle" },
+            { text: "Ecosistema de Ranking y Pollas", bold: false, icon: "trophy" },
+            { text: "Infraestructura de Alta Disponibilidad", bold: false, icon: "cloud" },
+            { text: "Soporte Técnico 24/7", bold: false, icon: "phone" }
+        ];
 
-            const bubbleClass = type === 'sent' ? 'bg-[#dcf8c6] rounded-tr-none' : 'bg-white rounded-tl-none';
-            const isPureSticker = media && (media.url === pataditaSticker || media.url === introSticker) && !text;
-
-            messageDiv.innerHTML = `
-                <div class="max-w-[85%] relative">
-                    <div class="${!isPureSticker ? 'p-2 shadow-sm ' + bubbleClass + ' rounded-xl' : ''}">
-                        ${mediaHtml}
-                        ${text ? `<p class="text-[14px] leading-snug whitespace-pre-wrap text-gray-800 px-1">${text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')}</p>` : ''}
-                        ${gameHtml}
-                        <div class="flex items-center justify-end space-x-1 mt-1 opacity-50 px-1">
-                            <span class="text-[9px] font-medium">${time}</span>
-                            ${type === 'sent' ? '<i data-lucide="check-check" class="w-3 h-3 text-blue-500"></i>' : ''}
-                        </div>
+        function renderList(targetId, colorClass) {
+            const container = document.getElementById(targetId);
+            proposalItems.forEach(item => {
+                const li = document.createElement('li');
+                li.className = 'flex items-start gap-4';
+                li.innerHTML = `
+                    <div class="w-5 h-5 ${colorClass}/10 rounded flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-[#f2b705] transition-colors">
+                        <i data-lucide="${item.icon}" class="w-3 h-3 ${colorClass} group-hover:text-[#001b3a]"></i>
                     </div>
-                    ${buttonsHtml}
-                </div>`;
-
-            chatContainer.appendChild(messageDiv);
-            scrollToBottom();
-            lucide.createIcons();
-            return messageDiv;
-        }
-
-        function simulateTyping(callback, delay = 1000) {
-            typingIndicator.classList.remove('hidden');
-            scrollToBottom();
-            setTimeout(() => {
-                typingIndicator.classList.add('hidden');
-                callback();
-            }, delay);
-        }
-
-        async function triggerInitialGreeting() {
-            document.getElementById('welcome-action').classList.add('hidden');
-            addMessage("Hola Jorge Barón, ¡quiero recibir mi patadita! 🦵", 'sent');
-            
-            setTimeout(() => {
-                addMessage("", 'received', { type: 'image', url: introSticker });
-                simulateTyping(() => {
-                    addMessage("¡Entusiasmo! 🎤 Aquí habla **Jorge Barón**. Estoy listo para darte la **patadita de la buena suerte** mundialista.\n\nPrimero cuéntame, ¿cuál es tu nombre?", 'received');
-                    currentStep = 'awaiting_name';
-                }, 1200);
-            }, 400);
-        }
-
-        async function handleInputSubmit() {
-            const val = chatInput.value.trim();
-            if (!val) return;
-            chatInput.value = '';
-            addMessage(val, 'sent');
-
-            if (currentStep === 'finished') {
-                simulateTyping(() => {
-                    addMessage("¡Entusiasmo! Si quieres volver a empezar, escribe 'reiniciar'.", 'received');
-                    if(val.toLowerCase() === 'reiniciar') location.reload();
-                });
-                return;
-            }
-
-            switch(currentStep) {
-                case 'awaiting_name':
-                    userData.name = val;
-                    simulateTyping(() => {
-                        addMessage(`¡Qué elegancia, **${val}**! 🕺 Ahora dime tu **número de cédula** para validar tu registro.`, 'received');
-                        currentStep = 'awaiting_id';
-                    });
-                    break;
-                case 'awaiting_id':
-                    userData.id = val;
-                    simulateTyping(() => {
-                        addMessage(
-                            `¡Perfecto! Confirma si tus datos son correctos:\n\n👤 **Nombre:** ${userData.name}\n🆔 **Cédula:** ${userData.id}`,
-                            'received',
-                            null,
-                            [
-                                { id: 'confirm_data', label: '✅ Sí, son correctos' },
-                                { id: 'edit_name', label: '✏️ Corregir nombre' }
-                            ]
-                        );
-                        currentStep = 'awaiting_confirmation';
-                    });
-                    break;
-                case 'consejos_active':
-                    await handleConsejosIA(val);
-                    break;
-                default:
-                    simulateTyping(() => addMessage("¡Entusiasmo! Sigue las instrucciones. 🎤", 'received'));
-            }
-        }
-
-        async function handleImageUpload(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                userData.selfieBase64 = e.target.result.split(',')[1];
-                if (currentStep === 'awaiting_selfie') {
-                    addMessage("Aquí está mi selfie mundialista 📸", 'sent', { type: 'image', url: e.target.result });
-                    cameraLabel.classList.add('hidden');
-                    processSelfieReceived();
-                }
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function processSelfieReceived() {
-            simulateTyping(() => {
-                addMessage("¡Eso es! Estamos preparando tu momento estelar...", 'received');
-                setTimeout(() => {
-                    addMessage("", 'received', { type: 'image', url: pataditaSticker });
-                    setTimeout(() => {
-                        const loadingMsg = addMessage(``, 'received', { 
-                            type: 'image', 
-                            isLoading: true, 
-                            loadingText: 'Renderizando tu patadita oficial...' 
-                        });
-                        
-                        setTimeout(() => {
-                            loadingMsg.remove();
-                            const luckyCode = "WPLAY-" + Math.random().toString(36).substr(2, 6).toUpperCase();
-                            addMessage(`¡QUÉ NIVEL! 🦵✨ **${userData.name}**, aquí tienes tu patadita oficial.`, 'received', { type: 'image', url: mandatoryFinalImage });
-
-                            simulateTyping(() => {
-                                addMessage(
-                                    `Código de la suerte: **${luckyCode}** 🎫\n\n¡Has ganado un **BONO DE $50.000**!`,
-                                    'received', 
-                                    null, 
-                                    [{ id: 'redeem', label: '💰 RECLAMAR EN WPLAY.CO' }]
-                                );
-
-                                simulateTyping(() => {
-                                    addMessage("¿Qué más te gustaría hacer ahora?", 'received', null, [
-                                        { id: 'polla', label: '🏆 Polla de la Semana' },
-                                        { id: 'aguita_mi_gente', label: '💧 Agüita para mi gente' },
-                                        { id: 'physical_kick', label: '🦵 Patadita física' }
-                                    ]);
-                                }, 1000);
-                            }, 800);
-                        }, 2000);
-                    }, 800);
-                }, 800);
-            }, 1000);
-        }
-
-        window.handleButtonClick = function(id, label) {
-            addMessage(label, 'sent');
-            if (id === 'confirm_data') {
-                simulateTyping(() => {
-                    addMessage("¡Excelente! Ahora necesito que **te tomes una selfie** con el icono de la cámara. 📸", 'received');
-                    cameraLabel.classList.remove('hidden');
-                    currentStep = 'awaiting_selfie';
-                });
-            } else if (id === 'edit_name') {
-                simulateTyping(() => {
-                    addMessage("Dime tu nombre completo de nuevo:", 'received');
-                    currentStep = 'awaiting_name';
-                });
-            } else if (id === 'aguita_mi_gente') {
-                handleAguitaFlow();
-            } else if (id === 'physical_kick') {
-                simulateTyping(() => {
-                    addMessage("¡Claro! 🎤 Por compras superiores a **$200.000**, recibe la patadita física de Jorge Barón en puntos autorizados. ✨", 'received', null, [
-                         { id: 'redeem', label: 'Recargar en Wplay.co' }
-                    ]);
-                });
-            } else if (id === 'aguita_yes') {
-                simulateTyping(() => {
-                    addMessage("Encuentra la **Patadita de Oro** en una caja.", 'received', { type: 'game' });
-                });
-            } else if (id === 'redeem') {
-                window.open('https://wplay.co', '_blank');
-            } else if (id === 'polla') {
-                handlePolla(1);
-            } else if (id.startsWith('p_')) {
-                const step = parseInt(id.split('_')[1]);
-                if (step < 3) handlePolla(step + 1);
-                else {
-                    simulateTyping(() => {
-                        addMessage("✅ **¡Pronósticos guardados!** Mucha suerte. ¡Entusiasmo! 🎤", 'received');
-                        currentStep = 'finished';
-                    });
-                }
-            }
-        };
-
-        function handleAguitaFlow() {
-            simulateTyping(() => {
-                addMessage("¡Ánimo mi gente! 🇨🇴 ¿Quieres un chorrito de **agüita de la suerte**?", 'received', null, [
-                    { id: 'aguita_yes', label: '✅ ¡Sí, tráeme el agüita!' },
-                    { id: 'aguita_no', label: '❌ No' }
-                ]);
+                    <span class="${item.bold ? 'font-black text-white' : ''}">${item.text}</span>
+                `;
+                container.appendChild(li);
             });
         }
 
-        window.playGoldenKick = function(choice) {
-            const win = Math.floor(Math.random() * 3) + 1;
-            const boxes = document.querySelectorAll('.kick-box');
-            boxes.forEach((b, i) => {
-                b.innerHTML = (i + 1 === win) ? "🦵✨" : "💨";
-                b.onclick = null;
-            });
-            setTimeout(() => {
-                addMessage(choice === win ? "¡GANASTE $20.000 EXTRA! ⚽" : "¡Casi! Pero recibe $5.000 por participar. 🎁", 'received');
-                currentStep = 'finished';
-            }, 800);
-        }
-
-        function handlePolla(q) {
-            const qs = ["", "1. ¿Quién gana? ⚽", "2. ¿Goles totales? 🥅", "3. ¿Figura? 🏃‍♂️"];
-            const opts = [
-                [],
-                [{id:'p_1', label:'Local'}, {id:'p_1', label:'Empate'}, {id:'p_1', label:'Visitante'}],
-                [{id:'p_2', label:'Más 2.5'}, {id:'p_2', label:'Exacto 2'}, {id:'p_2', label:'Menos 1.5'}],
-                [{id:'p_3', label:'Delantero'}, {id:'p_3', label:'Portero'}, {id:'p_3', label:'Otro'}]
-            ];
-            simulateTyping(() => addMessage(qs[q], 'received', null, opts[q]));
-        }
-
-        async function handleConsejosIA(query) {
-            const system = "Eres Jorge Barón. Entusiasta. Embajador de Wplay. Da 2 datos breves.";
-            try {
-                const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ contents: [{ parts: [{ text: query }] }], systemInstruction: { parts: [{ text: system }] } })
-                });
-                const data = await res.json();
-                const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "¡Caramba! Intenta de nuevo.";
-                simulateTyping(() => addMessage(text, 'received', null, [{id:'redeem', label:'¡Apostar ahora!'} ]));
-            } catch (e) {
-                addMessage("¡Ay caramba! Error de conexión.", 'received');
-            }
-        }
-
-        sendBtn.addEventListener('click', handleInputSubmit);
-        chatInput.addEventListener('keypress', (e) => e.key === 'Enter' && handleInputSubmit());
+        renderList('premium-list', 'text-[#f2b705]');
+        renderList('standard-list', 'text-[#00ff00]');
+        
+        lucide.createIcons();
     </script>
 </body>
 </html>
