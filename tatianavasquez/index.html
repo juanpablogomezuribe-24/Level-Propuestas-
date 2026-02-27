@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tatiana Vásquez | Rebranding & Estrategia Digital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #002144;
+            --brown: #A67C52;
+            --white: #FFFFFF;
+            --stone: #F1F5F9;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--white);
+            color: var(--navy);
+            scroll-behavior: smooth;
+        }
+
+        .bg-navy { background-color: var(--navy); }
+        .bg-brown { background-color: var(--brown); }
+        .text-navy { color: var(--navy); }
+        .text-brown { color: var(--brown); }
+        .border-brown { border-color: var(--brown); }
+
+        .slide-fade-in {
+            animation: slideFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes slideFade {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+
+        .objective-card {
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+        .objective-card:hover {
+            border-color: var(--brown);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 33, 68, 0.1);
+        }
+
+        /* Estilo de navegación Pill según capturas */
+        .tab-nav-container {
+            background-color: #F4F7FA;
+            border-radius: 9999px;
+            padding: 6px;
+            display: inline-flex;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .tab-btn {
+            padding: 12px 28px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #64748B;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .tab-active {
+            color: var(--white) !important;
+            background-color: #0A1E3B;
+            box-shadow: 0 10px 15px -3px rgba(10, 30, 59, 0.3);
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Header / Hero - Fondo Juegos de Azar -->
+    <header class="bg-navy text-white py-24 md:py-36 px-4 relative overflow-hidden">
+        <div class="absolute inset-0 pointer-events-none">
+            <img src="https://i.postimg.cc/MG6qFXnF/juegos-de-suerte-y-azar.jpg" 
+                 class="w-full h-full object-cover opacity-25 scale-[1.2] origin-center" 
+                 alt="Fondo Juegos de Suerte y Azar">
+            <div class="absolute inset-0 bg-gradient-to-b from-navy/80 via-navy/70 to-navy"></div>
+        </div>
+        
+        <div class="max-w-4xl mx-auto relative z-10 text-center">
+            <div class="flex flex-col items-center">
+                <div class="inline-block px-5 py-2 rounded-full bg-brown/20 border border-brown/30 text-brown text-[10px] font-black tracking-[0.25em] uppercase mb-8 backdrop-blur-sm">
+                    Estrategia de Liderazgo 2026
+                </div>
+                
+                <h1 class="text-4xl md:text-7xl font-extrabold tracking-tight mb-10 leading-tight">
+                    Tatiana Vásquez <br> <span class="text-brown">&</span> Asociados
+                </h1>
+                
+                <div class="bg-white/5 backdrop-blur-md p-8 md:p-10 rounded-[2.5rem] border border-white/10 w-full max-w-2xl shadow-2xl">
+                    <p class="text-brown text-[10px] font-black uppercase tracking-widest mb-4">MENSAJE CENTRAL</p>
+                    <p class="text-xl md:text-3xl font-medium leading-relaxed italic">
+                        "Tatiana Vásquez no es solo una firma legal, es una estratega legal del negocio del gaming en Latam."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-24 space-y-32">
+
+        <!-- Objetivos Estratégicos -->
+        <section class="space-y-12">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-xs font-black uppercase tracking-[0.3em] text-brown mb-4">Rebranding & Referencia</h2>
+                <h3 class="text-4xl font-extrabold text-navy tracking-tight">Objetivos de la Propuesta</h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="objective-card bg-white p-10 rounded-[2.5rem]">
+                    <div class="w-12 h-12 bg-navy text-white rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-navy/20">
+                        <span class="font-bold">01</span>
+                    </div>
+                    <h4 class="text-2xl font-bold text-navy mb-4">Identidad Corporativa</h4>
+                    <p class="text-slate-600 leading-relaxed mb-6">
+                        Estructuración del ecosistema visual que respalda la autoridad de la firma. Entrega de manual de marca, paleta cromática, tipografía y aplicativos diseñados para redes sociales de alto impacto.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-slate-100 text-[10px] font-bold rounded-lg uppercase tracking-wider">Manual de Marca</span>
+                        <span class="px-3 py-1 bg-slate-100 text-[10px] font-bold rounded-lg uppercase tracking-wider">Tipografía Plus Jakarta</span>
+                        <span class="px-3 py-1 bg-slate-100 text-[10px] font-bold rounded-lg uppercase tracking-wider">Social Assets</span>
+                    </div>
+                </div>
+
+                <div class="objective-card bg-slate-900 text-white p-10 rounded-[2.5rem]">
+                    <div class="w-12 h-12 bg-brown text-white rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-brown/20">
+                        <span class="font-bold">02</span>
+                    </div>
+                    <h4 class="text-2xl font-bold mb-4">Referente Indiscutible Latam</h4>
+                    <p class="text-slate-400 leading-relaxed">
+                        Convertir a Tatiana Vásquez en la referente máxima del sector Gaming en la región. Una estrategia de marketing con enfoque claro y técnico del negocio, proyectando autoridad técnica sin arrogancia.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Liderazgo Digital - Actualizado con Nueva Imagen -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+            <div class="lg:col-span-6 relative">
+                <div class="absolute -inset-4 border-2 border-brown/20 rounded-[3rem] -rotate-2"></div>
+                <div class="relative rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white">
+                    <!-- Imagen actualizada para la sección de Liderazgo Digital -->
+                    <img src="https://i.postimg.cc/L87GzXzt/TV-Contenido-06.jpg" alt="Tatiana Vásquez - Liderazgo Digital Gaming en Latam" class="w-full h-full object-cover">
+                </div>
+                <div class="absolute -bottom-6 -right-6 bg-brown text-white p-6 rounded-2xl shadow-xl max-w-xs">
+                    <p class="text-[10px] font-black uppercase tracking-widest opacity-80 mb-2">Autoridad sin Arrogancia</p>
+                    <p class="text-sm font-bold leading-relaxed">
+                        Enfoque técnico y claro del negocio. La cara de la estrategia legal en Latinoamérica.
+                    </p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-6 space-y-8">
+                <h2 class="text-xs font-black uppercase tracking-[0.3em] text-brown">Liderazgo Digital</h2>
+                <h3 class="text-4xl font-bold text-navy leading-tight">Referencia Técnica del Gaming en Latam.</h3>
+                <p class="text-slate-600 text-lg leading-relaxed">
+                    Nuestra estrategia asegura que Tatiana Vásquez sea percibida como la estratega legal indispensable para el crecimiento del negocio Gaming en la región. Buscamos una presencia que imponga respeto por su conocimiento técnico y su visión clara de mercado.
+                </p>
+                <ul class="space-y-4">
+                    <li class="flex items-center gap-3 text-navy font-bold">
+                        <svg class="w-5 h-5 text-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="3" d="M5 13l4 4L19 7" stroke="currentColor"></path></svg>
+                        Referente indiscutible a nivel Latam
+                    </li>
+                    <li class="flex items-center gap-3 text-navy font-bold">
+                        <svg class="w-5 h-5 text-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="3" d="M5 13l4 4L19 7" stroke="currentColor"></path></svg>
+                        Autoridad basada en el rigor técnico
+                    </li>
+                    <li class="flex items-center gap-3 text-navy font-bold">
+                        <svg class="w-5 h-5 text-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="3" d="M5 13l4 4L19 7" stroke="currentColor"></path></svg>
+                        Marketing enfocado en conversión y confianza
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Core Visual -->
+        <section class="bg-[#002144] rounded-[3.5rem] p-8 md:p-16 text-white relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10 pointer-events-none">
+                <img src="https://i.postimg.cc/qvFm658G/Vasquez-y-asociados-1.png" class="w-full h-full object-cover scale-150" alt="Background">
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 relative z-10 items-center">
+                <div class="lg:col-span-5 space-y-8">
+                    <div>
+                        <h2 class="text-brown font-black uppercase tracking-[0.3em] text-[10px] mb-4">CORE VISUAL</h2>
+                        <h3 class="text-5xl font-extrabold mb-6 tracking-tight">Tipografía & Estilo.</h3>
+                        <p class="text-slate-300 leading-relaxed text-sm">
+                            La limpieza visual es el reflejo de la claridad legal. Nuestra propuesta tipográfica busca la máxima legibilidad en entornos corporativos.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-navy/40 backdrop-blur-md p-10 rounded-[2rem] border border-white/10 shadow-lg">
+                        <p class="text-brown text-[10px] font-black uppercase tracking-[0.2em] mb-4">FUENTE PRINCIPAL</p>
+                        <p class="text-5xl font-extrabold mb-4 tracking-tighter">Plus Jakarta Sans</p>
+                        <p class="text-slate-400 text-xs leading-relaxed font-medium">Jerarquías limpias y modernas para un consumo de información ágil y profesional.</p>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-3">
+                        <div class="aspect-square rounded-2xl border border-white/20 flex flex-col items-center justify-center p-4">
+                            <div class="w-full h-full rounded-lg bg-[#002144] mb-2 shadow-inner"></div>
+                            <span class="text-[10px] font-bold opacity-60">Navy</span>
+                        </div>
+                        <div class="aspect-square rounded-2xl bg-[#A67C52] flex flex-col items-center justify-center p-4">
+                            <span class="text-[10px] font-bold">Brown</span>
+                        </div>
+                        <div class="aspect-square rounded-2xl bg-white text-navy flex flex-col items-center justify-center p-4">
+                            <span class="text-[10px] font-bold">White</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7">
+                    <div class="relative rounded-[2.5rem] overflow-hidden shadow-2xl border-2 border-white/5">
+                        <img src="https://i.postimg.cc/Dw2wtxHw/TV-Contenido-08.jpg" alt="Contenido Corporativo Tatiana Vásquez" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cronograma de Contenidos -->
+        <section id="content-engine" class="space-y-12">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-8">
+                <div>
+                    <h2 class="text-[10px] font-black uppercase tracking-[0.3em] text-brown mb-3">CRONOGRAMA DE CONTENIDOS</h2>
+                    <h3 class="text-5xl font-extrabold text-navy tracking-tight">Estrategia de Publicación</h3>
+                </div>
+                
+                <div class="tab-nav-container">
+                    <button onclick="switchWeek(1)" id="tab-1" class="tab-btn tab-active">Semana 1</button>
+                    <button onclick="switchWeek(2)" id="tab-2" class="tab-btn">Semana 2</button>
+                    <button onclick="switchWeek(3)" id="tab-3" class="tab-btn">Semana 3</button>
+                    <button onclick="switchWeek(4)" id="tab-4" class="tab-btn">Semana 4</button>
+                    <button onclick="switchWeek('plan')" id="tab-plan" class="tab-btn">INVERSIÓN</button>
+                </div>
+            </div>
+
+            <div id="week-content" class="min-h-[500px]">
+                <!-- Contenido dinámico -->
+            </div>
+        </section>
+
+        <!-- Métricas -->
+        <section class="border-t border-slate-100 pt-24">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
+                <div>
+                    <h4 class="text-xs font-black text-brown uppercase tracking-widest mb-4">Proyección Mensual</h4>
+                    <h3 class="text-3xl font-bold text-navy mb-8">Embudo de Posicionamiento</h3>
+                    <div class="chart-container">
+                        <canvas id="funnelChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-slate-50 p-10 rounded-[3rem] border border-slate-100 flex flex-col justify-center">
+                    <h4 class="text-xs font-black text-navy uppercase tracking-widest mb-6">Pilares de Autoridad</h4>
+                    <div class="chart-container">
+                        <canvas id="pillarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-navy text-white py-24">
+        <div class="max-w-6xl mx-auto px-4 text-center lg:text-left">
+            <div class="flex flex-col lg:flex-row justify-between items-center gap-12">
+                <div class="flex flex-col lg:flex-row items-center gap-6">
+                    <div class="w-20 h-20 bg-white p-3 rounded-2xl flex items-center justify-center shadow-xl">
+                         <img src="https://i.postimg.cc/htYCQ59h/Vasquez-y-asociados.png" alt="Logo Footer" class="w-full h-full object-contain">
+                    </div>
+                    <div>
+                        <p class="text-xl font-bold">Tatiana Vásquez <span class="text-brown">&</span> Asociados</p>
+                        <p class="text-slate-400 text-sm">Estratega Legal del Gaming en Latam.</p>
+                    </div>
+                </div>
+                <div class="text-center lg:text-right">
+                    <p class="text-[10px] font-black uppercase tracking-widest text-brown mb-2">Producido por</p>
+                    <p class="text-2xl font-black tracking-tight">Level Colombia</p>
+                    <p class="text-slate-500 text-xs mt-6">© 2026. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const strategyData = {
+            1: {
+                title: "Lanzamiento de la Estratega",
+                pillar: "Marketing de Referente",
+                type: "Carrusel de Posicionamiento",
+                slides: [
+                    { title: "Identidad Visual 2026", image: "https://i.postimg.cc/htYCQ59h/Vasquez-y-asociados.png" },
+                    { title: "Visión Latam del Gaming", image: "https://i.postimg.cc/JhBpN5xW/Vasquez_y_asociados_3.png" },
+                    { title: "Rigor Técnico del Negocio", image: "https://i.postimg.cc/qvFm658G/Vasquez-y-asociados-1.png" }
+                ]
+            },
+            2: {
+                title: "Conversión de Negocio (WA)",
+                pillar: "Marketing Relacional",
+                type: "Embudo WA Pro",
+                hook: "Convertimos la autoridad técnica en oportunidades reales de negocio.",
+                body: "Implementamos un sistema de WhatsApp Ejecutivo donde cada consulta es tratada con el rigor y la claridad que un directivo de alto nivel espera de una referente regional.",
+                cta: "Unificar voz y respuesta ejecutiva."
+            },
+            3: {
+                title: "Artículos de Referencia Latam",
+                pillar: "Thought Leadership",
+                type: "Liderazgo Técnico",
+                hook: "Anticipamos el mercado, no solo lo interpretamos.",
+                body: "Desarrollo de piezas de opinión sobre la evolución regulatoria en Latinoamérica. Tatiana Vásquez se posiciona como la estratega que entiende el mercado.",
+                cta: "Posicionar como máxima autoridad."
+            },
+            4: {
+                title: "Aplicativos Corporativos",
+                pillar: "Identidad Coherente",
+                type: "Diseño para Redes",
+                hook: "Autoridad sin arrogancia en cada píxel.",
+                body: "Entrega de los aplicativos visuales finales para LinkedIn y demás redes. Un branding que respira elegancia y rigor técnico.",
+                cta: "Establecer manual de aplicativos."
+            },
+            'plan': {
+                title: "Propuesta de Inversión Mensual",
+                price: "3.000.000",
+                features: [
+                    { title: "Rebranding & Manual de Marca", desc: "Entrega completa de identidad visual: logo, paleta, tipografía y manual de uso." },
+                    { title: "Aplicativos Social Media", desc: "Diseño de plantillas y activos gráficos para LinkedIn enfocados en autoridad." },
+                    { title: "Estrategia de Referente Latam", desc: "4 Piezas mensuales de alto impacto técnico para posicionar a Tatiana." },
+                    { title: "Ecosistema Digital (WA + LI)", desc: "Configuración de embudo y flujos de respuesta para directivos del sector." }
+                ]
+            }
+        };
+
+        let currentSlide = 0;
+
+        function switchWeek(id) {
+            const container = document.getElementById('week-content');
+            if (!container) return;
+            const data = strategyData[id];
+            
+            const tabs = [1, 2, 3, 4, 'plan'];
+            tabs.forEach(t => {
+                const el = document.getElementById(`tab-${t}`);
+                if (el) {
+                    if (t === id) el.classList.add('tab-active');
+                    else el.classList.remove('tab-active');
+                }
+            });
+
+            if (id === 'plan') renderPlan(container, data);
+            else if (id === 1) renderCarousel(container, data);
+            else renderPost(container, data);
+        }
+
+        function renderPost(container, data) {
+            container.innerHTML = `
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 slide-fade-in">
+                    <div class="lg:col-span-7 bg-white rounded-[3rem] p-12 border border-slate-100 shadow-xl">
+                        <div class="flex items-center space-x-4 mb-10">
+                            <div class="w-16 h-16 rounded-2xl overflow-hidden border-2 border-brown shadow-lg">
+                                <img src="https://i.postimg.cc/JhBpN5xW/Vasquez_y_asociados_3.png" alt="Tatiana Vásquez" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <p class="font-bold text-navy text-lg leading-none">Tatiana Vásquez</p>
+                                <p class="text-[10px] text-brown font-black uppercase tracking-widest mt-1">Estratega Legal del Gaming</p>
+                            </div>
+                        </div>
+                        <div class="space-y-6">
+                            <p class="text-2xl font-bold text-navy leading-tight">"${data.hook}"</p>
+                            <p class="text-slate-600 text-lg leading-relaxed">${data.body}</p>
+                            <div class="pt-6">
+                                <span class="bg-navy text-white px-8 py-3 rounded-2xl text-sm font-bold shadow-lg shadow-navy/20 cursor-pointer hover:bg-brown transition-colors">
+                                    ${data.cta}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-5 flex flex-col justify-center">
+                        <div class="bg-navy text-white p-8 rounded-[2.5rem] space-y-4">
+                            <h5 class="text-brown text-xs font-black uppercase tracking-widest">Pilar Estratégico</h5>
+                            <p class="text-xl font-bold">${data.pillar}</p>
+                            <p class="text-slate-400 text-sm">Este contenido refuerza la visión técnica y el liderazgo regional de Tatiana.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderCarousel(container, data) {
+            currentSlide = 0;
+            container.innerHTML = `
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 slide-fade-in">
+                    <div class="bg-navy rounded-[3rem] p-6 shadow-2xl relative">
+                        <div id="carousel-frame" class="w-full aspect-[4/5] bg-white rounded-[2rem] overflow-hidden flex items-center justify-center border-4 border-brown/20">
+                            <!-- Img -->
+                        </div>
+                        <div class="flex items-center justify-between mt-8 px-6">
+                            <button onclick="moveSlide(-1)" class="w-12 h-12 bg-white/10 hover:bg-brown text-white rounded-full flex items-center justify-center transition-all">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-width="2" stroke="currentColor"></path></svg>
+                            </button>
+                            <span id="slide-count" class="text-xs font-black text-brown uppercase tracking-widest"></span>
+                            <button onclick="moveSlide(1)" class="w-12 h-12 bg-white/10 hover:bg-brown text-white rounded-full flex items-center justify-center transition-all">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-width="2" stroke="currentColor"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex flex-col justify-center space-y-8">
+                        <div>
+                            <span class="text-brown text-xs font-black uppercase tracking-widest">${data.pillar}</span>
+                            <h4 class="text-4xl font-bold text-navy mt-2">${data.title}</h4>
+                            <p class="text-slate-500 mt-4 leading-relaxed italic">"Identidad técnica de clase mundial."</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            updateCarousel();
+        }
+
+        function moveSlide(dir) {
+            const slides = strategyData[1].slides;
+            currentSlide = (currentSlide + dir + slides.length) % slides.length;
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            const frame = document.getElementById('carousel-frame');
+            const count = document.getElementById('slide-count');
+            const slide = strategyData[1].slides[currentSlide];
+            if (frame) frame.innerHTML = `<img src="${slide.image}" alt="${slide.title}" class="w-full h-full object-cover animate-in fade-in duration-500">`;
+            if (count) count.innerText = `Pieza 0${currentSlide + 1}`;
+        }
+
+        function renderPlan(container, data) {
+            container.innerHTML = `
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 slide-fade-in">
+                    <div class="lg:col-span-5 bg-navy rounded-[3rem] p-12 text-white shadow-2xl relative overflow-hidden">
+                        <div class="absolute -bottom-10 -right-10 w-64 h-64 bg-brown/20 blur-[100px] rounded-full"></div>
+                        <h4 class="text-brown text-xs font-black uppercase tracking-widest mb-8">Inversión Estratégica</h4>
+                        <div class="mb-12">
+                            <p class="text-6xl font-black">$${data.price}</p>
+                            <p class="text-slate-400 mt-2 font-medium tracking-widest uppercase text-xs">Pesos Colombianos (COP)</p>
+                        </div>
+                        <button class="w-full py-5 bg-brown hover:bg-white hover:text-navy text-white font-black rounded-2xl transition-all shadow-xl shadow-brown/20 uppercase tracking-[0.2em] text-xs">Activar Estrategia</button>
+                    </div>
+                    <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        ${data.features.map(f => `
+                            <div class="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-xl transition-all">
+                                <div class="w-10 h-10 bg-slate-50 text-brown rounded-xl flex items-center justify-center mb-6">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M5 13l4 4L19 7" stroke="currentColor"></path></svg>
+                                </div>
+                                <h5 class="font-bold text-navy mb-2">${f.title}</h5>
+                                <p class="text-xs text-slate-500 leading-relaxed">${f.desc}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function initCharts() {
+            const chartFont = { family: "'Plus Jakarta Sans'", size: 10, weight: '700' };
+            const navy = '#002144', brown = '#A67C52';
+            
+            const pElem = document.getElementById('pillarChart');
+            if (pElem) {
+                const ctx = pElem.getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Referente Latam', 'Estrategia Negocio', 'Rebranding', 'Conversión'],
+                        datasets: [{ data: [35, 35, 15, 15], backgroundColor: [navy, brown, '#1e3a8a', '#e2e8f0'], borderWidth: 0 }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { font: chartFont, boxWidth: 10 } } }, cutout: '80%' }
+                });
+            }
+
+            const fElem = document.getElementById('funnelChart');
+            if (fElem) {
+                const ctx = fElem.getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Alcance', 'Interés', 'Contactos WA', 'Leads'],
+                        datasets: [{ data: [5500, 520, 110, 22], backgroundColor: brown, borderRadius: 15 }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { font: chartFont } }, x: { grid: { display: false }, ticks: { font: chartFont } } }, plugins: { legend: { display: false } } }
+                });
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            switchWeek(1);
+            initCharts();
+        });
+
+        window.switchWeek = switchWeek;
+        window.moveSlide = moveSlide;
+    </script>
+</body>
+</html>
