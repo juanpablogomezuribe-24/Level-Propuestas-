@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amusnet - Estrategia Digital a Físico</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        amusnet: {
+                            navy: '#0D223F',
+                            lime: '#B3D335',
+                            darklime: '#9CB82D',
+                            slate: '#F1F5F9'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #F8FAFC; 
+            color: #1E293B;
+            letter-spacing: -0.01em;
+        }
+        .gradient-brand { background: linear-gradient(135deg, rgba(13, 34, 63, 0.95) 0%, rgba(22, 46, 82, 0.9) 100%); }
+        .tab-active { background-color: #B3D335 !important; color: #0D223F !important; }
+        .fade-in { animation: fadeIn 0.4s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .chart-container { position: relative; width: 100%; max-width: 320px; height: 320px; margin: auto; }
+    </style>
+</head>
+<body class="antialiased text-slate-800">
+
+    <!-- Navegación -->
+    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-amusnet-lime/20">
+        <div class="max-w-6xl mx-auto px-4 h-20 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <img src="https://i.postimg.cc/y6vpXHDs/Amusnet-Logo-White-Bgr-RGB.webp" alt="Logo Amusnet" class="h-10 w-auto object-contain">
+                <div class="hidden sm:flex flex-col border-l border-slate-200 pl-4">
+                    <span class="text-[10px] font-bold text-amusnet-navy/60 uppercase tracking-widest leading-none">Estrategia Digital</span>
+                    <span class="text-[10px] font-bold text-amusnet-navy/40 uppercase tracking-widest leading-none mt-1">Hacia Físico</span>
+                </div>
+            </div>
+            <div class="hidden lg:flex space-x-6">
+                <a href="#objetivo" class="text-amusnet-navy/70 hover:text-amusnet-lime font-bold text-xs uppercase transition-colors">Objetivo</a>
+                <a href="#estrategia" class="text-amusnet-navy/70 hover:text-amusnet-lime font-bold text-xs uppercase transition-colors">Estrategia</a>
+                <a href="#landing" class="text-amusnet-navy/70 hover:text-amusnet-lime font-bold text-xs uppercase transition-colors">Aterrizaje</a>
+                <a href="#contenido" class="text-amusnet-navy/70 hover:text-amusnet-lime font-bold text-xs uppercase transition-colors">Contenido</a>
+                <a href="#costos" class="text-amusnet-navy/70 hover:text-amusnet-lime font-bold text-xs uppercase transition-colors">Costos</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header / Objetivo -->
+    <header id="objetivo" class="relative text-white py-32 px-4 text-center border-b-8 border-amusnet-lime bg-cover bg-center bg-no-repeat" style="background-image: url('https://i.postimg.cc/rwyb2w7f/amusnet2.webp');">
+        <div class="absolute inset-0 gradient-brand"></div>
+        <div class="max-w-5xl mx-auto relative z-10">
+            <span class="bg-amusnet-lime text-amusnet-navy uppercase tracking-widest text-[10px] font-black py-1 px-4 rounded-full mb-6 inline-block shadow-lg">Objetivo Estratégico 2024</span>
+            <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold mb-8 leading-tight tracking-tight">Convertir a los jugadores online <br>en visitantes activos <span class="text-amusnet-lime italic font-medium">del mundo real.</span></h1>
+            <p class="text-lg md:text-xl text-slate-200 max-w-3xl mx-auto leading-relaxed font-light mb-16">
+                Convertir a los jugadores online de Amusnet en visitantes activos de los casinos aliados, logrando que busquen nuestras máquinas y vivan la experiencia en el mundo real.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
+                <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 hover:bg-white/15 transition-colors group">
+                    <div class="text-amusnet-lime font-bold mb-3 text-xs uppercase tracking-[0.2em]">Activar</div>
+                    <p class="text-[15px] text-slate-100 font-normal leading-snug">Activar nuestra comunidad digital para que visite casinos terceros.</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 hover:bg-white/15 transition-colors group">
+                    <div class="text-amusnet-lime font-bold mb-3 text-xs uppercase tracking-[0.2em]">Tráfico</div>
+                    <p class="text-[15px] text-slate-100 font-normal leading-snug">Generar más tráfico y más movimiento dentro del establecimiento.</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 hover:bg-white/15 transition-colors group">
+                    <div class="text-amusnet-lime font-bold mb-3 text-xs uppercase tracking-[0.2em]">Consumo</div>
+                    <p class="text-[15px] text-slate-100 font-normal leading-snug">Impulsar consumo cruzado y mayor permanencia en sala.</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 hover:bg-white/15 transition-colors group">
+                    <div class="text-amusnet-lime font-bold mb-3 text-xs uppercase tracking-[0.2em]">Alianza</div>
+                    <p class="text-[15px] text-slate-100 font-normal leading-snug">Hacer que el casino venda más y el operador quiera más máquinas Amusnet.</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-24 space-y-32">
+
+        <!-- Sección Estrategia -->
+        <section id="estrategia" class="scroll-mt-24">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-black text-amusnet-navy mb-4 uppercase tracking-tighter">02. Cronograma Evolutivo</h2>
+                <p class="text-slate-500 max-w-3xl mx-auto font-medium text-pretty">
+                    El éxito de una pauta en Meta no reside solo en el diseño, sino en la distribución estratégica del presupuesto según la madurez de la audiencia a lo largo de 90 días.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-[2rem] shadow-2xl border border-slate-100 overflow-hidden mb-24 text-pretty">
+                <div class="flex flex-col sm:flex-row bg-amusnet-navy p-2 gap-2">
+                    <button onclick="changeMonth(1)" id="btn-m1" class="month-btn flex-1 py-4 font-bold text-white/70 hover:text-white rounded-xl transition-all uppercase tracking-widest text-xs tab-active">Mes 01: Descubrir</button>
+                    <button onclick="changeMonth(2)" id="btn-m2" class="month-btn flex-1 py-4 font-bold text-white/70 hover:text-white rounded-xl transition-all uppercase tracking-widest text-xs">Mes 02: Considerar</button>
+                    <button onclick="changeMonth(3)" id="btn-m3" class="month-btn flex-1 py-4 font-bold text-white/70 hover:text-white rounded-xl transition-all uppercase tracking-widest text-xs">Mes 03: Convertir</button>
+                </div>
+
+                <div class="p-8 md:p-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="chart-container">
+                        <canvas id="evolucionChart"></canvas>
+                    </div>
+                    
+                    <div id="evolucionDetails" class="space-y-8 fade-in">
+                        <div class="border-l-4 border-amusnet-lime pl-6">
+                            <h3 class="text-[10px] uppercase tracking-widest text-slate-400 font-black mb-2">Foco Estratégico</h3>
+                            <p id="evolucionTitle" class="text-3xl font-black text-amusnet-navy italic">Posicionamiento de Sedes Amusnet.</p>
+                        </div>
+                        <p id="evolucionDesc" class="text-slate-600 leading-relaxed font-medium text-[15px]">
+                            El primer mes logramos que el radio de impacto reconozca la marca en sus casinos locales. 60% de la inversión se destina a visibilidad.
+                        </p>
+                        
+                        <div class="flex items-center gap-6">
+                            <div class="h-16 w-16 rounded-full bg-amusnet-navy flex items-center justify-center text-amusnet-lime text-xl font-black shadow-lg">
+                                <span id="evolucionPercent">60%</span>
+                            </div>
+                            <span id="evolucionFocus" class="font-bold text-amusnet-navy text-lg leading-tight">60% Alcance / 40% Tráfico</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-16">
+                <div class="text-center">
+                    <h2 class="text-4xl font-black text-amusnet-navy mb-4 uppercase tracking-tighter">03. Target e Impacto</h2>
+                    <p class="text-slate-600 max-w-3xl mx-auto font-bold text-lg leading-relaxed">
+                        La pauta se optimizará mediante segmentación por comportamiento y ubicación en tiempo real. No buscamos likes, buscamos jugadores con intención real de desplazamiento.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="bg-white p-10 rounded-[2.5rem] border border-slate-100 shadow-sm flex flex-col items-start">
+                        <div class="w-12 h-12 bg-amusnet-lime/10 rounded-xl flex items-center justify-center text-2xl mb-6">📍</div>
+                        <h4 class="font-black text-xl text-amusnet-navy mb-4 uppercase tracking-tighter">Ubicación Precisa</h4>
+                        <p class="text-sm text-slate-500 leading-relaxed font-medium">Impacto a 5-10km de casinos con máquinas Amusnet. Cero desperdicio de presupuesto.</p>
+                    </div>
+                    <div class="bg-white p-10 rounded-[2.5rem] border border-slate-100 shadow-sm flex flex-col items-start">
+                        <div class="w-12 h-12 bg-amusnet-lime/10 rounded-xl flex items-center justify-center text-2xl mb-6">🎲</div>
+                        <h4 class="font-black text-xl text-amusnet-navy mb-4 uppercase tracking-tighter">Afición al Juego</h4>
+                        <p class="text-sm text-slate-500 leading-relaxed font-medium">Público con interés explícito en casinos, apuestas y vida nocturna premium.</p>
+                    </div>
+                    <div class="bg-amusnet-navy p-10 rounded-[2.5rem] shadow-xl flex flex-col items-start text-white">
+                        <div class="w-12 h-12 bg-amusnet-lime rounded-xl flex items-center justify-center text-2xl mb-6">📱</div>
+                        <h4 class="font-black text-xl mb-4 uppercase tracking-tighter">Consumo Activo</h4>
+                        <p class="text-sm text-slate-300 leading-relaxed font-medium text-pretty">Personas de 25 a 60 años, con perfil de comprador digital y jugador presencial.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Lugar de Aterrizaje -->
+        <section id="landing" class="scroll-mt-24">
+            <div class="bg-white rounded-[3rem] p-10 md:p-16 shadow-xl border border-slate-100 flex flex-col lg:flex-row items-center gap-12">
+                <div class="flex-1">
+                    <span class="text-amusnet-navy font-black uppercase text-xs tracking-widest mb-4 block">Flujo de Conversión</span>
+                    <h2 class="text-4xl font-black text-amusnet-navy mb-6 leading-tight uppercase tracking-tighter">Lugar de aterrizaje</h2>
+                    <p class="text-slate-600 leading-relaxed mb-6 font-medium text-[15px]">
+                        Al ejecutar campañas de pauta en Meta Ads es fundamental definir un lugar de aterrizaje para el tráfico. Hemos seleccionado la Landing Page del cliente como el destino final.
+                    </p>
+                    <p class="text-slate-600 leading-relaxed mb-8 font-bold text-[15px] text-pretty">
+                        Toda la pauta estará dirigida a una Landing Page construida por Amusnet. Esta página actuará como el centro de información donde el usuario podrá ver:
+                    </p>
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center gap-4 group">
+                            <span class="h-8 w-8 bg-amusnet-lime/20 text-amusnet-navy rounded-full flex items-center justify-center font-bold text-xs group-hover:bg-amusnet-lime transition-colors">✔</span>
+                            <span class="text-sm font-bold text-slate-700 uppercase tracking-tight">Videos e imágenes producidos por nosotros.</span>
+                        </div>
+                        <div class="flex items-center gap-4 group">
+                            <span class="h-8 w-8 bg-amusnet-lime/20 text-amusnet-navy rounded-full flex items-center justify-center font-bold text-xs group-hover:bg-amusnet-lime transition-colors">✔</span>
+                            <span class="text-sm font-bold text-slate-700 uppercase tracking-tight">Ubicaciones de casinos terceros con máquinas Amusnet.</span>
+                        </div>
+                        <div class="flex items-center gap-4 group">
+                            <span class="h-8 w-8 bg-amusnet-lime/20 text-amusnet-navy rounded-full flex items-center justify-center font-bold text-xs group-hover:bg-amusnet-lime transition-colors">✔</span>
+                            <span class="text-sm font-bold text-slate-700 uppercase tracking-tight">Promociones y beneficios por visita física.</span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6 bg-amusnet-navy rounded-2xl text-white">
+                        <h4 class="text-amusnet-lime font-black text-[10px] uppercase tracking-[0.2em] mb-2 text-pretty">Nota de Implementación</h4>
+                        <p class="text-sm italic text-slate-300 leading-relaxed">
+                            La landing page será hecha por Amusnet y podrá utilizar todos los contenidos (video e imagen) que Level Colombia realice para las campañas de pauta.
+                        </p>
+                    </div>
+                </div>
+                <div class="flex-1 grid grid-cols-2 gap-4">
+                    <div class="rounded-2xl h-64 shadow-lg overflow-hidden border border-slate-200">
+                        <img src="https://i.postimg.cc/xdc4qFfj/amusnet-4.jpg" class="w-full h-full object-cover" alt="[Imagen de Máquina Amusnet]">
+                    </div>
+                    <div class="rounded-2xl h-64 shadow-lg mt-8 overflow-hidden border border-slate-200">
+                        <img src="https://i.postimg.cc/1z2YFcXq/amusnet-3.jpg" class="w-full h-full object-cover" alt="[Imagen de Juego Amusnet]">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Contenido -->
+        <section id="contenido" class="scroll-mt-24 text-pretty">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-black text-amusnet-navy mb-4 uppercase tracking-tighter text-pretty">Contenido</h2>
+                <p class="text-slate-500 max-w-3xl mx-auto font-medium">Nuestro plan de producción mensual garantiza material de alta calidad constante para el lugar de aterrizaje y los anuncios.</p>
+                <div class="h-1.5 w-24 bg-amusnet-lime mx-auto mt-8"></div>
+            </div>
+
+            <div class="bg-white p-12 rounded-[3rem] shadow-xl border border-slate-100 flex flex-col md:flex-row gap-12 text-pretty">
+                <div class="flex-1 space-y-8">
+                    <h3 class="font-black text-amusnet-navy uppercase text-sm tracking-widest border-b pb-4">Plan de Producción Mensual</h3>
+                    
+                    <div class="bg-amusnet-navy/5 p-6 rounded-2xl border-l-4 border-amusnet-navy mb-8">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-xl">🤝</span>
+                            <h5 class="font-black text-amusnet-navy uppercase text-xs tracking-wider">Sesión Inicial de Estrategia</h5>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-4 font-medium leading-relaxed">Lo primero es una sesión para definir pilares de contenido con el cliente. Ejemplos:</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <div class="bg-white px-3 py-2 rounded-lg text-[10px] font-bold text-slate-500 border border-slate-200 uppercase tracking-tight">🏆 Testimonios ganadores</div>
+                            <div class="bg-white px-3 py-2 rounded-lg text-[10px] font-bold text-slate-500 border border-slate-200 uppercase tracking-tight">🎁 Beneficios sede</div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="flex justify-between items-center p-4 bg-slate-50 rounded-xl border border-slate-100">
+                            <div>
+                                <span class="block font-black text-amusnet-navy text-xs uppercase">Video Profesional</span>
+                                <span class="text-[10px] text-slate-400 font-bold uppercase">Grabado, editado y corregido</span>
+                            </div>
+                            <span class="text-lg font-black text-amusnet-navy">$1.500.000 <span class="text-[10px] font-normal opacity-50 italic">/ c.u.</span></span>
+                        </div>
+                        <div class="flex justify-between items-center p-4 bg-slate-50 rounded-xl border border-slate-100">
+                            <div>
+                                <span class="block font-black text-amusnet-navy text-xs uppercase tracking-tight">Fotografía de Producto</span>
+                                <span class="text-[10px] text-slate-400 font-bold uppercase tracking-tight">6 imágenes premium</span>
+                            </div>
+                            <span class="text-lg font-black text-amusnet-navy">$500.000 <span class="text-[10px] font-normal opacity-50 italic uppercase">/ Set de 6</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1 bg-amusnet-navy p-8 rounded-3xl text-white">
+                    <h4 class="font-bold text-amusnet-lime mb-6 uppercase text-xs tracking-widest text-pretty">Resumen de Entrega Mensual</h4>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4 p-4 bg-white/5 rounded-xl border border-white/10">
+                            <span class="text-2xl">🎬</span>
+                            <div class="text-sm font-medium">6 Videos de alta calidad</div>
+                        </div>
+                        <div class="flex items-center gap-4 p-4 bg-white/5 rounded-xl border border-white/10">
+                            <span class="text-2xl">📸</span>
+                            <div class="text-sm font-medium">6 Fotos profesionales (Set corregido)</div>
+                        </div>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-white/10">
+                        <p class="text-[10px] text-slate-400 uppercase font-black italic text-pretty leading-relaxed">
+                            Nota Logística: Producción cotizada para Bogotá. Fuera de la ciudad el valor adicional depende de la distancia y viáticos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Presupuesto Final -->
+        <section id="costos" class="scroll-mt-24 text-pretty">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-black text-amusnet-navy mb-4 uppercase tracking-tighter">Estructura de Inversión</h2>
+                <div class="h-1.5 w-24 bg-amusnet-lime mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+                <!-- Tarjeta Producción -->
+                <div class="bg-white p-10 rounded-[3rem] shadow-lg border border-slate-100 flex flex-col">
+                    <h4 class="font-black text-amusnet-navy text-sm uppercase tracking-widest mb-6 italic">Producción Audiovisual</h4>
+                    <div class="text-5xl font-black text-amusnet-navy mb-2">$9.500.000 <span class="text-lg opacity-40 font-normal">/mes</span></div>
+                    <p class="text-xs text-slate-400 mb-8 font-bold uppercase tracking-widest">Desglose de activos premium</p>
+                    
+                    <div class="space-y-4 mb-8 flex-grow">
+                        <div class="flex justify-between text-sm py-2 border-b border-slate-50 font-medium">
+                            <span>6 Videos ($1.5M c.u.)</span>
+                            <span class="font-bold">$9.000.000</span>
+                        </div>
+                        <div class="flex justify-between text-sm py-2 border-b border-slate-50 font-medium">
+                            <span>6 Fotos (Set completo)</span>
+                            <span class="font-bold">$500.000</span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 bg-slate-50 rounded-2xl text-[10px] text-slate-400 uppercase font-black">
+                        Nota: La producción fuera de Bogotá tendrá un costo extra según distancia.
+                    </div>
+                </div>
+
+                <!-- Tarjeta Gestión y Pauta -->
+                <div class="bg-amusnet-navy text-white p-10 rounded-[3rem] shadow-2xl flex flex-col ring-8 ring-amusnet-navy/5">
+                    <h4 class="font-black text-amusnet-lime text-sm uppercase tracking-widest mb-6 italic tracking-tight text-white/90">Gestión y Pauta Meta Ads</h4>
+                    <div class="text-5xl font-black text-white mb-8">$4.800.000 <span class="text-lg opacity-40 font-normal">/mes</span></div>
+                    
+                    <div class="space-y-6 flex-grow">
+                        <div class="flex justify-between items-center py-4 border-b border-white/10">
+                            <div class="flex flex-col">
+                                <span class="font-bold text-lg text-white">Fee de Gestión Digital</span>
+                                <span class="text-xs text-slate-400 italic">Administración de campañas y reportes</span>
+                            </div>
+                            <span class="text-xl font-mono text-amusnet-lime font-black tracking-tighter">$1.800.000</span>
+                        </div>
+                        <div class="flex justify-between items-center py-4 border-b border-white/10">
+                            <div class="flex flex-col">
+                                <span class="font-bold text-lg text-white">Inversión Directa Meta</span>
+                                <span class="text-xs text-slate-400 italic uppercase text-[10px]">Consumo plataforma Ads</span>
+                            </div>
+                            <span class="text-xl font-mono text-amusnet-lime font-black tracking-tighter">$3.000.000</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-12 bg-white/5 border border-white/10 p-8 rounded-3xl text-center">
+                        <span class="text-xs uppercase font-black tracking-[0.2em] opacity-50 block mb-2 text-white text-[10px]">Inversión Total Mensual</span>
+                        <span class="text-5xl font-black text-amusnet-lime font-mono tracking-tighter">$14.300.000</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-amusnet-navy py-20 text-center border-t border-white/5">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col items-center">
+            <div class="flex items-center gap-8 mb-8 grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all">
+                <img src="https://i.postimg.cc/y6vpXHDs/Amusnet-Logo-White-Bgr-RGB.webp" alt="Amusnet Logo" class="h-8 w-auto">
+                <div class="h-8 w-px bg-white/20"></div>
+                <div class="text-white font-black italic tracking-tighter text-xl uppercase tracking-widest">Level Colombia</div>
+            </div>
+            <p class="text-[10px] text-slate-500 uppercase tracking-[0.4em] mb-4 font-bold">Estrategia de Conversión Digital a Físico 2024</p>
+            <div class="h-px w-12 bg-amusnet-lime opacity-30"></div>
+        </div>
+    </footer>
+
+    <script>
+        const monthData = {
+            1: {
+                title: "Posicionamiento de Sedes Amusnet.",
+                desc: "El primer mes logramos que el radio de impacto reconozca la marca en sus casinos locales. 60% de la inversión se destina a visibilidad.",
+                percent: "60%",
+                focus: "60% Alcance / 40% Tráfico",
+                data: [60, 40]
+            },
+            2: {
+                title: "Deseo por Máquinas Específicas.",
+                desc: "Resaltamos juegos puntuales y la tecnología Amusnet. El tráfico a la landing sube al 70% para guiar al jugador al casino.",
+                percent: "30%",
+                focus: "30% Alcance / 70% Tráfico",
+                data: [30, 70]
+            },
+            3: {
+                title: "Conversión y Visitas Presenciales.",
+                desc: "Cierre de trimestre con pauta agresiva de conversión. 90% de la inversión se enfoca en llevar gente al punto de venta físico.",
+                percent: "10%",
+                focus: "10% Alcance / 90% Tráfico",
+                data: [10, 90]
+            }
+        };
+
+        let chart;
+
+        function initChart() {
+            const ctx = document.getElementById('evolucionChart').getContext('2d');
+            chart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Alcance (Marca)', 'Tráfico (Landing)'],
+                    datasets: [{
+                        data: [60, 40],
+                        backgroundColor: ['#0D223F', '#B3D335'],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '80%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                font: { weight: 'bold', family: 'Inter' },
+                                usePointStyle: true,
+                                color: '#0D223F'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function changeMonth(m) {
+            const data = monthData[m];
+            document.querySelectorAll('.month-btn').forEach(btn => btn.classList.remove('tab-active'));
+            document.getElementById(`btn-m${m}`).classList.add('tab-active');
+            const container = document.getElementById('evolucionDetails');
+            container.classList.remove('fade-in');
+            void container.offsetWidth; 
+            document.getElementById('evolucionTitle').innerText = data.title;
+            document.getElementById('evolucionDesc').innerText = data.desc;
+            document.getElementById('evolucionPercent').innerText = data.percent;
+            document.getElementById('evolucionFocus').innerText = data.focus;
+            container.classList.add('fade-in');
+            chart.data.datasets[0].data = data.data;
+            chart.update();
+        }
+
+        window.onload = function() {
+            initChart();
+        };
+    </script>
+</body>
+</html>
