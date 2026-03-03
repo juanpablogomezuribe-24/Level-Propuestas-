@@ -33,6 +33,8 @@
         .fade-in { animation: fadeIn 0.4s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .calculator-card { background: white; border-radius: 2rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1); }
+        input[type=range]::-webkit-slider-runnable-track { background: #e2e8f0; border-radius: 1rem; height: 0.5rem; }
+        input[type=range]::-webkit-slider-thumb { appearance: none; height: 1.5rem; width: 1.5rem; background: #B3D335; border-radius: 50%; margin-top: -0.5rem; cursor: pointer; border: 3px solid white; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
     </style>
 </head>
 <body class="antialiased text-slate-800">
@@ -52,7 +54,7 @@
                 <a href="#estrategia" class="text-amusnet-navy/70 hover:text-amusnet-lime font-bold text-xs uppercase transition-colors">Estrategia</a>
                 <a href="#landing" class="text-amusnet-navy/70 hover:text-amusnet-lime font-bold text-xs uppercase transition-colors">Aterrizaje</a>
                 <a href="#contenido" class="text-amusnet-navy/70 hover:text-amusnet-lime font-bold text-xs uppercase transition-colors">Contenido</a>
-                <a href="#costos" class="text-amusnet-navy/70 hover:text-amusnet-lime font-bold text-xs uppercase transition-colors text-amusnet-lime font-black">Calculadora</a>
+                <a href="#costos" class="text-amusnet-navy/70 hover:text-amusnet-lime font-black text-xs uppercase transition-colors text-amusnet-lime">Calculadora</a>
             </div>
         </div>
     </nav>
@@ -91,10 +93,10 @@
     <main class="max-w-6xl mx-auto px-4 py-24 space-y-32 text-pretty">
 
         <!-- Estrategia Netamente Georreferenciada -->
-        <section id="estrategia" class="scroll-mt-24">
+        <section id="estrategia" class="scroll-mt-24 text-pretty">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <div>
-                    <h2 class="text-4xl font-black text-amusnet-navy mb-8 uppercase tracking-tighter">Estrategia de Impacto Local</h2>
+                    <h2 class="text-4xl font-black text-amusnet-navy mb-8 uppercase tracking-tighter text-pretty">Estrategia de Impacto Local</h2>
                     <p class="text-slate-600 leading-relaxed mb-6 font-medium">
                         A diferencia de las campañas masivas, aquí lo que importa es la georreferenciación neta. No buscamos alcance genérico ni seguidores; buscamos personas que estén físicamente cerca de los casinos seleccionados mediante pauta en Meta Ads.
                     </p>
@@ -102,14 +104,14 @@
                         <div class="flex gap-4 p-4 bg-white rounded-xl border border-slate-100 shadow-sm">
                             <span class="text-2xl">🎯</span>
                             <div>
-                                <h4 class="font-bold text-amusnet-navy">Radio de Influencia Local</h4>
+                                <h4 class="font-bold text-amusnet-navy uppercase text-sm">Radio de Influencia Local</h4>
                                 <p class="text-sm text-slate-500">Impacto quirúrgico en radios de 5km a 10km alrededor de cada casino.</p>
                             </div>
                         </div>
                         <div class="flex gap-4 p-4 bg-white rounded-xl border border-slate-100 shadow-sm">
                             <span class="text-2xl">⚡</span>
                             <div>
-                                <h4 class="font-bold text-amusnet-navy">Contenidos Generales</h4>
+                                <h4 class="font-bold text-amusnet-navy uppercase text-sm">Contenidos Generales</h4>
                                 <p class="text-sm text-slate-500">Utilizamos piezas de alto impacto que funcionan para cualquier sede, optimizando la inversión en producción.</p>
                             </div>
                         </div>
@@ -121,11 +123,11 @@
                         <p class="text-slate-300 text-sm mb-8">Dividimos el mes en dos ciclos críticos para garantizar el mejor rendimiento del algoritmo de Meta Ads:</p>
                         <div class="space-y-6">
                             <div class="border-l-2 border-dashed border-amusnet-lime/50 pl-6">
-                                <span class="text-[10px] font-black uppercase text-amusnet-lime block mb-1">Primeros 15 días</span>
+                                <span class="text-[10px] font-black uppercase text-amusnet-lime block mb-1 tracking-widest">Primeros 15 días</span>
                                 <p class="font-bold">Campaña A: Lanzamiento y aprendizaje.</p>
                             </div>
                             <div class="border-l-2 border-dashed border-amusnet-lime/50 pl-6">
-                                <span class="text-[10px] font-black uppercase text-amusnet-lime block mb-1">Siguientes 15 días</span>
+                                <span class="text-[10px] font-black uppercase text-amusnet-lime block mb-1 tracking-widest">Siguientes 15 días</span>
                                 <p class="font-bold">Campaña B: Optimización y redirección.</p>
                             </div>
                         </div>
@@ -147,11 +149,11 @@
                     <div class="space-y-4 mb-8">
                         <div class="flex items-center gap-4 group">
                             <span class="h-8 w-8 bg-amusnet-lime text-amusnet-navy rounded-full flex items-center justify-center font-black text-xs">✔</span>
-                            <span class="text-sm font-bold text-slate-700 uppercase">Detección de ciudad del usuario en tiempo real.</span>
+                            <span class="text-sm font-bold text-slate-700 uppercase tracking-tight">Detección de ciudad del usuario en tiempo real.</span>
                         </div>
                         <div class="flex items-center gap-4 group">
                             <span class="h-8 w-8 bg-amusnet-lime text-amusnet-navy rounded-full flex items-center justify-center font-black text-xs">✔</span>
-                            <span class="text-sm font-bold text-slate-700 uppercase">Indicador visual del casino más cercano con máquinas.</span>
+                            <span class="text-sm font-bold text-slate-700 uppercase tracking-tight">Indicador visual del casino más cercano con máquinas.</span>
                         </div>
                         <div class="flex items-center gap-4 group">
                             <span class="h-8 w-8 bg-amusnet-lime text-amusnet-navy rounded-full flex items-center justify-center font-black text-xs">✔</span>
@@ -179,7 +181,7 @@
         <section id="contenido" class="scroll-mt-24 text-pretty">
             <div class="text-center mb-16">
                 <h2 class="text-4xl font-black text-amusnet-navy mb-4 uppercase tracking-tighter">Plan de Contenido Mensual</h2>
-                <p class="text-slate-500 max-w-3xl mx-auto font-medium">Contenidos generales diseñados para escalar a múltiples sedes simultáneamente.</p>
+                <p class="text-slate-500 max-w-3xl mx-auto font-medium leading-relaxed">Contenidos generales diseñados para escalar a múltiples sedes simultáneamente.</p>
                 <div class="h-1.5 w-24 bg-amusnet-lime mx-auto mt-8"></div>
             </div>
 
@@ -242,21 +244,34 @@
         <section id="costos" class="scroll-mt-24">
             <div class="text-center mb-16">
                 <h2 class="text-4xl font-black text-amusnet-navy mb-4 uppercase tracking-tighter">Escalabilidad de Inversión</h2>
-                <p class="text-slate-500 max-w-2xl mx-auto font-medium">Calcula la inversión mensual de acuerdo a la cantidad de casinos que desees activar.</p>
+                <p class="text-slate-500 max-w-2xl mx-auto font-medium">Define el volumen de tu campaña y ajusta la inversión por sede.</p>
                 <div class="h-1.5 w-24 bg-amusnet-lime mx-auto mt-8"></div>
             </div>
 
-            <div class="calculator-card p-10 md:p-16 flex flex-col lg:flex-row gap-16">
-                <div class="flex-1 space-y-10 text-pretty">
+            <div class="calculator-card p-8 md:p-16 flex flex-col lg:flex-row gap-16">
+                <div class="flex-1 space-y-12">
+                    <!-- Control 1: Cantidad de Casinos -->
                     <div>
-                        <label class="block text-xs font-black uppercase tracking-widest text-slate-400 mb-6">Cantidad de Casinos a Activar</label>
-                        <div class="flex items-center gap-8">
-                            <input type="range" id="casinoRange" min="1" max="40" value="3" class="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-amusnet-lime">
-                            <span id="casinoCount" class="text-5xl font-black text-amusnet-navy min-w-[80px]">3</span>
+                        <div class="flex justify-between items-end mb-6">
+                            <label class="block text-xs font-black uppercase tracking-[0.2em] text-slate-400">Casinos a Activar</label>
+                            <span id="casinoCount" class="text-5xl font-black text-amusnet-navy tracking-tighter leading-none">3</span>
                         </div>
+                        <input type="range" id="casinoRange" min="1" max="40" value="3" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-amusnet-lime">
+                    </div>
+
+                    <!-- Control 2: Inversión por Casino -->
+                    <div>
+                        <div class="flex justify-between items-end mb-6">
+                            <label class="block text-xs font-black uppercase tracking-[0.2em] text-slate-400">Inversión en pauta por casino</label>
+                            <div class="text-right">
+                                <span id="adsPerCasinoDisplay" class="text-3xl font-black text-amusnet-navy leading-none tracking-tighter">$1.000.000</span>
+                                <p id="minWarning" class="text-[10px] font-black text-amusnet-lime uppercase tracking-widest mt-1">Recomendación óptima</p>
+                            </div>
+                        </div>
+                        <input type="range" id="adsRange" min="200000" max="5000000" step="100000" value="1000000" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-amusnet-lime">
                     </div>
                     
-                    <div class="space-y-4">
+                    <div class="space-y-4 text-pretty pt-4 border-t border-slate-100">
                         <div class="flex justify-between p-4 bg-slate-50 rounded-xl">
                             <span class="text-sm font-bold text-slate-500 uppercase tracking-tighter">Gestión de Pauta (Level)</span>
                             <span id="feeDisplay" class="text-sm font-black text-amusnet-navy">$1.800.000</span>
@@ -265,21 +280,29 @@
                             <span class="text-sm font-bold text-slate-500 uppercase tracking-tighter">Producción Mensual (2 Vid + 2 Img)</span>
                             <span class="text-sm font-black text-amusnet-navy">$3.400.000</span>
                         </div>
-                        <div class="flex justify-between p-4 bg-slate-50 rounded-xl border-t-2 border-slate-200">
-                            <span class="text-sm font-black text-amusnet-navy italic uppercase tracking-tighter">Inversión Directa Meta Ads</span>
-                            <span class="text-sm font-black text-amusnet-navy font-mono">$3.000.000</span>
+                        <div class="flex justify-between p-4 bg-amusnet-lime/5 rounded-xl border border-amusnet-lime/20">
+                            <span class="text-sm font-black text-amusnet-navy uppercase tracking-tighter">Inversión Total Ads Meta</span>
+                            <span id="totalAdsDisplay" class="text-sm font-black text-amusnet-navy font-mono">$3.000.000</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="flex-1 bg-amusnet-navy rounded-[2.5rem] p-10 text-white flex flex-col justify-center text-center relative overflow-hidden">
+                <div class="flex-1 bg-amusnet-navy rounded-[2.5rem] p-10 text-white flex flex-col justify-center text-center relative overflow-hidden ring-8 ring-amusnet-navy/5">
                     <div class="relative z-10">
                         <span class="text-[10px] uppercase font-black opacity-50 tracking-[0.3em] block mb-4">Inversión Total Mensual Estimada</span>
-                        <div id="totalDisplay" class="text-5xl md:text-6xl font-black text-amusnet-lime mb-6 font-mono">$8.200.000</div>
-                        <div class="bg-white/5 p-6 rounded-xl border border-white/10">
-                            <p class="text-[11px] text-slate-300 leading-snug">
-                                Nuestra gestión base de $1.800.000 cubre hasta 3 casinos (6 campañas). Por <strong>cada nuevo casino adicional cobraremos $300.000</strong>.
-                            </p>
+                        <div id="totalDisplay" class="text-5xl md:text-6xl font-black text-amusnet-lime mb-8 font-mono tracking-tighter leading-none">$8.200.000</div>
+                        
+                        <div class="space-y-4">
+                            <div class="bg-white/5 p-4 rounded-xl border border-white/10 text-left">
+                                <p class="text-[10px] text-slate-300 leading-snug">
+                                    Nuestra gestión base de $1.800.000 cubre hasta 3 casinos (6 campañas). Por <strong>cada nuevo casino adicional cobraremos $300.000</strong>.
+                                </p>
+                            </div>
+                            <div class="bg-amusnet-lime text-amusnet-navy p-4 rounded-xl text-left">
+                                <p class="text-[10px] font-black uppercase leading-tight">
+                                    Sugerencia: Recomendamos una inversión mínima de $1.000.000 por casino para garantizar tracción suficiente en la zona georreferenciada.
+                                </p>
+                            </div>
                         </div>
                     </div>
                     <div class="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 -mr-16 -mt-16 rounded-full"></div>
@@ -296,38 +319,66 @@
                 <div class="h-8 w-px bg-white/20"></div>
                 <div class="text-white font-black italic tracking-tighter text-xl uppercase tracking-widest">Level Colombia</div>
             </div>
-            <p class="text-[10px] text-slate-500 uppercase tracking-[0.4em] mb-4 font-bold">Estrategia de Georreferenciación Omnicanal 2024</p>
+            <p class="text-[10px] text-slate-500 uppercase tracking-[0.4em] mb-4 font-bold tracking-widest">Estrategia de Georreferenciación Omnicanal 2024</p>
             <div class="h-px w-12 bg-amusnet-lime opacity-30"></div>
         </div>
     </footer>
 
     <script>
-        const range = document.getElementById('casinoRange');
-        const count = document.getElementById('casinoCount');
+        const casinoRange = document.getElementById('casinoRange');
+        const adsRange = document.getElementById('adsRange');
+        
+        const countDisplay = document.getElementById('casinoCount');
+        const adsPerCasinoDisplay = document.getElementById('adsPerCasinoDisplay');
+        const totalAdsDisplay = document.getElementById('totalAdsDisplay');
         const feeDisplay = document.getElementById('feeDisplay');
         const totalDisplay = document.getElementById('totalDisplay');
+        const minWarning = document.getElementById('minWarning');
 
         const BASE_FEE = 1800000;
         const EXTRA_CASINO_COST = 300000;
         const PRODUCTION_COST = 3400000;
-        const META_INVESTMENT = 3000000;
+        const RECOMMENDED_MIN = 1000000;
 
         function updateCalculator() {
-            const numCasinos = parseInt(range.value);
-            count.textContent = numCasinos;
+            const numCasinos = parseInt(casinoRange.value);
+            const investmentPerCasino = parseInt(adsRange.value);
+            
+            // Displays
+            countDisplay.textContent = numCasinos;
+            adsPerCasinoDisplay.textContent = '$' + investmentPerCasino.toLocaleString('es-CO');
+            
+            // Logic: Warning color
+            if (investmentPerCasino < RECOMMENDED_MIN) {
+                minWarning.textContent = "Por debajo de lo recomendado";
+                minWarning.classList.remove('text-amusnet-lime');
+                minWarning.classList.add('text-orange-400');
+                adsPerCasinoDisplay.classList.add('text-orange-400');
+            } else {
+                minWarning.textContent = "Recomendación óptima";
+                minWarning.classList.remove('text-orange-400');
+                minWarning.classList.add('text-amusnet-lime');
+                adsPerCasinoDisplay.classList.remove('text-orange-400');
+            }
 
+            // Calculations
             let managementFee = BASE_FEE;
             if (numCasinos > 3) {
                 managementFee += (numCasinos - 3) * EXTRA_CASINO_COST;
             }
 
-            const total = managementFee + PRODUCTION_COST + META_INVESTMENT;
+            const totalAdsBudget = numCasinos * investmentPerCasino;
+            const finalTotal = managementFee + PRODUCTION_COST + totalAdsBudget;
 
+            // UI Final Updates
+            totalAdsDisplay.textContent = '$' + totalAdsBudget.toLocaleString('es-CO');
             feeDisplay.textContent = '$' + managementFee.toLocaleString('es-CO');
-            totalDisplay.textContent = '$' + total.toLocaleString('es-CO');
+            totalDisplay.textContent = '$' + finalTotal.toLocaleString('es-CO');
         }
 
-        range.addEventListener('input', updateCalculator);
+        casinoRange.addEventListener('input', updateCalculator);
+        adsRange.addEventListener('input', updateCalculator);
+        
         window.onload = updateCalculator;
     </script>
 </body>
