@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click2Win 360 - Media Kit</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuración personalizada de Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        neon: {
+                            purple: '#8B5CF6',
+                            cyan: '#22D3EE',
+                            pink: '#EC4899',
+                        },
+                        deep: {
+                            black: '#0B0F19'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        body { background-color: #FFFFFF; color: #475569; font-family: 'Inter', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
+        h1, h2, h3, h4, h5, h6, .font-display { font-family: 'Space Grotesk', sans-serif; }
+        
+        .animate-fade-in { animation: fadeIn 0.8s ease-out forwards; }
+        .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Ocultar barra de scroll en contenedores horizontales */
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Transición suave para el acordeón de servicios */
+        .service-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .service-content { transition: max-height 0.6s ease-in-out, opacity 0.5s ease-in-out; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // --- ICONOS (Lucide Replicas) ---
+        const Icon = ({ path, size = 24, className }) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                {path}
+            </svg>
+        );
+
+        const Icons = {
+            Users: (props) => <Icon {...props} path={<><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></>} />,
+            Video: (props) => <Icon {...props} path={<><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2" ry="2"/></>} />,
+            Cpu: (props) => <Icon {...props} path={<><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></>} />,
+            MessageSquare: (props) => <Icon {...props} path={<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>} />,
+            ChevronRight: (props) => <Icon {...props} path={<path d="m9 18 6-6-6-6"/>} />,
+            ChevronDown: (props) => <Icon {...props} path={<path d="m6 9 6 6 6-6"/>} />,
+            Menu: (props) => <Icon {...props} path={<><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></>} />,
+            X: (props) => <Icon {...props} path={<><path d="M18 6 6 18"/><path d="m6 6 12 12"/></>} />,
+            Award: (props) => <Icon {...props} path={<><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></>} />,
+            LayoutGrid: (props) => <Icon {...props} path={<><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></>} />,
+            ArrowRight: (props) => <Icon {...props} path={<path d="M5 12h14M12 5l7 7-7 7"/>} />,
+            Star: (props) => <Icon {...props} path={<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>} />,
+            Play: (props) => <Icon {...props} path={<polygon points="5 3 19 12 5 21 5 3"/>} />,
+            Briefcase: (props) => <Icon {...props} path={<><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></>} />,
+            Target: (props) => <Icon {...props} path={<><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></>} />,
+            BarChart: (props) => <Icon {...props} path={<><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></>} />,
+            Database: (props) => <Icon {...props} path={<><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></>} />,
+            Globe: (props) => <Icon {...props} path={<><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></>} />,
+            Radio: (props) => <Icon {...props} path={<><circle cx="12" cy="12" r="2"/><path d="M16 8a5 5 0 0 1 0 8"/><path d="M20 4a10 10 0 0 1 0 16"/><path d="M8 8a5 5 0 0 0 0 8"/><path d="M4 4a10 10 0 0 0 0 16"/></>} />,
+            Search: (props) => <Icon {...props} path={<><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></>} />,
+            Handshake: (props) => <Icon {...props} path={<><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-7.38 7.38a6 6 0 1 0 8.49 8.49l1.06-1.06"/></>} />
+        };
+
+        // --- DATOS ---
+
+        const INFLUENCERS = [
+            { name: "Juan Felipe Cadavid", role: "Deportes & Opinión", reach: "Mega", description: "Periodista deportivo y líder de opinión con alta credibilidad.", imageUrl: "https://i.postimg.cc/PNsjK9CK/juan_felipe_cadavid_2.webp", link: "https://www.instagram.com/juanfelicadavid/" },
+            { name: "Valentina Taguado", role: "Entretenimiento", reach: "Mega", description: "Humor y espontaneidad que conecta con audiencias jóvenes.", imageUrl: "https://i.postimg.cc/c41bVk4p/valentina-taguado.avif" },
+            { name: "Aida Merlano", role: "Lifestyle & Polémica", reach: "Mega", description: "Contenido viral y lifestyle que genera alta conversación.", imageUrl: "https://i.postimg.cc/gcsMqyq1/aida-merlano.avif", link: "https://www.instagram.com/aidavictoriam/" },
+            { name: "Cintia Cossio", role: "Entretenimiento", reach: "Mega", description: "Retos, bromas y lifestyle con un alcance masivo.", imageUrl: "https://i.postimg.cc/h4ZLt20D/cintia-cossio.jpg", link: "https://www.instagram.com/soycintiacossio/" },
+            { name: "El Brayan", role: "Humor & Cultura", reach: "Mega", description: "Referente del humor colombiano y autor Best-Seller.", imageUrl: "https://i.postimg.cc/bwpk64yZ/el-brayan.jpg", link: "https://www.instagram.com/_elbrayan_/" },
+            { name: "Julián Valencia", role: "Lifestyle & Motos", reach: "Macro", description: "Aventuras en dos ruedas y monetización de comunidad.", imageUrl: "https://i.postimg.cc/XJbbFKK1/julian-valencia.jpg" },
+            { name: "Diana Rincón", role: "Periodista ESPN", reach: "Macro", description: "Periodista deportiva de ESPN y creadora de contenido.", imageUrl: "https://i.postimg.cc/Dzz7tMsk/Diana-Rincon.png", link: "https://www.instagram.com/dianirin/" },
+            { name: "Melissa Martínez", role: "Deportes & Host", reach: "Mega", description: "Presentadora de deportes y creadora de contenido.", imageUrl: "https://i.postimg.cc/8kxBs8P2/Melisa-Martinez.png", link: "https://www.instagram.com/melissamartineza" },
+            { name: "Sheyla García", role: "Deportes", reach: "Macro", description: "Periodismo deportivo y cobertura de eventos de talla mundial.", imageUrl: "https://i.postimg.cc/K851krVZ/sheyla_garcia_2.jpg" },
+            { name: "Salomé Fajardo", role: "Presentadora Sports", reach: "Macro", description: "Presentadora Win Sports y DirecTV.", imageUrl: "https://i.postimg.cc/xd8H5Y07/Whats-App-Image-2026-02-02-at-2-11-04-PM.jpg", link: "https://www.instagram.com/salomefajardo04" },
+            { name: "Mackalister Silva", role: "Fútbol Profesional", reach: "Macro", description: "Jugador y capitán de Millonarios FC.", imageUrl: "https://i.postimg.cc/d1K4hzBP/silva.avif", link: "https://www.instagram.com/davidms06" },
+            { name: "Juanda Caribe", role: "Humor & Música", reach: "Mega", description: "Creador de contenido de humor, músico y presentador.", imageUrl: "https://i.postimg.cc/2jnNXDJd/Juanda-Caribe.png", link: "https://www.instagram.com/juandacaribeshow/" },
+            { name: "Camila Benavides", role: "Fútbol Freestyle", reach: "Macro", description: "Creadora de contenido de fútbol y destrezas.", imageUrl: "https://i.postimg.cc/tRcp8kCJ/Camila-Benavides.png", link: "https://www.instagram.com/c8benavides/" },
+            { name: "Eduardo Luis", role: "Deportes", reach: "Macro", description: "Narrador deportivo con un estilo único y energético.", imageUrl: "https://i.postimg.cc/Y9Bnj7m1/eduardo_luis.avif" },
+            { name: "Sebastián Moreno", role: "Fotografía & Viral", reach: "Macro", description: "Fotógrafo de las estrellas, contenido visual de alto impacto.", imageUrl: "https://i.postimg.cc/LX3MVqNv/sebastian-moreno.avif" },
+        ];
+
+        const CLIENTS_LIST = [
+            "Wplay", "BetPlay", "Fecoljuegos", "Bavaria", "Hisense", "Coca-Cola", "Adidas", 
+            "Nike", "L'Oréal", "Burger King", "Kwai", "Pierre D'Agostiny", 
+            "Sugaberrio", "Pepsico", "Bimbo", "Rappi", "Uber"
+        ];
+
+        // --- COMPONENTES UI ---
+
+        const Section = ({ id, className, children }) => (
+            <section id={id} className={`py-24 px-6 md:px-12 ${className}`}>
+                <div className="max-w-7xl mx-auto">
+                    {children}
+                </div>
+            </section>
+        );
+
+        const InfluencerCard = ({ title, subtitle, description, tags, imagePlaceholder, imageUrl, link, className }) => (
+            <div className={`bg-white border border-slate-200 rounded-2xl overflow-hidden hover:border-neon-cyan hover:shadow-[0_10px_30px_rgba(34,211,238,0.15)] transition-all duration-300 group h-full flex flex-col relative ${className || ''}`}>
+                <div className="h-64 md:h-72 bg-slate-100 relative overflow-hidden shrink-0">
+                    {imageUrl ? (
+                        <>
+                            <img src={imageUrl} alt={title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 object-top" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                        </>
+                    ) : (
+                        <div className="absolute inset-0 bg-slate-100 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                            {imagePlaceholder ? (
+                                <span className={`text-slate-400 font-medium text-center px-4`}>{imagePlaceholder}</span>
+                            ) : (
+                                <Icons.LayoutGrid className="text-slate-300 w-12 h-12" />
+                            )}
+                        </div>
+                    )}
+                </div>
+                <div className="p-6 flex-1 flex flex-col relative z-10 bg-white">
+                    <div className="flex justify-between items-start mb-2">
+                        <h3 className="text-xl font-bold text-deep-black group-hover:text-neon-purple transition-colors line-clamp-1">{title}</h3>
+                        {link && <a href={link} target="_blank" rel="noreferrer" className="text-xs bg-slate-100 hover:bg-neon-cyan hover:text-white px-2 py-1 rounded text-slate-600 transition-colors border border-slate-200">Ver web</a>}
+                    </div>
+                    {subtitle && <p className="text-sm text-neon-purple mb-3 font-semibold line-clamp-1">{subtitle}</p>}
+                    <p className="text-slate-600 text-sm mb-4 flex-1 line-clamp-4 leading-relaxed">{description}</p>
+                    {tags && (
+                        <div className="flex flex-wrap gap-2 mt-auto">
+                            {tags.map((tag, i) => (
+                                <span key={i} className="text-[11px] font-semibold bg-neon-cyan/10 text-neon-cyan px-2.5 py-1 rounded-full border border-neon-cyan/20">{tag}</span>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            </div>
+        );
+
+        const NavLink = ({ href, children, onClick }) => (
+            <a href={href} onClick={onClick} className="text-slate-600 hover:text-neon-purple font-semibold transition-colors duration-200">
+                {children}
+            </a>
+        );
+
+        // --- APP PRINCIPAL ---
+
+        function App() {
+            const [isMenuOpen, setIsMenuOpen] = useState(false);
+            const [activeService, setActiveService] = useState(null);
+
+            useEffect(() => {
+                document.documentElement.style.scrollBehavior = 'smooth';
+                return () => document.documentElement.style.scrollBehavior = 'auto';
+            }, []);
+
+            const toggleService = (id) => {
+                setActiveService(activeService === id ? null : id);
+                if (activeService !== id) {
+                    setTimeout(() => {
+                        const element = document.getElementById('servicios-grid');
+                        if(element) {
+                            const y = element.getBoundingClientRect().top + window.scrollY - 100;
+                            window.scrollTo({top: y, behavior: 'smooth'});
+                        }
+                    }, 100);
+                }
+            };
+
+            const SERVICES_DATA = [
+                {
+                    id: 1,
+                    title: "Performance & Medios",
+                    icon: Icons.Target,
+                    color: "text-neon-cyan",
+                    bgIcon: "bg-neon-cyan/10",
+                    borderColor: "border-neon-cyan",
+                    activeRing: "ring-2 ring-neon-cyan shadow-[0_10px_30px_rgba(34,211,238,0.2)]",
+                    shortDesc: "Marketing con resultados. ATL, BTL y Digital.",
+                    content: (
+                        <div className="animate-fade-in space-y-12">
+                            {/* NUEVA CAJA ESTILO DARK GAMING */}
+                            <div className="bg-[#0B0F19] bg-gradient-to-br from-[#0B0F19] to-[#0f172a] rounded-3xl p-8 md:p-10 border border-slate-800 shadow-2xl mb-10">
+                                <h4 className="text-4xl md:text-5xl font-black text-white mb-2">360°</h4>
+                                <span className="text-neon-cyan font-bold text-sm md:text-base uppercase tracking-widest mb-4 block">COBERTURA TOTAL (ATL, BTL & DIGITAL)</span>
+                                <p className="text-slate-300 text-base md:text-lg leading-relaxed">
+                                    Transformamos cada clic en una oportunidad y cada estrategia en resultados medibles. Diseñamos campañas que conectan, contenidos que inspiran y experiencias digitales que generan conversión real.
+                                </p>
+                            </div>
+
+                            <div className="space-y-8">
+                                <h4 className="text-2xl font-bold text-deep-black border-b border-slate-200 pb-3 flex items-center gap-2">
+                                    <Icons.Globe className="text-neon-purple" size={24}/> Marketing Digital
+                                </h4>
+                                <p className="text-slate-600 font-medium">Tu marca, con presencia digital que deja huella. Social Media con intención. Performance que acelera. Creatividad que posiciona.</p>
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                                    <div className="bg-white border border-slate-200 p-5 rounded-2xl hover:border-neon-cyan hover:shadow-lg transition-all">
+                                        <h5 className="font-bold text-neon-cyan mb-3 flex items-center gap-2"><Icons.Play size={18}/> Video Ads</h5>
+                                        <ul className="text-sm text-slate-600 space-y-2">
+                                            <li>• Youtube Ads</li><li>• Connected TV</li><li>• TV Sync</li><li>• Video Ads Network</li><li>• Kwai Ads</li>
+                                        </ul>
+                                    </div>
+                                    <div className="bg-white border border-slate-200 p-5 rounded-2xl hover:border-neon-purple hover:shadow-lg transition-all">
+                                        <h5 className="font-bold text-neon-purple mb-3 flex items-center gap-2"><Icons.Radio size={18}/> Audio Ads</h5>
+                                        <ul className="text-sm text-slate-600 space-y-2">
+                                            <li>• Emisoras Online</li><li>• Spotify</li><li>• Deezer</li><li>• TuneIn</li><li>• Podcast Ads</li>
+                                        </ul>
+                                    </div>
+                                    <div className="bg-white border border-slate-200 p-5 rounded-2xl hover:border-neon-cyan hover:shadow-lg transition-all">
+                                        <h5 className="font-bold text-neon-cyan mb-3 flex items-center gap-2"><Icons.Users size={18}/> Social Media</h5>
+                                        <ul className="text-sm text-slate-600 space-y-2">
+                                            <li>• Meta Ads</li><li>• X Ads</li><li>• Tiktok Ads</li><li>• LinkedIn Ads</li><li>• Twitch & Tinder Ads</li>
+                                        </ul>
+                                    </div>
+                                    <div className="bg-white border border-slate-200 p-5 rounded-2xl hover:border-neon-purple hover:shadow-lg transition-all">
+                                        <h5 className="font-bold text-neon-purple mb-3 flex items-center gap-2"><Icons.Target size={18}/> Digital Ads</h5>
+                                        <ul className="text-sm text-slate-600 space-y-2">
+                                            <li>• Native & Contextual</li><li>• Geofence</li><li>• Push Ads</li><li>• Rich Media</li><li>• Influencers</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="space-y-8 pt-6">
+                                <h4 className="text-2xl font-bold text-deep-black border-b border-slate-200 pb-3 flex items-center gap-2">
+                                    <Icons.Briefcase className="text-neon-cyan" size={24}/> Agencia de Medios (ATL y BTL)
+                                </h4>
+                                <p className="text-slate-600 font-medium">Conectamos con tu audiencia desde todos los ángulos. Desde campañas masivas de impacto hasta activaciones que construyen vínculos duraderos.</p>
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                                    <div className="bg-slate-50 border border-slate-200 p-5 rounded-2xl">
+                                        <h5 className="font-bold text-deep-black mb-2">Televisión</h5>
+                                        <p className="text-sm text-slate-600">Nacional, Cable, Regional, TV Digital.</p>
+                                    </div>
+                                    <div className="bg-slate-50 border border-slate-200 p-5 rounded-2xl">
+                                        <h5 className="font-bold text-deep-black mb-2">Radio</h5>
+                                        <p className="text-sm text-slate-600">Nacional, Local, Regional, Comunitaria.</p>
+                                    </div>
+                                    <div className="bg-slate-50 border border-slate-200 p-5 rounded-2xl">
+                                        <h5 className="font-bold text-deep-black mb-2">Impresos</h5>
+                                        <p className="text-sm text-slate-600">Prensa Nacional/Regional, Revistas Especializadas e Independientes.</p>
+                                    </div>
+                                    <div className="bg-slate-50 border border-slate-200 p-5 rounded-2xl">
+                                        <h5 className="font-bold text-deep-black mb-2">OOH</h5>
+                                        <p className="text-sm text-slate-600">DOOH, Vallas, Transmilenio/Masivo, Gimnasios, Centros Comerciales.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                },
+                {
+                    id: 2,
+                    title: "Tech, Data & CRM",
+                    icon: Icons.Database,
+                    color: "text-neon-purple",
+                    bgIcon: "bg-neon-purple/10",
+                    borderColor: "border-neon-purple",
+                    activeRing: "ring-2 ring-neon-purple shadow-[0_10px_30px_rgba(139,92,246,0.2)]",
+                    shortDesc: "Decisiones basadas en datos y herramientas in-house.",
+                    content: (
+                        <div className="animate-fade-in space-y-12">
+                            
+                            {/* NUEVA CAJA ESTILO DARK GAMING */}
+                            <div className="bg-[#0B0F19] bg-gradient-to-br from-[#0B0F19] to-[#181124] rounded-3xl p-8 md:p-10 border border-slate-800 shadow-2xl mb-10">
+                                <h4 className="text-4xl md:text-5xl font-black text-white mb-2">100%</h4>
+                                <span className="text-neon-purple font-bold text-sm md:text-base uppercase tracking-widest mb-4 block">DATA DRIVEN DECISIONS</span>
+                                <p className="text-slate-300 text-base md:text-lg leading-relaxed">
+                                    Entendemos que la intuición inicia ideas, pero son los datos los que las convierten en decisiones estratégicas. Nuestro servicio te entrega información precisa, relevante y accionable para anticipar tendencias.
+                                </p>
+                            </div>
+
+                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+                                <div className="lg:col-span-1 space-y-6">
+                                    <div className="bg-white border border-slate-200 p-6 rounded-2xl border-l-4 border-l-neon-purple shadow-lg shadow-neon-purple/10">
+                                        <h4 className="font-bold text-deep-black mb-2 flex items-center gap-2">
+                                            <Icons.BarChart size={18} className="text-neon-purple"/> Investigación de Mercados
+                                        </h4>
+                                        <p className="text-sm text-slate-600">
+                                            Conoce lo que tu mercado realmente piensa. Realizamos estudios cualitativos y cuantitativos, aplicamos segmentación inteligente y transformamos insights en estrategias que hacen la diferencia.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div className="lg:col-span-2 space-y-8">
+                                    <div>
+                                        <h4 className="text-deep-black font-bold mb-4 flex items-center gap-2 border-b border-slate-200 pb-2">
+                                            <Icons.Users className="text-neon-cyan" size={20} /> Ecosistema CRM
+                                        </h4>
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                            <div className="bg-slate-50 border border-slate-200 p-5 rounded-xl">
+                                                <h5 className="text-neon-purple font-bold text-base mb-2">Centralizar Info</h5>
+                                                <p className="text-sm text-slate-600">Unifica datos de contacto, historial de compras e interacciones. Visión 360° del jugador/cliente.</p>
+                                            </div>
+                                            <div className="bg-slate-50 border border-slate-200 p-5 rounded-xl">
+                                                <h5 className="text-neon-purple font-bold text-base mb-2">Mejorar Relaciones</h5>
+                                                <p className="text-sm text-slate-600">Permite personalizar comunicaciones y facilita una experiencia omnicanal más coherente y efectiva.</p>
+                                            </div>
+                                            <div className="bg-slate-50 border border-slate-200 p-5 rounded-xl">
+                                                <h5 className="text-neon-cyan font-bold text-base mb-2">Ventas & Fidelización</h5>
+                                                <p className="text-sm text-slate-600">Estrategias de retención basadas en comportamiento, upselling y cross-selling para aumentar valor.</p>
+                                            </div>
+                                            <div className="bg-slate-50 border border-slate-200 p-5 rounded-xl">
+                                                <h5 className="text-neon-cyan font-bold text-base mb-2">Automatización</h5>
+                                                <p className="text-sm text-slate-600">Optimiza procesos de marketing, liberando tiempo para tareas estratégicas y mejorando la productividad.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <h4 className="text-deep-black font-bold mb-4 flex items-center gap-2 border-b border-slate-200 pb-2">
+                                            <Icons.Cpu className="text-neon-purple" size={20} /> SaaS & Herramientas
+                                        </h4>
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                            <div className="bg-white border border-slate-200 shadow-sm rounded-2xl p-6">
+                                                <h5 className="font-bold text-deep-black mb-1">Bingo Multiplayer</h5>
+                                                <p className="text-neon-cyan text-xs font-bold mb-3 uppercase tracking-wider">Gaming & Adquisición</p>
+                                                <p className="text-sm text-slate-600">Juego masivo multijugador integrado en WhatsApp. Ideal para activación en tiempo real y captura de leads en iGaming.</p>
+                                            </div>
+                                            <div className="bg-white border border-slate-200 shadow-sm rounded-2xl p-6">
+                                                <h5 className="font-bold text-deep-black mb-1">Blupit CRM</h5>
+                                                <p className="text-neon-purple text-xs font-bold mb-3 uppercase tracking-wider">Fidelización & Gamificación</p>
+                                                <p className="text-sm text-slate-600">Centraliza tu comunidad mediante flujos automatizados y educación por WhatsApp.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                },
+                {
+                    id: 3,
+                    title: "Influence Marketing",
+                    icon: Icons.Users,
+                    color: "text-neon-pink",
+                    bgIcon: "bg-neon-pink/10",
+                    borderColor: "border-neon-pink",
+                    activeRing: "ring-2 ring-neon-pink shadow-[0_10px_30px_rgba(236,72,153,0.2)]",
+                    shortDesc: "Acceso directo a +80 creadores top en LATAM.",
+                    content: (
+                        <div className="animate-fade-in space-y-10">
+                            
+                            {/* NUEVA CAJA ESTILO DARK GAMING EXACTA */}
+                            <div className="bg-[#0B0F19] bg-gradient-to-br from-[#0B0F19] to-[#1f1228] rounded-3xl p-8 md:p-10 border border-slate-800 shadow-[0_10px_40px_rgba(0,0,0,0.1)] mb-10">
+                                <h4 className="text-4xl md:text-5xl font-black text-white mb-2">+10M</h4>
+                                <span className="text-neon-pink font-bold text-sm md:text-base uppercase tracking-widest mb-4 block">ALCANCE POTENCIAL COMBINADO</span>
+                                <p className="text-slate-300 text-base md:text-lg leading-relaxed">
+                                    Contamos con un escuadrón que domina la conversación digital en Deportes, Lifestyle, Humor y Gaming, perfecto para estrategias de adquisición acelerada.
+                                </p>
+                            </div>
+
+                            <div>
+                                <p className="text-slate-700 font-medium text-lg leading-relaxed mb-6">
+                                    Más de <span className="text-deep-black font-bold">8 años de experiencia</span> conectando marcas con audiencias masivas. Acceso directo a <span className="text-deep-black font-bold">más de 80 creadores top</span> en Colombia y LATAM.
+                                </p>
+                                <p className="text-slate-600 mb-6">
+                                    Impulsamos relaciones estratégicas que generan valor sostenible. Desde mega-influenciadores de entretenimiento y deportes hasta nichos específicos para conversión pura.
+                                </p>
+                            </div>
+                            
+                            <div className="pt-10 border-t border-slate-200">
+                                <div className="flex items-center justify-between mb-6">
+                                    <h4 className="text-xl font-bold text-deep-black flex items-center gap-2">
+                                        <Icons.Award size={20} className="text-neon-pink" /> Nuestro Talent Squad
+                                    </h4>
+                                    <span className="text-xs text-slate-500 hidden sm:block font-bold tracking-wide uppercase">Desliza para ver más →</span>
+                                </div>
+                                <div className="flex overflow-x-auto gap-6 pb-6 snap-x snap-mandatory scrollbar-hide">
+                                    {INFLUENCERS.map((inf, i) => (
+                                        <InfluencerCard 
+                                            key={i}
+                                            title={inf.name}
+                                            subtitle={inf.role}
+                                            description={inf.description}
+                                            tags={[inf.reach]}
+                                            imagePlaceholder={`Foto ${inf.name}`}
+                                            imageUrl={inf.imageUrl}
+                                            link={inf.link}
+                                            className="min-w-[280px] md:min-w-[320px] snap-center"
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    )
+                },
+                {
+                    id: 4,
+                    title: "Creatividad & Producción",
+                    icon: Icons.Video,
+                    color: "text-deep-black",
+                    bgIcon: "bg-slate-100",
+                    borderColor: "border-deep-black",
+                    activeRing: "ring-2 ring-deep-black shadow-[0_10px_30px_rgba(11,15,25,0.15)]",
+                    shortDesc: "Contenido que trasciende y conecta visualmente.",
+                    content: (
+                        <div className="animate-fade-in space-y-10">
+                            
+                            {/* NUEVA CAJA ESTILO DARK GAMING */}
+                            <div className="bg-[#0B0F19] bg-gradient-to-br from-[#0B0F19] to-[#111827] rounded-3xl p-8 md:p-10 border border-slate-800 shadow-2xl mb-10">
+                                <h4 className="text-4xl md:text-5xl font-black text-white mb-2">ALTO IMPACTO</h4>
+                                <span className="text-neon-cyan font-bold text-sm md:text-base uppercase tracking-widest mb-4 block">CREATIVIDAD & PRODUCCIÓN</span>
+                                <p className="text-slate-300 text-base md:text-lg leading-relaxed">
+                                    Convertimos conceptos en piezas memorables que se ven, se sienten y se recuerdan. Somos una agencia que transforma tu visión en contenido que emociona, conecta y posiciona con excelencia.
+                                </p>
+                            </div>
+
+                            <div className="max-w-4xl">
+                                <p className="text-xl text-neon-pink mb-4 font-bold">Ideas que impactan. Contenido que trasciende.</p>
+                                <p className="text-slate-600 text-lg mb-8 leading-relaxed">
+                                    Desde el primer boceto hasta el último corte, cada detalle está pensado para elevar tu marca con fuerza, estilo y propósito. Producción audiovisual de alto nivel y narrativas que dejan huella. Tu historia merece ser contada con excelencia.
+                                </p>
+                            </div>
+                            
+                            <div>
+                                <h4 className="text-deep-black font-bold mb-6 flex items-center gap-2 border-b border-slate-200 pb-2">
+                                    <Icons.Star size={20} className="text-neon-cyan" /> Casos de Éxito Audiovisual
+                                </h4>
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                                    <a href="https://www.instagram.com/reel/DPO7FHbEgU9/" target="_blank" rel="noreferrer" className="group relative aspect-[9/16] rounded-2xl overflow-hidden cursor-pointer shadow-lg border border-slate-200 hover:border-neon-purple transition-all">
+                                        <img src="https://i.postimg.cc/RVyVhH8N/Whats-App-Image-2025-11-21-at-1-01-55-PM.jpg" alt="Wplay" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-deep-black/90 via-deep-black/20 to-transparent flex items-center justify-center">
+                                            <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center scale-90 group-hover:scale-110 transition-transform backdrop-blur-sm shadow-lg">
+                                                <Icons.Play className="text-neon-purple" size={30} />
+                                            </div>
+                                        </div>
+                                        <div className="absolute bottom-5 left-5 right-5">
+                                            <p className="text-neon-cyan text-xs font-black uppercase mb-1">Campaña Viral</p>
+                                            <h5 className="text-white font-black text-xl leading-tight">Wplay.co</h5>
+                                        </div>
+                                    </a>
+                                    <a href="https://www.instagram.com/reel/DIuU57hvdhK/?igsh=dTY5ZXgxaTRucTlt" target="_blank" rel="noreferrer" className="group relative aspect-[9/16] rounded-2xl overflow-hidden cursor-pointer shadow-lg border border-slate-200 hover:border-neon-cyan transition-all">
+                                        <img src="https://i.postimg.cc/Kc7nnZbs/Whats-App-Image-2025-11-21-at-1-00-03-PM.jpg" alt="Hisense" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-deep-black/90 via-deep-black/20 to-transparent flex items-center justify-center">
+                                            <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center scale-90 group-hover:scale-110 transition-transform backdrop-blur-sm shadow-lg">
+                                                <Icons.Play className="text-neon-cyan" size={30} />
+                                            </div>
+                                        </div>
+                                        <div className="absolute bottom-5 left-5 right-5">
+                                            <p className="text-neon-cyan text-xs font-black uppercase mb-1">Web Serie</p>
+                                            <h5 className="text-white font-black text-xl leading-tight">Hisense Euro</h5>
+                                        </div>
+                                    </a>
+                                    <a href="https://vt.tiktok.com/ZSap5tCgt/" target="_blank" rel="noreferrer" className="group relative aspect-[9/16] rounded-2xl overflow-hidden cursor-pointer shadow-lg border border-slate-200 hover:border-neon-pink transition-all">
+                                        <img src="https://i.postimg.cc/vHngNpz6/Whats-App-Image-2026-02-02-at-12-23-29-PM.jpg" alt="Pierre D'Agostiny" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-deep-black/90 via-deep-black/20 to-transparent flex items-center justify-center">
+                                            <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center scale-90 group-hover:scale-110 transition-transform backdrop-blur-sm shadow-lg">
+                                                <Icons.Play className="text-neon-pink" size={30} />
+                                            </div>
+                                        </div>
+                                        <div className="absolute bottom-5 left-5 right-5">
+                                            <p className="text-neon-pink text-xs font-black uppercase mb-1">Activación de Marca</p>
+                                            <h5 className="text-white font-black text-xl leading-tight">Pierre D'Agostiny</h5>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }
+            ];
+
+            return (
+                <div className="min-h-screen bg-white text-slate-600 font-sans selection:bg-neon-cyan selection:text-deep-black">
+                    
+                    {/* NAVBAR */}
+                    <nav className="fixed w-full z-50 bg-white/90 backdrop-blur-lg border-b border-slate-200">
+                        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                                <img src="https://i.postimg.cc/15XX6wx9/click2win.png" alt="Click2Win 360 Logo" className="h-12 md:h-14 w-auto object-contain" />
+                            </div>
+                            <div className="hidden md:flex items-center gap-8">
+                                <NavLink href="#nosotros">Nosotros</NavLink>
+                                <NavLink href="#experiencia">Quiénes Somos</NavLink>
+                                <NavLink href="#servicios">Nuestros Servicios</NavLink>
+                                <a href="https://wa.link/cotizacion" target="_blank" rel="noreferrer" className="bg-gradient-to-r from-neon-cyan to-neon-purple text-white px-6 py-2.5 rounded-full font-bold hover:scale-105 transition-all shadow-md hover:shadow-lg">Hablemos</a>
+                            </div>
+                            <button className="md:hidden text-deep-black" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                                {isMenuOpen ? <Icons.X /> : <Icons.Menu />}
+                            </button>
+                        </div>
+                        {isMenuOpen && (
+                            <div className="md:hidden bg-white border-b border-slate-200 absolute w-full px-6 py-8 flex flex-col gap-4 shadow-xl">
+                                <NavLink href="#nosotros" onClick={() => setIsMenuOpen(false)}>Nosotros</NavLink>
+                                <NavLink href="#experiencia" onClick={() => setIsMenuOpen(false)}>Quiénes Somos</NavLink>
+                                <NavLink href="#servicios" onClick={() => setIsMenuOpen(false)}>Nuestros Servicios</NavLink>
+                                <a href="https://wa.link/cotizacion" target="_blank" rel="noreferrer" onClick={() => setIsMenuOpen(false)} className="text-neon-purple font-bold">Hablemos</a>
+                            </div>
+                        )}
+                    </nav>
+
+                    {/* HEADER / HERO */}
+                    <header id="nosotros" className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 px-6 overflow-hidden">
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full overflow-hidden -z-10 pointer-events-none opacity-40">
+                            <div className="absolute top-[10%] left-[20%] w-[500px] h-[500px] bg-neon-cyan/20 rounded-full blur-[100px]" />
+                            <div className="absolute bottom-[10%] right-[20%] w-[400px] h-[400px] bg-neon-purple/20 rounded-full blur-[100px]" />
+                        </div>
+                        <div className="max-w-5xl mx-auto text-center relative z-10 animate-fade-in-up">
+                            <img src="https://i.postimg.cc/15XX6wx9/click2win.png" alt="Click2Win 360 Logo" className="h-20 md:h-28 w-auto object-contain mx-auto mb-10" />
+                            
+                            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-deep-black mb-8 leading-[1.1] tracking-tight">
+                                EL MOTOR DE <br/>
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-purple via-neon-cyan to-neon-pink relative">
+                                    CRECIMIENTO iGAMING
+                                </span>
+                            </h1>
+                            
+                            <div className="max-w-3xl mx-auto mb-10">
+                                <h3 className="text-xl md:text-2xl font-bold text-neon-purple mb-3 uppercase tracking-wide">No es una agencia más</h3>
+                                <p className="text-lg md:text-xl text-slate-600 font-medium leading-relaxed italic border-l-4 border-neon-cyan pl-4 text-left md:text-center md:border-l-0 md:pl-0">
+                                    "Potenciamos las marcas con investigación profunda, creatividad estratégica y resultados medibles."
+                                </p>
+                            </div>
+                            
+                            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                                <a href="#experiencia" className="w-full sm:w-auto px-8 py-4 bg-deep-black text-white rounded-xl font-bold hover:bg-slate-800 hover:scale-105 transition-all shadow-lg flex items-center justify-center gap-2 group">
+                                    Conócenos <Icons.ChevronRight className="group-hover:translate-x-1 transition-transform" />
+                                </a>
+                                <a href="#servicios" className="w-full sm:w-auto px-8 py-4 bg-white text-deep-black rounded-xl font-bold hover:bg-slate-50 transition-all border border-slate-200 shadow-sm hover:border-neon-cyan">Nuestros Servicios</a>
+                            </div>
+                        </div>
+                    </header>
+
+                    {/* QUIÉNES SOMOS / EXPERIENCIA */}
+                    <Section id="experiencia" className="bg-slate-50/50 border-t border-slate-100 relative overflow-hidden">
+                        <div className="max-w-4xl mx-auto text-center relative z-10 mb-16 animate-fade-in-up">
+                            <h2 className="text-3xl md:text-5xl font-black text-deep-black mb-6 uppercase tracking-tight">
+                                Experiencia que cruza <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-neon-purple">Industrias</span>
+                            </h2>
+                            <p className="text-xl text-slate-600 font-medium leading-relaxed">
+                                Nos vinculamos con cada marca, destacamos por resultados. Nuestra experiencia, visión estratégica y ejecución precisa nos ponen siempre un paso adelante.
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+                            <div className="bg-white border border-slate-200 p-8 rounded-3xl hover:border-neon-cyan hover:-translate-y-2 transition-all duration-300 shadow-sm hover:shadow-xl group text-center flex flex-col items-center">
+                                <div className="w-20 h-20 bg-neon-cyan/10 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                    <Icons.Search size={36} className="text-neon-cyan" />
+                                </div>
+                                <h3 className="text-xl font-bold text-deep-black mb-4">Decisiones basadas en datos</h3>
+                                <p className="text-slate-600 leading-relaxed">
+                                    Datos reales y contundentes del mercado que respaldan cada paso y aseguran resultados.
+                                </p>
+                            </div>
+
+                            <div className="bg-white border border-slate-200 p-8 rounded-3xl hover:border-neon-purple hover:-translate-y-2 transition-all duration-300 shadow-sm hover:shadow-xl group text-center flex flex-col items-center">
+                                <div className="w-20 h-20 bg-neon-purple/10 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                    <Icons.Target size={36} className="text-neon-purple" />
+                                </div>
+                                <h3 className="text-xl font-bold text-deep-black mb-4">Segmentación precisa</h3>
+                                <p className="text-slate-600 leading-relaxed">
+                                    Llegamos al público correcto con el mensaje indicado para atraer clientes efectivos y de alto valor.
+                                </p>
+                            </div>
+
+                            <div className="bg-white border border-slate-200 p-8 rounded-3xl hover:border-neon-pink hover:-translate-y-2 transition-all duration-300 shadow-sm hover:shadow-xl group text-center flex flex-col items-center">
+                                <div className="w-20 h-20 bg-neon-pink/10 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                    <Icons.Handshake size={36} className="text-neon-pink" />
+                                </div>
+                                <h3 className="text-xl font-bold text-deep-black mb-4">Relaciones estratégicas</h3>
+                                <p className="text-slate-600 leading-relaxed">
+                                    Impulsamos conexiones valiosas a largo plazo que generan valor medible y sostenible en el tiempo.
+                                </p>
+                            </div>
+                        </div>
+                    </Section>
+
+                    {/* SECCIÓN INTERACTIVA DE SERVICIOS */}
+                    <Section id="servicios" className="bg-white border-y border-slate-100 relative">
+                        <div className="text-center mb-16 relative z-10">
+                            <h2 className="text-3xl md:text-5xl font-black text-deep-black mb-4">Nuestros <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-purple to-neon-pink">Servicios</span></h2>
+                            <p className="text-lg text-slate-600 font-medium max-w-2xl mx-auto">Explora nuestro ecosistema 360. Haz clic en cada área para descubrir cómo impulsamos tu crecimiento.</p>
+                        </div>
+                        
+                        <div id="servicios-grid" className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+                            {SERVICES_DATA.map((service) => {
+                                const isActive = activeService === service.id;
+                                return (
+                                    <div 
+                                        key={service.id} 
+                                        className={`service-card bg-white border rounded-3xl overflow-hidden cursor-pointer ${isActive ? `col-span-1 md:col-span-2 ${service.borderColor} ${service.activeRing} scale-[1.01] z-20 relative` : 'border-slate-200 hover:border-slate-300 hover:shadow-lg'}`}
+                                    >
+                                        {/* Cabecera de la Tarjeta (Siempre visible) */}
+                                        <div 
+                                            className="p-6 md:p-8 flex items-center justify-between gap-4 bg-white"
+                                            onClick={() => toggleService(service.id)}
+                                        >
+                                            <div className="flex items-center gap-6">
+                                                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center border ${isActive ? `border-${service.color.split('-')[1]}-200 ${service.bgIcon}` : 'bg-slate-50 border-slate-100'}`}>
+                                                    <service.icon size={28} className={isActive ? service.color : 'text-slate-500'} />
+                                                </div>
+                                                <div>
+                                                    <h3 className="text-2xl font-black text-deep-black mb-1">{service.title}</h3>
+                                                    <p className={`text-sm ${isActive ? 'text-slate-600' : 'text-slate-500'} font-medium`}>{service.shortDesc}</p>
+                                                </div>
+                                            </div>
+                                            <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-transform duration-500 ${isActive ? 'rotate-180 bg-slate-100' : 'bg-slate-50'}`}>
+                                                <Icons.ChevronDown className={isActive ? 'text-deep-black' : 'text-slate-400'} />
+                                            </div>
+                                        </div>
+
+                                        {/* Contenido Expandible (Acordeón) */}
+                                        <div 
+                                            className={`service-content bg-slate-50/50 border-t border-slate-100 overflow-hidden ${isActive ? 'max-h-[2500px] opacity-100 p-6 md:p-10' : 'max-h-0 opacity-0 p-0 border-t-0'}`}
+                                        >
+                                            {service.content}
+                                            
+                                            <div className="mt-10 flex justify-end">
+                                                <button 
+                                                    onClick={(e) => { e.stopPropagation(); toggleService(service.id); }}
+                                                    className="px-6 py-2 bg-deep-black hover:bg-slate-800 text-white rounded-full font-bold text-sm transition-colors flex items-center gap-2 shadow-md"
+                                                >
+                                                    Cerrar Panel <Icons.ChevronDown className="rotate-180" size={16} />
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </Section>
+
+                    {/* MARCAS / CLIENTES */}
+                    <Section id="clientes" className="bg-slate-50 border-t border-slate-200">
+                        <div className="text-center mb-12">
+                            <h2 className="text-2xl font-bold text-deep-black">Marcas que Confían en Nosotros</h2>
+                            <p className="text-slate-600 font-medium mt-2">Partners que se atrevieron a crecer con estrategia y performance.</p>
+                        </div>
+                        <div className="flex flex-wrap justify-center gap-3 md:gap-4 max-w-5xl mx-auto">
+                            {CLIENTS_LIST.map((client, i) => (
+                                <div key={i} className="px-6 py-2.5 bg-white rounded-full border border-slate-200 hover:border-neon-cyan hover:bg-slate-50 transition-all cursor-default shadow-sm hover:shadow-md">
+                                    <span className="text-slate-700 font-bold text-sm">{client}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </Section>
+
+                    {/* FOOTER */}
+                    <footer className="py-12 px-6 border-t border-slate-200 text-center text-slate-500 text-sm bg-white">
+                        <div className="flex items-center justify-center gap-3 mb-6">
+                            <img src="https://i.postimg.cc/15XX6wx9/click2win.png" alt="Click2Win Logo" className="h-10 md:h-12 w-auto object-contain" />
+                        </div>
+                        <p>© 2026 Click2Win 360. Todos los derechos reservados.</p>
+                        <p className="mt-1 text-xs text-slate-400">Agencia 360 especializada en iGaming LATAM.</p>
+                    </footer>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
