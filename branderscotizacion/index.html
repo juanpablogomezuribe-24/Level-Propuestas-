@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotización Interactiva - Level Colombia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .transition-all { transition: all 0.3s ease; }
+        /* Mejora para scroll en móviles */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 pb-10">
+
+    <!-- Header -->
+    <header class="bg-white border-b sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 py-3 md:py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2 md:gap-3">
+                <div class="bg-blue-600 p-1.5 md:p-2 rounded-lg text-white font-bold text-lg md:text-xl shadow-sm">L</div>
+                <h1 class="text-xl md:text-2xl font-black tracking-tight text-blue-900">LEVEL</h1>
+            </div>
+            <div class="text-right">
+                <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest">Propuesta</span>
+                <span class="text-xs md:text-sm font-semibold text-blue-600">BGS-COLGAS-2024</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-6 md:py-8">
+        
+        <!-- Client Info Section -->
+        <section class="bg-white border border-slate-200 rounded-2xl p-5 mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 shadow-sm">
+            <div class="flex items-center gap-3">
+                <div class="bg-slate-100 p-2.5 rounded-full text-slate-600 shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M8 10h.01"/><path d="M16 10h.01"/><path d="M8 14h.01"/><path d="M16 14h.01"/></svg>
+                </div>
+                <div>
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Cliente</p>
+                    <h2 class="text-lg font-black text-slate-800 leading-tight">Branders Group SAS</h2>
+                    <p class="text-xs font-medium text-slate-500">NIT: 901 545 843</p>
+                </div>
+            </div>
+            <div class="w-full sm:w-auto bg-blue-50 px-3 py-2 rounded-xl border border-blue-100 text-center sm:text-right">
+                <div class="text-[10px] font-bold text-blue-400 uppercase">Emisión</div>
+                <div id="current-date" class="text-xs font-bold text-blue-900"></div>
+            </div>
+        </section>
+
+        <!-- Selection Section -->
+        <section class="mb-8">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                <svg class="text-blue-600 w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.1 6.34a2 2 0 0 0 0 3.66l9.07 4.16a2 2 0 0 0 1.66 0l9.07-4.16a2 2 0 0 0 0-3.66z"/><path d="m2.1 12.34 9.07 4.16a2 2 0 0 0 1.66 0l9.07-4.16"/><path d="m2.1 16.34 9.07 4.16a2 2 0 0 0 1.66 0l9.07-4.16"/></svg>
+                Tamaño del balón
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <!-- Size 3 -->
+                <button onclick="selectSize('3')" id="btn-size-3" class="size-btn p-4 rounded-xl border-2 transition-all text-left flex flex-row sm:flex-col justify-between items-center sm:items-start bg-white border-white">
+                    <div>
+                        <span class="badge text-[9px] font-black uppercase px-2 py-0.5 rounded mb-1 inline-block bg-slate-100 text-slate-500">Infantil</span>
+                        <h3 class="text-base font-black text-slate-900">Número #3</h3>
+                    </div>
+                    <p class="price-text text-sm font-bold text-slate-700 sm:mt-2">$ 40.500</p>
+                </button>
+                <!-- Size 4 -->
+                <button onclick="selectSize('4')" id="btn-size-4" class="size-btn p-4 rounded-xl border-2 transition-all text-left flex flex-row sm:flex-col justify-between items-center sm:items-start bg-white border-white">
+                    <div>
+                        <span class="badge text-[9px] font-black uppercase px-2 py-0.5 rounded mb-1 inline-block bg-slate-100 text-slate-500">Juvenil</span>
+                        <h3 class="text-base font-black text-slate-900">Número #4</h3>
+                    </div>
+                    <p class="price-text text-sm font-bold text-slate-700 sm:mt-2">$ 44.500</p>
+                </button>
+                <!-- Size 5 -->
+                <button onclick="selectSize('5')" id="btn-size-5" class="size-btn p-4 rounded-xl border-2 transition-all text-left flex flex-row sm:flex-col justify-between items-center sm:items-start bg-blue-50 border-blue-600 ring-2 ring-blue-100">
+                    <div>
+                        <span class="badge text-[9px] font-black uppercase px-2 py-0.5 rounded mb-1 inline-block bg-blue-600 text-white">Profesional</span>
+                        <h3 class="text-base font-black text-slate-900">Número #5</h3>
+                    </div>
+                    <p class="price-text text-sm font-bold text-blue-700 sm:mt-2">$ 46.000</p>
+                </button>
+            </div>
+        </section>
+
+        <div class="grid lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-2 space-y-6">
+                
+                <!-- Hero Section -->
+                <div class="bg-white rounded-2xl shadow-md overflow-hidden border border-slate-100">
+                    <div class="flex flex-col md:flex-row">
+                        <div class="p-6 md:p-10 flex flex-col justify-center md:w-1/2">
+                            <div class="inline-block bg-green-100 text-green-700 px-2 py-0.5 rounded text-[10px] font-bold mb-3 uppercase w-fit tracking-tighter">Colgas Oficial</div>
+                            <h2 class="text-2xl font-black text-slate-900 leading-tight mb-3">Producción Técnica</h2>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-4">Balones con vulcanizado al vapor y serigrafía de alta densidad de 5 colores.</p>
+                            <div class="flex items-center gap-2 bg-slate-50 px-3 py-2 rounded-lg border border-slate-100 w-fit">
+                                <svg class="text-green-600 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+                                <span class="text-[10px] font-bold uppercase text-slate-700">Norma ICONTEC ISO 9001</span>
+                            </div>
+                        </div>
+                        <div class="bg-slate-100 h-48 md:h-auto md:w-1/2 relative">
+                            <img src="https://i.postimg.cc/N0ysXnQS/Whats-App-Image-2026-03-10-at-1-19-03-PM.jpg" class="w-full h-full object-cover" alt="Balón Colgas">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ficha Técnica -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
+                    <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+                        <svg class="text-blue-600 w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                        Especificaciones
+                    </h3>
+                    <div class="aspect-video w-full rounded-xl overflow-hidden mb-5 border border-slate-100">
+                        <img src="https://i.postimg.cc/5tZxSm02/Whats-App-Image-2026-03-10-at-1-19-39-PM.jpg" class="w-full h-full object-cover" alt="Detalle Panel">
+                    </div>
+                    <div id="specs-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                        <!-- Specs populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Logistics & Delivery -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="bg-blue-900 text-white p-5 rounded-2xl shadow-lg">
+                        <h3 class="text-base font-bold mb-3 flex items-center gap-2">
+                            <svg class="text-blue-300 w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+                            Logística
+                        </h3>
+                        <div class="space-y-2 text-[11px] text-blue-100">
+                            <div class="flex justify-between border-b border-blue-800 pb-1"><span>Entrega</span><span class="font-bold text-white uppercase tracking-tighter">Bogotá D.C.</span></div>
+                            <div class="flex justify-between border-b border-blue-800 pb-1"><span>Flete Nacional</span><span class="font-bold text-white italic">Cargo Cliente</span></div>
+                            <div class="flex justify-between border-b border-blue-800 pb-1"><span>Plazo Total</span><span class="font-bold text-white uppercase">30 Días</span></div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
+                        <h3 class="text-base font-bold mb-3 flex items-center gap-2 text-slate-800">
+                            <svg class="text-blue-600 w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+                            Caja Master
+                        </h3>
+                        <div class="space-y-1 text-[11px] text-slate-600">
+                            <div class="flex justify-between"><span>Medidas:</span><span class="font-semibold text-slate-900">74 x 30 x 50 cm</span></div>
+                            <div class="flex justify-between"><span>Peso Caja:</span><span class="font-semibold text-slate-900">15.060 Kg</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Schedule -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+                    <h3 class="text-lg font-bold mb-4 text-center">Plan de Despacho</h3>
+                    <div class="flex p-1 bg-slate-100 rounded-xl mb-6 max-w-[240px] mx-auto text-[11px]">
+                        <button onclick="setDelivery('partial')" id="btn-delivery-partial" class="flex-1 py-1.5 font-bold rounded-lg bg-white text-blue-600 shadow-sm transition-all">Semanales</button>
+                        <button onclick="setDelivery('full')" id="btn-delivery-full" class="flex-1 py-1.5 font-bold rounded-lg text-slate-500 transition-all">Final</button>
+                    </div>
+                    <div id="delivery-view" class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pricing Sidebar -->
+            <div class="relative">
+                <div class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 shadow-xl lg:sticky lg:top-24">
+                    <h3 class="text-lg font-black mb-5 flex items-center gap-2">
+                        <svg class="text-blue-600 w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                        Resumen Económico
+                    </h3>
+                    
+                    <div class="space-y-3 mb-6 text-[13px]">
+                        <div class="flex justify-between"><span>Talla:</span><span id="summary-size" class="font-bold">#5</span></div>
+                        <div class="flex justify-between"><span>Unidades:</span><span class="font-bold">500</span></div>
+                        <div class="flex justify-between"><span>Precio Unit:</span><span id="summary-unit" class="font-bold"></span></div>
+                        <div class="pt-3 border-t border-dashed flex justify-between"><span>Subtotal:</span><span id="summary-subtotal" class="font-bold"></span></div>
+                        <div class="flex justify-between text-slate-500"><span>IVA (19%):</span><span id="summary-iva" class="font-bold"></span></div>
+                        <div class="pt-4 border-t-2 border-slate-100 flex justify-between items-center"><span class="font-black text-sm uppercase">Total Neto:</span><span id="summary-total" class="font-black text-xl text-blue-600"></span></div>
+                    </div>
+
+                    <div class="bg-slate-50 p-4 rounded-xl space-y-3 border border-slate-100">
+                        <p class="text-[9px] font-black uppercase text-slate-400 tracking-widest text-center mb-1">Esquema de Pago 50/50</p>
+                        <div class="flex justify-between items-center"><span class="text-[11px] font-medium">Anticipo (50%):</span><span id="summary-upfront" class="font-bold text-slate-900 text-sm"></span></div>
+                        <div class="flex justify-between items-center"><span class="text-[11px] font-medium">Final (50%):</span><span id="summary-balance" class="font-bold text-slate-900 text-sm"></span></div>
+                    </div>
+                    
+                    <div class="mt-6 text-[10px] text-slate-400 text-center leading-tight italic">
+                        Esta propuesta interactiva es para fines informativos y de selección de pedido para Branders Group SAS.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="max-w-5xl mx-auto px-4 mt-8 text-center text-slate-400 text-[11px] pb-10">
+        <p>LEVEL COLOMBIA - Pasión por el deporte</p>
+        <p class="mt-1">© 2024 Propuesta para Branders Group SAS</p>
+    </footer>
+
+    <script>
+        const state = {
+            selectedSize: '5',
+            deliveryMode: 'partial',
+            options: {
+                '3': { price: 40500, specs: 'Medida 58-60 cms | Peso 310-340 gr' },
+                '4': { price: 44500, specs: 'Medida 64-66 cms | Peso 350-390 gr' },
+                '5': { price: 46000, specs: 'Medida 68 cms | Peso 430-450 gr' }
+            }
+        };
+
+        const baseSpecs = [
+            "Neumático de Butilo",
+            "Enmallado 100% Nylon",
+            "Cubierta de Caucho Natural",
+            "Cuero Sintético PVC ISO 9001",
+            "Serigrafía 5 colores",
+            "Vulcanizado al Vapor",
+            "Medidas Reglamentarias"
+        ];
+
+        function format(val) {
+            return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }).format(val);
+        }
+
+        function updateUI() {
+            const config = state.options[state.selectedSize];
+            const subtotal = config.price * 500;
+            const iva = subtotal * 0.19;
+            const total = subtotal + iva;
+
+            document.getElementById('summary-size').innerText = '#' + state.selectedSize;
+            document.getElementById('summary-unit').innerText = format(config.price);
+            document.getElementById('summary-subtotal').innerText = format(subtotal);
+            document.getElementById('summary-iva').innerText = format(iva);
+            document.getElementById('summary-total').innerText = format(total);
+            document.getElementById('summary-upfront').innerText = format(total * 0.5);
+            document.getElementById('summary-balance').innerText = format(total * 0.5);
+
+            const grid = document.getElementById('specs-grid');
+            grid.innerHTML = '';
+            [...baseSpecs, config.specs].forEach(s => {
+                const div = document.createElement('div');
+                div.className = 'flex items-center gap-2 p-1.5 bg-slate-50/50 rounded border border-slate-100';
+                div.innerHTML = `<svg class="text-green-500 w-3 h-3 shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span>${s}</span>`;
+                grid.appendChild(div);
+            });
+
+            const deliveryBox = document.getElementById('delivery-view');
+            deliveryBox.innerHTML = '';
+            if (state.deliveryMode === 'partial') {
+                deliveryBox.className = "grid grid-cols-2 sm:grid-cols-4 gap-3";
+                [150, 150, 150, 50].forEach((q, i) => {
+                    const div = document.createElement('div');
+                    div.className = 'p-3 bg-blue-50/50 border border-blue-100 rounded-xl text-center';
+                    div.innerHTML = `<div class="text-[9px] text-blue-400 font-bold uppercase">Semana ${i+1}</div><div class="text-lg font-black text-blue-900">${q}</div><div class="text-[8px] text-slate-400 uppercase font-bold">Unid.</div>`;
+                    deliveryBox.appendChild(div);
+                });
+            } else {
+                deliveryBox.className = "block";
+                deliveryBox.innerHTML = `<div class="p-4 bg-slate-50 rounded-xl border border-slate-100 flex justify-between items-center"><span class="italic text-[11px] text-slate-500">Despacho único (30 días)</span><span class="text-xl font-black text-blue-600">500 Unid.</span></div>`;
+            }
+
+            document.querySelectorAll('.size-btn').forEach(b => {
+                b.className = 'size-btn p-4 rounded-xl border-2 transition-all text-left flex flex-row sm:flex-col justify-between items-center sm:items-start bg-white border-white';
+                const badge = b.querySelector('.badge');
+                if(badge) badge.className = 'badge text-[9px] font-black uppercase px-2 py-0.5 rounded mb-1 inline-block bg-slate-100 text-slate-500';
+                const price = b.querySelector('.price-text');
+                if(price) price.className = 'price-text text-sm font-bold text-slate-700 sm:mt-2';
+            });
+            
+            const activeBtn = document.getElementById('btn-size-' + state.selectedSize);
+            activeBtn.className = 'size-btn p-4 rounded-xl border-2 transition-all text-left flex flex-row sm:flex-col justify-between items-center sm:items-start bg-blue-50 border-blue-600 ring-2 ring-blue-100';
+            const activeBadge = activeBtn.querySelector('.badge');
+            if(activeBadge) activeBadge.className = 'badge text-[9px] font-black uppercase px-2 py-0.5 rounded mb-1 inline-block bg-blue-600 text-white';
+            const activePrice = activeBtn.querySelector('.price-text');
+            if(activePrice) activePrice.className = 'price-text text-sm font-bold text-blue-700 sm:mt-2';
+        }
+
+        function selectSize(s) {
+            state.selectedSize = s;
+            updateUI();
+        }
+
+        function setDelivery(m) {
+            state.deliveryMode = m;
+            document.getElementById('btn-delivery-partial').className = m === 'partial' ? 'flex-1 py-1.5 font-bold rounded-lg bg-white text-blue-600 shadow-sm transition-all' : 'flex-1 py-1.5 font-bold rounded-lg text-slate-500 transition-all';
+            document.getElementById('btn-delivery-full').className = m === 'full' ? 'flex-1 py-1.5 font-bold rounded-lg bg-white text-blue-600 shadow-sm transition-all' : 'flex-1 py-1.5 font-bold rounded-lg text-slate-500 transition-all';
+            updateUI();
+        }
+
+        document.getElementById('current-date').innerText = new Date().toLocaleDateString('es-CO', { day: '2-digit', month: 'long', year: 'numeric' });
+        updateUI();
+    </script>
+</body>
+</html>
