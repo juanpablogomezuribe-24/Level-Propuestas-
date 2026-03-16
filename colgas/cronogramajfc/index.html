@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colgas x Juan Felipe Cadavid - Propuesta 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --colgas-blue: #004a99;
+            --colgas-orange: #ff6600;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .active-tab {
+            color: var(--colgas-orange) !important;
+            border-bottom: 3px solid var(--colgas-orange);
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: slideUp 0.3s ease-out; }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .subtotal-row {
+            background-color: #fff7ed;
+            color: #c2410c;
+            font-weight: 800;
+        }
+
+        .img-overlay-label {
+            position: absolute;
+            bottom: 8px;
+            left: 8px;
+            background: rgba(0, 74, 153, 0.9);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 9px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .match-card {
+            border-left: 4px solid var(--colgas-orange);
+        }
+    </style>
+</head>
+<body class="pb-10 text-left">
+
+    <!-- Header -->
+    <header class="bg-[#004a99] text-white p-6 shadow-lg text-left">
+        <div class="max-w-4xl mx-auto flex items-center gap-4 text-left">
+            <img src="https://i.postimg.cc/7hT0tVMD/colgas-hinchas-mundialista.jpg" alt="Logo" class="h-12 w-auto rounded-lg bg-white p-1">
+            <div class="text-left">
+                <h1 class="text-lg font-black uppercase italic leading-none">Hinchas de la Energía</h1>
+                <p class="text-[10px] text-[#ff6600] font-bold uppercase tracking-widest mt-1 text-left">Embajador de Marca 2026</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="sticky-nav border-b border-gray-200 overflow-x-auto whitespace-nowrap scrollbar-hide">
+        <div class="max-w-4xl mx-auto flex justify-around">
+            <button onclick="switchTab('tab-concepto')" class="tab-btn px-4 py-4 text-xs font-black uppercase italic text-gray-400 active-tab text-left" id="btn-tab-concepto">Estrategia</button>
+            <button onclick="switchTab('tab-crono')" class="tab-btn px-4 py-4 text-xs font-black uppercase italic text-gray-400 text-left" id="btn-tab-crono">Cronograma</button>
+            <button onclick="switchTab('tab-mundial')" class="tab-btn px-4 py-4 text-xs font-black uppercase italic text-gray-400 text-left" id="btn-tab-mundial">Mundial</button>
+            <button onclick="switchTab('tab-presupuesto')" class="tab-btn px-4 py-4 text-xs font-black uppercase italic text-gray-400 text-left" id="btn-tab-presupuesto">Presupuesto</button>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto p-4 md:p-8">
+
+        <!-- SECCIÓN: ESTRATEGIA (CONCEPTO) -->
+        <section id="tab-concepto" class="tab-content active space-y-6 text-left">
+            <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 text-left">
+                <h2 class="text-2xl font-black text-[#004a99] mb-4 uppercase italic text-left">Concepto de la campaña</h2>
+                <p class="text-sm leading-relaxed text-gray-600 text-left">
+                    En el marco del Mundial 2026, Juan Felipe Cadavid será el embajador de marca de Colgas durante toda su estrategia mundialista HINCHAS DE LA ENERGIA MUNDIALISTA COLGAS, buscando integrar todo el ecosistema deportivo de Juan Felipe con las diferentes actividades de Colgas (Big Promo, Historias con Propósito, interacción directa con los hinchas y visibilidad estratégica de la marca en un entorno deportivo).
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+                <div class="bg-[#004a99] text-white p-6 rounded-[2.5rem] text-left">
+                    <i class="fab fa-youtube text-3xl text-[#ff6600] mb-3 text-left"></i>
+                    <h3 class="font-black uppercase text-sm mb-2 text-left">Propósito Social</h3>
+                    <p class="text-xs opacity-80 italic text-left">Contenidos en post-partido que conectan la táctica futbolística con la energía positiva de Colgas en las regiones.</p>
+                </div>
+                <div class="bg-[#ff6600] text-white p-6 rounded-[2.5rem] text-left">
+                    <i class="fas fa-qrcode text-3xl mb-3 text-left"></i>
+                    <h3 class="font-black uppercase text-sm mb-2 text-left text-left">Impacto Big Promo</h3>
+                    <p class="text-xs opacity-90 italic text-left">Estrategia de conversión masiva hacia el registro QR para ganar más de 100 millones en premios.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: CRONOGRAMA TÁCTICA -->
+        <section id="tab-crono" class="tab-content space-y-8 text-left">
+            <h2 class="text-xl font-black text-[#004a99] uppercase italic border-l-4 border-[#ff6600] pl-3 text-left">CRONOGRAMA TACTICA MARZO - ABRIL - MAYO</h2>
+
+            <!-- Marzo -->
+            <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden text-left">
+                <div class="p-3 bg-gray-100 flex justify-between items-center text-left">
+                    <span class="text-[10px] font-black uppercase text-gray-500 text-left">MARZO: AMISTOSOS Y PRODUCCIÓN</span>
+                </div>
+                <div class="p-4 space-y-4 text-left">
+                    <div class="flex gap-4 items-start text-left">
+                        <div class="bg-blue-100 p-2 rounded-xl text-blue-700 text-xs font-bold text-center w-12 text-left">26<br><span class="text-[8px] text-left">MAR</span></div>
+                        <div class="text-left"><p class="text-xs font-bold text-left">Historia Propósito (Francia vs Colombia)</p><p class="text-[10px] text-gray-500 italic text-left text-left">Post-partido YouTube (45s). Level realiza guión y edición aprobada.</p></div>
+                    </div>
+                    <div class="flex gap-4 items-start text-left">
+                        <div class="bg-blue-100 p-2 rounded-xl text-blue-700 text-xs font-bold text-center w-12">29<br><span class="text-[8px]">MAR</span></div>
+                        <div class="text-left"><p class="text-xs font-bold text-left">Historia Propósito (Croacia vs Colombia)</p><p class="text-[10px] text-gray-500 italic text-left">Post-partido YouTube. Integración narrativa de marca Colgas.</p></div>
+                    </div>
+                    <div class="flex gap-4 items-start text-left">
+                        <div class="bg-orange-100 p-2 rounded-xl text-orange-700 text-xs font-bold text-center w-12 text-left">31<br><span class="text-[8px] text-left">MAR</span></div>
+                        <div class="text-left text-left"><p class="text-xs font-bold text-left text-left">Día de Grabación (8:30 - 11:30 AM)</p><p class="text-[10px] text-gray-500 italic text-left">Grabación premium en Croma con JF para Web y contenidos de Pauta.</p></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Abril -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden text-left">
+                <div class="p-3 bg-blue-50 flex justify-between items-center text-left">
+                    <span class="text-[10px] font-black uppercase text-[#004a99] text-left">ABRIL: LANZAMIENTO BIG PROMO</span>
+                </div>
+                <div class="p-4 space-y-4 text-left">
+                    <div class="flex gap-4 items-start text-left text-left text-left">
+                        <div class="bg-blue-100 p-2 rounded-xl text-blue-700 text-xs font-bold text-center w-12 text-left text-left">13<br><span class="text-[8px] text-left">ABR</span></div>
+                        <div class="text-left text-left"><p class="text-xs font-bold text-left text-left">Reel Mecánica (Arenga Equipo)</p><p class="text-[10px] text-gray-500 italic text-left text-left">Contenido emocional: Equipo unido y revelación de los premios +100M.</p></div>
+                    </div>
+                    <div class="flex gap-4 items-start text-left text-left">
+                        <div class="bg-blue-100 p-2 rounded-xl text-blue-700 text-xs font-bold text-center w-12 text-left text-left">20<br><span class="text-[8px] text-left">ABR</span></div>
+                        <div class="text-left text-left text-left"><p class="text-xs font-bold text-left text-left">Reel Pedagógico (Paso a Paso)</p><p class="text-[10px] text-gray-500 italic text-left text-left">Explicación creativa de cómo registrar el QR en el tapón de seguridad.</p></div>
+                    </div>
+                    <div class="bg-blue-50/50 p-4 rounded-xl border border-blue-100 text-left text-left">
+                        <p class="text-[10px] font-bold text-[#004a99] uppercase mb-1 text-left text-left">Sección YouTube (Clásicos FPC):</p>
+                        <p class="text-[10px] text-gray-600 italic text-left text-left">El Jugador con más Energía Colgas en Millonarios vs Nacional, Millonarios vs Santa Fe y Nacional vs Medellín.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mayo -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden text-left text-left">
+                <div class="p-3 bg-pink-50 flex justify-between items-center text-left">
+                    <span class="text-[10px] font-black uppercase text-pink-700 text-left">MAYO: MAMÁS Y SELECCIÓN</span>
+                </div>
+                <div class="p-4 space-y-4 text-left">
+                    <div class="flex gap-4 items-start text-left text-left text-left">
+                        <div class="bg-pink-100 p-2 rounded-xl text-pink-700 text-xs font-bold text-center w-12 text-left text-left">10-24<br><span class="text-[8px] text-left text-left">MAY</span></div>
+                        <div class="text-left text-left"><p class="text-xs font-bold text-left text-left">2 Reels Colab Mamás Ganadoras</p><p class="text-[10px] text-gray-500 italic text-left">Historias reales de mamás premiadas con la Big Promo Colgas.</p></div>
+                    </div>
+                    <div class="flex gap-4 items-start text-left text-left">
+                        <div class="bg-orange-100 p-2 rounded-xl text-orange-700 text-xs font-bold text-center w-12 text-left text-left text-left">20<br><span class="text-[8px] text-left">MAY</span></div>
+                        <div class="text-left text-left"><p class="text-xs font-bold text-left text-left">Visita Presencial Instalaciones</p><p class="text-[10px] text-gray-500 italic text-left text-left">JF juega la Polla Mundialista presencialmente en las oficinas de Colgas.</p></div>
+                    </div>
+                    <div class="flex gap-4 items-start text-left text-left text-left">
+                        <div class="bg-blue-100 p-2 rounded-xl text-blue-700 text-xs font-bold text-center w-12 text-left">29<br><span class="text-[8px] text-left">MAY</span></div>
+                        <div class="text-left text-left"><p class="text-xs font-bold text-left text-left">YouTube Despedida Selección</p><p class="text-[10px] text-gray-500 italic text-left text-left">Sección Jugador Energía en el marco del partido de despedida de Colombia.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: MUNDIAL -->
+        <section id="tab-mundial" class="tab-content space-y-8 text-left text-left text-left">
+            <h2 class="text-xl font-black text-[#004a99] uppercase italic border-l-4 border-[#ff6600] pl-3 text-left">OPERACIÓN MUNDIAL JUNIO - JULIO</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
+                <div class="match-card bg-white p-4 rounded-2xl shadow-sm flex flex-col gap-3 text-left text-left text-left">
+                    <div class="flex items-center gap-3 text-left">
+                        <span class="bg-gray-100 px-2 py-1 rounded text-[10px] font-black text-left">17 JUN</span>
+                        <p class="text-xs font-bold text-left text-left text-left">Uzbekistán vs Colombia</p>
+                    </div>
+                    <p class="text-[9px] text-gray-500 italic text-left text-left">YouTube: El Jugador Energía Colgas.</p>
+                </div>
+                <div class="match-card bg-white p-4 rounded-2xl shadow-sm flex flex-col gap-3 text-left text-left text-left">
+                    <div class="flex items-center gap-3 text-left text-left text-left">
+                        <span class="bg-gray-100 px-2 py-1 rounded text-[10px] font-black">23 JUN</span>
+                        <p class="text-xs font-bold text-left text-left">Colombia vs Repechaje</p>
+                    </div>
+                    <p class="text-[9px] text-gray-500 italic text-left text-left">YouTube: Historia Propósito Mundial.</p>
+                </div>
+                <div class="match-card bg-white p-4 rounded-2xl shadow-sm flex flex-col gap-3 text-left text-left">
+                    <div class="flex items-center gap-3 text-left text-left text-left">
+                        <span class="bg-gray-100 px-2 py-1 rounded text-[10px] font-black">27 JUN</span>
+                        <p class="text-xs font-bold text-left text-left text-left">Colombia vs Portugal</p>
+                    </div>
+                    <p class="text-[9px] text-gray-500 italic text-left text-left text-left">YouTube: Vox Pop Reacciones Hinchas.</p>
+                </div>
+            </div>
+
+            <div class="bg-[#004a99] text-white p-8 rounded-[2.5rem] shadow-xl text-left text-left text-left">
+                <h3 class="text-lg font-black uppercase italic text-[#ff6600] mb-6 text-left">Dinámica de Producción Mundial</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+                    <div class="space-y-4 text-left text-left text-left">
+                        <div class="relative text-left text-left">
+                            <img src="https://i.postimg.cc/Y93Y7fPc/Whats_App_Image_2025_12_24_at_8_43_08_AM.jpg" class="w-full rounded-2xl aspect-video object-cover border border-white/20 shadow-lg text-left text-left text-left">
+                            <span class="img-overlay-label text-left text-left text-left">6 Reels Colab</span>
+                        </div>
+                        <p class="text-[11px] opacity-90 italic text-left text-left text-left">Logo de Colgas integrado con animación de 2s al cierre. Post-análisis inmediato tras partidos de Colombia.</p>
+                    </div>
+                    <div class="space-y-4 text-left">
+                        <div class="relative text-left text-left">
+                            <img src="https://i.postimg.cc/rsjB5bP6/Disen-o-sin-ti-tulo.png" class="w-full rounded-2xl aspect-video object-cover border border-white/20 shadow-lg text-left">
+                            <span class="img-overlay-label">6 Videos YouTube</span>
+                        </div>
+                        <p class="text-[11px] opacity-90 italic text-left text-left text-left">Secciones Jugador Energía + Momentos con Hinchas. Edición premium Level Colombia.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: PRESUPUESTO DESGLOSADO -->
+        <section id="tab-presupuesto" class="tab-content space-y-6 text-left text-left text-left">
+            <h2 class="text-xl font-black text-[#004a99] uppercase italic border-l-4 border-[#ff6600] pl-3 text-left">Presupuesto Desglosado por Mes</h2>
+
+            <div class="space-y-6 text-left text-left text-left text-left">
+                <!-- Marzo -->
+                <div class="bg-white rounded-2xl shadow-sm border overflow-hidden text-left">
+                    <div class="bg-colgas-blue text-white p-3 text-xs font-black uppercase italic flex justify-between items-center text-left">
+                        <span>Marzo: Amistosos Selección</span>
+                    </div>
+                    <div class="p-4 text-[11px] italic text-left">
+                        <div class="flex justify-between py-2 border-b">
+                            <span>2 x Integraciones YouTube (Propósito) @ $700k</span>
+                            <span class="font-black">$ 1.400.000</span>
+                        </div>
+                        <div class="flex justify-between subtotal-row p-2 rounded-lg mt-3 text-left text-left text-left text-left">
+                            <span>SUBTOTAL MARZO</span>
+                            <span>$ 1.400.000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Abril -->
+                <div class="bg-white rounded-2xl shadow-sm border overflow-hidden text-left text-left">
+                    <div class="bg-colgas-blue text-white p-3 text-xs font-black uppercase italic flex justify-between items-center text-left text-left">
+                        <span>Abril: Lanzamiento Big Promo</span>
+                    </div>
+                    <div class="p-4 text-[11px] italic text-left text-left">
+                        <div class="flex justify-between py-2 border-b text-left">
+                            <span>2 x Reel Colab + Amplificación (Mecánica) @ $4.5M</span>
+                            <span class="font-black">$ 9.000.000</span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b text-left">
+                            <span>2 x Historias (Incentivo Registro Web) @ $1.5M</span>
+                            <span class="font-black">$ 3.000.000</span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b text-left">
+                            <span>2 x Integraciones YouTube (Clásicos FPC) @ $700k</span>
+                            <span class="font-black text-colgas-blue text-left">$ 1.400.000</span>
+                        </div>
+                        <div class="flex justify-between subtotal-row p-2 rounded-lg mt-3 text-left text-left text-left">
+                            <span>SUBTOTAL ABRIL</span>
+                            <span>$ 13.400.000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mayo -->
+                <div class="bg-white rounded-2xl shadow-sm border overflow-hidden text-left text-left">
+                    <div class="bg-colgas-blue text-white p-3 text-xs font-black uppercase italic flex justify-between items-center text-left text-left text-left">
+                        <span>Mayo: Mes de la Madre</span>
+                    </div>
+                    <div class="p-4 text-[11px] italic text-left text-left">
+                        <div class="flex justify-between py-2 border-b text-left">
+                            <span>1 x Carrusel Familiar Colaboración @ $3M</span>
+                            <span class="font-black">$ 3.000.000</span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b text-left">
+                            <span>2 x Reels Colab (Historias de Vida) @ $4.5M</span>
+                            <span class="font-black">$ 9.000.000</span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b text-left">
+                            <span>2 x Historias (Incentivo Registro Web) @ $1.5M</span>
+                            <span class="font-black">$ 3.000.000</span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b text-left">
+                            <span>2 x Integraciones YouTube (Hitos Selección) @ $700k</span>
+                            <span class="font-black text-colgas-blue">$ 1.400.000</span>
+                        </div>
+                        <div class="flex justify-between subtotal-row p-2 rounded-lg mt-3 text-left text-left text-left">
+                            <span>SUBTOTAL MAYO</span>
+                            <span>$ 16.400.000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mundial -->
+                <div class="bg-white rounded-2xl shadow-sm border-2 border-[#ff6600] overflow-hidden text-left text-left text-left text-left">
+                    <div class="bg-[#ff6600] text-white p-3 text-xs font-black uppercase italic flex justify-between items-center text-left text-left">
+                        <span>Junio / Julio: Temporada Mundial</span>
+                    </div>
+                    <div class="p-4 text-[11px] italic text-left text-left text-left text-left">
+                        <div class="flex justify-between py-2 border-b text-left text-left text-left text-left">
+                            <span>6 x Reels Colab + Amplificación @ $4.5M c/u</span>
+                            <span class="font-black">$ 27.000.000</span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b text-left">
+                            <span>6 x Integraciones YouTube (Mundial) @ $700k c/u</span>
+                            <span class="font-black text-colgas-blue text-left">$ 4.200.000</span>
+                        </div>
+                        <div class="flex justify-between subtotal-row p-2 rounded-lg mt-3 text-left text-left">
+                            <span>SUBTOTAL MUNDIAL</span>
+                            <span>$ 31.200.000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producción Croma -->
+                <div class="bg-gray-100 p-6 rounded-2xl flex justify-between items-center border text-left text-left text-left">
+                    <div class="text-left text-left text-left">
+                        <p class="text-[10px] font-black uppercase text-[#004a99] text-left text-left">Producción Especial</p>
+                        <p class="text-xs font-black italic text-left text-left">VÍDEO MECÁNICA QR (CROMA)</p>
+                    </div>
+                    <span class="font-black text-sm text-[#004a99] text-left text-left">$ 7.300.000</span>
+                </div>
+
+                <!-- Bonus -->
+                <div class="bg-orange-50 border-2 border-dashed border-[#ff6600] p-6 rounded-[2rem] text-left text-left text-left text-left">
+                    <h4 class="text-sm font-black uppercase italic text-[#004a99] mb-4 text-left text-left"><i class="fas fa-gift mr-2 text-left text-left"></i> VALOR AGREGADO INCLUIDO</h4>
+                    <ul class="text-[10px] space-y-2 text-gray-600 italic text-left text-left">
+                        <li>● Derechos de Imagen Digitales por 7 Meses.</li>
+                        <li>● Derechos de Pauta Digital (Amplificación).</li>
+                        <li>● Exclusividad comercial en categoría Gas.</li>
+                        <li>● Edición premium Vídeos Historias con Propósito.</li>
+                        <li>● 4 Vídeos exclusivos pauta/redes Colgas.</li>
+                    </ul>
+                    <div class="mt-4 pt-3 border-t border-orange-200 flex justify-between font-black text-[#004a99] text-xs text-left">
+                        <span>Valorización Bonus</span><span>$ 17.500.000</span>
+                    </div>
+                </div>
+
+                <!-- Total -->
+                <div class="bg-[#004a99] p-10 rounded-[3rem] text-white shadow-2xl flex flex-col items-center gap-4 text-left text-left text-left">
+                    <p class="text-[11px] font-bold uppercase tracking-widest text-[#ff6600] text-left text-left text-left">Inversión Final Neta Propuesta</p>
+                    <div class="text-5xl font-black italic tracking-tighter text-left text-left text-left text-left text-left">$ 69.700.000</div>
+                    <p class="text-[10px] opacity-60 text-center text-left">Propuesta estratégica integral 32 contenidos + Gestión Level Colombia. <br> Valor Neto + IVA.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white py-12 px-6 border-t border-gray-100 text-center text-left text-left">
+        <p class="text-xl font-black text-[#004a99] italic text-left text-left text-left text-left">LEVEL <span class="text-[#ff6600] text-left text-left text-left text-left">COLOMBIA</span></p>
+        <p class="text-[10px] text-gray-400 font-bold uppercase mt-2 tracking-widest text-left text-left">Expertos en Narrativas Deportivas</p>
+    </footer>
+
+    <script>
+        function switchTab(id) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active-tab'));
+            document.getElementById(id).classList.add('active');
+            document.getElementById('btn-' + id).classList.add('active-tab');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
