@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propuesta Estratégica Lotbet.vip</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap');
+
+        :root {
+            --brand-deep: #000d1a;
+            --brand-dark: #0b1a2a;
+            --brand-cyan: #00E5FF;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--brand-deep);
+            color: white;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* Animaciones */
+        @keyframes pulse-cyan {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @keyframes loading-bar {
+            0% { width: 0%; left: 0%; }
+            50% { width: 100%; left: 0%; }
+            100% { width: 0%; left: 100%; }
+        }
+
+        .animate-pulse-custom {
+            animation: pulse-cyan 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        .loading-bar-inner {
+            animation: loading-bar 2.5s ease-in-out infinite;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.7s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Splash Screen */
+        #splash-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--brand-deep);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--brand-deep); }
+        ::-webkit-scrollbar-thumb { background: #1a2a3a; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--brand-cyan); }
+
+        .tab-active {
+            border-bottom-color: var(--brand-cyan);
+            color: var(--brand-cyan);
+            background: rgba(0, 229, 255, 0.05);
+        }
+
+        .card-active {
+            border-color: var(--brand-cyan);
+            background: rgba(0, 229, 255, 0.05);
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.05);
+        }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body>
+
+    <!-- Splash Screen -->
+    <div id="splash-screen">
+        <div class="relative">
+            <img src="https://i.postimg.cc/HsJKrnCD/logo-13bad75b.png" alt="Lotbet Logo" class="w-48 md:w-64 animate-pulse-custom">
+            <div class="absolute -bottom-10 left-1/2 -translate-x-1/2 w-48 h-1 bg-[#0b1a2a] rounded-full overflow-hidden">
+                <div class="h-full bg-[#00E5FF] loading-bar-inner absolute"></div>
+            </div>
+        </div>
+        <p class="mt-16 text-[#00E5FF] font-bold tracking-[0.3em] text-xs uppercase">Iniciando Estrategia 2026</p>
+    </div>
+
+    <!-- Main Content (Hidden initially) -->
+    <div id="app-content" class="opacity-0">
+        <!-- Header -->
+        <header class="bg-gradient-to-b from-[#0b1a2a] to-[#000d1a] py-12 px-6 relative border-b border-[#00E5FF]/20 shadow-2xl">
+            <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+                <img src="https://i.postimg.cc/HsJKrnCD/logo-13bad75b.png" alt="Lotbet" class="w-36">
+                <div class="text-center md:text-right flex flex-col items-center md:items-end">
+                    <div class="inline-flex items-center gap-2 bg-[#00E5FF]/10 px-3 py-1 rounded-full border border-[#00E5FF]/30 mb-2">
+                        <span class="w-2 h-2 bg-[#00E5FF] rounded-full"></span>
+                        <span class="text-[10px] font-black uppercase tracking-widest text-[#00E5FF]">Estrategia Dual 2026</span>
+                    </div>
+                    <h1 class="text-2xl font-black italic uppercase tracking-tighter">Dos Frentes, una Meta.</h1>
+                </div>
+            </div>
+            <div class="absolute top-0 right-0 w-96 h-96 bg-[#00E5FF]/5 rounded-full -translate-y-1/2 translate-x-1/4 blur-[100px]"></div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="bg-[#0b1a2a] border-b border-[#00E5FF]/20 sticky top-0 z-50 overflow-hidden shadow-lg">
+            <div class="max-w-6xl mx-auto flex overflow-x-auto no-scrollbar">
+                <button onclick="switchTab('estrategia')" id="tab-estrategia" class="tab-btn flex items-center gap-2 px-8 py-5 text-xs font-black transition-all border-b-4 uppercase tracking-widest whitespace-nowrap tab-active">
+                    <i data-lucide="layers" class="w-4 h-4"></i> Estrategia 10Rs
+                </button>
+                <button onclick="switchTab('frente1')" id="tab-frente1" class="tab-btn flex items-center gap-2 px-8 py-5 text-xs font-black transition-all border-b-4 border-transparent text-gray-500 hover:text-gray-300 uppercase tracking-widest whitespace-nowrap">
+                    <i data-lucide="users" class="w-4 h-4"></i> Frente 1: BD 20k
+                </button>
+                <button onclick="switchTab('frente2')" id="tab-frente2" class="tab-btn flex items-center gap-2 px-8 py-5 text-xs font-black transition-all border-b-4 border-transparent text-gray-500 hover:text-gray-300 uppercase tracking-widest whitespace-nowrap">
+                    <i data-lucide="target" class="w-4 h-4"></i> Frente 2: Nuevos
+                </button>
+                <button onclick="switchTab('validador')" id="tab-validador" class="tab-btn flex items-center gap-2 px-8 py-5 text-xs font-black transition-all border-b-4 border-transparent text-gray-500 hover:text-gray-300 uppercase tracking-widest whitespace-nowrap">
+                    <i data-lucide="user-check" class="w-4 h-4"></i> Validador
+                </button>
+                <button onclick="switchTab('presupuesto')" id="tab-presupuesto" class="tab-btn flex items-center gap-2 px-8 py-5 text-xs font-black transition-all border-b-4 border-transparent text-gray-500 hover:text-gray-300 uppercase tracking-widest whitespace-nowrap">
+                    <i data-lucide="dollar-sign" class="w-4 h-4"></i> Propuesta Económica
+                </button>
+            </div>
+        </nav>
+
+        <main class="max-w-6xl mx-auto p-6 mt-8">
+            
+            <!-- SECCIÓN 10RS -->
+            <section id="content-estrategia" class="tab-content fade-in space-y-12">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-[#0b1a2a] p-10 rounded-[2.5rem] border border-[#00E5FF]/10 shadow-2xl text-center md:text-left">
+                    <div>
+                        <h2 class="text-3xl font-black mb-4 uppercase tracking-tighter text-[#00E5FF]">Marco de las 10Rs</h2>
+                        <p class="text-gray-400 text-lg leading-relaxed">
+                            Para este arranque táctico, hemos seleccionado las 5Rs clave que nos permitirán activar el negocio con eficiencia inmediata.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-3 justify-center">
+                        <span class="bg-[#00E5FF] text-[#000d1a] px-5 py-2 rounded-xl font-black text-xs uppercase shadow-[0_0_15px_rgba(0,229,255,0.3)]">Reputación</span>
+                        <span class="bg-[#00E5FF] text-[#000d1a] px-5 py-2 rounded-xl font-black text-xs uppercase shadow-[0_0_15px_rgba(0,229,255,0.3)]">Registro</span>
+                        <span class="bg-[#00E5FF] text-[#000d1a] px-5 py-2 rounded-xl font-black text-xs uppercase shadow-[0_0_15px_rgba(0,229,255,0.3)]">Reactivación</span>
+                        <span class="bg-[#00E5FF] text-[#000d1a] px-5 py-2 rounded-xl font-black text-xs uppercase shadow-[0_0_15px_rgba(0,229,255,0.3)]">Recarga</span>
+                        <span class="bg-[#00E5FF] text-[#000d1a] px-5 py-2 rounded-xl font-black text-xs uppercase shadow-[0_0_15px_rgba(0,229,255,0.3)]">Retención</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4" id="rs-grid">
+                    <!-- JS populated -->
+                </div>
+            </section>
+
+            <!-- FRENTE 1: BD 20K -->
+            <section id="content-frente1" class="tab-content fade-in space-y-12 hidden">
+                <div class="flex flex-col md:flex-row gap-8">
+                    <div onclick="selectSubPath('social')" id="path-social" class="flex-1 p-8 rounded-[2.5rem] border-2 border-[#00E5FF] bg-[#00E5FF]/5 shadow-2xl cursor-pointer transition-all">
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="p-4 bg-[#000d1a] rounded-2xl border border-[#00E5FF]/20 text-[#00E5FF]">
+                                <i data-lucide="share-2"></i>
+                            </div>
+                            <i data-lucide="zap" class="text-[#00E5FF] animate-pulse"></i>
+                        </div>
+                        <h3 class="text-xl font-black mb-2">Camino A: Actividad Promocional</h3>
+                        <p class="text-xs text-gray-400 uppercase font-bold tracking-widest">Activo Digital: 20k usuarios</p>
+                    </div>
+
+                    <div onclick="selectSubPath('gamified')" id="path-gamified" class="flex-1 p-8 rounded-[2.5rem] border-2 border-transparent bg-[#0b1a2a]/50 hover:border-gray-700 cursor-pointer transition-all">
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="p-4 bg-[#000d1a] rounded-2xl border border-[#00E5FF]/20 text-[#00E5FF]">
+                                <i data-lucide="gamepad-2"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-black mb-2">Camino B: Gamificación Blupit</h3>
+                        <p class="text-xs text-gray-400 uppercase font-bold tracking-widest">Activo Digital: 20k usuarios</p>
+                    </div>
+                </div>
+
+                <div class="bg-[#0b1a2a] p-10 rounded-[3rem] border border-[#00E5FF]/10 relative overflow-hidden">
+                    <div class="relative z-10">
+                        <h4 class="text-[#00E5FF] font-black text-xs uppercase tracking-[0.3em] mb-8">Flujo Omnicanal Seleccionado</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="frente1-steps">
+                            <!-- JS populated based on subpath -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white/5 p-8 rounded-3xl border border-white/5 text-center">
+                        <p class="text-[10px] font-black text-gray-500 uppercase mb-2">CTR Esperado</p>
+                        <p class="text-3xl font-black text-[#00E5FF]">18%</p>
+                    </div>
+                    <div class="bg-white/5 p-8 rounded-3xl border border-white/5 text-center">
+                        <p class="text-[10px] font-black text-gray-500 uppercase mb-2">Conversión FTD</p>
+                        <p class="text-3xl font-black text-[#00E5FF]">25%</p>
+                    </div>
+                    <div class="bg-white/5 p-8 rounded-3xl border border-white/5 text-center">
+                        <p class="text-[10px] font-black text-gray-500 uppercase mb-2">Costo Activación</p>
+                        <p class="text-3xl font-black text-[#00E5FF]">Q45</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FRENTE 2: NUEVOS -->
+            <section id="content-frente2" class="tab-content fade-in space-y-12 hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-[#0b1a2a] p-10 rounded-[2.5rem] border border-[#00E5FF]/10 shadow-xl">
+                        <div class="w-16 h-16 bg-[#00E5FF]/10 rounded-2xl flex items-center justify-center mb-8 border border-[#00E5FF]/30 text-[#00E5FF]">
+                            <i data-lucide="award" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-2xl font-black mb-4 italic">Influenciadores de Nicho</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-10">
+                            Tracción mediante figuras clave en deportes, gaming y estilo de vida con enlaces trackeados para ROI exacto.
+                        </p>
+                        <div class="space-y-4">
+                            <div class="flex gap-4 items-center p-3 bg-white/5 rounded-xl border border-white/5">
+                                <i data-lucide="check-circle" class="text-[#00E5FF] w-4 h-4"></i>
+                                <span class="text-xs font-bold text-gray-300">Selección de micro-influencers deportivos y gamers.</span>
+                            </div>
+                            <div class="flex gap-4 items-center p-3 bg-white/5 rounded-xl border border-white/5">
+                                <i data-lucide="check-circle" class="text-[#00E5FF] w-4 h-4"></i>
+                                <span class="text-xs font-bold text-gray-300">Enlaces personalizados para medir CPA real.</span>
+                            </div>
+                            <div class="flex gap-4 items-center p-3 bg-white/5 rounded-xl border border-white/5">
+                                <i data-lucide="check-circle" class="text-[#00E5FF] w-4 h-4"></i>
+                                <span class="text-xs font-bold text-gray-300">Contenido nativo validando la experiencia Lotbet.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-[#0b1a2a] p-10 rounded-[2.5rem] border border-[#00E5FF]/10 shadow-xl">
+                        <div class="w-16 h-16 bg-[#00E5FF]/10 rounded-2xl flex items-center justify-center mb-8 border border-[#00E5FF]/30 text-[#00E5FF]">
+                            <i data-lucide="globe" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-2xl font-black mb-4 italic">Programática Deportiva</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-10">
+                            Impacto directo en los portales más consumidos de Guatemala para captar tráfico calificado.
+                        </p>
+                        <div class="space-y-4">
+                            <div class="flex gap-4 items-center p-3 bg-white/5 rounded-xl border border-white/5">
+                                <i data-lucide="check-circle" class="text-[#00E5FF] w-4 h-4"></i>
+                                <span class="text-xs font-bold text-gray-300">Banners en Prensa Libre Deportes y Guatefutbol.</span>
+                            </div>
+                            <div class="flex gap-4 items-center p-3 bg-white/5 rounded-xl border border-white/5">
+                                <i data-lucide="check-circle" class="text-[#00E5FF] w-4 h-4"></i>
+                                <span class="text-xs font-bold text-gray-300">Links directos a Landing Page optimizada.</span>
+                            </div>
+                            <div class="flex gap-4 items-center p-3 bg-white/5 rounded-xl border border-white/5">
+                                <i data-lucide="check-circle" class="text-[#00E5FF] w-4 h-4"></i>
+                                <span class="text-xs font-bold text-gray-300">Optimización continua basada en CTR.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VALIDADOR -->
+            <section id="content-validador" class="tab-content fade-in space-y-12 hidden">
+                <div class="bg-[#0b1a2a] p-12 rounded-[3rem] border border-[#00E5FF]/20 shadow-2xl flex flex-col md:flex-row gap-12 items-center text-center md:text-left">
+                    <div class="w-56 h-56 bg-[#000d1a] rounded-[3rem] flex items-center justify-center shrink-0 border-4 border-[#00E5FF] shadow-[0_0_30px_rgba(0,229,255,0.2)]">
+                        <i data-lucide="user-check" class="w-24 h-24 text-[#00E5FF]"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-black mb-4 uppercase tracking-tighter text-[#00E5FF]">La Cara de Lotbet.vip</h2>
+                        <p class="text-gray-400 text-lg leading-relaxed italic font-medium">
+                            "Si el Validador está ahí y dice que es seguro, yo juego".
+                        </p>
+                        <div class="mt-8 flex flex-wrap gap-4 justify-center md:justify-start">
+                            <div class="bg-white/5 px-4 py-2 rounded-xl border border-white/10 text-[10px] font-black uppercase tracking-widest text-gray-300">Periodista Deportivo</div>
+                            <div class="bg-white/5 px-4 py-2 rounded-xl border border-white/10 text-[10px] font-black uppercase tracking-widest text-gray-300">Ex-Futbolista</div>
+                            <div class="bg-white/5 px-4 py-2 rounded-xl border border-white/10 text-[10px] font-black uppercase tracking-widest text-gray-300">Influenciador Local</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-[#000d1a] p-10 rounded-3xl border border-[#00E5FF]/10">
+                    <h4 class="text-[#00E5FF] font-black text-xs uppercase tracking-[0.3em] mb-8">Responsabilidad del Personaje</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
+                        <div class="flex gap-4 items-start">
+                            <i data-lucide="smartphone" class="text-[#00E5FF] shrink-0"></i>
+                            <p class="text-gray-400"><strong class="text-white">Firma de SMS/Email:</strong> Los mensajes no los envía una empresa, los envía el personaje de forma personalizada.</p>
+                        </div>
+                        <div class="flex gap-4 items-start">
+                            <i data-lucide="video" class="text-[#00E5FF] shrink-0"></i>
+                            <p class="text-gray-400"><strong class="text-white">Videos de Validación:</strong> 'Qué onda mucha, yo mismo certifiqué que Lotbet paga en minutos y es seguro'.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PROPUESTA ECONÓMICA -->
+            <section id="content-presupuesto" class="tab-content fade-in space-y-12 hidden">
+                <div class="bg-[#0b1a2a] p-12 rounded-[3rem] border border-[#00E5FF]/20 shadow-2xl text-center">
+                    <div class="w-20 h-20 bg-[#00E5FF]/10 rounded-3xl flex items-center justify-center mx-auto mb-8 border border-[#00E5FF]/30 text-[#00E5FF]">
+                        <i data-lucide="file-text" class="w-10 h-10"></i>
+                    </div>
+                    <h2 class="text-4xl font-black mb-4 uppercase tracking-tighter text-[#00E5FF]">Presupuesto</h2>
+                    <p class="text-2xl font-black italic text-white mb-8">POR DEFINIR</p>
+                    
+                    <div class="max-w-2xl mx-auto p-8 bg-[#000d1a]/50 rounded-[2rem] border border-[#00E5FF]/10">
+                        <div class="flex items-center gap-4 text-left mb-6">
+                            <i data-lucide="alert-circle" class="text-[#00E5FF] shrink-0"></i>
+                            <p class="text-gray-400 text-sm leading-relaxed">
+                                El monto de la inversión final depende directamente del <strong class="text-white uppercase tracking-wider">Camino Estratégico</strong> que Lotbet decida priorizar en esta fase inicial.
+                            </p>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+                            <div class="p-4 bg-white/5 rounded-2xl border border-white/5">
+                                <p class="text-[10px] font-black text-[#00E5FF] uppercase mb-1">Variable 1</p>
+                                <p class="text-xs text-gray-300">Intensidad de captación de nuevos usuarios (Frente 2).</p>
+                            </div>
+                            <div class="p-4 bg-white/5 rounded-2xl border border-white/5">
+                                <p class="text-[10px] font-black text-[#00E5FF] uppercase mb-1">Variable 2</p>
+                                <p class="text-xs text-gray-300">Alcance de premios y gamificación para base de datos (Frente 1).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        // Data Definitions
+        const modelRs = [
+            { id: 1, r: "Reputación", selected: true, desc: "El pilar central. Validación a través de nuestro Validador (Personaje)." },
+            { id: 2, r: "Registro", selected: true, desc: "Migración técnica de los 20k usuarios a la nueva plataforma Altenar." },
+            { id: 3, r: "Reactivación", selected: true, desc: "Despertar el activo de la base de datos mediante SMS/Email/WhatsApp." },
+            { id: 4, r: "Recarga", selected: true, desc: "Convertir usuarios en depositantes reales (FTD) con bonos de tracción." },
+            { id: 5, r: "Retención", selected: true, desc: "Mantener al usuario mediante comunidad (Redes Sociales) y fidelidad." },
+            { id: 6, r: "Rejuego", selected: false, desc: "Frecuencia de apuesta semanal." },
+            { id: 7, r: "Rejuego Cross", selected: false, desc: "Migración de Deportes a Casino/Bingo." },
+            { id: 8, r: "Rentabilidad", selected: false, desc: "Optimización del margen neto por jugador." },
+            { id: 9, r: "Retiro", selected: false, desc: "Velocidad y experiencia de cobro." },
+            { id: 10, r: "Riesgo", selected: false, desc: "Control de fraude y juego responsable." }
+        ];
+
+        const frente1Steps = {
+            social: [
+                { chan: "SMS/Email", text: "Gancho: 'El Validador tiene un Kit Mundialista para ti'. Link a redes." },
+                { chan: "Social", text: "Acción en IG/FB/TikTok: Comenta, sigue y etiqueta bajo la guía del personaje." },
+                { chan: "Reputación", text: "El Validador certifica el sorteo y da el link de registro en Lotbet." },
+                { chan: "Registro", text: "Conversión de comunidad en usuarios registrados." }
+            ],
+            gamified: [
+                { chan: "SMS/Email", text: "Acceso exclusivo: 'Gana tu bono de hoy jugando aquí'. Link wa.me." },
+                { chan: "WhatsApp", text: "Flujo Blupit: Juego de Puertas/Penales con el Validador." },
+                { chan: "Recompensa", text: "Código de bono inmediato ganado tras la interacción." },
+                { chan: "Conversión", text: "Registro y primer depósito guiado por el bot." }
+            ]
+        };
+
+        // Initialize Lucide
+        function initIcons() {
+            lucide.createIcons();
+        }
+
+        // Tab Switching
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('tab-active');
+                btn.classList.add('text-gray-500', 'border-transparent');
+            });
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
+            
+            document.getElementById(`tab-${tabId}`).classList.add('tab-active');
+            document.getElementById(`tab-${tabId}`).classList.remove('text-gray-500', 'border-transparent');
+            document.getElementById(`content-${tabId}`).classList.remove('hidden');
+            
+            initIcons();
+        }
+
+        // Frente 1 Sub-path Switching
+        function selectSubPath(pathId) {
+            document.querySelectorAll('[id^="path-"]').forEach(el => {
+                el.classList.remove('border-[#00E5FF]', 'bg-[#00E5FF]/5', 'shadow-2xl');
+                el.classList.add('border-transparent');
+                // Remove zap icon from others
+                const zap = el.querySelector('.lucide-zap');
+                if(zap) zap.remove();
+            });
+
+            const selectedEl = document.getElementById(`path-${pathId}`);
+            selectedEl.classList.add('border-[#00E5FF]', 'bg-[#00E5FF]/5', 'shadow-2xl');
+            selectedEl.classList.remove('border-transparent');
+            
+            // Add Zap icon to active
+            const iconDiv = selectedEl.querySelector('.flex.items-center');
+            iconDiv.innerHTML += '<i data-lucide="zap" class="text-[#00E5FF] animate-pulse"></i>';
+
+            renderSteps(pathId);
+            initIcons();
+        }
+
+        function renderSteps(pathId) {
+            const container = document.getElementById('frente1-steps');
+            const steps = frente1Steps[pathId];
+            container.innerHTML = steps.map((step, i) => `
+                <div class="relative group">
+                    ${i < 3 ? '<div class="hidden lg:block absolute top-10 -right-4 translate-x-1/2 z-0 text-gray-700 font-black">>></div>' : ''}
+                    <div class="bg-[#000d1a] p-6 rounded-2xl border border-[#00E5FF]/10 h-full">
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="text-[10px] font-black text-[#00E5FF]/50 uppercase">${step.chan}</span>
+                        </div>
+                        <p class="text-sm text-gray-300 font-medium leading-relaxed">${step.text}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderRS() {
+            const grid = document.getElementById('rs-grid');
+            grid.innerHTML = modelRs.map(r => `
+                <div class="p-6 rounded-3xl border transition-all ${r.selected ? 'border-[#00E5FF] bg-[#00E5FF]/5 shadow-[0_0_20px_rgba(0,229,255,0.05)]' : 'border-gray-800 bg-transparent opacity-40'}">
+                    <div class="w-8 h-8 rounded-lg flex items-center justify-center mb-4 font-black ${r.selected ? 'bg-[#00E5FF] text-[#000d1a]' : 'bg-gray-800 text-gray-500'}">
+                        ${r.id}
+                    </div>
+                    <h3 class="font-black text-sm uppercase mb-2">${r.r}</h3>
+                    <p class="text-[10px] text-gray-400 leading-relaxed font-medium">${r.desc}</p>
+                </div>
+            `).join('');
+        }
+
+        // On Load
+        window.onload = () => {
+            renderRS();
+            renderSteps('social');
+            initIcons();
+
+            // Simulate loading
+            setTimeout(() => {
+                const splash = document.getElementById('splash-screen');
+                const content = document.getElementById('app-content');
+                splash.style.opacity = '0';
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                    content.classList.remove('opacity-0');
+                    content.classList.add('opacity-100');
+                }, 500);
+            }, 2500);
+        };
+    </script>
+</body>
+</html>
