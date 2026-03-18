@@ -96,16 +96,16 @@
                 <div class="h-full bg-[#00E5FF] loading-bar-inner absolute"></div>
             </div>
         </div>
-        <p class="mt-16 text-[#00E5FF] font-bold tracking-[0.3em] text-xs uppercase">Iniciando Estrategia 2026</p>
+        <p class="mt-16 text-[#00E5FF] font-bold tracking-[0.3em] text-xs uppercase text-center">Iniciando Estrategia 2026</p>
     </div>
 
-    <!-- Main Content (Hidden initially) -->
+    <!-- Main Content -->
     <div id="app-content" class="opacity-0">
         <!-- Header -->
-        <header class="bg-gradient-to-b from-[#0b1a2a] to-[#000d1a] py-12 px-6 relative border-b border-[#00E5FF]/20 shadow-2xl">
+        <header class="bg-gradient-to-b from-[#0b1a2a] to-[#000d1a] py-12 px-6 relative border-b border-[#00E5FF]/20 shadow-2xl text-center md:text-left">
             <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
                 <img src="https://i.postimg.cc/HsJKrnCD/logo-13bad75b.png" alt="Lotbet" class="w-36">
-                <div class="text-center md:text-right flex flex-col items-center md:items-end">
+                <div class="md:text-right flex flex-col items-center md:items-end">
                     <div class="inline-flex items-center gap-2 bg-[#00E5FF]/10 px-3 py-1 rounded-full border border-[#00E5FF]/30 mb-2">
                         <span class="w-2 h-2 bg-[#00E5FF] rounded-full"></span>
                         <span class="text-[10px] font-black uppercase tracking-widest text-[#00E5FF]">Estrategia Dual 2026</span>
@@ -120,7 +120,7 @@
         <nav class="bg-[#0b1a2a] border-b border-[#00E5FF]/20 sticky top-0 z-50 overflow-hidden shadow-lg">
             <div class="max-w-6xl mx-auto flex overflow-x-auto no-scrollbar">
                 <button onclick="switchTab('estrategia')" id="tab-estrategia" class="tab-btn flex items-center gap-2 px-8 py-5 text-xs font-black transition-all border-b-4 uppercase tracking-widest whitespace-nowrap tab-active">
-                    <i data-lucide="layers" class="w-4 h-4"></i> Estrategia 10Rs
+                    <i data-lucide="layers" class="w-4 h-4"></i> Estrategia 9Rs
                 </button>
                 <button onclick="switchTab('frente1')" id="tab-frente1" class="tab-btn flex items-center gap-2 px-8 py-5 text-xs font-black transition-all border-b-4 border-transparent text-gray-500 hover:text-gray-300 uppercase tracking-widest whitespace-nowrap">
                     <i data-lucide="users" class="w-4 h-4"></i> Frente 1: BD 20k
@@ -139,11 +139,11 @@
 
         <main class="max-w-6xl mx-auto p-6 mt-8">
             
-            <!-- SECCIÓN 10RS -->
+            <!-- SECCIÓN 9RS -->
             <section id="content-estrategia" class="tab-content fade-in space-y-12">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-[#0b1a2a] p-10 rounded-[2.5rem] border border-[#00E5FF]/10 shadow-2xl text-center md:text-left">
                     <div>
-                        <h2 class="text-3xl font-black mb-4 uppercase tracking-tighter text-[#00E5FF]">Marco de las 10Rs</h2>
+                        <h2 class="text-3xl font-black mb-4 uppercase tracking-tighter text-[#00E5FF]">Marco de las 9Rs</h2>
                         <p class="text-gray-400 text-lg leading-relaxed">
                             Para este arranque táctico, hemos seleccionado las 5Rs clave que nos permitirán activar el negocio con eficiencia inmediata.
                         </p>
@@ -157,7 +157,7 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4" id="rs-grid">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4" id="rs-grid">
                     <!-- JS populated -->
                 </div>
             </section>
@@ -170,7 +170,7 @@
                             <div class="p-4 bg-[#000d1a] rounded-2xl border border-[#00E5FF]/20 text-[#00E5FF]">
                                 <i data-lucide="share-2"></i>
                             </div>
-                            <i data-lucide="zap" class="text-[#00E5FF] animate-pulse"></i>
+                            <div id="zap-social" class="zap-indicator"><i data-lucide="zap" class="text-[#00E5FF] animate-pulse"></i></div>
                         </div>
                         <h3 class="text-xl font-black mb-2">Camino A: Actividad Promocional</h3>
                         <p class="text-xs text-gray-400 uppercase font-bold tracking-widest">Activo Digital: 20k usuarios</p>
@@ -181,6 +181,7 @@
                             <div class="p-4 bg-[#000d1a] rounded-2xl border border-[#00E5FF]/20 text-[#00E5FF]">
                                 <i data-lucide="gamepad-2"></i>
                             </div>
+                            <div id="zap-gamified" class="zap-indicator hidden"><i data-lucide="zap" class="text-[#00E5FF] animate-pulse"></i></div>
                         </div>
                         <h3 class="text-xl font-black mb-2">Camino B: Gamificación Blupit</h3>
                         <p class="text-xs text-gray-400 uppercase font-bold tracking-widest">Activo Digital: 20k usuarios</p>
@@ -191,23 +192,8 @@
                     <div class="relative z-10">
                         <h4 class="text-[#00E5FF] font-black text-xs uppercase tracking-[0.3em] mb-8">Flujo Omnicanal Seleccionado</h4>
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="frente1-steps">
-                            <!-- JS populated based on subpath -->
+                            <!-- JS populated -->
                         </div>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="bg-white/5 p-8 rounded-3xl border border-white/5 text-center">
-                        <p class="text-[10px] font-black text-gray-500 uppercase mb-2">CTR Esperado</p>
-                        <p class="text-3xl font-black text-[#00E5FF]">18%</p>
-                    </div>
-                    <div class="bg-white/5 p-8 rounded-3xl border border-white/5 text-center">
-                        <p class="text-[10px] font-black text-gray-500 uppercase mb-2">Conversión FTD</p>
-                        <p class="text-3xl font-black text-[#00E5FF]">25%</p>
-                    </div>
-                    <div class="bg-white/5 p-8 rounded-3xl border border-white/5 text-center">
-                        <p class="text-[10px] font-black text-gray-500 uppercase mb-2">Costo Activación</p>
-                        <p class="text-3xl font-black text-[#00E5FF]">Q45</p>
                     </div>
                 </div>
             </section>
@@ -334,18 +320,17 @@
     </div>
 
     <script>
-        // Data Definitions
+        // Marco de las 9Rs corregido (Eliminada duplicidad de Rejuego)
         const modelRs = [
             { id: 1, r: "Reputación", selected: true, desc: "El pilar central. Validación a través de nuestro Validador (Personaje)." },
             { id: 2, r: "Registro", selected: true, desc: "Migración técnica de los 20k usuarios a la nueva plataforma Altenar." },
             { id: 3, r: "Reactivación", selected: true, desc: "Despertar el activo de la base de datos mediante SMS/Email/WhatsApp." },
             { id: 4, r: "Recarga", selected: true, desc: "Convertir usuarios en depositantes reales (FTD) con bonos de tracción." },
             { id: 5, r: "Retención", selected: true, desc: "Mantener al usuario mediante comunidad (Redes Sociales) y fidelidad." },
-            { id: 6, r: "Rejuego", selected: false, desc: "Frecuencia de apuesta semanal." },
-            { id: 7, r: "Rejuego Cross", selected: false, desc: "Migración de Deportes a Casino/Bingo." },
-            { id: 8, r: "Rentabilidad", selected: false, desc: "Optimización del margen neto por jugador." },
-            { id: 9, r: "Retiro", selected: false, desc: "Velocidad y experiencia de cobro." },
-            { id: 10, r: "Riesgo", selected: false, desc: "Control de fraude y juego responsable." }
+            { id: 6, r: "Rejuego", selected: false, desc: "Frecuencia de apuesta semanal y permanencia en el sitio." },
+            { id: 7, r: "Rentabilidad", selected: false, desc: "Optimización del margen neto por jugador tras costos de bonos." },
+            { id: 8, r: "Retiro", selected: false, desc: "Velocidad y experiencia de cobro como factor de recomendación." },
+            { id: 9, r: "Riesgo", selected: false, desc: "Control de fraude, multicuentas y fomento de juego responsable." }
         ];
 
         const frente1Steps = {
@@ -363,12 +348,10 @@
             ]
         };
 
-        // Initialize Lucide
         function initIcons() {
             lucide.createIcons();
         }
 
-        // Tab Switching
         function switchTab(tabId) {
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('tab-active');
@@ -383,23 +366,18 @@
             initIcons();
         }
 
-        // Frente 1 Sub-path Switching
         function selectSubPath(pathId) {
             document.querySelectorAll('[id^="path-"]').forEach(el => {
                 el.classList.remove('border-[#00E5FF]', 'bg-[#00E5FF]/5', 'shadow-2xl');
                 el.classList.add('border-transparent');
-                // Remove zap icon from others
-                const zap = el.querySelector('.lucide-zap');
-                if(zap) zap.remove();
             });
+            document.querySelectorAll('.zap-indicator').forEach(z => z.classList.add('hidden'));
 
             const selectedEl = document.getElementById(`path-${pathId}`);
             selectedEl.classList.add('border-[#00E5FF]', 'bg-[#00E5FF]/5', 'shadow-2xl');
             selectedEl.classList.remove('border-transparent');
             
-            // Add Zap icon to active
-            const iconDiv = selectedEl.querySelector('.flex.items-center');
-            iconDiv.innerHTML += '<i data-lucide="zap" class="text-[#00E5FF] animate-pulse"></i>';
+            document.getElementById(`zap-${pathId}`).classList.remove('hidden');
 
             renderSteps(pathId);
             initIcons();
@@ -434,13 +412,11 @@
             `).join('');
         }
 
-        // On Load
         window.onload = () => {
             renderRS();
             renderSteps('social');
             initIcons();
 
-            // Simulate loading
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
                 const content = document.getElementById('app-content');
