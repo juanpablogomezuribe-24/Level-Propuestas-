@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historias con Propósito - Colgas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #020617; /* slate-950 */
+            color: #e2e8f0; /* slate-200 */
+        }
+
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .pitch-grid {
+            background-image: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="min-h-screen selection:bg-yellow-500 selection:text-black">
+
+    <!-- Pitch & Atmosphere Decoration -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-px h-full bg-gradient-to-b from-white/10 via-white/5 to-transparent"></div>
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] border border-white/5 rounded-full"></div>
+        <div class="absolute -top-24 -left-24 w-96 h-96 bg-yellow-500/10 blur-[120px] rounded-full"></div>
+        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-blue-500/10 blur-[120px] rounded-full"></div>
+        <div class="absolute inset-0 pitch-grid"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="relative pt-20 pb-12 px-6 overflow-hidden z-10">
+        <div class="max-w-7xl mx-auto text-center">
+            <div class="inline-flex items-center gap-2 bg-yellow-500/10 border border-yellow-500/20 px-5 py-2 rounded-full mb-8 text-yellow-500 font-black text-[10px] tracking-[0.4em] uppercase shadow-lg shadow-yellow-500/5">
+                <i data-lucide="trophy" class="w-4 h-4"></i> Content Strategy 2026
+            </div>
+            
+            <h1 class="text-5xl md:text-8xl font-black text-white tracking-tighter mb-6 uppercase leading-[0.9]">
+                HISTORIAS CON <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-yellow-200 to-yellow-600">
+                    PROPÓSITO
+                </span>
+            </h1>
+            
+            <p class="text-slate-400 max-w-2xl mx-auto text-lg md:text-xl font-medium leading-relaxed italic opacity-80">
+                "Conectando la energía mundialista con el corazón de los emprendedores colombianos."
+            </p>
+        </div>
+    </header>
+
+    <!-- Controls -->
+    <section class="sticky top-0 z-50 py-4 px-6 bg-slate-950/80 backdrop-blur-md border-b border-white/5">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-6 items-center justify-between">
+            <!-- Search -->
+            <div class="relative w-full md:w-96 group">
+                <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 group-focus-within:text-yellow-500 transition-colors"></i>
+                <input 
+                    type="text" 
+                    id="searchInput"
+                    placeholder="Buscar por título o jugador..."
+                    class="w-full bg-slate-900/50 border border-slate-800 rounded-2xl py-3 pl-11 pr-4 text-sm focus:outline-none focus:border-yellow-500/50 transition-all placeholder:text-slate-600 text-white"
+                >
+            </div>
+
+            <!-- Filter Tabs -->
+            <div id="filterTabs" class="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 w-full md:w-auto no-scrollbar">
+                <!-- Buttons will be injected here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Grid -->
+    <main class="relative z-10 max-w-7xl mx-auto px-6 py-12">
+        <div id="videoGrid" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Cards will be injected here -->
+        </div>
+        
+        <!-- Empty State -->
+        <div id="emptyState" class="hidden py-20 text-center space-y-4">
+            <div class="inline-flex p-6 rounded-full bg-slate-900 border border-slate-800 text-slate-600 mb-4">
+                <i data-lucide="search" class="w-12 h-12"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-white">No se encontraron resultados</h3>
+            <p class="text-slate-500">Intenta ajustar tus términos de búsqueda o filtros.</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-20 py-16 px-6 border-t border-white/5 relative overflow-hidden bg-slate-950">
+        <div class="max-w-7xl mx-auto flex flex-col items-center gap-8 relative z-10">
+            <div class="flex items-center gap-4 opacity-50 hover:opacity-100 transition-all cursor-pointer">
+                <div class="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center text-black font-black">C</div>
+                <span class="text-xl font-black tracking-tighter text-white">COLGAS</span>
+            </div>
+            
+            <div class="text-center space-y-2">
+                <p class="text-slate-500 text-[10px] font-black tracking-[0.5em] uppercase">
+                    Documento Táctico de Producción Audiovisual
+                </p>
+                <p class="text-slate-600 text-xs font-medium">
+                    &copy; 2026 Level Colombia Producciones. Todos los derechos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        const videosData = [
+            {
+                id: 1,
+                title: "MADRES EMPRENDEDORAS",
+                player: "James Rodríguez",
+                theme: "Familia y Liderazgo",
+                icon: "users",
+                color: "yellow",
+                videoLink: "https://inversiones-my.sharepoint.com/personal/luisa_lopez_colgas_com/_layouts/15/stream.aspx?id=%2Fpersonal%2Fluisa_lopez_colgas_com%2FDocuments%2FMERCADEO%2FMERCADEO%2FTHE+BRAND%2F2025%2FINSTITUCIONAL%2FCAMPA%C3%91A+PROPOSITO+2025%2FPRODUCCION+PROPOSITO%2FONLINES%2FHISTORIAS+CON+PROPOSITO%2F4_MAMAS+EMPRENDEDORAS+INDEPENDIENTES_ON.mp4",
+                script: "Hoy Colombia jugó como una familia… de esas donde nadie se suelta, donde uno corre por el otro y el esfuerzo es colectivo. Y eso se siente en jugadores como James, que más allá del talento, entiende que este equipo funciona cuando está unido. Y esa misma fuerza es la que impulsa Colgas en la historia de Carolina, una mamá que, junto a su esposo, transformó su vida sacando adelante su negocio y su hogar. Porque, así como en la cancha el equipo es la base de todo… en la vida, la familia es el motor que te empuja a seguir."
+            },
+            {
+                id: 2,
+                title: "EMPRENDEDORES INVISIBLES",
+                player: "Luis Díaz",
+                theme: "Reinvención y Resistencia",
+                icon: "zap",
+                color: "blue",
+                videoLink: "https://inversiones-my.sharepoint.com/personal/luisa_lopez_colgas_com/_layouts/15/stream.aspx?id=%2Fpersonal%2Fluisa_lopez_colgas_com%2FDocuments%2FMERCADEO%2FMERCADEO%2FTHE+BRAND%2F2025%2FINSTITUCIONAL%2FCAMPA%C3%91A+PROPOSITO+2025%2FPRODUCCION+PROPOSITO%2FONLINES%2FHISTORIAS+CON+PROPOSITO%2F6_EMPRENDEDORES+INVISIBLES_ON_11+AGO+%281%29.mp4",
+                script: "Lo de Luis Díaz hoy es increíble… un jugador que nunca dejó de insistir, que se transformó a punta de trabajo hasta convertirse en referente mundial. Y ese mismo camino es el que impulsa Colgas en historias como la de Milton y Don José, que tomaron una decisión difícil: cambiar su rumbo y apostar por sus propios sueños. Uno creando empresa, el otro levantando su restaurante familiar. Porque, así como Lucho se reinventó para crecer en el fútbol… hay quienes también se reinventan en la vida para construir algo propio."
+            },
+            {
+                id: 3,
+                title: "LA HERENCIA DE LOS INDEPENDIENTES",
+                player: "David Ospina",
+                theme: "Tradición y Futuro",
+                icon: "history",
+                color: "red",
+                videoLink: "https://inversiones-my.sharepoint.com/personal/luisa_lopez_colgas_com/_layouts/15/stream.aspx?id=%2Fpersonal%2Fluisa%5Flopez%5Fcolgas%5Fcom%2FDocuments%2FMERCADEO%2FMERCADEO%2FTHE%20BRAND%2F2025%2FINSTITUCIONAL%2FCAMPA%C3%91A%20PROPOSITO%202025%2FPRODUCCION%20PROPOSITO%2FONLINES%2FHISTORIAS%20CON%20PROPOSITO%2F1%5FLA%20HERENCIA%20DE%20LOS%20INDEPENDIENTES%5FON%5F27%20ago%2Emp4",
+                script: "Ospina no solo ataja… deja huella. Es de esos jugadores que con los años se convierten en historia viva de la Selección, en un verdadero legado. Y ese mismo propósito es el que impulsa Colgas en la historia de Don Ismael, un hombre que empezó su negocio pensando en algo más grande que él: su familia. Hoy no solo creció su emprendimiento, también dejó un camino para los suyos. Porque, así como en el fútbol quedan los referentes… en la vida quedan las huellas que construimos con el transcurso de los años."
+            },
+            {
+                id: 4,
+                title: "UNIVERSIDAD DEL EMPRENDIMIENTO",
+                player: "Jeferson Lerma",
+                theme: "Disciplina y Tenacidad",
+                icon: "graduation-cap",
+                color: "orange",
+                videoLink: "https://inversiones-my.sharepoint.com/personal/luisa_lopez_colgas_com/_layouts/15/stream.aspx?id=%2Fpersonal%2Fluisa%5Flopez%5Fcolgas%5Fcom%2FDocuments%2FMERCADEO%2FMERCADEO%2FTHE%20BRAND%2F2025%2FINSTITUCIONAL%2FCAMPA%C3%91A%20PROPOSITO%202025%2FPRODUCCION%20PROPOSITO%2FONLINES%2FHISTORIAS%20CON%20PROPOSITO%2F2%5FLA%20UNIVERSIDAD%20DEL%20EMPRENDIMIENTO%5FON%5F28%20ago%20opc%20a%2Emp4",
+                script: "En el fútbol hay jugadores que no siempre se llevan los aplausos, pero son fundamentales… como Lerma, que con disciplina y trabajo silencioso sostiene al equipo. Y esa misma mentalidad es la que impulsa Colgas en Ivonne, que después de recorrer su ciudad trabajando, llega a casa a estudiar y seguir preparándose. Porque entiende algo clave: el crecimiento no es casualidad, es constancia. Así como en la cancha el trabajo invisible hace la diferencia… en la vida, la disciplina es la que te lleva más lejos."
+            },
+            {
+                id: 5,
+                title: "SABOR DE CADA ESQUINA",
+                player: "Nueva Promesa",
+                theme: "Resiliencia y Oportunidad",
+                icon: "heart",
+                color: "cyan",
+                videoLink: "https://inversiones-my.sharepoint.com/personal/luisa_lopez_colgas_com/_layouts/15/stream.aspx?id=%2Fpersonal%2Fluisa%5Flopez%5Fcolgas%5Fcom%2FDocuments%2FMERCADEO%2FMERCADEO%2FTHE%20BRAND%2F2025%2FINSTITUCIONAL%2FCAMPA%C3%91A%20PROPOSITO%202025%2FPRODUCCION%20PROPOSITO%2FONLINES%2FHISTORIAS%20CON%20PROPOSITO%2F5%5FEL%20SABOR%20DE%20CADA%20ESQUINA%5FON%5F12AGO%2Emp4",
+                script: "Hay partidos que también se juegan con el corazón… y hoy (LA NUEVA PROMESA) nos recordó eso. Porque más allá del resultado, esto también se trata de valorar la oportunidad de estar ahí, de representar a un país y dejarlo todo en la cancha. Y esa misma gratitud es la que impulsa Colgas en la historia de Hernán, que llegó a Bogotá buscando una oportunidad, tocó muchas puertas… y cuando se le abrió una, la convirtió en su vida. Porque, así como en el fútbol hay que agradecer cada minuto en la cancha… en la vida, una oportunidad puede cambiarlo todo."
+            },
+            {
+                id: 6,
+                title: "EMPRESA MÁS GRANDE",
+                player: "Jhon Arias",
+                theme: "Progreso e Impacto",
+                icon: "trending-up",
+                color: "emerald",
+                videoLink: "https://inversiones-my.sharepoint.com/personal/luisa_lopez_colgas_com/_layouts/15/stream.aspx?id=%2Fpersonal%2Fluisa%5Flopez%5Fcolgas%5Fcom%2FDocuments%2FMERCADEO%2FMERCADEO%2FTHE%20BRAND%2F2025%2FINSTITUCIONAL%2FCAMPA%C3%91A%20PROPOSITO%202025%2FPRODUCCION%20PROPOSITO%2FONLINES%2FHISTORIAS%20CON%20PROPOSITO%2F3%5FLA%20EMPRESA%20MAS%20GRANDE%20DEL%20PAIS%5FON%5F%20%281%29%2Emp4",
+                script: "Arias representa el progreso… un jugador que cada partido muestra evolución, que siempre va hacia adelante, que no se conforma. Y ese mismo espíritu es el que impulsa Colgas en emprendedores como Carlos Arturo y Don Asdrúbal, que con su trabajo han construido empresas que generan empleo y oportunidades para otros. Porque el progreso real no es solo avanzar individualmente… es avanzar llevando a más personas contigo. Así como en la cancha se construye equipo… en la vida se construye país."
+            }
+        ];
+
+        const colorMap = {
+            yellow: "border-yellow-500 shadow-yellow-500/10 text-yellow-500 bg-yellow-500/10",
+            blue: "border-blue-500 shadow-blue-500/10 text-blue-500 bg-blue-500/10",
+            red: "border-red-500 shadow-red-500/10 text-red-500 bg-red-500/10",
+            orange: "border-orange-500 shadow-orange-500/10 text-orange-500 bg-orange-500/10",
+            cyan: "border-cyan-500 shadow-cyan-500/10 text-cyan-500 bg-cyan-500/10",
+            emerald: "border-emerald-500 shadow-emerald-500/10 text-emerald-500 bg-emerald-500/10"
+        };
+
+        let activeFilter = "Todos";
+        let searchTerm = "";
+
+        function copyToClipboard(text, btnId) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                const btn = document.getElementById(btnId);
+                btn.innerHTML = '<i data-lucide="check" class="w-4 h-4 text-green-500"></i>';
+                lucide.createIcons();
+                setTimeout(() => {
+                    btn.innerHTML = '<i data-lucide="copy" class="w-4 h-4"></i>';
+                    lucide.createIcons();
+                }, 2000);
+            } catch (err) {
+                console.error('Error al copiar', err);
+            }
+            document.body.removeChild(textArea);
+        }
+
+        function renderFilters() {
+            const players = ["Todos", ...new Set(videosData.map(v => v.player))];
+            const filterContainer = document.getElementById('filterTabs');
+            filterContainer.innerHTML = players.map(player => `
+                <button
+                    onclick="setFilter('${player}')"
+                    class="whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest transition-all ${
+                        activeFilter === player 
+                        ? 'bg-yellow-500 text-black shadow-lg shadow-yellow-500/20' 
+                        : 'bg-slate-900 text-slate-400 hover:bg-slate-800 border border-slate-800'
+                    }"
+                >
+                    ${player}
+                </button>
+            `).join('');
+        }
+
+        function setFilter(filter) {
+            activeFilter = filter;
+            renderFilters();
+            renderCards();
+        }
+
+        function renderCards() {
+            const grid = document.getElementById('videoGrid');
+            const emptyState = document.getElementById('emptyState');
+            
+            const filtered = videosData.filter(v => {
+                const matchesSearch = v.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                                    v.player.toLowerCase().includes(searchTerm.toLowerCase());
+                const matchesFilter = activeFilter === "Todos" || v.player === activeFilter;
+                return matchesSearch && matchesFilter;
+            });
+
+            if (filtered.length === 0) {
+                grid.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+            } else {
+                grid.classList.remove('hidden');
+                emptyState.classList.add('hidden');
+                
+                grid.innerHTML = filtered.map(video => `
+                    <div class="glass-card border-l-4 rounded-3xl p-6 md:p-8 relative overflow-hidden animate-fade-in ${colorMap[video.color].split(' ').slice(0,2).join(' ')}">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="space-y-1">
+                                <span class="text-[10px] font-black uppercase tracking-[0.2em] opacity-70 ${colorMap[video.color].split(' ').slice(2,3).join(' ')}">
+                                    Episodio #${video.id}
+                                </span>
+                                <h3 class="text-xl md:text-2xl font-black text-white leading-tight">
+                                    ${video.title}
+                                </h3>
+                                <div class="flex items-center gap-2 pt-1">
+                                    <span class="text-xs font-bold text-slate-500 uppercase">Jugador:</span>
+                                    <span class="text-sm font-bold text-yellow-500 flex items-center gap-1">
+                                        ${video.player} <i data-lucide="chevron-right" class="w-3 h-3"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="p-3 rounded-2xl border border-white/5 ${colorMap[video.color].split(' ').slice(2).join(' ')}">
+                                <i data-lucide="${video.icon}" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+
+                        <div class="relative mb-8 p-6 rounded-2xl bg-black/30 border border-white/5 group transition-colors">
+                            <i data-lucide="quote" class="absolute -top-3 -left-2 w-8 h-8 text-slate-800/50"></i>
+                            <p class="text-slate-300 text-base md:text-lg leading-relaxed italic font-medium">
+                                "${video.script}"
+                            </p>
+                            
+                            <button 
+                                onclick="copyToClipboard(\`${video.script.replace(/"/g, '&quot;')}\`, 'copy-${video.id}')"
+                                id="copy-${video.id}"
+                                class="absolute top-2 right-2 p-2 rounded-lg bg-slate-800/50 hover:bg-slate-700 text-slate-400 hover:text-white transition-all"
+                            >
+                                <i data-lucide="copy" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row items-center gap-4 justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-2 h-2 rounded-full animate-pulse bg-slate-500"></div>
+                                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">${video.theme}</span>
+                            </div>
+                            
+                            <a 
+                                href="${video.videoLink}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-black text-xs uppercase transition-all active:scale-95 shadow-lg bg-white text-black hover:bg-slate-200"
+                            >
+                                <i data-lucide="play" class="w-3 h-3 fill-current"></i> Ver Producción <i data-lucide="external-link" class="w-3 h-3 ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            lucide.createIcons();
+        }
+
+        // Event Listeners
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            searchTerm = e.target.value;
+            renderCards();
+        });
+
+        // Initialize
+        window.onload = () => {
+            renderFilters();
+            renderCards();
+            lucide.createIcons();
+        };
+    </script>
+</body>
+</html>
