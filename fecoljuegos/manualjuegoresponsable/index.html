@@ -54,7 +54,7 @@
       min-height: 297mm;
       height: 297mm;
       margin: 0 auto;
-      padding: 25mm 20mm;
+      padding: 20mm 18mm;
       position: relative;
       overflow: hidden;
       background: var(--bg-page);
@@ -125,7 +125,7 @@
 
     p {
       font-size: 13.5px;
-      line-height: 1.5;
+      line-height: 1.45;
       margin-bottom: 0.8em;
       text-align: justify;
       font-weight: 400;
@@ -218,7 +218,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
       padding-bottom: 10px;
       border-bottom: 0.5px solid var(--border);
     }
@@ -262,10 +262,10 @@
 
     /* --- CONTENIDO --- */
     .section-title {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 900;
       color: var(--deep-black);
-      margin-bottom: 25px;
+      margin-bottom: 20px;
     }
 
     .chapter-label {
@@ -281,15 +281,15 @@
     .highlight-quote {
       background: var(--bg-soft);
       border-left: 8px solid var(--brand-red);
-      padding: 30px;
-      margin: 20px 0;
+      padding: 25px;
+      margin: 15px 0;
     }
 
-    /* --- TARJETAS PREMIUM (TIPO CAPÍTULO 5) --- */
+    /* --- TARJETAS PREMIUM --- */
     .info-container {
       display: grid;
-      gap: 15px;
-      margin-top: 15px;
+      gap: 12px;
+      margin-top: 10px;
     }
 
     .info-card {
@@ -297,7 +297,7 @@
       border-radius: 8px;
       overflow: hidden;
       display: grid;
-      grid-template-columns: 70px 1fr;
+      grid-template-columns: 60px 1fr;
       border: 1px solid var(--border);
     }
 
@@ -307,49 +307,50 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 24px;
+      font-size: 22px;
     }
 
     .info-content {
-      padding: 20px;
+      padding: 15px;
     }
 
     .info-card-title {
       font-weight: 800;
       color: var(--brand-red);
-      font-size: 15px;
-      margin-bottom: 10px;
+      font-size: 14px;
+      margin-bottom: 5px;
       display: block;
       text-transform: uppercase;
     }
 
     .info-action-box {
-      margin-top: 15px;
-      padding: 15px;
+      margin-top: 10px;
+      padding: 10px;
       background: white;
       border: 1px dashed var(--brand-red);
       border-radius: 4px;
     }
 
     .info-action-box b {
-      font-size: 11px;
+      font-size: 10px;
       text-transform: uppercase;
       color: var(--brand-red);
       display: block;
-      margin-bottom: 5px;
+      margin-bottom: 3px;
     }
 
     .info-action-box p {
       margin: 0;
-      font-size: 12px;
+      font-size: 11.5px;
       font-style: italic;
+      line-height: 1.3;
     }
 
     /* --- ÍNDICE --- */
     .idx-row {
       display: flex;
       align-items: baseline;
-      padding: 15px 0;
+      padding: 12px 0;
       border-bottom: 1px dotted #ccc;
       gap: 10px;
     }
@@ -357,22 +358,22 @@
     .idx-row .num {
       font-weight: 900;
       color: var(--brand-red);
-      min-width: 35px;
-      font-size: 16px;
+      min-width: 30px;
+      font-size: 15px;
     }
 
     .idx-row .title {
       flex-grow: 1;
       font-weight: 600;
-      font-size: 13px;
+      font-size: 12.5px;
       text-transform: uppercase;
     }
 
     /* --- OPERADOR --- */
     .op-item {
       background: var(--bg-soft);
-      margin-bottom: 8px;
-      padding: 12px 15px;
+      margin-bottom: 6px;
+      padding: 10px 12px;
       display: flex;
       align-items: flex-start;
       border-radius: 4px;
@@ -382,61 +383,62 @@
     .op-x {
       color: var(--brand-red);
       font-weight: 900;
-      margin-right: 15px;
-      font-size: 14px;
+      margin-right: 12px;
+      font-size: 13px;
     }
 
     .op-text {
-      font-size: 12px;
+      font-size: 11.5px;
+      line-height: 1.4;
     }
 
-    /* --- PILARES (DECÁLOGO) --- */
+    /* --- PILARES --- */
     .pillar-grid {
       display: grid;
-      gap: 10px;
-      margin-top: 15px;
+      gap: 8px;
+      margin-top: 10px;
     }
 
     .pillar-card {
       background: var(--bg-soft);
       border-radius: 8px;
-      padding: 15px 20px;
+      padding: 10px 15px;
       border: 1px solid var(--border);
       display: grid;
-      grid-template-columns: 40px 1fr;
-      gap: 15px;
+      grid-template-columns: 30px 1fr;
+      gap: 10px;
       align-items: start;
     }
 
     .pillar-n {
       background: var(--brand-red);
       color: white;
-      width: 30px;
-      height: 30px;
+      width: 25px;
+      height: 25px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 800;
-      font-size: 14px;
+      font-size: 12px;
     }
 
     .pillar-txt {
-      font-size: 12px;
-      line-height: 1.5;
+      font-size: 11.5px;
+      line-height: 1.4;
     }
 
     /* --- TIEMPO --- */
     .time-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      margin-top: 20px;
+      gap: 12px;
+      margin-top: 15px;
     }
 
     .time-card {
       border: 1px solid var(--border);
-      padding: 15px;
+      padding: 12px;
       text-align: center;
       border-radius: 8px;
       background: var(--bg-soft);
@@ -444,39 +446,39 @@
 
     .time-card i {
       color: var(--brand-red);
-      font-size: 24px;
-      margin-bottom: 10px;
+      font-size: 20px;
+      margin-bottom: 8px;
     }
 
     /* --- CHECKLIST --- */
     .checklist-item {
       display: flex;
       align-items: flex-start;
-      margin-bottom: 12px;
-      font-size: 13px;
+      margin-bottom: 10px;
+      font-size: 12.5px;
     }
 
     .checklist-item i {
       color: var(--brand-red);
-      margin-right: 12px;
-      margin-top: 3px;
+      margin-right: 10px;
+      margin-top: 2px;
     }
 
     /* --- IMPACTO SOCIAL --- */
     .tax-box {
       background: var(--bg-soft);
-      padding: 15px;
+      padding: 12px;
       border-radius: 4px;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       border: 1px solid var(--border);
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 12px;
     }
 
     .tax-box i {
       color: var(--brand-red);
-      font-size: 18px;
+      font-size: 16px;
     }
 
     /* --- BOTÓN --- */
@@ -521,7 +523,7 @@
 
   <!-- PÁGINA 2: ÍNDICE -->
   <section class="page">
-    <div class="page-header"><span>Guía Institucional</span><span>Índice</span></div>
+    <div class="page-header"><span>Guía Institucional</span><span>Capítulo 02</span></div>
     <h2 class="section-title">Contenido</h2>
     <div style="margin-top: 10px;">
       <div class="idx-row"><span class="num">01</span><span class="title">Introducción al Ecosistema Social</span><span>03</span></div>
@@ -550,7 +552,7 @@
     <p>Para Fecoljuegos, la industria de los juegos de suerte y azar es mucho más que una simple actividad comercial; constituye un ecosistema social vibrante que impacta directamente el empleo nacional, la innovación tecnológica y, de manera primordial, el financiamiento del sistema de salud pública en Colombia. Reconocemos que el entertainment es una necesidad humana legítima, pero también sostenemos que su práctica requiere un marco ético sólido y un compromiso inquebrantable con la seguridad del usuario.</p>
     <p>La naturaleza del juego es dual: ofrece emoción y esparcimiento, pero conlleva riesgos si no existe una gestión adecuada. Este manual constituye la base de nuestra Cultura de Juego, donde el operador garantiza transparencia y el usuario actúa con plena consciencia de sus actos. Asumimos esta labor bajo el principio de corresponsabilidad: el operador actúa como el primer filtro de protección y garante de la transparencia, mientras empoderamos al usuario para que actúe con plena consciencia de sus decisiones. El objetivo final es que el juego sea siempre una opción de vida saludable y un motor de bienestar social.</p>
     <div class="highlight-quote">
-      <p style="font-size: 15px; line-height: 1.8;">"Nuestra misión es transformar el concepto de azar en una decisión consciente de entretenimiento, donde el límite es el bienestar del jugador, respaldado siempre por entornos tecnológicos seguros, una política de tolerancia cero frente al juego de menores de edad, y rutas de apoyo solidario para quienes lo necesiten."</p>
+      <p style="font-size: 15px; line-height: 1.7; margin: 0;">"Nuestra misión es transformar el concepto de azar en una decisión consciente de entretenimiento, donde el límite es el bienestar del jugador, respaldado siempre por entornos tecnológicos seguros, una política de tolerancia cero frente al juego de menores de edad, y rutas de apoyo solidario para quienes lo necesiten."</p>
     </div>
     <p>Asimismo, concebimos el Juego Responsable como una ciencia del comportamiento aplicada, donde nuestra prioridad es la educación y la prevención primaria. Entender la verdad matemática detrás del azar es la mejor herramienta de autocontrol para nuestros usuarios. Finalmente, reafirmamos que este ecosistema seguro solo es posible dentro de la estricta legalidad; apostar en plataformas e instalaciones autorizadas es el único camino que garantiza la protección de los derechos del jugador y asegura que los recursos generados cumplan su propósito social de salvar vidas en los hospitales del país.</p>
     <div class="page-footer">
@@ -571,8 +573,8 @@
       <div class="op-item"><span class="op-x">X</span><span class="op-text"><b>Auditabilidad Técnica:</b> Asegurar que todos los sistemas (físicos o digitales) operen bajo parámetros de aleatoriedad certificados por entes externos.</span></div>
       <div class="op-item"><span class="op-x">X</span><span class="op-text"><b>Control Preventivo:</b> Implementar algoritmos de monitoreo que detecten cambios bruscos en el comportamiento de apuesta de los usuarios, activando protocolos de información.</span></div>
       <div class="op-item"><span class="op-x">X</span><span class="op-text"><b>Sostenibilidad Social:</b> Operar bajo los contratos de concesión firmados con Coljuegos, asegurando que cada peso recaudado contribuya al sistema de salud.</span></div>
-      <div class="op-item"><span class="op-x">X</span><span class="op-text"><b>Protección Estricta a Menores de Edad:</b> Prohibición absoluta de menores de 18 años mediante protocolos KYC (Know Your Customer) en apertura de cuentas y retiros, bloqueando perfiles que no acrediten mayoría de edad.</span></div>
-      <div class="op-item"><span class="op-x">X</span><span class="op-text"><b>Herramientas de Autocontrol en Plataforma:</b> Interfaces que permiten establecer límites autónomos de depósito, topes de pérdidas, alertas de tiempo y cierres automáticos de sesión.</span></div>
+      <div class="op-item"><span class="op-x">X</span><span class="op-text"><b>Protección Estricta a Menores de Edad:</b> Prohibición absoluta de menores de 18 años mediante protocolos KYC (Know Your Customer) bloqueando perfiles que no acrediten mayoría de edad.</span></div>
+      <div class="op-item"><span class="op-x">X</span><span class="op-text"><b>Herramientas de Autocontrol en Plataforma:</b> Interfaces que permiten establecer límites autónomos de depósito, topes de pérdidas, alertas de tiempo y cierres automáticos.</span></div>
       <div class="op-item"><span class="op-x">X</span><span class="op-text"><b>Marketing y Publicidad Ética:</b> Comunicaciones que no distorsionan probabilidades (RNG) y que no se dirigen a menores de edad ni a personas inscritas en registros de autoexclusión.</span></div>
     </div>
     <div class="page-footer">
@@ -587,14 +589,14 @@
     <span class="chapter-label">Marco Conceptual</span>
     <h2 class="section-title">3. MARCO CONCEPTUAL: LA CIENCIA DE LA PREVENCIÓN</h2>
     <p>El Juego Responsable no es una acción aislada, sino una ciencia del comportamiento aplicada. Fecoljuegos estructura su intervención en tres niveles jerárquicos:</p>
-    <div style="background: var(--bg-soft); padding: 20px; border-left: 8px solid var(--brand-red); margin-bottom: 20px; border-radius: 4px;">
-      <p><b>3.1 Prevención Primaria (Universal):</b> Acciones educativas dirigidas a la población general. El objetivo es crear una barrera cultural antes de que surja el problema, promoviendo el concepto de que el juego es un gasto recreativo y no una inversión financiera. Se enfoca en desmitificar el azar y enseñar las reglas de los juegos de manera transparente. A este nivel se integran nuestras políticas preventivas de cero tolerancia a menores y marketing ético.</p>
+    <div style="background: var(--bg-soft); padding: 18px; border-left: 8px solid var(--brand-red); margin-bottom: 12px; border-radius: 4px;">
+      <p style="margin: 0; font-size: 13px;"><b>3.1 Prevención Primaria (Universal):</b> Acciones educativas dirigidas a la población general. El objetivo es crear una barrera cultural antes de que surja el problema, promoviendo el concepto de que el juego es un gasto recreativo y no una inversión financiera. Se enfoca en desmitificar el azar y enseñar las reglas de los juegos de manera transparente. A este nivel se integran nuestras políticas preventivas de cero tolerancia a menores y marketing ético.</p>
     </div>
-    <div style="background: var(--bg-soft); padding: 20px; border-left: 8px solid var(--brand-red); margin-bottom: 20px; border-radius: 4px;">
-      <p><b>3.2 Prevención Secundaria (Detección Selectiva):</b> Intervenciones específicas sobre usuarios que muestran señales tempranas de riesgo. En este nivel, las herramientas de control del operador son vitales para reconducir la conducta hacia hábitos saludables. El usuario debe empoderarse utilizando las Herramientas de Autocontrol configurando autónomamente sus propios topes.</p>
+    <div style="background: var(--bg-soft); padding: 18px; border-left: 8px solid var(--brand-red); margin-bottom: 12px; border-radius: 4px;">
+      <p style="margin: 0; font-size: 13px;"><b>3.2 Prevención Secundaria (Detección Selectiva):</b> Intervenciones específicas sobre usuarios que muestran señales tempranas de riesgo. En este nivel, las herramientas de control del operador son vitales para reconducir la conducta hacia hábitos saludables. El usuario debe empoderarse utilizando las Herramientas de Autocontrol configurando autónomamente sus propios topes.</p>
     </div>
-    <div style="background: var(--bg-soft); padding: 20px; border-left: 8px solid var(--brand-red); border-radius: 4px;">
-      <p><b>3.3 Prevención Terciaria (Intervención Crítica):</b> Se aplica cuando el control se ha perdido totalmente. Se enfoca en la mitigación del daño patrimonial y personal, facilitando la Autoexclusión inmediata y la canalización hacia profesionales especializados en salud mental y ludopatía.</p>
+    <div style="background: var(--bg-soft); padding: 18px; border-left: 8px solid var(--brand-red); border-radius: 4px;">
+      <p style="margin: 0; font-size: 13px;"><b>3.3 Prevención Terciaria (Intervención Crítica):</b> Se aplica cuando el control se ha perdido totalmente. Se enfoca en la mitigación del daño patrimonial y personal, facilitando la Autoexclusión inmediata y la canalización hacia profesionales especializados en salud mental y ludopatía.</p>
     </div>
     <div class="page-footer">
       <span>Manual de Juego Responsable</span>
@@ -607,14 +609,14 @@
     <div class="page-header"><span>Capítulo 04</span><span>Matemática</span></div>
     <span class="chapter-label">Azar y RNG</span>
     <h2 class="section-title">4. ANATOMÍA DEL AZAR: LA VERDAD MATEMÁTICA</h2>
-    <p>La comprensión técnica de cómo operan los juegos es la mejor herramienta de autocontrol. Los juegos autorizados utilizan obligatoriamente un Generador de Números Aleatorios (RNG).</p>
+    <p>La comprensión técnica de cómo operan los juegos es la mejor herramienta de autocontrol para el usuario. Los juegos autorizados utilizan obligatoriamente un Generador de Números Aleatorios (RNG).</p>
 
     <div class="info-container">
       <div class="info-card">
         <div class="info-icon"><i class="fa-solid fa-microchip"></i></div>
         <div class="info-content">
           <span class="info-card-title">4.1 ¿Cómo opera el RNG?</span>
-          <p>El RNG es un software que genera secuencias numéricas a una velocidad de miles de iteraciones por segundo. Cada resultado es matemáticamente independiente del anterior. Esto significa que una máquina no tiene memoria; si un número ha salido tres veces seguidas, la probabilidad de que salga una cuarta sigue siendo exactamente la misma. En consecuencia, ninguna estrategia de apuestas, sistema matemático o patrón de juego puede predecir o alterar el resultado final.</p>
+          <p>El RNG es un software que genera secuencias numéricas a una velocidad de miles de iteraciones por segundo. Cada resultado es matemáticamente independiente del anterior. Esto significa que una máquina no tiene memoria; si un número ha salido tres veces seguidas, la probabilidad de que salga una cuarta sigue siendo exactamente la misma. En consecuencia, ninguna estrategia de apuestas puede alterar el resultado final.</p>
         </div>
       </div>
 
@@ -625,7 +627,7 @@
           <p>Muchos usuarios creen erróneamente en el concepto de “máquinas calientes” o en que un premio está “por caer”. Esta falacia lleva a aumentar las apuestas de forma peligrosa. La verdad técnica es que las probabilidades no cambian por el tiempo transcurrido o por las jugadas previas.</p>
           <div class="info-action-box">
             <b>Freno Tecnológico:</b>
-            <p>Cuando un jugador se enfrenta a este sesgo cognitivo, es el momento crítico para que las "Herramientas de Autocontrol en Plataforma" (como topes de pérdidas) actúen contra la irracionalidad.</p>
+            <p>Cuando un jugador se enfrenta a este sesgo, es el momento crítico para que las "Herramientas de Autocontrol en Plataforma" actúen contra la irracionalidad.</p>
           </div>
         </div>
       </div>
@@ -637,7 +639,7 @@
           <p>Psicológicamente, quedar a un solo símbolo de ganar se procesa en el cerebro como un estímulo positivo, similar a una victoria. Esto es una trampa cognitiva; el jugador responsable sabe que un “casi acierto” es, en realidad, una pérdida total.</p>
           <div class="info-action-box">
             <b>Acción Preventiva:</b>
-            <p>Fecoljuegos recomienda aplicar inmediatamente la regla de desconexión: alejarse de la pantalla o del local durante 15 minutos para recuperar la perspectiva lógica.</p>
+            <p>Fecoljuegos recomienda aplicar inmediatamente la regla de desconexión: alejarse de la pantalla durante 15 minutos para recuperar la perspectiva lógica.</p>
           </div>
         </div>
       </div>
@@ -662,10 +664,10 @@
         <div class="info-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
         <div class="info-content">
           <span class="info-card-title">5.1 La Ilusión de Control</span>
-          <p>Es la creencia errónea de que la participación activa (como elegir los propios números en la lotería, soplar los dados o tocar la pantalla de una máquina de cierta forma) puede influir en un resultado que es estrictamente aleatorio.</p>
+          <p>Es la creencia errónea de que la participación activa (como elegir números o soplar los dados) puede influir en un resultado que es estrictamente aleatorio.</p>
           <div class="info-action-box">
             <b>La Acción Preventiva:</b>
-            <p>El usuario debe interiorizar que frente a un software RNG certificado, la habilidad personal es irrelevante. Para combatir esta ilusión, se recomienda alternar la forma de jugar para reafirmar conscientemente que el resultado depende 100% del azar.</p>
+            <p>Interiorice que la habilidad es irrelevante. Se recomienda alternar la forma de jugar (usar selecciones automáticas) para reafirmar que el resultado depende 100% del azar.</p>
           </div>
         </div>
       </div>
@@ -674,10 +676,10 @@
         <div class="info-icon"><i class="fa-solid fa-brain"></i></div>
         <div class="info-content">
           <span class="info-card-title">5.2 El Sesgo de Disponibilidad (Memoria Selectiva)</span>
-          <p>Psicológicamente, los seres humanos tienden a recordar vívidamente las victorias (por la liberación de dopamina) y a olvidar o minimizar rápidamente las pérdidas sistemáticas. Esto crea una falsa percepción de rentabilidad a largo plazo.</p>
+          <p>Psicológicamente, los seres humanos tienden a recordar vívidamente las victorias (por la liberación de dopamina) y a olvidar rápidamente las pérdidas sistemáticas.</p>
           <div class="info-action-box">
             <b>La Herramienta de Autocontrol:</b>
-            <p>Para destruir este sesgo, Fecoljuegos insta a los usuarios a consultar regularmente el Historial de Cuenta y Transacciones en su plataforma. Ver el balance real rompe la ilusión de la memoria selectiva.</p>
+            <p>Consulte regularmente el Historial de Cuenta y Transacciones. Ver el balance real de forma objetiva rompe la ilusión de la memoria selectiva.</p>
           </div>
         </div>
       </div>
@@ -686,10 +688,10 @@
         <div class="info-icon"><i class="fa-solid fa-person-running"></i></div>
         <div class="info-content">
           <span class="info-card-title">5.3 El Efecto de Persecución de Pérdidas (Chasing Losses)</span>
-          <p>Es el sesgo más peligroso. Ocurre cuando el jugador percibe el dinero perdido no como el "costo del entretenimiento", sino como un "capital robado" que debe ser recuperado inmediatamente, aumentando el tamaño de sus apuestas.</p>
+          <p>Es el sesgo más peligroso. Ocurre cuando el jugador percibe el dinero perdido como un "capital robado" que debe ser recuperado inmediatamente, aumentando sus apuestas.</p>
           <div class="info-action-box">
             <b>El Freno Tecnológico:</b>
-            <p>La persecución anula el juicio lógico. Si un jugador experimenta este impulso, debe activar inmediatamente las Alertas de Tiempo o el Cierre de Sesión Automático. Retirarse del entorno durante 24 horas es la única forma efectiva.</p>
+            <p>Active inmediatamente las Alertas de Tiempo o el Cierre de Sesión Automático. Retirarse del entorno durante 24 horas es la única forma efectiva de desarticular la respuesta.</p>
           </div>
         </div>
       </div>
@@ -704,21 +706,21 @@
   <!-- PÁGINA 8: CAPÍTULO 6 -->
   <section class="page">
     <div class="page-header"><span>Capítulo 06</span><span>Conducta</span></div>
-    <span class="chapter-label">Decálogo de Fecoljuegos</span>
+    <span class="chapter-label">Pilares del Juego</span>
     <h2 class="section-title">6. ESTRATEGIA DEL DECÁLOGO: PILARES DE CONDUCTA</h2>
     <p>El decálogo establece las bases de una relación saludable con el juego, diseñado para proteger la integridad psicológica y económica del usuario.</p>
 
     <div class="pillar-grid">
-      <div class="pillar-card"><span class="pillar-n">1</span><span class="pillar-txt"><b>Jugar por diversión:</b> Elimine la expectativa de ganancia necesaria para reducir el estrés. Asuma que el juego es un servicio de entretenimiento por el cual usted paga, no un trabajo o una fuente de ingresos.</span></div>
-      <div class="pillar-card"><span class="pillar-n">2</span><span class="pillar-txt"><b>Presupuesto máximo:</b> Establezca un límite innegociable antes de iniciar la actividad. Utilice las herramientas de su perfil para automatizar este límite de depósito diario, semanal o mensual.</span></div>
-      <div class="pillar-card"><span class="pillar-n">3</span><span class="pillar-txt"><b>Aceptación de pérdida:</b> Vea el dinero como el costo del ocio, no como un capital a recuperar. Para evitar el sesgo de persecución, configure topes máximos de pérdida permitida en su cuenta.</span></div>
-      <div class="pillar-card"><span class="pillar-n">4</span><span class="pillar-txt"><b>Horario estricto:</b> Limite el tiempo para evitar la fatiga mental. Active las alertas emergentes o programe cierres automáticos para cumplir la regla de oro de descanso (15 min por cada hora).</span></div>
-      <div class="pillar-card"><span class="pillar-n">5</span><span class="pillar-txt"><b>Sobriedad absoluta:</b> El alcohol altera el juicio y la percepción del riesgo financiero. Nunca inicie una sesión bajo los efectos de sustancias que inhiban su capacidad racional.</span></div>
+      <div class="pillar-card"><span class="pillar-n">1</span><span class="pillar-txt"><b>Jugar por diversión:</b> Elimine la expectativa de ganancia necesaria. El juego es un servicio de entretenimiento pago, no un trabajo.</span></div>
+      <div class="pillar-card"><span class="pillar-n">2</span><span class="pillar-txt"><b>Presupuesto máximo:</b> Establezca un límite innegociable. Utilice las herramientas de su perfil para automatizar el límite de depósito diario o mensual.</span></div>
+      <div class="pillar-card"><span class="pillar-n">3</span><span class="pillar-txt"><b>Aceptación de pérdida:</b> Vea el dinero como el costo del ocio, no como un capital a recuperar. Configure topes máximos de pérdida permitida.</span></div>
+      <div class="pillar-card"><span class="pillar-n">4</span><span class="pillar-txt"><b>Horario estricto:</b> Limite el tiempo para evitar la fatiga mental. Active las alertas de tiempo o programe cierres automáticos (Regla 60/15).</span></div>
+      <div class="pillar-card"><span class="pillar-n">5</span><span class="pillar-txt"><b>Sobriedad absoluta:</b> El alcohol altera el juicio y la percepción del riesgo. Nunca inicie una sesión bajo efectos de sustancias inhibidoras.</span></div>
       <div class="pillar-card"><span class="pillar-n">6</span><span class="pillar-txt"><b>Prioridades claras:</b> El juego nunca debe desplazar responsabilidades laborales o familiares fundamentales.</span></div>
-      <div class="pillar-card"><span class="pillar-n">7</span><span class="pillar-txt"><b>Sin préstamos:</b> Jamás juegue dinero ajeno; esto genera una presión que anula la diversión. Juegue únicamente con fondos propios provenientes de su presupuesto de ocio.</span></div>
-      <div class="pillar-card"><span class="pillar-n">8</span><span class="pillar-txt"><b>Dominio de reglas:</b> Entienda la mecánica y probabilidades antes de apostar. Recuerde que ninguna habilidad puede predecir ni alterar el resultado de un RNG certificado.</span></div>
-      <div class="pillar-card"><span class="pillar-n">9</span><span class="pillar-txt"><b>Reconocimiento de crisis:</b> Tenga el valor de pedir ayuda si siente que el juego lo controla. Recurra inmediatamente al protocolo de Autoexclusión y a las líneas de atención mental.</span></div>
-      <div class="pillar-card"><span class="pillar-n">10</span><span class="pillar-txt"><b>Legalidad certificada:</b> Jugar en sitios legales garantiza justicia, herramientas de protección y asegura que su entretenimiento contribuya a financiar el sistema de salud pública.</span></div>
+      <div class="pillar-card"><span class="pillar-n">7</span><span class="pillar-txt"><b>Sin préstamos:</b> Jamás juegue dinero ajeno; esto genera una presión que anula la diversión. Juegue solo con fondos propios de su presupuesto de ocio.</span></div>
+      <div class="pillar-card"><span class="pillar-n">8</span><span class="pillar-txt"><b>Dominio de reglas:</b> Entienda la mecánica y probabilidades antes de apostar. Recuerde que ninguna habilidad puede alterar el resultado del RNG.</span></div>
+      <div class="pillar-card"><span class="pillar-n">9</span><span class="pillar-txt"><b>Reconocimiento de crisis:</b> Tenga el valor de pedir ayuda si siente que el juego lo controla. Recurra a la Autoexclusión y a las líneas de salud mental.</span></div>
+      <div class="pillar-card"><span class="pillar-n">10</span><span class="pillar-txt"><b>Legalidad certificada:</b> Jugar en sitios legales garantiza justicia y asegura que su entretenimiento financie el sistema de salud pública.</span></div>
     </div>
 
     <div class="page-footer">
@@ -730,16 +732,16 @@
   <!-- PÁGINA 9: CAPÍTULO 7 -->
   <section class="page">
     <div class="page-header"><span>Capítulo 07</span><span>Economía</span></div>
-    <span class="chapter-label">Gestión Financiera</span>
+    <span class="chapter-label">Metodología Financiera</span>
     <h2 class="section-title">7. GESTIÓN FINANCIERA: EL MÉTODO DEL OCIO SALUDABLE</h2>
-    <p>La planificación económica es la barrera más efectiva contra el juego problemático. Fecoljuegos recomienda la metodología de Segmentación Estratégica de Ingresos.</p>
+    <p>La planificación económica es la barrera más efectiva contra el juego problemático mediante la Segmentación Estratégica de Ingresos.</p>
 
     <div class="info-container">
       <div class="info-card">
         <div class="info-icon"><i class="fa-solid fa-piggy-bank"></i></div>
         <div class="info-content">
           <span class="info-card-title">7.1 Paso 1: Dinero de Excedentes Reales</span>
-          <p>Nunca utilice fondos destinados a vivienda, alimentación o salud. El presupuesto de juego debe salir exclusivamente del 10% destinado al rubro de “Ocio”, después de haber cumplido con ahorros y obligaciones. Para garantizar esto, le recomendamos utilizar métodos de recarga que no estén vinculados a sus cuentas principales, y evitar absolutamente el uso de tarjetas de crédito que generen endeudamiento.</p>
+          <p>Nunca utilice fondos destinados a vivienda, alimentación o salud. El presupuesto debe salir exclusivamente del 10% destinado al rubro de “Ocio”. Recomendamos usar métodos de recarga no vinculados a su nómina y evitar tarjetas de crédito.</p>
         </div>
       </div>
 
@@ -747,11 +749,7 @@
         <div class="info-icon"><i class="fa-solid fa-calendar-check"></i></div>
         <div class="info-content">
           <span class="info-card-title">7.2 Paso 2: La Técnica del Tope Semanal</span>
-          <p>Dividir el presupuesto mensual en cuatro partes permite una gestión cronológica. Si el presupuesto semanal se agota el primer día, la actividad debe suspenderse. No se permite el “trasvase” de fondos de otras categorías vitales para compensar una pérdida semanal.</p>
-          <div class="info-action-box">
-            <b>Implementación Técnica:</b>
-            <p>Ingrese a su perfil y configure un límite de depósito semanal exacto al monto segmentado. El sistema bloqueará automáticamente cualquier intento de recarga impulsiva.</p>
-          </div>
+          <p>Divida el presupuesto mensual en cuatro partes. Si el presupuesto se agota el primer día, suspenda la actividad hasta la siguiente semana. Ingrese a su perfil y configure un límite de depósito semanal exacto para bloquear recargas impulsivas.</p>
         </div>
       </div>
 
@@ -759,7 +757,7 @@
         <div class="info-icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
         <div class="info-content">
           <span class="info-card-title">7.3 Valoración del Esfuerzo</span>
-          <p>Un jugador responsable mantiene presente que los créditos digitales representan tiempo de trabajo real. Valorar el esfuerzo detrás de cada peso ayuda a respetar los límites establecidos. Acostúmbrese a visualizar su saldo en moneda local (pesos colombianos) en lugar de créditos virtuales, y revise su "Historial de Transacciones" para mantener la perspectiva objetiva.</p>
+          <p>Un jugador responsable mantiene presente que los créditos digitales representan tiempo de trabajo real. Acostúmbrese a visualizar su saldo en pesos colombianos y revise su historial para mantener una perspectiva financiera objetiva.</p>
         </div>
       </div>
     </div>
@@ -775,14 +773,14 @@
     <div class="page-header"><span>Capítulo 08</span><span>Psicología</span></div>
     <span class="chapter-label">Tiempo y Fatiga</span>
     <h2 class="section-title">8. ARQUITECTURA DEL TIEMPO: PSICOLOGÍA Y FATIGA</h2>
-    <p>El tiempo de exposición al azar altera la química cerebral. Estudios demuestran que tras periodos prolongados de juego, la corteza prefrontal —encargada del razonamiento lógico— pierde eficacia frente a los impulsos emocionales.</p>
-    <p><b>8.1 El Efecto de Inmersión Sensorial:</b> Tanto los locales físicos como las plataformas online utilizan estímulos que pueden distorsionar la noción del tiempo. Sin un control activo del cronómetro, el usuario es propenso a extender su sesión más allá de lo planificado. Para contrarrestar esto, recomendamos activar las "Alertas de Tiempo" (Reality Checks). Estas notificaciones pausarán su pantalla para informarle cuánto tiempo lleva conectado y cuál es su saldo actual, rompiendo el trance visual.</p>
-    <p><b>8.2 La Regla de Oro: 60/15:</b> Fecoljuegos recomienda la aplicación estricta del protocolo de interrupción obligatoria. Por cada hora de juego, el usuario debe alejarse de la actividad durante 15 minutos. Configure en su cuenta un límite de sesión de 60 minutos que fuerce un cierre automático temporal. Durante este receso, aplique:</p>
+    <p>El tiempo de exposición al azar altera la química cerebral. Estudios demuestran que tras periodos prolongados de juego, la corteza prefrontal pierde eficacia frente a los impulsos emocionales.</p>
+    <p><b>8.1 El Efecto de Inmersión Sensorial:</b> Tanto los locales físicos como las plataformas online utilizan estímulos que pueden distorsionar la noción del tiempo. Active las "Alertas de Tiempo" (Reality Checks) en su perfil para romper el trance visual.</p>
+    <p><b>8.2 La Regla de Oro: 60/15:</b> Fecoljuegos recomienda la aplicación estricta del protocolo de interrupción obligatoria. Por cada hora de juego, aléjese de la actividad durante 15 minutos. Configure un límite de sesión de 60 minutos. Durante este receso, aplique:</p>
     
     <div class="time-grid">
-      <div class="time-card"><i class="fa-solid fa-power-off"></i><br><b>Desconexión Física</b><p style="font-size:10.5px;">Salir del entorno o cerrar la sesión digital.</p></div>
-      <div class="time-card"><i class="fa-solid fa-brain"></i><br><b>Recuperación</b><p style="font-size:10.5px;">Evaluar si sigue jugando por diversión o por inercia.</p></div>
-      <div class="time-card"><i class="fa-solid fa-lungs"></i><br><b>Oxigenación</b><p style="font-size:10.5px;">El movimiento físico ayuda a reactivar el juicio crítico.</p></div>
+      <div class="time-card"><i class="fa-solid fa-power-off"></i><br><b>Desconexión Física</b><p style="font-size:10px;">Salir del entorno o cerrar la sesión digital.</p></div>
+      <div class="time-card"><i class="fa-solid fa-brain"></i><br><b>Recuperación</b><p style="font-size:10px;">Evaluar si sigue jugando por diversión o inercia.</p></div>
+      <div class="time-card"><i class="fa-solid fa-lungs"></i><br><b>Oxigenación</b><p style="font-size:10px;">El movimiento físico ayuda a reactivar el juicio.</p></div>
     </div>
     <div class="page-footer">
       <span>Manual de Juego Responsable</span>
@@ -797,7 +795,7 @@
     <h2 class="section-title">9. PROTOCOLO DE AUTODIAGNÓSTICO: EL ESPEJO CRÍTICO</h2>
     <p>La honestidad interna es la defensa más poderosa. Fecoljuegos promueve que los usuarios se autoevalúen regularmente mediante preguntas de control directo.</p>
     <p><b>9.1 Evaluación de Señales de Alerta:</b> Analice sinceramente si presenta alguna de estas conductas:</p>
-    <div style="background: var(--bg-soft); padding: 25px; border: 1px solid var(--border); margin-bottom: 25px; border-radius: 8px;">
+    <div style="background: var(--bg-soft); padding: 22px; border: 1px solid var(--border); margin-bottom: 25px; border-radius: 8px;">
       <div class="checklist-item"><i class="fa-regular fa-square-check"></i> ¿He mentido a mi familia sobre cuánto dinero he perdido realmente?</div>
       <div class="checklist-item"><i class="fa-regular fa-square-check"></i> ¿Siento que necesito jugar con más dinero para sentir el mismo nivel de emoción?</div>
       <div class="checklist-item"><i class="fa-regular fa-square-check"></i> ¿He apostado dinero destinado al pago de servicios o facturas vitales?</div>
@@ -805,10 +803,10 @@
       <div class="checklist-item"><i class="fa-regular fa-square-check"></i> ¿He descuidado mis relaciones personales o mi rendimiento laboral por jugar?</div>
     </div>
     <p><b>9.2 La Autoexclusión: Un Derecho de Protección:</b> Si el diagnóstico es negativo, el usuario debe saber que no está solo. La Autoexclusión Voluntaria prohíbe el acceso del usuario a establecimientos y portales por un tiempo definido.</p>
-    <div style="background: var(--deep-black); color: white; padding: 20px; border-radius: 4px; font-size: 12px; margin-top: 10px; line-height: 1.6;">
-      <b>Procedimiento de Activación:</b> Para ejercer su derecho a la Autoexclusión Voluntaria, el usuario debe presentar una solicitud formal ante el operador a través de sus canales de atención al cliente (formulario web desde su perfil, correo electrónico o de forma presencial). Al radicar la solicitud, el usuario determina el tiempo de exclusión (mínimo 6 meses). Una vez activada, el operador bloqueará el acceso a la cuenta, restringirá depósitos y suspenderá comunicaciones promocionales. Este proceso es estrictamente irrevocable durante el periodo preestablecido.
+    <div style="background: var(--deep-black); color: white; padding: 18px; border-radius: 4px; font-size: 11.5px; margin-top: 8px; line-height: 1.5;">
+      <b>Procedimiento de Activación:</b> Presente una solicitud formal ante el operador vía web, correo o presencial. Determine el tiempo (mínimo 6 meses). Una vez activada, el operador bloqueará el acceso a la cuenta, restringirá depósitos y suspenderá comunicaciones promocionales. Este proceso es estrictamente irrevocable durante el periodo preestablecido.
     </div>
-    <p style="margin-top: 20px;"><b>9.3 Directorio de Atención Institucional:</b> Si el autodiagnóstico evidencia señales de alerta, comuníquese gratuitamente a la <b>Línea Nacional de Salud Mental (Línea 106)</b> o a las líneas de su EPS. Buscar ayuda profesional oportuna es el primer paso para proteger su integridad personal y familiar.</p>
+    <p style="margin-top: 15px; font-size: 12.5px;"><b>9.3 Directorio de Atención Institucional:</b> Si requiere asistencia inmediata, comuníquese gratuitamente a la <b>Línea Nacional de Salud Mental (Línea 106)</b> o a las líneas de su EPS. Buscar ayuda profesional oportuna es el primer paso.</p>
     <div class="page-footer">
       <span>Manual de Juego Responsable</span>
       <span class="page-number">11</span>
@@ -820,13 +818,13 @@
     <div class="page-header"><span>Capítulo 10</span><span>Legalidad</span></div>
     <span class="chapter-label">Impacto Social</span>
     <h2 class="section-title">10. ECOSISTEMA LEGAL: EL IMPACTO SOCIAL DE JUGAR LEGAL</h2>
-    <p>Apostar en el mercado legal colombiano es, por encima de todo, un acto de responsabilidad ciudadana. El sector, regulado por Coljuegos, es uno de los mayores contribuyentes financieros de la red de salud pública en el país.</p>
-    <p>Verifique siempre que la plataforma digital exhiba el sello oficial de Coljuegos y opere bajo el dominio autorizado ".co", o que el establecimiento físico cuente con su respectiva concesión visible al público.</p>
-    <p><b>10.1 El Destino de los Impuestos del Juego:</b> Cada apuesta en un operador autorizado genera recursos que se transfieren directamente para:</p>
+    <p>Apostar en el mercado legal colombiano es un acto de responsabilidad ciudadana. El sector, regulado por Coljuegos, es uno de los mayores contribuyentes de la red de salud pública.</p>
+    <p>Verifique siempre que la plataforma digital exhiba el sello oficial de Coljuegos y opere bajo el dominio autorizado ".co", o que el establecimiento cuente con su concesión visible.</p>
+    <p><b>10.1 El Destino de los Impuestos del Juego:</b> Cada apuesta genera recursos que se transfieren directamente para:</p>
     <div class="tax-box"><i class="fa-solid fa-hospital"></i><span>Financiamiento de la atención hospitalaria a nivel nacional.</span></div>
     <div class="tax-box"><i class="fa-solid fa-notes-medical"></i><span>Programas de prevención de enfermedades crónicas.</span></div>
     <div class="tax-box"><i class="fa-solid fa-hands-holding-child"></i><span>Subsidios de salud para los colombianos en situación de vulnerabilidad.</span></div>
-    <div style="background: var(--deep-black); color: white; padding: 25px; text-align: center; border-radius: 8px; margin-top: 30px;">
+    <div style="background: var(--deep-black); color: white; padding: 25px; text-align: center; border-radius: 8px; margin-top: 35px;">
       <p style="margin: 0; font-size: 14px; font-weight: 700;">El juego ilegal roba recursos vitales que deberían salvar vidas en los hospitales del país. Jugar legal es jugar por Colombia.</p>
     </div>
     <div class="page-footer">
@@ -837,15 +835,15 @@
 
   <!-- PÁGINA 13: MENSAJE FINAL -->
   <section class="page">
-    <div class="page-header"><span>Cierre</span><span>Mensaje Final</span></div>
+    <div class="page-header"><span>Finalización</span><span>Cierre</span></div>
     <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
       <span class="chapter-label">La Decisión es Suya</span>
       <h2 class="section-title" style="font-size: 32px;">MENSAJE DE CIERRE</h2>
       <div style="width: 40px; height: 3px; background: var(--brand-red); margin-bottom: 30px;"></div>
-      <p style="max-width: 550px; font-size: 16px; line-height: 1.8; color: var(--deep-black); font-style: italic;">
+      <p style="max-width: 550px; font-size: 16px; line-height: 1.8; color: var(--deep-black); font-style: italic; text-align: center;">
         "El juego responsable es inteligencia aplicada al ocio. A través de este manual, Fecoljuegos le ha entregado no solo la teoría para entender cómo funciona el azar, sino las herramientas tecnológicas y los canales de apoyo directo para mantener el control."
       </p>
-      <p style="max-width: 600px; margin-top: 20px; font-weight: 300;">
+      <p style="max-width: 600px; margin-top: 20px; font-weight: 300; text-align: center;">
         Utilice las funciones de autocontrol de su plataforma, respete sus presupuestos, no subestime la fatiga mental y recuerde siempre que pedir ayuda profesional a tiempo es un acto de valentía y cordura. Disfrute con consciencia y respeto por su bienestar y el de su familia. Juegue legal, juegue por diversión, y recuerde que su entretenimiento responsable ayuda a construir el futuro de la salud en Colombia.
       </p>
     </div>
