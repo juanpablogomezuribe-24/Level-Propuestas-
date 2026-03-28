@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Energía Mundialista - Versión Final Corregida</title>
+    <title>La Energía Mundialista - Sincronización Refinada</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
         /* Emulación de Neo Sans Pro */
@@ -28,7 +28,6 @@
         #app-container {
             width: 1920px; height: 1080px;
             position: relative;
-            /* Nuevo fondo actualizado */
             background-image: url('https://i.postimg.cc/8PHTV6Pk/corregido.png');
             background-size: cover;
             background-position: center;
@@ -110,15 +109,7 @@
             filter: drop-shadow(0 0 30px var(--colgas-blue));
         }
 
-        .pipette-glow {
-            position: absolute;
-            height: 100%; width: auto;
-            z-index: 3;
-            opacity: 0;
-            filter: brightness(3) blur(4px);
-        }
-
-        /* Contenedor de Texto con Llenado Progresivo en Perspectiva */
+        /* Contenedor de Texto en Perspectiva */
         .field-text-wrapper {
             position: absolute;
             bottom: 5%; 
@@ -131,6 +122,7 @@
         }
 
         .value-text {
+            color: white;
             font-size: 150px;
             font-weight: 900;
             text-transform: uppercase;
@@ -139,26 +131,20 @@
             opacity: 0;
             transform: rotateX(60deg) scaleY(1.6);
             transform-origin: bottom center;
-            
-            /* Efecto de llenado con gradiente */
-            --fill-progress: 0%;
-            background: linear-gradient(to right, 
-                var(--colgas-blue) var(--fill-progress), 
-                rgba(255, 255, 255, 0.4) var(--fill-progress)
-            );
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            
-            filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
-            transition: opacity 0.5s;
+            text-shadow: 0 0 20px rgba(0, 168, 225, 0.4), 2px 2px 10px rgba(0,0,0,0.5);
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0.4));
         }
 
-        canvas {
+        /* Logo de cierre */
+        #final-logo {
             position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 50;
+            color: white;
+            font-size: 250px;
+            font-weight: 900;
+            letter-spacing: -5px;
+            opacity: 0;
+            z-index: 100;
+            text-shadow: 0 0 50px var(--colgas-blue);
         }
     </style>
 </head>
@@ -166,7 +152,7 @@
 
 <div id="controls-overlay">
     <h1 style="color: white; font-size: 40px; margin-bottom: 10px;">La Energía Mundialista</h1>
-    <p style="color: #aaa; font-size: 18px; margin-bottom: 20px;">Llenado de cilindro y palabras progresivas sobre cancha</p>
+    <p style="color: #aaa; font-size: 18px; margin-bottom: 20px;">Llenado de cilindro y transición de palabras (7s + 3s)</p>
     <button id="play-btn" class="btn" onclick="startAnimation()">
         <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
         Iniciar Animación
@@ -175,21 +161,19 @@
 </div>
 
 <div id="app-container">
+    <div id="final-logo">COLGAS</div>
+
     <div class="cylinder-container" id="cylinderBox">
         <img src="https://i.postimg.cc/6q9hsnT7/Cilindro-final-colgas.png" class="pipette-base">
         <img src="https://i.postimg.cc/6q9hsnT7/Cilindro-final-colgas.png" class="pipette-fill" id="pipetteFill">
-        <img src="https://i.postimg.cc/6q9hsnT7/Cilindro-final-colgas.png" class="pipette-glow" id="pipetteGlow">
     </div>
 
     <div class="field-text-wrapper">
         <div id="valueDisplay" class="value-text">SACRIFICIO</div>
     </div>
-
-    <canvas id="gasCanvas"></canvas>
 </div>
 
 <script>
-    // Ajustar escala para mantener proporciones en 1920x1080
     function scaleApp() {
         const app = document.getElementById('app-container');
         const scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
@@ -199,11 +183,9 @@
     scaleApp();
 
     const pipetteFill = document.getElementById('pipetteFill');
-    const pipetteGlow = document.getElementById('pipetteGlow');
     const valueDisplay = document.getElementById('valueDisplay');
     const cylinderBox = document.getElementById('cylinderBox');
-    const canvas = document.getElementById('gasCanvas');
-    const ctx = canvas.getContext('2d');
+    const finalLogo = document.getElementById('final-logo');
 
     const steps = [
         { label: "SACRIFICIO", fill: 83.3 },
@@ -214,107 +196,67 @@
         { label: "LEGADO", fill: 0 }
     ];
 
-    let particles = [];
-    let animationPhase = 0; 
-
-    function resizeCanvas() {
-        canvas.width = 1920; canvas.height = 1080;
-    }
-    resizeCanvas();
-
-    class GasParticle {
-        constructor(x, y, tx, ty) {
-            this.x = x || Math.random() * canvas.width;
-            this.y = y || Math.random() * canvas.height;
-            this.tx = tx; this.ty = ty;
-            this.vx = (Math.random() - 0.5) * 60;
-            this.vy = (Math.random() - 0.5) * 60;
-            this.friction = 0.92;
-            this.size = Math.random() * 9 + 2;
-        }
-        update() {
-            let dx = this.tx - this.x; let dy = this.ty - this.y;
-            this.vx = (this.vx + dx * 0.08) * this.friction;
-            this.vy = (this.vy + dy * 0.08) * this.friction;
-            this.x += this.vx; this.y += this.vy;
-        }
-        draw() {
-            ctx.fillStyle = `rgba(0, 168, 225, ${0.7 + Math.random()*0.3})`;
-            ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
-        }
-    }
-
-    function initFinalAnimation() {
-        particles = [];
-        ctx.font = "bold 380px Arial"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
-        ctx.clearRect(0,0, canvas.width, canvas.height);
-        ctx.fillText("COLGAS", canvas.width/2, canvas.height/2);
-        const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-        for (let y = 0; y < canvas.height; y += 5) {
-            for (let x = 0; x < canvas.width; x += 5) {
-                if (data[(y * canvas.width + x) * 4 + 3] > 128) {
-                    particles.push(new GasParticle(null, null, x, y));
-                }
-            }
-        }
-    }
-
     const tl = gsap.timeline({ paused: true });
 
-    // Entrada inicial
+    // 1. Entrada inicial del cilindro
     tl.from(cylinderBox, { scale: 0, rotationY: -90, duration: 1.5, ease: "back.out(1.4)" });
 
     steps.forEach((step, index) => {
-        // 1. El cilindro se llena
+        // 2. Sincronización: El cilindro se llena (2.5s) y la palabra aparece de 0 a 100 (7s)
         tl.to(pipetteFill, {
             clipPath: `inset(${step.fill}% 0 0 0)`,
             duration: 2.5,
             ease: "power2.out"
         });
 
-        // 2. La palabra aparece
-        tl.to(valueDisplay, {
-            opacity: 1,
-            duration: 0.5,
-            onStart: () => { 
-                valueDisplay.innerText = step.label;
-                gsap.set(valueDisplay, {"--fill-progress": "0%"});
-            }
-        }, "-=2.5");
+        // La palabra aparece de 0 a 1 durante los primeros 7 segundos
+        tl.fromTo(valueDisplay, 
+            { opacity: 0 }, 
+            {
+                opacity: 1,
+                duration: 7,
+                ease: "power1.in",
+                onStart: () => { 
+                    valueDisplay.innerText = step.label;
+                }
+            }, 
+            "-=2.5" // Inicia junto con el llenado del cilindro
+        );
 
-        // 3. Llenado progresivo de la palabra durante 10 segundos
-        tl.to(valueDisplay, {
-            "--fill-progress": "100%",
-            duration: 10,
-            ease: "none"
-        }, "-=2"); 
-
-        // 4. Titileo de aviso en los últimos 3 segundos del ciclo
+        // 3. Titileo de la PALABRA (Aviso de carga) en los últimos 3 segundos (del segundo 7 al 10)
         if (index < steps.length - 1) {
-            tl.to([pipetteGlow], {
-                opacity: 0.9,
+            tl.to(valueDisplay, {
+                opacity: 0.2,
                 duration: 0.15,
-                repeat: 19, 
+                repeat: 19, // ~3 segundos de titileo
                 yoyo: true,
                 ease: "none"
-            }, "-=3");
-
-            tl.to(valueDisplay, { opacity: 0, duration: 0.4 });
+            });
+            
+            // Fundido a negro rápido antes de la siguiente palabra
+            tl.to(valueDisplay, { opacity: 0, duration: 0.2 });
+        } else {
+            // Para el último paso (LEGADO), simplemente esperamos los 3 segundos finales
+            tl.to({}, { duration: 3 });
         }
     });
 
-    tl.to({}, { duration: 4 });
-
-    // Cierre espectacular
+    // 4. Cierre final
+    tl.to({}, { duration: 2 }); // Pausa final
+    
     tl.to([cylinderBox, valueDisplay], { 
-        opacity: 0, scale: 1.2, filter: "blur(40px)", duration: 0.8,
-        onStart: () => {
-            animationPhase = 1;
-            initFinalAnimation();
-        }
+        opacity: 0, 
+        duration: 1,
+        ease: "power2.inOut"
     });
 
-    // Control de inicio
+    tl.to(finalLogo, {
+        opacity: 1,
+        scale: 1.1,
+        duration: 1.5,
+        ease: "power2.out"
+    }, "-=0.5");
+
     function startAnimation() {
         document.getElementById('controls-overlay').style.opacity = '0';
         setTimeout(() => {
@@ -323,25 +265,13 @@
         }, 800);
     }
 
-    function animate() {
-        if (animationPhase === 1) {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
-            ctx.globalCompositeOperation = 'destination-out';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.globalCompositeOperation = 'source-over';
-            particles.forEach(p => { p.update(); p.draw(); });
-        }
-        requestAnimationFrame(animate);
-    }
-    animate();
-
     function downloadThis() {
         const html = document.documentElement.outerHTML;
         const blob = new Blob([html], {type: 'text/html'});
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'animacion_colgas_estadio.html';
+        a.download = 'animacion_colgas_final.html';
         a.click();
         window.URL.revokeObjectURL(url);
     }
