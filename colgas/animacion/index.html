@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Energía Mundialista - Cilindro Centrado</title>
+    <title>La Energía Mundialista - Versión Final Corregida</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
         /* Emulación de Neo Sans Pro */
@@ -28,7 +28,8 @@
         #app-container {
             width: 1920px; height: 1080px;
             position: relative;
-            background-image: url('https://i.postimg.cc/kgMLNRyH/FONDO-COLGAS-1920-1080-(1).png');
+            /* Nuevo fondo actualizado */
+            background-image: url('https://i.postimg.cc/8PHTV6Pk/corregido.png');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -37,7 +38,50 @@
             transform-origin: top left;
         }
 
-        /* Contenedor del Cilindro Centrado */
+        /* Centro de Control Inicial */
+        #controls-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            z-index: 2000;
+            gap: 30px;
+            transition: opacity 0.8s ease;
+        }
+
+        .btn {
+            padding: 20px 50px;
+            font-size: 28px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: transform 0.2s, background 0.3s;
+        }
+
+        #play-btn {
+            background-color: var(--colgas-blue);
+            color: white;
+            box-shadow: 0 0 30px rgba(0, 168, 225, 0.5);
+            display: flex; align-items: center; gap: 15px;
+        }
+
+        #play-btn:hover { background-color: #008fbf; transform: scale(1.05); }
+
+        #download-btn {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+            font-size: 18px;
+            opacity: 0.7;
+        }
+
+        #download-btn:hover { opacity: 1; transform: scale(1.05); }
+
+        /* Contenedor del Cilindro */
         .cylinder-container {
             position: absolute;
             top: 45%; 
@@ -74,7 +118,7 @@
             filter: brightness(3) blur(4px);
         }
 
-        /* Contenedor de Texto Centrado Abajo con Perspectiva de Cancha */
+        /* Contenedor de Texto con Llenado Progresivo en Perspectiva */
         .field-text-wrapper {
             position: absolute;
             bottom: 5%; 
@@ -87,19 +131,26 @@
         }
 
         .value-text {
-            color: white;
             font-size: 150px;
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: -1px;
             text-align: center;
             opacity: 0;
-            /* Perspectiva para estar pegada a la cancha como en la referencia */
             transform: rotateX(60deg) scaleY(1.6);
             transform-origin: bottom center;
-            /* Efecto pintura sobre césped */
-            filter: drop-shadow(0 0 15px rgba(0, 168, 225, 0.5));
-            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0.4));
+            
+            /* Efecto de llenado con gradiente */
+            --fill-progress: 0%;
+            background: linear-gradient(to right, 
+                var(--colgas-blue) var(--fill-progress), 
+                rgba(255, 255, 255, 0.4) var(--fill-progress)
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            
+            filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
+            transition: opacity 0.5s;
         }
 
         canvas {
@@ -109,27 +160,19 @@
             pointer-events: none;
             z-index: 50;
         }
-
-        /* Botón de descarga oculto para grabación, visible al pasar el mouse */
-        #downloadBtn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            padding: 10px 20px;
-            background: var(--colgas-orange);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            z-index: 1000;
-            font-weight: bold;
-            opacity: 0.3;
-            transition: opacity 0.3s;
-        }
-        #downloadBtn:hover { opacity: 1; }
     </style>
 </head>
 <body>
+
+<div id="controls-overlay">
+    <h1 style="color: white; font-size: 40px; margin-bottom: 10px;">La Energía Mundialista</h1>
+    <p style="color: #aaa; font-size: 18px; margin-bottom: 20px;">Llenado de cilindro y palabras progresivas sobre cancha</p>
+    <button id="play-btn" class="btn" onclick="startAnimation()">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+        Iniciar Animación
+    </button>
+    <button id="download-btn" class="btn" onclick="downloadThis()">Descargar HTML</button>
+</div>
 
 <div id="app-container">
     <div class="cylinder-container" id="cylinderBox">
@@ -145,9 +188,8 @@
     <canvas id="gasCanvas"></canvas>
 </div>
 
-<button id="downloadBtn" onclick="downloadThis()">Descargar HTML</button>
-
 <script>
+    // Ajustar escala para mantener proporciones en 1920x1080
     function scaleApp() {
         const app = document.getElementById('app-container');
         const scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
@@ -217,49 +259,69 @@
         }
     }
 
-    const tl = gsap.timeline();
+    const tl = gsap.timeline({ paused: true });
 
+    // Entrada inicial
     tl.from(cylinderBox, { scale: 0, rotationY: -90, duration: 1.5, ease: "back.out(1.4)" });
 
     steps.forEach((step, index) => {
+        // 1. El cilindro se llena
         tl.to(pipetteFill, {
             clipPath: `inset(${step.fill}% 0 0 0)`,
             duration: 2.5,
             ease: "power2.out"
         });
 
+        // 2. La palabra aparece
         tl.to(valueDisplay, {
-            opacity: 0.8,
-            duration: 1,
+            opacity: 1,
+            duration: 0.5,
             onStart: () => { 
                 valueDisplay.innerText = step.label;
+                gsap.set(valueDisplay, {"--fill-progress": "0%"});
             }
-        }, "-=2");
+        }, "-=2.5");
 
-        tl.to({}, { duration: 7 });
+        // 3. Llenado progresivo de la palabra durante 10 segundos
+        tl.to(valueDisplay, {
+            "--fill-progress": "100%",
+            duration: 10,
+            ease: "none"
+        }, "-=2"); 
 
+        // 4. Titileo de aviso en los últimos 3 segundos del ciclo
         if (index < steps.length - 1) {
-            tl.to([pipetteGlow, valueDisplay], {
-                opacity: (i, t) => t === pipetteGlow ? 0.9 : 0.2,
+            tl.to([pipetteGlow], {
+                opacity: 0.9,
                 duration: 0.15,
                 repeat: 19, 
                 yoyo: true,
                 ease: "none"
-            });
+            }, "-=3");
+
             tl.to(valueDisplay, { opacity: 0, duration: 0.4 });
         }
     });
 
-    tl.to({}, { duration: 6 });
+    tl.to({}, { duration: 4 });
 
+    // Cierre espectacular
     tl.to([cylinderBox, valueDisplay], { 
         opacity: 0, scale: 1.2, filter: "blur(40px)", duration: 0.8,
         onStart: () => {
             animationPhase = 1;
             initFinalAnimation();
-            document.getElementById('downloadBtn').style.display = 'none'; // Ocultar botón al final
         }
     });
+
+    // Control de inicio
+    function startAnimation() {
+        document.getElementById('controls-overlay').style.opacity = '0';
+        setTimeout(() => {
+            document.getElementById('controls-overlay').style.display = 'none';
+            tl.play();
+        }, 800);
+    }
 
     function animate() {
         if (animationPhase === 1) {
@@ -273,18 +335,16 @@
     }
     animate();
 
-    // Función para descargar el archivo
     function downloadThis() {
         const html = document.documentElement.outerHTML;
         const blob = new Blob([html], {type: 'text/html'});
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'animacion_colgas_final.html';
+        a.download = 'animacion_colgas_estadio.html';
         a.click();
         window.URL.revokeObjectURL(url);
     }
-
 </script>
 </body>
 </html>
