@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Energía Mundialista - Versión Final Logo y Posición</title>
+    <title>La Energía Mundialista - Llenado Continuo</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
         /* Emulación de Neo Sans Pro */
@@ -41,7 +41,7 @@
         #controls-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             display: flex; flex-direction: column;
             justify-content: center; align-items: center;
             z-index: 2000;
@@ -80,10 +80,10 @@
 
         #download-btn:hover { opacity: 1; transform: scale(1.05); }
 
-        /* Contenedor del Cilindro - Bajado para tocar barra azul */
+        /* Contenedor del Cilindro - Posición baja */
         .cylinder-container {
             position: absolute;
-            top: 52%; /* Ajustado de 45% a 52% para bajarlo */
+            top: 52%; 
             left: 50%;
             transform: translate(-50%, -50%);
             width: 320px;
@@ -135,7 +135,7 @@
             -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0.4));
         }
 
-        /* Logo de cierre (Imagen) */
+        /* Logo de cierre oficial */
         #final-logo-container {
             position: absolute;
             opacity: 0;
@@ -157,7 +157,7 @@
 
 <div id="controls-overlay">
     <h1 style="color: white; font-size: 40px; margin-bottom: 10px;">La Energía Mundialista</h1>
-    <p style="color: #aaa; font-size: 18px; margin-bottom: 20px;">Versión Final: Cilindro bajo, logo oficial y llenado lento</p>
+    <p style="color: #aaa; font-size: 18px; margin-bottom: 20px;">Llenado continuo de cilindro y transición de palabras (7s + 3s)</p>
     <button id="play-btn" class="btn" onclick="startAnimation()">
         <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
         Iniciar Animación
@@ -195,12 +195,12 @@
     const finalLogoContainer = document.getElementById('final-logo-container');
 
     const steps = [
-        { label: "SACRIFICIO", fill: 83.3 },
-        { label: "ESFUERZO", fill: 66.6 },
-        { label: "RESILIENCIA", fill: 50.0 },
-        { label: "DISCIPLINA", fill: 33.3 },
-        { label: "PERSEVERANCIA", fill: 16.6 },
-        { label: "LEGADO", fill: 0 }
+        "SACRIFICIO",
+        "ESFUERZO",
+        "RESILIENCIA",
+        "DISCIPLINA",
+        "PERSEVERANCIA",
+        "LEGADO"
     ];
 
     const tl = gsap.timeline({ paused: true });
@@ -208,61 +208,61 @@
     // 1. Entrada inicial del cilindro
     tl.from(cylinderBox, { scale: 0, rotationY: -90, duration: 1.5, ease: "back.out(1.4)" });
 
-    steps.forEach((step, index) => {
-        // 2. Sincronización: El cilindro se llena más despacio (5 segundos)
-        tl.to(pipetteFill, {
-            clipPath: `inset(${step.fill}% 0 0 0)`,
-            duration: 5, // Llenado más lento solicitado
-            ease: "power1.inOut"
-        });
+    // 2. LLENADO CONTINUO Y MUY DESPACIO
+    // El cilindro se llenará linealmente a lo largo de 60 segundos (10s por palabra)
+    tl.to(pipetteFill, {
+        clipPath: "inset(0% 0 0 0)",
+        duration: 60,
+        ease: "none"
+    }, 1.5);
 
-        // La palabra aparece de 0 a 1 durante los primeros 7 segundos
-        tl.fromTo(valueDisplay, 
-            { opacity: 0 }, 
-            {
-                opacity: 1,
-                duration: 7,
-                ease: "power1.in",
-                onStart: () => { 
-                    valueDisplay.innerText = step.label;
-                }
-            }, 
-            "-=5" // Inicia junto con el llenado lento del cilindro
-        );
+    // 3. CICLO DE PALABRAS (Cada una dura 10 segundos)
+    steps.forEach((word, index) => {
+        const startTime = 1.5 + (index * 10);
 
-        // 3. Titileo de la PALABRA (Aviso de carga) en los últimos 3 segundos (del segundo 7 al 10)
+        // Aparece la palabra: 0 a 100 en 7 segundos
+        tl.to(valueDisplay, {
+            opacity: 1,
+            duration: 7,
+            ease: "power1.in",
+            onStart: () => { 
+                valueDisplay.innerText = word;
+            }
+        }, startTime);
+
+        // Titileo de aviso: últimos 3 segundos del bloque de 10s
         if (index < steps.length - 1) {
             tl.to(valueDisplay, {
                 opacity: 0.2,
                 duration: 0.15,
-                repeat: 19, // ~3 segundos de titileo
+                repeat: 19, // ~3 segundos
                 yoyo: true,
                 ease: "none"
-            });
-            
-            // Fundido a negro rápido antes de la siguiente palabra
-            tl.to(valueDisplay, { opacity: 0, duration: 0.2 });
+            }, startTime + 7);
+
+            // Desaparecer rápido al final del bloque para la siguiente palabra
+            tl.to(valueDisplay, { opacity: 0, duration: 0.1 }, startTime + 9.9);
         } else {
-            // Para el último paso (LEGADO), simplemente esperamos los 3 segundos finales
-            tl.to({}, { duration: 3 });
+            // Para la última palabra, esperamos los 10 segundos completos antes del cierre
+            tl.to({}, { duration: 3 }, startTime + 7);
         }
     });
 
-    // 4. Cierre final con el Logo oficial
-    tl.to({}, { duration: 2 }); 
+    // 4. CIERRE FINAL: Transición al logo oficial
+    const endTime = 1.5 + (steps.length * 10);
     
     tl.to([cylinderBox, valueDisplay], { 
         opacity: 0, 
-        duration: 1,
+        duration: 1.2,
         ease: "power2.inOut"
-    });
+    }, endTime);
 
     tl.to(finalLogoContainer, {
         opacity: 1,
         scale: 1.05,
         duration: 2,
         ease: "power2.out"
-    }, "-=0.5");
+    }, endTime + 0.5);
 
     function startAnimation() {
         document.getElementById('controls-overlay').style.opacity = '0';
@@ -278,7 +278,7 @@
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'animacion_colgas_final.html';
+        a.download = 'animacion_colgas_continuo.html';
         a.click();
         window.URL.revokeObjectURL(url);
     }
