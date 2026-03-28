@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Energía Mundialista - Sincronización Refinada</title>
+    <title>La Energía Mundialista - Versión Final Logo y Posición</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
         /* Emulación de Neo Sans Pro */
@@ -80,10 +80,10 @@
 
         #download-btn:hover { opacity: 1; transform: scale(1.05); }
 
-        /* Contenedor del Cilindro */
+        /* Contenedor del Cilindro - Bajado para tocar barra azul */
         .cylinder-container {
             position: absolute;
-            top: 45%; 
+            top: 52%; /* Ajustado de 45% a 52% para bajarlo */
             left: 50%;
             transform: translate(-50%, -50%);
             width: 320px;
@@ -135,16 +135,21 @@
             -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0.4));
         }
 
-        /* Logo de cierre */
-        #final-logo {
+        /* Logo de cierre (Imagen) */
+        #final-logo-container {
             position: absolute;
-            color: white;
-            font-size: 250px;
-            font-weight: 900;
-            letter-spacing: -5px;
             opacity: 0;
             z-index: 100;
-            text-shadow: 0 0 50px var(--colgas-blue);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        #final-logo-img {
+            max-width: 800px;
+            filter: drop-shadow(0 0 30px rgba(0, 168, 225, 0.5));
         }
     </style>
 </head>
@@ -152,7 +157,7 @@
 
 <div id="controls-overlay">
     <h1 style="color: white; font-size: 40px; margin-bottom: 10px;">La Energía Mundialista</h1>
-    <p style="color: #aaa; font-size: 18px; margin-bottom: 20px;">Llenado de cilindro y transición de palabras (7s + 3s)</p>
+    <p style="color: #aaa; font-size: 18px; margin-bottom: 20px;">Versión Final: Cilindro bajo, logo oficial y llenado lento</p>
     <button id="play-btn" class="btn" onclick="startAnimation()">
         <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
         Iniciar Animación
@@ -161,7 +166,9 @@
 </div>
 
 <div id="app-container">
-    <div id="final-logo">COLGAS</div>
+    <div id="final-logo-container">
+        <img id="final-logo-img" src="https://i.postimg.cc/Qx9xctXD/logo-colgas.webp" alt="Logo Colgas">
+    </div>
 
     <div class="cylinder-container" id="cylinderBox">
         <img src="https://i.postimg.cc/6q9hsnT7/Cilindro-final-colgas.png" class="pipette-base">
@@ -185,7 +192,7 @@
     const pipetteFill = document.getElementById('pipetteFill');
     const valueDisplay = document.getElementById('valueDisplay');
     const cylinderBox = document.getElementById('cylinderBox');
-    const finalLogo = document.getElementById('final-logo');
+    const finalLogoContainer = document.getElementById('final-logo-container');
 
     const steps = [
         { label: "SACRIFICIO", fill: 83.3 },
@@ -202,11 +209,11 @@
     tl.from(cylinderBox, { scale: 0, rotationY: -90, duration: 1.5, ease: "back.out(1.4)" });
 
     steps.forEach((step, index) => {
-        // 2. Sincronización: El cilindro se llena (2.5s) y la palabra aparece de 0 a 100 (7s)
+        // 2. Sincronización: El cilindro se llena más despacio (5 segundos)
         tl.to(pipetteFill, {
             clipPath: `inset(${step.fill}% 0 0 0)`,
-            duration: 2.5,
-            ease: "power2.out"
+            duration: 5, // Llenado más lento solicitado
+            ease: "power1.inOut"
         });
 
         // La palabra aparece de 0 a 1 durante los primeros 7 segundos
@@ -220,7 +227,7 @@
                     valueDisplay.innerText = step.label;
                 }
             }, 
-            "-=2.5" // Inicia junto con el llenado del cilindro
+            "-=5" // Inicia junto con el llenado lento del cilindro
         );
 
         // 3. Titileo de la PALABRA (Aviso de carga) en los últimos 3 segundos (del segundo 7 al 10)
@@ -241,8 +248,8 @@
         }
     });
 
-    // 4. Cierre final
-    tl.to({}, { duration: 2 }); // Pausa final
+    // 4. Cierre final con el Logo oficial
+    tl.to({}, { duration: 2 }); 
     
     tl.to([cylinderBox, valueDisplay], { 
         opacity: 0, 
@@ -250,10 +257,10 @@
         ease: "power2.inOut"
     });
 
-    tl.to(finalLogo, {
+    tl.to(finalLogoContainer, {
         opacity: 1,
-        scale: 1.1,
-        duration: 1.5,
+        scale: 1.05,
+        duration: 2,
         ease: "power2.out"
     }, "-=0.5");
 
