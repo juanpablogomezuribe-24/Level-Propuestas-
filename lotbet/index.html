@@ -1,408 +1,571 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Propuesta Estratégica Lotbet 2026</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <style>
-    :root{
-      --bg:#000d1a;
-      --bg2:#0b1a2a;
-      --cyan:#00E5FF;
-      --purple:#8B5CF6;
-      --green:#10B981;
-      --yellow:#FACC15;
-      --text:#ffffff;
-      --muted:#9CA3AF;
-      --line:rgba(255,255,255,.08);
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
-    body{min-height:100vh}
-    .app{min-height:100vh;display:flex;flex-direction:column;background:var(--bg);overflow:hidden}
-    .container{max-width:1200px;margin:0 auto;width:100%}
-    .header{background:linear-gradient(to bottom,var(--bg2),var(--bg));padding:24px 16px;border-bottom:1px solid rgba(0,229,255,.2);box-shadow:0 15px 40px rgba(0,0,0,.35)}
-    .header-inner{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
-    .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;border:1px solid rgba(0,229,255,.3);background:rgba(0,229,255,.08);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.18em;color:var(--cyan)}
-    .dot{width:8px;height:8px;background:var(--cyan);border-radius:50%;animation:pulse 1.4s infinite}
-    .subhead{font-size:18px;font-weight:900;text-transform:uppercase;opacity:.85;font-style:italic;margin-top:8px}
-    .nav{position:sticky;top:0;z-index:10;background:var(--bg2);border-bottom:1px solid rgba(0,229,255,.2);box-shadow:0 8px 24px rgba(0,0,0,.25)}
-    .nav-scroll{display:flex;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none}
-    .nav-scroll::-webkit-scrollbar{display:none}
-    .tab-btn{display:flex;align-items:center;gap:8px;padding:18px 20px;background:none;border:none;color:#6b7280;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.18em;border-bottom:4px solid transparent;cursor:pointer;white-space:nowrap}
-    .tab-btn.active{color:var(--cyan);border-bottom-color:var(--cyan);background:rgba(0,229,255,.05)}
-    .main{flex:1;padding:20px 16px 64px;overflow-y:auto}
-    .section{display:none;animation:fade .45s ease}
-    .section.active{display:block}
-    .space-y > * + *{margin-top:24px}
-    .card{background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:28px;padding:24px;box-shadow:0 18px 40px rgba(0,0,0,.28)}
-    .card-soft{background:rgba(11,26,42,.6);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.08);border-top:4px solid var(--cyan);border-radius:36px;padding:32px}
-    .title-xl{font-size:34px;font-weight:900;text-transform:uppercase;line-height:1.1;margin:0 0 10px;font-style:italic}
-    .title-lg{font-size:28px;font-weight:900;text-transform:uppercase;line-height:1.1;margin:0 0 12px}
-    .title-md{font-size:20px;font-weight:900;text-transform:uppercase;line-height:1.2;margin:0 0 12px}
-    .muted{color:var(--muted)}
-    .italic{font-style:italic}
-    .underline-cyan{text-decoration:underline;text-decoration-color:var(--cyan);text-underline-offset:8px;text-decoration-thickness:4px}
-    .grid{display:grid;gap:16px}
-    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
-    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
-    .grid-12{grid-template-columns:repeat(12,minmax(0,1fr))}
-    .col-5{grid-column:span 5 / span 5}.col-7{grid-column:span 7 / span 7}
-    .pill{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border-radius:999px;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.16em}
-    .pill-purple{background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.25);color:var(--purple)}
-    .metric{padding:22px;background:#000d1a;border:1px solid rgba(255,255,255,.06);border-radius:28px;text-align:center}
-    .metric .label{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:#6b7280;margin-bottom:6px}
-    .metric .value{font-size:34px;font-weight:900;font-style:italic}
-    .metric.cyan{background:var(--cyan);color:white;border-color:rgba(255,255,255,.2)}
-    .metric.cyan .label{color:rgba(255,255,255,.85)}
-    .list-item{display:flex;align-items:flex-start;gap:14px;padding:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.06);border-radius:18px}
-    .rs-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-    .rs-card{padding:24px;border-radius:24px;border:1px solid #1f2937;opacity:.45}
-    .rs-card.selected{border-color:var(--cyan);background:rgba(0,229,255,.05);opacity:1}
-    .num-box{width:30px;height:30px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;margin-bottom:14px;background:#1f2937;color:#9ca3af}
-    .rs-card.selected .num-box{background:var(--cyan);color:#000}
-    .kicker{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.16em;color:#6b7280}
-    .phone{background:#0b141a;border:1px solid rgba(0,229,255,.2);border-radius:32px;overflow:hidden;height:400px;display:flex;flex-direction:column;max-width:360px;width:100%;box-shadow:0 20px 50px rgba(0,0,0,.4)}
-    .phone-head{background:#202c33;padding:16px;display:flex;align-items:center;gap:12px}
-    .avatar{width:40px;height:40px;border-radius:50%;overflow:hidden;border:1px solid rgba(255,255,255,.2);background:#6b7280}
-    .phone-body{flex:1;padding:16px;overflow:auto;background-image:url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');background-size:cover}
-    .bubble{max-width:85%;padding:12px 14px;border-radius:14px;font-size:12px;line-height:1.45;margin-bottom:10px}
-    .bubble.left{background:#202c33;color:white}
-    .bubble.right{background:#005c4b;color:white;margin-left:auto}
-    .bubble.highlight{border-left:4px solid var(--cyan);color:var(--cyan);font-weight:800;font-style:italic}
-    .door-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:10px}
-    .door{padding:10px 6px;text-align:center;border-radius:8px;border:1px solid rgba(0,229,255,.35);background:rgba(0,229,255,.1);font-size:10px;font-weight:900}
-    .door.selected{text-decoration:underline}
-    .row{display:flex;gap:16px;align-items:center}
-    .between{display:flex;justify-content:space-between;align-items:center;gap:12px}
-    .center{text-align:center}.left{text-align:left}.right{text-align:right}
-    .pie-wrap{display:flex;gap:36px;align-items:center;flex-wrap:wrap}
-    .pie{width:190px;height:190px;border-radius:50%;background:conic-gradient(var(--purple) 0% 35%, var(--cyan) 35% 60%, var(--green) 60% 80%, var(--yellow) 80% 100%);display:flex;align-items:center;justify-content:center;position:relative;border:4px solid rgba(0,229,255,.08)}
-    .pie::after{content:'';position:absolute;inset:10px;background:var(--bg2);border-radius:50%}
-    .pie-inner{position:relative;z-index:1;text-align:center}
-    .legend{flex:1;display:grid;gap:12px;min-width:260px}
-    .legend-item{display:flex;justify-content:space-between;gap:10px;padding:14px;background:rgba(255,255,255,.05);border-radius:14px;border-left:4px solid #fff}
-    .legend-item.purple{border-left-color:var(--purple)}
-    .legend-item.cyan{border-left-color:var(--cyan)}
-    .legend-item.green{border-left-color:var(--green)}
-    .legend-item.yellow{border-left-color:var(--yellow)}
-    .result-box{padding:18px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:22px}
-    .ftd{background:var(--cyan);padding:24px;border-radius:28px;position:relative;overflow:hidden;color:white;box-shadow:0 20px 45px rgba(0,229,255,.16)}
-    .ftd i{position:absolute;right:8px;top:8px;opacity:.1;width:92px;height:92px}
-    .hero-purple{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--bg2),#000);border:2px solid var(--purple);border-radius:56px;padding:40px}
-    .glow{position:absolute;right:-80px;bottom:-80px;width:320px;height:320px;background:rgba(139,92,246,.12);border-radius:50%;filter:blur(120px)}
-    .loading-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:99;padding:16px}
-    .loading-box{text-align:center;position:relative}
-    .loading-bar{position:absolute;left:50%;transform:translateX(-50%);bottom:-40px;width:192px;height:4px;background:#0b1a2a;border-radius:999px;overflow:hidden}
-    .loading-fill{height:100%;background:var(--cyan);animation:loadbar 2s ease-in-out infinite}
-    .hidden{display:none!important}
-    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
-    @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-    @keyframes loadbar{0%{width:0%;margin-left:0%}50%{width:100%;margin-left:0%}100%{width:0%;margin-left:100%}}
-    @media (max-width: 1024px){
-      .grid-12{grid-template-columns:1fr}
-      .col-5,.col-7{grid-column:auto}
-      .rs-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-    }
-    @media (max-width: 768px){
-      .header-inner{justify-content:center;text-align:center}
-      .subhead{font-size:16px}
-      .title-xl{font-size:28px}
-      .title-lg{font-size:24px}
-      .grid-2,.grid-3{grid-template-columns:1fr}
-      .rs-grid{grid-template-columns:1fr}
-      .hero-purple{padding:28px;border-radius:38px}
-      .card,.card-soft{padding:22px}
-      .metric .value{font-size:28px}
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propuesta Estratégica Lotbet.vip</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
+
+        :root {
+            --brand-deep: #000d1a;
+            --brand-dark: #0b1a2a;
+            --brand-cyan: #00E5FF;
+            --brand-purple: #8B5CF6;
+            --brand-green: #10B981;
+            --brand-yellow: #FACC15;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--brand-deep);
+            color: white;
+            margin: 0;
+            overflow: hidden;
+            width: 100%;
+            height: 100vh;
+        }
+
+        @keyframes pulse-cyan { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        @keyframes loading-bar { 0% { width: 0%; left: 0%; } 50% { width: 100%; left: 0%; } 100% { width: 0%; left: 100%; } }
+        .animate-pulse-custom { animation: pulse-cyan 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        .loading-bar-inner { animation: loading-bar 2.5s ease-in-out infinite; }
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        #splash-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--brand-deep);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s;
+        }
+
+        .tab-active {
+            border-bottom-color: var(--brand-cyan) !important;
+            color: var(--brand-cyan) !important;
+            background: rgba(0, 229, 255, 0.08);
+        }
+
+        .card-glass {
+            background: rgba(11, 26, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .chat-container {
+            background: #0b141a;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            height: 380px;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+        }
+        .chat-bubble {
+            max-width: 85%;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 12px;
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+        .bubble-in { background: #202c33; color: #e9edef; align-self: flex-start; border-top-left-radius: 0; }
+        .bubble-out { background: #005c4b; color: #e9edef; align-self: flex-end; border-top-right-radius: 0; }
+
+        .funnel-step-bar {
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%);
+            margin-bottom: 6px;
+        }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        main {
+            overflow-y: auto;
+            overflow-x: hidden;
+            height: calc(100vh - 120px);
+        }
+
+        .text-white-pure { color: #ffffff !important; }
+
+        @media (max-width: 640px) {
+            .tab-btn { padding-left: 0.5rem !important; padding-right: 0.5rem !important; font-size: 8px !important; }
+            .funnel-step-bar { padding: 0 15px; font-size: 10px; }
+        }
+    </style>
 </head>
 <body>
-  <div id="loadingScreen" class="loading-screen">
-    <div class="loading-box">
-      <img src="https://i.postimg.cc/HsJKrnCD/logo-13bad75b.png" alt="Lotbet Logo" style="width:220px;max-width:65vw;animation:pulse 1.8s infinite;">
-      <div class="loading-bar"><div class="loading-fill"></div></div>
-    </div>
-  </div>
 
-  <div class="app hidden" id="app">
-    <header class="header">
-      <div class="container header-inner">
-        <img src="https://i.postimg.cc/HsJKrnCD/logo-13bad75b.png" alt="Lotbet" style="width:110px;">
-        <div class="right">
-          <div class="badge"><span class="dot"></span>Propuesta Estratégica Lotbet 2026</div>
-          <div class="subhead">Guatemala Q1</div>
+    <!-- Pantalla de Carga -->
+    <div id="splash-screen">
+        <div class="relative text-center px-6">
+            <img src="https://i.postimg.cc/HsJKrnCD/logo-13bad75b.png" alt="Lotbet Logo" class="w-40 md:w-64 animate-pulse-custom mx-auto">
+            <div class="absolute -bottom-10 left-1/2 -translate-x-1/2 w-40 md:w-48 h-1 bg-[#0b1a2a] rounded-full overflow-hidden">
+                <div class="h-full bg-[#00E5FF] loading-bar-inner absolute"></div>
+            </div>
         </div>
-      </div>
-    </header>
+        <p class="mt-16 text-[#00E5FF] font-bold tracking-[0.3em] text-[8px] md:text-[10px] uppercase text-center italic text-white font-black">Adquisición Acelerada • 2026</p>
+    </div>
 
-    <nav class="nav">
-      <div class="container nav-scroll">
-        <button class="tab-btn active" data-tab="estrategia"><i data-lucide="layers"></i>9Rs</button>
-        <button class="tab-btn" data-tab="frente1"><i data-lucide="message-square"></i>F1: BD 20K</button>
-        <button class="tab-btn" data-tab="frente2"><i data-lucide="zap"></i>F2: Act. Promo</button>
-        <button class="tab-btn" data-tab="programatica"><i data-lucide="globe"></i>F3: Programática</button>
-        <button class="tab-btn" data-tab="influenciadores"><i data-lucide="users"></i>F4: Influenciadores</button>
-        <button class="tab-btn" data-tab="validador"><i data-lucide="user-check"></i>El Validador</button>
-        <button class="tab-btn" data-tab="presupuesto"><i data-lucide="dollar-sign"></i>Inversión</button>
-      </div>
-    </nav>
-
-    <main class="main">
-      <div class="container">
-        <section id="estrategia" class="section active space-y">
-          <div class="card">
-            <h2 class="title-lg">Marco Estratégico 9Rs</h2>
-            <p class="muted italic">Activación inmediata de reputación y registros para el mercado guatemalteco.</p>
-          </div>
-          <div class="rs-grid">
-            <div class="rs-card selected"><div class="num-box">1</div><div class="title-md" style="font-size:14px;margin-bottom:8px">Reputación</div><div class="muted italic" style="font-size:12px">Validación central mediante Luis Rolando Solares.</div></div>
-            <div class="rs-card selected"><div class="num-box">2</div><div class="title-md" style="font-size:14px;margin-bottom:8px">Registro</div><div class="muted italic" style="font-size:12px">Migración técnica optimizada a Altenar.</div></div>
-            <div class="rs-card selected"><div class="num-box">3</div><div class="title-md" style="font-size:14px;margin-bottom:8px">Reactivación</div><div class="muted italic" style="font-size:12px">Despertar la base de datos con Blupit.</div></div>
-            <div class="rs-card selected"><div class="num-box">4</div><div class="title-md" style="font-size:14px;margin-bottom:8px">Recarga</div><div class="muted italic" style="font-size:12px">Conversión a FTD mediante bonos mundialistas.</div></div>
-            <div class="rs-card selected"><div class="num-box">5</div><div class="title-md" style="font-size:14px;margin-bottom:8px">Retención</div><div class="muted italic" style="font-size:12px">Comunidad activa en redes y contenido experto.</div></div>
-            <div class="rs-card"><div class="num-box">6</div><div class="title-md" style="font-size:14px;margin-bottom:8px">Rejuego</div><div class="muted italic" style="font-size:12px">Frecuencia de apuesta y permanencia.</div></div>
-            <div class="rs-card"><div class="num-box">7</div><div class="title-md" style="font-size:14px;margin-bottom:8px">Rentabilidad</div><div class="muted italic" style="font-size:12px">Optimización del LTV del cliente.</div></div>
-            <div class="rs-card"><div class="num-box">8</div><div class="title-md" style="font-size:14px;margin-bottom:8px">Retiro</div><div class="muted italic" style="font-size:12px">Velocidad de pago certificada oficialmente.</div></div>
-            <div class="rs-card"><div class="num-box">9</div><div class="title-md" style="font-size:14px;margin-bottom:8px">Riesgo</div><div class="muted italic" style="font-size:12px">Control de fraude y perfil seguro.</div></div>
-          </div>
-        </section>
-
-        <section id="frente1" class="section space-y">
-          <div class="grid grid-2" style="align-items:center;gap:28px;">
-            <div>
-              <h2 class="title-xl underline-cyan">Gamificación <span style="color:var(--cyan)">Disruptiva</span></h2>
-              <p class="muted italic" style="font-size:18px;line-height:1.7">Convertimos la base de datos en un canal de interacción directa pensado para <strong style="color:#fff;text-decoration:underline">convertir</strong>.</p>
-              <div class="card" style="margin-top:24px;border-radius:22px;">
-                <div class="title-md italic" style="font-size:18px;display:flex;align-items:center;gap:10px"><i data-lucide="message-square" style="color:var(--cyan)"></i> Flujo Blupit</div>
-                <p class="muted" style="font-size:13px">El usuario juega y gana. La validación del Validador genera confianza inmediata para la migración de plataforma.</p>
-              </div>
-            </div>
-            <div class="phone" style="justify-self:center;">
-              <div class="phone-head">
-                <div class="avatar"><img src="https://i.postimg.cc/SN3HnQnj/Luis-Rolando-Solares.jpg" alt="Solares" style="width:100%;height:100%;object-fit:cover"></div>
-                <div>
-                  <div style="font-size:12px;font-weight:700;line-height:1">Luis Rolando Solares</div>
-                  <div style="font-size:9px;color:#22c55e;font-weight:900;text-transform:uppercase;margin-top:6px;animation:pulse 1.4s infinite">En línea</div>
+    <!-- Contenido Principal -->
+    <div id="app-content" class="opacity-0 h-full flex flex-col">
+        <header class="bg-gradient-to-b from-[#0b1a2a] to-[#000d1a] py-4 md:py-6 px-4 border-b border-[#00E5FF]/20 shadow-2xl shrink-0">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2 text-center md:text-left text-white font-black">
+                <img src="https://i.postimg.cc/HsJKrnCD/logo-13bad75b.png" alt="Lotbet" class="w-20 md:w-28 text-white">
+                <div class="md:text-right">
+                    <div class="inline-flex items-center gap-2 bg-[#00E5FF]/10 px-3 py-1 rounded-full border border-[#00E5FF]/30">
+                        <span class="w-1.5 h-1.5 bg-[#00E5FF] rounded-full animate-pulse"></span>
+                        <span class="text-[8px] font-bold uppercase tracking-widest text-[#00E5FF]">Propuesta Estratégica Lotbet.vip</span>
+                    </div>
                 </div>
-              </div>
-              <div class="phone-body">
-                <div class="bubble left">¡Qué onda mucha! Lotbet ya está aquí. 🎁</div>
-                <div class="bubble left italic">Elige una puerta y descubre tu bono:<br><br>
-                  <div class="door-grid">
-                    <div class="door">Puerta A</div>
-                    <div class="door selected">Puerta B</div>
-                    <div class="door">Puerta C</div>
-                  </div>
-                </div>
-                <div class="bubble right">Puerta B</div>
-                <div class="bubble left highlight">¡Felicidades! Has ganado Q100 Freebet. Regístrate ya.</div>
-              </div>
             </div>
-          </div>
-        </section>
+        </header>
 
-        <section id="frente2" class="section center space-y" style="padding:30px 0">
-          <h2 class="title-xl underline-cyan">Actividad <span style="color:var(--cyan)">Promocional</span></h2>
-          <p class="muted italic" style="max-width:760px;margin:0 auto;font-size:18px">Creatividad al límite involucrando la R de reputación con nuestro Validador oficial.</p>
-          <div class="grid grid-2" style="max-width:1000px;margin:0 auto;text-align:left;gap:24px">
-            <div class="card-soft"><i data-lucide="award" style="color:var(--cyan);width:32px;height:32px;margin-bottom:24px"></i><div class="title-md" style="font-size:24px">El Kit Mundialista</div><div class="muted italic" style="font-size:15px;line-height:1.7">Sorteo tangible certificado por Luis Solares. El registro y el primer depósito son el pase de entrada exclusivo.</div></div>
-            <div class="card-soft"><i data-lucide="share-2" style="color:var(--cyan);width:32px;height:32px;margin-bottom:24px"></i><div class="title-md" style="font-size:24px">Salto Social</div><div class="muted italic" style="font-size:15px;line-height:1.7">Conversión de la base en comunidad digital. Interacción orgánica en redes x beneficios exclusivos en plataforma.</div></div>
-          </div>
-        </section>
+        <!-- Navegación -->
+        <nav class="bg-[#0b1a2a] border-b border-[#00E5FF]/20 sticky top-0 z-50 overflow-hidden shadow-lg shrink-0">
+            <div class="max-w-7xl mx-auto flex overflow-x-auto no-scrollbar scroll-smooth">
+                <button onclick="switchTab('estrategia')" id="tab-estrategia" class="tab-btn flex items-center gap-2 px-6 py-4 text-[9px] md:text-[10px] font-black transition-all border-b-4 border-transparent text-gray-500 hover:text-gray-300 uppercase tracking-widest whitespace-nowrap tab-active">
+                    <i data-lucide="layers" class="w-3 md:w-4"></i> 9Rs
+                </button>
+                <button onclick="switchTab('frente1')" id="tab-frente1" class="tab-btn flex items-center gap-2 px-6 py-4 text-[9px] md:text-[10px] font-black transition-all border-b-4 border-transparent text-gray-500 hover:text-gray-300 uppercase tracking-widest whitespace-nowrap">
+                    <i data-lucide="message-square" class="w-3 md:w-4"></i> F1: BD 20K
+                </button>
+                <button onclick="switchTab('programatica')" id="tab-programatica" class="tab-btn flex items-center gap-2 px-6 py-4 text-[9px] md:text-[10px] font-black transition-all border-b-4 border-transparent text-gray-500 hover:text-gray-300 uppercase tracking-widest whitespace-nowrap">
+                    <i data-lucide="globe" class="w-3 md:w-4"></i> F2: Programática
+                </button>
+                <button onclick="switchTab('influenciadores')" id="tab-influenciadores" class="tab-btn flex items-center gap-2 px-6 py-4 text-[9px] md:text-[10px] font-black transition-all border-b-4 border-transparent text-gray-500 hover:text-gray-300 uppercase tracking-widest whitespace-nowrap">
+                    <i data-lucide="users" class="w-3 md:w-4"></i> F3: Nicho
+                </button>
+                <button onclick="switchTab('validador')" id="tab-validador" class="tab-btn flex items-center gap-2 px-6 py-4 text-[9px] md:text-[10px] font-black transition-all border-b-4 border-transparent text-gray-500 hover:text-gray-300 uppercase tracking-widest whitespace-nowrap">
+                    <i data-lucide="user-check" class="w-3 md:w-4"></i> El Validador
+                </button>
+                <button onclick="switchTab('presupuesto')" id="tab-presupuesto" class="tab-btn flex items-center gap-2 px-6 py-4 text-[9px] md:text-[10px] font-black transition-all border-b-4 border-transparent text-gray-500 hover:text-gray-300 uppercase tracking-widest whitespace-nowrap">
+                    <i data-lucide="dollar-sign" class="w-3 md:w-4"></i> Inversión
+                </button>
+            </div>
+        </nav>
 
-        <section id="programatica" class="section space-y" style="padding-bottom:30px">
-          <div>
-            <h2 class="title-xl underline-cyan">F3: Programática & DSP</h2>
-            <div class="card" style="border-color:rgba(0,229,255,.2);border-radius:40px;padding:28px 30px;overflow:hidden;position:relative;">
-              <div class="grid grid-2" style="align-items:center;gap:28px">
-                <div>
-                  <h3 class="title-md italic" style="font-size:28px;display:flex;align-items:center;gap:14px"><span style="display:inline-flex;width:40px;height:40px;border-radius:50%;align-items:center;justify-content:center;background:var(--cyan);color:#000;font-size:14px;font-weight:900;font-style:normal">1</span>Visión General</h3>
-                  <p class="muted italic" style="font-size:18px;line-height:1.7">Nuestra estrategia se basa en un enfoque <strong style="color:#fff;text-decoration:underline;text-decoration-color:var(--cyan)">Full Funnel</strong>. Combinamos la adquisición masiva con remarketing para maximizar el retorno de inversión.</p>
+        <main class="max-w-7xl mx-auto p-4 md:p-6 mt-2 no-scrollbar scroll-smooth">
+            
+            <!-- SECCIÓN 9RS -->
+            <section id="content-estrategia" class="tab-content fade-in space-y-8">
+                <div class="bg-[#0b1a2a] p-6 rounded-[1.5rem] border border-[#00E5FF]/10 shadow-2xl text-center md:text-left">
+                    <h2 class="text-2xl md:text-3xl font-black mb-2 text-white-pure uppercase tracking-tighter">Marco Estratégico 9Rs</h2>
+                    <p class="text-gray-400 text-sm md:text-lg leading-relaxed max-w-4xl italic text-white-pure">Sistema integral enfocado en la <strong class="text-white">reputación</strong> y la <strong class="text-white">activación</strong> inmediata de la base de datos.</p>
                 </div>
-                <div class="grid grid-2">
-                  <div class="metric"><div class="label">Inversión Medios</div><div class="value">$10,000</div></div>
-                  <div class="metric"><div class="label" style="color:var(--cyan)">Gestión (10%)</div><div class="value" style="color:var(--cyan)">$1,000</div></div>
-                  <div class="metric"><div class="label" style="color:#fff">Est. Creativa</div><div class="value">$1,500</div></div>
-                  <div class="metric cyan"><div class="label">Total Inversión</div><div class="value">$12,500</div></div>
-                </div>
-              </div>
-            </div>
-          </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6" id="rs-grid"></div>
+            </section>
 
-          <div class="grid grid-12" style="align-items:stretch;gap:24px">
-            <div class="col-7 card" style="padding:30px 34px;">
-              <h3 class="title-md italic" style="font-size:22px;display:flex;align-items:center;gap:10px"><i data-lucide="pie-chart" style="color:var(--cyan)"></i> Distribución de Inversión</h3>
-              <div class="pie-wrap">
-                <div class="pie">
-                  <div class="pie-inner">
-                    <div class="label kicker">Medios</div>
-                    <div class="value" style="font-size:28px;font-weight:900">$10K</div>
-                  </div>
-                </div>
-                <div class="legend">
-                  <div class="legend-item purple"><span class="kicker">Meta Ads (35%)</span><strong>$3,500</strong></div>
-                  <div class="legend-item cyan"><span class="kicker">Taboola (25%)</span><strong>$2,500</strong></div>
-                  <div class="legend-item green"><span class="kicker">Propeller (20%)</span><strong>$2,000</strong></div>
-                  <div class="legend-item yellow"><span class="kicker">AdCash (20%)</span><strong>$2,000</strong></div>
-                </div>
-              </div>
-              <div class="grid grid-2" style="margin-top:28px">
-                <div class="center" style="background:rgba(0,229,255,.1);padding:18px;border-radius:18px;border:1px solid rgba(0,229,255,.2)">
-                  <div style="font-size:30px;font-weight:900;font-style:italic">70%</div>
-                  <div class="kicker" style="color:var(--cyan)">Marketing / Adquisición</div>
-                </div>
-                <div class="center" style="background:rgba(255,255,255,.05);padding:18px;border-radius:18px;border:1px solid rgba(255,255,255,.1)">
-                  <div style="font-size:30px;font-weight:900;font-style:italic">30%</div>
-                  <div class="kicker" style="color:#fff;opacity:.7">Remarketing / Cierre</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-5 card" style="display:flex;flex-direction:column;justify-content:center;padding:30px 34px;">
-              <h3 class="title-md italic" style="font-size:22px;display:flex;align-items:center;gap:10px;margin-bottom:26px"><i data-lucide="trending-up" style="color:var(--cyan)"></i> Resultados Proyectados</h3>
-              <div class="space-y">
-                <div class="result-box between"><div><div class="kicker">Registros Estimados</div><div style="font-size:12px;color:var(--cyan);font-style:italic;margin-top:6px">Usuarios calificados</div></div><div style="font-size:28px;font-weight:900;font-style:italic">1,150 – 1,400</div></div>
-                <div class="result-box between"><div><div class="kicker">Tasa de Conversión</div><div style="font-size:12px;color:var(--cyan);font-style:italic;margin-top:6px">Registro a FTD</div></div><div style="font-size:28px;font-weight:900;font-style:italic">20%</div></div>
-                <div class="ftd">
-                  <div class="between" style="position:relative;z-index:1">
-                    <div><div class="kicker" style="color:#fff;text-decoration:underline;text-decoration-color:#000">Primeros Depósitos (FTDs)</div><div style="font-size:10px;font-weight:700;text-transform:uppercase;opacity:.85;margin-top:6px">Meta alcanzable</div></div>
-                    <div style="font-size:46px;font-weight:900;font-style:italic;letter-spacing:-.04em">230 – 280</div>
-                  </div>
-                  <i data-lucide="zap"></i>
-                </div>
-              </div>
-            </div>
-          </div>
+            <!-- FRENTE 1: BD 20K (BLUPIT) -->
+            <section id="content-frente1" class="tab-content fade-in space-y-10 hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+                    <div class="space-y-6">
+                        <h2 class="text-3xl md:text-4xl font-black uppercase text-white-pure underline decoration-cyan decoration-4 underline-offset-8 italic">Gamificación <span class="text-cyan">BD 20K</span></h2>
+                        
+                        <div class="p-6 bg-white/5 rounded-3xl border border-white/10 space-y-4 shadow-xl">
+                            <h4 class="text-white-pure font-black uppercase text-xs tracking-widest italic flex items-center gap-2 underline decoration-cyan">OBJETIVO: DINÁMICA BLUPIT</h4>
+                            <p class="text-sm text-gray-300 leading-relaxed font-medium italic">
+                                Utilizaremos la plataforma de comunicación y gamificación por WhatsApp llamada <strong class="text-white">Blupit</strong>. La intención es construir una dinámica interactiva donde el validador <strong class="text-cyan">Luis Rolando Solares</strong> será parte fundamental del flujo.
+                            </p>
+                            <p class="text-sm text-gray-300 leading-relaxed font-medium italic">
+                                El mensaje de marketing se enviará masivamente a los 20,000 usuarios; al responder, <strong class="text-white uppercase font-black">todos ganan un bono</strong> para canjear en la web.
+                            </p>
+                        </div>
 
-          <div class="hero-purple">
-            <div class="glow"></div>
-            <div class="grid grid-2" style="position:relative;z-index:1;gap:36px">
-              <div>
-                <div class="pill pill-purple"><i data-lucide="palette"></i> Estrategia Creativa: El Factor de Éxito</div>
-                <h3 class="title-xl" style="margin-top:18px">Captar Atención & Confianza</h3>
-                <p class="muted italic" style="font-size:18px;line-height:1.7">🎯 Objetivo: Humanizar la marca y reducir el riesgo del depósito inicial mediante contenido legítimo de alto impacto.</p>
-                <div class="space-y" style="margin-top:18px">
-                  <div class="list-item"><i data-lucide="user-check" style="color:var(--purple);flex-shrink:0"></i><div style="line-height:1.6">Uso de <strong style="color:#fff;text-decoration:underline">Luis Rolando Solares</strong> como ancla de legitimidad indiscutible.</div></div>
-                  <div class="list-item"><i data-lucide="users" style="color:var(--purple);flex-shrink:0"></i><div style="line-height:1.6">Contenido tipo <strong style="color:#fff;font-size:11px;text-transform:uppercase">UGC</strong> para generar cercanía orgánica.</div></div>
+                        <div class="p-6 bg-[#0b1a2a] rounded-2xl border border-cyan/10 space-y-4 shadow-inner">
+                            <h4 class="font-black text-white-pure text-sm uppercase italic flex items-center gap-2 text-white-pure"><i data-lucide="link" class="text-cyan"></i> Trazabilidad y Canje</h4>
+                            <div class="space-y-4 text-xs text-gray-400 font-medium italic leading-relaxed font-black">
+                                <p>Una vez el usuario gana el bono en WhatsApp, recibe automáticamente un enlace personalizado para reclamarlo de inmediato.</p>
+                                <p>Este enlace lo lleva directamente a la web, donde se registra su actividad y se mantiene la trazabilidad completa desde el primer contacto.</p>
+                                <p>Al ingresar, el sistema valida la participación y activa el bono automáticamente en el saldo del jugador.</p>
+                            </div>
+                        </div>
+
+                        <!-- Inversión Fase 1 integrada -->
+                        <div class="p-6 bg-white/5 rounded-3xl border border-white/10 italic">
+                             <h4 class="text-white-pure font-black uppercase text-[10px] tracking-widest mb-4 underline decoration-cyan">INVERSIÓN ESTRATEGIA BLUPIT</h4>
+                             <div class="space-y-4">
+                                <div class="p-4 bg-white/5 rounded-2xl">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <p class="text-[11px] uppercase tracking-widest text-cyan font-black italic">Primer Mes (Setup Incluido)</p>
+                                        <p class="text-2xl font-black text-white-pure">$5,500</p>
+                                    </div>
+                                    <ul class="text-[9px] text-gray-400 space-y-1 list-none font-medium">
+                                        <li>• Setup Técnico & Meta ($2,000 - única vez)</li>
+                                        <li>• Plataforma Blupit ($1,000 - mes)</li>
+                                        <li>• Operación & 100K MSGs ($2,500 - mes)</li>
+                                    </ul>
+                                </div>
+                                <div class="p-4 bg-white/5 rounded-2xl flex justify-between items-center">
+                                    <p class="text-[11px] uppercase tracking-widest text-white font-black italic">Segundo Mes (Operativo)</p>
+                                    <p class="text-2xl font-black text-white-pure">$3,500</p>
+                                </div>
+                             </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-container shadow-2xl mx-auto max-w-sm w-full">
+                        <div class="bg-[#202c33] p-4 flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-gray-500 overflow-hidden border border-white/20">
+                                <img src="https://i.postimg.cc/SN3HnQnj/Luis-Rolando-Solares.jpg" alt="Solares" class="w-full h-full object-cover">
+                            </div>
+                            <div><p class="text-sm font-bold text-white leading-none">Luis Rolando Solares</p><p class="text-[9px] text-green-400 font-black animate-pulse uppercase mt-0.5">En línea</p></div>
+                        </div>
+                        <div class="flex-1 p-4 flex flex-col overflow-y-auto no-scrollbar" style="background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png'); background-size: cover;">
+                            <div class="chat-bubble bubble-in shadow-md">¡Qué onda mucha! Soy Luis Rolando Solares. Lotbet evoluciona y tengo un regalo para ti. 🎁</div>
+                            <div class="chat-bubble bubble-in shadow-md italic">Elige una puerta para ganar tu bono mundialista de hoy:<br><br>
+                                <div class="grid grid-cols-3 gap-1">
+                                    <div class="p-2 border border-cyan/40 bg-cyan/10 rounded text-[9px] font-black text-center text-white">Puerta A</div>
+                                    <div class="p-2 border border-cyan/40 bg-cyan/10 rounded text-[9px] font-black underline text-white">Puerta B</div>
+                                    <div class="p-2 border border-cyan/40 bg-cyan/10 rounded text-[9px] font-black text-center text-white">Puerta C</div>
+                                </div>
+                            </div>
+                            <div class="chat-bubble bubble-out self-end shadow-md">Puerta B</div>
+                            <div class="chat-bubble bubble-in font-bold text-cyan italic border-l-4 border-cyan shadow-md">¡Ganaste! Has ganado Q100 Freebet. <br><br>Canjéalo aquí: <span class="underline text-white font-black italic">lotbet.vip/reg-promo</span></div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div style="display:flex;flex-direction:column;justify-content:center">
-                <div style="background:rgba(0,0,0,.4);padding:32px;border-radius:42px;border:1px solid rgba(255,255,255,.1)">
-                  <div class="kicker" style="color:var(--purple);display:flex;align-items:center;gap:8px;justify-content:flex-start;margin-bottom:16px"><i data-lucide="box"></i> Piezas Incluidas</div>
-                  <div class="space-y">
-                    <div class="list-item"><i data-lucide="play-circle" style="color:var(--purple)"></i><strong style="font-size:12px;text-transform:uppercase;color:#d1d5db">Videos Cortos (Reels / Ads)</strong></div>
-                    <div class="list-item"><i data-lucide="layout" style="color:var(--purple)"></i><strong style="font-size:12px;text-transform:uppercase;color:#d1d5db">Banners Dinámicos Programáticos</strong></div>
-                    <div class="list-item" style="background:rgba(139,92,246,.18);border-color:rgba(139,92,246,.3)"><i data-lucide="refresh-cw" style="color:var(--purple)"></i><strong style="font-size:12px;text-transform:uppercase;color:#fff">Testeo A/B Constante</strong></div>
-                  </div>
+            </section>
+
+            <!-- FRENTE 3: PROGRAMÁTICA (RESTAURADA) -->
+            <section id="content-programatica" class="tab-content fade-in space-y-16 hidden pb-20">
+                <div class="space-y-8">
+                    <h2 class="text-3xl md:text-4xl font-black uppercase text-white-pure italic underline decoration-cyan decoration-4 underline-offset-8">F3: PROGRAMÁTICA & DSP</h2>
+                    <div class="bg-[#0b1a2a] p-8 md:p-10 rounded-[2.5rem] border border-cyan/20 shadow-2xl relative overflow-hidden">
+                        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center text-center md:text-left">
+                            <div class="space-y-6">
+                                <h3 class="text-2xl font-black uppercase italic text-cyan flex items-center gap-3 justify-center md:justify-start">
+                                    <span class="w-10 h-10 bg-cyan text-black rounded-full flex items-center justify-center font-black text-sm not-italic">1</span>
+                                    VISIÓN GENERAL
+                                </h3>
+                                <p class="text-gray-300 leading-relaxed text-lg italic">Nuestra estrategia se basa en un enfoque <strong class="text-white underline decoration-cyan italic font-black">"Full Funnel"</strong>. Combinamos la adquisición masiva con un remarketing inteligente.</p>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4 text-white font-black italic">
+                                <div class="p-6 bg-[#000d1a] rounded-[2rem] border border-white/5 shadow-inner text-center">
+                                    <p class="text-[10px] font-black text-gray-400 uppercase mb-1 tracking-widest italic">INVERSIÓN MEDIOS</p>
+                                    <p class="text-2xl text-white-pure font-black">$10,000</p>
+                                </div>
+                                <div class="p-6 bg-[#000d1a] rounded-[2rem] border border-white/5 text-center text-white">
+                                    <p class="text-[10px] font-black text-gray-400 uppercase mb-1 italic">GESTIÓN (10%)</p>
+                                    <p class="text-2xl text-white-pure font-black">$1,000</p>
+                                </div>
+                                <div class="p-6 bg-[#000d1a] rounded-[2rem] border border-white/5 text-center">
+                                    <p class="text-[10px] font-black text-gray-400 uppercase mb-1 italic">EST. CREATIVA</p>
+                                    <p class="text-2xl text-cyan font-black">$1,500</p>
+                                </div>
+                                <div class="p-6 bg-cyan rounded-[2rem] text-white shadow-xl col-span-2 text-center border border-white/20">
+                                    <p class="text-[10px] font-black uppercase tracking-widest mb-1 opacity-90 text-white font-black italic">TOTAL INVERSIÓN</p>
+                                    <p class="text-3xl font-black italic text-white-pure">$12,500</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
-        <section id="influenciadores" class="section center space-y" style="padding:40px 0">
-          <div class="card" style="max-width:920px;margin:0 auto;border-radius:56px;position:relative;overflow:hidden;padding:48px">
-            <div style="position:absolute;left:-80px;bottom:-80px;width:320px;height:320px;background:rgba(0,229,255,.06);border-radius:50%;filter:blur(100px)"></div>
-            <i data-lucide="users" style="color:var(--cyan);width:64px;height:64px;margin:0 auto 26px;animation:pulse 1.3s infinite"></i>
-            <h2 class="title-xl underline-cyan">Influenciadores <span style="color:var(--cyan)">de Nicho</span></h2>
-            <p class="muted italic" style="max-width:760px;margin:0 auto 28px;font-size:18px;line-height:1.7">Ejecución reservada para la <strong style="color:#fff;text-transform:uppercase">Fase 2: Escala Local</strong>. Actualmente en mapeo para identificar validadores en gaming, deporte regional y estilo de vida guatemalteco.</p>
-            <div class="row" style="justify-content:center;flex-wrap:wrap">
-              <span class="pill" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#6b7280">Mapeo Radio Local</span>
-              <span class="pill" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#6b7280">Comunidades Gaming</span>
-            </div>
-          </div>
-        </section>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                    <div class="lg:col-span-7 bg-[#0b1a2a] p-8 md:p-10 rounded-[2.5rem] border border-white/5 shadow-2xl">
+                        <h3 class="text-xl font-black uppercase text-white-pure mb-10 italic flex items-center gap-3"><i data-lucide="pie-chart" class="text-cyan"></i> DISTRIBUCIÓN DE INVERSIÓN</h3>
+                        <p class="text-gray-400 text-[11px] font-black uppercase mb-6 italic">Presupuesto total: <span class="text-cyan">$10,000 USD</span></p>
+                        
+                        <div class="flex flex-col sm:flex-row items-center gap-10">
+                            <div class="w-48 h-48 flex-shrink-0 relative">
+                                <canvas id="chartDistribution"></canvas>
+                                <div class="absolute inset-0 flex items-center justify-center flex-col shadow-inner">
+                                    <p class="text-[10px] font-black text-gray-500 uppercase tracking-widest italic">MEDIOS</p>
+                                    <p class="text-2xl font-black text-white">$10K</p>
+                                </div>
+                            </div>
+                            <div class="flex-grow space-y-3 w-full text-white font-black italic">
+                                <div class="flex justify-between items-center p-3 bg-white/5 rounded-xl border-l-4 border-brand-purple">
+                                    <span class="text-[10px] font-black uppercase text-gray-400 italic">META ADS (35%)</span>
+                                    <span class="text-sm">$3,500</span>
+                                </div>
+                                <div class="flex justify-between items-center p-3 bg-white/5 rounded-xl border-l-4 border-brand-cyan">
+                                    <span class="text-[10px] font-black uppercase text-gray-400 italic">TABOOLA (25%)</span>
+                                    <span class="text-sm">$2,500</span>
+                                </div>
+                                <div class="flex justify-between items-center p-3 bg-white/5 rounded-xl border-l-4 border-brand-green">
+                                    <span class="text-[10px] font-black uppercase text-gray-400 italic">PROPELLER ADS (20%)</span>
+                                    <span class="text-sm">$2,000</span>
+                                </div>
+                                <div class="flex justify-between items-center p-3 bg-white/5 rounded-xl border-l-4 border-brand-yellow">
+                                    <span class="text-[10px] font-black uppercase text-gray-400 italic">ADCASH (20%)</span>
+                                    <span class="text-sm">$2,000</span>
+                                </div>
+                            </div>
+                        </div>
 
-        <section id="validador" class="section space-y" style="padding-bottom:40px">
-          <div class="grid grid-2" style="align-items:start;gap:30px;max-width:1000px;margin:0 auto">
-            <div>
-              <img src="https://i.postimg.cc/SN3HnQnj/Luis-Rolando-Solares.jpg" alt="Luis Solares" style="width:100%;border-radius:56px;border:4px solid var(--cyan);box-shadow:0 0 60px rgba(0,229,255,.25);filter:grayscale(1);transition:.6s">
-              <div class="card center" style="margin-top:18px;border-radius:40px">
-                <div class="title-md underline-cyan" style="font-size:28px;margin-bottom:8px">Luis Rolando Solares</div>
-                <div class="kicker">Voz Autorizada • Representante FIFA</div>
-              </div>
-            </div>
-            <div class="space-y">
-              <div class="result-box" style="padding:34px;border-radius:44px">
-                <div class="kicker" style="margin-bottom:16px;text-decoration:underline;text-decoration-color:var(--cyan)">Legitimidad Indiscutible</div>
-                <div class="italic" style="font-size:22px;line-height:1.7;color:#d1d5db">"Su trayectoria de +20 años en <strong style="color:#fff;text-decoration:underline">Siglo 21, Claro Sports y Fox Deportes</strong> posiciona a Lotbet como la opción de autoridad mundial en el fútbol guatemalteco."</div>
-              </div>
-              <div class="ftd" style="padding:30px;border-radius:40px;background:var(--cyan)">
-                <div class="title-md" style="font-size:30px;margin-bottom:16px">🎙️ Analista Oficial Lotbet</div>
-                <div class="grid grid-2" style="gap:14px">
-                  <div style="padding:16px;background:rgba(0,0,0,.1);border:1px solid rgba(0,0,0,.1);border-radius:14px;font-size:11px;font-weight:900;text-transform:uppercase;font-style:italic">Firma del WhatsApp CRM</div>
-                  <div style="padding:16px;background:rgba(0,0,0,.1);border:1px solid rgba(0,0,0,.1);border-radius:14px;font-size:11px;font-weight:900;text-transform:uppercase;font-style:italic">Certificación de Sorteos</div>
-                  <div style="padding:16px;background:rgba(0,0,0,.1);border:1px solid rgba(0,0,0,.1);border-radius:14px;font-size:11px;font-weight:900;text-transform:uppercase;font-style:italic">Validación de Retiros</div>
-                  <div style="padding:16px;background:rgba(0,0,0,.1);border:1px solid rgba(0,0,0,.1);border-radius:14px;font-size:11px;font-weight:900;text-transform:uppercase;font-style:italic">Picks Diarios</div>
+                        <div class="mt-10 flex gap-4">
+                            <div class="flex-1 bg-[#0b1a2a] border border-cyan/30 p-5 rounded-2xl text-center shadow-xl">
+                                <p class="text-2xl font-black italic text-white">70%</p>
+                                <p class="text-[10px] font-black uppercase text-cyan italic tracking-widest">MARKETING / ADQUISICIÓN</p>
+                            </div>
+                            <div class="flex-1 bg-[#0b1a2a] border border-white/10 p-5 rounded-2xl text-center">
+                                <p class="text-2xl font-black italic text-white">30%</p>
+                                <p class="text-[10px] font-black uppercase text-gray-500 italic tracking-widest">REMARKETING / CIERRE</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Resultados Proyectados -->
+                    <div class="lg:col-span-5 bg-[#0b1a2a] p-8 md:p-10 rounded-[2.5rem] border border-white/5 shadow-2xl flex flex-col justify-center">
+                        <h3 class="text-xl font-black uppercase text-white-pure mb-8 italic flex items-center gap-3 text-white-pure"><i data-lucide="trending-up" class="text-cyan"></i> RESULTADOS PROYECTADOS</h3>
+                        <div class="space-y-4">
+                            <div class="bg-white/5 p-5 rounded-2xl border border-white/5 flex justify-between items-center font-black">
+                                <div class="text-left uppercase italic"><p class="text-gray-500 text-[9px]">REGISTROS ESTIMADOS</p><p class="text-cyan text-[10px]">Usuarios calificados</p></div>
+                                <p class="text-2xl font-black text-white italic">1,150 – 1,400</p>
+                            </div>
+                            <div class="bg-white/5 p-5 rounded-2xl border border-white/5 flex justify-between items-center font-black">
+                                <div class="text-left uppercase italic"><p class="text-gray-500 text-[9px]">TASA DE CONVERSIÓN</p><p class="text-cyan text-[10px]">Registro a FTD</p></div>
+                                <p class="text-2xl font-black text-white italic">20%</p>
+                            </div>
+                            <div class="bg-cyan p-6 rounded-[2.5rem] text-white shadow-xl shadow-cyan/20 mt-6 relative overflow-hidden flex justify-between items-center border border-white/20">
+                                <div class="relative z-10 font-black italic uppercase">
+                                    <p class="text-[10px] underline decoration-white decoration-2 underline-offset-4 text-white font-black italic">PRIMEROS DEPÓSITOS (FTDs)</p>
+                                    <p class="text-[8px] mt-2 opacity-80 text-white font-black italic">META ALCANZABLE</p>
+                                </div>
+                                <div class="relative z-10 text-right">
+                                    <p class="text-4xl font-black italic tracking-tighter text-white-pure">230 – 280</p>
+                                </div>
+                                <i data-lucide="zap" class="absolute -left-4 -bottom-4 opacity-10 w-24 h-24 text-white"></i>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
-        <section id="presupuesto" class="section space-y">
-          <div class="grid grid-2" style="align-items:start;gap:24px">
-            <div class="card" style="border-color:rgba(0,229,255,.2);position:relative;overflow:hidden;padding:32px 34px">
-              <span class="pill" style="position:absolute;top:28px;right:28px;background:transparent;border:1px solid rgba(0,229,255,.3);color:var(--cyan)">Fase 1: Setup</span>
-              <div class="title-md italic" style="font-size:28px;display:flex;align-items:center;gap:10px;margin-top:14px"><i data-lucide="zap" style="color:var(--cyan)"></i> Operación BD 20K</div>
-              <div class="space-y" style="margin-top:18px;font-size:13px;font-weight:700">
-                <div class="between result-box"><div>Setup Técnico & Meta</div><div style="font-size:24px;font-weight:900;color:var(--cyan);font-style:italic">$2,000 <span style="font-size:9px;color:#6b7280;text-transform:uppercase;text-decoration:underline;margin-left:4px">Único</span></div></div>
-                <div class="between result-box"><div>Plataforma Blupit</div><div style="font-size:24px;font-weight:900;color:#fff">$1,000 <span style="font-size:9px;color:#6b7280;text-transform:uppercase;text-decoration:underline;margin-left:4px">Mes</span></div></div>
-                <div class="between result-box"><div>Operación & 100K MSGs</div><div style="font-size:24px;font-weight:900;color:#fff">$2,500 <span style="font-size:9px;color:#6b7280;text-transform:uppercase;text-decoration:underline;margin-left:4px">Mes</span></div></div>
-              </div>
-            </div>
-            <div class="card" style="border-color:rgba(139,92,246,.3);position:relative;overflow:hidden;padding:32px 34px;background:#000d1a">
-              <span class="pill" style="position:absolute;top:28px;right:28px;background:transparent;border:1px solid rgba(139,92,246,.3);color:var(--purple)">Fase 2: Escala</span>
-              <div class="title-md italic" style="font-size:28px;display:flex;align-items:center;gap:10px;margin-top:14px"><i data-lucide="globe" style="color:var(--purple)"></i> Programática Digital</div>
-              <div class="space-y" style="margin-top:18px;font-size:13px;font-weight:900;text-transform:uppercase">
-                <div class="between" style="padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.06);color:#9ca3af"><span>Inversión Medios Directos</span><span style="font-size:24px;color:#fff;font-style:italic">$10,000</span></div>
-                <div class="between" style="padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.06);color:#9ca3af"><span>Gestión & Reportes (10%)</span><span style="font-size:24px;color:#fff;font-style:italic">$1,000</span></div>
-                <div class="between" style="padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.06);color:#9ca3af"><span>Estrategia Creativa (LP+Ads)</span><span style="font-size:24px;color:var(--cyan);font-style:italic">$1,500</span></div>
-                <div class="between" style="padding:20px;background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.2);border-radius:18px;margin-top:14px;color:#fff"><span style="font-size:11px">Total Inversión Fase 2</span><span style="font-size:34px;font-weight:900;font-style:italic;text-decoration:underline;text-decoration-color:var(--cyan)">$12,500</span></div>
-              </div>
-            </div>
-          </div>
-          <div style="background:var(--cyan);color:#000;padding:34px;border-radius:46px;box-shadow:0 20px 45px rgba(0,229,255,.16);display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;border:2px solid rgba(255,255,255,.2)">
-            <div>
-              <div class="kicker" style="color:rgba(0,0,0,.65)">Mensual Recurrente Operativo</div>
-              <div style="font-size:64px;font-weight:900;letter-spacing:-.05em;font-style:italic">$5,000*</div>
-            </div>
-            <div class="right" style="font-weight:900;font-style:italic">
-              <div class="kicker" style="color:rgba(0,0,0,.65)">Validador (Luis Solares)</div>
-              <div style="font-size:34px">$1,500</div>
-            </div>
-          </div>
-          <p class="kicker center" style="color:#6b7280">*(No incluye medios directos de pauta ni setup técnico inicial)</p>
-        </section>
-      </div>
-    </main>
-  </div>
+                <!-- 3. Estrategia Creativa -->
+                <div class="bg-[#0b1a2a] p-10 md:p-12 rounded-[4rem] border-2 border-brand-purple shadow-2xl relative overflow-hidden text-white font-black italic">
+                    <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-brand-purple/10 rounded-full blur-[100px]"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12">
+                        <div class="lg:col-span-7 space-y-6">
+                            <div class="inline-flex items-center gap-3 text-brand-purple font-black uppercase text-[10px] tracking-widest italic bg-brand-purple/10 px-4 py-1.5 rounded-full border border-brand-purple/20"><i data-lucide="palette" size="14"></i> ESTRATEGIA CREATIVA: EL FACTOR DE ÉXITO</div>
+                            <h3 class="text-3xl md:text-4xl font-black uppercase text-white-pure tracking-tighter italic">CAPTAR ATENCIÓN & CONFIANZA</h3>
+                            <p class="text-gray-400 leading-relaxed text-base italic font-medium italic">🎯 Objetivo: Generar confianza absoluta mediante contenido UGC y figura reconocida.</p>
+                            <ul class="space-y-4 text-sm text-gray-300 font-medium italic">
+                                <li class="flex gap-4 items-center bg-white/5 p-4 rounded-2xl border border-white/5"><i data-lucide="user-check" class="text-brand-purple shrink-0"></i><p>Uso de figura reconocida (Luis Solares) como ancla de legitimidad.</p></li>
+                                <li class="flex gap-4 items-center bg-white/5 p-4 rounded-2xl border border-white/5"><i data-lucide="video" class="text-brand-purple shrink-0"></i><p>Contenido tipo <strong class="text-white italic uppercase font-black text-[10px]">UGC</strong> para generar cercanía orgánica.</p></li>
+                            </ul>
+                        </div>
+                        <div class="lg:col-span-5 bg-black/40 p-8 rounded-[3rem] border border-white/5 flex flex-col justify-center space-y-6">
+                            <h4 class="text-brand-purple font-black uppercase text-xs tracking-widest italic flex items-center gap-2 text-white-pure"><i data-lucide="box"></i> PIEZAS INCLUIDAS</h4>
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-4 border-b border-white/5 pb-3"><i data-lucide="play-circle" class="text-brand-purple"></i><span class="text-[10px] uppercase font-black text-gray-400">VIDEOS CORTOS (REELS / ADS)</span></div>
+                                <div class="flex items-center gap-4 border-b border-white/5 pb-3"><i data-lucide="layout" class="text-brand-purple"></i><span class="text-[10px] uppercase font-black text-gray-400">BANNERS DINÁMICOS PROGRAMÁTICOS</span></div>
+                                <div class="flex items-center gap-4"><i data-lucide="refresh-cw" class="text-brand-purple"></i><span class="text-[10px] uppercase font-black text-gray-400">TESTEO A/B CONSTANTE</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-  <script>
-    setTimeout(() => {
-      document.getElementById('loadingScreen').classList.add('hidden');
-      document.getElementById('app').classList.remove('hidden');
-      if (window.lucide) lucide.createIcons();
-    }, 2000);
+            <!-- VALIDADOR -->
+            <section id="content-validador" class="tab-content fade-in space-y-12 hidden">
+                <div class="flex flex-col lg:flex-row gap-10 items-start max-w-5xl mx-auto h-full text-white-pure font-black italic">
+                    <div class="w-full lg:w-2/5 lg:sticky lg:top-10 text-center md:text-left shrink-0">
+                        <img src="https://i.postimg.cc/SN3HnQnj/Luis-Rolando-Solares.jpg" alt="Luis Solares" class="w-full rounded-[3rem] border-4 border-cyan shadow-[0_0_50px_rgba(0,229,255,0.25)] grayscale hover:grayscale-0 transition-all duration-700 mx-auto">
+                        <div class="mt-6 p-6 bg-[#0b1a2a] rounded-[2.5rem] text-center border border-white/5 shadow-xl">
+                            <h3 class="text-2xl font-black text-white-pure uppercase tracking-tighter italic underline decoration-cyan underline-offset-4 font-black text-white-pure">Luis Rolando Solares</h3>
+                            <p class="text-[9px] font-black text-gray-500 uppercase mt-1 tracking-widest italic font-black">Analista Mundial • Representante FIFA</p>
+                        </div>
+                    </div>
+                    <div class="flex-1 space-y-8 pb-32 overflow-visible">
+                        <div class="bg-white/5 p-8 rounded-[2rem] border border-white/10 shadow-xl">
+                            <h4 class="text-cyan font-black uppercase text-xs tracking-widest mb-6 italic text-white-pure">Trayectoria & Legitimidad</h4>
+                            <p class="text-gray-300 text-lg leading-relaxed font-medium font-black italic">"Su trayectoria en <strong class="text-white underline decoration-2 decoration-cyan">Siglo 21, Claro Sports y Fox Deportes</strong> posiciona a Lotbet como la autoridad mundial en Guatemala."</p>
+                        </div>
 
-    const tabs = document.querySelectorAll('.tab-btn');
-    const sections = document.querySelectorAll('.section');
+                        <!-- Bloque de Precio Validador solicitado -->
+                        <div class="bg-white/5 p-8 rounded-[2.5rem] border border-cyan/20 shadow-2xl relative overflow-hidden font-black">
+                            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                                <div class="text-center md:text-left">
+                                    <h4 class="text-white-pure font-black uppercase text-[10px] tracking-widest italic mb-2 text-white-pure"><i data-lucide="dollar-sign" class="inline w-3 h-3 text-cyan"></i> Inversión Validador</h4>
+                                    <p class="text-4xl font-black italic text-white-pure">$1,500 <span class="text-xs text-gray-500 ml-1 uppercase">al mes</span></p>
+                                </div>
+                                <div class="flex-1 p-4 bg-black/30 rounded-2xl border border-white/5">
+                                    <p class="text-[10px] text-gray-400 uppercase italic leading-relaxed">
+                                        Contempla: Derechos de imagen digitales, contenidos para pauta digital y contenidos para redes sociales.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
 
-    tabs.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const target = btn.getAttribute('data-tab');
-        tabs.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        sections.forEach(sec => sec.classList.remove('active'));
-        document.getElementById(target).classList.add('active');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        if (window.lucide) lucide.createIcons();
-      });
-    });
-  </script>
+                        <div class="bg-cyan p-8 rounded-[2.5rem] text-brand-deep shadow-2xl relative overflow-hidden font-black italic text-white-pure">
+                            <div class="absolute right-0 top-0 opacity-10 rotate-12"><i data-lucide="mic-2" class="w-32 h-32"></i></div>
+                            <h4 class="text-2xl font-black uppercase mb-4 italic tracking-tighter relative z-10 text-white-pure font-black">🎙️ Analista Oficial Lotbet</h4>
+                            <div class="grid grid-cols-2 gap-4 text-[9px] font-black uppercase italic relative z-10 text-white-pure font-black">
+                                <div class="p-4 bg-black/10 rounded-xl border border-black/10">Firma del WhatsApp CRM</div>
+                                <div class="p-4 bg-black/10 rounded-xl border border-black/10">Certificación de Sorteos</div>
+                                <div class="p-4 bg-black/10 rounded-xl border border-black/10">Validación de Retiros</div>
+                                <div class="p-4 bg-black/10 rounded-xl border border-black/10">Picks Diarios</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB INFLUENCIADORES -->
+            <section id="content-influenciadores" class="tab-content fade-in space-y-12 hidden text-center px-4">
+                <div class="bg-[#0b1a2a] p-10 md:p-16 rounded-[4rem] border border-white/5 shadow-2xl relative overflow-hidden max-w-4xl mx-auto">
+                    <div class="absolute -left-20 -bottom-20 w-80 h-80 bg-cyan/5 rounded-full blur-[100px]"></div>
+                    <i data-lucide="users-2" class="text-cyan w-16 h-16 mx-auto mb-8 animate-bounce"></i>
+                    <h2 class="text-4xl font-black uppercase tracking-tighter mb-4 italic text-white-pure underline decoration-cyan decoration-4 underline-offset-8 text-white-pure font-black">Influenciadores <span class="text-cyan">de Nicho</span></h2>
+                    <p class="text-gray-400 text-lg leading-relaxed italic max-w-2xl mx-auto mb-10 font-medium italic text-white-pure font-black uppercase">Ejecución reservada para la <strong class="text-white">Fase 2: Escala Local</strong>. Actualmente en mapeo para identificar validadores en Guatemala.</p>
+                </div>
+            </section>
+
+            <!-- PRESUPUESTO -->
+            <section id="content-presupuesto" class="tab-content fade-in space-y-10 hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start text-white-pure font-black italic">
+                    <div class="lg:col-span-6 space-y-6">
+                        <div class="bg-[#0b1a2a] p-8 md:p-10 rounded-[2.5rem] border border-cyan/20 shadow-2xl relative overflow-hidden font-black italic">
+                            <span class="absolute top-8 right-8 text-[8px] font-black uppercase tracking-[0.3em] text-cyan italic border border-cyan/30 px-3 py-1 rounded-full font-black">Fase 1: BD 20K</span>
+                            <h3 class="text-2xl font-black uppercase mb-8 italic flex items-center gap-3 text-white italic text-white-pure font-black"><i data-lucide="zap" class="text-cyan"></i> Estrategia Blupit</h3>
+                            <div class="space-y-4 font-black italic">
+                                <div class="p-6 bg-white/5 rounded-3xl border border-white/5 font-black italic shadow-xl">
+                                    <div class="flex justify-between items-center mb-4">
+                                        <p class="text-[11px] uppercase tracking-widest text-cyan underline decoration-cyan decoration-2 underline-offset-4 font-black">Primer Mes (Setup Incl.)</p>
+                                        <p class="text-3xl font-black italic">$5,500</p>
+                                    </div>
+                                    <ul class="text-[9px] text-gray-400 space-y-1 font-black italic uppercase">
+                                        <li>• Setup Técnico & Meta ($2,000)</li>
+                                        <li>• Plataforma Blupit ($1,000)</li>
+                                        <li>• Operación & 100K MSGs ($2,500)</li>
+                                    </ul>
+                                </div>
+                                <div class="p-6 bg-white/5 rounded-3xl border border-white/5 font-black italic text-white-pure">
+                                    <div class="flex justify-between items-center">
+                                        <p class="text-[11px] uppercase tracking-widest text-white-pure underline underline-offset-4">Segundo Mes (Operativo)</p>
+                                        <p class="text-3xl font-black italic">$3,500</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-6 space-y-6">
+                        <div class="bg-[#000d1a] p-8 md:p-10 rounded-[2.5rem] border border-brand-purple/30 shadow-xl relative overflow-hidden font-black italic text-white-pure">
+                            <span class="absolute top-8 right-8 text-[8px] font-black uppercase tracking-[0.3em] text-brand-purple italic border border-brand-purple/30 px-3 py-1 rounded-full font-black">Fase 2: Escala</span>
+                            <h4 class="text-2xl font-black text-white-pure uppercase mb-8 italic flex items-center gap-3 italic text-white-pure font-black"><i data-lucide="globe" class="text-brand-purple"></i> Programática Digital</h4>
+                            <div class="space-y-4 text-xs font-black uppercase italic text-white-pure">
+                                <div class="flex justify-between border-b border-white/5 pb-2 text-gray-400 font-black italic"><span>Inversión Medios Directos</span><span class="text-white-pure italic text-lg font-black">$10,000</span></div>
+                                <div class="flex justify-between border-b border-white/5 pb-2 text-gray-400 font-black italic"><span>Gestión & Reportes (10%)</span><span class="text-white-pure italic text-lg font-black">$1,000</span></div>
+                                <div class="flex justify-between border-b border-white/5 pb-2 text-gray-400 font-black italic"><span>Estrategia Creativa (LP+Ads)</span><span class="text-cyan italic text-lg font-black font-black">$1,500</span></div>
+                                <div class="flex justify-between items-center pt-6 bg-cyan/5 p-6 rounded-2xl border border-cyan/20 mt-4 shadow-xl text-white font-black italic text-white-pure">
+                                    <p class="text-[11px] uppercase italic tracking-tighter font-black">Total Inversión Fase 2</p>
+                                    <p class="text-3xl italic underline decoration-cyan decoration-4 font-black">$12,500</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Fase Transversal (Vaciada por solicitud pero mantenida en estructura) -->
+                        <div class="bg-cyan p-10 rounded-[3rem] text-brand-deep shadow-2xl relative overflow-hidden font-black italic text-white-pure">
+                            <div class="absolute right-0 top-0 opacity-10 rotate-12"><i data-lucide="user-check" class="w-40 h-40"></i></div>
+                            <span class="relative z-10 text-[9px] font-black uppercase tracking-[0.4em] bg-black/20 px-4 py-1 rounded-full text-white-pure font-black italic">Fase Transversal</span>
+                            <!-- Espacio dejado en blanco según instrucción -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        const rsData = [
+            { id: 1, r: "Reputación", selected: true, desc: "Validación central mediante Luis Rolando Solares." },
+            { id: 2, r: "Registro", selected: true, desc: "Migración técnica técnica a Altenar." },
+            { id: 3, r: "Reactivación", selected: true, desc: "Despertar la BD mediante gamificación de Blupit." },
+            { id: 4, r: "Recarga", selected: true, desc: "Conversión a FTD mediante bonos mundialistas." },
+            { id: 5, r: "Retención", selected: true, desc: "Comunidad activa en redes y contenido experto." },
+            { id: 6, r: "Rejuego", selected: false, desc: "Frecuencia de apuesta semanal." },
+            { id: 7, r: "Rentabilidad", selected: false, desc: "Optimización del LTV del cliente." },
+            { id: 8, r: "Retiro", selected: false, desc: "Velocidad de pago certificada oficialmente." },
+            { id: 9, r: "Riesgo", selected: false, desc: "Control de fraude y perfil seguro." }
+        ];
+
+        let currentChart = null;
+
+        function switchTab(tabId) {
+            const btn = document.getElementById('tab-' + tabId);
+            const content = document.getElementById('content-' + tabId);
+            
+            if (!btn || !content) return;
+
+            document.querySelectorAll('.tab-btn').forEach(b => {
+                b.classList.remove('tab-active');
+                b.classList.add('text-gray-500', 'border-transparent');
+            });
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+
+            btn.classList.add('tab-active');
+            btn.classList.remove('text-gray-500', 'border-transparent');
+            content.classList.remove('hidden');
+            
+            if(tabId === 'programatica') setTimeout(initChart, 300);
+            
+            const main = document.querySelector('main');
+            if (main) main.scrollTop = 0;
+        }
+
+        function initChart() {
+            const ctx = document.getElementById('chartDistribution');
+            if (!ctx) return;
+            if (currentChart) currentChart.destroy();
+            currentChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    datasets: [{
+                        data: [35, 25, 20, 20],
+                        backgroundColor: ['#8B5CF6', '#00E5FF', '#10B981', '#FACC15'],
+                        borderWidth: 0,
+                        hoverOffset: 12
+                    }]
+                },
+                options: { cutout: '75%', plugins: { legend: { display: false }, tooltip: { enabled: false } }, animation: { animateRotate: true, duration: 1200 } }
+            });
+        }
+
+        window.onload = () => {
+            const grid = document.getElementById('rs-grid');
+            if (grid) {
+                grid.innerHTML = rsData.map(r => `
+                    <div class="p-6 md:p-8 rounded-[2rem] border transition-all ${r.selected ? 'border-[#00E5FF] bg-[#00E5FF]/5 shadow-[0_0_20px_rgba(0,229,255,0.05)]' : 'border-gray-800 opacity-40'}">
+                        <div class="w-6 h-6 md:w-8 md:h-8 rounded-lg flex items-center justify-center mb-4 md:mb-6 font-black text-xs md:text-sm ${r.selected ? 'bg-[#00E5FF] text-[#000d1a]' : 'bg-gray-800 text-gray-500'}">${r.id}</div>
+                        <h3 class="font-black text-[10px] md:text-[11px] uppercase mb-2 md:mb-3 tracking-tighter italic text-white">${r.r}</h3>
+                        <p class="text-[9px] md:text-[10px] text-gray-400 leading-relaxed font-medium italic">${r.desc}</p>
+                    </div>
+                `).join('');
+            }
+
+            lucide.createIcons();
+
+            setTimeout(() => {
+                const splash = document.getElementById('splash-screen');
+                const content = document.getElementById('app-content');
+                if (splash) splash.style.opacity = '0';
+                setTimeout(() => {
+                    if (splash) splash.style.display = 'none';
+                    if (content) content.classList.remove('opacity-0');
+                    if (content) content.classList.add('opacity-100');
+                }, 500);
+            }, 2000);
+        };
+    </script>
 </body>
 </html>
