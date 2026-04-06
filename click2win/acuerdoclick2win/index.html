@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alianza Estratégica: Level x Click 2 Win</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .gradient-brand { background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%); }
+        .card-shadow { box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05); }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 22px;
+            height: 22px;
+            background: white;
+            border: 4px solid #2563eb;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 leading-relaxed">
+
+    <!-- Hero / Intro -->
+    <header class="gradient-brand text-white py-20 px-6 text-center shadow-lg relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 pointer-events-none">
+            <svg width="100%" height="100%"><rect width="100%" height="100%" fill="url(#grid)"/><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1"/></pattern></defs></svg>
+        </div>
+        <div class="max-w-4xl mx-auto relative z-10">
+            <div class="flex justify-center mb-6">
+                <span class="bg-blue-500/20 px-4 py-1 rounded-full text-blue-200 text-sm font-semibold tracking-widest uppercase">Propuesta de Colaboración</span>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 tracking-tight">Level Colombia × Click 2 Win</h1>
+            <p class="text-xl text-slate-300 font-light max-w-2xl mx-auto">
+                Una estructura diseñada para potenciar el crecimiento comercial y la eficiencia operativa mutua.
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 pb-24">
+        
+        <!-- 1. EXPLICACIÓN DE MODELOS -->
+        <section id="modelos" class="pt-16 mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-800">1. Definición de Modelos de Negocio</h2>
+                <p class="text-slate-500 mt-2">Dos caminos claros para colaborar según el nivel de involucramiento.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Modelo 1 -->
+                <div class="bg-white p-8 rounded-3xl card-shadow border border-slate-100 flex flex-col">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="bg-blue-600 p-3 rounded-2xl text-white shadow-lg shadow-blue-200">
+                            <i data-lucide="megaphone"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-800">Modelo 1: Gestión Comercial</h3>
+                    </div>
+                    <p class="text-slate-600 mb-6">
+                        En este escenario, <strong>Click 2 Win</strong> actúa exclusivamente como el <strong>brazo comercial</strong>. Su responsabilidad termina una vez el contrato es firmado y validado por Level Colombia.
+                    </p>
+                    <ul class="space-y-3 mt-auto">
+                        <li class="flex items-start gap-3 text-sm text-slate-600"><i data-lucide="check-circle-2" class="w-5 h-5 text-blue-500 shrink-0"></i> Prospección y cierre de la cuenta.</li>
+                        <li class="flex items-start gap-3 text-sm text-slate-600"><i data-lucide="check-circle-2" class="w-5 h-5 text-blue-500 shrink-0"></i> Level Colombia asume el 100% de la carga operativa.</li>
+                        <li class="flex items-start gap-3 text-sm text-slate-600"><i data-lucide="check-circle-2" class="w-5 h-5 text-blue-500 shrink-0"></i> Ganancia por comisión pura sobre venta bruta.</li>
+                    </ul>
+                </div>
+
+                <!-- Modelo 2 -->
+                <div class="bg-white p-8 rounded-3xl card-shadow border border-slate-100 flex flex-col relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-indigo-500 text-white px-4 py-1 text-xs font-bold rounded-bl-xl">MÁS VALOR</div>
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="bg-indigo-600 p-3 rounded-2xl text-white shadow-lg shadow-indigo-200">
+                            <i data-lucide="cog"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-800">Modelo 2: Mixto (Comercial + Op)</h3>
+                    </div>
+                    <p class="text-slate-600 mb-6">
+                        <strong>Click 2 Win</strong> no solo trae al cliente, sino que se convierte en <strong>aliado ejecutor</strong>. Participan activamente en la operación bajo la infraestructura y marca de Level Colombia.
+                    </p>
+                    <ul class="space-y-3 mt-auto">
+                        <li class="flex items-start gap-3 text-sm text-slate-600"><i data-lucide="check-circle-2" class="w-5 h-5 text-indigo-500 shrink-0"></i> Captación del cliente (Rol Comercial).</li>
+                        <li class="flex items-start gap-3 text-sm text-slate-600"><i data-lucide="check-circle-2" class="w-5 h-5 text-indigo-500 shrink-0"></i> Ejecución de tareas operativas definidas (Rol Operador).</li>
+                        <li class="flex items-start gap-3 text-sm text-slate-600"><i data-lucide="check-circle-2" class="w-5 h-5 text-indigo-500 shrink-0"></i> Doble ingreso: Comisión base + Honorarios operativos.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. TABLAS DE COMISIONES -->
+        <section id="tablas" class="mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-800">2. Tablas de Comisiones por Volumen</h2>
+                <p class="text-slate-500 mt-2">Incentivamos el volumen mensual con porcentajes crecientes.</p>
+            </div>
+
+            <div class="bg-white rounded-3xl overflow-hidden card-shadow border border-slate-100">
+                <div class="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+                    <!-- Tabla M1 -->
+                    <div class="p-8">
+                        <div class="flex items-center gap-2 mb-6">
+                            <div class="w-3 h-3 rounded-full bg-blue-600"></div>
+                            <h4 class="font-bold text-slate-700 uppercase tracking-wider text-sm">Escala Modelo 1 (Comercial)</h4>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex justify-between p-3 bg-slate-50 rounded-xl">
+                                <span class="font-medium text-slate-600">$1M - $20M mensuales</span>
+                                <span class="font-bold text-blue-600">5%</span>
+                            </div>
+                            <div class="flex justify-between p-3 bg-slate-50 rounded-xl">
+                                <span class="font-medium text-slate-600">$20M - $50M mensuales</span>
+                                <span class="font-bold text-blue-600">6%</span>
+                            </div>
+                            <div class="flex justify-between p-3 bg-slate-50 rounded-xl">
+                                <span class="font-medium text-slate-600">$50M - $100M mensuales</span>
+                                <span class="font-bold text-blue-600">7%</span>
+                            </div>
+                            <div class="flex justify-between p-3 bg-blue-600 rounded-xl text-white">
+                                <span class="font-medium">Más de $100M mensuales</span>
+                                <span class="font-bold">8%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabla M2 -->
+                    <div class="p-8">
+                        <div class="flex items-center gap-2 mb-6">
+                            <div class="w-3 h-3 rounded-full bg-indigo-600"></div>
+                            <h4 class="font-bold text-slate-700 uppercase tracking-wider text-sm">Escala Modelo 2 (Mixto)</h4>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex justify-between p-3 bg-slate-50 rounded-xl">
+                                <span class="font-medium text-slate-600">$1M - $20M mensuales</span>
+                                <span class="font-bold text-indigo-600">4%</span>
+                            </div>
+                            <div class="flex justify-between p-3 bg-slate-50 rounded-xl">
+                                <span class="font-medium text-slate-600">$20M - $50M mensuales</span>
+                                <span class="font-bold text-indigo-600">5%</span>
+                            </div>
+                            <div class="flex justify-between p-3 bg-slate-50 rounded-xl">
+                                <span class="font-medium text-slate-600">$50M - $100M mensuales</span>
+                                <span class="font-bold text-indigo-600">6%</span>
+                            </div>
+                            <div class="flex justify-between p-3 bg-indigo-600 rounded-xl text-white">
+                                <span class="font-medium">Más de $100M mensuales</span>
+                                <span class="font-bold">7%</span>
+                            </div>
+                        </div>
+                        <p class="mt-4 text-xs text-slate-400 italic">
+                            * En el Modelo 2 la comisión se ajusta 1% para asignar presupuesto a honorarios operativos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. SIMULACIÓN -->
+        <section id="simulador" class="mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-800">3. Simulador Dinámico</h2>
+                <p class="text-slate-500 mt-2">Visualiza la distribución de ingresos para Click 2 Win.</p>
+            </div>
+
+            <div class="bg-white rounded-3xl card-shadow p-8 border border-slate-100 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-10">
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-6 uppercase tracking-widest">Valor de la Venta del Proyecto</label>
+                        <input type="range" id="saleRange" min="1000000" max="250000000" step="1000000" value="60000000" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+                        <div class="flex justify-center mt-6">
+                            <span class="text-3xl font-extrabold text-blue-600" id="saleDisplay">$60,000,000</span>
+                        </div>
+                    </div>
+
+                    <div class="flex p-1 bg-slate-100 rounded-2xl">
+                        <button onclick="switchModel(1)" id="btnM1" class="flex-1 py-4 rounded-xl font-bold transition-all bg-white shadow-md text-blue-600">Modelo 1</button>
+                        <button onclick="switchModel(2)" id="btnM2" class="flex-1 py-4 rounded-xl font-bold transition-all text-slate-500 hover:text-slate-700">Modelo 2</button>
+                    </div>
+
+                    <div id="opFeeControl" class="hidden animate-in fade-in duration-500">
+                        <label class="block text-sm font-bold text-slate-700 mb-6 uppercase tracking-widest">Honorarios Operativos (Modelo 2)</label>
+                        <input type="range" id="opRange" min="5" max="25" step="1" value="15" class="w-full h-2 bg-indigo-200 rounded-lg appearance-none cursor-pointer">
+                        <div class="flex justify-center mt-6 text-xl font-bold text-indigo-600" id="opDisplay">15% del total</div>
+                    </div>
+                </div>
+
+                <div id="resultCard" class="bg-blue-50 border-2 border-blue-100 rounded-3xl p-8 space-y-6 transition-all duration-300">
+                    <div class="flex justify-between items-center">
+                        <span class="text-slate-600 font-medium">Comisión (<span id="percLabel">7</span>%)</span>
+                        <span class="text-xl font-bold text-slate-900" id="ctwCom">--</span>
+                    </div>
+                    <div id="opRow" class="hidden flex justify-between items-center border-t border-blue-100 pt-4">
+                        <span class="text-slate-600 font-medium">Honorarios Operación</span>
+                        <span class="text-xl font-bold text-slate-900" id="ctwOp">--</span>
+                    </div>
+                    <div class="flex justify-between items-center border-t-2 border-blue-200 pt-6">
+                        <span class="text-lg font-bold text-slate-800 uppercase tracking-tight">Total para Click 2 Win</span>
+                        <span class="text-3xl font-black text-blue-700" id="ctwTotal">--</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. CONDICIONES LEVEL -->
+        <section id="condiciones" class="bg-slate-900 text-white rounded-[3rem] p-12 card-shadow overflow-hidden relative">
+            <div class="absolute top-0 right-0 p-12 opacity-5 pointer-events-none">
+                <i data-lucide="shield" class="w-64 h-64"></i>
+            </div>
+            
+            <div class="relative z-10">
+                <h2 class="text-3xl font-bold mb-4">4. Condiciones de Level Colombia</h2>
+                <p class="text-slate-400 mb-10 max-w-2xl">Lineamientos para garantizar la sostenibilidad y transparencia de la alianza:</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div class="bg-blue-500/20 p-2 h-fit rounded-lg"><i data-lucide="check" class="text-blue-400 w-5 h-5"></i></div>
+                            <div>
+                                <h4 class="font-bold text-lg">Validación de Rentabilidad</h4>
+                                <p class="text-sm text-slate-400">Todo negocio será auditado financieramente. Level Colombia se reserva el derecho de rechazar proyectos con márgenes brutos inferiores al 20%.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="bg-blue-500/20 p-2 h-fit rounded-lg"><i data-lucide="check" class="text-blue-400 w-5 h-5"></i></div>
+                            <div>
+                                <h4 class="font-bold text-lg">Propiedad y Marca</h4>
+                                <p class="text-sm text-slate-400">Level Colombia es el titular del contrato frente al cliente final para fines de facturación y respaldo institucional.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div class="bg-blue-500/20 p-2 h-fit rounded-lg"><i data-lucide="check" class="text-blue-400 w-5 h-5"></i></div>
+                            <div>
+                                <h4 class="font-bold text-lg">Pagos contra Recaudo</h4>
+                                <p class="text-sm text-slate-400">Las comisiones y honorarios se dispersan únicamente tras la confirmación de pago efectivo por parte del cliente.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="bg-blue-500/20 p-2 h-fit rounded-lg"><i data-lucide="check" class="text-blue-400 w-5 h-5"></i></div>
+                            <div>
+                                <h4 class="font-bold text-lg">Lealtad y Respeto al Origen</h4>
+                                <p class="text-sm text-slate-400">Reconocemos que <strong>Click 2 Win</strong> es el originador del cliente. Ambas partes acuerdan no excluir a la otra en negociaciones vigentes o proyectos activos iniciados bajo esta alianza.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Note -->
+        <div class="mt-20 text-center">
+            <p class="text-slate-400 text-sm italic">Esta propuesta tiene carácter informativo para la estructuración de la alianza comercial. Revisión trimestral de resultados.</p>
+        </div>
+
+    </main>
+
+    <footer class="py-12 border-t border-slate-200 bg-white text-center text-slate-400 text-xs uppercase tracking-[0.2em]">
+        <p>Level Colombia × Click 2 Win • 2024</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        let currentModel = 1;
+        const saleRange = document.getElementById('saleRange');
+        const saleDisplay = document.getElementById('saleDisplay');
+        const opRange = document.getElementById('opRange');
+        const opDisplay = document.getElementById('opDisplay');
+        const opControl = document.getElementById('opFeeControl');
+        
+        const ctwCom = document.getElementById('ctwCom');
+        const ctwOp = document.getElementById('ctwOp');
+        const ctwTotal = document.getElementById('ctwTotal');
+        const percLabel = document.getElementById('percLabel');
+        const opRow = document.getElementById('opRow');
+        const resultCard = document.getElementById('resultCard');
+
+        const btnM1 = document.getElementById('btnM1');
+        const btnM2 = document.getElementById('btnM2');
+
+        function formatCurrency(val) {
+            return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(val);
+        }
+
+        function getComPercent(val, model) {
+            const m = val / 1000000;
+            let base = 5;
+            if (m < 20) base = 5;
+            else if (m < 50) base = 6;
+            else if (m < 100) base = 7;
+            else base = 8;
+
+            return model === 1 ? base : base - 1;
+        }
+
+        function updateSimulation() {
+            const saleVal = parseInt(saleRange.value);
+            const opPerc = parseInt(opRange.value);
+            
+            saleDisplay.innerText = formatCurrency(saleVal);
+            opDisplay.innerText = `${opPerc}% del contrato`;
+
+            const comPerc = getComPercent(saleVal, currentModel);
+            percLabel.innerText = comPerc;
+
+            const comAmt = (saleVal * comPerc) / 100;
+            ctwCom.innerText = formatCurrency(comAmt);
+
+            if (currentModel === 1) {
+                ctwTotal.innerText = formatCurrency(comAmt);
+            } else {
+                const opAmt = (saleVal * opPerc) / 100;
+                ctwOp.innerText = formatCurrency(opAmt);
+                ctwTotal.innerText = formatCurrency(comAmt + opAmt);
+            }
+        }
+
+        function switchModel(model) {
+            currentModel = model;
+            if (model === 1) {
+                btnM1.className = "flex-1 py-4 rounded-xl font-bold transition-all bg-white shadow-md text-blue-600";
+                btnM2.className = "flex-1 py-4 rounded-xl font-bold transition-all text-slate-500 hover:text-slate-700";
+                opControl.classList.add('hidden');
+                opRow.classList.add('hidden');
+                resultCard.className = "bg-blue-50 border-2 border-blue-100 rounded-3xl p-8 space-y-6 transition-all duration-300";
+            } else {
+                btnM2.className = "flex-1 py-4 rounded-xl font-bold transition-all bg-white shadow-md text-indigo-600";
+                btnM1.className = "flex-1 py-4 rounded-xl font-bold transition-all text-slate-500 hover:text-slate-700";
+                opControl.classList.remove('hidden');
+                opRow.classList.remove('hidden');
+                resultCard.className = "bg-indigo-50 border-2 border-indigo-100 rounded-3xl p-8 space-y-6 transition-all duration-300";
+            }
+            updateSimulation();
+        }
+
+        saleRange.addEventListener('input', updateSimulation);
+        opRange.addEventListener('input', updateSimulation);
+
+        updateSimulation();
+    </script>
+</body>
+</html>
