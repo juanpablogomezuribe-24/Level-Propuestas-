@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propuesta Colgas - LEVEL & Blupit</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .whatsapp-bg { background-color: #e5ddd5; background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png'); }
+        .hide-scroll::-webkit-scrollbar { display: none; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .nav-btn.active { @apply bg-[#25d366] text-white shadow-lg; }
+        @keyframes pulse-red { 0%, 100% { background-color: #ef4444; } 50% { background-color: #b91c1c; } }
+        .animate-timer { animation: pulse-red 1s infinite; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <div class="min-h-screen flex flex-col lg:flex-row overflow-hidden">
+        
+        <!-- SIDEBAR / NAV MOBILE -->
+        <aside class="w-full lg:w-72 bg-[#001a38] text-white shrink-0 z-50 flex flex-col">
+            <div class="p-6 flex items-center justify-between lg:block">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-[#25d366] rounded-xl flex items-center justify-center font-black text-2xl italic shadow-lg">L</div>
+                    <div>
+                        <h1 class="font-black text-xl tracking-tighter uppercase italic">LEVEL</h1>
+                        <p class="text-[10px] text-[#25d366] font-bold tracking-widest uppercase opacity-70">Blupit Partner</p>
+                    </div>
+                </div>
+                <button class="lg:hidden p-2 text-white/50"><i data-lucide="menu"></i></button>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="flex-1 px-4 py-2 lg:py-6 flex lg:flex-col gap-2 overflow-x-auto hide-scroll border-t border-white/5 lg:border-none" id="main-nav">
+                <button onclick="switchTab('inicio')" class="nav-btn active flex items-center gap-4 px-5 py-3 lg:py-4 rounded-2xl transition-all font-bold whitespace-nowrap" data-tab="inicio">
+                    <i data-lucide="layout" size="18"></i> <span class="text-sm">Inicio</span>
+                </button>
+                <button onclick="switchTab('trivia')" class="nav-btn flex items-center gap-4 px-5 py-3 lg:py-4 rounded-2xl transition-all font-bold whitespace-nowrap text-slate-400 hover:text-white" data-tab="trivia">
+                    <i data-lucide="trophy" size="18"></i> <span class="text-sm">P1: Trivia</span>
+                </button>
+                <button onclick="switchTab('georef')" class="nav-btn flex items-center gap-4 px-5 py-3 lg:py-4 rounded-2xl transition-all font-bold whitespace-nowrap text-slate-400 hover:text-white" data-tab="georef">
+                    <i data-lucide="map-pin" size="18"></i> <span class="text-sm">P2: Parceros</span>
+                </button>
+                <button onclick="switchTab('inversion')" class="nav-btn flex items-center gap-4 px-5 py-3 lg:py-4 rounded-2xl transition-all font-bold whitespace-nowrap text-slate-400 hover:text-white" data-tab="inversion">
+                    <i data-lucide="dollar-sign" size="18"></i> <span class="text-sm">Inversión</span>
+                </button>
+                <button onclick="switchTab('consultoria')" class="nav-btn flex items-center gap-4 px-5 py-3 lg:py-4 rounded-2xl transition-all font-bold whitespace-nowrap text-slate-400 hover:text-white" data-tab="consultoria">
+                    <i data-lucide="brain-circuit" size="18"></i> <span class="text-sm">Consultoría</span>
+                </button>
+            </nav>
+
+            <div class="p-6 hidden lg:block border-t border-white/5 bg-white/5">
+                <img src="https://i.postimg.cc/Qx9xctXD/logo_colgas.webp" class="h-12 object-contain w-full" alt="Colgas">
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="flex-1 p-4 md:p-10 overflow-y-auto max-h-screen relative">
+            <div class="max-w-6xl mx-auto pb-20 lg:pb-0">
+                
+                <!-- TAB: INICIO -->
+                <section id="tab-inicio" class="tab-content active animate-fade">
+                    <header class="mb-8 lg:mb-12 text-left">
+                        <p class="text-[10px] font-black text-[#25d366] mb-1 tracking-[0.4em] uppercase">Estrategia 2026</p>
+                        <h2 class="text-4xl lg:text-5xl font-black text-[#002855] tracking-tighter leading-none">Blupit para Colgas</h2>
+                    </header>
+
+                    <div class="bg-[#001a38] p-8 lg:p-16 rounded-[2.5rem] lg:rounded-[4rem] text-white flex flex-col lg:flex-row items-center justify-between gap-10 relative overflow-hidden mb-10">
+                        <div class="z-10 max-w-lg text-left">
+                            <h1 class="text-3xl lg:text-5xl font-black leading-tight mb-6">Un mismo motor, <span class="text-[#25d366]">dos objetivos.</span></h1>
+                            <p class="text-slate-400 mb-8 font-medium">Capture la identidad del arrendatario real y dé visibilidad a sus 12,000 parceros desde WhatsApp.</p>
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <button onclick="switchTab('trivia')" class="px-8 py-4 bg-[#25d366] text-white rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl">Ver Propuesta 1</button>
+                                <button onclick="switchTab('georef')" class="px-8 py-4 bg-white/10 text-white rounded-2xl font-black text-xs uppercase tracking-widest border border-white/10">Ver Propuesta 2</button>
+                            </div>
+                        </div>
+                        <div class="relative opacity-20 lg:opacity-100 flex items-center justify-center">
+                            <img src="https://i.postimg.cc/Qx9xctXD/logo_colgas.webp" class="w-48 lg:w-64 opacity-20" alt="Colgas Watermark">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
+                        <div class="bg-white p-8 lg:p-10 rounded-[2.5rem] border border-slate-100 flex flex-col items-start text-left shadow-sm group hover:border-sky-500 transition-all cursor-pointer" onclick="switchTab('trivia')">
+                            <div class="w-12 h-12 bg-sky-50 text-sky-500 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-sky-500 group-hover:text-white transition-all"><i data-lucide="trophy"></i></div>
+                            <h3 class="text-xl font-bold text-[#002855] mb-2">Captura & Gamificación</h3>
+                            <p class="text-sm text-slate-500 leading-relaxed">Identifica al pagador de la factura mediante una trivia interactiva y ranking global.</p>
+                        </div>
+                        <div class="bg-white p-8 lg:p-10 rounded-[2.5rem] border border-slate-100 flex flex-col items-start text-left shadow-sm group hover:border-[#25d366] transition-all cursor-pointer" onclick="switchTab('georef')">
+                            <div class="w-12 h-12 bg-emerald-50 text-emerald-500 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#25d366] group-hover:text-white transition-all"><i data-lucide="map-pin"></i></div>
+                            <h3 class="text-xl font-bold text-[#002855] mb-2">Red de +12K Parceros</h3>
+                            <p class="text-sm text-slate-500 leading-relaxed">Dashboard masivo y bot GPS para que el usuario encuentre su aliado más cercano.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB: TRIVIA -->
+                <section id="tab-trivia" class="tab-content">
+                    <div class="text-left mb-8">
+                        <h2 class="text-3xl font-black text-[#002855] tracking-tight">P1: Trivia Mundialista</h2>
+                        <p class="text-slate-400 text-sm">Flujo de captura de datos calificados con seguimiento continuo.</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 lg:grid-cols-5 gap-3 mb-8">
+                        <div class="bg-white p-4 rounded-2xl border border-slate-100 text-left">
+                            <i data-lucide="qr-code" size="16" class="text-sky-500 mb-2"></i>
+                            <p class="font-bold text-[11px] text-[#002855]">QR en Factura</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl border border-slate-100 text-left">
+                            <i data-lucide="check-circle" size="16" class="text-sky-500 mb-2"></i>
+                            <p class="font-bold text-[11px] text-[#002855]">Validación Pagador</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl border border-slate-100 text-left">
+                            <i data-lucide="user-plus" size="16" class="text-sky-500 mb-2"></i>
+                            <p class="font-bold text-[11px] text-[#002855]">Registro de BD</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl border border-slate-100 text-left">
+                            <i data-lucide="trophy" size="16" class="text-sky-500 mb-2"></i>
+                            <p class="font-bold text-[11px] text-[#002855]">Juego & Ranking</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl border border-slate-100 text-left">
+                            <i data-lucide="bar-chart-3" size="16" class="text-sky-500 mb-2"></i>
+                            <p class="font-bold text-[11px] text-[#002855]">Informe Mensual</p>
+                        </div>
+                    </div>
+
+                    <div id="sim-trivia-container"></div>
+                </section>
+
+                <!-- TAB: GEOREF -->
+                <section id="tab-georef" class="tab-content">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                        <div class="space-y-6">
+                            <div class="text-left">
+                                <h2 class="text-3xl font-black text-[#002855] tracking-tight">P2: Los Parceros</h2>
+                                <p class="text-slate-400 text-sm">Visibilidad GPS de la red de aliados.</p>
+                            </div>
+                            <div id="sim-georef-container"></div>
+                        </div>
+                        <div class="bg-white rounded-[2rem] border border-slate-100 shadow-sm overflow-hidden text-left flex flex-col h-full min-h-[500px]">
+                            <div class="p-6 border-b border-slate-50 bg-slate-50/50">
+                                <h3 class="font-bold text-[#002855] flex items-center gap-2">
+                                    <i data-lucide="database" class="text-[#25d366]" size="20"></i> Módulo Blupit
+                                </h3>
+                                <p class="text-[10px] text-slate-400 uppercase font-bold mt-1">Gestión 12,000 Aliados</p>
+                            </div>
+                            <div class="overflow-x-auto flex-1">
+                                <table class="w-full text-[12px]">
+                                    <thead class="bg-slate-50 text-slate-400 uppercase text-[9px] font-black">
+                                        <tr><th class="px-6 py-3 text-left">Establecimiento</th><th class="px-6 py-3 text-left">Ciudad</th><th class="px-6 py-3 text-right">Acción</th></tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-50">
+                                        <tr><td class="px-6 py-4 font-bold">La Esquina del Sabor</td><td class="px-6 py-4 text-slate-400">Bogotá</td><td class="px-6 py-4 text-right"><i data-lucide="more-vertical" size="14"></i></td></tr>
+                                        <tr><td class="px-6 py-4 font-bold">Gas JP Norte</td><td class="px-6 py-4 text-slate-400">Medellín</td><td class="px-6 py-4 text-right"><i data-lucide="more-vertical" size="14"></i></td></tr>
+                                        <tr><td class="px-6 py-4 font-bold">Parceros Express</td><td class="px-6 py-4 text-slate-400">Cali</td><td class="px-6 py-4 text-right"><i data-lucide="more-vertical" size="14"></i></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB: INVERSION -->
+                <section id="tab-inversion" class="tab-content">
+                    <div class="text-left mb-8 lg:mb-12">
+                        <h2 class="text-3xl lg:text-4xl font-black text-[#002855] tracking-tight">Inversión Detallada</h2>
+                        <p class="text-slate-400 font-medium">Precios por implementación única y recurrente.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 mb-10 text-left">
+                        <div class="bg-white p-8 lg:p-10 rounded-[2.5rem] border border-slate-100 flex flex-col justify-between shadow-sm hover:border-[#25d366] transition-all">
+                            <div>
+                                <div class="flex items-center gap-4 mb-8">
+                                    <div class="w-14 h-14 bg-sky-50 text-sky-500 rounded-2xl flex items-center justify-center shadow-sm"><i data-lucide="trophy" size="28"></i></div>
+                                    <div>
+                                        <h3 class="text-xl font-black text-[#002855]">Propuesta 1: Trivia</h3>
+                                        <p class="text-slate-400 text-[10px] font-bold uppercase tracking-widest leading-none">Setup Integral</p>
+                                    </div>
+                                </div>
+                                <ul class="space-y-3 mb-10 text-sm text-slate-600">
+                                    <li class="flex gap-3"><i data-lucide="check" size="16" class="text-[#25d366]"></i> Diseño de Volante Publicitario</li>
+                                    <li class="flex gap-3"><i data-lucide="check" size="16" class="text-[#25d366]"></i> Generación de QR con Tracking</li>
+                                    <li class="flex gap-3"><i data-lucide="check" size="16" class="text-[#25d366]"></i> Landing Page de T&C (LEVEL)</li>
+                                    <li class="flex gap-3"><i data-lucide="check" size="16" class="text-[#25d366]"></i> Flujo Bot + Setup Meta</li>
+                                    <li class="flex gap-3 font-bold text-sky-600"><i data-lucide="bar-chart" size="16"></i> Seguimiento + Informe mensual</li>
+                                </ul>
+                            </div>
+                            <div class="bg-sky-500 p-8 rounded-3xl text-white text-center">
+                                <p class="text-[10px] font-black uppercase opacity-60 mb-1">Inversión Única</p>
+                                <p class="text-4xl font-black">$10.000.000</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-8 lg:p-10 rounded-[2.5rem] border border-slate-100 flex flex-col justify-between shadow-sm hover:border-[#25d366] transition-all">
+                            <div>
+                                <div class="flex items-center gap-4 mb-8">
+                                    <div class="w-14 h-14 bg-emerald-50 text-emerald-500 rounded-2xl flex items-center justify-center shadow-sm"><i data-lucide="map-pin" size="28"></i></div>
+                                    <div>
+                                        <h3 class="text-xl font-black text-[#002855]">Propuesta 2: Parceros</h3>
+                                        <p class="text-slate-400 text-[10px] font-bold uppercase tracking-widest leading-none">Módulo 12K Aliados</p>
+                                    </div>
+                                </div>
+                                <ul class="space-y-3 mb-10 text-sm text-slate-600">
+                                    <li class="flex gap-3"><i data-lucide="check" size="16" class="text-[#25d366]"></i> Módulo Georef Blupit</li>
+                                    <li class="flex gap-3"><i data-lucide="check" size="16" class="text-[#25d366]"></i> Carga Masiva (CSV/Excel)</li>
+                                    <li class="flex gap-3 font-bold text-emerald-600"><i data-lucide="gift" size="16"></i> Flujo WhatsApp (Obsequio)</li>
+                                </ul>
+                            </div>
+                            <div class="bg-[#001a38] p-8 rounded-3xl text-white text-center">
+                                <p class="text-[10px] font-black uppercase opacity-60 mb-1">Inversión Única</p>
+                                <p class="text-4xl font-black">$15.000.000</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-900 p-8 lg:p-12 rounded-[2.5rem] lg:rounded-[4rem] text-white flex flex-col lg:flex-row justify-between items-center gap-10 relative overflow-hidden text-left">
+                        <div class="z-10 max-w-2xl">
+                            <h4 class="text-2xl lg:text-3xl font-black mb-4 flex items-center gap-4"><i data-lucide="zap" class="text-[#25d366]"></i> Fee Blupit Compartido</h4>
+                            <p class="text-slate-400 text-sm leading-relaxed">Uso ilimitado de la plataforma para ambas dinámicas, gestión de campañas de marketing masivo, juegos adicionales y capacitación del equipo Colgas.</p>
+                        </div>
+                        <div class="bg-white/5 border border-white/10 p-8 rounded-[2.5rem] text-center lg:text-right min-w-[280px] backdrop-blur-sm z-10">
+                            <p class="text-[10px] font-black uppercase text-[#25d366] mb-2">Alquiler Mensual</p>
+                            <p class="text-5xl font-black">$6.000.000</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB: CONSULTORIA -->
+                <section id="tab-consultoria" class="tab-content text-left">
+                    <div class="bg-[#001a38] p-10 lg:p-16 rounded-[2.5rem] lg:rounded-[4rem] text-white relative overflow-hidden mb-12 shadow-2xl">
+                        <div class="absolute top-0 right-0 p-12 text-white/5 pointer-events-none"><i data-lucide="brain-circuit" size="200"></i></div>
+                        <div class="z-10 relative max-w-2xl">
+                            <div class="bg-amber-500 text-white px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-6 inline-block">Fase 2 - Crecimiento</div>
+                            <h2 class="text-4xl lg:text-5xl font-black mb-4 tracking-tighter">Consultoría Especializada</h2>
+                            <p class="text-slate-400 text-lg leading-relaxed">Acompañamiento estratégico para transformar la plataforma en un motor de resultados continuos.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12 text-left">
+                        <div class="bg-white p-8 rounded-[3rem] border border-slate-100 shadow-sm">
+                            <div class="w-12 h-12 bg-sky-50 text-sky-500 rounded-2xl flex items-center justify-center mb-6"><i data-lucide="target" size="24"></i></div>
+                            <h4 class="font-bold text-[#002855] text-xl mb-3">Ideas que mueven el negocio</h4>
+                            <p class="text-sm text-slate-500 leading-relaxed">Pensamos y proponemos ideas diferentes para cada frente de Colgas, buscando que realmente pasen cosas.</p>
+                        </div>
+                        <div class="bg-white p-8 rounded-[3rem] border border-slate-100 shadow-sm">
+                            <div class="w-12 h-12 bg-emerald-50 text-emerald-500 rounded-2xl flex items-center justify-center mb-6"><i data-lucide="rocket" size="24"></i></div>
+                            <h4 class="font-bold text-[#002855] text-xl mb-3">Campañas internas que sí conectan</h4>
+                            <p class="text-sm text-slate-500 leading-relaxed">Activamos al equipo, lo motivamos y lo hacemos parte del juego, no solo espectadores.</p>
+                        </div>
+                        <div class="bg-white p-8 rounded-[3rem] border border-slate-100 shadow-sm">
+                            <div class="w-12 h-12 bg-purple-50 text-purple-500 rounded-2xl flex items-center justify-center mb-6"><i data-lucide="bar-chart" size="24"></i></div>
+                            <h4 class="font-bold text-[#002855] text-xl mb-3">Mejoras constantes</h4>
+                            <p class="text-sm text-slate-500 leading-relaxed">Probamos, medimos y ajustamos para que cada vez más personas avancen y conviertan dentro del bot.</p>
+                        </div>
+                        <div class="bg-white p-8 rounded-[3rem] border border-slate-100 shadow-sm">
+                            <div class="w-12 h-12 bg-amber-50 text-amber-500 rounded-2xl flex items-center justify-center mb-6"><i data-lucide="lightbulb" size="24"></i></div>
+                            <h4 class="font-bold text-[#002855] text-xl mb-3">Creatividad en todos los frentes</h4>
+                            <p class="text-sm text-slate-500 leading-relaxed">Desde activaciones hasta campañas externas, apoyamos con ideas que llamen la atención y generen resultados.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-[3rem] p-10 border border-slate-100 shadow-sm text-center">
+                        <h3 class="text-xl font-bold text-[#002855] mb-6 uppercase tracking-widest opacity-50">Inversión Fase 2</h3>
+                        <div class="inline-block px-12 py-6 bg-slate-900 rounded-3xl text-white shadow-xl">
+                            <p class="text-5xl font-black leading-none">$7.000.000</p>
+                            <p class="text-[10px] font-bold text-amber-400 uppercase tracking-widest mt-3">Fee Mensual de Consultoría</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <footer class="mt-12 py-8 border-t border-slate-200 text-slate-400 text-[10px] font-black uppercase tracking-[0.3em] text-center">
+                <p>© 2026 LEVEL TECH SOLUTIONS - BLUPIT PARTNER</p>
+            </footer>
+        </main>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById('tab-' + tabId).classList.add('active');
+            const activeBtn = document.querySelector(`.nav-btn[data-tab="${tabId}"]`);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            if (tabId === 'trivia') renderTriviaSim();
+            if (tabId === 'georef') renderGeorefSim();
+            
+            lucide.createIcons();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        let triviaStep = 0;
+        let georefStep = 0;
+        let timerValue = 10;
+        let timerInterval;
+
+        function renderTriviaSim() {
+            const container = document.getElementById('sim-trivia-container');
+            const messages = [{ type: 'system', text: '📱 Escanea el QR del volante de tu factura.' }];
+            
+            if (triviaStep === 1) messages.push({ type: 'bot', text: '¡Hola! Bienvenido a la Trivia Mundialista Colgas. ⚽🏆\n\n¿Eres tú quien paga el recibo de gas en esta casa?', options: ['SÍ', 'NO'] });
+            else if (triviaStep === 2) {
+                messages.push({ type: 'user', text: 'SÍ' });
+                messages.push({ type: 'bot', text: '¡Excelente! Antes de jugar, acepta los términos y condiciones.\n\n🔗 colgas.blupit.com/mundial', action: 'Acepto términos' });
+            } else if (triviaStep === 3) {
+                messages.push({ type: 'user', text: 'Acepto términos' });
+                messages.push({ type: 'bot', text: '¡Genial! Necesitamos tus datos.\n\n¿Cuál es tu nombre completo?' });
+            } else if (triviaStep === 4) {
+                messages.push({ type: 'user', text: 'Juan Pérez' });
+                messages.push({ type: 'bot', text: 'Confímanos tus datos:\n👤 Juan Pérez\n📍 Bogotá\n🏠 Calle 100 #15-30\n\n¿Todo correcto?', action: 'Datos Correctos' });
+            } else if (triviaStep === 5) {
+                messages.push({ type: 'user', text: 'Datos Correctos' });
+                messages.push({ type: 'bot', text: '¡EL BALÓN ESTÁ EN TUS PIES! ⏱️🔥\n\nResponde 3 preguntas. Entre más rápido respondas, más cerca estarás de ganar. 🏆\n\n¡Enfoca tu visión Hisense y prepárate!', action: '🎯 JUGAR AHORA' });
+            } else if (triviaStep === 6) messages.push({ type: 'bot', text: '¿En qué país se jugó el primer mundial de la historia?', options: ['Brasil', 'Uruguay', 'Francia'], isQuestion: true });
+            else if (triviaStep === 7) messages.push({ type: 'bot', text: '¡TRIVIA COMPLETADA! 🏅\n\nTu puntaje: 2,450 pts.\nRanking Semanal: #15', isRanking: true });
+
+            container.innerHTML = generatePhoneHTML('trivia', messages);
+            lucide.createIcons();
+        }
+
+        function renderGeorefSim() {
+            const container = document.getElementById('sim-georef-container');
+            const messages = [{ type: 'bot', text: '¡Hola! Bienvenido a la Red de Parceros Colgas. 🤠\n\nCompártenos tu ubicación GPS para decirte cuáles son los parceros más cercanos.' }];
+            if (georefStep === 1) {
+                messages.push({ type: 'user', text: '📍 Mi Ubicación' });
+                messages.push({ type: 'bot', text: 'He encontrado estos parceros cerca de ti. Selecciona uno:', partners: ['La Esquina del Sabor', 'Gas JP Norte', 'Sabor y Gas'] });
+            } else if (georefStep === 2) {
+                messages.push({ type: 'user', text: 'La Esquina del Sabor' });
+                messages.push({ type: 'bot', text: '📍 Ubicación de La Esquina del Sabor:\n\n🏠 Dirección: Cl. 127 #15-30\n🏙️ Ciudad: Bogotá\n\n¡Puedes acercarte ahora mismo! 🤠', hasMap: true });
+            }
+            container.innerHTML = generatePhoneHTML('georef', messages);
+            lucide.createIcons();
+        }
+
+        function generatePhoneHTML(mode, messages) {
+            let messagesHtml = messages.map(m => {
+                if (m.type === 'system') return `<div class="flex justify-center my-2"><div class="bg-white/60 px-3 py-1 rounded-full text-[9px] font-black text-slate-500 border border-white/40">${m.text}</div></div>`;
+                let content = `<p class="whitespace-pre-line leading-relaxed">${m.text || ''}</p>`;
+                if (m.options) content += `<div class="mt-3 flex flex-col gap-1.5">` + m.options.map(o => `<button onclick="nextTriviaStep('${o}')" class="w-full py-2 bg-slate-50 border border-slate-100 rounded text-[#00a3e0] font-bold text-[10px]">${o}</button>`).join('') + `</div>`;
+                if (m.action) content += `<div class="mt-3"><button onclick="nextTriviaStep('${m.action}')" class="w-full py-2 bg-[#25d366] text-white rounded font-bold text-[10px]">${m.action}</button></div>`;
+                if (m.partners) content += `<div class="mt-3 flex flex-col gap-1.5">` + m.partners.map(p => `<button onclick="nextGeorefStep('${p}')" class="w-full p-2.5 bg-slate-50 border border-slate-100 rounded text-[#00a3e0] font-bold text-[10px] text-left flex justify-between items-center"><span>${p}</span><i data-lucide="chevron-right" size="12"></i></button>`).join('') + `</div>`;
+                if (m.hasMap) content += `<div class="mt-2 p-2 bg-slate-100 rounded border border-slate-200 flex items-center justify-center gap-2 text-sky-600 font-bold text-[10px]"><i data-lucide="external-link" size="12"></i> VER MAPA</div>`;
+                const isBot = m.type === 'bot';
+                return `<div class="flex ${isBot ? 'justify-start' : 'justify-end'} my-2">
+                    <div class="max-w-[85%] rounded-xl p-3 shadow-sm relative text-[11px] text-left ${isBot ? 'bg-white rounded-tl-none' : 'bg-[#dcf8c6] rounded-tr-none'}">
+                        ${content}
+                        <div class="flex justify-end mt-1 opacity-30 text-[8px]">12:00 PM ${!isBot ? '✓✓' : ''}</div>
+                    </div>
+                </div>`;
+            }).join('');
+            return `<div class="relative w-full max-w-[320px] h-[580px] bg-slate-900 rounded-[3rem] border-[8px] border-slate-800 shadow-2xl overflow-hidden flex flex-col mx-auto">
+                <div class="bg-[#075e54] pt-10 pb-3 px-4 text-white flex items-center gap-3 shrink-0">
+                    <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center font-bold text-sm">${mode === 'trivia' ? '⚽' : '🤠'}</div>
+                    <div class="flex-1 text-left leading-tight"><p class="font-bold text-xs">${mode === 'trivia' ? 'Trivia Colgas' : 'Red Parceros'}</p><p class="text-[9px] opacity-70 italic">en línea</p></div>
+                    ${triviaStep === 6 ? `<div class="bg-red-500 px-2 py-0.5 rounded text-[10px] font-black animate-pulse flex items-center gap-1"><i data-lucide="clock" size="10"></i> <span id="trivia-timer">10</span>s</div>` : ''}
+                </div>
+                <div class="flex-1 whatsapp-bg p-3 overflow-y-auto hide-scroll flex flex-col">${messagesHtml}</div>
+                <div class="bg-[#f0f2f5] p-3 flex gap-2 items-center">
+                    <div class="flex-1 bg-white rounded-full px-4 py-2 text-[10px] text-slate-400 text-left">Escribe...</div>
+                    ${mode === 'georef' && georefStep === 0 ? `<button onclick="nextGeorefStep('📍 Ubicación')" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-[#25d366] shadow-sm"><i data-lucide="map-pin" size="16"></i></button>` : ''}
+                    ${mode === 'trivia' && triviaStep === 0 ? `<button onclick="nextTriviaStep('start')" class="w-8 h-8 bg-[#075e54] text-white rounded-full flex items-center justify-center shadow-lg"><i data-lucide="send" size="14"></i></button>` : ''}
+                </div>
+            </div>`;
+        }
+
+        function nextTriviaStep(val) {
+            if (triviaStep === 0) triviaStep = 1;
+            else if (val === 'SÍ') triviaStep = 2;
+            else if (val === 'Acepto términos') triviaStep = 3;
+            else if (triviaStep === 3) triviaStep = 4;
+            else if (val === 'Datos Correctos') triviaStep = 5;
+            else if (val === '🎯 JUGAR AHORA') { triviaStep = 6; startTimer(); }
+            else if (triviaStep === 6) { triviaStep = 7; clearInterval(timerInterval); }
+            else if (triviaStep === 7) triviaStep = 0;
+            renderTriviaSim();
+        }
+
+        function nextGeorefStep(val) {
+            if (val === '📍 Ubicación') georefStep = 1;
+            else if (georefStep === 1) georefStep = 2;
+            else if (georefStep === 2) georefStep = 0;
+            renderGeorefSim();
+        }
+
+        function startTimer() {
+            timerValue = 10;
+            timerInterval = setInterval(() => {
+                timerValue--;
+                const el = document.getElementById('trivia-timer');
+                if (el) el.innerText = timerValue;
+                if (timerValue <= 0) nextTriviaStep('timeout');
+            }, 1000);
+        }
+
+        window.onload = () => { lucide.createIcons(); renderTriviaSim(); renderGeorefSim(); };
+    </script>
+</body>
+</html>
