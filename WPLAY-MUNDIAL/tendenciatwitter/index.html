@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propuesta Estratégica Wplay X - Level Colombia</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Alpine.js -->
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #c5a059; border-radius: 20px; border: 2px solid white; }
+
+        [x-cloak] { display: none !important; }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body x-data="{ activeTab: 'contexto' }" class="pb-24">
+
+    <!-- Header -->
+    <header class="bg-[#001e42] p-8 shadow-lg border-b-4 border-[#c5a059] relative overflow-hidden text-white">
+        <div class="absolute right-0 top-0 opacity-10 pointer-events-none translate-x-1/4 -translate-y-1/4">
+            <i data-lucide="trending-up" class="w-96 h-96 text-[#c5a059]"></i>
+        </div>
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center md:items-end relative z-10 gap-6">
+            <div>
+                <div class="flex items-center justify-center md:justify-start gap-3 mb-3">
+                    <span class="bg-[#c5a059] text-[#001e42] text-[11px] px-3 py-1 font-black uppercase tracking-widest rounded-full shadow-lg italic">Level Colombia</span>
+                    <div class="h-px w-16 bg-[#c5a059]/50"></div>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-black tracking-tighter uppercase italic leading-none text-center md:text-left">
+                    WPLAY: LA PATADITA <br/><span class="text-[#c5a059]">DE LA BUENA SUERTE</span>
+                </h1>
+                <p class="text-slate-300 font-medium mt-3 italic text-lg text-center md:text-left">Propuesta Estratégica de Conversación en X (Twitter)</p>
+            </div>
+            <div class="flex flex-col items-center md:items-end">
+                <div class="bg-[#c5a059] text-[#001e42] px-8 py-4 rounded-2xl font-black text-2xl shadow-2xl italic border-2 border-white/20">
+                    #QueLeFaltaAColombia
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navegación -->
+    <nav class="max-w-7xl mx-auto mt-8 px-4">
+        <div class="flex bg-white rounded-3xl shadow-md border border-slate-200 overflow-hidden p-2 flex-wrap md:flex-nowrap">
+            <button @click="activeTab = 'contexto'" :class="activeTab === 'contexto' ? 'bg-[#001e42] text-white shadow-xl' : 'text-slate-500 hover:bg-slate-50'" class="flex-1 py-4 px-2 rounded-2xl font-bold transition-all flex items-center justify-center gap-2 text-xs md:text-base">
+                <i data-lucide="play-circle" class="w-5 h-5"></i> 1. CONTEXTO
+            </button>
+            <button @click="activeTab = 'escenarios'" :class="activeTab === 'escenarios' ? 'bg-[#001e42] text-white shadow-xl' : 'text-slate-500 hover:bg-slate-50'" class="flex-1 py-4 px-2 rounded-2xl font-bold transition-all flex items-center justify-center gap-2 text-xs md:text-base">
+                <i data-lucide="bar-chart-3" class="w-5 h-5"></i> 2. ESCENARIOS
+            </button>
+            <button @click="activeTab = 'tendencia'" :class="activeTab === 'tendencia' ? 'bg-[#001e42] text-white shadow-xl' : 'text-slate-500 hover:bg-slate-50'" class="flex-1 py-4 px-2 rounded-2xl font-bold transition-all flex items-center justify-center gap-2 text-xs md:text-base">
+                <i data-lucide="trending-up" class="w-5 h-5"></i> 3. TENDENCIA
+            </button>
+            <button @click="activeTab = 'talentos'" :class="activeTab === 'talentos' ? 'bg-[#001e42] text-white shadow-xl' : 'text-slate-500 hover:bg-slate-50'" class="flex-1 py-4 px-2 rounded-2xl font-bold transition-all flex items-center justify-center gap-2 text-xs md:text-base">
+                <i data-lucide="award" class="w-5 h-5"></i> 4. TALENTOS TOP
+            </button>
+            <button @click="activeTab = 'tuits'" :class="activeTab === 'tuits' ? 'bg-[#001e42] text-white shadow-xl' : 'text-slate-500 hover:bg-slate-50'" class="flex-1 py-4 px-2 rounded-2xl font-bold transition-all flex items-center justify-center gap-2 text-xs md:text-base">
+                <i data-lucide="message-square" class="w-5 h-5"></i> 5. EJEMPLOS
+            </button>
+        </div>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <main class="max-w-7xl mx-auto p-4 mt-6">
+        
+        <!-- PESTAÑA 1: CONTEXTO -->
+        <section x-show="activeTab === 'contexto'" class="space-y-8 animate-fade-in" x-cloak>
+            <!-- Requerimientos Mínimos -->
+            <div class="bg-white p-10 rounded-[3rem] shadow-xl border border-slate-200 text-left overflow-hidden relative">
+                <div class="absolute right-[-20px] top-[-20px] text-slate-50 opacity-50"><i data-lucide="clipboard-list" class="w-48 h-48"></i></div>
+                <div class="flex items-center gap-4 mb-10 border-b border-slate-100 pb-6 relative z-10">
+                    <div class="bg-[#c5a059] p-3 rounded-2xl text-[#001e42] shadow-lg">
+                        <i data-lucide="clipboard-list" class="w-8 h-8"></i>
+                    </div>
+                    <h2 class="text-3xl font-black uppercase italic text-[#001e42]">Requerimientos Estratégicos Mínimos</h2>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
+                    <div class="bg-slate-50 p-6 rounded-[2rem] border border-slate-100 hover:border-[#c5a059] transition-all group">
+                        <div class="text-3xl font-black text-[#c5a059] mb-4 italic">01</div>
+                        <h3 class="font-black text-[#001e42] uppercase text-sm mb-3">Definir un Hashtag</h3>
+                        <p class="text-xs text-slate-500 font-medium leading-relaxed italic">
+                            Unificador de conversación relevante: <strong class="text-[#001e42]">#QueLeFaltaAColombia</strong>.
+                        </p>
+                    </div>
+                    <div class="bg-slate-50 p-6 rounded-[2rem] border border-slate-100 hover:border-[#c5a059] transition-all group">
+                        <div class="text-3xl font-black text-[#c5a059] mb-4 italic">02</div>
+                        <h3 class="font-black text-[#001e42] uppercase text-sm mb-3">Inicio de Conversación</h3>
+                        <p class="text-xs text-slate-500 font-medium leading-relaxed italic">
+                            Establecer el "Trigger". El clip orgánico de <strong>Eduardo Luis</strong> es nuestra ancla de credibilidad.
+                        </p>
+                    </div>
+                    <div class="bg-slate-50 p-6 rounded-[2rem] border border-slate-100 hover:border-[#c5a059] transition-all group">
+                        <div class="text-3xl font-black text-[#c5a059] mb-4 italic">03</div>
+                        <h3 class="font-black text-[#001e42] uppercase text-sm mb-3">Dinámica de División</h3>
+                        <p class="text-xs text-slate-500 font-medium leading-relaxed italic">
+                            Dividir posiciones: <strong>Escépticos</strong> (táctica) vs. <strong>Creyentes</strong> (mística de la patadita).
+                        </p>
+                    </div>
+                    <div class="bg-slate-50 p-6 rounded-[2rem] border border-slate-100 hover:border-[#c5a059] transition-all group">
+                        <div class="text-3xl font-black text-[#c5a059] mb-4 italic">04</div>
+                        <h3 class="font-black text-[#001e42] uppercase text-sm mb-3">Buena Tropa</h3>
+                        <p class="text-xs text-slate-500 font-medium leading-relaxed italic">
+                            Red de perfiles satélite y comunidades masivas para asegurar distribución nacional.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- El Detonante -->
+            <div class="bg-white p-10 rounded-[3rem] shadow-xl border border-slate-200 text-left">
+                <div class="flex items-center gap-4 mb-8 border-b border-slate-100 pb-6">
+                    <div class="bg-[#c5a059] p-3 rounded-2xl text-white shadow-lg">
+                        <i data-lucide="play-circle" class="w-8 h-8"></i>
+                    </div>
+                    <h2 class="text-3xl font-black uppercase italic text-[#001e42]">El Detonante de la Conversación</h2>
+                </div>
+                
+                <div class="grid lg:grid-cols-2 gap-12 items-start">
+                    <div class="space-y-6">
+                        <div class="bg-slate-50 border-l-8 border-[#c5a059] p-8 rounded-r-3xl shadow-inner text-[#001e42]">
+                            <p class="italic text-2xl font-bold leading-snug">
+                                "Mariano todos hace falta... Todos en la vida algún día necesitamos la patadita de la buena suerte... también nos falta liderazgo, nivel... todo eso."
+                            </p>
+                            <p class="text-md font-black mt-4 text-[#c5a059] uppercase tracking-widest">— Eduardo Luis López (Saque Largo)</p>
+                        </div>
+                        <p class="text-slate-600 leading-relaxed text-xl italic font-medium">
+                            Eduardo Luis le otorgó simbólicamente "la patadita" a Mariano Olsen en vivo. Escalaremos este debate: ¿Es la mística lo que nos falta?
+                        </p>
+
+                        <div class="bg-[#001e42] text-white p-10 rounded-[2.5rem] border border-[#c5a059]/30 relative shadow-2xl overflow-hidden">
+                            <h3 class="font-black text-[#c5a059] mb-6 flex items-center gap-3 uppercase tracking-tighter text-2xl italic border-b border-white/10 pb-4">
+                               Ruta de Activación LEVEL
+                            </h3>
+                            <ul class="space-y-6 relative z-10">
+                                <li class="flex gap-4 items-start bg-white/5 p-4 rounded-2xl border border-white/5">
+                                    <div class="bg-[#c5a059] text-[#001e42] p-2 rounded-full shrink-0 mt-1 shadow-md"><i data-lucide="check-circle-2" class="w-5 h-5"></i></div>
+                                    <div>
+                                        <p class="font-bold text-[#c5a059] text-sm uppercase italic">Reactivación de Conversación</p>
+                                        <p class="text-md text-slate-200 italic">Siembra vía cuenta masiva o red de micro-nichos para revivir el clip.</p>
+                                    </div>
+                                </li>
+                                <li class="flex gap-4 items-start bg-white/5 p-4 rounded-2xl border border-white/5">
+                                    <div class="bg-[#c5a059] text-[#001e42] p-2 rounded-full shrink-0 mt-1 shadow-md"><i data-lucide="check-circle-2" class="w-5 h-5"></i></div>
+                                    <div>
+                                        <p class="font-bold text-[#c5a059] text-sm uppercase italic">Sumatoria de la Red</p>
+                                        <p class="text-md text-slate-200 italic">Activación en bloque de perfiles deportivos y memes.</p>
+                                    </div>
+                                </li>
+                                <li class="flex gap-4 items-start bg-white/5 p-4 rounded-2xl border border-white/5">
+                                    <div class="bg-[#c5a059] text-[#001e42] p-2 rounded-full shrink-0 mt-1 shadow-md"><i data-lucide="check-circle-2" class="w-5 h-5"></i></div>
+                                    <div>
+                                        <p class="font-bold text-[#c5a059] text-sm uppercase italic">Validación de Embajadores</p>
+                                        <p class="text-md text-slate-200 italic">JFC, Sheyla y FSL intervienen sutilmente para consolidar tendencia.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-6">
+                        <div class="group relative aspect-video bg-[#001e42] rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white">
+                            <img src="https://i.postimg.cc/3rnt6D5K/Whats-App-Image-2026-04-07-at-6-46-47-PM.jpg" alt="Eduardo Luis patadita" class="object-cover w-full h-full opacity-90">
+                            <div class="absolute bottom-6 left-6 bg-[#c5a059] text-[#001e42] text-xs px-4 py-2 font-black rounded-lg uppercase italic shadow-xl">La Patadita en Saque Largo</div>
+                        </div>
+                        <div class="group relative aspect-video bg-[#001e42] rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white">
+                            <img src="https://i.postimg.cc/ncr3tcph/Whats-App-Image-2026-04-07-at-6-46-37-PM.jpg" alt="Eduardo Luis Olsen" class="object-cover w-full h-full opacity-90">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA 2: ESCENARIOS -->
+        <section x-show="activeTab === 'escenarios'" class="space-y-12 animate-fade-in" x-cloak>
+            <div class="grid lg:grid-cols-2 gap-10">
+                <!-- Escenario 1 -->
+                <div class="bg-white rounded-[3.5rem] shadow-2xl border-4 border-slate-100 overflow-hidden flex flex-col transition-all hover:translate-y-[-10px]">
+                    <div class="p-10 text-center bg-slate-50 text-[#001e42]">
+                        <h3 class="text-2xl font-black uppercase italic tracking-tighter">Escenario 1</h3>
+                        <div class="text-5xl font-black mt-3 flex items-center justify-center gap-1 italic leading-none">
+                            <span class="text-lg font-normal not-italic">$</span>14.000.000
+                        </div>
+                    </div>
+                    <div class="p-10 flex-1 space-y-8 flex flex-col">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-slate-50 p-5 rounded-3xl border border-slate-100 shadow-inner text-center">
+                                <div class="text-slate-400 text-[10px] uppercase font-black tracking-widest">Audiencia Total</div>
+                                <div class="font-black text-xl text-[#001e42] leading-none mt-2">1.179.354</div>
+                            </div>
+                            <div class="bg-slate-50 p-5 rounded-3xl border border-slate-100 shadow-inner text-center">
+                                <div class="text-slate-400 text-[10px] uppercase font-black tracking-widest">Impactos</div>
+                                <div class="font-black text-xl text-[#001e42] leading-none mt-2">60 aprox.</div>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-br from-[#001e42] to-[#00336b] p-8 rounded-[2.5rem] border-b-[6px] border-[#c5a059] shadow-2xl text-center text-white">
+                            <div class="text-[#c5a059] text-xs uppercase font-black mb-2 tracking-[0.3em]">Alcance Potencial (5%)</div>
+                            <div class="font-black text-5xl italic leading-none">176.903</div>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-xs font-black uppercase text-slate-800 tracking-widest italic mb-4 border-b pb-2">Perfiles Destacados</h4>
+                            <div class="text-xs text-slate-600 space-y-2 italic">
+                                <p>• Gol Garra (@ElGolGarracol)</p>
+                                <p>• Solo Futbol Memes (@SoloFutbolMemes)</p>
+                                <p>• Rojo Sin Censura (@RojoSinCensura)</p>
+                                <p>• Javier Castro (@insolado)</p>
+                                <p class="text-[#c5a059] font-bold">+ 17 perfiles adicionales</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Escenario 2 -->
+                <div class="bg-white rounded-[3.5rem] shadow-2xl border-4 border-[#c5a059] overflow-hidden flex flex-col transition-all hover:translate-y-[-10px]">
+                    <div class="p-10 text-center bg-[#001e42] text-white">
+                        <h3 class="text-2xl font-black uppercase italic tracking-tighter">Escenario 2</h3>
+                        <div class="text-5xl font-black mt-3 flex items-center justify-center gap-1 italic leading-none text-[#c5a059]">
+                            <span class="text-lg font-normal not-italic">$</span>20.000.000
+                        </div>
+                    </div>
+                    <div class="p-10 flex-1 space-y-8 flex flex-col text-[#001e42]">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-slate-50 p-5 rounded-3xl border border-slate-100 shadow-inner text-center">
+                                <div class="text-slate-400 text-[10px] uppercase font-black tracking-widest">Audiencia Total</div>
+                                <div class="font-black text-xl leading-none mt-2">3.049.267</div>
+                            </div>
+                            <div class="bg-slate-50 p-5 rounded-3xl border border-slate-100 shadow-inner text-center">
+                                <div class="text-slate-400 text-[10px] uppercase font-black tracking-widest">Impactos</div>
+                                <div class="font-black text-xl leading-none mt-2">60 aprox.</div>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-br from-[#001e42] to-[#00336b] p-8 rounded-[2.5rem] border-b-[6px] border-[#c5a059] shadow-2xl text-center text-white">
+                            <div class="text-[#c5a059] text-xs uppercase font-black mb-2 tracking-[0.3em]">Alcance Potencial (5%)</div>
+                            <div class="font-black text-5xl italic leading-none text-center">457.390</div>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-xs font-black uppercase text-slate-800 tracking-widest italic mb-4 border-b pb-2">Perfiles Élite</h4>
+                            <div class="text-xs text-slate-600 space-y-2 italic">
+                                <p>• Steven Arce (@stevenarce)</p>
+                                <p>• Julian Capera (@JulianCaperaB)</p>
+                                <p>• Camila Vergara (@_camivergara)</p>
+                                <p>• Santiago Ospina (@TatagoOspina)</p>
+                                <p class="text-[#c5a059] font-bold">+ 17 perfiles nacionales</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA 3: TENDENCIA -->
+        <section x-show="activeTab === 'tendencia'" class="space-y-10 animate-fade-in" x-cloak>
+            <div class="bg-[#001e42] text-white rounded-[4rem] p-16 overflow-hidden relative shadow-2xl border-b-[16px] border-[#c5a059]">
+                <div class="relative z-10 grid lg:grid-cols-2 gap-20 items-center">
+                    <div class="space-y-8 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-4 bg-[#c5a059] text-[#001e42] px-8 py-3 rounded-full text-sm font-black uppercase tracking-[0.3em] shadow-2xl border-2 border-white/20">
+                            <i data-lucide="trending-up" class="w-5 h-5"></i> Tendencia Nacional Garantizada
+                        </div>
+                        <h2 class="text-6xl md:text-8xl font-black italic tracking-tighter leading-[0.9] text-white uppercase">
+                            OPERACIÓN <br /> <span class="text-[#c5a059]">TT X COLOMBIA</span>
+                        </h2>
+                        <p class="text-slate-300 text-xl leading-relaxed max-w-lg italic font-medium mx-auto lg:mx-0">
+                            Posicionamos <strong>#QueLeFaltaAColombia</strong> en el Top 10 de X. Capturamos la agenda pública colombiana.
+                        </p>
+                        <div class="pt-6 flex items-baseline gap-3 justify-center lg:justify-start">
+                            <span class="text-6xl md:text-7xl font-black text-[#c5a059] italic leading-none">$28.000.000</span>
+                            <span class="text-slate-400 font-black uppercase text-sm tracking-widest italic">+ IVA</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="bg-white/5 backdrop-blur-2xl p-8 rounded-[3rem] border border-white/10 shadow-2xl border-l-8 border-l-[#c5a059]">
+                            <div class="text-4xl md:text-5xl font-black leading-none mb-2 italic">+400</div>
+                            <div class="text-[11px] text-[#c5a059] uppercase font-black tracking-[0.4em]">Tuits Ejecutados</div>
+                        </div>
+                        <div class="bg-white/5 backdrop-blur-2xl p-8 rounded-[3rem] border border-white/10 shadow-2xl">
+                            <div class="text-4xl md:text-5xl font-black leading-none mb-2 italic">3h</div>
+                            <div class="text-[11px] text-[#c5a059] uppercase font-black tracking-[0.4em]">En Tendencia</div>
+                        </div>
+                        <div class="bg-white/5 backdrop-blur-2xl p-8 rounded-[3rem] border border-white/10 shadow-2xl">
+                            <div class="text-4xl md:text-5xl font-black leading-none mb-2 italic">Top 10</div>
+                            <div class="text-[11px] text-[#c5a059] uppercase font-black tracking-[0.4em]">Ranking Nacional</div>
+                        </div>
+                        <div class="bg-white/5 backdrop-blur-2xl p-8 rounded-[3rem] border border-white/10 shadow-2xl border-r-8 border-r-[#c5a059]">
+                            <div class="text-4xl md:text-5xl font-black leading-none mb-2 italic">1.5M</div>
+                            <div class="text-[11px] text-[#c5a059] uppercase font-black tracking-[0.4em]">Impresiones Est.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-16 pt-10 border-t border-white/10 text-center md:text-left">
+                    <p class="text-slate-400 font-bold uppercase tracking-widest text-sm mb-6 flex items-center justify-center md:justify-start gap-2 italic">
+                        <i data-lucide="users" class="w-5 h-5 text-[#c5a059]"></i> Red de 20 Cuentas Élite:
+                    </p>
+                    <div class="bg-white/5 rounded-3xl overflow-hidden shadow-inner p-2 border border-white/10">
+                        <div class="max-h-80 overflow-y-auto custom-scrollbar pr-2">
+                            <table class="w-full text-left text-sm">
+                                <thead class="bg-white/5 text-[#c5a059] font-black uppercase text-[10px]">
+                                    <tr><th class="p-4 italic">Perfil</th><th class="p-4 italic">Seguidores</th><th class="p-4 italic text-center">Tuits</th></tr>
+                                </thead>
+                                <tbody class="divide-y divide-white/5 text-white">
+                                    <tr class="hover:bg-white/5 transition-colors"><td class="p-4">Felipe Sierra (@PSierraR)</td><td class="p-4">182.300</td><td class="p-4 text-center">1</td></tr>
+                                    <tr class="hover:bg-white/5 transition-colors"><td class="p-4">Solo Futbol Memes (@SoloFutbolMemes)</td><td class="p-4">444.000</td><td class="p-4 text-center">3</td></tr>
+                                    <tr class="hover:bg-white/5 transition-colors"><td class="p-4">Ricardo Arce (@ElGatoArceArce)</td><td class="p-4">138.400</td><td class="p-4 text-center">2</td></tr>
+                                    <tr class="hover:bg-white/5 transition-colors"><td class="p-4">Diana Rincón (@Dianirin)</td><td class="p-4">67.200</td><td class="p-4 text-center">2</td></tr>
+                                    <tr class="hover:bg-white/5 transition-colors"><td class="p-4">Carlos Arango (@ElPetisoArango)</td><td class="p-4">128.400</td><td class="p-4 text-center">2</td></tr>
+                                    <tr class="hover:bg-white/5 transition-colors"><td class="p-4">Gol Garra (@ElGolGarracol)</td><td class="p-4">178.500</td><td class="p-4 text-center">3</td></tr>
+                                    <tr class="hover:bg-white/5 transition-colors"><td class="p-4">Jenni Amaya (@JenniiAmaya)</td><td class="p-4">179.500</td><td class="p-4 text-center">3</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA 4: TALENTOS TOP -->
+        <section x-show="activeTab === 'talentos'" class="space-y-10 animate-fade-in" x-cloak>
+            <div class="bg-white rounded-[4rem] shadow-2xl border border-slate-200 overflow-hidden">
+                <div class="bg-[#001e42] p-12 text-center border-b-8 border-[#c5a059] text-white">
+                    <div class="inline-flex items-center gap-2 bg-[#c5a059] text-[#001e42] px-6 py-2 rounded-full text-xs font-black uppercase tracking-widest mb-6">
+                        <i data-lucide="award" class="w-4 h-4"></i> Validación Periodística Élite
+                    </div>
+                    <h2 class="text-5xl md:text-7xl font-black italic tracking-tighter uppercase leading-none">
+                        TALENTOS <span class="text-[#c5a059]">TOP PREMIUM</span>
+                    </h2>
+                    <p class="text-slate-300 text-lg mt-4 max-w-2xl mx-auto italic font-medium">
+                        Perfiles estratégicos diseñados para reactivar la conversación con máxima credibilidad.
+                    </p>
+                </div>
+                <div class="p-10 overflow-x-auto">
+                    <table class="w-full text-left border-collapse min-w-[600px]">
+                        <thead class="bg-slate-50 text-[#001e42] text-xs uppercase font-black border-b">
+                            <tr><th class="p-6 italic">Talento</th><th class="p-6 italic">@Handle</th><th class="p-6 italic text-right">Inversión por Tuit</th></tr>
+                        </thead>
+                        <tbody class="divide-y text-[#001e42]">
+                            <tr class="hover:bg-slate-50"><td class="p-6 font-black text-lg">Melissa Martínez</td><td class="p-6 font-bold text-blue-600">@MelisaMarArtuz</td><td class="p-6 text-right font-black text-2xl italic">$16.000.000</td></tr>
+                            <tr class="hover:bg-slate-50"><td class="p-6 font-black text-lg">César Augusto Londoño</td><td class="p-6 font-bold text-blue-600">@cesaralo</td><td class="p-6 text-right font-black text-2xl italic">$12.000.000</td></tr>
+                            <tr class="hover:bg-slate-50"><td class="p-6 font-black text-lg">Fabián Vargas</td><td class="p-6 font-bold text-blue-600">@FabianVargas6</td><td class="p-6 text-right font-black text-2xl italic">$10.000.000</td></tr>
+                            <tr class="hover:bg-slate-50"><td class="p-6 font-black text-lg">Diego Rueda</td><td class="p-6 font-bold text-blue-600">@diegonoticia</td><td class="p-6 text-right font-black text-2xl italic">$2.600.000</td></tr>
+                            <tr class="hover:bg-slate-50"><td class="p-6 font-black text-lg">Alejandro Pino Calad</td><td class="p-6 font-bold text-blue-600">@PinoCalad</td><td class="p-6 text-right font-black text-2xl italic">$2.600.000</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA 5: EJEMPLOS -->
+        <section x-show="activeTab === 'tuits'" class="max-w-3xl mx-auto animate-fade-in" x-cloak>
+            <div class="bg-white rounded-[3rem] shadow-2xl border-2 border-slate-100 overflow-hidden text-left mb-20">
+                <div class="bg-gradient-to-r from-[#001e42] to-[#00336b] p-10 border-b-4 border-[#c5a059] text-white">
+                    <h2 class="text-4xl font-black italic uppercase tracking-tighter leading-none">
+                        SIMULACIÓN <span class="text-[#c5a059]">DE FEED</span>
+                    </h2>
+                    <p class="text-slate-400 mt-2 italic font-medium">Así se verá el debate nacional en vivo.</p>
+                </div>
+                
+                <!-- Tuit 1 -->
+                <div class="p-6 border-b hover:bg-slate-50 transition-colors">
+                    <div class="flex gap-3">
+                        <div class="w-12 h-12 rounded-full bg-slate-200 shrink-0 flex items-center justify-center"><i data-lucide="twitter" class="text-slate-400"></i></div>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-1 font-bold text-[#0f1419]">Gol Garra <span class="text-blue-500"><i data-lucide="verified" class="w-4 h-4 inline"></i></span> <span class="font-normal text-slate-500">@ElGolGarracol · 2m</span></div>
+                            <p class="mt-1 text-[#0f1419]">Eduardo Luis está loco jaja 😂 como así que lo que le falta a colombia es la patadita de la buena suerte... aunque algo de verdad debe tener <span class="text-blue-600 font-bold">#QueLeFaltaAColombia</span></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tuit 2 -->
+                <div class="p-6 border-b hover:bg-slate-50 transition-colors">
+                    <div class="flex gap-3">
+                        <div class="w-12 h-12 rounded-full bg-slate-200 shrink-0 flex items-center justify-center"><i data-lucide="twitter" class="text-slate-400"></i></div>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-1 font-bold text-[#0f1419]">Juan Felipe Cadavid <span class="text-blue-500"><i data-lucide="verified" class="w-4 h-4 inline"></i></span> <span class="font-normal text-slate-500">@JFCadavid · 1h</span></div>
+                            <p class="mt-1 text-[#0f1419]">Entiendo el análisis táctico, pero a veces el fútbol tiene agüeros. Lo de Eduardo Luis hoy fue disruptivo. ¿Mística o nivel? <span class="text-blue-600 font-bold">#QueLeFaltaAColombia</span></p>
+                            <div class="mt-3 p-2 bg-blue-50 rounded-xl border border-blue-100 flex items-center gap-2">
+                                <i data-lucide="zap" class="w-4 h-4 text-[#c5a059]"></i>
+                                <span class="text-[10px] font-black uppercase text-blue-800 tracking-tighter">Participación de Embajador</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Branding -->
+    <footer class="fixed bottom-0 left-0 right-0 bg-[#001e42] border-t-4 border-[#c5a059] p-5 shadow-[0_-20px_50px_rgba(0,0,0,0.3)] z-50">
+        <div class="max-w-7xl mx-auto flex justify-between items-center px-4">
+            <div class="flex items-center gap-4">
+                <div class="bg-[#c5a059] text-[#001e42] w-12 h-12 rounded-2xl flex items-center justify-center font-black italic shadow-2xl text-xl">L</div>
+                <div class="hidden md:block">
+                    <p class="text-[10px] text-[#c5a059] uppercase font-black tracking-[0.4em] leading-none mb-1 italic">Propuesta X - 2026</p>
+                    <p class="text-lg font-black text-white italic leading-none uppercase">LEVEL COLOMBIA x WPLAY</p>
+                </div>
+            </div>
+            <button class="px-14 py-5 bg-[#c5a059] text-[#001e42] rounded-2xl font-black text-md uppercase italic tracking-widest hover:scale-105 transition-all flex items-center justify-center gap-3 shadow-2xl border-b-4 border-[#9a7d45]">
+                PRESENTAR <i data-lucide="chevron-right" class="w-5 h-5"></i>
+            </button>
+        </div>
+    </footer>
+
+    <script>
+        // Inicializar iconos de Lucide
+        lucide.createIcons();
+        
+        // Reinicializar iconos cada vez que Alpine actualice el DOM por cambio de pestaña
+        document.addEventListener('alpine:initialized', () => {
+            Alpine.effect(() => {
+                const currentTab = Alpine.store('activeTab');
+                setTimeout(() => lucide.createIcons(), 10);
+            });
+        });
+    </script>
+</body>
+</html>
