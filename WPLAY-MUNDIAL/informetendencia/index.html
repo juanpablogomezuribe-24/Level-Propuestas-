@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Resultados Wplay - #QueLeFaltaAColombia</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Alpine.js -->
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #f1f5f9; 
+        }
+        
+        .bg-wplay-blue { background-color: #001e42; }
+        .text-wplay-gold { color: #c5a059; }
+        .border-wplay-gold { border-color: #c5a059; }
+        
+        [x-cloak] { display: none !important; }
+        
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #c5a059; border-radius: 20px; border: 2px solid white; }
+
+        .animate-in { 
+            animation: fadeIn 0.5s ease-out forwards; 
+        }
+        
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(10px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        .metric-card {
+            transition: all 0.3s ease;
+        }
+        .metric-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body x-data="{ 
+    tab: 'resumen',
+    bonusDetonadores: [
+        { n: 'Futbol Sin Limite', h: '@futbolsinlimite', s: '---', type: 'EMBAJADOR' },
+        { n: 'Juan Felipe Cadavid', h: '@jfcadavid', s: '---', type: 'EMBAJADOR' },
+        { n: 'Sheyla García', h: '@SheylaGarcia7', s: '---', type: 'EMBAJADOR' }
+    ],
+    detonadores: [
+        { n: 'Felipe Sierra', h: '@PSierraR', s: 182300 },
+        { n: 'Ricardo Arce', h: '@ElGatoArceArce', s: 138400 },
+        { n: 'Carlos Arango', h: '@ElPetisoArango', s: 128400 },
+        { n: 'Daniela Castillo', h: '@danieeelitaa27', s: 228000 },
+        { n: 'Gol Garra', h: '@ElGolGarracol', s: 178500 },
+        { n: 'Alejandra Valenzuela', h: '@donamaya123', s: 57200 },
+        { n: 'Kike Vengoechea', h: '@KikeVengoechea1', s: 12600 },
+        { n: 'Manuela Giraldo', h: '@Maaanueeela', s: 69600 },
+        { n: 'Felipe Espinal', h: '@espinalpipe', s: 22100 },
+        { n: 'Claudia', h: '@LaHostilI', s: 70000 },
+        { n: 'Comandante Javi', h: '@ComandanteJavi', s: 10400 },
+        { n: 'Paula Alejandra', h: '@Palejaz', s: 113000 },
+        { n: 'Digame Profesor', h: '@DigameProfesor', s: 27700 },
+        { n: 'Carolina Vasquez', h: '@CaroVasquez1919', s: 58300 },
+        { n: 'Oscar Tobón', h: '@oscartobonc', s: 26000 },
+        { n: 'Evelyn Carmona', h: '@evelyncarmona', s: 48000 },
+        { n: 'Gustavo Torres', h: '@TorresTavo', s: 18500 },
+        { n: 'Natali Garzón', h: '@Nat_garzon', s: 35200 },
+        { n: 'Yeimis Echeverri', h: '@YeimisAriel', s: 19400 },
+        { n: 'Estefania', h: '@Vojabes_1', s: 124300 },
+        { n: 'David Feria', h: '@Davidferia1', s: 100800 },
+        { n: 'Camila Gaitan', h: '@gaitan_n', s: 22200 }
+    ],
+    trendPositions: [22, 20, 18, 13, 12, 5, 4, 3, 2, 17],
+    tweetImages: [
+        'https://i.postimg.cc/x8pzrtXp/Whats-App-Image-2026-04-10-at-3-11-15-PM.jpg',
+        'https://i.postimg.cc/qMY3jDf9/Whats-App-Image-2026-04-10-at-3-11-41-PM.jpg',
+        'https://i.postimg.cc/RhhWTKgm/Whats-App-Image-2026-04-10-at-3-12-55-PM.jpg',
+        'https://i.postimg.cc/MKPQJSZX/IMG-3201.jpg',
+        'https://i.postimg.cc/rwRK6RYv/IMG-3202.jpg',
+        'https://i.postimg.cc/B6pv5TXq/IMG-3206.jpg',
+        'https://i.postimg.cc/R0zCjstM/IMG-3207.jpg',
+        'https://i.postimg.cc/gjrGvf9W/IMG-3209.jpg',
+        'https://i.postimg.cc/4NDX9LBq/IMG-3210.jpg',
+        'https://i.postimg.cc/WpQ4G13L/IMG-3212.jpg',
+        'https://i.postimg.cc/tRVq4Gzh/IMG-3215.jpg',
+        'https://i.postimg.cc/DzZFV9Zd/IMG-3216.jpg',
+        'https://i.postimg.cc/d38cmvHF/IMG-3217.jpg',
+        'https://i.postimg.cc/W19L75nj/IMG-3218.jpg',
+        'https://i.postimg.cc/4d9DssT3/IMG-3219.jpg',
+        'https://i.postimg.cc/kMW0HJcp/IMG-3220.jpg',
+        'https://i.postimg.cc/QdYw7H8s/IMG-3222.jpg',
+        'https://i.postimg.cc/br2N7KmB/IMG-3224.jpg'
+    ],
+    format(n) { return typeof n === 'number' ? new Intl.NumberFormat('es-CO').format(n) : n }
+}" class="pb-24">
+
+    <!-- Header -->
+    <header class="bg-wplay-blue text-white p-8 shadow-2xl border-b-4 border-wplay-gold relative overflow-hidden">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center relative z-10">
+            <div class="text-left">
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="bg-wplay-gold text-wplay-blue px-3 py-1 rounded-full text-[10px] font-black uppercase italic tracking-widest shadow-lg">Level Colombia</span>
+                    <span class="text-slate-400 text-xs font-bold uppercase tracking-widest">Dashboard de Reporte X</span>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-black italic tracking-tighter uppercase leading-none">
+                    WPLAY: <span class="text-wplay-gold">RESULTADOS</span>
+                </h1>
+                <p class="mt-4 text-slate-300 font-medium italic text-lg leading-none">Análisis Operación #QueLeFaltaAColombia</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur-md p-6 rounded-[2rem] border border-white/10 mt-6 md:mt-0 text-center">
+                <p class="text-[10px] uppercase font-black tracking-widest text-wplay-gold mb-1">Hashtag Viral</p>
+                <h2 class="text-3xl font-black italic text-white leading-none">#QueLeFaltaAColombia</h2>
+            </div>
+        </div>
+        <div class="absolute right-0 top-0 opacity-5 pointer-events-none translate-x-1/3 -translate-y-1/3"><i data-lucide="bar-chart-3" class="w-[500px] h-[500px]"></i></div>
+    </header>
+
+    <!-- Navegación -->
+    <nav class="max-w-7xl mx-auto mt-8 px-4">
+        <div class="bg-white p-2 rounded-3xl shadow-sm border border-slate-200 flex flex-wrap gap-2">
+            <button @click="tab = 'resumen'; setTimeout(() => lucide.createIcons(), 50)" :class="tab === 'resumen' ? 'bg-wplay-blue text-white shadow-xl' : 'text-slate-500 hover:bg-slate-50'" class="flex-1 py-4 px-4 rounded-2xl font-black transition-all flex items-center justify-center gap-2 uppercase italic text-xs tracking-tighter">
+                <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Resumen
+            </button>
+            <button @click="tab = 'auditoria'; setTimeout(() => lucide.createIcons(), 50)" :class="tab === 'auditoria' ? 'bg-wplay-blue text-white shadow-xl' : 'text-slate-500 hover:bg-slate-50'" class="flex-1 py-4 px-4 rounded-2xl font-black transition-all flex items-center justify-center gap-2 uppercase italic text-xs tracking-tighter">
+                <i data-lucide="zap" class="w-4 h-4"></i> Auditoría
+            </button>
+            <button @click="tab = 'tendencia'; setTimeout(() => lucide.createIcons(), 50)" :class="tab === 'tendencia' ? 'bg-wplay-blue text-white shadow-xl' : 'text-slate-500 hover:bg-slate-50'" class="flex-1 py-4 px-4 rounded-2xl font-black transition-all flex items-center justify-center gap-2 uppercase italic text-xs tracking-tighter">
+                <i data-lucide="trending-up" class="w-4 h-4"></i> Tendencia
+            </button>
+            <button @click="tab = 'detonadores'; setTimeout(() => lucide.createIcons(), 50)" :class="tab === 'detonadores' ? 'bg-wplay-blue text-white shadow-xl' : 'text-slate-500 hover:bg-slate-50'" class="flex-1 py-4 px-4 rounded-2xl font-black transition-all flex items-center justify-center gap-2 uppercase italic text-xs tracking-tighter">
+                <i data-lucide="users" class="w-4 h-4"></i> Tropa
+            </button>
+            <button @click="tab = 'highlights'; setTimeout(() => lucide.createIcons(), 50)" :class="tab === 'highlights' ? 'bg-wplay-blue text-white shadow-xl' : 'text-slate-500 hover:bg-slate-50'" class="flex-1 py-4 px-4 rounded-2xl font-black transition-all flex items-center justify-center gap-2 uppercase italic text-xs tracking-tighter">
+                <i data-lucide="star" class="w-4 h-4"></i> Destacados
+            </button>
+            <button @click="tab = 'tuits'; setTimeout(() => lucide.createIcons(), 50)" :class="tab === 'tuits' ? 'bg-wplay-blue text-white shadow-xl' : 'text-slate-500 hover:bg-slate-50'" class="flex-1 py-4 px-4 rounded-2xl font-black transition-all flex items-center justify-center gap-2 uppercase italic text-xs tracking-tighter">
+                <i data-lucide="image" class="w-4 h-4"></i> Tuits
+            </button>
+        </div>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <main class="max-w-7xl mx-auto p-4 mt-6">
+
+        <!-- TAB 1: RESUMEN EJECUTIVO -->
+        <section x-show="tab === 'resumen'" class="space-y-8 animate-in" x-cloak>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+                <div class="bg-white p-8 rounded-[2.5rem] shadow-xl border-b-8 border-wplay-blue metric-card">
+                    <div class="text-wplay-gold mb-4"><i data-lucide="message-square" class="w-8 h-8"></i></div>
+                    <h3 class="text-slate-400 text-[10px] font-black uppercase tracking-[0.2em] mb-1">Posts Totales</h3>
+                    <div class="text-4xl font-black italic text-wplay-blue leading-none tracking-tighter">1.977</div>
+                </div>
+                <div class="bg-white p-8 rounded-[2.5rem] shadow-xl border-b-8 border-wplay-gold metric-card text-left">
+                    <div class="text-wplay-gold mb-4"><i data-lucide="target" class="w-8 h-8"></i></div>
+                    <h3 class="text-slate-400 text-[10px] font-black uppercase tracking-[0.2em] mb-1">Impresiones Potenciales</h3>
+                    <div class="text-4xl font-black italic text-wplay-blue leading-none tracking-tighter">26.449.935</div>
+                </div>
+                <div class="bg-white p-8 rounded-[2.5rem] shadow-xl border-b-8 border-wplay-blue metric-card text-left">
+                    <div class="text-wplay-gold mb-4"><i data-lucide="zap" class="w-8 h-8"></i></div>
+                    <h3 class="text-slate-400 text-[10px] font-black uppercase tracking-[0.2em] mb-1">Impacto Real (4.3%)</h3>
+                    <div class="text-4xl font-black italic text-wplay-blue leading-none tracking-tighter">1.137.347</div>
+                </div>
+            </div>
+
+            <div class="bg-white p-10 rounded-[3rem] shadow-2xl border-2 border-slate-100 grid lg:grid-cols-2 gap-12 items-center text-left text-left">
+                <div class="space-y-6 text-left">
+                    <div class="flex items-center gap-3 border-b pb-4 text-left">
+                        <div class="bg-wplay-gold p-2 rounded-xl text-wplay-blue shadow-lg text-left"><i data-lucide="award"></i></div>
+                        <h2 class="text-2xl font-black uppercase italic text-wplay-blue tracking-tighter leading-none text-left">Cábala deportiva</h2>
+                    </div>
+                    <p class="text-slate-600 leading-relaxed text-lg font-medium italic text-left">
+                        La mística de la "Patadita de la Suerte" se convirtió en el eje central de la conversación, logrando una permanencia de <strong>13 horas en tendencias</strong>.
+                    </p>
+                    <div class="bg-wplay-blue text-white p-8 rounded-[2rem] border-l-8 border-wplay-gold shadow-xl text-left">
+                        <ul class="space-y-4 text-left">
+                            <li class="flex gap-4 text-left text-left"><i data-lucide="trending-up" class="text-wplay-gold shrink-0"></i><span class="text-sm font-bold uppercase italic leading-none text-left">PICO MÁXIMO: PUESTO No. 2 EN TENDENCIAS</span></li>
+                            <li class="flex gap-4 text-left text-left"><i data-lucide="check-circle-2" class="text-green-400 shrink-0"></i><span class="text-sm font-bold uppercase italic leading-none text-left text-left">REGISTRO OFICIAL X COLOMBIA</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="relative group text-left">
+                    <div class="rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white transition-transform hover:rotate-1 text-left">
+                        <img src="https://i.postimg.cc/xdHw7Gym/Whats-App-Image-2026-04-09-at-9-21-40-PM.jpg" class="w-full h-full object-cover" alt="X Colombia Top 2">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: AUDITORIA BINDER -->
+        <section x-show="tab === 'auditoria'" class="space-y-8 animate-in text-left" x-cloak>
+            <div class="bg-[#24ced1] p-12 rounded-[4rem] text-white shadow-2xl relative overflow-hidden text-left text-left">
+                <div class="relative z-10 flex flex-col md:flex-row justify-between gap-12 text-left">
+                    <div class="space-y-8 flex-1 text-left">
+                        <div class="text-left text-left">
+                            <p class="text-sm font-black uppercase tracking-[0.3em] opacity-80 mb-2 italic leading-none text-left">Auditoría Técnica Binder</p>
+                            <h2 class="text-8xl font-black leading-none mb-2 italic tracking-tighter text-left">1.977</h2>
+                            <p class="text-2xl font-bold italic uppercase tracking-tighter opacity-80 leading-none text-left">Total Impactos</p>
+                        </div>
+                        <div class="h-px bg-white/30 w-full text-left"></div>
+                        <div class="grid grid-cols-2 gap-8 text-left text-left">
+                            <div class="text-left"><h4 class="text-4xl font-black italic leading-none text-left">26.449.935</h4><p class="text-[10px] font-black uppercase tracking-widest opacity-80 mt-1 italic text-left">Impresiones Potenciales</p></div>
+                            <div class="text-left"><h4 class="text-4xl font-black italic leading-none text-left">1.013</h4><p class="text-[10px] font-black uppercase tracking-widest opacity-80 mt-1 italic text-left">Posts Originales</p></div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-black/10 backdrop-blur-md p-8 rounded-[3rem] border border-white/20 w-full md:w-96 space-y-6 text-left text-left">
+                        <div class="text-center pb-4 border-b border-white/20 text-left">
+                            <h3 class="font-black text-3xl italic leading-none text-center">$57.673,38</h3>
+                            <p class="text-[10px] uppercase font-black tracking-widest mt-2 text-center">Valor Económico Estimado</p>
+                        </div>
+                        <div class="space-y-4 text-left">
+                            <div class="text-left"><div class="flex justify-between text-xs font-bold mb-1 italic text-left"><span>POSTS DE TEXTO</span><span>830</span></div><div class="bg-white/20 h-2 rounded-full overflow-hidden text-left"><div class="bg-white h-full" style="width: 41.98%"></div></div></div>
+                            <div class="text-left text-left text-left text-left"><div class="flex justify-between text-xs font-bold mb-1 italic text-left"><span>REPOSTS</span><span>964</span></div><div class="bg-white/20 h-2 rounded-full overflow-hidden text-left"><div class="bg-white h-full" style="width: 48.76%"></div></div></div>
+                            <div class="text-left text-left text-left text-left text-left text-left"><div class="flex justify-between text-xs font-bold mb-1 italic text-left text-left"><span>MULTIMEDIA</span><span>140</span></div><div class="bg-white/20 h-2 rounded-full overflow-hidden text-left"><div class="bg-white h-full" style="width: 7.08%"></div></div></div>
+                            <div class="pt-2 border-t border-white/10 text-left text-left text-left text-left">
+                                <div class="flex justify-between text-xs font-black mb-1 italic text-wplay-gold uppercase text-left text-left"><span>Respuestas Totales</span><span>145</span></div>
+                                <div class="bg-white/20 h-2 rounded-full overflow-hidden text-left"><div class="bg-wplay-gold h-full" style="width: 10%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 text-left text-left">
+                <div class="bg-white p-10 rounded-[3rem] shadow-xl border border-slate-100 flex items-center gap-6 text-left">
+                    <div class="bg-wplay-blue text-wplay-gold p-4 rounded-2xl shadow-lg text-left text-left text-left"><i data-lucide="message-square" class="w-8 h-8 text-left text-left"></i></div>
+                    <div class="text-left text-left text-left"><h3 class="text-4xl font-black text-wplay-blue leading-none italic text-left text-left text-left text-left">1.977</h3><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1 italic text-left text-left text-left text-left">Impactos Totales</p></div>
+                </div>
+                <div class="bg-white p-10 rounded-[3rem] shadow-xl border border-slate-100 flex items-center gap-6 text-left text-left">
+                    <div class="bg-wplay-gold text-wplay-blue p-4 rounded-2xl shadow-lg text-left text-left text-left text-left"><i data-lucide="message-circle" class="w-8 h-8 text-left text-left"></i></div>
+                    <div class="text-left text-left text-left text-left"><h3 class="text-4xl font-black text-wplay-blue leading-none italic text-left text-left text-left text-left">145</h3><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1 italic text-left text-left text-left text-left">Respuestas Auditadas</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: TENDENCIA -->
+        <section x-show="tab === 'tendencia'" class="space-y-8 animate-in text-left text-left" x-cloak>
+            <div class="bg-wplay-blue text-white p-12 rounded-[4rem] shadow-2xl relative overflow-hidden text-left text-left">
+                <div class="relative z-10 text-left text-left">
+                    <div class="flex items-center gap-4 mb-6 border-b border-white/10 pb-6 text-left text-left text-left">
+                        <i data-lucide="activity" class="w-10 h-10 text-wplay-gold text-left text-left"></i>
+                        <h2 class="text-4xl font-black uppercase italic tracking-tighter leading-none text-left text-left text-left">Tracking de Tendencia</h2>
+                    </div>
+                    <div class="grid grid-cols-5 md:grid-cols-10 gap-4 text-left text-left">
+                        <template x-for="pos in trendPositions">
+                            <div class="bg-white/10 backdrop-blur-xl border border-white/10 p-3 rounded-xl flex flex-col items-center justify-center hover:bg-wplay-gold hover:text-wplay-blue transition-all cursor-default text-left text-left">
+                                <span class="text-[8px] font-black uppercase opacity-60 mb-1 leading-none italic text-left text-left text-left">Posición</span>
+                                <span class="text-xl font-black italic text-left text-left text-left text-left" x-text="'No. '+pos"></span>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white p-10 rounded-[3rem] shadow-xl border-2 border-slate-100 text-left text-left">
+                <h3 class="text-xl font-black uppercase italic text-wplay-blue mb-8 flex items-center gap-3 text-left text-left text-left"><i data-lucide="image" class="text-wplay-gold"></i> Registro X Colombia</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left text-left text-left text-left">
+                    <img src="https://i.postimg.cc/v8XppZ9z/Whats-App-Image-2026-04-09-at-9-22-06-PM.jpg" class="rounded-[2rem] shadow-2xl border-4 border-slate-50 w-full text-left text-left">
+                    <img src="https://i.postimg.cc/xdHw7Gym/Whats-App-Image-2026-04-09-at-9-21-40-PM.jpg" class="rounded-[2rem] shadow-2xl border-4 border-slate-50 w-full text-left text-left">
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: DETONADORES -->
+        <section x-show="tab === 'detonadores'" class="space-y-8 animate-in text-left text-left" x-cloak>
+            <div class="bg-white rounded-[3.5rem] shadow-2xl border-4 border-wplay-gold overflow-hidden text-left text-left">
+                <div class="bg-wplay-blue p-10 text-white flex flex-col md:flex-row justify-between items-center gap-6 text-left text-left">
+                    <div class="text-left text-left text-left text-left">
+                        <h2 class="text-4xl font-black italic uppercase tracking-tighter leading-none mb-1 text-left text-left text-left text-left text-left">La Tropa Digital</h2>
+                        <p class="text-wplay-gold font-bold italic tracking-widest uppercase text-xs text-left text-left text-left text-left">Perfiles Activados Estratégicamente</p>
+                    </div>
+                    <div class="bg-wplay-gold text-wplay-blue px-8 py-3 rounded-2xl font-black uppercase text-sm shadow-xl italic tracking-tighter">Fuerza Real</div>
+                </div>
+                <div class="p-8 text-left text-left">
+                    <div class="mb-10 bg-slate-50 rounded-[2.5rem] p-8 border-2 border-wplay-gold/30 text-left text-left text-left">
+                        <div class="flex items-center gap-2 mb-6 border-b border-wplay-gold/20 pb-4 text-left text-left text-left">
+                            <i data-lucide="star" class="text-wplay-gold w-6 h-6 text-left text-left"></i>
+                            <h3 class="font-black text-wplay-blue uppercase italic text-xl text-left text-left text-left">Bonus: Embajadores Wplay</h3>
+                        </div>
+                        <div class="grid md:grid-cols-3 gap-6 text-left text-left">
+                            <template x-for="b in bonusDetonadores">
+                                <div class="bg-white p-5 rounded-3xl shadow-md flex items-center gap-4 border border-wplay-gold/10 text-left text-left text-left">
+                                    <div class="w-12 h-12 bg-wplay-blue rounded-2xl flex items-center justify-center text-wplay-gold font-black italic shadow-lg text-left text-left text-left text-left text-left"><i data-lucide="verified" class="w-6 h-6"></i></div>
+                                    <div class="flex flex-col text-left text-left text-left"><span class="font-black text-wplay-blue text-sm text-left text-left text-left text-left" x-text="b.n"></span><span class="text-blue-600 font-bold text-[10px] italic leading-none mt-1 text-left text-left text-left text-left" x-text="b.h"></span></div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                    <div class="overflow-hidden rounded-[2.5rem] border-2 border-slate-100 shadow-inner overflow-x-auto text-left text-left">
+                        <table class="w-full border-collapse min-w-[600px] text-left text-left">
+                            <thead class="bg-slate-50 text-wplay-blue uppercase font-black text-[10px] border-b text-left text-left">
+                                <tr class="text-left text-left text-left text-left"><th class="p-6 italic text-left text-left text-left text-left">Perfil</th><th class="p-6 italic text-right text-left text-left text-left text-left">Seguidores</th><th class="p-6 italic text-center text-left text-left text-left text-left">Estado</th></tr>
+                            </thead>
+                            <tbody class="divide-y text-slate-700 text-left text-left text-left">
+                                <template x-for="p in detonadores">
+                                    <tr class="hover:bg-slate-50 transition-colors text-left text-left text-left text-left">
+                                        <td class="p-5 text-left text-left text-left text-left text-left"><div class="flex items-center gap-3 text-left text-left text-left text-left text-left text-left text-left text-left text-left"><div class="w-10 h-10 rounded-xl bg-wplay-blue flex items-center justify-center text-wplay-gold font-black italic text-xs shadow-md" x-text="p.n[0]"></div><div class="flex flex-col text-left text-left text-left text-left text-left"><span class="font-black text-wplay-blue leading-none text-sm text-left text-left text-left text-left text-left" x-text="p.n"></span><span class="text-blue-500 font-bold text-[10px] mt-1 italic leading-none text-left text-left text-left text-left text-left" x-text="p.h"></span></div></div></td>
+                                        <td class="p-5 text-right font-black text-slate-500 text-sm text-left text-left text-left text-left text-left text-left text-left" x-text="format(p.s)"></td>
+                                        <td class="p-5 text-center text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left"><span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-[10px] font-black uppercase italic border border-green-200 text-left text-left text-left text-left">Activo</span></td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 5: DESTACADOS -->
+        <section x-show="tab === 'highlights'" class="space-y-12 animate-in text-left text-left" x-cloak>
+            <div class="bg-white rounded-[4rem] shadow-2xl border-4 border-wplay-blue overflow-hidden text-left text-left text-left">
+                <div class="bg-gradient-to-r from-[#001e42] to-[#00336b] p-12 text-white text-left text-left text-left">
+                    <h2 class="text-5xl font-black italic uppercase tracking-tighter leading-none mb-2 text-left text-left text-left text-left text-left">CONTENIDO <span class="text-wplay-gold text-left text-left text-left">ÉLITE</span></h2>
+                    <p class="text-slate-400 font-bold italic text-xs uppercase tracking-widest text-left text-left text-left text-left text-left">Detonadores de mayor repercusión</p>
+                </div>
+                
+                <div class="p-10 space-y-16 text-left text-left text-left text-left">
+                    <div class="space-y-6 text-left text-left text-left">
+                        <div class="flex items-center gap-3 border-b border-slate-100 pb-4 text-left text-left text-left">
+                            <i data-lucide="award" class="text-wplay-gold text-left text-left text-left"></i>
+                            <h3 class="text-2xl font-black uppercase italic text-wplay-blue tracking-tighter text-left text-left text-left">Top Detonadores</h3>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-8 text-left text-left text-left">
+                            <div class="bg-slate-50 p-4 rounded-[2.5rem] shadow-xl border border-slate-200 group text-left text-left text-left text-left text-left">
+                                <div class="aspect-auto overflow-hidden rounded-[2rem] border-4 border-white shadow-lg mb-4 text-left text-left text-left text-left text-left">
+                                    <img src="https://i.postimg.cc/QxBb8Tjs/Whats-App-Image-2026-04-10-at-3-23-29-PM.jpg" class="w-full transition-transform group-hover:scale-105" alt="Tuit Ricardo Arce">
+                                </div>
+                                <div class="px-4 pb-2 text-center text-left text-left text-left text-left text-left">
+                                    <p class="text-[10px] font-black uppercase text-slate-400 tracking-widest italic mb-1 text-left text-left text-left text-left text-left">Líder de Opinión</p>
+                                    <h4 class="font-black text-wplay-blue italic text-left text-left text-left text-left text-left text-left">Ricardo Arce (@ElGatoArceArce)</h4>
+                                </div>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-[2.5rem] shadow-xl border border-slate-200 group text-left text-left text-left text-left text-left text-left text-left">
+                                <div class="aspect-auto overflow-hidden rounded-[2rem] border-4 border-white shadow-lg mb-4 text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">
+                                    <img src="https://i.postimg.cc/TPxqJNgb/Whats-App-Image-2026-04-10-at-3-23-38-PM.jpg" class="w-full transition-transform group-hover:scale-105" alt="Tuit Pipe Sierra">
+                                </div>
+                                <div class="px-4 pb-2 text-center text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">
+                                    <p class="text-[10px] font-black uppercase text-slate-400 tracking-widest italic mb-1 text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">Periodismo Élite</p>
+                                    <h4 class="font-black text-wplay-blue italic text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">Felipe Sierra (@PSierraR)</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6 text-left text-left text-left text-left">
+                        <div class="flex items-center gap-3 border-b border-slate-100 pb-4 text-left text-left text-left text-left text-left text-left">
+                            <i data-lucide="zap" class="text-wplay-gold text-left text-left text-left text-left"></i>
+                            <h3 class="text-2xl font-black uppercase italic text-wplay-blue tracking-tighter text-left text-left text-left text-left">Impacto Embajadores</h3>
+                        </div>
+                        <div class="grid md:grid-cols-3 gap-6 text-left text-left text-left text-left text-left text-left text-left text-left">
+                            <div class="bg-slate-50 p-4 rounded-[2.5rem] shadow-xl border border-slate-200 group text-left text-left text-left text-left text-left">
+                                <div class="aspect-auto overflow-hidden rounded-[2rem] border-4 border-white shadow-lg mb-4 text-left text-left text-left text-left text-left">
+                                    <img src="https://i.postimg.cc/x8pzrtXp/Whats-App-Image-2026-04-10-at-3-11-15-PM.jpg" class="w-full transition-transform group-hover:scale-105" alt="JFC">
+                                </div>
+                                <div class="px-4 pb-2 text-center text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">
+                                    <p class="text-[10px] font-black uppercase text-slate-400 tracking-widest italic leading-none mb-1 text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">Análisis Premium</p>
+                                    <h4 class="font-black text-wplay-blue italic text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">Juan Felipe Cadavid</h4>
+                                </div>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-[2.5rem] shadow-xl border border-slate-200 group text-left text-left text-left text-left text-left text-left text-left">
+                                <div class="aspect-auto overflow-hidden rounded-[2rem] border-4 border-white shadow-lg mb-4 text-left text-left text-left text-left">
+                                    <img src="https://i.postimg.cc/qMY3jDf9/Whats-App-Image-2026-04-10-at-3-11-41-PM.jpg" class="w-full transition-transform group-hover:scale-105" alt="Sheyla">
+                                </div>
+                                <div class="px-4 pb-2 text-center text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">
+                                    <p class="text-[10px] font-black uppercase text-slate-400 tracking-widest italic leading-none mb-1 text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">Validación Premium</p>
+                                    <h4 class="font-black text-wplay-blue italic text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">Sheyla García</h4>
+                                </div>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-[2.5rem] shadow-xl border border-slate-200 group text-left text-left text-left text-left text-left text-left text-left text-left text-left">
+                                <div class="aspect-auto overflow-hidden rounded-[2rem] border-4 border-white shadow-lg mb-4 text-left text-left text-left text-left text-left">
+                                    <img src="https://i.postimg.cc/RhhWTKgm/Whats-App-Image-2026-04-10-at-3-12-55-PM.jpg" class="w-full transition-transform group-hover:scale-105" alt="FSL">
+                                </div>
+                                <div class="px-4 pb-2 text-center text-left text-left text-left text-left text-left text-left text-left text-left text-left">
+                                    <p class="text-[10px] font-black uppercase text-slate-400 tracking-widest italic leading-none mb-1 text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">Humor & Viralidad</p>
+                                    <h4 class="font-black text-wplay-blue italic text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">Fútbol Sin Límite</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 6: TUITS -->
+        <section x-show="tab === 'tuits'" class="space-y-8 animate-in text-left text-left text-left text-left text-left" x-cloak>
+            <div class="bg-white rounded-[3.5rem] shadow-2xl border-4 border-wplay-gold overflow-hidden text-left text-left text-left text-left text-left text-left text-left mb-20">
+                <div class="bg-[#001e42] p-10 text-white border-b-4 border-[#c5a059] text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">
+                    <h2 class="text-4xl font-black italic uppercase tracking-tighter leading-none mb-1 text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">GALERÍA DE <span class="text-wplay-gold text-left text-left text-left text-left text-left text-left text-left text-left">REGISTROS</span></h2>
+                    <p class="text-slate-400 font-bold italic text-xs uppercase tracking-widest leading-none text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">Trazabilidad visual del debate nacional</p>
+                </div>
+                <div class="p-8 text-left text-left text-left text-left text-left text-left text-left text-left text-left">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">
+                        <template x-for="(img, index) in tweetImages">
+                            <div class="bg-slate-50 p-2 rounded-[2rem] border-2 border-slate-100 hover:border-wplay-gold transition-all group text-left text-left text-left text-left text-left text-left text-left text-left">
+                                <div class="aspect-auto overflow-hidden rounded-2xl shadow-lg bg-white relative text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">
+                                    <img :src="img" class="w-full object-cover transition-transform group-hover:scale-[1.03]" :alt="'Tuit ' + index">
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Branding -->
+    <footer class="fixed bottom-0 left-0 right-0 bg-wplay-blue border-t-4 border-wplay-gold p-5 shadow-[0_-20px_50px_rgba(0,0,0,0.3)] z-50 text-left text-left text-left text-left text-left text-left">
+        <div class="max-w-7xl mx-auto flex justify-between items-center px-4 text-white text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">
+            <div class="flex items-center gap-4 text-left text-left text-left text-left text-left text-left text-left text-left text-left">
+                <div class="bg-wplay-gold text-wplay-blue w-12 h-12 rounded-2xl flex items-center justify-center font-black italic shadow-2xl text-xl shrink-0 text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">L</div>
+                <div class="hidden md:block text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">
+                    <p class="text-[10px] text-wplay-gold uppercase font-black tracking-[0.4em] leading-none mb-1 italic text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">Reporte Final LEVEL</p>
+                    <p class="text-lg font-black text-white italic leading-none uppercase tracking-tighter text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">LEVEL COLOMBIA x WPLAY</p>
+                </div>
+            </div>
+            <button class="px-14 py-5 bg-wplay-gold text-wplay-blue rounded-2xl font-black text-md uppercase italic tracking-widest hover:scale-105 transition-all shadow-2xl border-b-4 border-[#9a7d45] text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">
+                FINALIZAR INFORME
+            </button>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
