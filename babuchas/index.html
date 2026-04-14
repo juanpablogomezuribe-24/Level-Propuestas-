@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Babuchas Disney - La Magia en Casa</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#0B0D17',
+                            primary: '#4338CA',
+                            secondary: '#F59E0B',
+                            accent: '#EC4899',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #0B0D17;
+            color: #F8FAFC;
+        }
+        
+        .hero-pattern {
+            background-image: 
+                radial-gradient(circle at top right, rgba(67, 56, 202, 0.15), transparent 45%),
+                radial-gradient(circle at bottom left, rgba(236, 72, 153, 0.15), transparent 45%);
+        }
+
+        .glass-nav {
+            background: rgba(11, 13, 23, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(90deg, #818CF8, #C084FC, #F472B6);
+        }
+        
+        .whatsapp-btn {
+            background-color: #25D366;
+            transition: all 0.3s ease;
+        }
+        .whatsapp-btn:hover {
+            background-color: #128C7E;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(37, 211, 102, 0.4);
+        }
+    </style>
+</head>
+<body class="antialiased hero-pattern min-h-screen flex flex-col font-sans">
+    
+    <!-- Header / Navbar -->
+    <header class="fixed w-full top-0 z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Logo Placeholder -->
+            <div class="flex items-center gap-3 cursor-pointer group">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-indigo-500 to-pink-500 flex items-center justify-center text-white font-heading font-bold text-xl transition-transform group-hover:scale-110 shadow-lg shadow-indigo-500/30">
+                    <i class="fas fa-socks text-sm"></i>
+                </div>
+                <span class="font-heading font-bold text-xl tracking-tight text-white group-hover:text-indigo-300 transition-colors">MagiaEnCasa</span>
+            </div>
+            
+            <nav class="hidden md:flex gap-8">
+                <a href="#hero" class="text-sm font-medium text-gray-300 hover:text-white transition-colors">Inicio</a>
+                <a href="#productos" class="text-sm font-medium text-gray-300 hover:text-white transition-colors">Catálogo</a>
+                <a href="#beneficios" class="text-sm font-medium text-gray-300 hover:text-white transition-colors">Beneficios</a>
+            </nav>
+            
+            <button class="md:hidden text-gray-300 hover:text-white focus:outline-none">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-grow pt-20">
+        
+        <!-- Hero Section -->
+        <section id="hero" class="relative overflow-hidden pt-16 pb-32">
+            <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+                
+                <!-- Hero Content -->
+                <div class="space-y-8 relative z-10 text-center md:text-left mt-10 md:mt-0">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-sm font-medium text-indigo-300 mb-2 border border-indigo-500/30">
+                        <span class="relative flex h-2 w-2">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                        </span>
+                        Colección Oficial 2026
+                    </div>
+                    
+                    <h1 class="font-heading text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight">
+                        La <span class="text-gradient">Magia de Disney</span> <br>en casa
+                    </h1>
+                    
+                    <p class="text-lg md:text-xl text-gray-400 max-w-xl mx-auto md:mx-0 font-light leading-relaxed">
+                        Experimenta el confort supremo con nuestras babuchas súper suaves. Diseños exclusivos de tus personajes favoritos creados para el descanso perfecto.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-4">
+                        <a href="#productos" class="px-8 py-4 rounded-full bg-white text-brand-dark font-bold hover:bg-gray-100 hover:scale-105 transition-all duration-300 shadow-[0_0_25px_rgba(255,255,255,0.25)] text-center">
+                            Explorar Modelos
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Hero Image -->
+                <div class="relative w-full flex justify-center mt-8 md:mt-0 px-4 sm:px-12 md:px-0">
+                    <div class="relative w-full aspect-square max-w-[500px]">
+                        <!-- Decorative glow -->
+                        <div class="absolute inset-0 bg-gradient-to-r from-indigo-500 to-pink-500 rounded-full blur-[100px] opacity-25 animate-pulse"></div>
+                        <img src="/Users/juanpablogomezuribe/.gemini/antigravity/brain/326c886b-305f-4d0f-8951-fdcc5cb14de5/disney_slippers_hero_1776135668408.png" alt="Mickey Mouse Slippers" class="relative z-10 w-full h-full object-cover rounded-[2rem] animate-float shadow-2xl ring-1 ring-white/10" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Grid -->
+        <section id="productos" class="py-24 bg-black/40 border-y border-white/5 relative z-10">
+            <div class="max-w-7xl mx-auto px-6">
+                <!-- Section Header -->
+                <div class="text-center mb-20 space-y-4">
+                    <h2 class="font-heading text-4xl md:text-5xl font-bold">Nuestros Personajes</h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto text-lg">Selecciona a tu preferido y realiza tu pedido fácilmente mediante WhatsApp de forma directa y personalizada.</p>
+                </div>
+                
+                <!-- Cards Container -->
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Product 1: Mickey -->
+                    <div class="glass-card rounded-[2rem] overflow-hidden group flex flex-col hover:-translate-y-2 transition-all duration-300">
+                        <div class="relative h-80 overflow-hidden bg-gray-800">
+                            <img src="/Users/juanpablogomezuribe/.gemini/antigravity/brain/326c886b-305f-4d0f-8951-fdcc5cb14de5/disney_slippers_hero_1776135668408.png" alt="Babuchas de Mickey" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                            <div class="absolute top-4 right-4 glass-card px-4 py-1 text-xs font-bold rounded-full text-indigo-300">Mickey Mouse</div>
+                        </div>
+                        <div class="p-8 flex-grow flex flex-col space-y-4">
+                            <div class="flex justify-between items-start gap-4">
+                                <div>
+                                    <h3 class="font-heading text-2xl font-bold text-white mb-1">Mickey Clásico</h3>
+                                    <p class="text-sm text-gray-400">Plush Premium Cálido</p>
+                                </div>
+                                <span class="font-bold text-xl text-white block mt-1">$45</span>
+                            </div>
+                            <p class="text-sm text-gray-400 leading-relaxed flex-grow">Las icónicas orejas y una suavidad incomparable. El diseño más amado por los fans para estar en casa.</p>
+                            <a href="https://wa.me/573504256023?text=Hola!%20Me%20gustarían%20las%20babuchas%20de%20Mickey%20Clásico" target="_blank" class="w-full py-3.5 mt-auto rounded-xl whatsapp-btn text-white font-bold flex items-center justify-center gap-2">
+                                <i class="fab fa-whatsapp text-xl"></i> Comprar por WhatsApp
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Product 2: Stitch -->
+                    <div class="glass-card rounded-[2rem] overflow-hidden group flex flex-col hover:-translate-y-2 transition-all duration-300">
+                        <div class="relative h-80 overflow-hidden bg-gray-800">
+                            <img src="/Users/juanpablogomezuribe/.gemini/antigravity/brain/326c886b-305f-4d0f-8951-fdcc5cb14de5/disney_slippers_feature_1776135696477.png" alt="Babuchas de Stitch" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 object-top" />
+                            <div class="absolute top-4 right-4 glass-card px-4 py-1 text-xs font-bold rounded-full text-indigo-300">Lilo & Stitch</div>
+                        </div>
+                        <div class="p-8 flex-grow flex flex-col space-y-4">
+                            <div class="flex justify-between items-start gap-4">
+                                <div>
+                                    <h3 class="font-heading text-2xl font-bold text-white mb-1">Stitch Ohana</h3>
+                                    <p class="text-sm text-gray-400">Extra Suaves / Orejas 3D</p>
+                                </div>
+                                <span class="font-bold text-xl text-white block mt-1">$49</span>
+                            </div>
+                            <p class="text-sm text-gray-400 leading-relaxed flex-grow">Ohana significa familia. Siente un abrazo cálido en cada paso con nuestro experimento alienígena favorito.</p>
+                            <a href="https://wa.me/573504256023?text=Hola!%20Me%20gustarían%20las%20babuchas%20de%20Stitch" target="_blank" class="w-full py-3.5 mt-auto rounded-xl whatsapp-btn text-white font-bold flex items-center justify-center gap-2">
+                                <i class="fab fa-whatsapp text-xl"></i> Comprar por WhatsApp
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Product 3: Marvel -->
+                    <div class="glass-card rounded-[2rem] overflow-hidden group flex flex-col hover:-translate-y-2 transition-all duration-300">
+                        <div class="relative h-80 overflow-hidden bg-gray-800">
+                            <img src="/Users/juanpablogomezuribe/.gemini/antigravity/brain/326c886b-305f-4d0f-8951-fdcc5cb14de5/marvel_slippers_1776135777852.png" alt="Babuchas de Marvel Spider-Man" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                            <div class="absolute top-4 right-4 glass-card px-4 py-1 text-xs font-bold rounded-full text-red-400">Marvel</div>
+                        </div>
+                        <div class="p-8 flex-grow flex flex-col space-y-4">
+                            <div class="flex justify-between items-start gap-4">
+                                <div>
+                                    <h3 class="font-heading text-2xl font-bold text-white mb-1">Spider-Man Hero</h3>
+                                    <p class="text-sm text-gray-400">Diseño Arácnido</p>
+                                </div>
+                                <span class="font-bold text-xl text-white block mt-1">$49</span>
+                            </div>
+                            <p class="text-sm text-gray-400 leading-relaxed flex-grow">Siente el poder del amigable vecino Spider-Man. Comodidad súper heroica ideal para noches de series y películas.</p>
+                            <a href="https://wa.me/573504256023?text=Hola!%20Me%20gustarían%20las%20babuchas%20de%20Marvel" target="_blank" class="w-full py-3.5 mt-auto rounded-xl whatsapp-btn text-white font-bold flex items-center justify-center gap-2">
+                                <i class="fab fa-whatsapp text-xl"></i> Comprar por WhatsApp
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        
+        <!-- Features / Benefits -->
+        <section id="beneficios" class="py-24 relative z-10">
+            <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-8 text-center">
+                <!-- Benefit 1 -->
+                <div class="glass-card p-10 rounded-3xl space-y-4 hover:bg-white/5 transition-colors">
+                    <div class="w-16 h-16 mx-auto rounded-2xl bg-indigo-500/20 flex items-center justify-center text-indigo-400 text-2xl mb-6 shadow-inner">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h4 class="font-heading text-xl font-bold">100% Originales</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">Productos auténticos y licenciados. Calidad garantizada en bordados, costuras y diseño total de los personajes.</p>
+                </div>
+                <!-- Benefit 2 -->
+                <div class="glass-card p-10 rounded-3xl space-y-4 hover:bg-white/5 transition-colors">
+                    <div class="w-16 h-16 mx-auto rounded-2xl bg-pink-500/20 flex items-center justify-center text-pink-400 text-2xl mb-6 shadow-inner">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h4 class="font-heading text-xl font-bold">Confort Supremo</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">Fabricadas con tela plush ultra suave, plantillas doblemente acolchadas y suela antideslizante.</p>
+                </div>
+                <!-- Benefit 3 -->
+                <div class="glass-card p-10 rounded-3xl space-y-4 hover:bg-white/5 transition-colors">
+                    <div class="w-16 h-16 mx-auto rounded-2xl bg-green-500/20 flex items-center justify-center text-green-400 text-2xl mb-6 shadow-inner">
+                        <i class="fas fa-box-open"></i>
+                    </div>
+                    <h4 class="font-heading text-xl font-bold">Atención Personalizada</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">Comunícate directamente por WhatsApp y recibe tu pedido en casa. Atención rápida para asegurar tu talla y modelo.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-card border-t border-white/5 py-12 relative z-10">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-indigo-500 to-pink-500 flex items-center justify-center text-white font-heading font-bold text-xs">
+                    <i class="fas fa-socks"></i>
+                </div>
+                <span class="font-heading font-bold text-lg text-white">MagiaEnCasa</span>
+            </div>
+            
+            <p class="text-sm text-gray-500 text-center md:text-left">
+                © 2026 MagiaEnCasa. Las marcas registradas son propiedad de sus respectivos dueños.
+            </p>
+            
+            <div class="flex gap-4">
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all hover:-translate-y-1">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all hover:-translate-y-1">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all hover:-translate-y-1">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
