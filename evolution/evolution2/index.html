@@ -111,6 +111,18 @@
         // INFLUENCERS DATA (Full Roster)
         const influencersData = [
             { 
+                name: "Valentina Taguado", 
+                category: "Entretenimiento", 
+                status: "available", 
+                partner: null, 
+                image: "https://i.postimg.cc/Y0tTDV5w/valentina.avif", 
+                link: "https://www.instagram.com/valentinataguado/", 
+                icon: "instagram",
+                mainPlatform: "Instagram",
+                gender: "Mixto (50% H / 50% M)",
+                audience: "Público equilibrado, entretenimiento masivo."
+            },
+            { 
                 name: "Julian Valencia", 
                 category: "Motos y Entretenimiento", 
                 status: "available", 
@@ -260,6 +272,29 @@
                     "<strong>Credibilidad:</strong> La audiencia confía en la recomendación.",
                     "<strong>Tráfico Directo:</strong> Clics al juego desde Stories.",
                     "<strong>Humanización:</strong> Rostro conocido asociado a Evolution."
+                ]
+            },
+            4: {
+                title: "Paquete 4: Influencer Top",
+                subtitle: "Ejemplo: Valentina Taguado",
+                desc: "Estrategia de alcance masivo. Valores exactos para Valentina Taguado. *Nota: Valores calculados con una tasa mínima de €1 = $4.300 COP (la creadora negocia en pesos).",
+                price: "€15,100",
+                scope: {
+                    previa: "Street Marketing (Collab BetPlay + Logo Evolution). <strong>€5,600</strong>",
+                    durante: "Host Evento (2h) + Historias. <strong>€3,900</strong>",
+                    post: "Reel Post (Collab BetPlay + Logo Evolution). <strong>€5,600</strong>"
+                },
+                kpis: [
+                    "Previa: <strong>Colaboración oficial masiva con BetPlay</strong>",
+                    "Durante: <strong>Tráfico masivo al evento en vivo</strong>",
+                    "Post: <strong>Contenido residual con Branding Evolution</strong>",
+                    "ALCANCE TOTAL: <strong>Impacto masivo garantizado</strong>"
+                ],
+                features: ["Gestión de Talento", "Negociación Derechos", "Producción Técnica", "Estrategia Amplificación"],
+                benefits: [
+                    "<strong>Credibilidad:</strong> La audiencia confía en la recomendación.",
+                    "<strong>Tráfico Directo:</strong> Clics masivos al juego desde Stories.",
+                    "<strong>Visibilidad Premium:</strong> Logo Evolution presente en Collabs."
                 ]
             }
         };
@@ -681,7 +716,7 @@
         function renderPackages() {
             const pkg = packages[state.selectedPackage];
             
-            const buttonsHTML = [1, 2, 3].map(id => `
+            const buttonsHTML = [1, 2, 3, 4].map(id => `
                 <button onclick="selectPackage(${id})" class="w-full text-left p-6 rounded-2xl border-2 transition-all group relative overflow-hidden ${state.selectedPackage === id ? 'border-black bg-black text-white shadow-xl scale-[1.02]' : 'border-gray-100 bg-white text-gray-400 hover:border-gray-300'}">
                     <div class="relative z-10 flex justify-between items-center">
                         <div>
@@ -755,6 +790,13 @@
                                             </div>
                                             ${kpisHTML}
                                             ${benefitsHTML}
+                                            
+                                            <div class="mt-4 p-4 bg-yellow-50 border border-yellow-100 rounded-xl flex items-start gap-3">
+                                                <i data-lucide="tag" class="w-5 h-5 text-yellow-600 mt-0.5"></i>
+                                                <p class="text-xs text-yellow-800 font-medium italic leading-relaxed">
+                                                    "Este paquete está diseñado para ${state.selectedPackage === 1 ? 'maximizar el valor de producción y cobertura' : state.selectedPackage === 2 ? 'lanzamientos rápidos y efectivos' : state.selectedPackage === 4 ? 'estrategias de alcance masivo y posicionamiento premium' : 'campañas de alto impacto con tracción de audiencia externa'}."
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
