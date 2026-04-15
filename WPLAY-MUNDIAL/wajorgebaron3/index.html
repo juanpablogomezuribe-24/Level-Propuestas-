@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>La Patadita de la Buena Suerte - Wplay</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #e5ddd5;
+            font-family: 'Inter', sans-serif;
+            position: fixed;
+            width: 100%;
+        }
+
+        .app-wrapper {
+            display: flex;
+            flex-direction: column;
+            height: 100dvh;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .whatsapp-bg {
+            background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
+            background-repeat: repeat;
+            background-attachment: local;
+            background-color: #e5ddd5;
+        }
+
+        .message-in {
+            animation: slideIn 0.2s ease-out forwards;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .loading-shimmer {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite linear;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .sticker-img {
+            max-width: 150px;
+            height: auto;
+            mix-blend-mode: multiply;
+            filter: contrast(1.1);
+            display: block;
+        }
+
+        #chat-container::-webkit-scrollbar {
+            width: 4px;
+        }
+        #chat-container::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+
+        input[type="text"] {
+            font-size: 16px !important;
+        }
+    </style>
+</head>
+<body class="flex justify-center items-center">
+
+    <div class="app-wrapper overflow-hidden shadow-2xl">
+        
+        <!-- Cabecera -->
+        <header class="bg-[#075e54] text-white p-3 flex items-center justify-between shadow-md z-30 shrink-0">
+            <div class="flex items-center space-x-2">
+                <i data-lucide="chevron-left" class="w-6 h-6 cursor-pointer"></i>
+                <div class="relative">
+                    <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center overflow-hidden border border-white/10">
+                        <img src="https://i.postimg.cc/9QrssmwN/Whats-App-Image-2026-02-12-at-3-01-03-PM.jpg" alt="Jorge Barón" class="w-full h-full object-cover">
+                    </div>
+                    <div class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-400 border-2 border-[#075e54] rounded-full"></div>
+                </div>
+                <div>
+                    <h1 class="font-bold text-sm leading-none">La patadita Mundialista 🎤</h1>
+                    <span class="text-[10px] opacity-80">en línea</span>
+                </div>
+            </div>
+            <div class="flex space-x-3 opacity-80">
+                <i data-lucide="video" class="w-5 h-5"></i>
+                <i data-lucide="phone" class="w-5 h-5"></i>
+                <i data-lucide="more-vertical" class="w-5 h-5"></i>
+            </div>
+        </header>
+
+        <!-- Contenedor del Chat -->
+        <main id="chat-container" class="flex-1 overflow-y-auto p-4 space-y-4 whatsapp-bg relative">
+            <div id="welcome-action" class="flex justify-center my-6">
+                <button onclick="triggerInitialGreeting()" class="bg-white px-6 py-3 rounded-full shadow-lg text-[#075e54] font-bold border border-gray-100 hover:bg-gray-50 active:scale-95 transition-all text-sm text-center">
+                    Hola Jorge, ¡quiero mi patadita! 🦵
+                </button>
+            </div>
+        </main>
+
+        <!-- Indicador de escritura -->
+        <div id="typing-indicator" class="hidden absolute bottom-20 left-4 bg-white rounded-2xl px-4 py-2 shadow-md z-10 transition-all">
+            <div class="flex space-x-1.5 items-center">
+                <div class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce"></div>
+                <div class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce [animation-delay:0.2s]"></div>
+                <div class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce [animation-delay:0.4s]"></div>
+            </div>
+        </div>
+
+        <!-- Área de Entrada de Mensaje -->
+        <footer class="bg-[#f0f0f0] p-2 sm:p-3 flex items-center space-x-2 z-20 shrink-0">
+            <div class="flex items-center">
+                <button class="p-2 text-gray-500">
+                    <i data-lucide="plus" class="w-6 h-6"></i>
+                </button>
+            </div>
+            
+            <div class="flex-1">
+                <input type="text" id="chat-input" 
+                    placeholder="Escribe un mensaje"
+                    autocomplete="off"
+                    class="w-full bg-white rounded-full px-4 py-2 text-sm outline-none shadow-sm border-none focus:ring-0">
+            </div>
+
+            <button id="send-btn" class="bg-[#075e54] p-2.5 rounded-full text-white shadow-md active:scale-90 transition-transform flex items-center justify-center">
+                <i data-lucide="send" class="w-5 h-5"></i>
+            </button>
+        </footer>
+    </div>
+
+    <script>
+        const apiKey = ""; 
+        let currentStep = 'start';
+        let userData = { name: '', id: '' };
+        
+        // Imágenes y Stickers configurados
+        // Se actualiza la imagen genérica solicitada por el usuario
+        const genericKickImage = "https://i.postimg.cc/4xMDXR4w/Gemini-Generated-Image-dxwwocdxwwocdxww.png";
+        const introSticker = "https://i.postimg.cc/7L5ZXGLL/Diseno-sin-titulo-(2).png";
+        const pataditaSticker = "https://i.postimg.cc/7PQW752H/patadita.png";
+        
+        const chatContainer = document.getElementById('chat-container');
+        const chatInput = document.getElementById('chat-input');
+        const sendBtn = document.getElementById('send-btn');
+        const typingIndicator = document.getElementById('typing-indicator');
+
+        lucide.createIcons();
+
+        function scrollToBottom() {
+            chatContainer.scrollTo({
+                top: chatContainer.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+
+        chatInput.addEventListener('focus', () => {
+            setTimeout(scrollToBottom, 300);
+        });
+
+        function addMessage(text, type = 'received', media = null, buttons = []) {
+            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `flex ${type === 'sent' ? 'justify-end' : 'justify-start'} w-full message-in mb-3`;
+
+            let mediaHtml = '';
+            if (media && media.type === 'image') {
+                if (media.isLoading) {
+                    mediaHtml = `
+                        <div class="mb-2 w-full aspect-video rounded-lg loading-shimmer flex flex-col items-center justify-center text-xs text-gray-400 p-4">
+                            <i data-lucide="loader-2" class="w-5 h-5 animate-spin mb-2"></i>
+                            <span>${media.loadingText || 'Cargando...'}</span>
+                        </div>`;
+                } else {
+                    const isSticker = media.url === pataditaSticker || media.url === introSticker;
+                    mediaHtml = `
+                        <div class="mb-2 rounded-lg overflow-hidden ${!isSticker ? 'shadow-inner' : ''}">
+                            <img src="${media.url}" class="${isSticker ? 'sticker-img' : 'w-full h-auto'}" alt="Media">
+                        </div>`;
+                }
+            }
+
+            let buttonsHtml = '';
+            if (buttons.length > 0) {
+                buttonsHtml = `<div class="mt-3 space-y-2">`;
+                buttons.forEach(btn => {
+                    buttonsHtml += `
+                        <button onclick="handleButtonClick('${btn.id}', '${btn.label}')" 
+                            class="w-full py-2.5 bg-gray-50/90 border border-gray-200 text-[#007aff] rounded-xl text-sm font-semibold active:bg-gray-200 shadow-sm px-4">
+                            ${btn.label}
+                        </button>`;
+                });
+                buttonsHtml += `</div>`;
+            }
+
+            const bubbleClass = type === 'sent' ? 'bg-[#dcf8c6] rounded-tr-none' : 'bg-white rounded-tl-none';
+            const isPureSticker = media && (media.url === pataditaSticker || media.url === introSticker) && !text;
+
+            messageDiv.innerHTML = `
+                <div class="max-w-[85%] relative">
+                    <div class="${!isPureSticker ? 'p-2 shadow-sm ' + bubbleClass + ' rounded-xl' : ''}">
+                        ${mediaHtml}
+                        ${text ? `<p class="text-[14px] leading-snug whitespace-pre-wrap text-gray-800 px-1">${text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')}</p>` : ''}
+                        <div class="flex items-center justify-end space-x-1 mt-1 opacity-50 px-1">
+                            <span class="text-[9px] font-medium">${time}</span>
+                            ${type === 'sent' ? '<i data-lucide="check-check" class="w-3 h-3 text-blue-500"></i>' : ''}
+                        </div>
+                    </div>
+                    ${buttonsHtml}
+                </div>`;
+
+            chatContainer.appendChild(messageDiv);
+            scrollToBottom();
+            lucide.createIcons();
+            return messageDiv;
+        }
+
+        function simulateTyping(callback, delay = 1000) {
+            typingIndicator.classList.remove('hidden');
+            scrollToBottom();
+            setTimeout(() => {
+                typingIndicator.classList.add('hidden');
+                callback();
+            }, delay);
+        }
+
+        async function triggerInitialGreeting() {
+            document.getElementById('welcome-action').classList.add('hidden');
+            addMessage("Hola Jorge Barón, ¡quiero recibir mi patadita! 🦵", 'sent');
+            
+            setTimeout(() => {
+                addMessage("", 'received', { type: 'image', url: introSticker });
+                simulateTyping(() => {
+                    addMessage("¡Entusiasmo! 🎤 Aquí habla **Jorge Barón**. Estoy listo para darte la **patadita de la buena suerte** mundialista.\n\nPrimero cuéntame, ¿cuál es tu nombre?", 'received');
+                    currentStep = 'awaiting_name';
+                }, 1200);
+            }, 400);
+        }
+
+        async function handleInputSubmit() {
+            const val = chatInput.value.trim();
+            if (!val) return;
+            chatInput.value = '';
+            addMessage(val, 'sent');
+
+            if (currentStep === 'finished') {
+                simulateTyping(() => {
+                    addMessage("¡Entusiasmo! Si quieres volver a empezar, escribe 'reiniciar'.", 'received');
+                    if(val.toLowerCase() === 'reiniciar') location.reload();
+                });
+                return;
+            }
+
+            switch(currentStep) {
+                case 'awaiting_name':
+                    userData.name = val;
+                    simulateTyping(() => {
+                        addMessage(`¡Qué elegancia, **${val}**! 🕺 Ahora dime tu **número de cédula** para validar tu registro.`, 'received');
+                        currentStep = 'awaiting_id';
+                    });
+                    break;
+                case 'awaiting_id':
+                    userData.id = val;
+                    simulateTyping(() => {
+                        addMessage(
+                            `¡Perfecto! Confirma si tus datos son correctos:\n\n👤 **Nombre:** ${userData.name}\n🆔 **Cédula:** ${userData.id}`,
+                            'received',
+                            null,
+                            [
+                                { id: 'confirm_data', label: '✅ Sí, son correctos' },
+                                { id: 'edit_name', label: '✏️ Corregir nombre' }
+                            ]
+                        );
+                        currentStep = 'awaiting_confirmation';
+                    });
+                    break;
+                default:
+                    simulateTyping(() => addMessage("¡Entusiasmo! Sigue las instrucciones. 🎤", 'received'));
+            }
+        }
+
+        function processRequestFlow() {
+            simulateTyping(() => {
+                addMessage("", 'received', { type: 'image', url: pataditaSticker });
+                
+                setTimeout(() => {
+                    const loadingMsg = addMessage(``, 'received', { 
+                        type: 'image', 
+                        isLoading: true, 
+                        loadingText: 'Preparando tu patadita de la suerte...' 
+                    });
+                    
+                    setTimeout(() => {
+                        loadingMsg.remove();
+                        const luckyCode = "WPLAY-" + Math.random().toString(36).substr(2, 6).toUpperCase();
+                        
+                        addMessage(`¡QUÉ NIVEL! 🦵✨ **${userData.name}**, aquí tienes tu patadita oficial.`, 'received', { type: 'image', url: genericKickImage });
+
+                        simulateTyping(() => {
+                            addMessage(
+                                `¡Felicidades! Tu código único de la suerte es: **${luckyCode}** 🎫\n\nCon este código podrás participar por excelentes premios.`,
+                                'received',
+                                null,
+                                [
+                                    { id: 'redeem_bono', label: '💰 RECLAMAR BONO' },
+                                    { id: 'physical_kick', label: '🦵 RECLAMAR PATADITA DE LA SUERTE FÍSICA' },
+                                    { id: 'learn_more', label: 'ℹ️ CONOCER MÁS' }
+                                ]
+                            );
+                            currentStep = 'finished';
+                        }, 800);
+                    }, 2000);
+                }, 800);
+            }, 1000);
+        }
+
+        window.handleButtonClick = function(id, label) {
+            addMessage(label, 'sent');
+            
+            if (id === 'confirm_data') {
+                simulateTyping(() => {
+                    addMessage("¡Excelente! Estás a un paso de tu suerte mundialista. 🌟", 'received', null, [
+                        { id: 'request_kick', label: 'Solicitar patadita de la buena suerte' }
+                    ]);
+                });
+            } else if (id === 'edit_name') {
+                simulateTyping(() => {
+                    addMessage("Dime tu nombre completo de nuevo:", 'received');
+                    currentStep = 'awaiting_name';
+                });
+            } else if (id === 'request_kick') {
+                processRequestFlow();
+            } else if (id === 'redeem_bono') {
+                window.open('https://wplay.co', '_blank');
+            } else if (id === 'physical_kick') {
+                simulateTyping(() => {
+                    addMessage("¡Claro que sí! 🎤 Por compras superiores a **$200.000 pesos**, podrás recibir la **patadita de Jorge Barón en físico** en nuestros puntos autorizados.\n\n¡No te quedes sin la tuya! ✨", 'received');
+                });
+            } else if (id === 'learn_more') {
+                simulateTyping(() => {
+                    addMessage("Esta campaña mundialista de **Wplay** busca premiar tu pasión. Jorge Barón ha traído su famosa patadita para darte toda la buena suerte en tus apuestas.\n\n¡Participa, regístrate y gana con entusiasmo! 🎤⚽", 'received');
+                });
+            }
+        };
+
+        sendBtn.addEventListener('click', handleInputSubmit);
+        chatInput.addEventListener('keypress', (e) => e.key === 'Enter' && handleInputSubmit());
+    </script>
+</body>
+</html>
