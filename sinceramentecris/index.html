@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propuesta Comercial - Sinceramente Cris x Colgas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .active-tab {
+            color: #ec4899;
+            border-bottom: 2px solid #ec4899;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #fdf2f8 0%, #fce4ec 100%);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(252, 228, 236, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-pink-50 text-gray-800">
+
+    <!-- Navegación -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-pink-100 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 md:w-10 md:h-10 bg-pink-500 rounded-full flex items-center justify-center text-white shadow-md">
+                    <i data-lucide="heart" fill="currentColor"></i>
+                </div>
+                <span class="font-bold text-pink-600 text-lg md:text-xl tracking-tight leading-tight">Sinceramente Cris</span>
+            </div>
+            <!-- Menú Desktop -->
+            <div class="hidden lg:flex gap-6">
+                <button onclick="showTab('inicio')" class="tab-btn active-tab text-sm font-semibold transition-all">Inicio</button>
+                <button onclick="showTab('programa')" class="tab-btn text-sm font-semibold transition-all">Programa</button>
+                <button onclick="showTab('propuesta')" class="tab-btn text-sm font-semibold transition-all">Propuesta Colgas</button>
+                <button onclick="showTab('impacto')" class="tab-btn text-sm font-semibold transition-all">Impacto</button>
+                <button onclick="showTab('contacto')" class="tab-btn text-sm font-semibold transition-all">Contacto</button>
+            </div>
+            <!-- Botón Móvil (Simple Scroll/Indicador) -->
+            <div class="lg:hidden text-pink-500 font-bold text-xs uppercase tracking-widest">Mayo 2026</div>
+        </div>
+        <!-- Menú Móvil (Scroll Horizontal) -->
+        <div class="lg:hidden bg-white overflow-x-auto flex border-t border-pink-50">
+            <button onclick="showTab('inicio')" class="tab-btn-mobile active-tab px-6 py-3 text-xs font-bold whitespace-nowrap">Inicio</button>
+            <button onclick="showTab('programa')" class="tab-btn-mobile px-6 py-3 text-xs font-bold whitespace-nowrap">Programa</button>
+            <button onclick="showTab('propuesta')" class="tab-btn-mobile px-6 py-3 text-xs font-bold whitespace-nowrap">Colgas</button>
+            <button onclick="showTab('impacto')" class="tab-btn-mobile px-6 py-3 text-xs font-bold whitespace-nowrap">Impacto</button>
+            <button onclick="showTab('contacto')" class="tab-btn-mobile px-6 py-3 text-xs font-bold whitespace-nowrap">Contacto</button>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-4 py-6 md:py-12">
+
+        <!-- SECCIÓN: INICIO -->
+        <section id="inicio" class="tab-content active">
+            <div class="bg-white rounded-[2rem] overflow-hidden shadow-xl flex flex-col lg:flex-row mb-12">
+                <div class="lg:w-1/2 p-8 md:p-16 flex flex-col justify-center order-2 lg:order-1">
+                    <h2 class="text-pink-500 font-bold tracking-widest uppercase text-xs mb-4">Mes de las Madres</h2>
+                    <h1 class="text-4xl md:text-6xl font-black text-gray-900 leading-tight mb-6">
+                        La energía que nos <span class="text-pink-500">une</span>
+                    </h1>
+                    <p class="text-gray-600 text-lg mb-8 leading-relaxed">
+                        Unimos la calidez de <strong>Sinceramente Cris</strong> con el propósito de <strong>Colgas</strong> para celebrar historias reales que inspiran a todo un país.
+                    </p>
+                    <button onclick="showTab('propuesta')" class="bg-pink-500 text-white px-8 py-4 rounded-full font-bold shadow-lg hover:bg-pink-600 transition-all flex items-center justify-center gap-2 w-full md:w-fit">
+                        Ver Estrategia Colgas <i data-lucide="chevron-right"></i>
+                    </button>
+                </div>
+                <div class="lg:w-1/2 bg-pink-100 flex items-center justify-center py-12 order-1 lg:order-2">
+                    <div class="relative">
+                        <div class="w-48 h-48 md:w-72 md:h-72 bg-white rounded-full flex items-center justify-center shadow-2xl border-8 border-white">
+                            <i data-lucide="heart" class="text-pink-500 w-24 h-24 md:w-40 md:h-40" fill="currentColor"></i>
+                        </div>
+                        <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-pink-500 text-white px-6 py-2 rounded-full font-bold text-sm whitespace-nowrap">
+                            Conectando desde lo humano
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-pink-100 text-center">
+                    <div class="w-12 h-12 bg-pink-50 rounded-full flex items-center justify-center text-pink-500 mx-auto mb-4">
+                        <i data-lucide="star" fill="currentColor"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">Historias Reales</h3>
+                    <p class="text-sm text-gray-500 italic">Superación, resiliencia y fe en cada una de nuestras entrevistas.</p>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-pink-100 text-center">
+                    <div class="w-12 h-12 bg-pink-50 rounded-full flex items-center justify-center text-pink-500 mx-auto mb-4">
+                        <i data-lucide="users"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">Propósito</h3>
+                    <p class="text-sm text-gray-500 italic">Inspirar y acompañar a quienes necesitan volver a creer.</p>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-pink-100 text-center">
+                    <div class="w-12 h-12 bg-pink-50 rounded-full flex items-center justify-center text-pink-500 mx-auto mb-4">
+                        <i data-lucide="smartphone"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">Omnicanalidad</h3>
+                    <p class="text-sm text-gray-500 italic">Presencia fuerte y coordinada en YouTube, Instagram y TikTok.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: PROGRAMA -->
+        <section id="programa" class="tab-content">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-4">Invitadas de <span class="text-pink-500">Mayo</span></h2>
+                <p class="text-gray-500 max-w-2xl mx-auto">4 episodios estelares para celebrar a las madres colombianas con figuras de alto impacto nacional.</p>
+            </div>
+
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-16">
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-pink-50 text-center hover:shadow-md transition-all">
+                    <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white mx-auto mb-4"><i data-lucide="heart" fill="currentColor" size="20"></i></div>
+                    <h4 class="font-bold text-gray-800 leading-tight">Juliana Galvis</h4>
+                    <p class="text-[10px] md:text-xs text-pink-400 font-bold uppercase mt-1">Actriz y Mamá</p>
+                </div>
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-pink-50 text-center hover:shadow-md transition-all">
+                    <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white mx-auto mb-4"><i data-lucide="heart" fill="currentColor" size="20"></i></div>
+                    <h4 class="font-bold text-gray-800 leading-tight">Ana María Hoyos</h4>
+                    <p class="text-[10px] md:text-xs text-pink-400 font-bold uppercase mt-1">Presentadora</p>
+                </div>
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-pink-50 text-center hover:shadow-md transition-all">
+                    <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white mx-auto mb-4"><i data-lucide="heart" fill="currentColor" size="20"></i></div>
+                    <h4 class="font-bold text-gray-800 leading-tight">Eva Rey</h4>
+                    <p class="text-[10px] md:text-xs text-pink-400 font-bold uppercase mt-1">Periodista</p>
+                </div>
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-pink-50 text-center hover:shadow-md transition-all">
+                    <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white mx-auto mb-4"><i data-lucide="heart" fill="currentColor" size="20"></i></div>
+                    <h4 class="font-bold text-gray-800 leading-tight">Carolina Soto</h4>
+                    <p class="text-[10px] md:text-xs text-pink-400 font-bold uppercase mt-1">O Andrea Guerrero</p>
+                </div>
+            </div>
+
+            <div class="bg-pink-500 rounded-3xl p-8 md:p-12 text-white relative overflow-hidden">
+                <i data-lucide="quote" class="absolute -top-6 -left-6 w-32 h-32 opacity-10"></i>
+                <div class="relative z-10 max-w-3xl">
+                    <p class="text-xl md:text-3xl font-medium italic mb-6 leading-relaxed">
+                        "Sinceramente Cris nació para inspirar y dejar mensajes positivos que conecten con la audiencia desde lo humano."
+                    </p>
+                    <p class="font-bold tracking-widest uppercase text-pink-200">— Cristina Estupiñán</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: PROPUESTA COLGAS -->
+        <section id="propuesta" class="tab-content">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-2 italic">Estrategia <span class="text-pink-500">Colgas</span></h2>
+                <p class="text-gray-500 uppercase tracking-widest text-xs font-bold">Contenido Transmedia & Brand Integration</p>
+            </div>
+
+            <!-- YouTube Integration -->
+            <div class="flex flex-col lg:flex-row gap-12 items-center mb-20">
+                <div class="lg:w-1/2 space-y-6">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-red-100 p-2 rounded-lg text-red-600">
+                            <i data-lucide="youtube"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold italic">Dinámica en YouTube</h3>
+                    </div>
+                    <div class="space-y-4 text-gray-600 leading-relaxed">
+                        <p>1. <strong>La Pregunta:</strong> Cristina lanza la "Pregunta Colgas" a la invitada con un logo animado en pantalla.</p>
+                        <div class="bg-pink-100 p-6 rounded-2xl border-l-4 border-pink-500 italic font-bold text-pink-800 shadow-sm">
+                            "¿Cuál es la energía que te mueve en la vida?"
+                        </div>
+                        <p>2. <strong>El Puente:</strong> Cristina introduce la crónica de forma natural: <span class="text-pink-500 italic">"Conozcamos a Gloria, una Mamá Colgas que tiene mucha energía..."</span></p>
+                        <p>3. <strong>La Crónica:</strong> Inicia el video de 1 minuto grabado en <strong>formato horizontal</strong> para la emisión principal.</p>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+                    <img src="https://i.postimg.cc/rwbD06BG/Whats-App-Image-2026-04-16-at-9-39-17-AM.jpg" alt="Referencia YouTube" class="w-full h-auto">
+                    <div class="bg-gray-900 text-white p-3 text-center text-[10px] font-bold uppercase tracking-widest">
+                        Visualización Integrada en YouTube
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bonus & Double Production -->
+            <div class="bg-white rounded-[2.5rem] p-8 md:p-16 shadow-xl border border-pink-100 mb-20 relative">
+                <div class="absolute top-0 right-0 p-6">
+                    <span class="bg-pink-500 text-white px-4 py-1 rounded-full text-[10px] font-black shadow-lg animate-pulse uppercase">Bonus Exclusivo</span>
+                </div>
+                <div class="flex flex-col lg:flex-row gap-12 items-center">
+                    <div class="lg:w-1/2 order-2 lg:order-1">
+                        <img src="https://i.postimg.cc/rs6GS075/Whats-App-Image-2026-04-16-at-9-36-55-AM.jpg" alt="Cápsulas Sociales" class="rounded-2xl shadow-lg border-4 border-pink-50">
+                        <p class="text-center text-[10px] text-gray-400 mt-4 italic font-bold">REFERENCIA: CÁPSULAS PARA REDES SOCIALES</p>
+                    </div>
+                    <div class="lg:w-1/2 order-1 lg:order-2 space-y-8">
+                        <div class="flex items-center gap-3">
+                            <div class="bg-pink-100 p-2 rounded-lg text-pink-600"><i data-lucide="layers"></i></div>
+                            <h3 class="text-2xl font-bold italic">Producción Multiformato Vital</h3>
+                        </div>
+                        <p class="text-gray-600">
+                            La crónica de la Mamá Colgas requiere una jornada exclusiva de grabación con Cristina. Realizamos doble producción para éxito total:
+                        </p>
+                        <div class="space-y-6">
+                            <div class="flex gap-4">
+                                <div class="w-12 h-12 bg-pink-50 rounded-2xl flex-shrink-0 flex items-center justify-center text-pink-500"><i data-lucide="video"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800">Graba en Horizontal (YouTube)</h4>
+                                    <p class="text-sm text-gray-500">Integración cinematográfica justo después de la respuesta en el programa.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="w-12 h-12 bg-pink-50 rounded-2xl flex-shrink-0 flex items-center justify-center text-pink-500"><i data-lucide="smartphone"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800">Graba y Edita en Vertical (Social Media)</h4>
+                                    <p class="text-sm text-gray-500">Contenido nativo para Instagram (Colab) y TikTok, optimizado para engagement.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Precios -->
+            <div class="space-y-8">
+                <h3 class="text-2xl font-black text-center text-gray-900 italic">Inversión Especial Mayo</h3>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-white p-10 rounded-[2rem] border border-gray-100 shadow-sm">
+                        <h4 class="text-lg font-bold mb-1">Pauta Estándar</h4>
+                        <p class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6 italic">Sección Patrocinada</p>
+                        <div class="text-5xl font-black text-gray-900 mb-8">$4.000.000 <span class="text-sm font-normal text-gray-400 italic">/ Episodio</span></div>
+                        <ul class="space-y-4 text-sm text-gray-600">
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="text-green-500" size="18"></i> Pregunta Colgas en YouTube</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="text-green-500" size="18"></i> Logo animado en pantalla</li>
+                            <li class="flex items-center gap-2 text-gray-300 italic"><i data-lucide="x-circle" size="18"></i> Sin Crónica de Mamá</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gradient-to-br from-pink-500 to-rose-600 p-10 rounded-[2.5rem] shadow-2xl text-white transform md:scale-105 border-4 border-white relative">
+                        <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-yellow-400 text-gray-900 px-6 py-1 rounded-full text-xs font-black shadow-lg uppercase">Paquete 4 Salidas</div>
+                        <h4 class="text-lg font-bold mb-1">Plan Integral Premium</h4>
+                        <p class="text-pink-100 text-xs font-bold uppercase tracking-widest mb-6 italic">Estrategia Transmedia Completa</p>
+                        <div class="text-5xl font-black mb-8">$16.000.000 <span class="text-sm font-normal text-pink-200 italic">/ Mes</span></div>
+                        <div class="bg-white/10 p-6 rounded-2xl mb-8 space-y-4 text-sm">
+                            <p class="font-black text-yellow-300 flex items-center gap-2"><i data-lucide="star" size="16" fill="currentColor"></i> TODO INCLUIDO:</p>
+                            <p>✓ 4 Preguntas Patrocinadas (YouTube)</p>
+                            <p>✓ <strong>BONUS:</strong> Día de grabación exclusivo con Mamá Colgas</p>
+                            <p>✓ Doble Edición: Horizontal + Vertical</p>
+                            <p>✓ Difusión en YT, IG (Colaboración) y TikTok</p>
+                        </div>
+                        <button class="w-full bg-white text-pink-600 py-4 rounded-2xl font-black shadow-lg hover:bg-pink-50 transition-all uppercase tracking-widest text-sm">Solicitar Plan Mayo</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: IMPACTO -->
+        <section id="impacto" class="tab-content">
+            <h2 class="text-3xl md:text-4xl font-black text-center mb-12">Nuestra <span class="text-pink-500">Comunidad</span></h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Instagram -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-lg border border-pink-50 flex flex-col">
+                    <div class="bg-gradient-to-r from-pink-500 to-purple-500 p-4 text-white flex justify-between items-center">
+                        <div class="flex items-center gap-2"><i data-lucide="instagram" size="18"></i> <span class="font-bold text-sm">Instagram</span></div>
+                        <span class="text-[10px] font-bold">@cristinaestupinan</span>
+                    </div>
+                    <div class="p-8 text-center">
+                        <div class="text-5xl font-black text-gray-800 mb-1">5.9M</div>
+                        <div class="text-[10px] text-gray-400 uppercase font-black tracking-widest mb-8">Visualizaciones</div>
+                        <div class="bg-pink-50 p-4 rounded-2xl">
+                            <div class="text-2xl font-black text-pink-600">1.6M</div>
+                            <div class="text-[10px] text-pink-400 font-bold uppercase">Alcance Mensual (+68%)</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- YouTube -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-lg border border-pink-50 flex flex-col">
+                    <div class="bg-red-600 p-4 text-white flex justify-between items-center">
+                        <div class="flex items-center gap-2"><i data-lucide="youtube" size="18"></i> <span class="font-bold text-sm">YouTube</span></div>
+                        <span class="text-[10px] font-bold">Sinceramente Cris</span>
+                    </div>
+                    <div class="p-8 text-center">
+                        <div class="text-5xl font-black text-gray-800 mb-1">916K</div>
+                        <div class="text-[10px] text-gray-400 uppercase font-black tracking-widest mb-8">Visualizaciones</div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-pink-50 p-3 rounded-2xl">
+                                <div class="text-xl font-black text-pink-600">562K</div>
+                                <div class="text-[10px] text-pink-400 font-bold uppercase tracking-tighter">Totales</div>
+                            </div>
+                            <div class="bg-pink-50 p-3 rounded-2xl">
+                                <div class="text-xl font-black text-pink-600">10K</div>
+                                <div class="text-[10px] text-pink-400 font-bold uppercase tracking-tighter">Comentarios</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- TikTok -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-lg border border-pink-50 flex flex-col">
+                    <div class="bg-black p-4 text-white flex justify-between items-center">
+                        <div class="flex items-center gap-2"><i data-lucide="smartphone" size="18"></i> <span class="font-bold text-sm">TikTok</span></div>
+                        <span class="text-[10px] font-bold">@sinceramente.cris</span>
+                    </div>
+                    <div class="p-8 text-center">
+                        <div class="text-5xl font-black text-gray-800 mb-1">562K</div>
+                        <div class="text-[10px] text-gray-400 uppercase font-black tracking-widest mb-8">Visualizaciones</div>
+                        <div class="flex flex-col gap-2">
+                            <div class="flex justify-between text-xs border-b border-pink-50 pb-2">
+                                <span class="text-gray-400 font-bold uppercase">Me gusta</span>
+                                <span class="font-black text-pink-500">10K</span>
+                            </div>
+                            <div class="flex justify-between text-xs border-b border-pink-50 pb-2">
+                                <span class="text-gray-400 font-bold uppercase">Compartido</span>
+                                <span class="font-black text-pink-500">174 veces</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: CONTACTO -->
+        <section id="contacto" class="tab-content">
+            <div class="flex flex-col items-center text-center">
+                <div class="w-24 h-24 bg-pink-500 rounded-full flex items-center justify-center text-white mb-8 shadow-xl">
+                    <i data-lucide="heart" fill="currentColor" size="48"></i>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-6 italic leading-tight">
+                    ¿Hacemos equipo con <br><span class="text-pink-500">Cristina Estupiñán?</span>
+                </h2>
+                <p class="text-gray-500 max-w-lg mb-12">Esta invitación es para que Colgas se convierta en el motor de energía de nuestro espacio de forma permanente.</p>
+                
+                <div class="w-full max-w-md bg-white rounded-[2.5rem] p-10 shadow-2xl border border-pink-50">
+                    <h3 class="font-black text-pink-600 text-xl mb-8 uppercase tracking-widest italic">Contacto Directo</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4 group">
+                            <div class="w-12 h-12 bg-pink-50 rounded-2xl flex items-center justify-center text-pink-500 group-hover:bg-pink-500 group-hover:text-white transition-all"><i data-lucide="instagram"></i></div>
+                            <div class="text-left">
+                                <p class="text-[10px] text-gray-400 font-black uppercase tracking-widest">Instagram</p>
+                                <p class="font-bold text-gray-800 leading-none">@cristinaestupinan</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 group">
+                            <div class="w-12 h-12 bg-pink-50 rounded-2xl flex items-center justify-center text-pink-500 group-hover:bg-pink-500 group-hover:text-white transition-all"><i data-lucide="youtube"></i></div>
+                            <div class="text-left">
+                                <p class="text-[10px] text-gray-400 font-black uppercase tracking-widest">YouTube</p>
+                                <p class="font-bold text-gray-800 leading-none">Sinceramente Cris</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 group">
+                            <div class="w-12 h-12 bg-pink-50 rounded-2xl flex items-center justify-center text-pink-500 group-hover:bg-pink-500 group-hover:text-white transition-all"><i data-lucide="mail"></i></div>
+                            <div class="text-left">
+                                <p class="text-[10px] text-gray-400 font-black uppercase tracking-widest">Correo Comercial</p>
+                                <p class="font-bold text-gray-800 leading-none">comercial@sinceramentecris.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="w-full mt-10 bg-pink-500 text-white py-4 rounded-2xl font-black shadow-lg hover:bg-pink-600 transition-all uppercase tracking-widest text-sm flex items-center justify-center gap-2">
+                        <i data-lucide="send" size="16"></i> Enviar Propuesta
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="mt-20 py-12 bg-white border-t border-pink-100 text-center">
+        <div class="flex items-center justify-center gap-2 mb-4">
+            <div class="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center text-white"><i data-lucide="heart" fill="currentColor" size="16"></i></div>
+            <span class="font-black text-gray-800 tracking-tighter">Sinceramente Cris</span>
+        </div>
+        <p class="text-xs text-gray-400 font-medium">© 2026 Cristina Estupiñán. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Inicializar iconos
+        lucide.createIcons();
+
+        // Función para cambiar de pestaña
+        function showTab(tabId) {
+            // Ocultar todos los contenidos
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            // Remover clase activa de todos los botones
+            document.querySelectorAll('.tab-btn, .tab-btn-mobile').forEach(btn => {
+                btn.classList.remove('active-tab');
+            });
+
+            // Mostrar contenido seleccionado
+            document.getElementById(tabId).classList.add('active');
+            
+            // Activar botones correspondientes
+            document.querySelectorAll(`button[onclick="showTab('${tabId}')"]`).forEach(btn => {
+                btn.classList.add('active-tab');
+            });
+
+            // Scroll al inicio en móvil
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
