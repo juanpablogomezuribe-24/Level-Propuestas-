@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>La Patadita de la Buena Suerte - Wplay</title>
+    <title>La Patadita Mundialista - Wplay</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -110,7 +110,7 @@
         <main id="chat-container" class="flex-1 overflow-y-auto p-4 space-y-4 whatsapp-bg relative">
             <div id="welcome-action" class="flex justify-center my-6">
                 <button onclick="triggerInitialGreeting()" class="bg-white px-6 py-3 rounded-full shadow-lg text-[#075e54] font-bold border border-gray-100 hover:bg-gray-50 active:scale-95 transition-all text-sm text-center">
-                    Hola Jorge, ¡quiero mi patadita! 🦵
+                    Hola Wplay, ¡quiero recibir mi patadita mundialista! 🦵
                 </button>
             </div>
         </main>
@@ -151,9 +151,8 @@
         let userData = { name: '', id: '' };
         
         // Imágenes y Stickers configurados
-        // Se actualiza la imagen genérica solicitada por el usuario
         const genericKickImage = "https://i.postimg.cc/4xMDXR4w/Gemini-Generated-Image-dxwwocdxwwocdxww.png";
-        const introSticker = "https://i.postimg.cc/7L5ZXGLL/Diseno-sin-titulo-(2).png";
+        const introSticker = "https://i.postimg.cc/7L5ZXGLL/Diseno-sin-titulo-(2).png"; // Sticker "agüita para mi gente"
         const pataditaSticker = "https://i.postimg.cc/7PQW752H/patadita.png";
         
         const chatContainer = document.getElementById('chat-container');
@@ -242,12 +241,12 @@
 
         async function triggerInitialGreeting() {
             document.getElementById('welcome-action').classList.add('hidden');
-            addMessage("Hola Jorge Barón, ¡quiero recibir mi patadita! 🦵", 'sent');
+            addMessage("Hola Wplay, ¡quiero recibir mi patadita mundialista! 🦵", 'sent');
             
             setTimeout(() => {
                 addMessage("", 'received', { type: 'image', url: introSticker });
                 simulateTyping(() => {
-                    addMessage("¡Entusiasmo! 🎤 Aquí habla **Jorge Barón**. Estoy listo para darte la **patadita de la buena suerte** mundialista.\n\nPrimero cuéntame, ¿cuál es tu nombre?", 'received');
+                    addMessage("¡Entusiasmo! 🎤 Aquí habla **Jorge Barón**, el embajador de **Wplay.co**. Estoy listo para darte la patadita de la buena suerte mundialista.\n\nPrimero cuéntame, ¿cuál es tu nombre?", 'received');
                     currentStep = 'awaiting_name';
                 }, 1200);
             }, 400);
@@ -271,7 +270,7 @@
                 case 'awaiting_name':
                     userData.name = val;
                     simulateTyping(() => {
-                        addMessage(`¡Qué elegancia, **${val}**! 🕺 Ahora dime tu **número de cédula** para validar tu registro.`, 'received');
+                        addMessage(`¡Qué elegancia, **${val}**! 🕺 Ahora dime tu **número de cédula** para validar tu registro mundialista.`, 'received');
                         currentStep = 'awaiting_id';
                     });
                     break;
@@ -291,7 +290,7 @@
                     });
                     break;
                 default:
-                    simulateTyping(() => addMessage("¡Entusiasmo! Sigue las instrucciones. 🎤", 'received'));
+                    simulateTyping(() => addMessage("¡Entusiasmo! Sigue las instrucciones para recibir tu patadita. 🎤", 'received'));
             }
         }
 
@@ -303,24 +302,25 @@
                     const loadingMsg = addMessage(``, 'received', { 
                         type: 'image', 
                         isLoading: true, 
-                        loadingText: 'Preparando tu patadita de la suerte...' 
+                        loadingText: 'Lanzando la patadita de la suerte...' 
                     });
                     
                     setTimeout(() => {
                         loadingMsg.remove();
-                        const luckyCode = "WPLAY-" + Math.random().toString(36).substr(2, 6).toUpperCase();
-                        
-                        addMessage(`¡QUÉ NIVEL! 🦵✨ **${userData.name}**, aquí tienes tu patadita oficial.`, 'received', { type: 'image', url: genericKickImage });
+                        // Mensaje actualizado con invitación a compartir
+                        addMessage(`¡QUÉ NIVEL! 🦵✨ **${userData.name}**, aquí tienes tu patadita oficial. Compártela en tus redes sociales para que Colombia llegue a las finales de la cita mundialista.`, 'received', { type: 'image', url: genericKickImage });
 
                         simulateTyping(() => {
+                            const finalMessage = `🎉 **¡Felicidades!**\n\nTu Patadita Mundialista de la Suerte de **Wplay.co** es: **W10009** 🎫\n\nCon este código estás participando por una **moto Pulsar 🏍️** y muchos más premios.\n\n**¿Qué debes hacer para participar? 👇**\n\n• Estar registrado en **Wplay.co**\n• Realizar una apuesta mínima de **$20.000** entre el 15 de mayo y el 15 de julio\n\n⚠️ **Importante:** Si no cumples con estos requisitos y resultas ganador, el premio será asignado a otro participante.`;
+                            
                             addMessage(
-                                `¡Felicidades! Tu código único de la suerte es: **${luckyCode}** 🎫\n\nCon este código podrás participar por excelentes premios.`,
+                                finalMessage,
                                 'received',
                                 null,
                                 [
-                                    { id: 'redeem_bono', label: '💰 RECLAMAR BONO' },
-                                    { id: 'physical_kick', label: '🦵 RECLAMAR PATADITA DE LA SUERTE FÍSICA' },
-                                    { id: 'learn_more', label: 'ℹ️ CONOCER MÁS' }
+                                    { id: 'register', label: 'Registrarme' },
+                                    { id: 'bet', label: 'Hacer apuesta' },
+                                    { id: 'learn_more', label: 'Conocer más' }
                                 ]
                             );
                             currentStep = 'finished';
@@ -335,7 +335,7 @@
             
             if (id === 'confirm_data') {
                 simulateTyping(() => {
-                    addMessage("¡Excelente! Estás a un paso de tu suerte mundialista. 🌟", 'received', null, [
+                    addMessage("¡Excelente! Estás a un paso de tu suerte mundialista Wplay.co! 🌟", 'received', null, [
                         { id: 'request_kick', label: 'Solicitar patadita de la buena suerte' }
                     ]);
                 });
@@ -346,15 +346,11 @@
                 });
             } else if (id === 'request_kick') {
                 processRequestFlow();
-            } else if (id === 'redeem_bono') {
+            } else if (id === 'register' || id === 'bet') {
                 window.open('https://wplay.co', '_blank');
-            } else if (id === 'physical_kick') {
-                simulateTyping(() => {
-                    addMessage("¡Claro que sí! 🎤 Por compras superiores a **$200.000 pesos**, podrás recibir la **patadita de Jorge Barón en físico** en nuestros puntos autorizados.\n\n¡No te quedes sin la tuya! ✨", 'received');
-                });
             } else if (id === 'learn_more') {
                 simulateTyping(() => {
-                    addMessage("Esta campaña mundialista de **Wplay** busca premiar tu pasión. Jorge Barón ha traído su famosa patadita para darte toda la buena suerte en tus apuestas.\n\n¡Participa, regístrate y gana con entusiasmo! 🎤⚽", 'received');
+                    addMessage("¡Entusiasmo! 🎤 Esta campaña de **Wplay.co** premia tu fidelidad. Recuerda que solo los usuarios registrados que cumplan con la apuesta mínima participan por la moto Pulsar.\n\n¡Mucha suerte! ⚽🏍️", 'received');
                 });
             }
         };
