@@ -3,15 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Bono Mundialista Wplay - La Patadita</title>
+    <title>La Patadita Mundialista - Wplay</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-        :root {
-            --app-height: 100%;
-        }
 
         html, body {
             height: 100%;
@@ -88,7 +84,7 @@
 
     <div class="app-wrapper overflow-hidden shadow-2xl">
         
-        <!-- Cabecera estilo WhatsApp -->
+        <!-- Cabecera -->
         <header class="bg-[#075e54] text-white p-3 flex items-center justify-between shadow-md z-30 shrink-0">
             <div class="flex items-center space-x-2">
                 <i data-lucide="chevron-left" class="w-6 h-6 cursor-pointer"></i>
@@ -113,8 +109,8 @@
         <!-- Contenedor del Chat -->
         <main id="chat-container" class="flex-1 overflow-y-auto p-4 space-y-4 whatsapp-bg relative">
             <div id="welcome-action" class="flex justify-center my-6">
-                <button onclick="triggerInitialGreeting()" class="bg-white px-6 py-3 rounded-full shadow-lg text-[#075e54] font-bold border border-gray-100 hover:bg-gray-50 active:scale-95 transition-all text-sm">
-                    Hola Jorge, ¡quiero mi patadita! 🦵
+                <button onclick="triggerInitialGreeting()" class="bg-white px-6 py-3 rounded-full shadow-lg text-[#075e54] font-bold border border-gray-100 hover:bg-gray-50 active:scale-95 transition-all text-sm text-center">
+                    Hola Wplay, ¡quiero recibir mi patadita mundialista! 🦵
                 </button>
             </div>
         </main>
@@ -131,13 +127,10 @@
         <!-- Área de Entrada de Mensaje -->
         <footer class="bg-[#f0f0f0] p-2 sm:p-3 flex items-center space-x-2 z-20 shrink-0">
             <div class="flex items-center">
-                <label id="camera-label" for="file-input" class="hidden cursor-pointer p-2 text-gray-500 active:scale-90 transition-transform">
+                <label for="file-input" class="p-2 text-gray-500 cursor-pointer">
                     <i data-lucide="camera" class="w-6 h-6"></i>
-                    <input type="file" id="file-input" accept="image/*" class="hidden" onchange="handleImageUpload(event)">
+                    <input type="file" id="file-input" accept="image/*" class="hidden">
                 </label>
-                <button class="p-2 text-gray-500">
-                    <i data-lucide="plus" class="w-6 h-6"></i>
-                </button>
             </div>
             
             <div class="flex-1">
@@ -156,18 +149,18 @@
     <script>
         const apiKey = ""; 
         let currentStep = 'start';
-        let userData = { name: '', id: '', selfieBase64: null };
+        let userData = { name: '', id: '' };
         
-        // Imágenes y Stickers
-        const mandatoryFinalImage = "https://i.postimg.cc/MHLGkBcr/Gemini-Generated-Image-9xwmqw9xwmqw9xwm.png";
-        const introSticker = "https://i.postimg.cc/7L5ZXGLL/Diseno-sin-titulo-(2).png";
+        // Imágenes y Stickers configurados
+        const selfieKickImage = "https://i.postimg.cc/MHLGkBcr/Gemini-Generated-Image-9xwmqw9xwmqw9xwm.png";
+        const introSticker = "https://i.postimg.cc/7L5ZXGLL/Diseno-sin-titulo-(2).png"; // Sticker "agüita para mi gente"
         const pataditaSticker = "https://i.postimg.cc/7PQW752H/patadita.png";
         
         const chatContainer = document.getElementById('chat-container');
         const chatInput = document.getElementById('chat-input');
         const sendBtn = document.getElementById('send-btn');
         const typingIndicator = document.getElementById('typing-indicator');
-        const cameraLabel = document.getElementById('camera-label');
+        const fileInput = document.getElementById('file-input');
 
         lucide.createIcons();
 
@@ -250,12 +243,12 @@
 
         async function triggerInitialGreeting() {
             document.getElementById('welcome-action').classList.add('hidden');
-            addMessage("Hola Jorge Barón, ¡quiero recibir mi patadita! 🦵", 'sent');
+            addMessage("Hola Wplay, ¡quiero recibir mi patadita mundialista! 🦵", 'sent');
             
             setTimeout(() => {
                 addMessage("", 'received', { type: 'image', url: introSticker });
                 simulateTyping(() => {
-                    addMessage("¡Entusiasmo! 🎤 Aquí habla **Jorge Barón**. Estoy listo para darte la **patadita de la buena suerte** mundialista.\n\nPrimero cuéntame, ¿cuál es tu nombre?", 'received');
+                    addMessage("¡Entusiasmo! 🎤 Aquí habla **Jorge Barón**, el embajador de **Wplay.co**. Estoy listo para darte la patadita de la buena suerte mundialista.\n\nPrimero cuéntame, ¿cuál es tu nombre?", 'received');
                     currentStep = 'awaiting_name';
                 }, 1200);
             }, 400);
@@ -279,7 +272,7 @@
                 case 'awaiting_name':
                     userData.name = val;
                     simulateTyping(() => {
-                        addMessage(`¡Qué elegancia, **${val}**! 🕺 Ahora dime tu **número de cédula** para validar tu registro.`, 'received');
+                        addMessage(`¡Qué elegancia, **${val}**! 🕺 Ahora dime tu **número de cédula** para validar tu registro mundialista.`, 'received');
                         currentStep = 'awaiting_id';
                     });
                     break;
@@ -299,91 +292,94 @@
                     });
                     break;
                 default:
-                    simulateTyping(() => addMessage("¡Entusiasmo! Sigue las instrucciones. 🎤", 'received'));
+                    simulateTyping(() => addMessage("¡Entusiasmo! Sigue las instrucciones para recibir tu patadita. 🎤", 'received'));
             }
         }
 
         async function handleImageUpload(event) {
             const file = event.target.files[0];
             if (!file) return;
+
+            if (currentStep !== 'awaiting_selfie') {
+                return;
+            }
+
             const reader = new FileReader();
             reader.onload = (e) => {
-                userData.selfieBase64 = e.target.result.split(',')[1];
-                if (currentStep === 'awaiting_selfie') {
-                    addMessage("Aquí está mi selfie mundialista 📸", 'sent', { type: 'image', url: e.target.result });
-                    cameraLabel.classList.add('hidden');
-                    processSelfieReceived();
-                }
+                addMessage("", 'sent', { type: 'image', url: e.target.result });
+                processSelfieFlow();
             };
             reader.readAsDataURL(file);
+            event.target.value = '';
         }
 
-        function processSelfieReceived() {
+        function processSelfieFlow() {
             simulateTyping(() => {
-                addMessage("¡Eso es! Estamos preparando tu momento estelar...", 'received');
+                const loadingMsg = addMessage(``, 'received', { 
+                    type: 'image', 
+                    isLoading: true, 
+                    loadingText: 'Generando tu patadita oficial...' 
+                });
+                
                 setTimeout(() => {
-                    addMessage("", 'received', { type: 'image', url: pataditaSticker });
-                    setTimeout(() => {
-                        const loadingMsg = addMessage(``, 'received', { 
-                            type: 'image', 
-                            isLoading: true, 
-                            loadingText: 'Renderizando tu patadita oficial...' 
-                        });
-                        
-                        setTimeout(() => {
-                            loadingMsg.remove();
-                            const luckyCode = "WPLAY-" + Math.random().toString(36).substr(2, 6).toUpperCase();
-                            addMessage(`¡QUÉ NIVEL! 🦵✨ **${userData.name}**, aquí tienes tu patadita oficial.`, 'received', { type: 'image', url: mandatoryFinalImage });
+                    loadingMsg.remove();
+                    
+                    addMessage("", 'received', { type: 'image', url: selfieKickImage });
 
-                            simulateTyping(() => {
-                                addMessage(
-                                    `¡Felicidades! Tu código único de la suerte es: **${luckyCode}** 🎫\n\n¡Además, has ganado un **BONO MUNDIALISTA WPLAY**! 🎉 Haz clic debajo para reclamarlo ahora mismo.`,
-                                    'received',
-                                    null,
-                                    [{ id: 'redeem_bono', label: '💰 RECLAMAR MI BONO MUNDIALISTA WPLAY' }]
-                                );
+                    simulateTyping(() => {
+                        addMessage(`¡QUÉ NIVEL! 🦵✨ **${userData.name}**, aquí tienes tu patadita oficial. Compártela en tus redes sociales cada vez que Colombia juegue y pueda llegar a las finales de la cita mundialista.`, 'received');
 
-                                simulateTyping(() => {
-                                    addMessage("¿Qué más te gustaría hacer ahora?", 'received', null, [
-                                        { id: 'physical_kick', label: '🦵 Patadita física' },
-                                        { id: 'learn_more', label: 'ℹ️ Conocer más de la campaña' }
-                                    ]);
-                                }, 1500);
-                            }, 800);
-                        }, 2000);
-                    }, 800);
-                }, 800);
+                        simulateTyping(() => {
+                            const finalMessage = `🎉 **¡Felicidades!**\n\nTu Patadita Mundialista de la Suerte de **Wplay.co** es: **W10009** 🎫\n\nCon este código estás participando por una **moto Pulsar 🏍️** y muchos más premios.\n\n**¿Qué debes hacer para participar? 👇**\n\n• Estar registrado en **Wplay.co**\n• Realizar una apuesta mínima de **$20.000** entre el 15 de mayo y el 15 de julio\n\n⚠️ **Importante:** Si no cumples con estos requisitos y resultas ganador, el premio será asignado a otro participante.`;
+                            
+                            addMessage(
+                                finalMessage,
+                                'received',
+                                null,
+                                [
+                                    { id: 'register', label: 'Registrarme' },
+                                    { id: 'bet', label: 'Hacer apuesta' },
+                                    { id: 'learn_more', label: 'Conocer más' }
+                                ]
+                            );
+                            currentStep = 'finished';
+                        }, 800);
+                    }, 1000);
+                }, 2000);
             }, 1000);
         }
 
         window.handleButtonClick = function(id, label) {
             addMessage(label, 'sent');
+            
             if (id === 'confirm_data') {
                 simulateTyping(() => {
-                    addMessage("¡Excelente! Ahora necesito que **te tomes una selfie** con el icono de la cámara. 📸", 'received');
-                    cameraLabel.classList.remove('hidden');
-                    currentStep = 'awaiting_selfie';
+                    addMessage("¡Excelente! Estás a un paso de tu suerte mundialista Wplay.co! 🌟", 'received', null, [
+                        { id: 'request_kick', label: 'Solicitar patadita de la buena suerte' }
+                    ]);
                 });
             } else if (id === 'edit_name') {
                 simulateTyping(() => {
                     addMessage("Dime tu nombre completo de nuevo:", 'received');
                     currentStep = 'awaiting_name';
                 });
-            } else if (id === 'redeem_bono') {
-                window.open('https://wplay.co', '_blank');
-            } else if (id === 'physical_kick') {
+            } else if (id === 'request_kick') {
                 simulateTyping(() => {
-                    addMessage("¡Claro que sí! 🎤 Por compras superiores a **$200.000 pesos**, podrás recibir la **patadita de Jorge Barón en físico** en nuestros puntos autorizados.\n\n¡No te quedes sin la tuya! ✨", 'received');
+                    addMessage("Estás muy cerca de recibir el amuleto más importante de Colombia. Envianos una selfie tuya 📸", 'received');
+                    currentStep = 'awaiting_selfie';
                 });
+            } else if (id === 'register' || id === 'bet') {
+                window.open('https://wplay.co', '_blank');
             } else if (id === 'learn_more') {
                 simulateTyping(() => {
-                    addMessage("Esta campaña mundialista de **Wplay** busca premiar tu pasión. Jorge Barón ha traído su famosa patadita para darte toda la buena suerte en tus apuestas.\n\n¡Participa, regístrate y gana con entusiasmo! 🎤⚽", 'received');
+                    addMessage("¡Entusiasmo! 🎤 Esta campaña de **Wplay.co** premia tu fidelidad. Recuerda que solo los usuarios registrados que cumplan con la apuesta mínima participan por la moto Pulsar.\n\n¡Mucha suerte! ⚽🏍️", 'received');
                 });
             }
         };
 
         sendBtn.addEventListener('click', handleInputSubmit);
         chatInput.addEventListener('keypress', (e) => e.key === 'Enter' && handleInputSubmit());
+        fileInput.addEventListener('change', handleImageUpload);
     </script>
 </body>
 </html>
