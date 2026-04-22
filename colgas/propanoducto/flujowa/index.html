@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Bot WhatsApp Colgas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom scrollbar para que se parezca más al móvil */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 4px;
+        }
+        .chat-bg {
+            background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
+            background-size: contain;
+        }
+    </style>
+</head>
+<body class="flex justify-center items-center min-h-screen bg-gray-100 p-4 font-sans">
+
+    <!-- Mobile Container -->
+    <div class="w-full max-w-md h-[85vh] bg-[#e5ddd5] rounded-3xl shadow-2xl flex flex-col overflow-hidden relative border-8 border-gray-900">
+        
+        <!-- Notch -->
+        <div class="absolute top-0 inset-x-0 h-6 bg-gray-900 rounded-b-xl w-40 mx-auto z-20"></div>
+
+        <!-- Header -->
+        <div class="bg-[#075e54] text-white p-3 pt-6 flex items-center shadow-md z-10">
+            <div class="w-10 h-10 bg-white rounded-full flex justify-center items-center mr-3 overflow-hidden">
+                <span class="text-2xl">🔥</span>
+            </div>
+            <div class="flex-1">
+                <h1 class="font-semibold text-lg leading-tight">Propanoducto Colgas</h1>
+                <p id="status-text" class="text-xs text-green-200">en línea</p>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80">
+                <circle cx="12" cy="12" r="1"></circle>
+                <circle cx="12" cy="5" r="1"></circle>
+                <circle cx="12" cy="19" r="1"></circle>
+            </svg>
+        </div>
+
+        <!-- Chat Area -->
+        <div id="chat-container" class="flex-1 overflow-y-auto p-4 space-y-3 chat-bg relative">
+            <div class="flex justify-center mb-4">
+                <span class="bg-[#E1F3FB] text-gray-600 text-xs py-1 px-3 rounded-lg shadow-sm">Hoy</span>
+            </div>
+            
+            <!-- Messages will be injected here -->
+            <div id="messages-list" class="space-y-3 flex flex-col"></div>
+
+            <!-- Typing Indicator (Hidden by default) -->
+            <div id="typing-indicator" class="hidden flex justify-start mt-3">
+                <div class="bg-white rounded-lg rounded-tl-none p-3 shadow-sm flex space-x-1">
+                    <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                    <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                    <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timer Banner (Hidden by default) -->
+        <div id="timer-banner" class="hidden bg-blue-50 p-1 text-center text-xs text-blue-600 font-semibold flex items-center justify-center space-x-1 border-t border-blue-100">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="animate-pulse">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span>Recuerda: Tienes 10 segundos para responder</span>
+        </div>
+
+        <!-- Input Area -->
+        <div class="bg-[#f0f0f0] p-3 flex items-center space-x-2 z-10">
+            <div id="input-wrapper" class="flex-1 bg-white rounded-full flex items-center px-4 py-2 shadow-sm">
+                <input
+                    type="text"
+                    id="chat-input"
+                    value="Quiero participar por 4 televisores de 65 pulgadas."
+                    placeholder="Escribe un mensaje"
+                    class="flex-1 bg-transparent outline-none text-sm w-full"
+                />
+            </div>
+            <button 
+                id="send-btn"
+                class="w-10 h-10 rounded-full flex justify-center items-center shadow-sm transition-colors bg-[#00a884] text-white"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        // --- State Management ---
+        let step = 0;
+        let isTyping = false;
+        let score = 0;
+        let qStartTime = null;
+        let userData = { nombre: '' };
+        const stepsConBotones = [1, 2, 7, 8, 9, 10, 11, 12];
+
+        // --- DOM Elements ---
+        const chatContainer = document.getElementById('chat-container');
+        const messagesList = document.getElementById('messages-list');
+        const typingIndicator = document.getElementById('typing-indicator');
+        const chatInput = document.getElementById('chat-input');
+        const sendBtn = document.getElementById('send-btn');
+        const inputWrapper = document.getElementById('input-wrapper');
+        const statusText = document.getElementById('status-text');
+        const timerBanner = document.getElementById('timer-banner');
+
+        // --- Helper Functions ---
+        const getCurrentTime = () => new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        
+        const formatText = (text) => text.replace(/\*(.*?)\*/g, '<strong>$1</strong>');
+
+        const scrollToBottom = () => {
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        };
+
+        const calculatePoints = () => {
+            if (!qStartTime) return { points: 0, timeTaken: 0 };
+            const timeTaken = (Date.now() - qStartTime) / 1000;
+            let points = 0;
+            if (timeTaken <= 10) {
+                points = Math.max(0, 100 - Math.floor(timeTaken) * 10);
+            }
+            return { points, timeTaken };
+        };
+
+        const updateUIState = () => {
+            const isInputDisabled = isTyping || step === 13 || step === 99 || stepsConBotones.includes(step);
+            
+            chatInput.disabled = isInputDisabled;
+            sendBtn.disabled = isInputDisabled || !chatInput.value.trim();
+            
+            if (isInputDisabled) {
+                inputWrapper.classList.add('opacity-60', 'bg-gray-200');
+                if (step === 13) chatInput.placeholder = "El juego ha terminado";
+                else chatInput.placeholder = "Selecciona una opción arriba 👆";
+            } else {
+                inputWrapper.classList.remove('opacity-60', 'bg-gray-200');
+                chatInput.placeholder = "Escribe un mensaje";
+            }
+
+            if (chatInput.value.trim() && !isInputDisabled) {
+                sendBtn.classList.replace('bg-gray-300', 'bg-[#00a884]');
+                sendBtn.classList.replace('text-gray-500', 'text-white');
+            } else {
+                sendBtn.classList.replace('bg-[#00a884]', 'bg-gray-300');
+                sendBtn.classList.replace('text-white', 'text-gray-500');
+            }
+
+            if (step >= 10 && step <= 12) {
+                timerBanner.classList.remove('hidden');
+            } else {
+                timerBanner.classList.add('hidden');
+            }
+        };
+
+        const clearOldOptions = () => {
+            document.querySelectorAll('.options-container').forEach(el => el.remove());
+        };
+
+        // --- Render Messages ---
+        const appendUserMessage = (text, type = 'text') => {
+            clearOldOptions();
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'flex justify-end';
+            
+            let content = '';
+            if (type === 'image') {
+                content = `
+                    <div class="flex flex-col items-center p-1">
+                        <div class="bg-gray-200 w-full h-32 rounded flex items-center justify-center mb-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                <polyline points="21 15 16 10 5 21"></polyline>
+                            </svg>
+                        </div>
+                        <span class="text-xs italic text-gray-500">Factura.jpg</span>
+                    </div>
+                `;
+            } else {
+                content = `<p class="text-sm text-gray-800 whitespace-pre-wrap">${formatText(text)}</p>`;
+            }
+
+            msgDiv.innerHTML = `
+                <div class="max-w-[85%] rounded-lg p-2 shadow-sm relative bg-[#dcf8c6] rounded-tr-none">
+                    ${content}
+                    <div class="flex justify-end items-center space-x-1 mt-1 text-green-500">
+                        <span class="text-[10px] text-gray-500">${getCurrentTime()}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#34B7F1]">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            `;
+            messagesList.appendChild(msgDiv);
+            scrollToBottom();
+            updateUIState();
+        };
+
+        const addBotMessage = (text, delay = 1000, options = null) => {
+            isTyping = true;
+            statusText.innerText = 'escribiendo...';
+            typingIndicator.classList.remove('hidden');
+            scrollToBottom();
+            updateUIState();
+
+            setTimeout(() => {
+                isTyping = false;
+                statusText.innerText = 'en línea';
+                typingIndicator.classList.add('hidden');
+                
+                const msgWrapper = document.createElement('div');
+                msgWrapper.className = 'flex flex-col';
+                
+                msgWrapper.innerHTML = `
+                    <div class="flex justify-start">
+                        <div class="max-w-[85%] rounded-lg p-2 shadow-sm relative bg-white rounded-tl-none">
+                            <p class="text-sm text-gray-800 whitespace-pre-wrap">${formatText(text)}</p>
+                            <div class="flex justify-end items-center space-x-1 mt-1 text-gray-400">
+                                <span class="text-[10px] text-gray-500">${getCurrentTime()}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                if (options) {
+                    const optionsDiv = document.createElement('div');
+                    optionsDiv.className = 'flex flex-col space-y-2 mt-2 items-start pl-2 options-container';
+                    options.forEach(opt => {
+                        const btn = document.createElement('button');
+                        btn.className = 'bg-white text-[#00a884] font-semibold py-2 px-4 rounded-xl shadow-md border border-gray-100 text-sm hover:bg-green-50 transition-colors w-full max-w-[85%] text-center active:scale-95';
+                        btn.innerText = opt;
+                        btn.onclick = () => handleInput(opt);
+                        optionsDiv.appendChild(btn);
+                    });
+                    msgWrapper.appendChild(optionsDiv);
+                }
+
+                messagesList.appendChild(msgWrapper);
+                scrollToBottom();
+                updateUIState();
+            }, delay);
+        };
+
+        // --- Core Logic ---
+        const handleInput = (text) => {
+            if (!text.trim()) return;
+
+            if (text === '📷 Enviar foto de factura') {
+                appendUserMessage("Factura enviada", 'image');
+            } else {
+                appendUserMessage(text);
+            }
+
+            chatInput.value = '';
+            processStep(text);
+        };
+
+        const processStep = (text) => {
+            switch (step) {
+                case 0:
+                    addBotMessage("¡Hola! 👋 Bienvenido al canal oficial de *Propanoducto Colgas*.\n\n⚽🔥 Participa en nuestra *Trivia Mundialista*, demuestra qué tanto sabes de fútbol y gana increíbles premios.\n\nPara empezar a jugar, necesitamos conocerte un poco mejor. ¿Aceptas nuestros términos, condiciones y política de tratamiento de datos?", 1000, ['Sí, acepto', 'No, gracias']);
+                    step = 1;
+                    break;
+                case 1:
+                    if (text === 'Sí, acepto') {
+                        addBotMessage("¡Excelente! Empecemos: ¿Eres el propietario o el arrendatario del inmueble donde recibes el servicio?", 1000, ['Propietario', 'Arrendatario']);
+                        step = 2;
+                    } else {
+                        addBotMessage("Entendemos. Si cambias de opinión, contáctanos nuevamente. ¡Que tengas un gran día! 👋");
+                        step = -1;
+                    }
+                    break;
+                case 2:
+                    addBotMessage("Perfecto. Por favor, escribe tu *Nombre y Apellido* completos.");
+                    step = 3;
+                    break;
+                case 3:
+                    userData.nombre = text;
+                    addBotMessage("¿A qué *número de teléfono* te podemos contactar en caso de que ganes? (Puedes escribir el mismo de tu WhatsApp u otro).");
+                    step = 4;
+                    break;
+                case 4:
+                    addBotMessage("¿Cuál es tu *Correo Electrónico*?");
+                    step = 5;
+                    break;
+                case 5:
+                    addBotMessage("Escribe la *Dirección del inmueble* donde recibes el servicio de Propanoducto Colgas (Ej: Calle 123 # 45-67, Apto 101).");
+                    step = 6;
+                    break;
+                case 6:
+                    addBotMessage("¡Gracias! ¿Quieres que actualicemos esta información en nuestro sistema para que quedes como el contacto principal de esta dirección?", 1000, ['Sí, actualizar info', 'No, solo para jugar']);
+                    step = 7;
+                    break;
+                case 7:
+                    addBotMessage("¡Ya casi estamos listos para la Trivia! 🏆\n\nPara validar tu participación, envíame una *foto clara de tu última factura* de Propanoducto Colgas. Asegúrate de que se vea bien el código de suscriptor o número de documento. 📸🧾", 1000, ['📷 Enviar foto de factura']);
+                    step = 8;
+                    break;
+                case 8:
+                    if (text === '📷 Enviar foto de factura') {
+                        step = 99;
+                        addBotMessage("⏳ Validando tu factura (simulando OCR)...", 500);
+                        setTimeout(() => {
+                            addBotMessage("✅ ¡Factura validada con éxito! Hemos registrado el código de tu inmueble. ¡Prepárate para jugar!", 500);
+                            setTimeout(() => {
+                                addBotMessage("⚽ *¡LLEGÓ LA HORA DE LA TRIVIA!* ⚽\n\n📜 *Reglas:*\n• Son solo 3 preguntas.\n• Tienes *10 segundos* para responder cada una.\n• ¡Entre más rápido respondas correctamente, más puntos ganas! ⏱️\n\n¿Listo para empezar?", 1500, ['¡ESTOY LISTO!']);
+                                step = 9;
+                            }, 1500);
+                        }, 2500);
+                    }
+                    break;
+                case 9:
+                    if (text === '¡ESTOY LISTO!') {
+                        addBotMessage("⏱️ *Pregunta 1 de 3:*\n¿Qué país ganó el último Mundial de Fútbol (2022)?", 1000, ['A) Francia', 'B) Argentina', 'C) Brasil', 'D) Alemania']);
+                        qStartTime = Date.now() + 1000; 
+                        step = 10;
+                    }
+                    break;
+                case 10:
+                    let res1 = calculatePoints();
+                    let feed1 = res1.timeTaken > 10 ? "⏰ ¡Tiempo agotado! Tardaste más de 10 segundos.\n" : (text === 'B) Argentina' ? `✅ ¡Correcto! (+${res1.points} pts en ${res1.timeTaken.toFixed(1)}s).\n` : "❌ ¡Incorrecto! La respuesta era B) Argentina.\n");
+                    if (text === 'B) Argentina' && res1.timeTaken <= 10) score += res1.points;
+
+                    addBotMessage(`${feed1}\n⏱️ *Pregunta 2 de 3:*\n¿Quién es el jugador con más goles en la historia de los mundiales?`, 1000, ['A) Pelé', 'B) Lionel Messi', 'C) Miroslav Klose', 'D) Cristiano Ronaldo']);
+                    qStartTime = Date.now() + 1000;
+                    step = 11;
+                    break;
+                case 11:
+                    let res2 = calculatePoints();
+                    let feed2 = res2.timeTaken > 10 ? "⏰ ¡Tiempo agotado! Tardaste más de 10 segundos.\n" : (text === 'C) Miroslav Klose' ? `✅ ¡Correcto! (+${res2.points} pts en ${res2.timeTaken.toFixed(1)}s).\n` : "❌ ¡Incorrecto! La respuesta era C) Miroslav Klose.\n");
+                    if (text === 'C) Miroslav Klose' && res2.timeTaken <= 10) score += res2.points;
+
+                    addBotMessage(`${feed2}\n⏱️ *Pregunta 3 de 3:*\n¿En qué país se celebró el primer Mundial de Fútbol en 1930?`, 1000, ['A) Uruguay', 'B) Italia', 'C) Inglaterra', 'D) Brasil']);
+                    qStartTime = Date.now() + 1000;
+                    step = 12;
+                    break;
+                case 12:
+                    let res3 = calculatePoints();
+                    let feed3 = res3.timeTaken > 10 ? "⏰ ¡Tiempo agotado! Tardaste más de 10 segundos.\n" : (text === 'A) Uruguay' ? `✅ ¡Correcto! (+${res3.points} pts en ${res3.timeTaken.toFixed(1)}s).\n` : "❌ ¡Incorrecto! La respuesta era A) Uruguay.\n");
+                    if (text === 'A) Uruguay' && res3.timeTaken <= 10) score += res3.points;
+
+                    step = 13;
+                    addBotMessage(`${feed3}\n🏁 *¡PITA EL ÁRBITRO, FINALIZA EL JUEGO!* 🏁\n\nCalculando tus tiempos y respuestas... 🧮`, 1000);
+                    
+                    setTimeout(() => {
+                        addBotMessage(`🎉 ¡Felicidades, ${userData.nombre || 'participante'}! Lograste un total de *${score} Puntos*.\n\nTus datos ya quedaron registrados. Si quedas en el Top de los más rápidos, te contactaremos para entregarte tu premio. 🎁\n\n¡Gracias por ser parte de la familia Propanoducto Colgas! 💙🔥`);
+                    }, 3000);
+                    break;
+            }
+            updateUIState();
+        };
+
+        // --- Event Listeners ---
+        sendBtn.addEventListener('click', () => handleInput(chatInput.value));
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleInput(chatInput.value);
+        });
+        chatInput.addEventListener('input', updateUIState);
+
+        // --- Initialization ---
+        window.onload = () => {
+            updateUIState();
+        };
+
+    </script>
+</body>
+</html>
