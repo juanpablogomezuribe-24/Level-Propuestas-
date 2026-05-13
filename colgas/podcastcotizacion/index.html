@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cotización Podcast Colgas</title>
+    <title>Cotización Podcast Colgas - Premium</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -12,179 +12,178 @@
         .bg-colgas-blue { background-color: #004A99; }
         .text-colgas-blue { color: #004A99; }
         .border-colgas-blue { border-color: #004A99; }
-        @media print {
-            .no-print { display: none; }
-        }
+        .gradient-orange { background: linear-gradient(135deg, #ff9d00 0%, #ff6b00 100%); }
+        @media print { .no-print { display: none; } }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900 pb-20">
 
-    <!-- Header / Hero -->
     <header class="bg-colgas-blue text-white py-16 px-6 relative overflow-hidden">
         <div class="max-w-5xl mx-auto relative z-10">
             <div class="flex items-center gap-2 mb-4 bg-white/10 w-fit px-4 py-1 rounded-full backdrop-blur-sm">
-                <span class="text-xs font-bold uppercase tracking-widest text-blue-200">Propuesta Audiovisual</span>
+                <span class="text-xs font-bold uppercase tracking-widest text-blue-200">Propuesta Audiovisual Integral</span>
             </div>
             <h1 class="text-4xl md:text-6xl font-black mb-4 tracking-tight">
                 Producción de Podcast <br />
-                <span class="text-orange-400">para Colgas</span>
+                <span class="text-orange-400">Estrategia Colgas</span>
             </h1>
             <p class="text-lg text-blue-100 max-w-2xl leading-relaxed">
-                Producción cinematográfica a 4 cámaras para un contenido dinámico, profesional y de alto impacto visual.
+                Producción cinematográfica de alto nivel con set de 4 cámaras, audio de estudio y servicio de estilismo incluido.
             </p>
         </div>
         <div class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-blue-600/20 to-transparent"></div>
     </header>
 
     <main class="max-w-5xl mx-auto px-6 -mt-10">
-        <!-- Calculadora de Proyecto -->
         <div class="bg-white rounded-3xl shadow-2xl p-8 mb-12 border border-slate-100 grid md:grid-cols-3 gap-8 items-center">
             <div class="md:col-span-2">
                 <h3 class="text-sm font-bold text-slate-400 uppercase mb-4">Calculadora de Proyecto</h3>
-                <div class="flex items-center gap-6">
+                <div class="flex flex-col md:flex-row md:items-center gap-6">
                     <div>
                         <label class="block text-xs font-medium text-slate-500 mb-2 uppercase">Cantidad de Episodios</label>
                         <div class="flex items-center gap-4">
-                            <button id="btn-minus" class="w-10 h-10 rounded-full border-2 border-slate-200 flex items-center justify-center hover:bg-slate-50 transition-colors">-</button>
+                            <button id="btn-minus" class="w-10 h-10 rounded-full border-2 border-slate-200 flex items-center justify-center hover:bg-slate-50 transition-colors font-bold text-xl">-</button>
                             <span id="episode-count" class="text-3xl font-bold w-12 text-center">1</span>
-                            <button id="btn-plus" class="w-10 h-10 rounded-full border-2 border-slate-200 flex items-center justify-center hover:bg-slate-50 transition-colors">+</button>
+                            <button id="btn-plus" class="w-10 h-10 rounded-full border-2 border-slate-200 flex items-center justify-center hover:bg-slate-50 transition-colors font-bold text-xl">+</button>
                         </div>
                     </div>
                     <div class="h-12 w-px bg-slate-200 mx-4 hidden md:block"></div>
-                    <div class="hidden md:block">
+                    <div>
                         <p class="text-xs font-medium text-slate-500 uppercase">Inversión por Episodio</p>
-                        <p class="text-xl font-bold text-slate-700">$3.500.000 <span class="text-xs font-normal text-slate-400">+ IVA</span></p>
+                        <p class="text-xl font-bold text-slate-700">$3.600.000</p>
+                        <span class="inline-block bg-green-100 text-green-700 text-[10px] px-2 py-0.5 rounded font-bold uppercase mt-1 italic">Exento de IVA</span>
                     </div>
                 </div>
             </div>
-            <div class="bg-slate-900 rounded-2xl p-6 text-white">
-                <p class="text-xs font-medium text-slate-400 uppercase mb-1">Inversión Total Estimada</p>
-                <p id="total-price" class="text-3xl font-black text-white mb-2">$4.165.000</p>
-                <p id="iva-detail" class="text-[10px] text-slate-400 uppercase tracking-wider italic">Incluye IVA del 19% ($665.000)</p>
+            <div class="bg-slate-900 rounded-2xl p-6 text-white relative overflow-hidden">
+                <p class="text-xs font-medium text-slate-400 uppercase mb-1">Inversión Total Final</p>
+                <p id="total-price" class="text-4xl font-black text-white mb-1">$3.600.000</p>
+                <p class="text-[10px] text-slate-400 uppercase tracking-wider leading-tight">
+                    Facturado como: <br>
+                    <span class="text-orange-300 font-bold italic underline">Suministro de página web</span>
+                </p>
             </div>
         </div>
 
-        <!-- Especificaciones Técnicas -->
         <section class="mb-16">
             <div class="flex items-center gap-3 mb-8">
-                <i data-lucide="settings" class="text-colgas-blue"></i>
-                <h2 class="text-2xl font-bold">Capacidad Técnica (Multi-Cámara)</h2>
+                <i data-lucide="sparkles" class="text-orange-500"></i>
+                <h2 class="text-2xl font-bold">Capacidad Técnica y Estilismo</h2>
             </div>
             
-            <div class="grid md:grid-cols-3 gap-6 text-sm">
+            <div class="grid md:grid-cols-4 gap-4 text-sm">
                 <!-- Cámaras -->
                 <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
                     <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center mb-4">
                         <i data-lucide="camera" size="20"></i>
                     </div>
-                    <h4 class="font-bold mb-3 uppercase tracking-wider text-xs text-slate-400">Set de 4 Cámaras</h4>
-                    <ul class="space-y-2 font-medium">
-                        <li class="flex items-center gap-2 text-slate-700"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> Sony FX30 (Cine Line)</li>
-                        <li class="flex items-center gap-2 text-slate-700"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> Sony A7C II (Full Frame)</li>
-                        <li class="flex items-center gap-2 text-slate-700"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> Sony ZV-E10</li>
-                        <li class="flex items-center gap-2 text-slate-700"><i data-lucide="smartphone" class="w-3.5 h-3.5 text-slate-400"></i> iPhone 17 Pro (4to ángulo)</li>
+                    <h4 class="font-bold mb-3 uppercase tracking-wider text-xs text-slate-400">Set 4 Cámaras</h4>
+                    <ul class="space-y-1.5 font-medium text-slate-700 text-[13px]">
+                        <li>Sony FX30</li>
+                        <li>Sony A7C II</li>
+                        <li>Sony ZV-E10</li>
+                        <li>iPhone 17 Pro</li>
                     </ul>
                 </div>
 
-                <!-- Ópticas -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
-                    <div class="w-10 h-10 bg-orange-50 text-orange-600 rounded-lg flex items-center justify-center mb-4">
-                        <i data-lucide="layers" size="20"></i>
+                <!-- Maquillaje -->
+                <div class="bg-white p-6 rounded-2xl border-2 border-orange-100 shadow-md">
+                    <div class="w-10 h-10 bg-orange-500 text-white rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="user-check" size="20"></i>
                     </div>
-                    <h4 class="font-bold mb-3 uppercase tracking-wider text-xs text-slate-400">Ópticas Especializadas</h4>
-                    <ul class="space-y-2 text-xs font-medium text-slate-700">
-                        <li>Sigma 24mm F1.4</li>
-                        <li>Sony 24-50mm F2.8</li>
-                        <li>Sigma 100-400mm</li>
-                        <li>Kit Vintage Canon FD (Lentes Prime)</li>
-                    </ul>
+                    <h4 class="font-bold mb-3 uppercase tracking-wider text-xs text-orange-600 italic">Maquilladora</h4>
+                    <p class="text-[12px] text-slate-600 leading-relaxed font-medium">
+                        Servicio incluido para talentos durante la jornada de grabación (hasta 3 episodios).
+                    </p>
                 </div>
 
-                <!-- Audio y Luces -->
+                <!-- Audio -->
                 <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
                     <div class="w-10 h-10 bg-purple-50 text-purple-600 rounded-lg flex items-center justify-center mb-4">
                         <i data-lucide="mic" size="20"></i>
                     </div>
-                    <h4 class="font-bold mb-3 uppercase tracking-wider text-xs text-slate-400">Audio e Iluminación</h4>
-                    <ul class="space-y-2 font-medium text-slate-700">
-                        <li class="flex items-center gap-2"><i data-lucide="lightbulb" class="w-3.5 h-3.5 text-purple-400"></i> Godox 60w + Softbox</li>
-                        <li class="flex items-center gap-2"><i data-lucide="lightbulb" class="w-3.5 h-3.5 text-purple-400"></i> Ulanzi 60w Lantern</li>
-                        <li class="flex items-center gap-2 font-bold"><i data-lucide="mic" class="w-3.5 h-3.5 text-purple-600"></i> Hollyland Lark Max (Duo)</li>
+                    <h4 class="font-bold mb-3 uppercase tracking-wider text-xs text-slate-400">Audio Pro</h4>
+                    <ul class="space-y-1.5 font-medium text-slate-700 text-[13px]">
+                        <li class="font-bold text-slate-900 underline decoration-purple-200 italic">Mics Podcast (Cable)</li>
+                        <li>Hollyland Lark Max 2</li>
+                        <li>Monitoreo en vivo</li>
+                    </ul>
+                </div>
+
+                <!-- Iluminación -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+                    <div class="w-10 h-10 bg-yellow-50 text-yellow-600 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="lightbulb" size="20"></i>
+                    </div>
+                    <h4 class="font-bold mb-3 uppercase tracking-wider text-xs text-slate-400">Iluminación</h4>
+                    <ul class="space-y-1.5 font-medium text-slate-700 text-[13px]">
+                        <li>Godox 60w + Softbox</li>
+                        <li>Ulanzi 60w Lantern</li>
+                        <li>Luces de apoyo RGB</li>
                     </ul>
                 </div>
             </div>
         </section>
 
-        <!-- Nota Creativa -->
-        <section class="mb-16 bg-orange-50 border border-orange-100 rounded-3xl p-8">
-            <div class="flex flex-col md:flex-row items-start gap-4">
-                <div class="w-12 h-12 bg-orange-500 text-white rounded-2xl flex items-center justify-center flex-shrink-0">
-                    <i data-lucide="alert-circle"></i>
+        <section class="mb-16 grid md:grid-cols-2 gap-6">
+            <div class="bg-orange-50 border border-orange-100 rounded-3xl p-8">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 bg-orange-500 text-white rounded-xl flex items-center justify-center flex-shrink-0">
+                        <i data-lucide="file-text"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Concepto de Facturación</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed italic font-medium">
+                            Este servicio se factura bajo el concepto de <span class="text-slate-900 font-bold">"Suministro de página web"</span>, lo cual permite que la operación sea <span class="text-orange-600 font-bold">exenta de IVA</span>, optimizando el presupuesto para Colgas.
+                        </p>
+                    </div>
                 </div>
-                <div>
-                    <h3 class="text-lg font-bold text-slate-900 mb-2">Sobre Identidad Visual y Activos Creativos</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
-                        Es importante resaltar que el diseño de la identidad visual del podcast (Logotipos, Intros animados, Outros, transiciones gráficas personalizadas y cabezotes) <span class="font-bold text-orange-600 italic underline decoration-orange-300">no está incluido</span> en este valor de producción.
-                    </p>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div class="bg-white/60 p-3 rounded-xl border border-orange-200">
-                            <p class="text-xs font-bold text-slate-500 uppercase mb-1">Opción A</p>
-                            <p class="text-xs text-slate-700 italic">El cliente suministra los archivos finales para integración.</p>
-                        </div>
-                        <div class="bg-white/60 p-3 rounded-xl border border-orange-200">
-                            <p class="text-xs font-bold text-slate-500 uppercase mb-1">Opción B</p>
-                            <p class="text-xs text-slate-700 italic">Se realiza una cotización adicional por diseño y animación de marca.</p>
-                        </div>
+            </div>
+
+            <div class="bg-blue-50 border border-blue-100 rounded-3xl p-8">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 bg-blue-600 text-white rounded-xl flex items-center justify-center flex-shrink-0">
+                        <i data-lucide="alert-circle"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Activos Creativos</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Logos, intros animados, música y cabezotes gráficos deben ser entregados por el cliente o se cotizan adicionalmente como diseño de marca.
+                        </p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Tiempos y Producción -->
         <section class="bg-slate-900 rounded-3xl p-8 md:p-12 text-white mb-16 overflow-hidden relative">
-            <div class="relative z-10">
-                <h2 class="text-3xl font-bold mb-10 flex items-center gap-3 text-orange-400">
-                    <i data-lucide="clock"></i> Tiempos y Producción
-                </h2>
-                
-                <div class="grid md:grid-cols-2 gap-12">
-                    <div class="space-y-8">
-                        <div class="flex gap-4">
-                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-orange-500 flex items-center justify-center font-bold text-slate-900">1</div>
-                            <div>
-                                <h4 class="font-bold text-lg mb-1">Grabación Intensiva</h4>
-                                <p class="text-slate-400 text-sm leading-relaxed">
-                                    Optimización de jornada: hasta <span class="text-white font-bold">3 episodios</span> por día de grabación.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="flex gap-4">
-                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-orange-500 flex items-center justify-center font-bold text-slate-900">2</div>
-                            <div>
-                                <h4 class="font-bold text-lg mb-1">Post-producción Ágil</h4>
-                                <p class="text-slate-400 text-sm leading-relaxed">
-                                    Entrega final de cada episodio en <span class="text-white font-bold">8 días calendario</span>.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm">
-                        <h4 class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4">Alcance por Episodio</h4>
-                        <ul class="space-y-3">
-                            <li class="flex items-center gap-3 text-sm text-slate-300"><i data-lucide="check-circle-2" class="text-green-500 w-4 h-4"></i> Grabación multi-ángulo (4 cámaras)</li>
-                            <li class="flex items-center gap-3 text-sm text-slate-300"><i data-lucide="check-circle-2" class="text-green-500 w-4 h-4"></i> Esquema de iluminación profesional</li>
-                            <li class="flex items-center gap-3 text-sm text-slate-300"><i data-lucide="check-circle-2" class="text-green-500 w-4 h-4"></i> Captura de audio de alta fidelidad</li>
-                            <li class="flex items-center gap-3 text-sm text-slate-300"><i data-lucide="check-circle-2" class="text-green-500 w-4 h-4"></i> Edición, montaje y corrección de color</li>
-                            <li class="flex items-center gap-3 text-sm text-slate-300"><i data-lucide="check-circle-2" class="text-green-500 w-4 h-4"></i> Exportación 4K para YouTube</li>
-                        </ul>
+            <div class="relative z-10 grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl font-bold mb-6 flex items-center gap-3 text-orange-400">
+                        <i data-lucide="clock"></i> Compromisos
+                    </h2>
+                    <ul class="space-y-6">
+                        <li class="flex gap-4">
+                            <div class="w-8 h-8 rounded-full bg-orange-500 flex items-center justify-center font-black text-slate-900 flex-shrink-0 italic">3</div>
+                            <p class="text-slate-300">Máximo de 3 episodios grabados por jornada para garantizar la frescura y calidad del talento.</p>
+                        </li>
+                        <li class="flex gap-4">
+                            <div class="w-8 h-8 rounded-full bg-orange-500 flex items-center justify-center font-black text-slate-900 flex-shrink-0 italic">8</div>
+                            <p class="text-slate-300">Entrega de cada episodio final editado en máximo 8 días calendario tras la captura.</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white/5 p-6 rounded-2xl border border-white/10 backdrop-blur-sm">
+                    <h4 class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4">Producción End-to-End</h4>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3 text-sm"><i data-lucide="check" class="text-green-500"></i> Grabación 4K multi-ángulo</div>
+                        <div class="flex items-center gap-3 text-sm"><i data-lucide="check" class="text-green-500"></i> Audio de estudio (Cable + Inalámbrico)</div>
+                        <div class="flex items-center gap-3 text-sm"><i data-lucide="check" class="text-green-500"></i> Estilismo / Maquillaje en set</div>
+                        <div class="flex items-center gap-3 text-sm"><i data-lucide="check" class="text-green-500"></i> Post-producción dinámica y color</div>
                     </div>
                 </div>
             </div>
-            <div class="absolute -bottom-24 -right-24 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl"></div>
         </section>
 
-        <!-- Galería -->
         <section class="mb-16">
             <div class="flex items-center gap-3 mb-8">
                 <i data-lucide="video" class="text-orange-500"></i>
@@ -192,75 +191,62 @@
             </div>
             <div class="grid md:grid-cols-2 gap-4">
                 <div class="group relative rounded-2xl overflow-hidden aspect-video bg-slate-200 shadow-lg">
-                    <img src="https://i.postimg.cc/Hnf5Ptgv/Whats-App-Image-2026-05-08-at-2-22-02-PM.jpg" alt="Referencia Setup 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <img src="https://i.postimg.cc/Hnf5Ptgv/Whats-App-Image-2026-05-08-at-2-22-02-PM.jpg" alt="Referencia 1" class="w-full h-full object-cover">
                 </div>
                 <div class="group relative rounded-2xl overflow-hidden aspect-video bg-slate-200 shadow-lg">
-                    <img src="https://i.postimg.cc/GpcDN2Wh/Whats-App-Image-2026-05-08-at-2-24-23-PM.jpg" alt="Referencia Setup 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <img src="https://i.postimg.cc/GpcDN2Wh/Whats-App-Image-2026-05-08-at-2-24-23-PM.jpg" alt="Referencia 2" class="w-full h-full object-cover">
                 </div>
             </div>
         </section>
 
-        <!-- Footer -->
-        <div class="border-t border-slate-200 pt-10 flex flex-col items-center text-center">
-            <h5 class="font-bold text-slate-800">Propuesta Audiovisual - Colgas</h5>
-            <p class="text-xs text-slate-500 mt-1">Válida por 15 días a partir de la fecha de entrega.</p>
+        <div class="border-t border-slate-200 pt-10 text-center">
+            <h5 class="font-bold text-slate-800 italic">Propuesta Audiovisual - Colgas Premium</h5>
+            <p class="text-[10px] text-slate-400 mt-1 uppercase tracking-widest font-bold">Válida por 15 días</p>
         </div>
     </main>
 
-    <!-- Mobile Sticky Bar -->
+    <!-- Mobile Sticky Footer -->
     <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100 p-4 shadow-2xl md:hidden z-50 flex justify-between items-center no-print">
         <div>
-            <p class="text-[10px] uppercase font-bold text-slate-400">Total Est.</p>
-            <p id="sticky-total" class="text-lg font-black text-colgas-blue">$4.165.000</p>
+            <p id="sticky-total" class="text-lg font-black text-colgas-blue">$3.600.000</p>
+            <p class="text-[8px] uppercase font-bold text-green-600 italic">Exento de IVA</p>
         </div>
-        <button class="bg-orange-500 text-white px-6 py-2 rounded-lg font-bold text-sm">
+        <button class="bg-orange-500 text-white px-8 py-2 rounded-xl font-bold text-sm shadow-lg">
             Contactar
         </button>
     </div>
 
     <script>
-        // Inicializar Iconos
         lucide.createIcons();
 
-        // Lógica de Calculadora
         let episodes = 1;
-        const PRICE_PER_EPISODE = 3500000;
-        const IVA_RATE = 0.19;
+        const PRICE = 3600000;
 
-        const episodeDisplay = document.getElementById('episode-count');
-        const totalDisplay = document.getElementById('total-price');
-        const ivaDisplay = document.getElementById('iva-detail');
+        const epDisplay = document.getElementById('episode-count');
+        const totalPriceDisplay = document.getElementById('total-price');
         const stickyDisplay = document.getElementById('sticky-total');
 
-        function formatCurrency(value) {
+        function format(val) {
             return new Intl.NumberFormat('es-CO', {
                 style: 'currency',
                 currency: 'COP',
                 minimumFractionDigits: 0,
-            }).format(value);
+            }).format(val);
         }
 
-        function updatePricing() {
-            const subtotal = episodes * PRICE_PER_EPISODE;
-            const iva = subtotal * IVA_RATE;
-            const total = subtotal + iva;
-
-            episodeDisplay.innerText = episodes;
-            totalDisplay.innerText = formatCurrency(total);
-            stickyDisplay.innerText = formatCurrency(total);
-            ivaDisplay.innerText = `Incluye IVA del 19% (${formatCurrency(iva)})`;
+        function update() {
+            const total = episodes * PRICE;
+            epDisplay.innerText = episodes;
+            totalPriceDisplay.innerText = format(total);
+            stickyDisplay.innerText = format(total);
         }
 
         document.getElementById('btn-minus').addEventListener('click', () => {
-            if (episodes > 1) {
-                episodes--;
-                updatePricing();
-            }
+            if (episodes > 1) { episodes--; update(); }
         });
 
         document.getElementById('btn-plus').addEventListener('click', () => {
-            episodes++;
-            updatePricing();
+            episodes++; update();
         });
     </script>
 </body>
