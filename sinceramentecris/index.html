@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Kit - Sinceramente Cris de Cristina Estupiñán</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons para elementos de UI -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600;700;900&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .serif-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .active-tab-btn {
+            background-color: #ec4899;
+            color: #ffffff !important;
+            box-shadow: 0 4px 14px rgba(236, 72, 153, 0.3);
+        }
+
+        .tab-section {
+            display: none;
+            animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .tab-section.active {
+            display: block;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Estilización del scrollbar para móvil */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-[#fff5f7] text-gray-800 min-h-screen flex flex-col justify-between">
+
+    <!-- Header / Navbar Principal -->
+    <header class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-pink-100 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-9 h-9 bg-pink-500 rounded-full flex items-center justify-center text-white shadow-md">
+                    <i data-lucide="heart" class="w-5 h-5" fill="currentColor"></i>
+                </div>
+                <div class="leading-none">
+                    <span class="font-black text-pink-600 text-lg tracking-tight">Sinceramente Cris</span>
+                    <span class="block text-[9px] text-gray-400 font-bold uppercase tracking-widest">Cristina Estupiñán</span>
+                </div>
+            </div>
+            
+            <a href="#contacto" class="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-full text-xs font-bold transition-all shadow-md shadow-pink-100 hidden sm:flex items-center gap-1">
+                <i class="w-3 h-3" data-lucide="mail"></i> Contacto Comercial
+            </a>
+        </div>
+        
+        <!-- Menú de Pestañas (Scroll horizontal en celular, centrado en desktop) -->
+        <div class="bg-white border-t border-pink-50 flex overflow-x-auto no-scrollbar justify-start md:justify-center px-4 py-2 gap-2">
+            <button onclick="switchTab('resumen')" id="btn-resumen" class="tab-button active-tab-btn text-xs md:text-sm px-4 py-2 rounded-full font-bold text-gray-500 transition-all whitespace-nowrap">
+                ✨ Resumen General
+            </button>
+            <button onclick="switchTab('youtube')" id="btn-youtube" class="tab-button text-xs md:text-sm px-4 py-2 rounded-full font-bold text-gray-500 transition-all whitespace-nowrap flex items-center gap-1.5">
+                <i class="w-3.5 h-3.5" data-lucide="youtube"></i> YouTube
+            </button>
+            <button onclick="switchTab('instagram')" id="btn-instagram" class="tab-button text-xs md:text-sm px-4 py-2 rounded-full font-bold text-gray-500 transition-all whitespace-nowrap flex items-center gap-1.5">
+                <i class="w-3.5 h-3.5" data-lucide="instagram"></i> Instagram
+            </button>
+            <button onclick="switchTab('facebook')" id="btn-facebook" class="tab-button text-xs md:text-sm px-4 py-2 rounded-full font-bold text-gray-500 transition-all whitespace-nowrap flex items-center gap-1.5">
+                <i class="w-3.5 h-3.5" data-lucide="facebook"></i> Facebook
+            </button>
+            <button onclick="switchTab('formatos')" id="btn-formatos" class="tab-button text-xs md:text-sm px-4 py-2 rounded-full font-bold text-gray-500 transition-all whitespace-nowrap flex items-center gap-1.5">
+                <i class="w-3.5 h-3.5" data-lucide="layers"></i> Soluciones de Marca
+            </button>
+        </div>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="max-w-5xl mx-auto px-4 py-6 md:py-12 w-full flex-grow">
+
+        <!-- ================= PESTAÑA: RESUMEN GENERAL ================= -->
+        <section id="sec-resumen" class="tab-section active space-y-8 md:space-y-12">
+            <!-- Hero Perfil -->
+            <div class="bg-white rounded-[2rem] overflow-hidden shadow-xl flex flex-col lg:flex-row border border-pink-50">
+                <div class="lg:w-1/2 p-8 md:p-16 flex flex-col justify-center order-2 lg:order-1 space-y-6">
+                    <span class="bg-pink-100 text-pink-600 px-4 py-1.5 rounded-full text-xs font-bold w-fit uppercase tracking-widest">Periodismo con Corazón</span>
+                    <h1 class="serif-font text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
+                        Hola, soy <br><span class="text-pink-500">Cristina Estupiñán</span>
+                    </h1>
+                    <p class="text-gray-600 text-base md:text-lg leading-relaxed font-light">
+                        <strong>Sinceramente Cris</strong> es un espacio digital íntimo de entrevistas donde compartimos historias reales de superación, resiliencia y fe. Nos enfocamos en conectar de humano a humano, inspirando y acompañando a una comunidad masiva de habla hispana altamente comprometida.
+                    </p>
+                    <div class="flex flex-wrap gap-4 pt-2">
+                        <div class="flex items-center gap-2 bg-pink-50 px-4 py-2 rounded-2xl border border-pink-100">
+                            <i class="text-pink-500 w-5 h-5" data-lucide="award"></i>
+                            <span class="text-xs font-bold text-gray-700">Contenido Premium</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-pink-50 px-4 py-2 rounded-2xl border border-pink-100">
+                            <i class="text-pink-500 w-5 h-5" data-lucide="users"></i>
+                            <span class="text-xs font-bold text-gray-700">Femenino Principal</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Simulación/Placeholder estético de imagen de perfil de Cristina -->
+                <div class="lg:w-1/2 bg-gradient-to-tr from-pink-300 to-rose-100 flex items-center justify-center p-8 py-16 order-1 lg:order-2 relative overflow-hidden min-h-[300px]">
+                    <div class="absolute inset-0 bg-white/10 backdrop-blur-[1px]"></div>
+                    <div class="relative z-10 text-center">
+                        <div class="w-48 h-48 md:w-64 md:h-64 bg-white rounded-full mx-auto shadow-2xl flex items-center justify-center border-8 border-white/60 overflow-hidden">
+                            <i data-lucide="heart" class="text-pink-500 w-24 h-24 md:w-32 md:h-32" fill="currentColor"></i>
+                        </div>
+                        <h3 class="serif-font text-2xl font-bold text-pink-900 mt-4 leading-none">Cristina Estupiñán</h3>
+                        <p class="text-xs font-bold text-pink-600 uppercase tracking-widest mt-1">Periodista & Presentadora</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel de Cifras Consolidadas -->
+            <div class="space-y-6">
+                <h2 class="text-2xl font-black text-gray-900 text-center italic">El Poder de nuestra <span class="text-pink-500">Audiencia</span></h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Impacto IG -->
+                    <div class="bg-white p-6 md:p-8 rounded-3xl shadow-md border border-pink-50 flex items-center justify-between group hover:scale-[1.02] transition-all">
+                        <div class="space-y-2">
+                            <p class="text-xs text-gray-400 font-bold uppercase tracking-wider">Instagram Alcance</p>
+                            <h3 class="text-3xl font-black text-gray-900">1.03M+</h3>
+                            <p class="text-xs text-green-500 font-bold flex items-center gap-1"><i class="w-3 h-3" data-lucide="arrow-up-right"></i> +3.2% Mensual</p>
+                        </div>
+                        <div class="w-14 h-14 bg-gradient-to-tr from-pink-500 to-purple-500 rounded-2xl flex items-center justify-center text-white shadow-lg">
+                            <i data-lucide="instagram" class="w-7 h-7"></i>
+                        </div>
+                    </div>
+                    <!-- Impacto FB -->
+                    <div class="bg-white p-6 md:p-8 rounded-3xl shadow-md border border-pink-50 flex items-center justify-between group hover:scale-[1.02] transition-all">
+                        <div class="space-y-2">
+                            <p class="text-xs text-gray-400 font-bold uppercase tracking-wider">Facebook Views</p>
+                            <h3 class="text-3xl font-black text-gray-900">6.3M</h3>
+                            <p class="text-xs text-green-500 font-bold flex items-center gap-1"><i class="w-3 h-3" data-lucide="arrow-up-right"></i> +129% Crecimiento</p>
+                        </div>
+                        <div class="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-lg">
+                            <i data-lucide="facebook" class="w-7 h-7"></i>
+                        </div>
+                    </div>
+                    <!-- Impacto YT -->
+                    <div class="bg-white p-6 md:p-8 rounded-3xl shadow-md border border-pink-50 flex items-center justify-between group hover:scale-[1.02] transition-all">
+                        <div class="space-y-2">
+                            <p class="text-xs text-gray-400 font-bold uppercase tracking-wider">YouTube Canal</p>
+                            <h3 class="text-3xl font-black text-gray-900">584K+</h3>
+                            <p class="text-xs text-pink-500 font-bold uppercase tracking-widest font-bold">Últimos 90 Días</p>
+                        </div>
+                        <div class="w-14 h-14 bg-red-600 rounded-2xl flex items-center justify-center text-white shadow-lg">
+                            <i data-lucide="youtube" class="w-7 h-7"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Perfil Demográfico Consolidado -->
+            <div class="bg-white rounded-3xl p-6 md:p-10 shadow-lg border border-pink-50">
+                <h3 class="text-xl font-bold mb-6 text-gray-900 italic border-b border-pink-50 pb-4 flex items-center gap-2">
+                    <i class="text-pink-500" data-lucide="users-round"></i> Retrato de nuestra Comunidad
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-6">
+                        <h4 class="font-bold text-pink-600 uppercase text-xs tracking-widest">Nicho Altamente Femenino</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed">
+                            Nuestra audiencia cuenta con un perfil sumamente codiciado por marcas de estilo de vida, hogar, maternidad, belleza y bienestar. El <strong>87.5% de nuestra audiencia se identifica como mujeres</strong> maduras y tomadoras de decisiones.
+                        </p>
+                        <!-- Gráfico Género Dinámico con HTML -->
+                        <div class="space-y-3">
+                            <div class="flex justify-between text-xs font-bold uppercase">
+                                <span class="text-pink-600">Femenino: 87.5%</span>
+                                <span class="text-slate-400">Masculino: 12.5%</span>
+                            </div>
+                            <div class="w-full h-4 bg-gray-100 rounded-full overflow-hidden flex shadow-inner">
+                                <div class="h-full bg-pink-500 w-[87.5%]" title="Mujeres 87.5%"></div>
+                                <div class="h-full bg-slate-400 w-[12.5%]" title="Hombres 12.5%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tarjeta Geográfica Destacada -->
+                    <div class="bg-[#fdf2f8] p-6 rounded-2xl border border-pink-100 flex flex-col justify-center">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 bg-pink-100 rounded-xl flex items-center justify-center text-pink-600">
+                                <i data-lucide="globe-2"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">Core Geográfico</h4>
+                                <p class="text-xs text-gray-400 uppercase tracking-widest font-semibold">Audiencia Principal</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-4 leading-relaxed">
+                            Lideramos la influencia digital en <strong>Colombia (75%)</strong>, con un alcance internacional premium en comunidades hispanas clave como <strong>Estados Unidos (7.3%)</strong> y <strong>España (3.0%)</strong>.
+                        </p>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-xs font-semibold"><span>Colombia</span> <span class="font-bold">75%</span></div>
+                            <div class="w-full h-1.5 bg-pink-200/50 rounded-full overflow-hidden"><div class="h-full bg-pink-500 w-[75%]"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PESTAÑA: YOUTUBE ================= -->
+        <section id="sec-youtube" class="tab-section space-y-8">
+            <div class="bg-red-50 p-6 md:p-8 rounded-3xl border border-red-100 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="space-y-2">
+                    <span class="bg-red-600 text-white text-[10px] font-black uppercase px-3 py-1 rounded-full tracking-wider">Últimos 90 Días</span>
+                    <h2 class="text-3xl font-black text-gray-900 flex items-center gap-2">
+                        <i class="text-red-600" data-lucide="youtube"></i> Sinceramente Cris YouTube
+                    </h2>
+                    <p class="text-sm text-gray-500">Video de formato largo, entrevistas completas e íntimas con alta fidelización.</p>
+                </div>
+                <!-- KPI directos -->
+                <div class="flex gap-4">
+                    <div class="bg-white px-5 py-4 rounded-2xl border border-red-100 text-center shadow-sm">
+                        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Vistas</p>
+                        <p class="text-2xl font-black text-red-600">584.501</p>
+                    </div>
+                    <div class="bg-white px-5 py-4 rounded-2xl border border-red-100 text-center shadow-sm">
+                        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Suscriptores</p>
+                        <p class="text-2xl font-black text-red-600">41.468</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Ubicaciones geográficas -->
+                <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-pink-50">
+                    <h3 class="font-bold text-gray-800 text-lg mb-6 flex items-center gap-2">
+                        <i class="text-pink-500" data-lucide="map-pin"></i> Ubicaciones Geográficas Principales
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-xs font-bold text-gray-700 mb-1"><span>Colombia</span> <span>75.2%</span></div>
+                            <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-red-500 w-[75.2%] rounded-full"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-bold text-gray-700 mb-1"><span>Estados Unidos</span> <span>7.3%</span></div>
+                            <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-red-400 w-[7.3%] rounded-full"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-bold text-gray-700 mb-1"><span>España</span> <span>3.0%</span></div>
+                            <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-red-400 w-[3%] rounded-full"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-bold text-gray-700 mb-1"><span>México</span> <span>1.6%</span></div>
+                            <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-red-300 w-[1.6%] rounded-full"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-bold text-gray-700 mb-1"><span>Venezuela</span> <span>1.4%</span></div>
+                            <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-red-300 w-[1.4%] rounded-full"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Edad y Género -->
+                <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-pink-50 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-gray-800 text-lg mb-6 flex items-center gap-2">
+                            <i class="text-pink-500" data-lucide="cake"></i> Segmentación por Edad
+                        </h3>
+                        <!-- Gráfico de barras horizontales de Edad -->
+                        <div class="space-y-3">
+                            <div>
+                                <div class="flex justify-between text-xs font-bold text-gray-600"><span>35 a 44 años</span> <span>21.2%</span></div>
+                                <div class="w-full h-1.5 bg-gray-100 rounded-full"><div class="h-full bg-pink-500 w-[21.2%] rounded-full"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-bold text-gray-600"><span>45 a 54 años</span> <span>23.7%</span></div>
+                                <div class="w-full h-1.5 bg-gray-100 rounded-full"><div class="h-full bg-pink-600 w-[23.7%] rounded-full"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-bold text-gray-600"><span>55 a 64 años</span> <span>23.0%</span></div>
+                                <div class="w-full h-1.5 bg-gray-100 rounded-full"><div class="h-full bg-pink-500 w-[23.0%] rounded-full"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-bold text-gray-600"><span>65 años o más</span> <span>18.1%</span></div>
+                                <div class="w-full h-1.5 bg-gray-100 rounded-full"><div class="h-full bg-pink-400 w-[18.1%] rounded-full"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-bold text-gray-600"><span>Otros rangos (13 a 34 años)</span> <span>14%</span></div>
+                                <div class="w-full h-1.5 bg-gray-100 rounded-full"><div class="h-full bg-pink-300 w-[14%] rounded-full"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-6 italic">La audiencia de YouTube representa un sector altamente maduro con alto poder adquisitivo y estabilidad familiar.</p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PESTAÑA: INSTAGRAM ================= -->
+        <section id="sec-instagram" class="tab-section space-y-8">
+            <div class="bg-gradient-to-r from-pink-50 to-purple-50 p-6 md:p-8 rounded-3xl border border-pink-100 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="space-y-2">
+                    <span class="bg-gradient-to-r from-pink-500 to-purple-500 text-white text-[10px] font-black uppercase px-3 py-1 rounded-full tracking-wider">Últimos 30 Días (21 de abr - 20 de may)</span>
+                    <h2 class="text-3xl font-black text-gray-900 flex items-center gap-2">
+                        <i class="text-pink-500" data-lucide="instagram"></i> Sinceramente Cris Instagram
+                    </h2>
+                    <p class="text-sm text-gray-500">Contenido viral, dinámico, Reels de alta repercusión y fuerte engagement.</p>
+                </div>
+                <!-- KPI directos -->
+                <div class="flex gap-4">
+                    <div class="bg-white px-5 py-4 rounded-2xl border border-pink-100 text-center shadow-sm">
+                        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Vistas Totales</p>
+                        <p class="text-2xl font-black text-pink-600">2.38M</p>
+                    </div>
+                    <div class="bg-white px-5 py-4 rounded-2xl border border-pink-100 text-center shadow-sm">
+                        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Cuentas Alcanzadas</p>
+                        <p class="text-2xl font-black text-purple-600">1.03M</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenido del Público de IG -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Distribución por contenido -->
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-pink-50 flex flex-col justify-between">
+                    <div>
+                        <h4 class="font-bold text-gray-800 text-sm uppercase tracking-widest mb-4">Alcance por tipo de contenido</h4>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1"><span>Reels</span> <span class="font-bold">79.7%</span></div>
+                                <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-pink-500 to-purple-500 w-[79.7%]"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1"><span>Publicaciones</span> <span class="font-bold">11.2%</span></div>
+                                <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-pink-500 to-purple-500 w-[11.2%]"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1"><span>Historias</span> <span class="font-bold">9.1%</span></div>
+                                <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-pink-500 to-purple-500 w-[9.1%]"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-gray-400 mt-6 leading-relaxed">El formato de video corto (Reels) domina nuestro canal de Instagram, generando picos constantes de viralidad.</p>
+                </div>
+
+                <!-- Geografía e Interacción -->
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-pink-50 space-y-4">
+                    <h4 class="font-bold text-gray-800 text-sm uppercase tracking-widest">Público y ciudades</h4>
+                    <div class="space-y-3">
+                        <p class="text-xs text-pink-600 font-black tracking-widest uppercase">Principales Ciudades:</p>
+                        <div class="grid grid-cols-2 gap-3 text-xs">
+                            <div class="bg-pink-50 p-2.5 rounded-xl border border-pink-100 text-center">
+                                <span class="block font-black text-gray-800">25.5%</span>
+                                <span class="text-gray-400">Bogotá</span>
+                            </div>
+                            <div class="bg-pink-50 p-2.5 rounded-xl border border-pink-100 text-center">
+                                <span class="block font-black text-gray-800">6.5%</span>
+                                <span class="text-gray-400">Medellín</span>
+                            </div>
+                            <div class="bg-pink-50 p-2.5 rounded-xl border border-pink-100 text-center">
+                                <span class="block font-black text-gray-800">4.6%</span>
+                                <span class="text-gray-400">Cali</span>
+                            </div>
+                            <div class="bg-pink-50 p-2.5 rounded-xl border border-pink-100 text-center">
+                                <span class="block font-black text-gray-800">2.2%</span>
+                                <span class="text-gray-400">Barranquilla</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actividad de Perfil -->
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-pink-50 flex flex-col justify-between">
+                    <div>
+                        <h4 class="font-bold text-gray-800 text-sm uppercase tracking-widest mb-4">Actividad del Perfil</h4>
+                        <div class="space-y-3 text-xs">
+                            <div class="flex justify-between items-center py-1.5 border-b border-pink-50">
+                                <span class="text-gray-500">Actividad total del perfil</span>
+                                <span class="font-black text-gray-800">17,094</span>
+                            </div>
+                            <div class="flex justify-between items-center py-1.5 border-b border-pink-50">
+                                <span class="text-gray-500">Visitas totales al perfil</span>
+                                <span class="font-black text-gray-800">15,540</span>
+                            </div>
+                            <div class="flex justify-between items-center py-1.5 border-b border-pink-50">
+                                <span class="text-gray-500">Toques en enlace externo</span>
+                                <span class="font-black text-pink-500">1,554</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-pink-50/50 p-3 rounded-2xl text-[10px] text-gray-500 leading-relaxed mt-4">
+                        Nuestra comunidad no solo consume contenido de manera pasiva; realiza acciones directas visitando perfiles e ingresando a links sugeridos.
+                    </div>
+                </div>
+            </div>
+
+            <!-- TOP REELS & STORIES -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Top Reels -->
+                <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-pink-50">
+                    <h3 class="font-bold text-gray-800 text-lg mb-6 flex items-center gap-2">
+                        <i class="text-pink-500" data-lucide="play-circle"></i> Reels Virales Destacados
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-3 bg-pink-50/50 rounded-2xl border border-pink-100">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-pink-500 rounded-xl flex items-center justify-center text-white font-black">1</div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800 text-sm">Reel del 8 de Mayo</h4>
+                                    <p class="text-xs text-gray-400">Especial Madres</p>
+                                </div>
+                            </div>
+                            <span class="bg-pink-500 text-white font-black px-3 py-1 rounded-full text-xs">555K vistas</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-pink-50/50 rounded-2xl border border-pink-100">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-pink-500 rounded-xl flex items-center justify-center text-white font-black">2</div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800 text-sm">Reel del 15 de Mayo</h4>
+                                    <p class="text-xs text-gray-400">Entrevista Inspiradora</p>
+                                </div>
+                            </div>
+                            <span class="bg-pink-500 text-white font-black px-3 py-1 rounded-full text-xs">254K vistas</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-pink-50/50 rounded-2xl border border-pink-100">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-pink-500 rounded-xl flex items-center justify-center text-white font-black">3</div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800 text-sm">Reel del 7 de Mayo</h4>
+                                    <p class="text-xs text-gray-400">Resiliencia y fe</p>
+                                </div>
+                            </div>
+                            <span class="bg-pink-500 text-white font-black px-3 py-1 rounded-full text-xs">154K vistas</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top Stories -->
+                <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-pink-50">
+                    <h3 class="font-bold text-gray-800 text-lg mb-6 flex items-center gap-2">
+                        <i class="text-pink-500" data-lucide="eye"></i> Audiencia Promedio Historias (Historias Recientes)
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between text-xs py-2 border-b border-gray-100 font-semibold">
+                            <span>Historia Principal</span> <span class="font-bold text-pink-600">27,136 visualizaciones</span>
+                        </div>
+                        <div class="flex justify-between text-xs py-2 border-b border-gray-100 font-semibold">
+                            <span>Historia Segunda (Continuación)</span> <span class="font-bold text-pink-600">12,354 visualizaciones</span>
+                        </div>
+                        <div class="flex justify-between text-xs py-2 border-b border-gray-100 font-semibold">
+                            <span>Historia Tercera</span> <span class="font-bold text-pink-600">12,255 visualizaciones</span>
+                        </div>
+                        <div class="flex justify-between text-xs py-2 border-b border-gray-100 font-semibold">
+                            <span>Historia Cuarta</span> <span class="font-bold text-pink-600">9,501 visualizaciones</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PESTAÑA: FACEBOOK ================= -->
+        <section id="sec-facebook" class="tab-section space-y-8">
+            <div class="bg-blue-50 p-6 md:p-8 rounded-3xl border border-blue-100 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="space-y-2">
+                    <span class="bg-blue-600 text-white text-[10px] font-black uppercase px-3 py-1 rounded-full tracking-wider">Crecimiento Exponencial</span>
+                    <h2 class="text-3xl font-black text-gray-900 flex items-center gap-2">
+                        <i class="text-blue-600" data-lucide="facebook"></i> Sinceramente Cris Facebook
+                    </h2>
+                    <p class="text-sm text-gray-500">Un ecosistema masivo en constante expansión orgánica en toda Latinoamérica.</p>
+                </div>
+                <!-- KPI directos -->
+                <div class="flex gap-4">
+                    <div class="bg-white px-5 py-4 rounded-2xl border border-blue-100 text-center shadow-sm">
+                        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Visualizaciones</p>
+                        <p class="text-2xl font-black text-blue-600">6.3M</p>
+                    </div>
+                    <div class="bg-white px-5 py-4 rounded-2xl border border-blue-100 text-center shadow-sm">
+                        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Espectadores</p>
+                        <p class="text-2xl font-black text-blue-600">2.3M</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Métricas de Crecimiento -->
+                <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-pink-50 space-y-4">
+                    <h3 class="font-bold text-gray-800 text-lg flex items-center gap-2">
+                        <i class="text-blue-500" data-lucide="trending-up"></i> Crecimiento del Canal
+                    </h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-blue-50 p-4 rounded-2xl border border-blue-100">
+                            <span class="block text-xs text-gray-400 font-semibold uppercase">Visualizaciones</span>
+                            <span class="text-2xl font-black text-blue-600">+129%</span>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-2xl border border-blue-100">
+                            <span class="block text-xs text-gray-400 font-semibold uppercase">Espectadores</span>
+                            <span class="text-2xl font-black text-blue-600">+100.3%</span>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-2xl border border-blue-100">
+                            <span class="block text-xs text-gray-400 font-semibold uppercase">Interacciones</span>
+                            <span class="text-2xl font-black text-blue-600">+115.7%</span>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-2xl border border-blue-100">
+                            <span class="block text-xs text-gray-400 font-semibold uppercase">Seguidores de FB</span>
+                            <span class="text-2xl font-black text-blue-600">+85.3%</span>
+                        </div>
+                    </div>
+                    <div class="p-3 bg-pink-50 rounded-2xl text-[10px] text-gray-500 leading-relaxed text-center">
+                        La explosión en interacciones (+115.7%) valida la alta relevancia de nuestras entrevistas.
+                    </div>
+                </div>
+
+                <!-- Perfil de Seguidores de FB -->
+                <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-pink-50 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-gray-800 text-lg mb-6 flex items-center gap-2">
+                            <i class="text-blue-500" data-lucide="users-round"></i> Demografía y Seguidores
+                        </h3>
+                        <p class="text-sm text-gray-500 mb-6 leading-relaxed">
+                            Facebook acoge a una comunidad total de <strong>27,235 seguidores</strong>, manteniendo una constante fidelidad femenina con porcentajes similares a nuestros canales generales.
+                        </p>
+                        <div class="space-y-4">
+                            <div class="flex justify-between text-xs font-bold uppercase">
+                                <span class="text-blue-600">Mujeres: 87.7%</span>
+                                <span class="text-slate-400">Hombres: 12.3%</span>
+                            </div>
+                            <div class="w-full h-3 bg-gray-100 rounded-full overflow-hidden flex shadow-inner">
+                                <div class="h-full bg-blue-600 w-[87.7%]" title="Mujeres 87.7%"></div>
+                                <div class="h-full bg-slate-400 w-[12.3%]" title="Hombres 12.3%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-gray-400 mt-6 italic">Rango principal visible concentrado fuertemente entre los 25 a los 65 años de edad.</p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PESTAÑA: SOLUCIONES DE MARCA ================= -->
+        <section id="sec-formatos" class="tab-section space-y-16">
+            <div class="text-center">
+                <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-2">Soluciones de <span class="text-pink-500">Patrocinio</span></h2>
+                <p class="text-gray-500 uppercase tracking-widest text-xs font-bold">Cómo tu marca puede interactuar con nuestra comunidad</p>
+            </div>
+
+            <!-- Propuestas de Paquetes Principales -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Pauta Estándar -->
+                <div class="bg-white p-8 rounded-[2rem] border border-pink-100 shadow-sm flex flex-col justify-between h-full hover:scale-105 transition-all">
+                    <div class="space-y-6">
+                        <div class="w-12 h-12 bg-pink-50 rounded-2xl flex items-center justify-center text-pink-500"><i data-lucide="mic"></i></div>
+                        <h3 class="font-bold text-xl text-gray-800">Pregunta Patrocinada</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed">
+                            Integración orgánica en el programa de YouTube, donde Cristina plantea la pregunta insignia con logo en pantalla y mención directa del patrocinio.
+                        </p>
+                        <ul class="space-y-2 text-xs text-gray-600">
+                            <li class="flex items-center gap-1.5"><i class="text-green-500 w-4 h-4" data-lucide="check"></i> 1 Pregunta por episodio</li>
+                            <li class="flex items-center gap-1.5"><i class="text-green-500 w-4 h-4" data-lucide="check"></i> Logo permanente en el bloque</li>
+                        </ul>
+                    </div>
+                    <div class="pt-6 border-t border-pink-50 mt-6">
+                        <span class="block text-2xl font-black text-gray-900">$4.000.000 <span class="text-xs font-normal text-gray-400">/ Episodio</span></span>
+                        <span class="text-[10px] text-gray-400 block mt-1">(Mínimo 2 salidas mensuales)</span>
+                    </div>
+                </div>
+
+                <!-- Plan Especial Premium -->
+                <div class="bg-gradient-to-br from-pink-500 to-rose-600 p-8 rounded-[2rem] shadow-xl text-white flex flex-col justify-between h-full hover:scale-105 transition-all relative border-4 border-white">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-yellow-400 text-gray-900 px-4 py-1 rounded-full text-[9px] font-black uppercase tracking-wider shadow-md">RECOMENDADO</div>
+                    <div class="space-y-6">
+                        <div class="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center text-white"><i data-lucide="layers"></i></div>
+                        <h3 class="font-bold text-xl">Plan Transmedia Anual</h3>
+                        <p class="text-sm text-pink-50 leading-relaxed">
+                            Estrategia integral multiplataforma que asocia tu marca como patrocinador constante del show con cobertura total en redes.
+                        </p>
+                        <ul class="space-y-2 text-xs text-pink-100">
+                            <li class="flex items-center gap-1.5">✓ 10 Preguntas Patrocinadas (YouTube)</li>
+                            <li class="flex items-center gap-1.5">✓ Especial Mayo: Grabación en campo</li>
+                            <li class="flex items-center gap-1.5">✓ Edición doble: Horizontal + Vertical</li>
+                            <li class="flex items-center gap-1.5">✓ Difusión en YT, IG (Colab) y TikTok</li>
+                        </ul>
+                    </div>
+                    <div class="pt-6 border-t border-white/20 mt-6">
+                        <span class="block text-2xl font-black text-white">$30.000.000 <span class="text-xs font-normal text-pink-200">/ Plan Completo</span></span>
+                        <span class="text-[9px] text-pink-200 block mt-1">Sujeto a cambios según requerimientos adicionales</span>
+                    </div>
+                </div>
+
+                <!-- Producción Especial -->
+                <div class="bg-white p-8 rounded-[2rem] border border-pink-100 shadow-sm flex flex-col justify-between h-full hover:scale-105 transition-all">
+                    <div class="space-y-6">
+                        <div class="w-12 h-12 bg-pink-50 rounded-2xl flex items-center justify-center text-pink-500"><i data-lucide="video"></i></div>
+                        <h3 class="font-bold text-xl text-gray-800">Producción Level Colombia</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed">
+                            Productora audiovisual exclusiva que se encarga del rodaje en locación exterior, kit de marca en cámara y la edición adaptada a cada formato.
+                        </p>
+                        <ul class="space-y-2 text-xs text-gray-600">
+                            <li class="flex items-center gap-1.5"><i class="text-green-500 w-4 h-4" data-lucide="check"></i> Formato Horizontal (YouTube)</li>
+                            <li class="flex items-center gap-1.5"><i class="text-green-500 w-4 h-4" data-lucide="check"></i> Formato Vertical (Reels / TikTok)</li>
+                        </ul>
+                    </div>
+                    <div class="pt-6 border-t border-pink-50 mt-6">
+                        <span class="block text-2xl font-black text-gray-900">$8.000.000 <span class="text-xs font-normal text-gray-400">/ Total 10 Eps</span></span>
+                        <span class="text-[10px] text-gray-400 block mt-1">($800.000 por episodio por volumen)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NUEVA SECCIÓN: TARIFARIO COMERCIAL DETALLADO -->
+            <div class="space-y-8 pt-8 border-t border-pink-100">
+                <div class="text-center max-w-2xl mx-auto">
+                    <h3 class="text-2xl md:text-3xl font-black text-gray-900 italic">Tarifario Comercial Detallado</h3>
+                    <p class="text-sm text-gray-500 mt-2">Valores base para pauta individual correspondientes a Mayo de 2026. Sujetos a negociación formal por volumen o campañas integrales de marca.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Tarifas Instagram -->
+                    <div class="bg-white rounded-3xl p-6 md:p-8 shadow-md border border-pink-100 space-y-6">
+                        <div class="flex items-center gap-3 pb-4 border-b border-pink-50">
+                            <div class="w-10 h-10 bg-pink-50 rounded-xl flex items-center justify-center text-pink-500"><i data-lucide="instagram"></i></div>
+                            <h4 class="font-black text-lg text-gray-800">Ecosistema Instagram</h4>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between py-2 border-b border-gray-50 hover:bg-pink-50/30 px-2 rounded-xl transition-all">
+                                <span class="text-sm font-semibold text-gray-700">Historia Individual</span>
+                                <span class="font-black text-pink-600 text-sm">$1.000.000</span>
+                            </div>
+                            <div class="flex items-center justify-between py-2 border-b border-gray-50 hover:bg-pink-50/30 px-2 rounded-xl transition-all">
+                                <span class="text-sm font-semibold text-gray-700">Ráfaga de Historias (Paquete de 3)</span>
+                                <span class="font-black text-pink-600 text-sm">$2.500.000</span>
+                            </div>
+                            <div class="flex items-center justify-between py-2 border-b border-gray-50 hover:bg-pink-50/30 px-2 rounded-xl transition-all">
+                                <span class="text-sm font-semibold text-gray-700">Reel en Colaboración Directa</span>
+                                <span class="font-black text-pink-600 text-sm">$2.500.000</span>
+                            </div>
+                            <div class="flex items-center justify-between py-2 border-b border-gray-50 hover:bg-pink-50/30 px-2 rounded-xl transition-all">
+                                <span class="text-sm font-semibold text-gray-700">Reel Individual (Canal Propio)</span>
+                                <span class="font-black text-pink-600 text-sm">$2.000.000</span>
+                            </div>
+                            <div class="flex items-center justify-between py-2 hover:bg-pink-50/30 px-2 rounded-xl transition-all">
+                                <span class="text-sm font-semibold text-gray-700">Carrusel Patrocinado (Feed)</span>
+                                <span class="font-black text-pink-600 text-sm">$3.000.000</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tarifas YouTube -->
+                    <div class="bg-white rounded-3xl p-6 md:p-8 shadow-md border border-pink-100 space-y-6">
+                        <div class="flex items-center gap-3 pb-4 border-b border-pink-50">
+                            <div class="w-10 h-10 bg-red-50 rounded-xl flex items-center justify-center text-red-500"><i data-lucide="youtube"></i></div>
+                            <h4 class="font-black text-lg text-gray-800">Ecosistema YouTube</h4>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between py-2 border-b border-gray-50 hover:bg-pink-50/30 px-2 rounded-xl transition-all">
+                                <span class="text-sm font-semibold text-gray-700">YouTube Short</span>
+                                <span class="font-black text-red-600 text-sm">$500.000</span>
+                            </div>
+                            <div class="flex items-center justify-between py-2 border-b border-gray-50 hover:bg-pink-50/30 px-2 rounded-xl transition-all">
+                                <span class="text-sm font-semibold text-gray-700">Sección Patrocinada en Episodio</span>
+                                <span class="font-black text-red-600 text-sm">$4.000.000</span>
+                            </div>
+                            <div class="flex items-center justify-between py-2 hover:bg-pink-50/30 px-2 rounded-xl transition-all">
+                                <span class="text-sm font-semibold text-gray-700">Integración Orgánica de Video (90 seg)</span>
+                                <span class="font-black text-red-600 text-sm">$2.500.000</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tarifas Otras Redes -->
+                    <div class="bg-white rounded-3xl p-6 md:p-8 shadow-md border border-pink-100 space-y-6">
+                        <div class="flex items-center gap-3 pb-4 border-b border-pink-50">
+                            <div class="w-10 h-10 bg-gray-50 rounded-xl flex items-center justify-center text-gray-700"><i data-lucide="smartphone"></i></div>
+                            <h4 class="font-black text-lg text-gray-800">Otras Redes</h4>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between py-2 hover:bg-pink-50/30 px-2 rounded-xl transition-all">
+                                <span class="text-sm font-semibold text-gray-700">TikTok Promo Video</span>
+                                <span class="font-black text-gray-800 text-sm">$1.000.000</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Servicios Especiales -->
+                    <div class="bg-white rounded-3xl p-6 md:p-8 shadow-md border border-pink-100 space-y-6">
+                        <div class="flex items-center gap-3 pb-4 border-b border-pink-50">
+                            <div class="w-10 h-10 bg-pink-50 rounded-xl flex items-center justify-center text-pink-600"><i data-lucide="award"></i></div>
+                            <h4 class="font-black text-lg text-gray-800">Servicios Especiales</h4>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between py-2 border-b border-gray-50 hover:bg-pink-50/30 px-2 rounded-xl transition-all">
+                                <span class="text-sm font-semibold text-gray-700">Asistencia a Evento de Marca (Hasta 2 horas)</span>
+                                <span class="font-black text-pink-600 text-sm">$5.000.000</span>
+                            </div>
+                            <div class="flex items-center justify-between py-2 border-b border-gray-50 hover:bg-pink-50/30 px-2 rounded-xl transition-all">
+                                <span class="text-sm font-semibold text-gray-700">Derechos de Uso de Imagen</span>
+                                <span class="font-black text-pink-600 text-sm">$2.000.000 <span class="text-[10px] text-gray-400 font-normal">/ Mes</span></span>
+                            </div>
+                            <div class="flex items-center justify-between py-2 hover:bg-pink-50/30 px-2 rounded-xl transition-all">
+                                <span class="text-sm font-semibold text-gray-700">Derechos de Pauta Publicitaria Digital</span>
+                                <span class="font-black text-pink-600 text-sm">$2.000.000 <span class="text-[10px] text-gray-400 font-normal">/ Mes</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Sección de Contacto -->
+    <section id="contacto" class="bg-white border-t border-pink-100 py-16">
+        <div class="max-w-md mx-auto px-4 text-center space-y-8">
+            <div class="w-20 h-20 bg-pink-500 rounded-full flex items-center justify-center text-white mx-auto shadow-xl">
+                <i data-lucide="heart" fill="currentColor" size="38"></i>
+            </div>
+            <h2 class="serif-font text-3xl md:text-4xl font-bold text-gray-900">Iniciemos tu Alianza</h2>
+            <p class="text-gray-500 text-sm leading-relaxed">¿Listo para conectar con nuestro público? Solicita un paquete personalizado para tu marca.</p>
+            
+            <div class="bg-pink-50 rounded-3xl p-6 border border-pink-100 text-left space-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-pink-500 shadow-sm"><i data-lucide="instagram"></i></div>
+                    <div>
+                        <p class="text-[9px] text-gray-400 font-bold uppercase tracking-wider">Instagram de Cris</p>
+                        <p class="font-bold text-sm text-gray-800">@cristinaestupinan</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-pink-500 shadow-sm"><i data-lucide="youtube"></i></div>
+                    <div>
+                        <p class="text-[9px] text-gray-400 font-bold uppercase tracking-wider">Canal de YouTube</p>
+                        <p class="font-bold text-sm text-gray-800">Sinceramente Cris</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-pink-500 shadow-sm"><i data-lucide="mail"></i></div>
+                    <div>
+                        <p class="text-[9px] text-gray-400 font-bold uppercase tracking-wider">Email Comercial</p>
+                        <p class="font-bold text-sm text-gray-800">comercial@sinceramentecris.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 text-center border-t border-gray-800">
+        <div class="max-w-6xl mx-auto px-4 space-y-4">
+            <div class="flex items-center justify-center gap-2">
+                <div class="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center text-white"><i data-lucide="heart" fill="currentColor" size="16"></i></div>
+                <span class="font-black tracking-tight text-lg">Sinceramente Cris</span>
+            </div>
+            <p class="text-xs text-gray-400 max-w-xl mx-auto italic">
+                Cifras e información obtenidas del panel analítico correspondiente al periodo de Mayo de 2026. Los costos comerciales y de producción externa pueden variar de acuerdo con los requerimientos logísticos específicos del anunciante.
+            </p>
+            <p class="text-[10px] text-gray-500">© 2026 Sinceramente Cris. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- JS de Navegación de Pestañas -->
+    <script>
+        // Inicializar los iconos de Lucide
+        lucide.createIcons();
+
+        // Función para cambiar de pestaña activa
+        function switchTab(tabId) {
+            // Ocultar todas las secciones
+            document.querySelectorAll('.tab-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remover la clase de botón activo
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active-tab-btn');
+            });
+
+            // Mostrar la sección seleccionada
+            const targetSection = document.getElementById('sec-' + tabId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+
+            // Activar botón seleccionado
+            const targetButton = document.getElementById('btn-' + tabId);
+            if (targetButton) {
+                targetButton.classList.add('active-tab-btn');
+            }
+        }
+    </script>
+</body>
+</html>
