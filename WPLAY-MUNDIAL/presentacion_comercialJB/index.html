@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lanzamiento Digital Campaña 2026 Wplay</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow: hidden;
+            background-color: #ffffff;
+            color: #0f172a;
+        }
+        
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.7s ease, visibility 0.7s;
+            z-index: 1;
+        }
+        
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            z-index: 10;
+        }
+        
+        /* Stagger Animations */
+        .slide .animate-element {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .slide.active .animate-element {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+        .delay-400 { transition-delay: 400ms; }
+        .delay-500 { transition-delay: 500ms; }
+        
+        .slide-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            background: #f8fafc;
+        }
+        
+        .glow-circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.5;
+            animation: float 10s infinite ease-in-out alternate;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(30px, -30px); }
+        }
+
+        .scroll-custom::-webkit-scrollbar {
+            width: 8px;
+        }
+        .scroll-custom::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.02);
+            border-radius: 10px;
+        }
+        .scroll-custom::-webkit-scrollbar-thumb {
+            background: rgba(30, 58, 138, 0.2);
+            border-radius: 10px;
+        }
+        .scroll-custom::-webkit-scrollbar-thumb:hover {
+            background: rgba(30, 58, 138, 0.5);
+        }
+
+        .nav-btn {
+            background: #ffffff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
+            color: #1e3a8a;
+            transition: all 0.3s ease;
+        }
+        .nav-btn:hover:not(:disabled) {
+            background: #facc15;
+            color: #0f172a;
+            border-color: transparent;
+            transform: scale(1.1);
+        }
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            background: #f1f5f9;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.05);
+        }
+        
+        .timeline-node {
+            transition: all 0.3s ease;
+            background: #ffffff;
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 10px 30px -5px rgba(0,0,0,0.05);
+        }
+        .timeline-node:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(30, 58, 138, 0.1);
+        }
+    </style>
+</head>
+<body class="text-slate-900 relative w-screen h-screen">
+
+    <!-- Background Elements -->
+    <div class="slide-bg">
+        <div class="glow-circle w-[600px] h-[600px] bg-blue-100 -top-40 -left-40"></div>
+        <div class="glow-circle w-[500px] h-[500px] bg-yellow-100/60 bottom-0 right-0" style="animation-delay: -5s"></div>
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMCwwLDAsMC4wMikiLz48L3N2Zz4=')] [mask-image:linear-gradient(to_bottom,white,transparent)] opacity-60"></div>
+    </div>
+
+    <!-- Global Header Overlay -->
+    <header class="absolute top-0 left-0 w-full z-50 p-6 md:p-8 flex justify-between items-center pointer-events-none">
+        <div class="flex items-center gap-3">
+            <div class="font-black text-2xl tracking-tighter text-blue-950 uppercase italic drop-shadow-sm pointer-events-auto">WPLAY <span class="text-yellow-500">2026</span></div>
+        </div>
+        <div class="flex items-center gap-3 pointer-events-auto">
+            <button onclick="toggleFullScreen()" class="bg-white border border-slate-200 hover:bg-slate-50 text-slate-600 w-10 h-10 rounded-full shadow-sm flex items-center justify-center transition-transform hover:scale-105" title="Pantalla Completa">
+                <i data-lucide="maximize" class="w-4 h-4"></i>
+            </button>
+            <a href="https://next.frame.io/share/626d77f8-18fe-437e-8a08-63262e1ddc45/" target="_blank" class="bg-blue-600 hover:bg-yellow-400 text-white hover:text-blue-900 px-5 md:px-6 py-2 rounded-full font-black text-xs uppercase tracking-widest shadow-md flex items-center gap-2 transition-transform hover:scale-105">
+                <i data-lucide="play-circle" class="w-4 h-4"></i> Comercial TV
+            </a>
+            <div class="hidden md:block text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] bg-white px-4 py-2 rounded-full border border-slate-200 shadow-sm">LEVEL/MADE</div>
+        </div>
+    </header>
+
+    <!-- Navigation Overlay -->
+    <div class="absolute bottom-8 right-8 z-50 flex gap-4">
+        <button id="prevBtn" class="nav-btn w-12 h-12 rounded-full flex items-center justify-center" disabled>
+            <i data-lucide="chevron-left" class="w-6 h-6"></i>
+        </button>
+        <button id="nextBtn" class="nav-btn w-12 h-12 rounded-full flex items-center justify-center">
+            <i data-lucide="chevron-right" class="w-6 h-6"></i>
+        </button>
+    </div>
+
+    <!-- Slide Indicators -->
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-50 flex gap-3" id="indicators"></div>
+
+    <!-- PRESENTATION SLIDES -->
+    <div id="presentation-container" class="w-full h-full relative">
+
+        <!-- SLIDE 1: PORTADA -->
+        <div class="slide active flex items-center justify-center flex-col px-6">
+            <div class="animate-element delay-100 inline-block bg-blue-50 text-blue-600 border border-blue-100 px-6 py-2 rounded-full text-xs font-black uppercase tracking-[0.3em] mb-8 animate-pulse">
+                Propuesta Confidencial
+            </div>
+            <h1 class="animate-element delay-200 text-6xl md:text-8xl font-black text-blue-950 leading-[0.9] mb-6 uppercase italic tracking-tighter text-center max-w-5xl">
+                Lanzamiento Digital <br>
+                <span class="text-blue-600 underline decoration-yellow-400">Campaña 2026</span>
+            </h1>
+            <p class="animate-element delay-300 text-xl md:text-3xl font-bold text-slate-500 mt-4 uppercase tracking-widest italic flex items-center gap-4">
+                <i data-lucide="star" class="text-yellow-400 fill-yellow-400 w-8 h-8"></i>
+                Con Jorge Barón
+                <i data-lucide="star" class="text-yellow-400 fill-yellow-400 w-8 h-8"></i>
+            </p>
+            <div class="animate-element delay-400 mt-16 w-16 h-16 rounded-full border-2 border-blue-100 flex items-center justify-center bg-white shadow-sm animate-bounce">
+                <i data-lucide="arrow-down" class="w-6 h-6 text-blue-900"></i>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: CRONOGRAMA INTERACTIVO -->
+        <div class="slide flex items-center justify-center px-10">
+            <div class="w-full max-w-7xl">
+                <div class="text-center mb-16 animate-element delay-100">
+                    <h2 class="text-4xl md:text-5xl font-black text-blue-950 uppercase italic tracking-tighter mb-4">Cronograma de Fases</h2>
+                    <p class="text-slate-500 font-medium text-lg max-w-2xl mx-auto">La estrategia se divide en 3 momentos clave para maximizar el impacto digital.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8 relative">
+                    <div class="hidden md:block absolute top-1/2 left-10 right-10 h-1 bg-gradient-to-r from-slate-200 via-blue-200 to-yellow-200 -translate-y-1/2 z-0 animate-element delay-200"></div>
+
+                    <!-- Fase 1 -->
+                    <div class="timeline-node p-8 rounded-[2rem] relative z-10 text-center flex flex-col items-center animate-element delay-200">
+                        <div class="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mb-6 border-4 border-white shadow-md">
+                            <span class="text-slate-400 font-black text-xl">01</span>
+                        </div>
+                        <div class="bg-blue-50 text-blue-600 px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-4 border border-blue-100">26 May - 31 May</div>
+                        <h3 class="text-2xl font-black italic tracking-tighter mb-4 text-blue-900">Precalentamiento</h3>
+                        <p class="text-sm text-slate-500 mb-6">Envío del Kit Especial a 50 influenciadores y periodistas estratégicos en todo el país.</p>
+                        <i data-lucide="gift" class="w-10 h-10 text-slate-300 mt-auto"></i>
+                    </div>
+
+                    <!-- Fase 2 -->
+                    <div class="timeline-node p-8 rounded-[2rem] relative z-10 text-center flex flex-col items-center border-2 border-yellow-400 shadow-xl shadow-yellow-100/50 animate-element delay-300">
+                        <div class="absolute inset-0 bg-yellow-50/50 rounded-[2rem] z-0"></div>
+                        <div class="w-20 h-20 bg-yellow-400 rounded-full flex items-center justify-center mb-6 border-4 border-white shadow-lg z-10">
+                            <i data-lucide="rocket" class="text-blue-950 w-8 h-8"></i>
+                        </div>
+                        <div class="bg-white text-yellow-600 px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-4 border border-yellow-200 shadow-sm z-10">1 de Junio</div>
+                        <h3 class="text-2xl font-black italic tracking-tighter mb-4 text-blue-950 z-10">Lanzamiento</h3>
+                        <p class="text-sm text-slate-600 mb-6 z-10 font-medium">Estreno en TV y Wplay + Amplificación con 26 creadores.</p>
+                    </div>
+
+                    <!-- Fase 3 -->
+                    <div class="timeline-node p-8 rounded-[2rem] relative z-10 text-center flex flex-col items-center animate-element delay-400">
+                        <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mb-6 border-4 border-white shadow-md">
+                            <i data-lucide="infinity" class="text-white w-6 h-6"></i>
+                        </div>
+                        <div class="bg-blue-50 text-blue-600 px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-4 border border-blue-100">Junio & Mundial</div>
+                        <h3 class="text-2xl font-black italic tracking-tighter mb-4 text-blue-900">Sostenimiento</h3>
+                        <p class="text-sm text-slate-500 mb-6">Parrilla Level (Retos, Amuletos) + Contenidos Mundialistas con Jorge Barón en México.</p>
+                        <i data-lucide="trello" class="w-10 h-10 text-blue-200 mt-auto"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: DETALLE PRECALENTAMIENTO -->
+        <div class="slide flex items-center justify-center px-10 py-20">
+            <div class="w-full max-w-6xl h-full flex flex-col mt-12">
+                <div class="flex flex-col md:flex-row items-start md:items-end justify-between mb-6 flex-shrink-0 animate-element delay-100">
+                    <div class="mb-4 md:mb-0">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="bg-slate-100 text-slate-500 px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-widest border border-slate-200">Fase 01</span>
+                            <h2 class="text-3xl md:text-4xl font-black text-blue-950 uppercase italic tracking-tighter">Matriz Precalentamiento</h2>
+                        </div>
+                        <p class="text-slate-500 text-sm font-medium">Envío de Kits a Perfiles (Influencers, Periodistas y Fans)</p>
+                    </div>
+                    <div class="bg-white border border-slate-200 shadow-sm px-4 py-2 rounded-xl flex items-center gap-3">
+                        <i data-lucide="users" class="text-blue-500 w-5 h-5"></i>
+                        <span class="text-xl font-black text-blue-950" id="count-pre">50</span>
+                        <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Perfiles Filtrados</span>
+                    </div>
+                </div>
+
+                <!-- Filtros -->
+                <div class="flex flex-col md:flex-row gap-4 p-4 bg-white border border-slate-200 rounded-t-2xl shadow-sm z-10 animate-element delay-200">
+                    <div class="relative flex-1">
+                        <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
+                        <input type="text" id="search-pre" placeholder="Buscar por nombre o ciudad..." class="w-full pl-10 pr-4 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:border-blue-500 bg-slate-50 focus:bg-white transition-colors">
+                    </div>
+                    <select id="filter-pre" class="px-4 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:border-blue-500 bg-slate-50 focus:bg-white text-slate-600 font-medium cursor-pointer transition-colors">
+                        <option value="ALL">Todas las Categorías</option>
+                        <option value="INFLUENCER">Influencer</option>
+                        <option value="FAN - HINCHA">Fan - Hincha</option>
+                        <option value="PERIODISTA">Periodista</option>
+                        <option value="PRESENTADOR">Presentador</option>
+                        <option value="LOCUTOR">Locutor</option>
+                    </select>
+                </div>
+
+                <!-- Tabla 50 -->
+                <div class="glass-panel rounded-b-3xl overflow-hidden flex-1 flex flex-col h-[50vh] bg-white animate-element delay-300">
+                    <div class="overflow-y-auto scroll-custom flex-1 p-1">
+                        <table class="w-full text-left border-collapse">
+                            <thead class="bg-slate-50 text-slate-500 text-[10px] uppercase tracking-widest sticky top-0 z-20 shadow-sm">
+                                <tr>
+                                    <th class="py-4 px-6 font-bold border-b border-slate-200">Nombre</th>
+                                    <th class="py-4 px-6 font-bold border-b border-slate-200">Categoría</th>
+                                    <th class="py-4 px-6 font-bold border-b border-slate-200">Redes</th>
+                                    <th class="py-4 px-6 font-bold border-b border-slate-200">Seguidores</th>
+                                    <th class="py-4 px-6 font-bold border-b border-slate-200">Ciudad</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-precalentamiento" class="divide-y divide-slate-100 text-sm font-medium text-slate-700">
+                                <!-- JS Injection -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: DETALLE LANZAMIENTO -->
+        <div class="slide flex items-center justify-center px-10 py-20">
+            <div class="w-full max-w-7xl h-full flex flex-col mt-12">
+                <div class="flex items-center gap-3 mb-6 flex-shrink-0 animate-element delay-100">
+                    <span class="bg-yellow-50 text-yellow-600 px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-widest border border-yellow-200">Fase 02</span>
+                    <h2 class="text-3xl md:text-4xl font-black text-blue-950 uppercase italic tracking-tighter">Amplificación Lanzamiento</h2>
+                </div>
+                
+                <!-- Data Viz -->
+                <div class="bg-gradient-to-r from-blue-50 to-white border border-blue-100 rounded-2xl p-6 mb-6 flex flex-col md:flex-row items-start md:items-center justify-between shadow-sm animate-element delay-200 flex-shrink-0">
+                    <div class="mb-4 md:mb-0">
+                        <div class="flex items-center gap-2 mb-1">
+                            <i data-lucide="trending-up" class="w-5 h-5 text-blue-500"></i>
+                            <h3 class="text-blue-900 font-black text-xl italic tracking-tight">Impacto Estimado de Amplificación</h3>
+                        </div>
+                        <p class="text-slate-500 text-sm font-medium">Suma proyectada de alcance en las acciones asignadas a los creadores.</p>
+                    </div>
+                    <div class="text-left md:text-right">
+                        <div class="text-4xl md:text-5xl font-black text-blue-600 italic tracking-tighter counter" data-target="1000000">0</div>
+                        <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mt-1 bg-white px-2 py-1 rounded inline-block border border-slate-200">Personas Alcanzadas</div>
+                    </div>
+                </div>
+
+                <!-- 4 Formatos -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 flex-shrink-0">
+                    <div class="bg-white border border-slate-200 shadow-sm p-4 rounded-2xl animate-element delay-300 flex flex-col justify-between">
+                        <div>
+                            <i data-lucide="monitor-play" class="text-blue-500 mb-2 w-6 h-6"></i>
+                            <h4 class="font-black text-blue-950 text-sm italic uppercase tracking-tight">Pantalla Verde</h4>
+                            <p class="text-[10px] text-slate-500 mt-1 mb-3">Reacción al comercial</p>
+                        </div>
+                        <a href="https://www.instagram.com/reels/DX8J9AkMHjj/" target="_blank" class="inline-flex items-center gap-1 text-[10px] font-bold text-blue-600 hover:text-yellow-500 transition">Ver Ref <i data-lucide="external-link" class="w-3 h-3"></i></a>
+                    </div>
+                    <div class="bg-white border border-slate-200 shadow-sm p-4 rounded-2xl animate-element delay-400 flex flex-col justify-between">
+                        <div>
+                            <i data-lucide="images" class="text-blue-500 mb-2 w-6 h-6"></i>
+                            <h4 class="font-black text-blue-950 text-sm italic uppercase tracking-tight">Carrusel</h4>
+                            <p class="text-[10px] text-slate-500 mt-1 mb-3">Fotos + Video Deslizables</p>
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <a href="https://www.instagram.com/p/DXxvIe7kVOq/?img_index=1&igsh=MWxyMWp1eGFzdXlkNA%3D%3D" target="_blank" class="inline-flex items-center gap-1 text-[10px] font-bold text-blue-600 hover:text-yellow-500 transition">Ref 1 <i data-lucide="external-link" class="w-3 h-3"></i></a>
+                            <a href="https://www.instagram.com/p/DXzKIXXDqaM/?img_index=1" target="_blank" class="inline-flex items-center gap-1 text-[10px] font-bold text-blue-600 hover:text-yellow-500 transition">Ref 2 <i data-lucide="external-link" class="w-3 h-3"></i></a>
+                        </div>
+                    </div>
+                    <div class="bg-white border border-slate-200 shadow-sm p-4 rounded-2xl animate-element delay-500 flex flex-col justify-between">
+                        <div>
+                            <i data-lucide="smartphone" class="text-blue-500 mb-2 w-6 h-6"></i>
+                            <h4 class="font-black text-blue-950 text-sm italic uppercase tracking-tight">Video Integrado</h4>
+                            <p class="text-[10px] text-slate-500 mt-1 mb-3">Mención en su contenido</p>
+                        </div>
+                        <a href="https://www.instagram.com/p/DYAXoEBojuW/" target="_blank" class="inline-flex items-center gap-1 text-[10px] font-bold text-blue-600 hover:text-yellow-500 transition">Ver Ref <i data-lucide="external-link" class="w-3 h-3"></i></a>
+                    </div>
+                    <div class="bg-yellow-50 border border-yellow-200 shadow-sm p-4 rounded-2xl animate-element delay-500 flex flex-col justify-between">
+                        <div>
+                            <i data-lucide="message-circle" class="text-yellow-600 mb-2 w-6 h-6"></i>
+                            <h4 class="font-black text-yellow-600 text-sm italic uppercase tracking-tight">Interacción Directa</h4>
+                            <p class="text-[10px] text-slate-600 mt-1">Comentario y Like oficial</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filtros Tabla 2 -->
+                <div class="flex flex-col md:flex-row gap-4 p-4 bg-white border border-slate-200 rounded-t-2xl shadow-sm z-10 animate-element delay-500 flex-shrink-0">
+                    <div class="relative flex-1">
+                        <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
+                        <input type="text" id="search-lan" placeholder="Buscar creador..." class="w-full pl-10 pr-4 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:border-blue-500 bg-slate-50 focus:bg-white transition-colors">
+                    </div>
+                    <select id="filter-lan" class="px-4 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:border-blue-500 bg-slate-50 focus:bg-white text-slate-600 font-medium cursor-pointer transition-colors">
+                        <option value="ALL">Todos los Formatos</option>
+                        <option value="PANTALLA VERDE">Pantalla Verde</option>
+                        <option value="CARRUSEL">Carrusel</option>
+                        <option value="VIDEO INTEGRADO">Video Integrado</option>
+                    </select>
+                </div>
+
+                <!-- Tabla 26 -->
+                <div class="glass-panel rounded-b-3xl overflow-hidden flex-1 flex flex-col h-[30vh] bg-white animate-element delay-500">
+                    <div class="overflow-y-auto scroll-custom flex-1 p-1">
+                        <table class="w-full text-left border-collapse">
+                            <thead class="bg-slate-50 text-slate-500 text-[10px] uppercase tracking-widest sticky top-0 z-20 shadow-sm">
+                                <tr>
+                                    <th class="py-3 px-6 font-bold border-b border-slate-200">Talent</th>
+                                    <th class="py-3 px-6 font-bold border-b border-slate-200">Categoría</th>
+                                    <th class="py-3 px-6 font-bold border-b border-slate-200">Redes</th>
+                                    <th class="py-3 px-6 font-bold border-b border-slate-200">Seguidores</th>
+                                    <th class="py-3 px-6 font-bold border-b border-slate-200 text-yellow-600">Formato Asignado</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-lanzamiento" class="divide-y divide-slate-100 text-sm font-medium text-slate-700">
+                                <!-- JS Injection -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: DETALLE SOSTENIMIENTO -->
+        <div class="slide flex items-center justify-center px-10">
+            <div class="w-full max-w-6xl text-center">
+                <div class="inline-flex items-center gap-3 mb-6 animate-element delay-100">
+                    <span class="bg-blue-50 text-blue-600 px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-widest border border-blue-100">Fase 03</span>
+                </div>
+                <h2 class="text-4xl md:text-6xl font-black text-blue-950 uppercase italic tracking-tighter mb-6 animate-element delay-200">Sostenimiento & Mundial</h2>
+                <p class="text-slate-600 text-lg max-w-3xl mx-auto mb-12 animate-element delay-300">
+                    Arranca la parrilla de contenido de Junio estructurada por Level. Incluye dinámicas pre-mundialistas, retos, temática de amuletos y la cobertura especial con Jorge Barón desde México.
+                </p>
+
+                <!-- Trello Mockup -->
+                <a href="https://trello.com/b/n5OcNk1c/contenidos-junior-pre-y-mundial-level" target="_blank" class="animate-element delay-400 block group relative mx-auto max-w-4xl bg-white p-2 rounded-2xl border border-slate-200 shadow-xl transition duration-500 hover:border-blue-300 hover:shadow-2xl">
+                    <div class="absolute inset-0 bg-blue-50/50 opacity-0 group-hover:opacity-100 transition duration-500 rounded-2xl pointer-events-none"></div>
+                    
+                    <div class="bg-blue-950 rounded-t-xl px-6 py-4 flex items-center justify-between border-b border-blue-900">
+                        <div class="flex items-center gap-3">
+                            <div class="bg-blue-600 rounded p-1"><i data-lucide="trello" class="text-white w-5 h-5"></i></div>
+                            <span class="text-white font-bold text-lg">Parrilla Wplay + JB 2026</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 rounded-full bg-yellow-400 text-blue-900 flex items-center justify-center font-black text-xs">LV</div>
+                            <div class="w-8 h-8 rounded-full bg-white text-blue-900 flex items-center justify-center font-black text-xs">WP</div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-slate-100 rounded-b-xl p-6 grid grid-cols-3 gap-4 text-left h-[300px] overflow-hidden relative">
+                        <div class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-slate-100 to-transparent z-10"></div>
+                        
+                        <!-- Col 1 -->
+                        <div class="bg-slate-200/50 rounded-lg p-3">
+                            <h5 class="text-slate-600 font-bold text-sm mb-3">Ideas / Backlog</h5>
+                            <div class="bg-white p-3 rounded shadow-sm mb-2 border-l-4 border-yellow-400 border-t border-r border-b border-slate-100">
+                                <p class="text-slate-700 text-sm mb-2 font-semibold">Reto de Cascaritas JB</p>
+                                <span class="bg-yellow-50 text-yellow-600 border border-yellow-200 text-[10px] px-2 py-1 rounded">Pre-mundial</span>
+                            </div>
+                            <div class="bg-white p-3 rounded shadow-sm mb-2 border-l-4 border-blue-400 border-t border-r border-b border-slate-100">
+                                <p class="text-slate-700 text-sm mb-2 font-semibold">Dinámica El Amuleto</p>
+                                <span class="bg-blue-50 text-blue-600 border border-blue-200 text-[10px] px-2 py-1 rounded">Sorteo</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Col 2 -->
+                        <div class="bg-slate-200/50 rounded-lg p-3">
+                            <h5 class="text-slate-600 font-bold text-sm mb-3">En Producción (México)</h5>
+                            <div class="bg-white p-3 rounded shadow-sm mb-2 border-l-4 border-green-400 border-t border-r border-b border-slate-100">
+                                <div class="w-full h-20 bg-slate-100 rounded mb-2 flex items-center justify-center overflow-hidden border border-slate-200">
+                                    <i data-lucide="image" class="text-slate-400"></i>
+                                </div>
+                                <p class="text-slate-700 text-sm mb-2 font-semibold">Llegada a México con JB</p>
+                                <span class="bg-green-50 text-green-600 border border-green-200 text-[10px] px-2 py-1 rounded">Mundial</span>
+                            </div>
+                        </div>
+
+                        <!-- Col 3 -->
+                        <div class="bg-slate-200/50 rounded-lg p-3">
+                            <h5 class="text-slate-600 font-bold text-sm mb-3">Aprobados</h5>
+                            <div class="bg-white p-3 rounded shadow-sm mb-2 opacity-60 border border-slate-200">
+                                <p class="text-slate-500 text-sm mb-2 font-semibold">Parrilla Base Junio</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 opacity-0 group-hover:opacity-100 transition duration-300 transform scale-90 group-hover:scale-100">
+                        <span class="bg-blue-600 text-white font-black text-sm uppercase tracking-widest px-8 py-4 rounded-full shadow-2xl flex items-center gap-2 hover:bg-yellow-400 hover:text-blue-900 transition">
+                            Ir al Tablero <i data-lucide="external-link" class="w-4 h-4"></i>
+                        </span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: CIERRE -->
+        <div class="slide flex items-center justify-center relative overflow-hidden bg-slate-900">
+            <img src="cierre.jpg" alt="Wplay Presenta" class="absolute inset-0 w-full h-full object-cover opacity-60 animate-element delay-100 mix-blend-overlay" onerror="this.src='https://images.unsplash.com/photo-1518605368461-1e1e38ce8058?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80';">
+            <div class="absolute inset-0 bg-gradient-to-t from-blue-950 via-blue-900/40 to-transparent"></div>
+            
+            <div class="relative z-10 text-center px-6 max-w-5xl">
+                <div class="inline-flex items-center gap-3 mb-6 animate-element delay-200">
+                    <span class="bg-yellow-400 text-blue-950 px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl">LEVEL/MADE</span>
+                </div>
+                <h2 class="text-5xl md:text-7xl font-black text-white uppercase italic tracking-tighter mb-6 animate-element delay-300 drop-shadow-2xl">
+                    ¡Hagamos el <span class="text-yellow-400">lanzamiento</span> <br>más grande del año!
+                </h2>
+                <p class="text-blue-100 text-xl font-medium max-w-2xl mx-auto mb-12 animate-element delay-400 drop-shadow">
+                    Wplay y Jorge Barón, juntos para hacer historia en 2026.
+                </p>
+                <div class="animate-element delay-500">
+                    <button class="bg-yellow-400 hover:bg-white text-blue-950 hover:text-blue-900 px-8 py-4 rounded-full font-black text-sm uppercase tracking-widest shadow-[0_0_40px_rgba(250,204,21,0.3)] transition-all transform hover:scale-105">
+                        Empezar a Ejecutar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SCRIPT LOGIC -->
+    <script>
+        lucide.createIcons();
+
+        // Data arrays
+        const dataPrecalentamiento = [
+            { nombre: "JUAN FELIPE CADAVID", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "204K", ciudad: "BOGOTÁ" },
+            { nombre: "EDUARDO LUIS", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "444K", ciudad: "BOGOTÁ" },
+            { nombre: "SHEYLA GARCÍA", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "329K", ciudad: "BOGOTÁ" },
+            { nombre: "FELIPE CERÓN", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "88.3K", ciudad: "BOGOTÁ" },
+            { nombre: "FUTBOL SIN LIMITE", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "428K", ciudad: "BOGOTÁ" },
+            { nombre: "LAURA ORTIZ", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "-", ciudad: "BOGOTÁ" },
+            { nombre: "DIEGO GUERRERO", categoria: "FAN - HINCHA", redes: "TIKTOK", seguidores: "21K", ciudad: "BOGOTÁ" },
+            { nombre: "salazarst_", categoria: "FAN - HINCHA", redes: "INSTAGRAM", seguidores: "18K", ciudad: "CALI" },
+            { nombre: "medicenchampion", categoria: "FAN - HINCHA", redes: "INSTAGRAM", seguidores: "16K", ciudad: "BOGOTÁ" },
+            { nombre: "luisca_guerrero", categoria: "FAN - HINCHA", redes: "INSTAGRAM", seguidores: "21K", ciudad: "BOGOTÁ" },
+            { nombre: "dannironcancio", categoria: "FAN - HINCHA", redes: "INSTAGRAM", seguidores: "106K", ciudad: "BOGOTÁ" },
+            { nombre: "anamvargasq", categoria: "FAN - HINCHA", redes: "INSTAGRAM", seguidores: "158K", ciudad: "BOGOTÁ" },
+            { nombre: "cata_millan_", categoria: "FAN - HINCHA", redes: "INSTAGRAM", seguidores: "129K", ciudad: "CALI" },
+            { nombre: "ochoalejandro16", categoria: "FAN - HINCHA", redes: "INSTAGRAM", seguidores: "2K", ciudad: "CALI" },
+            { nombre: "ElDogorFut", categoria: "FAN - HINCHA", redes: "INSTAGRAM", seguidores: "1K", ciudad: "BOGOTÁ" },
+            { nombre: "El Roomie", categoria: "FAN - HINCHA", redes: "INSTAGRAM", seguidores: "2K", ciudad: "BOGOTÁ" },
+            { nombre: "udsnoexisten", categoria: "PERIODISTA", redes: "INSTAGRAM", seguidores: "50K", ciudad: "BOGOTÁ" },
+            { nombre: "caritocastellanos29", categoria: "LOCUTOR", redes: "INSTAGRAM", seguidores: "10K", ciudad: "BOGOTÁ" },
+            { nombre: "elrueda94", categoria: "LOCUTOR", redes: "INSTAGRAM", seguidores: "2K", ciudad: "BOGOTÁ" },
+            { nombre: "camilogonzalez_z", categoria: "FAN - HINCHA", redes: "INSTAGRAM", seguidores: "97K", ciudad: "BOGOTÁ" },
+            { nombre: "_soyrojo", categoria: "FAN - HINCHA", redes: "INSTAGRAM", seguidores: "125K", ciudad: "BOGOTÁ" },
+            { nombre: "kdanieladuarte", categoria: "LOCUTOR", redes: "INSTAGRAM", seguidores: "2K", ciudad: "BOGOTÁ" },
+            { nombre: "paupatarroyo", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "150K", ciudad: "BOGOTÁ" },
+            { nombre: "gatoderisa", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "46K", ciudad: "BOGOTÁ" },
+            { nombre: "mundopopgeek", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "36K", ciudad: "BOGOTÁ" },
+            { nombre: "misterpablu", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "54K", ciudad: "BOGOTÁ" },
+            { nombre: "elmeleeee", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "416K", ciudad: "MEDELLÍN" },
+            { nombre: "eljuliw", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "168K", ciudad: "BOGOTÁ" },
+            { nombre: "mrbrayimo", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "11K", ciudad: "BUCARAMANGA" },
+            { nombre: "sebassanchezg", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "59K", ciudad: "BOGOTÁ" },
+            { nombre: "GUILLERMO ARANGO", categoria: "PERIODISTA", redes: "INSTAGRAM", seguidores: "38K", ciudad: "BOGOTÁ" },
+            { nombre: "JUAN NICOLAS", categoria: "PRESENTADOR", redes: "INSTAGRAM", seguidores: "5K", ciudad: "BOGOTÁ" },
+            { nombre: "DIEGO CHIVIRI", categoria: "PRESENTADOR", redes: "INSTAGRAM", seguidores: "1K", ciudad: "BOGOTÁ" },
+            { nombre: "DAVID PALENCIA", categoria: "PRESENTADOR", redes: "INSTAGRAM", seguidores: "19.6K", ciudad: "BOGOTÁ" },
+            { nombre: "JUAN APARICIO", categoria: "PERIODISTA", redes: "INSTAGRAM", seguidores: "627", ciudad: "BOGOTÁ" },
+            { nombre: "CESAR AGUSTO LONDOÑO", categoria: "PRESENTADOR", redes: "INSTAGRAM", seguidores: "195K", ciudad: "BOGOTÁ" },
+            { nombre: "SETEVE ARCE", categoria: "PRESENTADOR", redes: "INSTAGRAM", seguidores: "55.3K", ciudad: "BOGOTÁ" },
+            { nombre: "JAVIER FERNANDO FRANCO", categoria: "PRESENTADOR", redes: "INSTAGRAM", seguidores: "237K", ciudad: "BOGOTÁ" },
+            { nombre: "DIANA RINCON", categoria: "PRESENTADOR", redes: "INSTAGRAM", seguidores: "111K", ciudad: "BOGOTÁ" },
+            { nombre: "RICARDO HENAO", categoria: "PRESENTADOR", redes: "INSTAGRAM", seguidores: "131K", ciudad: "BOGOTÁ" },
+            { nombre: "JUAN PABLO HERNANDZ", categoria: "PRESENTADOR", redes: "INSTAGRAM", seguidores: "58.7K", ciudad: "BOGOTÁ" },
+            { nombre: "JOHANA MORENO", categoria: "PRESENTADOR", redes: "INSTAGRAM", seguidores: "55.4K", ciudad: "BOGOTÁ" },
+            { nombre: "ANDRES MAROCCO", categoria: "PRESENTADOR", redes: "INSTAGRAM", seguidores: "42.3K", ciudad: "BOGOTÁ" },
+            { nombre: "JUAN JOSE MANTILLA", categoria: "PRESENTADOR", redes: "INSTAGRAM", seguidores: "5K", ciudad: "BOGOTÁ" },
+            { nombre: "LILIANA SALAZAR", categoria: "PRESENTADOR", redes: "INSTAGRAM", seguidores: "79K", ciudad: "BOGOTÁ" },
+            { nombre: "HARRY GAITAN", categoria: "PRESENTADOR", redes: "INSTAGRAM", seguidores: "1K", ciudad: "BOGOTÁ" },
+            { nombre: "MARIA FERNANDA REYES", categoria: "PRESENTADOR", redes: "INSTAGRAM", seguidores: "4K", ciudad: "BOGOTÁ" },
+            { nombre: "HECTOR CHAVES", categoria: "PRESENTADOR", redes: "INSTAGRAM", seguidores: "568", ciudad: "BOGOTÁ" },
+            { nombre: "JAVIER HERNANDEZ", categoria: "PRESENTADOR", redes: "X", seguidores: "22.8K", ciudad: "BOGOTÁ" },
+            { nombre: "el_thiago97", categoria: "FAN - HINCHA", redes: "TIKTOK", seguidores: "75K", ciudad: "CALI" }
+        ];
+
+        const dataLanzamiento = [
+            { nombre: "JUAN FELIPE CADAVID", categoria: "EMBAJADOR", redes: "INSTAGRAM", seguidores: "204K", formato: "PANTALLA VERDE" },
+            { nombre: "EDUARDO LUIS", categoria: "EMBAJADOR", redes: "INSTAGRAM", seguidores: "444K", formato: "CARRUSEL" },
+            { nombre: "SHEYLA GARCÍA", categoria: "EMBAJADOR", redes: "INSTAGRAM", seguidores: "329K", formato: "CARRUSEL" },
+            { nombre: "FELIPE CERÓN", categoria: "EMBAJADOR", redes: "INSTAGRAM", seguidores: "88.3K", formato: "PANTALLA VERDE" },
+            { nombre: "FUTBOL SIN LIMITE", categoria: "EMBAJADOR", redes: "INSTAGRAM", seguidores: "428K", formato: "CARRUSEL" },
+            { nombre: "Opina con Fútbol", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "107K", formato: "PANTALLA VERDE" },
+            { nombre: "Camila Benavides", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "160K", formato: "CARRUSEL" },
+            { nombre: "Caspian Colombia", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "10.3K", formato: "VIDEO INTEGRADO" },
+            { nombre: "Nicofut10", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "29.4K", formato: "CARRUSEL" },
+            { nombre: "El Borre", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "20.3K", formato: "VIDEO INTEGRADO" },
+            { nombre: "Edwin Herrera", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "434K", formato: "CARRUSEL" },
+            { nombre: "SoyelTitan", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "28.6K", formato: "VIDEO INTEGRADO" },
+            { nombre: "Mariana Gaviria", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "16.2K", formato: "VIDEO INTEGRADO" },
+            { nombre: "JuanFutGol10", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "11.3K", formato: "VIDEO INTEGRADO" },
+            { nombre: "xpesque", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "65.6K", formato: "PANTALLA VERDE" },
+            { nombre: "Un Tal Sebs", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "16.2K", formato: "VIDEO INTEGRADO" },
+            { nombre: "Paztortv", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "20.8K", formato: "PANTALLA VERDE" },
+            { nombre: "Andres Aldana", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "51K", formato: "PANTALLA VERDE" },
+            { nombre: "Alejandra Romero", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "42.7K", formato: "CARRUSEL" },
+            { nombre: "Valentina Rincón", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "76.1K", formato: "VIDEO INTEGRADO" },
+            { nombre: "Maria Juliana", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "137K", formato: "VIDEO INTEGRADO" },
+            { nombre: "El Master", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "19.7K", formato: "VIDEO INTEGRADO" },
+            { nombre: "Juanchofut", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "19.7K", formato: "PANTALLA VERDE" },
+            { nombre: "El Sai", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "154K", formato: "VIDEO INTEGRADO" },
+            { nombre: "El Mundo de Juancho", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "807K", formato: "VIDEO INTEGRADO" },
+            { nombre: "Daniela Bejarano", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "27.6K", formato: "VIDEO INTEGRADO" },
+            { nombre: "Jessica Bohorquez", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "273K", formato: "CARRUSEL" },
+            { nombre: "Samuel Beleño", categoria: "INFLUENCER", redes: "INSTAGRAM", seguidores: "607K", formato: "VIDEO INTEGRADO" }
+        ];
+
+        // Functions for Tables
+        function renderTablePrecalentamiento() {
+            const term = document.getElementById('search-pre').value.toLowerCase();
+            const cat = document.getElementById('filter-pre').value;
+            const t1 = document.getElementById('table-precalentamiento');
+            t1.innerHTML = '';
+            
+            const filtered = dataPrecalentamiento.filter(item => {
+                const matchTerm = item.nombre.toLowerCase().includes(term) || item.ciudad.toLowerCase().includes(term);
+                const matchCat = cat === 'ALL' || item.categoria === cat;
+                return matchTerm && matchCat;
+            });
+            
+            document.getElementById('count-pre').innerText = filtered.length;
+
+            filtered.forEach(item => {
+                t1.innerHTML += `
+                    <tr class="hover:bg-slate-50 transition">
+                        <td class="py-3 px-6 font-bold text-blue-950">${item.nombre}</td>
+                        <td class="py-3 px-6"><span class="bg-slate-100 border border-slate-200 px-2 py-1 rounded text-[10px] text-slate-500 uppercase font-bold">${item.categoria}</span></td>
+                        <td class="py-3 px-6"><span class="flex items-center gap-2"><i data-lucide="${item.redes === 'TIKTOK' ? 'music' : (item.redes === 'X' ? 'twitter' : 'instagram')}" class="w-4 h-4 text-slate-400"></i> ${item.redes}</span></td>
+                        <td class="py-3 px-6 text-blue-600 font-bold">${item.seguidores}</td>
+                        <td class="py-3 px-6 text-slate-500">${item.ciudad}</td>
+                    </tr>
+                `;
+            });
+            lucide.createIcons();
+        }
+
+        function renderTableLanzamiento() {
+            const term = document.getElementById('search-lan').value.toLowerCase();
+            const fmt = document.getElementById('filter-lan').value;
+            const t2 = document.getElementById('table-lanzamiento');
+            t2.innerHTML = '';
+
+            const filtered = dataLanzamiento.filter(item => {
+                const matchTerm = item.nombre.toLowerCase().includes(term);
+                const matchFmt = fmt === 'ALL' || item.formato === fmt;
+                return matchTerm && matchFmt;
+            });
+
+            filtered.forEach(item => {
+                let formatColor = "text-slate-600 bg-slate-100 border-slate-200";
+                if(item.formato === "PANTALLA VERDE") formatColor = "text-green-700 bg-green-50 border-green-200";
+                if(item.formato === "CARRUSEL") formatColor = "text-blue-700 bg-blue-50 border-blue-200";
+                if(item.formato === "VIDEO INTEGRADO") formatColor = "text-purple-700 bg-purple-50 border-purple-200";
+                
+                t2.innerHTML += `
+                    <tr class="hover:bg-slate-50 transition">
+                        <td class="py-3 px-6 font-bold text-blue-950">${item.nombre}</td>
+                        <td class="py-3 px-6"><span class="bg-slate-100 border border-slate-200 px-2 py-1 rounded text-[10px] text-slate-500 uppercase font-bold">${item.categoria}</span></td>
+                        <td class="py-3 px-6"><span class="flex items-center gap-2"><i data-lucide="instagram" class="w-4 h-4 text-slate-400"></i> ${item.redes}</span></td>
+                        <td class="py-3 px-6 text-blue-600 font-bold">${item.seguidores}</td>
+                        <td class="py-3 px-6"><span class="px-2 py-1 rounded text-[10px] uppercase font-bold border ${formatColor}">${item.formato}</span></td>
+                    </tr>
+                `;
+            });
+            lucide.createIcons();
+        }
+
+        // Initialize tables and listeners
+        renderTablePrecalentamiento();
+        renderTableLanzamiento();
+        document.getElementById('search-pre').addEventListener('input', renderTablePrecalentamiento);
+        document.getElementById('filter-pre').addEventListener('change', renderTablePrecalentamiento);
+        document.getElementById('search-lan').addEventListener('input', renderTableLanzamiento);
+        document.getElementById('filter-lan').addEventListener('change', renderTableLanzamiento);
+
+        // SLIDER & COUNTER LOGIC
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const indicatorsContainer = document.getElementById('indicators');
+        let currentSlide = 0;
+        let countersAnimated = false; // flag para animar una sola vez
+
+        slides.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.className = `w-2 h-2 rounded-full cursor-pointer transition-all duration-300 ${index === 0 ? 'bg-yellow-400 w-8' : 'bg-slate-300'}`;
+            dot.addEventListener('click', () => goToSlide(index));
+            indicatorsContainer.appendChild(dot);
+        });
+        const dots = indicatorsContainer.querySelectorAll('div');
+
+        function animateCounters() {
+            if(countersAnimated) return;
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const duration = 2000;
+                const step = target / 60; // aprox 60 frames
+                let current = 0;
+                
+                const update = () => {
+                    current += step;
+                    if (current < target) {
+                        counter.innerText = Math.ceil(current).toLocaleString('es-CO');
+                        requestAnimationFrame(update);
+                    } else {
+                        counter.innerText = target.toLocaleString('es-CO') + "+";
+                    }
+                };
+                update();
+            });
+            countersAnimated = true;
+        }
+
+        function updateSlider() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                dots[index].className = `w-2 h-2 rounded-full cursor-pointer transition-all duration-300 bg-slate-300`;
+            });
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].className = `h-2 rounded-full cursor-pointer transition-all duration-300 bg-yellow-400 w-8`;
+            
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === slides.length - 1;
+
+            // si estamos en el slide de lanzamiento (index 3), animar contadores
+            if (currentSlide === 3) {
+                setTimeout(animateCounters, 300); // esperar que el slide entre
+            }
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlider();
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentSlide > 0) goToSlide(currentSlide - 1);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentSlide < slides.length - 1) goToSlide(currentSlide + 1);
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' && currentSlide < slides.length - 1) goToSlide(currentSlide + 1);
+            if (e.key === 'ArrowLeft' && currentSlide > 0) goToSlide(currentSlide - 1);
+        });
+
+        // Pantalla completa
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.warn(`Error de pantalla completa: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+    </script>
+</body>
+</html>
