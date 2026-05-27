@@ -587,6 +587,39 @@
         ];
 
         // Functions for Tables
+        const explicitLinks = {
+            "JUAN FELIPE CADAVID": "https://www.instagram.com/jfcadavid/?hl=es",
+            "EDUARDO LUIS": "https://www.instagram.com/eduardoluisfut/?hl=es-la",
+            "SHEYLA GARCÍA": "https://www.instagram.com/sheylagarcia07/?hl=es-la",
+            "DIEGO GUERRERO": "https://www.tiktok.com/@diegowar22",
+            "LAURA ORTIZ": "https://www.instagram.com/lauriix06/",
+            "FELIPE CERÓN": "https://www.instagram.com/felipefcb_10/?hl=es",
+            "ElDogorFut": "https://www.tiktok.com/@eldogorfut",
+            "Opina con Fútbol": "https://www.instagram.com/opinaconfutbol/", 
+            "Camila Benavides": "https://www.instagram.com/cami8benavides/", 
+            "Caspian Colombia": "https://www.instagram.com/caspian.col/", 
+            "Nicofut10": "https://www.instagram.com/nicofut10.react/", 
+            "El Borre": "https://www.instagram.com/elborre_04/", 
+            "Edwin Herrera": "https://www.instagram.com/edwinherrera25/", 
+            "SoyelTitan": "https://www.instagram.com/el_titannnn?igsh=ejA0djN0bWM4Z2ty", 
+            "Mariana Gaviria": "https://www.instagram.com/__marianagaviria?igsh=cnl0eG1xdjBheTd2", 
+            "JuanFutGol10": "https://www.instagram.com/soyjuanfutgol10/", 
+            "xpesque": "https://www.instagram.com/xpesque/", 
+            "Un Tal Sebs": "https://www.instagram.com/untalsebs/", 
+            "Paztortv": "https://www.instagram.com/paztortv/", 
+            "Andres Aldana": "https://www.instagram.com/andresaldana_s/", 
+            "Alejandra Romero": "https://www.instagram.com/alejaromerob/", 
+            "Valentina Rincón": "https://www.instagram.com/valenrinconok/", 
+            "Maria Juliana": "https://www.instagram.com/mariajulic/", 
+            "El Master": "https://www.instagram.com/kevinnarvaez9?igsh=ZnUxYmRhZHVyYzJx", 
+            "Juanchofut": "https://www.instagram.com/kevinnarvaez9?igsh=ZnUxYmRhZHVyYzJx", 
+            "El Sai": "https://www.instagram.com/el_saii/", 
+            "El Mundo de Juancho": "https://www.instagram.com/elmundodejuancho_2/", 
+            "Daniela Bejarano": "https://www.instagram.com/danielabejaranoh/", 
+            "Jessica Bohorquez": "https://www.instagram.com/jessicabohorquez95?igsh=MTFkNmt4Z3VvbWM1OA==", 
+            "Samuel Beleño": "https://www.instagram.com/samuelbeleno_/"
+        };
+
         function renderTablePrecalentamiento() {
             const term = document.getElementById('search-pre').value.toLowerCase();
             const cat = document.getElementById('filter-pre').value;
@@ -603,7 +636,8 @@
 
             filtered.forEach(item => {
                 const cleanNombre = item.nombre.trim().replace(/\s+/g, '').toLowerCase();
-                const profileLink = item.redes === 'TIKTOK' ? 'https://www.tiktok.com/@' + cleanNombre : 'https://www.instagram.com/' + cleanNombre;
+                const fallbackLink = item.redes === 'TIKTOK' ? 'https://www.tiktok.com/@' + cleanNombre : 'https://www.instagram.com/' + cleanNombre;
+                const profileLink = explicitLinks[item.nombre.trim()] || fallbackLink;
                 
                 t1.innerHTML += `
                     <tr class="hover:bg-slate-50 transition">
@@ -632,8 +666,6 @@
                 return matchTerm && matchFmt;
             });
 
-            const explicitLinks = {"Opina con Fútbol": "https://www.instagram.com/opinaconfutbol/", "Camila Benavides": "https://www.instagram.com/cami8benavides/", "Caspian Colombia": "https://www.instagram.com/caspian.col/", "Nicofut10": "https://www.instagram.com/nicofut10.react/", "El Borre": "https://www.instagram.com/elborre_04/", "Edwin Herrera": "https://www.instagram.com/edwinherrera25/", "SoyelTitan": "https://www.instagram.com/el_titannnn?igsh=ejA0djN0bWM4Z2ty", "Mariana Gaviria": "https://www.instagram.com/__marianagaviria?igsh=cnl0eG1xdjBheTd2", "JuanFutGol10": "https://www.instagram.com/soyjuanfutgol10/", "xpesque": "https://www.instagram.com/xpesque/", "Un Tal Sebs": "https://www.instagram.com/untalsebs/", "Paztortv": "https://www.instagram.com/paztortv/", "Andres Aldana": "https://www.instagram.com/andresaldana_s/", "Alejandra Romero": "https://www.instagram.com/alejaromerob/", "Valentina Rincón": "https://www.instagram.com/valenrinconok/", "Maria Juliana": "https://www.instagram.com/mariajulic/", "El Master": "https://www.instagram.com/kevinnarvaez9?igsh=ZnUxYmRhZHVyYzJx", "Juanchofut": "https://www.instagram.com/kevinnarvaez9?igsh=ZnUxYmRhZHVyYzJx", "El Sai": "https://www.instagram.com/el_saii/", "El Mundo de Juancho": "https://www.instagram.com/elmundodejuancho_2/", "Daniela Bejarano": "https://www.instagram.com/danielabejaranoh/", "Jessica Bohorquez": "https://www.instagram.com/jessicabohorquez95?igsh=MTFkNmt4Z3VvbWM1OA==", "Samuel Beleño": "https://www.instagram.com/samuelbeleno_/"};
-
             filtered.forEach(item => {
                 let formatColor = "text-slate-600 bg-slate-100 border-slate-200";
                 if(item.formato === "PANTALLA VERDE") formatColor = "text-green-700 bg-green-50 border-green-200";
@@ -641,7 +673,7 @@
                 if(item.formato === "VIDEO INTEGRADO") formatColor = "text-purple-700 bg-purple-50 border-purple-200";
                 
                 const cleanNombre = item.nombre.trim().replace(/\s+/g, '').toLowerCase();
-                const fallbackLink = 'https://www.instagram.com/' + cleanNombre;
+                const fallbackLink = item.redes === 'TIKTOK' ? 'https://www.tiktok.com/@' + cleanNombre : 'https://www.instagram.com/' + cleanNombre;
                 const profileLink = explicitLinks[item.nombre.trim()] || fallbackLink;
 
                 t2.innerHTML += `
