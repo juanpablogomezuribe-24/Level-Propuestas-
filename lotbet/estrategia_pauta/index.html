@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan Interactivo - Estrategia WhatsApp</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+            overflow: hidden; /* Evitar scroll en body, usar scroll interno */
+        }
+        
+        .slide-content {
+            display: none;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        
+        .slide-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-item.active {
+            background-color: #e0f2fe;
+            color: #0369a1;
+            border-right: 3px solid #0284c7;
+            font-weight: 700;
+        }
+
+        /* Estilos simulación WhatsApp */
+        .wa-bg {
+            background-color: #e5ddd5;
+            background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
+            background-size: cover;
+        }
+        
+        .wa-msg-in {
+            background-color: #ffffff;
+            border-radius: 0 12px 12px 12px;
+            color: #111b21;
+        }
+        
+        .wa-msg-out {
+            background-color: #d9fdd3;
+            border-radius: 12px 0 12px 12px;
+            color: #111b21;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="h-screen w-full flex bg-slate-50 text-slate-900 selection:bg-cyan-200 selection:text-cyan-900">
+
+    <!-- Sidebar Navegación -->
+    <aside class="w-72 bg-white border-r border-slate-200 flex flex-col shadow-lg z-20 shrink-0">
+        <div class="p-6 border-b border-slate-100 flex items-center gap-3">
+            <div class="w-10 h-10 bg-cyan-500 rounded-xl flex items-center justify-center text-white shadow-md shadow-cyan-500/30">
+                <i data-lucide="message-circle-code"></i>
+            </div>
+            <div>
+                <h1 class="text-sm font-black uppercase tracking-tight text-slate-800">Estrategia Blupit</h1>
+                <p class="text-[10px] text-slate-500 uppercase tracking-widest font-semibold">Lotbet x Chapin Central</p>
+            </div>
+        </div>
+        <div class="flex-1 overflow-y-auto custom-scrollbar p-3 space-y-1" id="nav-container">
+            <!-- Los items de navegación se generan con JS -->
+        </div>
+        <div class="p-4 border-t border-slate-100 bg-slate-50">
+            <div class="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+                <div id="progress-bar" class="h-full bg-cyan-500 transition-all duration-300" style="width: 5%"></div>
+            </div>
+            <div class="flex justify-between items-center mt-2">
+                <p class="text-xs font-bold text-slate-500" id="slide-counter">1 / 21</p>
+                <p class="text-[9px] uppercase font-bold text-slate-400">Progreso</p>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 flex flex-col h-full relative overflow-hidden bg-slate-50/50">
+        
+        <!-- Controles Top -->
+        <header class="h-16 border-b border-slate-200 bg-white/80 backdrop-blur-md flex justify-between items-center px-8 z-10">
+            <h2 id="slide-title-header" class="text-sm font-bold text-slate-600 uppercase tracking-wide">Cargando...</h2>
+            <div class="flex gap-2">
+                <button onclick="prevSlide()" class="p-2 bg-white border border-slate-200 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-cyan-600 transition-colors shadow-sm disabled:opacity-50" id="btn-prev">
+                    <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                </button>
+                <button onclick="nextSlide()" class="p-2 bg-white border border-slate-200 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-cyan-600 transition-colors shadow-sm disabled:opacity-50" id="btn-next">
+                    <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Slides Container -->
+        <div class="flex-1 overflow-y-auto custom-scrollbar p-8 lg:p-12" id="slides-container">
+            
+            <!-- Slide 1: Portada -->
+            <div class="slide-content active" id="slide-1">
+                <div class="max-w-4xl mx-auto mt-10">
+                    <div class="bg-white p-12 rounded-[2.5rem] border border-slate-200 shadow-2xl relative overflow-hidden">
+                        <div class="absolute -right-20 -top-20 opacity-5">
+                            <i data-lucide="smartphone" class="w-96 h-96 text-cyan-600"></i>
+                        </div>
+                        <div class="inline-flex items-center gap-2 bg-cyan-50 text-cyan-700 px-4 py-1.5 rounded-full text-[11px] font-black uppercase tracking-wider mb-6 border border-cyan-100">Plan de Trabajo Aprobado</div>
+                        <h1 class="text-5xl lg:text-7xl font-black text-slate-900 tracking-tighter leading-tight mb-6">
+                            Estrategia de <br>
+                            <span class="text-cyan-500">Activación WhatsApp</span>
+                        </h1>
+                        <p class="text-xl text-slate-600 max-w-2xl leading-relaxed mb-10 font-medium">
+                            Lotbet x Blupit x Chapin Central. El Mundial lo vivimos a nuestra manera.
+                        </p>
+                        <div class="flex gap-4">
+                            <button onclick="nextSlide()" class="bg-cyan-500 hover:bg-cyan-600 text-white px-8 py-4 rounded-xl font-bold transition-all shadow-lg shadow-cyan-500/30 flex items-center gap-2">
+                                Iniciar Presentación <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 2: Contexto -->
+            <div class="slide-content" id="slide-2">
+                <div class="max-w-5xl mx-auto space-y-8">
+                    <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">1. Contexto General</h2>
+                    <div class="bg-white p-10 rounded-[2rem] border border-slate-200 shadow-xl space-y-6">
+                        <p class="text-lg text-slate-600 leading-relaxed">
+                            Lotbet tiene hoy una oportunidad muy importante: aprovechar WhatsApp como un canal de activación, comunicación, gamificación y conversión.
+                        </p>
+                        <div class="flex items-center gap-6 p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                            <div class="w-16 h-16 bg-red-100 text-red-500 rounded-2xl flex items-center justify-center shrink-0">
+                                <i data-lucide="alert-triangle" class="w-8 h-8"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 mb-1">El Riesgo</h4>
+                                <p class="text-sm text-slate-600">Actualmente, Lotbet cuenta con una base de <strong>3.000 personas</strong>. Si se envía un mensaje directo diciendo "regístrate" o "deposita", existe el riesgo de <strong>quemar la base</strong>, generar baja respuesta y perder efectividad.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-6 p-6 bg-cyan-50 rounded-2xl border border-cyan-100">
+                            <div class="w-16 h-16 bg-cyan-100 text-cyan-600 rounded-2xl flex items-center justify-center shrink-0">
+                                <i data-lucide="message-circle" class="w-8 h-8"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 mb-1">La Solución</h4>
+                                <p class="text-sm text-slate-600">La propuesta consiste en construir una <strong>experiencia conversacional</strong> que conecte con el interés real del usuario: el fútbol, el Mundial, las predicciones, trivias y recompensas. Todo apoyado en la plataforma Blupit.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: Objetivo -->
+            <div class="slide-content" id="slide-3">
+                <div class="max-w-5xl mx-auto space-y-8">
+                    <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">2. Objetivo de la Estrategia</h2>
+                    <p class="text-xl text-slate-600">Convertir WhatsApp en un canal de adquisición, activación y conversión para Lotbet.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex gap-4 items-start">
+                            <i data-lucide="users" class="text-indigo-500 w-6 h-6 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold text-slate-800">Reactivar y Captar</h4>
+                                <p class="text-sm text-slate-500 mt-1">Reactivar la base actual de 3,000 personas y captar nuevos usuarios desde pauta en Meta.</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex gap-4 items-start">
+                            <i data-lucide="message-square-plus" class="text-cyan-500 w-6 h-6 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold text-slate-800">Interacción y Datos</h4>
+                                <p class="text-sm text-slate-500 mt-1">Llevar personas a WhatsApp, interactuar mediante trivias y capturar datos y autorizaciones.</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex gap-4 items-start">
+                            <i data-lucide="gift" class="text-emerald-500 w-6 h-6 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold text-slate-800">Beneficios y Segmentación</h4>
+                                <p class="text-sm text-slate-500 mt-1">Segmentar usuarios según su comportamiento y presentar beneficios de Lotbet de forma natural.</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex gap-4 items-start">
+                            <i data-lucide="trending-up" class="text-amber-500 w-6 h-6 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold text-slate-800">Conversión Final</h4>
+                                <p class="text-sm text-slate-500 mt-1">Llevar usuarios al registro, incentivar el primer depósito y construir una base propia caliente y medible.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 4: Enfoque -->
+            <div class="slide-content" id="slide-4">
+                <div class="max-w-5xl mx-auto space-y-8">
+                    <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">3. Enfoque Estratégico</h2>
+                    <div class="bg-white p-10 rounded-[2rem] border border-slate-200 shadow-xl text-center space-y-10">
+                        <div class="grid grid-cols-2 gap-8 max-w-2xl mx-auto">
+                            <div class="bg-red-50 p-6 rounded-2xl border border-red-100">
+                                <p class="text-xs font-bold text-red-500 uppercase tracking-widest mb-2">Error Común</p>
+                                <p class="text-slate-800 font-medium">La entrada NO debe ser:<br>"Apuesta en Lotbet."</p>
+                            </div>
+                            <div class="bg-emerald-50 p-6 rounded-2xl border border-emerald-100">
+                                <p class="text-xs font-bold text-emerald-500 uppercase tracking-widest mb-2">El Enfoque Correcto</p>
+                                <p class="text-slate-800 font-medium">La entrada debe ser:<br>"Responde una predicción mundialista y participa por recompensas."</p>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-sm font-black text-slate-500 uppercase tracking-widest mb-6">El Embudo Conversacional</h4>
+                            <div class="flex flex-wrap justify-center items-center gap-2">
+                                <span class="bg-slate-100 text-slate-700 px-4 py-2 rounded-lg text-sm font-bold shadow-sm">Fútbol</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4 text-slate-400"></i>
+                                <span class="bg-slate-100 text-slate-700 px-4 py-2 rounded-lg text-sm font-bold shadow-sm">Participación</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4 text-slate-400"></i>
+                                <span class="bg-slate-100 text-slate-700 px-4 py-2 rounded-lg text-sm font-bold shadow-sm">WhatsApp</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4 text-slate-400"></i>
+                                <span class="bg-slate-100 text-slate-700 px-4 py-2 rounded-lg text-sm font-bold shadow-sm">Datos</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4 text-slate-400"></i>
+                                <span class="bg-emerald-100 text-emerald-700 px-4 py-2 rounded-lg text-sm font-bold shadow-sm border border-emerald-200">Recompensa</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4 text-slate-400"></i>
+                                <span class="bg-cyan-100 text-cyan-700 px-4 py-2 rounded-lg text-sm font-bold shadow-sm border border-cyan-200">Lotbet</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4 text-slate-400"></i>
+                                <span class="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-lg text-sm font-bold shadow-sm border border-indigo-200">Registro & Depósito</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 5: Blupit -->
+            <div class="slide-content" id="slide-5">
+                <div class="max-w-5xl mx-auto space-y-8">
+                    <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">4. Rol de Blupit</h2>
+                    <p class="text-lg text-slate-600">Blupit será el motor conversacional. No es solo un CRM, es una plataforma que permite una experiencia personalizada para cada usuario.</p>
+                    <div class="bg-white p-8 rounded-[2rem] border border-slate-200 shadow-lg">
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                            <div class="flex items-center gap-3"><i data-lucide="check-circle" class="text-cyan-500 w-5 h-5"></i><span class="text-sm font-medium text-slate-700">Recibir usuarios desde pauta</span></div>
+                            <div class="flex items-center gap-3"><i data-lucide="check-circle" class="text-cyan-500 w-5 h-5"></i><span class="text-sm font-medium text-slate-700">Saludar personalizado</span></div>
+                            <div class="flex items-center gap-3"><i data-lucide="check-circle" class="text-cyan-500 w-5 h-5"></i><span class="text-sm font-medium text-slate-700">Hacer preguntas/trivias</span></div>
+                            <div class="flex items-center gap-3"><i data-lucide="check-circle" class="text-cyan-500 w-5 h-5"></i><span class="text-sm font-medium text-slate-700">Guardar respuestas</span></div>
+                            <div class="flex items-center gap-3"><i data-lucide="check-circle" class="text-cyan-500 w-5 h-5"></i><span class="text-sm font-medium text-slate-700">Capturar datos</span></div>
+                            <div class="flex items-center gap-3"><i data-lucide="check-circle" class="text-cyan-500 w-5 h-5"></i><span class="text-sm font-medium text-slate-700">Confirmar mayoría de edad</span></div>
+                            <div class="flex items-center gap-3"><i data-lucide="check-circle" class="text-cyan-500 w-5 h-5"></i><span class="text-sm font-medium text-slate-700">Segmentar usuarios</span></div>
+                            <div class="flex items-center gap-3"><i data-lucide="check-circle" class="text-cyan-500 w-5 h-5"></i><span class="text-sm font-medium text-slate-700">Entregar beneficios</span></div>
+                            <div class="flex items-center gap-3"><i data-lucide="check-circle" class="text-cyan-500 w-5 h-5"></i><span class="text-sm font-medium text-slate-700">Redirigir a Lotbet y medir</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 6: Arquitectura Canales -->
+            <div class="slide-content" id="slide-6">
+                <div class="max-w-5xl mx-auto space-y-8">
+                    <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">5. Arquitectura de Canales</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-md">
+                            <h4 class="text-lg font-black text-slate-800 mb-2">Chapin Central</h4>
+                            <p class="text-sm text-slate-600">Principal medio deportivo de entrada. Comunidad enfocada en fútbol, Mundial, trivias y conversación deportiva en Guatemala.</p>
+                        </div>
+                        <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-md">
+                            <h4 class="text-lg font-black text-slate-800 mb-2">Pepe Celedon</h4>
+                            <p class="text-sm text-slate-600">Activo de contenido con tono más cercano, de opinión, entretenimiento y conversación casual.</p>
+                        </div>
+                        <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-md">
+                            <h4 class="text-lg font-black text-slate-800 mb-2">The Bet Parnet</h4>
+                            <p class="text-sm text-slate-600">Activo más técnico y cercano al análisis, pronósticos, datos, cuotas y cultura deportiva pura.</p>
+                        </div>
+                        <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-md">
+                            <h4 class="text-lg font-black text-slate-800 mb-2">Afiwins</h4>
+                            <p class="text-sm text-slate-600">Activo de pauta orientado netamente a performance y captación rápida, según resultados.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 7: Lotbet -->
+            <div class="slide-content" id="slide-7">
+                <div class="max-w-5xl mx-auto space-y-8">
+                    <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">6. Rol de Lotbet</h2>
+                    <div class="bg-white p-10 rounded-[2rem] border border-cyan-200 shadow-xl bg-gradient-to-br from-white to-cyan-50">
+                        <p class="text-xl text-slate-700 leading-relaxed font-medium mb-8">
+                            Lotbet no debe aparecer como una venta agresiva desde el primer contacto. Debe entrar <strong>después</strong> de que el usuario ya participó.
+                        </p>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-4 bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
+                                <i data-lucide="handshake" class="text-cyan-500"></i>
+                                <span class="font-bold text-slate-700">Aliado de la dinámica.</span>
+                            </div>
+                            <div class="flex items-center gap-4 bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
+                                <i data-lucide="gift" class="text-emerald-500"></i>
+                                <span class="font-bold text-slate-700">Marca que entrega una recompensa real.</span>
+                            </div>
+                            <div class="flex items-center gap-4 bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
+                                <i data-lucide="laptop" class="text-indigo-500"></i>
+                                <span class="font-bold text-slate-700">Plataforma para redimir beneficios y vivir el Mundial.</span>
+                            </div>
+                        </div>
+                        <div class="mt-8 p-6 bg-slate-800 text-white rounded-2xl">
+                            <p class="text-xs text-slate-400 uppercase tracking-widest mb-2 font-bold">Ejemplo de integración natural:</p>
+                            <p class="text-lg italic">"Chapin Central se unió con Lotbet.vip para darles a todos los hinchas una recompensa mundialista."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 8: Concepto -->
+            <div class="slide-content" id="slide-8">
+                <div class="max-w-5xl mx-auto space-y-8 text-center mt-12">
+                    <h2 class="text-xl font-bold text-slate-500 uppercase tracking-widest">7. Concepto de Campaña</h2>
+                    <div class="bg-white p-12 rounded-[3rem] border border-slate-200 shadow-2xl relative">
+                        <i data-lucide="trophy" class="w-20 h-20 text-amber-400 mx-auto mb-6"></i>
+                        <h3 class="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter mb-6">
+                            El Mundial lo vivimos <br> <span class="text-cyan-500">a nuestra manera</span>
+                        </h3>
+                        <p class="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                            Este concepto permite hablar de fútbol, predicciones, emoción, participación y recompensas. No se siente como una campaña de apuestas, se siente como una experiencia futbolera.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 9: Embajadores -->
+            <div class="slide-content" id="slide-9">
+                <div class="max-w-5xl mx-auto space-y-8">
+                    <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">8. Uso de Embajadores</h2>
+                    <div class="flex flex-col md:flex-row gap-10 bg-white p-10 rounded-[2rem] border border-slate-200 shadow-xl">
+                        <div class="flex-1 space-y-6">
+                            <p class="text-lg text-slate-600">La pauta debe sentirse <strong>humana</strong>. Usaremos a Luigi (embajador de Lotbet) y otros perfiles reales en video, invitando a la gente a participar.</p>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-slate-50 p-4 rounded-xl text-center border border-slate-100 font-bold text-slate-700">Natural</div>
+                                <div class="bg-slate-50 p-4 rounded-xl text-center border border-slate-100 font-bold text-slate-700">Futbolero</div>
+                                <div class="bg-slate-50 p-4 rounded-xl text-center border border-slate-100 font-bold text-slate-700">Cercano</div>
+                                <div class="bg-slate-50 p-4 rounded-xl text-center border border-slate-100 font-bold text-slate-700">Conversacional</div>
+                            </div>
+                        </div>
+                        <div class="w-full md:w-1/3 bg-slate-800 p-8 rounded-3xl text-white flex flex-col justify-center shadow-inner">
+                            <i data-lucide="mic" class="w-10 h-10 text-cyan-400 mb-4"></i>
+                            <p class="text-sm text-slate-400 mb-2 uppercase font-bold tracking-wider">El Tono Correcto</p>
+                            <p class="text-lg italic">"Ey, responde esta pregunta, quiero saber qué piensas."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 10: Pauta -->
+            <div class="slide-content" id="slide-10">
+                <div class="max-w-5xl mx-auto space-y-8">
+                    <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">9. Estructura de Pauta Meta</h2>
+                    <div class="bg-white p-10 rounded-[2rem] border border-slate-200 shadow-xl">
+                        <div class="flex gap-4 items-center mb-8">
+                            <div class="w-10 h-10 rounded-full bg-cyan-100 text-cyan-600 flex items-center justify-center font-bold">1</div>
+                            <div class="flex-1 h-2 bg-cyan-100 rounded-full"></div>
+                            <div class="w-10 h-10 rounded-full bg-cyan-100 text-cyan-600 flex items-center justify-center font-bold">2</div>
+                            <div class="flex-1 h-2 bg-cyan-100 rounded-full"></div>
+                            <div class="w-10 h-10 rounded-full bg-cyan-100 text-cyan-600 flex items-center justify-center font-bold">3</div>
+                            <div class="flex-1 h-2 bg-cyan-100 rounded-full"></div>
+                            <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold">4</div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
+                            <div>
+                                <h4 class="font-black text-slate-800 uppercase mb-2">Hook Futbolero</h4>
+                                <p class="text-xs text-slate-500">Enganche visual y verbal en los primeros 3 segundos.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-black text-slate-800 uppercase mb-2">Dato Interesante</h4>
+                                <p class="text-xs text-slate-500">Contexto que valide la pregunta y genere debate.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-black text-slate-800 uppercase mb-2">La Pregunta</h4>
+                                <p class="text-xs text-slate-500">Pregunta principal clara y directa.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-black text-emerald-600 uppercase mb-2">CTA a WhatsApp</h4>
+                                <p class="text-xs text-slate-500">Invitación a responder por chat para ganar recompensas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 11: Flujo Blupit -->
+            <div class="slide-content" id="slide-11">
+                <div class="max-w-5xl mx-auto space-y-8">
+                    <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">10. Estructura General en Blupit</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="space-y-4">
+                            <div class="p-4 bg-white border border-slate-200 rounded-xl shadow-sm flex items-center gap-4">
+                                <span class="bg-slate-100 px-3 py-1 rounded-md text-xs font-bold text-slate-500">Paso 1</span>
+                                <p class="text-sm font-semibold text-slate-800">Mensaje predeterminado de entrada desde Meta.</p>
+                            </div>
+                            <div class="p-4 bg-white border border-slate-200 rounded-xl shadow-sm flex items-center gap-4">
+                                <span class="bg-slate-100 px-3 py-1 rounded-md text-xs font-bold text-slate-500">Paso 2</span>
+                                <p class="text-sm font-semibold text-slate-800">Saludo personalizado y presentación (Chapin Central).</p>
+                            </div>
+                            <div class="p-4 bg-white border border-slate-200 rounded-xl shadow-sm flex items-center gap-4">
+                                <span class="bg-slate-100 px-3 py-1 rounded-md text-xs font-bold text-slate-500">Paso 3</span>
+                                <p class="text-sm font-semibold text-slate-800">Pregunta de la trivia con botones interactivos.</p>
+                            </div>
+                            <div class="p-4 bg-white border border-slate-200 rounded-xl shadow-sm flex items-center gap-4">
+                                <span class="bg-slate-100 px-3 py-1 rounded-md text-xs font-bold text-slate-500">Paso 4</span>
+                                <p class="text-sm font-semibold text-slate-800">Confirmación de participación y oferta de recompensa.</p>
+                            </div>
+                            <div class="p-4 bg-cyan-50 border border-cyan-200 rounded-xl shadow-sm flex items-center gap-4">
+                                <span class="bg-cyan-200 px-3 py-1 rounded-md text-xs font-bold text-cyan-700">Paso 5</span>
+                                <p class="text-sm font-semibold text-slate-800">Si acepta, entra Lotbet, se entrega el bono y se etiqueta.</p>
+                            </div>
+                        </div>
+                        <div class="bg-slate-100 rounded-[2rem] p-8 flex items-center justify-center">
+                            <i data-lucide="git-merge" class="w-32 h-32 text-slate-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flujo 1: Concepto -->
+            <div class="slide-content" id="slide-12">
+                <div class="max-w-5xl mx-auto space-y-8">
+                    <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">11. Flujo 1: Trivia de Messi</h2>
+                    <div class="bg-white p-8 rounded-[2rem] border border-slate-200 shadow-xl">
+                        <div class="flex gap-4">
+                            <div class="w-1/3">
+                                <h4 class="text-sm font-black text-slate-400 uppercase tracking-widest mb-2">El Concepto</h4>
+                                <p class="text-slate-700 font-medium">Messi jugará su sexto Mundial. En tres de ellos marcó en su primer partido (2006, 2014, 2022). ¿Lo hará de nuevo?</p>
+                            </div>
+                            <div class="w-2/3 border-l border-slate-200 pl-6">
+                                <h4 class="text-sm font-black text-slate-400 uppercase tracking-widest mb-2">Guion Luigi</h4>
+                                <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 text-sm text-slate-600 space-y-2">
+                                    <p><strong>[Hook]</strong> "Messi jugará su sexto Mundial… y hay un dato que no podemos ignorar."</p>
+                                    <p><strong>[Dato]</strong> "En tres Mundiales, Messi marcó en su primer partido disputado."</p>
+                                    <p><strong>[Pregunta]</strong> "Ahora la pregunta es: ¿lo hará de nuevo? ¿Messi marcará en su debut?"</p>
+                                    <p><strong>[CTA]</strong> "Responde en nuestro WhatsApp y participa por recompensas mundialistas."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flujo 1: Chat -->
+            <div class="slide-content" id="slide-13">
+                <div class="max-w-5xl mx-auto flex flex-col md:flex-row gap-10">
+                    <div class="flex-1 space-y-4 mt-10">
+                        <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">12. Simulación: Flujo Messi</h2>
+                        <p class="text-slate-600">Simulación del flujo automatizado en Blupit.</p>
+                        <ul class="text-sm text-slate-500 space-y-2 list-disc pl-5">
+                            <li>Etiquetas: <code>Campaña_Messi</code>, <code>Respondió_Trivia</code></li>
+                            <li>Segmentación según su elección de Sí/No.</li>
+                            <li>Entrega de bono 50 GTQ.</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Simulador Celular -->
+                    <div class="w-[350px] shrink-0 mx-auto bg-slate-800 rounded-[3rem] p-3 shadow-2xl relative border-[6px] border-slate-300">
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-slate-300 rounded-b-xl z-20"></div>
+                        <div class="bg-white w-full h-[550px] rounded-[2.2rem] overflow-hidden flex flex-col relative">
+                            <!-- Header WA -->
+                            <div class="bg-[#008069] text-white p-3 flex items-center gap-3">
+                                <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                                <div class="w-8 h-8 bg-slate-300 rounded-full flex items-center justify-center overflow-hidden"><i data-lucide="user" class="text-slate-500"></i></div>
+                                <div>
+                                    <p class="text-sm font-bold leading-tight">Chapin Central</p>
+                                    <p class="text-[10px] opacity-80">Cuenta de empresa</p>
+                                </div>
+                            </div>
+                            <!-- Chat Area -->
+                            <div class="flex-1 wa-bg p-4 flex flex-col gap-3 overflow-y-auto text-[13px] custom-scrollbar shadow-inner">
+                                <div class="self-end wa-msg-out p-2 shadow-sm max-w-[85%]">Quiero responder la trivia mundialista de Messi.</div>
+                                <div class="self-start wa-msg-in p-2 shadow-sm max-w-[85%] mt-2">
+                                    <img src="imagen_inicio_whatsapp.png" alt="Saludo" class="w-full rounded-lg mb-2">
+                                    Hola 👋⚽ ¡Genial que te hayas animado a participar! Vamos con la pregunta de hoy:<br><br>¿Crees que Messi marcará en su debut en este Mundial?
+                                </div>
+                                <div class="self-start w-full max-w-[85%] flex flex-col gap-1">
+                                    <button class="bg-white text-cyan-600 font-bold py-2 rounded-lg shadow-sm border border-slate-200">Sí, marca</button>
+                                    <button class="bg-white text-cyan-600 font-bold py-2 rounded-lg shadow-sm border border-slate-200">No, no marca</button>
+                                </div>
+                                <div class="self-end wa-msg-out p-2 shadow-sm max-w-[85%] mt-2">Sí, marca</div>
+                                <div class="self-start wa-msg-in p-2 shadow-sm max-w-[85%] mt-2">¡Geeenial! 🔥 Tu respuesta fue guardada y ya estás participando. Pero tenemos una cosa más para ti 👀 ¿Quieres recibir otra recompensa?</div>
+                                <div class="self-start w-full max-w-[85%] flex flex-col gap-1">
+                                    <button class="bg-white text-cyan-600 font-bold py-2 rounded-lg shadow-sm border border-slate-200">Sí, quiero</button>
+                                </div>
+                                <div class="self-start wa-msg-in p-2 shadow-sm max-w-[85%] mt-2">
+                                    <img src="recompensa_lotbet.png" alt="Recompensa Lotbet" class="w-full rounded-lg mb-2">
+                                    Chapin Central se unió con <strong>Lotbet.vip</strong> para regalarte 50 GTQ para que vivas el Mundial a tu manera. Solo +18.
+                                </div>
+                                <div class="self-start w-full max-w-[85%] flex flex-col gap-1 mb-4">
+                                    <button class="bg-cyan-500 text-white font-bold py-2 rounded-lg shadow-sm">Reclamar Bono 🎁</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flujos 2 a 4 generados de la misma manera... (Por brevedad visual en este prompt, consolido en slides claros) -->
+            
+            <div class="slide-content" id="slide-14">
+                <div class="max-w-5xl mx-auto space-y-8">
+                    <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">13. Flujo 2: Argentina vs Portugal</h2>
+                    <div class="bg-white p-8 rounded-[2rem] border border-slate-200 shadow-xl">
+                        <h4 class="text-lg font-black text-slate-800 mb-2">El Debate</h4>
+                        <p class="text-slate-600 mb-4">Messi y Cristiano podrían estar viviendo uno de sus últimos grandes Mundiales. ¿Quién llegará más lejos: Argentina o Portugal?</p>
+                        <h4 class="text-sm font-black text-slate-400 uppercase tracking-widest mb-2 mt-6">Guion Luigi</h4>
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 text-sm text-slate-600 space-y-2 mb-6">
+                            <p><strong>[Hook]</strong> "Messi contra Cristiano. Argentina contra Portugal. Dos historias que todavía pueden escribir otro capítulo en el Mundial."</p>
+                            <p><strong>[Desarrollo]</strong> "Argentina llega con la chapa de campeón. Portugal llega con una generación que puede competirle a cualquiera."</p>
+                            <p><strong>[Pregunta]</strong> "Pero para ti… ¿quién llega más lejos: Argentina de Messi o Portugal de Cristiano?"</p>
+                            <p><strong>[CTA]</strong> "Responde en WhatsApp y participa por recompensas mundialistas. El Mundial lo vivimos a nuestra manera."</p>
+                        </div>
+                        <div class="flex gap-4">
+                            <button class="flex-1 bg-cyan-50 border border-cyan-200 text-cyan-700 py-4 rounded-xl font-bold">🇦🇷 Argentina de Messi</button>
+                            <button class="flex-1 bg-red-50 border border-red-200 text-red-700 py-4 rounded-xl font-bold">🇵🇹 Portugal de CR7</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide-content" id="slide-15">
+                 <div class="max-w-5xl mx-auto flex flex-col md:flex-row gap-10">
+                    <div class="flex-1 space-y-4 mt-10">
+                        <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">14. Simulación: ARG vs POR</h2>
+                        <p class="text-slate-600">Al responder, el usuario entra al funnel de retención y se ofrece la recompensa Lotbet bajo la misma mecánica segura.</p>
+                    </div>
+                    <div class="w-[350px] shrink-0 mx-auto bg-slate-800 rounded-[3rem] p-3 shadow-2xl relative border-[6px] border-slate-300">
+                        <div class="bg-white w-full h-[550px] rounded-[2.2rem] overflow-hidden flex flex-col relative">
+                            <div class="bg-[#008069] text-white p-3"><p class="text-sm font-bold">Chapin Central</p></div>
+                            <div class="flex-1 wa-bg p-4 flex flex-col gap-3 overflow-y-auto text-[13px] custom-scrollbar shadow-inner">
+                                <div class="self-end wa-msg-out p-2 shadow-sm max-w-[85%]">Quiero responder la trivia de Argentina vs Portugal.</div>
+                                <div class="self-start wa-msg-in p-2 shadow-sm max-w-[85%] mt-2">
+                                    Hola 👋⚽ Hoy tenemos una pregunta de debate grande:<br><br>¿Quién llegará más lejos en este Mundial?
+                                </div>
+                                <div class="self-start w-full max-w-[85%] flex flex-col gap-1">
+                                    <button class="bg-white text-cyan-600 font-bold py-2 rounded-lg shadow-sm border border-slate-200">Argentina de Messi</button>
+                                    <button class="bg-white text-cyan-600 font-bold py-2 rounded-lg shadow-sm border border-slate-200">Portugal de CR7</button>
+                                </div>
+                                <div class="self-end wa-msg-out p-2 shadow-sm max-w-[85%] mt-2">Argentina de Messi</div>
+                                <div class="self-start wa-msg-in p-2 shadow-sm max-w-[85%] mt-2">¡Buena elección! 🔥 Tu respuesta fue guardada. ¿Quieres recibir otra recompensa?</div>
+                                <div class="self-start w-full max-w-[85%] flex flex-col gap-1">
+                                    <button class="bg-white text-cyan-600 font-bold py-2 rounded-lg shadow-sm border border-slate-200">Sí, quiero</button>
+                                </div>
+                                <div class="self-start wa-msg-in p-2 shadow-sm max-w-[85%] mt-2">
+                                    Chapin Central se unió con <strong>Lotbet.vip</strong> para regalarte 50 GTQ. Solo +18.
+                                </div>
+                                <div class="self-start w-full max-w-[85%] flex flex-col gap-1 mb-4">
+                                    <button class="bg-cyan-500 text-white font-bold py-2 rounded-lg shadow-sm">Reclamar Bono 🎁</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+
+            <div class="slide-content" id="slide-16">
+                <div class="max-w-5xl mx-auto space-y-8">
+                    <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">15. Flujo 3: Campeón del Mundial</h2>
+                    <div class="bg-white p-8 rounded-[2rem] border border-slate-200 shadow-xl">
+                        <p class="text-slate-600 mb-6">El Mundial está lleno de candidatos. La pauta pregunta: "¿Quién será el campeón del Mundial?". El usuario elige entre potencias en WhatsApp.</p>
+                        <h4 class="text-sm font-black text-slate-400 uppercase tracking-widest mb-2 mt-6">Guion Luigi</h4>
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 text-sm text-slate-600 space-y-2 mb-6">
+                            <p><strong>[Hook]</strong> "Este Mundial tiene candidatos por todos lados."</p>
+                            <p><strong>[Candidatos]</strong> "Francia tiene a Mbappé. Argentina quiere repetir. Brasil siempre es Brasil. Alemania nunca se descarta. Y Holanda puede dar el golpe."</p>
+                            <p><strong>[Pregunta]</strong> "Pero tú dime la verdad… ¿quién va a ser campeón del mundo?"</p>
+                            <p><strong>[CTA]</strong> "Responde en nuestro WhatsApp y participa por recompensas mundialistas. El Mundial lo vivimos a nuestra manera."</p>
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <div class="bg-slate-50 py-3 rounded-lg text-center font-bold text-slate-700 border border-slate-200">🇫🇷 Francia</div>
+                            <div class="bg-slate-50 py-3 rounded-lg text-center font-bold text-slate-700 border border-slate-200">🇦🇷 Argentina</div>
+                            <div class="bg-slate-50 py-3 rounded-lg text-center font-bold text-slate-700 border border-slate-200">🇧🇷 Brasil</div>
+                            <div class="bg-slate-50 py-3 rounded-lg text-center font-bold text-slate-700 border border-slate-200">🇩🇪 Alemania</div>
+                            <div class="bg-slate-50 py-3 rounded-lg text-center font-bold text-slate-700 border border-slate-200">🇳🇱 Holanda</div>
+                            <div class="bg-slate-50 py-3 rounded-lg text-center font-bold text-slate-700 border border-slate-200">❓ Otro</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 18: Chat Campeón -->
+            <div class="slide-content" id="slide-17">
+                 <div class="max-w-5xl mx-auto flex flex-col md:flex-row gap-10">
+                    <div class="flex-1 space-y-4 mt-10">
+                        <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">16. Simulación: Campeón</h2>
+                        <p class="text-slate-600">Dependiendo de la respuesta, Blupit envía un texto personalizado y luego ofrece el bono de Lotbet.</p>
+                    </div>
+                    <div class="w-[350px] shrink-0 mx-auto bg-slate-800 rounded-[3rem] p-3 shadow-2xl relative border-[6px] border-slate-300">
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-slate-300 rounded-b-xl z-20"></div>
+                        <div class="bg-white w-full h-[550px] rounded-[2.2rem] overflow-hidden flex flex-col relative">
+                            <div class="bg-[#008069] text-white p-3 flex items-center gap-3">
+                                <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                                <div class="w-8 h-8 bg-slate-300 rounded-full flex items-center justify-center overflow-hidden"><i data-lucide="user" class="text-slate-500"></i></div>
+                                <div><p class="text-sm font-bold leading-tight">Chapin Central</p></div>
+                            </div>
+                            <div class="flex-1 wa-bg p-4 flex flex-col gap-3 overflow-y-auto text-[13px] custom-scrollbar shadow-inner">
+                                <div class="self-end wa-msg-out p-2 shadow-sm max-w-[85%]">Quiero responder quién será campeón del Mundial.</div>
+                                <div class="self-start wa-msg-in p-2 shadow-sm max-w-[85%] mt-2">
+                                    Hola 👋🏆 Hoy queremos conocer tu gran predicción:<br><br>¿Quién será el campeón del Mundial?
+                                </div>
+                                <div class="self-start w-full max-w-[85%] flex flex-col gap-1">
+                                    <button class="bg-white text-cyan-600 font-bold py-2 rounded-lg shadow-sm border border-slate-200">Francia</button>
+                                    <button class="bg-white text-cyan-600 font-bold py-2 rounded-lg shadow-sm border border-slate-200">Argentina</button>
+                                </div>
+                                <div class="self-end wa-msg-out p-2 shadow-sm max-w-[85%] mt-2">Francia</div>
+                                <div class="self-start wa-msg-in p-2 shadow-sm max-w-[85%] mt-2">Francia es una candidata fuerte 🔥 Tu respuesta fue guardada. ¿Quieres recibir otra recompensa?</div>
+                                <div class="self-start w-full max-w-[85%] flex flex-col gap-1">
+                                    <button class="bg-white text-cyan-600 font-bold py-2 rounded-lg shadow-sm border border-slate-200">Sí, quiero</button>
+                                </div>
+                                <div class="self-start wa-msg-in p-2 shadow-sm max-w-[85%] mt-2">
+                                    Chapin Central se unió con <strong>Lotbet.vip</strong> para regalarte 50 GTQ. Solo +18.
+                                </div>
+                                <div class="self-start w-full max-w-[85%] flex flex-col gap-1 mb-4">
+                                    <button class="bg-cyan-500 text-white font-bold py-2 rounded-lg shadow-sm">Reclamar Bono 🎁</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+
+            <div class="slide-content" id="slide-18">
+                 <div class="max-w-5xl mx-auto flex flex-col md:flex-row gap-10">
+                    <div class="flex-1 space-y-4 mt-10">
+                        <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">17. Flujo 4: Selección Sorpresa</h2>
+                        <div class="bg-white p-8 rounded-[2rem] border border-slate-200 shadow-xl mb-4">
+                            <p class="text-slate-600 mb-6">"En todos los Mundiales aparece una selección que rompe los pronósticos... ¿Cuál será la de este Mundial?"</p>
+                            <h4 class="text-sm font-black text-slate-400 uppercase tracking-widest mb-2 mt-6">Guion Luigi</h4>
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 text-sm text-slate-600 space-y-2 mb-6">
+                                <p><strong>[Hook]</strong> "En todos los Mundiales hay una selección que nadie esperaba… y termina callando bocas."</p>
+                                <p><strong>[Ejemplos]</strong> "Croacia llegó a una final. Marruecos se metió en semifinales. Japón ha demostrado que puede competirle a cualquiera."</p>
+                                <p><strong>[Pregunta]</strong> "Entonces dime… ¿cuál será la selección sorpresa de este Mundial?"</p>
+                                <p><strong>[CTA]</strong> "Responde en WhatsApp y participa por recompensas mundialistas. El Mundial lo vivimos a nuestra manera."</p>
+                            </div>
+                            <div class="flex flex-wrap gap-4">
+                                <span class="bg-yellow-100 text-yellow-800 px-3 py-1 text-sm rounded-full font-bold">🇨🇴 Colombia</span>
+                                <span class="bg-red-100 text-red-800 px-3 py-1 text-sm rounded-full font-bold">🇯🇵 Japón</span>
+                                <span class="bg-emerald-100 text-emerald-800 px-3 py-1 text-sm rounded-full font-bold">🇲🇦 Marruecos</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-[350px] shrink-0 mx-auto bg-slate-800 rounded-[3rem] p-3 shadow-2xl relative border-[6px] border-slate-300">
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-slate-300 rounded-b-xl z-20"></div>
+                        <div class="bg-white w-full h-[550px] rounded-[2.2rem] overflow-hidden flex flex-col relative">
+                            <div class="bg-[#008069] text-white p-3 flex items-center gap-3">
+                                <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                                <div class="w-8 h-8 bg-slate-300 rounded-full flex items-center justify-center overflow-hidden"><i data-lucide="user" class="text-slate-500"></i></div>
+                                <div><p class="text-sm font-bold leading-tight">Chapin Central</p></div>
+                            </div>
+                            <div class="flex-1 wa-bg p-4 flex flex-col gap-3 overflow-y-auto text-[13px] custom-scrollbar shadow-inner">
+                                <div class="self-end wa-msg-out p-2 shadow-sm max-w-[85%]">Quiero responder cuál será la sorpresa.</div>
+                                <div class="self-start wa-msg-in p-2 shadow-sm max-w-[85%] mt-2">
+                                    Hola 👋⚽ Hablemos de las selecciones que nadie ve venir.<br><br>¿Cuál será la sorpresa?
+                                </div>
+                                <div class="self-start w-full max-w-[85%] flex flex-col gap-1">
+                                    <button class="bg-white text-cyan-600 font-bold py-2 rounded-lg shadow-sm border border-slate-200">Colombia</button>
+                                    <button class="bg-white text-cyan-600 font-bold py-2 rounded-lg shadow-sm border border-slate-200">Japón</button>
+                                </div>
+                                <div class="self-end wa-msg-out p-2 shadow-sm max-w-[85%] mt-2">Colombia</div>
+                                <div class="self-start wa-msg-in p-2 shadow-sm max-w-[85%] mt-2">Colombia puede ser una sorpresa muy seria 🇨🇴🔥 Tu respuesta fue guardada. ¿Quieres recibir recompensa?</div>
+                                <div class="self-start w-full max-w-[85%] flex flex-col gap-1">
+                                    <button class="bg-white text-cyan-600 font-bold py-2 rounded-lg shadow-sm border border-slate-200">Sí, quiero</button>
+                                </div>
+                                <div class="self-start wa-msg-in p-2 shadow-sm max-w-[85%] mt-2">
+                                    Chapin Central se unió con <strong>Lotbet.vip</strong> para regalarte 50 GTQ. Solo +18.
+                                </div>
+                                <div class="self-start w-full max-w-[85%] flex flex-col gap-1 mb-4">
+                                    <button class="bg-cyan-500 text-white font-bold py-2 rounded-lg shadow-sm">Reclamar Bono 🎁</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+
+            <!-- Slide 20: Métricas -->
+            <div class="slide-content" id="slide-19">
+                <div class="max-w-5xl mx-auto space-y-8">
+                    <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">18. Métricas y KPIs</h2>
+                    
+                    <div class="bg-white p-8 rounded-[2rem] border border-slate-200 shadow-xl flex flex-col gap-8">
+                        <p class="text-slate-600 font-medium text-lg">De acuerdo a la propuesta inicial, nuestros esfuerzos están enfocados en el embudo de captación e interacción. Estos son los KPIs principales por los que vamos a responder:</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <div class="flex items-center gap-3 p-4 bg-slate-50 rounded-xl border border-slate-100"><i data-lucide="eye" class="w-6 h-6 text-cyan-500"></i><span class="text-sm font-bold text-slate-700">Personas impactadas por pauta</span></div>
+                            <div class="flex items-center gap-3 p-4 bg-slate-50 rounded-xl border border-slate-100"><i data-lucide="mouse-pointer-click" class="w-6 h-6 text-cyan-500"></i><span class="text-sm font-bold text-slate-700">Clics a WhatsApp</span></div>
+                            <div class="flex items-center gap-3 p-4 bg-slate-50 rounded-xl border border-slate-100"><i data-lucide="message-circle" class="w-6 h-6 text-cyan-500"></i><span class="text-sm font-bold text-slate-700">Conversaciones iniciadas</span></div>
+                            <div class="flex items-center gap-3 p-4 bg-slate-50 rounded-xl border border-slate-100"><i data-lucide="check-square" class="w-6 h-6 text-cyan-500"></i><span class="text-sm font-bold text-slate-700">Respuestas a trivias</span></div>
+                            <div class="flex items-center gap-3 p-4 bg-emerald-50 rounded-xl border border-emerald-100"><i data-lucide="external-link" class="w-6 h-6 text-emerald-600"></i><span class="text-sm font-bold text-emerald-800">Clics hacia Lotbet (Bono)</span></div>
+                        </div>
+
+                        <div class="bg-indigo-50 border border-indigo-100 p-6 rounded-2xl mt-4">
+                            <h4 class="flex items-center gap-2 font-black text-indigo-900 mb-2"><i data-lucide="target" class="w-5 h-5"></i> La Consecuencia Final</h4>
+                            <p class="text-sm text-indigo-800 leading-relaxed">
+                                La consecuencia de ejecutar esta estrategia correctamente serán los <strong>registros</strong> y los <strong>depósitos</strong>, y posteriormente la evaluación del CPA. Sin embargo, es importante aclarar que <strong>en la propuesta inicial no se establecieron metas ni compromisos directos de registros o depósitos</strong>. Estos resultados se evaluarán posteriormente en conjunto con Lotbet una vez el tráfico sea derivado a su plataforma.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 21: Optimización -->
+            <div class="slide-content" id="slide-20">
+                <div class="max-w-5xl mx-auto space-y-8">
+                    <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">19. Optimización por Comportamiento</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                            <p class="text-xs font-bold text-slate-400 uppercase">Entró pero no respondió</p>
+                            <p class="text-sm text-slate-700 italic mt-2">"Te faltó responder la predicción mundialista de hoy ⚽ ¿Quieres participar?"</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                            <p class="text-xs font-bold text-slate-400 uppercase">Respondió pero no pidió recompensa</p>
+                            <p class="text-sm text-slate-700 italic mt-2">"Tu respuesta quedó registrada. Todavía tienes una recompensa disponible."</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                            <p class="text-xs font-bold text-slate-400 uppercase">Pidió recompensa pero no hizo clic</p>
+                            <p class="text-sm text-slate-700 italic mt-2">"Tu bono de 50 quetzales sigue disponible. Reclámalo antes de que termine."</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                            <p class="text-xs font-bold text-slate-400 uppercase">Registrado sin depósito</p>
+                            <p class="text-sm text-slate-700 italic mt-2">"Ya tienes tu cuenta. Ahora activa tu bono y empieza a vivir el Mundial."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 22: Fases y Cierre -->
+            <div class="slide-content" id="slide-21">
+                <div class="max-w-5xl mx-auto space-y-8">
+                    <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">20. Plan de Implementación & Cierre</h2>
+                    <div class="bg-white p-8 rounded-[2rem] border border-slate-200 shadow-xl space-y-6">
+                        <div class="flex gap-4 items-center">
+                            <span class="w-8 h-8 bg-slate-100 rounded-full flex items-center justify-center font-bold text-slate-600">1</span>
+                            <p class="text-sm text-slate-700"><strong>Preparación:</strong> Validar Meta, activos, Blupit, flujos y Lotbet.</p>
+                        </div>
+                        <div class="flex gap-4 items-center">
+                            <span class="w-8 h-8 bg-slate-100 rounded-full flex items-center justify-center font-bold text-slate-600">2</span>
+                            <p class="text-sm text-slate-700"><strong>Creación:</strong> Grabar a Luigi, armar pauta y copys.</p>
+                        </div>
+                        <div class="flex gap-4 items-center">
+                            <span class="w-8 h-8 bg-slate-100 rounded-full flex items-center justify-center font-bold text-slate-600">3</span>
+                            <p class="text-sm text-slate-700"><strong>Lanzamiento:</strong> Activar las 4 campañas a la base inicial.</p>
+                        </div>
+                        <div class="flex gap-4 items-center">
+                            <span class="w-8 h-8 bg-cyan-100 rounded-full flex items-center justify-center font-bold text-cyan-600">4</span>
+                            <p class="text-sm text-slate-700"><strong>Optimización & Escalamiento:</strong> Detectar ganadores y meter más presupuesto.</p>
+                        </div>
+                        
+                        <div class="mt-8 p-6 bg-cyan-50 rounded-2xl border border-cyan-200">
+                            <h4 class="font-black text-cyan-800 uppercase mb-2">Conclusión Final</h4>
+                            <p class="text-sm text-slate-700">Esta no es una campaña aislada, es un <strong>sistema de adquisición conversacional</strong>. De esta manera, Lotbet no solo gana tráfico; gana una base segmentada, caliente y con intención real.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        const totalSlides = 22;
+        let currentSlide = 1;
+
+        // Títulos para el nav
+        const navTitles = [
+            "Portada", "Contexto", "Objetivo", "Enfoque", "Rol Blupit", "Canales", 
+            "Lotbet", "Concepto", "Embajadores", "Pauta Meta", "Flujo General", 
+            "Consideraciones", "Trivia Messi", "Chat Messi", "Trivia ARG-POR", 
+            "Chat ARG-POR", "Campeón", "Chat Campeón", "Sorpresa", "Métricas", 
+            "Optimización", "Implementación"
+        ];
+
+        const navContainer = document.getElementById('nav-container');
+        const progressBar = document.getElementById('progress-bar');
+        const slideCounter = document.getElementById('slide-counter');
+        const headerTitle = document.getElementById('slide-title-header');
+
+        // Render Nav
+        navTitles.forEach((title, index) => {
+            const num = index + 1;
+            const btn = document.createElement('button');
+            btn.className = `nav-item w-full text-left px-4 py-3 rounded-l-xl text-sm transition-colors text-slate-600 hover:bg-slate-50 ${num === 1 ? 'active' : ''}`;
+            btn.innerHTML = `<span class="opacity-50 mr-2 text-xs">${num}</span> ${title}`;
+            btn.onclick = () => goToSlide(num);
+            btn.id = `nav-btn-${num}`;
+            navContainer.appendChild(btn);
+        });
+
+        function updateUI() {
+            // Slides
+            document.querySelectorAll('.slide-content').forEach(el => el.classList.remove('active'));
+            document.getElementById(`slide-${currentSlide}`).classList.add('active');
+            
+            // Nav
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            document.getElementById(`nav-btn-${currentSlide}`).classList.add('active');
+
+            // Header & Progress
+            headerTitle.innerText = navTitles[currentSlide - 1];
+            slideCounter.innerText = `${currentSlide} / ${totalSlides}`;
+            progressBar.style.width = `${(currentSlide / totalSlides) * 100}%`;
+
+            // Scroll Nav into view
+            const activeNav = document.getElementById(`nav-btn-${currentSlide}`);
+            activeNav.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            
+            // Botones
+            document.getElementById('btn-prev').disabled = currentSlide === 1;
+            document.getElementById('btn-next').disabled = currentSlide === totalSlides;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateUI();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateUI();
+            }
+        }
+
+        function goToSlide(num) {
+            currentSlide = num;
+            updateUI();
+        }
+
+        // Init
+        updateUI();
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+    </script>
+</body>
+</html>
