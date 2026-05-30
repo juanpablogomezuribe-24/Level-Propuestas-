@@ -633,123 +633,284 @@
                             </div>
                         </div>
 
+                        <!-- Funnel Visualization -->
+                        <h4 class="text-sm font-bold text-slate-500 uppercase mb-4 tracking-wider"><i class="fas fa-filter mr-2"></i>Retención del Embudo de Respuestas</h4>
+                        <div class="mb-8 p-6 border border-slate-200 rounded-xl bg-slate-50/30">
+                            <div class="flex justify-between items-end mb-4">
+                                <p class="text-sm text-slate-500">De <strong>278 mensajes enviados</strong>, 75 usuarios iniciaron la interacción.</p>
+                                <div class="text-right">
+                                    <span class="block text-2xl font-black text-fecolRed">46.6%</span>
+                                    <span class="text-[10px] text-slate-500 uppercase font-bold">Retención (P1 a Final)</span>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-4 group">
+                                    <div class="w-24 text-right text-xs font-bold text-slate-600">Mensajes</div>
+                                    <div class="flex-grow bg-slate-100 rounded-r-full h-6 overflow-hidden flex items-center">
+                                        <div class="bg-slate-400 h-full rounded-r-full w-[100%] flex items-center px-3">
+                                            <span class="text-white text-[10px] font-bold">278 Enviados</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-4 group">
+                                    <div class="w-24 text-right text-xs font-bold text-fecolBlue">P1 (Iniciaron)</div>
+                                    <div class="flex-grow bg-slate-100 rounded-r-full h-6 overflow-hidden flex items-center">
+                                        <!-- 75 is about 27% of 278, but visually let's scale relative to 75 as 100% for the actual funnel -->
+                                        <div class="bg-fecolBlue h-full rounded-r-full w-[100%] flex items-center px-3">
+                                            <span class="text-white text-[10px] font-bold">75 Usuarios</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-4 group">
+                                    <div class="w-24 text-right text-xs font-bold text-slate-500">P2</div>
+                                    <div class="flex-grow bg-slate-100 rounded-r-full h-5 overflow-hidden flex items-center">
+                                        <div class="bg-fecolBlue/80 h-full rounded-r-full w-[53.3%] flex items-center px-3">
+                                            <span class="text-white text-[10px] font-bold">40</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-4 group">
+                                    <div class="w-24 text-right text-xs font-bold text-slate-500">P3 a P5</div>
+                                    <div class="flex-grow bg-slate-100 rounded-r-full h-5 overflow-hidden flex items-center">
+                                        <div class="bg-fecolBlue/60 h-full rounded-r-full w-[49%] flex items-center px-3">
+                                            <span class="text-white text-[10px] font-bold">~37 Promedio</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-4 group mt-1">
+                                    <div class="w-24 text-right text-xs font-bold text-fecolRed uppercase">P9 (Final)</div>
+                                    <div class="flex-grow bg-slate-100 rounded-r-full h-7 overflow-hidden flex items-center shadow-inner">
+                                        <div class="bg-fecolRed h-full rounded-r-full w-[46.6%] flex items-center px-3 shadow-md">
+                                            <span class="text-white text-[10px] font-black">35 Completaron</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Resultados por Pregunta -->
-                        <h4 class="text-sm font-bold text-slate-500 uppercase mb-4 tracking-wider"><i class="fas fa-list-ol mr-2"></i>Desempeño por Pregunta <span class="text-xs lowercase font-normal">(pasa el cursor para ver hallazgos)</span></h4>
-                        <div class="space-y-3 max-h-80 overflow-y-auto pr-2 custom-scrollbar">
+                        <h4 class="text-sm font-bold text-slate-500 uppercase mb-4 tracking-wider"><i class="fas fa-list-ol mr-2"></i>Desempeño por Pregunta y Análisis Cualitativo</h4>
+                        <div class="space-y-4 max-h-[500px] overflow-y-auto pr-3 custom-scrollbar">
                             <!-- Pregunta 1 -->
-                            <div class="group border border-slate-100 rounded-lg p-4 hover:border-fecolBlue/30 hover:bg-slate-50 transition-all cursor-pointer">
-                                <div class="flex justify-between items-center mb-2">
+                            <div class="border border-slate-200 rounded-xl p-5 hover:border-fecolBlue/30 hover:bg-white bg-slate-50/50 transition-all">
+                                <div class="flex justify-between items-center mb-3">
                                     <h5 class="font-bold text-fecolBlue text-sm">P1: Identificar el problema real</h5>
-                                    <span class="px-2 py-1 bg-red-100 text-red-700 font-bold text-xs rounded-full">45.3%</span>
+                                    <span class="px-3 py-1 bg-red-100 text-red-700 font-black text-xs rounded-full">45.3%</span>
                                 </div>
-                                <div class="w-full bg-slate-200 rounded-full h-2">
-                                    <div class="bg-red-500 h-2 rounded-full" style="width: 45.3%"></div>
+                                <div class="w-full bg-slate-200 rounded-full h-2.5 mb-3">
+                                    <div class="bg-red-500 h-2.5 rounded-full" style="width: 45.3%"></div>
                                 </div>
-                                <p class="text-xs text-slate-500 mt-2 hidden group-hover:block transition-all"><strong>Alerta:</strong> La debilidad principal está en el punto de partida. 53.3% cree erróneamente que lo primero es contratar un experto.</p>
+                                <details class="group">
+                                    <summary class="cursor-pointer text-xs font-bold text-fecolBlue hover:text-fecolRed list-none flex justify-between items-center bg-white border border-slate-200 px-4 py-2.5 rounded-lg shadow-sm">
+                                        <span><i class="fas fa-search-plus mr-2"></i>Ver análisis profundo</span>
+                                        <i class="fas fa-chevron-down text-[10px] group-open:rotate-180 transition-transform"></i>
+                                    </summary>
+                                    <div class="text-xs text-slate-600 mt-2 p-4 border border-slate-200 rounded-lg bg-white shadow-inner">
+                                        <p class="mb-2"><strong>Contexto de respuestas:</strong> 34 correctas / 41 incorrectas.</p>
+                                        <p class="mb-2"><strong>Dato Crítico:</strong> El dato más relevante es que 40 personas, equivalentes al 53,3%, respondieron que lo primero es contratar un experto.</p>
+                                        <p><strong>Interpretación:</strong> Esto muestra una percepción común: muchas personas creen que la IA empieza por la tecnología o por el especialista, cuando realmente debería empezar por una pregunta de negocio. La audiencia ve la IA como algo técnico antes que estratégico.</p>
+                                    </div>
+                                </details>
                             </div>
                             
                             <!-- Pregunta 2 -->
-                            <div class="group border border-slate-100 rounded-lg p-4 hover:border-fecolBlue/30 hover:bg-slate-50 transition-all cursor-pointer">
-                                <div class="flex justify-between items-center mb-2">
+                            <div class="border border-slate-200 rounded-xl p-5 hover:border-fecolBlue/30 hover:bg-white bg-slate-50/50 transition-all">
+                                <div class="flex justify-between items-center mb-3">
                                     <h5 class="font-bold text-fecolBlue text-sm">P2: Los datos son la ventaja competitiva</h5>
-                                    <span class="px-2 py-1 bg-green-100 text-green-700 font-bold text-xs rounded-full">92.5%</span>
+                                    <span class="px-3 py-1 bg-green-100 text-green-700 font-black text-xs rounded-full">92.5%</span>
                                 </div>
-                                <div class="w-full bg-slate-200 rounded-full h-2">
-                                    <div class="bg-green-500 h-2 rounded-full" style="width: 92.5%"></div>
+                                <div class="w-full bg-slate-200 rounded-full h-2.5 mb-3">
+                                    <div class="bg-green-500 h-2.5 rounded-full" style="width: 92.5%"></div>
                                 </div>
-                                <p class="text-xs text-slate-500 mt-2 hidden group-hover:block transition-all"><strong>Hallazgo:</strong> Excelente madurez; la mayoría entiende que la IA no es "poner ChatGPT", sino que depende de la calidad de los datos.</p>
+                                <details class="group">
+                                    <summary class="cursor-pointer text-xs font-bold text-fecolBlue hover:text-fecolRed list-none flex justify-between items-center bg-white border border-slate-200 px-4 py-2.5 rounded-lg shadow-sm">
+                                        <span><i class="fas fa-search-plus mr-2"></i>Ver análisis profundo</span>
+                                        <i class="fas fa-chevron-down text-[10px] group-open:rotate-180 transition-transform"></i>
+                                    </summary>
+                                    <div class="text-xs text-slate-600 mt-2 p-4 border border-slate-200 rounded-lg bg-white shadow-inner">
+                                        <p class="mb-2"><strong>Contexto de respuestas:</strong> 37 correctas / 3 incorrectas. Solo 3 personas dijeron que los datos son secundarios y nadie respondió que se pueden comprar después.</p>
+                                        <p><strong>Interpretación:</strong> Aquí hay una madurez interesante. La mayoría entiende que la IA no es solo "poner ChatGPT" o automatizar tareas, sino que depende directamente de la calidad de la información disponible y propia.</p>
+                                    </div>
+                                </details>
                             </div>
 
                             <!-- Pregunta 3 -->
-                            <div class="group border border-slate-100 rounded-lg p-4 hover:border-fecolBlue/30 hover:bg-slate-50 transition-all cursor-pointer">
-                                <div class="flex justify-between items-center mb-2">
-                                    <h5 class="font-bold text-fecolBlue text-sm">P3: Preparar y capacitar</h5>
-                                    <span class="px-2 py-1 bg-green-100 text-green-700 font-bold text-xs rounded-full">91.9%</span>
+                            <div class="border border-slate-200 rounded-xl p-5 hover:border-fecolBlue/30 hover:bg-white bg-slate-50/50 transition-all">
+                                <div class="flex justify-between items-center mb-3">
+                                    <h5 class="font-bold text-fecolBlue text-sm">P3: Preparar y capacitar talento</h5>
+                                    <span class="px-3 py-1 bg-green-100 text-green-700 font-black text-xs rounded-full">91.9%</span>
                                 </div>
-                                <div class="w-full bg-slate-200 rounded-full h-2">
-                                    <div class="bg-green-500 h-2 rounded-full" style="width: 91.9%"></div>
+                                <div class="w-full bg-slate-200 rounded-full h-2.5 mb-3">
+                                    <div class="bg-green-500 h-2.5 rounded-full" style="width: 91.9%"></div>
                                 </div>
-                                <p class="text-xs text-slate-500 mt-2 hidden group-hover:block transition-all"><strong>Hallazgo:</strong> Hay buena lectura sobre el rol del liderazgo y el talento humano frente a la adopción de IA.</p>
+                                <details class="group">
+                                    <summary class="cursor-pointer text-xs font-bold text-fecolBlue hover:text-fecolRed list-none flex justify-between items-center bg-white border border-slate-200 px-4 py-2.5 rounded-lg shadow-sm">
+                                        <span><i class="fas fa-search-plus mr-2"></i>Ver análisis profundo</span>
+                                        <i class="fas fa-chevron-down text-[10px] group-open:rotate-180 transition-transform"></i>
+                                    </summary>
+                                    <div class="text-xs text-slate-600 mt-2 p-4 border border-slate-200 rounded-lg bg-white shadow-inner">
+                                        <p class="mb-2"><strong>Contexto de respuestas:</strong> 34 correctas / 3 incorrectas. Solo 3 personas respondieron "automatizar todo" y nadie respondió "delegar a RRHH".</p>
+                                        <p><strong>Interpretación:</strong> La audiencia no parece tener una visión reduccionista de la IA como simple sustitución laboral. Entienden que la adopción necesita acompañamiento, formación activa y liderazgo estratégico.</p>
+                                    </div>
+                                </details>
                             </div>
 
                             <!-- Pregunta 4 -->
-                            <div class="group border border-slate-100 rounded-lg p-4 hover:border-fecolBlue/30 hover:bg-slate-50 transition-all cursor-pointer">
-                                <div class="flex justify-between items-center mb-2">
+                            <div class="border border-slate-200 rounded-xl p-5 hover:border-fecolBlue/30 hover:bg-white bg-slate-50/50 transition-all">
+                                <div class="flex justify-between items-center mb-3">
                                     <h5 class="font-bold text-fecolBlue text-sm">P4: Gobernanza ética desde el inicio</h5>
-                                    <span class="px-2 py-1 bg-green-100 text-green-700 font-bold text-xs rounded-full">86.1%</span>
+                                    <span class="px-3 py-1 bg-green-100 text-green-700 font-black text-xs rounded-full">86.1%</span>
                                 </div>
-                                <div class="w-full bg-slate-200 rounded-full h-2">
-                                    <div class="bg-green-500 h-2 rounded-full" style="width: 86.1%"></div>
+                                <div class="w-full bg-slate-200 rounded-full h-2.5 mb-3">
+                                    <div class="bg-green-500 h-2.5 rounded-full" style="width: 86.1%"></div>
                                 </div>
-                                <p class="text-xs text-slate-500 mt-2 hidden group-hover:block transition-all"><strong>Hallazgo:</strong> Bien valorada, pero algunos aún tienen la mentalidad riesgosa de "primero innovemos, después regulamos".</p>
+                                <details class="group">
+                                    <summary class="cursor-pointer text-xs font-bold text-fecolBlue hover:text-fecolRed list-none flex justify-between items-center bg-white border border-slate-200 px-4 py-2.5 rounded-lg shadow-sm">
+                                        <span><i class="fas fa-search-plus mr-2"></i>Ver análisis profundo</span>
+                                        <i class="fas fa-chevron-down text-[10px] group-open:rotate-180 transition-transform"></i>
+                                    </summary>
+                                    <div class="text-xs text-slate-600 mt-2 p-4 border border-slate-200 rounded-lg bg-white shadow-inner">
+                                        <p class="mb-2"><strong>Contexto de respuestas:</strong> 31 correctas / 5 incorrectas. 3 personas dijeron que es importante "pero después de experimentar", y 2 dijeron que no es relevante en esta etapa.</p>
+                                        <p><strong>Interpretación:</strong> Aparece una posible mentalidad riesgosa de "primero innovemos y después regulamos". Esto puede ser peligroso, especialmente en sectores como gaming, datos personales o scoring de usuarios.</p>
+                                    </div>
+                                </details>
                             </div>
 
                             <!-- Pregunta 5 -->
-                            <div class="group border border-slate-100 rounded-lg p-4 hover:border-fecolBlue/30 hover:bg-slate-50 transition-all cursor-pointer">
-                                <div class="flex justify-between items-center mb-2">
+                            <div class="border border-slate-200 rounded-xl p-5 hover:border-fecolBlue/30 hover:bg-white bg-slate-50/50 transition-all">
+                                <div class="flex justify-between items-center mb-3">
                                     <h5 class="font-bold text-fecolBlue text-sm">P5: Medir ROI es esencial</h5>
-                                    <span class="px-2 py-1 bg-green-100 text-green-700 font-bold text-xs rounded-full">83.3%</span>
+                                    <span class="px-3 py-1 bg-green-100 text-green-700 font-black text-xs rounded-full">83.3%</span>
                                 </div>
-                                <div class="w-full bg-slate-200 rounded-full h-2">
-                                    <div class="bg-green-500 h-2 rounded-full" style="width: 83.3%"></div>
+                                <div class="w-full bg-slate-200 rounded-full h-2.5 mb-3">
+                                    <div class="bg-green-500 h-2.5 rounded-full" style="width: 83.3%"></div>
                                 </div>
-                                <p class="text-xs text-slate-500 mt-2 hidden group-hover:block transition-all"><strong>Hallazgo:</strong> Tensión entre experimentar e invertir con disciplina. Algunos todavía no lo ven como lo más urgente.</p>
+                                <details class="group">
+                                    <summary class="cursor-pointer text-xs font-bold text-fecolBlue hover:text-fecolRed list-none flex justify-between items-center bg-white border border-slate-200 px-4 py-2.5 rounded-lg shadow-sm">
+                                        <span><i class="fas fa-search-plus mr-2"></i>Ver análisis profundo</span>
+                                        <i class="fas fa-chevron-down text-[10px] group-open:rotate-180 transition-transform"></i>
+                                    </summary>
+                                    <div class="text-xs text-slate-600 mt-2 p-4 border border-slate-200 rounded-lg bg-white shadow-inner">
+                                        <p class="mb-2"><strong>Contexto de respuestas:</strong> 30 correctas / 6 incorrectas. 6 personas dijeron que es importante medir ROI, pero no es lo más urgente.</p>
+                                        <p><strong>Interpretación:</strong> Hay una tensión entre experimentar e invertir con disciplina. Una parte de la audiencia todavía podría caer en el error de hacer pilotos de IA sin indicadores claros de eficiencia, ahorro o ingresos.</p>
+                                    </div>
+                                </details>
                             </div>
 
                             <!-- Pregunta 6 -->
-                            <div class="group border border-slate-100 rounded-lg p-4 hover:border-fecolBlue/30 hover:bg-slate-50 transition-all cursor-pointer">
-                                <div class="flex justify-between items-center mb-2">
+                            <div class="border border-slate-200 rounded-xl p-5 hover:border-fecolBlue/30 hover:bg-white bg-slate-50/50 transition-all">
+                                <div class="flex justify-between items-center mb-3">
                                     <h5 class="font-bold text-fecolBlue text-sm">P6: Asegurar rentabilidad y sostenibilidad</h5>
-                                    <span class="px-2 py-1 bg-green-100 text-green-700 font-bold text-xs rounded-full">85.3%</span>
+                                    <span class="px-3 py-1 bg-green-100 text-green-700 font-black text-xs rounded-full">85.3%</span>
                                 </div>
-                                <div class="w-full bg-slate-200 rounded-full h-2">
-                                    <div class="bg-green-500 h-2 rounded-full" style="width: 85.3%"></div>
+                                <div class="w-full bg-slate-200 rounded-full h-2.5 mb-3">
+                                    <div class="bg-green-500 h-2.5 rounded-full" style="width: 85.3%"></div>
                                 </div>
-                                <p class="text-xs text-slate-500 mt-2 hidden group-hover:block transition-all"><strong>Hallazgo:</strong> En gaming, la mayoría entiende que la incertidumbre se diseña y gestiona, no se puede eliminar mágicamente.</p>
+                                <details class="group">
+                                    <summary class="cursor-pointer text-xs font-bold text-fecolBlue hover:text-fecolRed list-none flex justify-between items-center bg-white border border-slate-200 px-4 py-2.5 rounded-lg shadow-sm">
+                                        <span><i class="fas fa-search-plus mr-2"></i>Ver análisis profundo</span>
+                                        <i class="fas fa-chevron-down text-[10px] group-open:rotate-180 transition-transform"></i>
+                                    </summary>
+                                    <div class="text-xs text-slate-600 mt-2 p-4 border border-slate-200 rounded-lg bg-white shadow-inner">
+                                        <p class="mb-2"><strong>Contexto de respuestas:</strong> 29 correctas / 5 incorrectas. 3 personas eligieron "eliminar por completo el riesgo del negocio" y 2 "aumentar la suerte para el jugador".</p>
+                                        <p><strong>Interpretación:</strong> La mayoría entiende bien el concepto, pero algunos todavía asocian incertidumbre con "suerte" o con "eliminar riesgo". En gaming, la idea correcta es diseñar, medir y administrar la incertidumbre.</p>
+                                    </div>
+                                </details>
                             </div>
 
                             <!-- Pregunta 7 -->
-                            <div class="group border border-slate-100 rounded-lg p-4 hover:border-fecolBlue/30 hover:bg-slate-50 transition-all cursor-pointer">
-                                <div class="flex justify-between items-center mb-2">
+                            <div class="border border-slate-200 rounded-xl p-5 hover:border-fecolBlue/30 hover:bg-white bg-slate-50/50 transition-all">
+                                <div class="flex justify-between items-center mb-3">
                                     <h5 class="font-bold text-fecolBlue text-sm">P7: Entender al jugador y experiencias responsables</h5>
-                                    <span class="px-2 py-1 bg-green-100 text-green-700 font-bold text-xs rounded-full">94.1%</span>
+                                    <span class="px-3 py-1 bg-green-100 text-green-700 font-black text-xs rounded-full">94.1%</span>
                                 </div>
-                                <div class="w-full bg-slate-200 rounded-full h-2">
-                                    <div class="bg-green-500 h-2 rounded-full" style="width: 94.1%"></div>
+                                <div class="w-full bg-slate-200 rounded-full h-2.5 mb-3">
+                                    <div class="bg-green-500 h-2.5 rounded-full" style="width: 94.1%"></div>
                                 </div>
-                                <p class="text-xs text-slate-500 mt-2 hidden group-hover:block transition-all"><strong>Hallazgo:</strong> Excelente entendimiento del engagement responsable. Priorizan conocer al jugador antes que bombardearlo.</p>
+                                <details class="group">
+                                    <summary class="cursor-pointer text-xs font-bold text-fecolBlue hover:text-fecolRed list-none flex justify-between items-center bg-white border border-slate-200 px-4 py-2.5 rounded-lg shadow-sm">
+                                        <span><i class="fas fa-search-plus mr-2"></i>Ver análisis profundo</span>
+                                        <i class="fas fa-chevron-down text-[10px] group-open:rotate-180 transition-transform"></i>
+                                    </summary>
+                                    <div class="text-xs text-slate-600 mt-2 p-4 border border-slate-200 rounded-lg bg-white shadow-inner">
+                                        <p class="mb-2"><strong>Contexto de respuestas:</strong> 32 correctas / 2 incorrectas. Fue la pregunta con mejor resultado global.</p>
+                                        <p><strong>Interpretación:</strong> La audiencia parece entender perfectamente que la fidelización sostenible no se basa en bombardear al usuario, sino en conocerlo, segmentarlo, cuidarlo y diseñar experiencias relevantes.</p>
+                                    </div>
+                                </details>
                             </div>
 
                             <!-- Pregunta 8 -->
-                            <div class="group border border-slate-100 rounded-lg p-4 hover:border-fecolBlue/30 hover:bg-slate-50 transition-all cursor-pointer">
-                                <div class="flex justify-between items-center mb-2">
+                            <div class="border border-slate-200 rounded-xl p-5 hover:border-fecolBlue/30 hover:bg-white bg-slate-50/50 transition-all">
+                                <div class="flex justify-between items-center mb-3">
                                     <h5 class="font-bold text-fecolBlue text-sm">P8: Procesos ágiles, monitoreo y trazabilidad</h5>
-                                    <span class="px-2 py-1 bg-green-100 text-green-700 font-bold text-xs rounded-full">91.2%</span>
+                                    <span class="px-3 py-1 bg-green-100 text-green-700 font-black text-xs rounded-full">91.2%</span>
                                 </div>
-                                <div class="w-full bg-slate-200 rounded-full h-2">
-                                    <div class="bg-green-500 h-2 rounded-full" style="width: 91.2%"></div>
+                                <div class="w-full bg-slate-200 rounded-full h-2.5 mb-3">
+                                    <div class="bg-green-500 h-2.5 rounded-full" style="width: 91.2%"></div>
                                 </div>
-                                <p class="text-xs text-slate-500 mt-2 hidden group-hover:block transition-all"><strong>Hallazgo:</strong> Hay claridad total sobre las exigencias de operar 24/7 en la industria con respuesta en tiempo real.</p>
+                                <details class="group">
+                                    <summary class="cursor-pointer text-xs font-bold text-fecolBlue hover:text-fecolRed list-none flex justify-between items-center bg-white border border-slate-200 px-4 py-2.5 rounded-lg shadow-sm">
+                                        <span><i class="fas fa-search-plus mr-2"></i>Ver análisis profundo</span>
+                                        <i class="fas fa-chevron-down text-[10px] group-open:rotate-180 transition-transform"></i>
+                                    </summary>
+                                    <div class="text-xs text-slate-600 mt-2 p-4 border border-slate-200 rounded-lg bg-white shadow-inner">
+                                        <p class="mb-2"><strong>Contexto de respuestas:</strong> 31 correctas / 3 incorrectas. Solo 3 personas respondieron que hay que tomarse más tiempo para analizar cada decisión.</p>
+                                        <p><strong>Interpretación:</strong> La audiencia entiende que en una industria de operación permanente (24/7) no basta con planear; se necesita reacción inmediata, alertas en tiempo real y trazabilidad total.</p>
+                                    </div>
+                                </details>
                             </div>
 
                             <!-- Pregunta 9 -->
-                            <div class="group border border-slate-100 rounded-lg p-4 hover:border-fecolBlue/30 hover:bg-slate-50 transition-all cursor-pointer">
-                                <div class="flex justify-between items-center mb-2">
+                            <div class="border border-slate-200 rounded-xl p-5 hover:border-fecolBlue/30 hover:bg-white bg-slate-50/50 transition-all">
+                                <div class="flex justify-between items-center mb-3">
                                     <h5 class="font-bold text-fecolBlue text-sm">P9: Compliance genera confianza y sostenibilidad</h5>
-                                    <span class="px-2 py-1 bg-green-100 text-green-700 font-bold text-xs rounded-full">82.9%</span>
+                                    <span class="px-3 py-1 bg-green-100 text-green-700 font-black text-xs rounded-full">82.9%</span>
                                 </div>
-                                <div class="w-full bg-slate-200 rounded-full h-2">
-                                    <div class="bg-green-500 h-2 rounded-full" style="width: 82.9%"></div>
+                                <div class="w-full bg-slate-200 rounded-full h-2.5 mb-3">
+                                    <div class="bg-green-500 h-2.5 rounded-full" style="width: 82.9%"></div>
                                 </div>
-                                <p class="text-xs text-slate-500 mt-2 hidden group-hover:block transition-all"><strong>Hallazgo:</strong> Se entiende como ventaja competitiva, pero algunos aún lo ven solo como costo para evitar multas.</p>
+                                <details class="group">
+                                    <summary class="cursor-pointer text-xs font-bold text-fecolBlue hover:text-fecolRed list-none flex justify-between items-center bg-white border border-slate-200 px-4 py-2.5 rounded-lg shadow-sm">
+                                        <span><i class="fas fa-search-plus mr-2"></i>Ver análisis profundo</span>
+                                        <i class="fas fa-chevron-down text-[10px] group-open:rotate-180 transition-transform"></i>
+                                    </summary>
+                                    <div class="text-xs text-slate-600 mt-2 p-4 border border-slate-200 rounded-lg bg-white shadow-inner">
+                                        <p class="mb-2"><strong>Contexto de respuestas:</strong> 29 correctas / 6 incorrectas. 5 personas lo asociaron con reducir costos y evitar sanciones, y 1 como un mero requisito.</p>
+                                        <p><strong>Interpretación:</strong> La mayoría ya entiende que compliance construye confianza y reputación. Pero todavía hay rezagos de personas que lo asocian exclusivamente con evitar multas o cumplir una obligación regulatoria.</p>
+                                    </div>
+                                </details>
+                            </div>
+                        </div>
+
+                        <!-- Demographic Breakdown -->
+                        <div class="mt-8 pt-6 border-t border-slate-200">
+                            <h4 class="text-sm font-bold text-slate-500 uppercase mb-4 tracking-wider"><i class="fas fa-users mr-2"></i>Perfil de Participantes (Muestra Representativa)</h4>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <div class="bg-fecolLight p-4 rounded-xl border border-slate-200 shadow-sm text-center">
+                                    <span class="block text-3xl font-black text-fecolBlue">18</span>
+                                    <span class="text-xs text-slate-500 font-bold uppercase">Alta Gerencia</span>
+                                </div>
+                                <div class="bg-fecolLight p-4 rounded-xl border border-slate-200 shadow-sm text-center">
+                                    <span class="block text-3xl font-black text-fecolBlue">11</span>
+                                    <span class="text-xs text-slate-500 font-bold uppercase">Gerencia Media</span>
+                                </div>
+                                <div class="bg-fecolLight p-4 rounded-xl border border-slate-200 shadow-sm text-center">
+                                    <span class="block text-3xl font-black text-fecolBlue">8</span>
+                                    <span class="text-xs text-slate-500 font-bold uppercase">Coordinación</span>
+                                </div>
+                                <div class="bg-fecolLight p-4 rounded-xl border border-slate-200 shadow-sm text-center">
+                                    <span class="block text-3xl font-black text-slate-400">8</span>
+                                    <span class="text-xs text-slate-500 font-bold uppercase">Otro</span>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Conclusión de la Encuesta -->
-                        <div class="mt-6 p-5 bg-fecolLight border border-slate-200 rounded-xl">
+                        <div class="mt-8 p-6 bg-fecolLight border border-slate-200 rounded-xl">
                             <h4 class="font-bold text-fecolBlue mb-2"><i class="fas fa-search-plus text-fecolRed mr-2"></i>Interpretación Estratégica</h4>
-                            <p class="text-sm text-slate-600">
-                                La audiencia domina conceptos avanzados de IA. <strong>El gran reto está en la fase inicial de implementación.</strong> Se necesita evangelizar que la IA sin un problema de negocio claro es solo tecnología buscando dónde meterse.
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                El ejercicio muestra una audiencia con <strong>buena madurez conceptual</strong> frente a IA, datos, liderazgo, operación y compliance. Sin embargo, el principal reto está en cambiar la mentalidad de implementación: <strong>la IA no debe empezar por la tecnología ni por el experto, sino por la identificación del problema real del negocio.</strong>
                             </p>
                         </div>
                     </div>
