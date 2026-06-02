@@ -126,6 +126,132 @@
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
+        /* Custom Carousel Styles */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            background: #0f172a; /* dark slate to frame the phone images */
+        }
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 500px; /* fixed height for the screenshots */
+        }
+        .carousel-slide {
+            flex: 0 0 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+        .carousel-slide img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            color: #2D3A49;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s;
+            z-index: 10;
+        }
+        .carousel-btn:hover {
+            background: white;
+            color: #E62B2E;
+            transform: translateY(-50%) scale(1.1);
+        }
+        .carousel-btn.prev { left: 1rem; }
+        .carousel-btn.next { right: 1rem; }
+        
+        .carousel-indicators {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+            z-index: 10;
+        }
+        .indicator {
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .indicator.active {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .app-container { flex-direction: column; }
+            .sidebar { 
+                width: 100%; 
+                height: auto; 
+                flex-direction: row; 
+                align-items: center; 
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+            }
+            .sidebar > div:first-child { 
+                padding: 1rem; 
+                flex-shrink: 0; 
+                border-bottom: none; 
+                border-right: 1px solid rgba(255,255,255,0.1); 
+            }
+            .sidebar > div:first-child .w-10 { width: 2rem; height: 2rem; font-size: 1rem; }
+            .sidebar > div:first-child .text-lg { font-size: 0.875rem; }
+            .sidebar > div:first-child .text-xs { font-size: 0.65rem; }
+            
+            #nav-container { 
+                flex-direction: row; 
+                display: flex; 
+                padding: 0; 
+                overflow-x: auto; 
+                overflow-y: hidden; 
+                flex-grow: 1; 
+                scroll-behavior: smooth;
+            }
+            #nav-container::-webkit-scrollbar { height: 4px; }
+            
+            .nav-item { 
+                flex: 0 0 auto; 
+                padding: 1rem 1.25rem; 
+                border-left: none; 
+                border-bottom: 3px solid transparent; 
+                font-size: 0.875rem;
+            }
+            .nav-item.active { 
+                border-left-color: transparent;
+                border-bottom-color: #E62B2E; 
+                background: rgba(230, 43, 46, 0.1);
+            }
+            
+            .slide { 
+                padding: 1.5rem 1rem 4rem 1rem; 
+            }
+            
+            .carousel-track { height: 350px; }
+        }
+
         /* Print Styles for PDF Export */
         @media print {
             body, .app-container, .main-content {
@@ -417,26 +543,26 @@
                     Desarrollamos documentos técnicos y estratégicos, empacados como productos digitales premium, disponibles actualmente en la sección "Tienda" de la página web. Listos para ser vendidos o usados como "Lead Magnets".
                 </p>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-white rounded-2xl p-6 border border-slate-100 card-shadow flex gap-6 items-center hover:-translate-y-1 transition-transform">
-                        <div class="w-24 h-32 rounded shadow-md overflow-hidden shrink-0 border border-slate-200">
-                            <img src="guias_buenas_practicas.jpeg" alt="Guía Buenas Prácticas" class="w-full h-full object-cover">
+                <div class="grid grid-cols-1 gap-12 max-w-4xl mx-auto">
+                    <div class="bg-white rounded-2xl p-8 border border-slate-100 card-shadow flex flex-col md:flex-row gap-8 items-center hover:-translate-y-1 transition-transform">
+                        <div class="w-64 md:w-80 rounded-xl shadow-2xl overflow-hidden shrink-0 border border-slate-200">
+                            <img src="guias_buenas_practicas.jpeg" alt="Guía Buenas Prácticas" class="w-full h-auto object-cover">
                         </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-fecolBlue mb-2">Guía de Buenas Prácticas</h3>
-                            <p class="text-sm text-slate-500 mb-4">Documento normativo e instructivo de alto valor para operadores de la industria.</p>
-                            <span class="text-sm font-bold text-fecolRed"><i class="fas fa-check-circle mr-1"></i> Publicado en Tienda</span>
+                        <div class="flex-grow text-center md:text-left">
+                            <h3 class="text-3xl font-black text-fecolBlue mb-4">Guía de Buenas Prácticas</h3>
+                            <p class="text-lg text-slate-500 mb-6 leading-relaxed">Documento normativo e instructivo de alto valor para operadores de la industria.</p>
+                            <span class="inline-block px-4 py-2 bg-red-50 text-fecolRed rounded-full text-sm font-bold border border-red-100"><i class="fas fa-check-circle mr-2"></i> Publicado en Tienda</span>
                         </div>
                     </div>
 
-                    <div class="bg-white rounded-2xl p-6 border border-slate-100 card-shadow flex gap-6 items-center hover:-translate-y-1 transition-transform">
-                        <div class="w-24 h-32 rounded shadow-md overflow-hidden shrink-0 border border-slate-200">
-                            <img src="manual_juego_responsable.jpeg" alt="Manual Juego Responsable" class="w-full h-full object-cover">
+                    <div class="bg-white rounded-2xl p-8 border border-slate-100 card-shadow flex flex-col md:flex-row gap-8 items-center hover:-translate-y-1 transition-transform">
+                        <div class="w-64 md:w-80 rounded-xl shadow-2xl overflow-hidden shrink-0 border border-slate-200">
+                            <img src="manual_juego_responsable.jpeg" alt="Manual Juego Responsable" class="w-full h-auto object-cover">
                         </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-fecolBlue mb-2">Manual de Juego Responsable</h3>
-                            <p class="text-sm text-slate-500 mb-4">Estrategias y cumplimiento normativo para el juego responsable en Colombia.</p>
-                            <span class="text-sm font-bold text-fecolRed"><i class="fas fa-check-circle mr-1"></i> Publicado en Tienda</span>
+                        <div class="flex-grow text-center md:text-left">
+                            <h3 class="text-3xl font-black text-fecolBlue mb-4">Manual de Juego Responsable</h3>
+                            <p class="text-lg text-slate-500 mb-6 leading-relaxed">Estrategias y cumplimiento normativo para el juego responsable en Colombia.</p>
+                            <span class="inline-block px-4 py-2 bg-red-50 text-fecolRed rounded-full text-sm font-bold border border-red-100"><i class="fas fa-check-circle mr-2"></i> Publicado en Tienda</span>
                         </div>
                     </div>
                 </div>
@@ -580,20 +706,45 @@
                 <div class="grid grid-cols-1 gap-8 mb-8">
                     
                     <!-- Acción 1 -->
-                    <div class="bg-white p-8 rounded-2xl border border-slate-200 card-shadow flex flex-col md:flex-row gap-8 items-center hover:shadow-xl transition-shadow">
-                        <div class="shrink-0 text-center bg-slate-50 p-6 rounded-xl border border-slate-100">
-                            <span class="block text-5xl font-black text-fecolBlue">278</span>
-                            <span class="text-xs text-slate-500 uppercase font-bold">Mensajes Enviados</span>
-                        </div>
+                    <div class="bg-white p-8 rounded-2xl border border-slate-200 card-shadow flex flex-col xl:flex-row gap-8 items-start xl:items-center hover:shadow-xl transition-shadow">
                         <div class="flex-grow">
-                            <div class="inline-block px-3 py-1 bg-green-100 text-green-700 font-bold text-xs rounded-full mb-3">Campaña 1</div>
-                            <h3 class="text-2xl font-bold text-fecolBlue mb-3">Capacitación Acuerdo 01 (Juegos Instantáneos)</h3>
-                            <p class="text-slate-600 mb-4">Micro-curso interactivo entregado directamente por WhatsApp a toda la base.</p>
+                            <div class="flex items-center gap-6 mb-6">
+                                <div class="shrink-0 text-center bg-slate-50 p-6 rounded-xl border border-slate-100">
+                                    <span class="block text-5xl font-black text-fecolBlue">278</span>
+                                    <span class="text-xs text-slate-500 uppercase font-bold">Mensajes Enviados</span>
+                                </div>
+                                <div>
+                                    <div class="inline-block px-3 py-1 bg-green-100 text-green-700 font-bold text-xs rounded-full mb-3">Campaña 1</div>
+                                    <h3 class="text-2xl font-bold text-fecolBlue mb-2">Capacitación Acuerdo 01 (Juegos Instantáneos)</h3>
+                                    <p class="text-slate-600">Micro-curso interactivo entregado directamente por WhatsApp a toda la base.</p>
+                                </div>
+                            </div>
+                            
                             <div class="flex items-center gap-4 bg-blue-50 p-4 rounded-lg border border-blue-100">
                                 <div class="w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center text-xl shrink-0"><i class="fas fa-bullseye"></i></div>
                                 <div>
                                     <p class="font-bold text-blue-900"><span class="text-xl">21 personas</span> completaron todo el flujo.</p>
                                     <p class="text-sm text-blue-800">Resultado cualitativo: Estas personas respondieron que están <strong>muy interesadas</strong> en recibir más información sobre juegos instantáneos.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Carousel C1 -->
+                        <div class="w-full xl:w-80 shrink-0">
+                            <div class="carousel-container" id="carousel-c1">
+                                <div class="carousel-track">
+                                    <div class="carousel-slide"><img src="flujoswa/acuerdo01-1.jpeg" alt="Paso 1"></div>
+                                    <div class="carousel-slide"><img src="flujoswa/acuerdo01-2.jpeg" alt="Paso 2"></div>
+                                    <div class="carousel-slide"><img src="flujoswa/acuerdo01-3.jpeg" alt="Paso 3"></div>
+                                    <div class="carousel-slide"><img src="flujoswa/acuerdo01-4.jpeg" alt="Paso 4"></div>
+                                </div>
+                                <div class="carousel-btn prev" onclick="moveCarousel('carousel-c1', -1)"><i class="fas fa-chevron-left"></i></div>
+                                <div class="carousel-btn next" onclick="moveCarousel('carousel-c1', 1)"><i class="fas fa-chevron-right"></i></div>
+                                <div class="carousel-indicators">
+                                    <div class="indicator active" onclick="setCarouselSlide('carousel-c1', 0)"></div>
+                                    <div class="indicator" onclick="setCarouselSlide('carousel-c1', 1)"></div>
+                                    <div class="indicator" onclick="setCarouselSlide('carousel-c1', 2)"></div>
+                                    <div class="indicator" onclick="setCarouselSlide('carousel-c1', 3)"></div>
                                 </div>
                             </div>
                         </div>
@@ -913,8 +1064,203 @@
                                 El ejercicio muestra una audiencia con <strong>buena madurez conceptual</strong> frente a IA, datos, liderazgo, operación y compliance. Sin embargo, el principal reto está en cambiar la mentalidad de implementación: <strong>la IA no debe empezar por la tecnología ni por el experto, sino por la identificación del problema real del negocio.</strong>
                             </p>
                         </div>
+                        
+                        <!-- Carousel C2 -->
+                        <div class="mt-8">
+                            <h4 class="text-sm font-bold text-slate-500 uppercase mb-4 tracking-wider"><i class="fas fa-mobile-alt mr-2"></i>Flujo en WhatsApp</h4>
+                            <div class="carousel-container" id="carousel-c2">
+                                <div class="carousel-track">
+                                    <div class="carousel-slide"><img src="flujoswa/encuesta_ia1.jpeg" alt="Paso 1"></div>
+                                    <div class="carousel-slide"><img src="flujoswa/escuesta_ia2.jpeg" alt="Paso 2"></div>
+                                    <div class="carousel-slide"><img src="flujoswa/encuesta_ia3.jpeg" alt="Paso 3"></div>
+                                    <div class="carousel-slide"><img src="flujoswa/encuesta_ia4.jpeg" alt="Paso 4"></div>
+                                    <div class="carousel-slide"><img src="flujoswa/encuesta_ia5.jpeg" alt="Paso 5"></div>
+                                </div>
+                                <div class="carousel-btn prev" onclick="moveCarousel('carousel-c2', -1)"><i class="fas fa-chevron-left"></i></div>
+                                <div class="carousel-btn next" onclick="moveCarousel('carousel-c2', 1)"><i class="fas fa-chevron-right"></i></div>
+                                <div class="carousel-indicators">
+                                    <div class="indicator active" onclick="setCarouselSlide('carousel-c2', 0)"></div>
+                                    <div class="indicator" onclick="setCarouselSlide('carousel-c2', 1)"></div>
+                                    <div class="indicator" onclick="setCarouselSlide('carousel-c2', 2)"></div>
+                                    <div class="indicator" onclick="setCarouselSlide('carousel-c2', 3)"></div>
+                                    <div class="indicator" onclick="setCarouselSlide('carousel-c2', 4)"></div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-                </div>
+
+                    <!-- Acción 3: Sondeo Elecciones -->
+                    <div class="bg-white p-8 rounded-2xl border border-slate-200 card-shadow hover:shadow-xl transition-shadow">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-6">
+                            <div>
+                                <div class="inline-block px-3 py-1 bg-green-100 text-green-700 font-bold text-xs rounded-full mb-3">Campaña 3</div>
+                                <h3 class="text-2xl font-bold text-fecolBlue">Sondeo Segunda Vuelta Presidencial</h3>
+                                <p class="text-slate-500">Medición de la percepción política y económica del sector.</p>
+                            </div>
+                            <div class="text-right mt-4 md:mt-0">
+                                <span class="block text-3xl font-black text-fecolRed">80.5%</span>
+                                <span class="text-xs text-slate-500 uppercase font-bold">Retención del Embudo</span>
+                            </div>
+                        </div>
+
+                        <!-- KPIs Principales -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 text-center">
+                                <span class="block text-3xl font-black text-fecolBlue">223</span>
+                                <span class="text-xs text-slate-500 uppercase font-bold">Total Respuestas</span>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 text-center">
+                                <span class="block text-3xl font-black text-fecolRed">41</span>
+                                <span class="text-xs text-slate-500 uppercase font-bold">Iniciaron (P1)</span>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 text-center">
+                                <span class="block text-3xl font-black text-green-600">33</span>
+                                <span class="text-xs text-slate-500 uppercase font-bold">Finalizaron (P6)</span>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 text-center">
+                                <span class="block text-3xl font-black text-orange-500">6</span>
+                                <span class="text-xs text-slate-500 uppercase font-bold">Preguntas</span>
+                            </div>
+                        </div>
+
+                        <!-- Resultados por Pregunta -->
+                        <h4 class="text-sm font-bold text-slate-500 uppercase mb-4 tracking-wider"><i class="fas fa-chart-pie mr-2"></i>Análisis de Resultados por Pregunta</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Pregunta 1 -->
+                            <div class="border border-slate-200 rounded-xl p-5 bg-slate-50/50 hover:bg-white hover:border-fecolBlue/30 transition-all">
+                                <h5 class="font-bold text-fecolBlue text-sm mb-4">P1: ¿Cómo te sientes frente a lo que pueda ocurrir en la segunda vuelta?</h5>
+                                <div class="space-y-3">
+                                    <div>
+                                        <div class="flex justify-between text-xs mb-1.5"><span class="font-bold text-slate-600">Optimista (25)</span><span class="font-black text-green-600">61%</span></div>
+                                        <div class="w-full bg-slate-200 rounded-full h-2"><div class="bg-green-500 h-2 rounded-full" style="width: 61%"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-xs mb-1.5"><span class="font-bold text-slate-600">Neutral (10)</span><span class="font-black text-blue-500">24%</span></div>
+                                        <div class="w-full bg-slate-200 rounded-full h-2"><div class="bg-blue-400 h-2 rounded-full" style="width: 24%"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-xs mb-1.5"><span class="font-bold text-slate-600">Pesimista (6)</span><span class="font-black text-red-500">15%</span></div>
+                                        <div class="w-full bg-slate-200 rounded-full h-2"><div class="bg-red-400 h-2 rounded-full" style="width: 15%"></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Pregunta 2 -->
+                            <div class="border border-slate-200 rounded-xl p-5 bg-slate-50/50 hover:bg-white hover:border-fecolBlue/30 transition-all">
+                                <h5 class="font-bold text-fecolBlue text-sm mb-4">P2: Ambiente social y económico del país próximas semanas</h5>
+                                <div class="space-y-3">
+                                    <div>
+                                        <div class="flex justify-between text-xs mb-1.5"><span class="font-bold text-slate-600">Positivo (17)</span><span class="font-black text-green-600">44%</span></div>
+                                        <div class="w-full bg-slate-200 rounded-full h-2"><div class="bg-green-500 h-2 rounded-full" style="width: 44%"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-xs mb-1.5"><span class="font-bold text-slate-600">Negativo (15)</span><span class="font-black text-red-500">38%</span></div>
+                                        <div class="w-full bg-slate-200 rounded-full h-2"><div class="bg-red-400 h-2 rounded-full" style="width: 38%"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-xs mb-1.5"><span class="font-bold text-slate-600">Sin cambios (7)</span><span class="font-black text-blue-500">18%</span></div>
+                                        <div class="w-full bg-slate-200 rounded-full h-2"><div class="bg-blue-400 h-2 rounded-full" style="width: 18%"></div></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Pregunta 3 -->
+                            <div class="border border-slate-200 rounded-xl p-5 bg-slate-50/50 hover:bg-white hover:border-fecolBlue/30 transition-all">
+                                <h5 class="font-bold text-fecolBlue text-sm mb-4">P3: Panorama para la industria legal tras resultados</h5>
+                                <div class="space-y-3">
+                                    <div>
+                                        <div class="flex justify-between text-xs mb-1.5"><span class="font-bold text-slate-600">Favorable (20)</span><span class="font-black text-green-600">54%</span></div>
+                                        <div class="w-full bg-slate-200 rounded-full h-2"><div class="bg-green-500 h-2 rounded-full" style="width: 54%"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-xs mb-1.5"><span class="font-bold text-slate-600">Estable (15)</span><span class="font-black text-blue-500">41%</span></div>
+                                        <div class="w-full bg-slate-200 rounded-full h-2"><div class="bg-blue-400 h-2 rounded-full" style="width: 41%"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-xs mb-1.5"><span class="font-bold text-slate-600">Desfavorable (2)</span><span class="font-black text-red-500">5%</span></div>
+                                        <div class="w-full bg-slate-200 rounded-full h-2"><div class="bg-red-400 h-2 rounded-full" style="width: 5%"></div></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Pregunta 4 -->
+                            <div class="border border-slate-200 rounded-xl p-5 bg-slate-50/50 hover:bg-white hover:border-fecolBlue/30 transition-all">
+                                <h5 class="font-bold text-fecolBlue text-sm mb-4">P4: ¿Se generaría una relación favorable con el sector empresarial?</h5>
+                                <div class="space-y-3">
+                                    <div>
+                                        <div class="flex justify-between text-xs mb-1.5"><span class="font-bold text-slate-600">Sí (23)</span><span class="font-black text-green-600">62%</span></div>
+                                        <div class="w-full bg-slate-200 rounded-full h-2"><div class="bg-green-500 h-2 rounded-full" style="width: 62%"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-xs mb-1.5"><span class="font-bold text-slate-600">Depende (12)</span><span class="font-black text-blue-500">32%</span></div>
+                                        <div class="w-full bg-slate-200 rounded-full h-2"><div class="bg-blue-400 h-2 rounded-full" style="width: 32%"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-xs mb-1.5"><span class="font-bold text-slate-600">No (2)</span><span class="font-black text-red-500">6%</span></div>
+                                        <div class="w-full bg-slate-200 rounded-full h-2"><div class="bg-red-400 h-2 rounded-full" style="width: 6%"></div></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Pregunta 5 -->
+                            <div class="border border-slate-200 rounded-xl p-5 bg-slate-50/50 hover:bg-white hover:border-fecolBlue/30 transition-all">
+                                <h5 class="font-bold text-fecolBlue text-sm mb-4">P5: Importancia de postura clara frente a la industria</h5>
+                                <div class="space-y-3">
+                                    <div>
+                                        <div class="flex justify-between text-xs mb-1.5"><span class="font-bold text-slate-600">Muy importante (22)</span><span class="font-black text-green-600">61%</span></div>
+                                        <div class="w-full bg-slate-200 rounded-full h-2"><div class="bg-green-500 h-2 rounded-full" style="width: 61%"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-xs mb-1.5"><span class="font-bold text-slate-600">Importante (11)</span><span class="font-black text-blue-500">31%</span></div>
+                                        <div class="w-full bg-slate-200 rounded-full h-2"><div class="bg-blue-400 h-2 rounded-full" style="width: 31%"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-xs mb-1.5"><span class="font-bold text-slate-600">Poco importante (3)</span><span class="font-black text-red-500">8%</span></div>
+                                        <div class="w-full bg-slate-200 rounded-full h-2"><div class="bg-red-400 h-2 rounded-full" style="width: 8%"></div></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                                <!-- Pregunta 6 -->
+                                <div class="border border-slate-200 rounded-xl p-5 bg-slate-50/50 hover:bg-white hover:border-fecolBlue/30 transition-all">
+                                    <h5 class="font-bold text-fecolBlue text-sm mb-4">P6: Afinidad o respaldo de candidatos hacia la industria</h5>
+                                    <div class="space-y-3">
+                                        <div>
+                                            <div class="flex justify-between text-xs mb-1.5"><span class="font-bold text-slate-600">Sí, uno de ellos (25)</span><span class="font-black text-green-600">76%</span></div>
+                                            <div class="w-full bg-slate-200 rounded-full h-2"><div class="bg-green-500 h-2 rounded-full" style="width: 76%"></div></div>
+                                        </div>
+                                        <div>
+                                            <div class="flex justify-between text-xs mb-1.5"><span class="font-bold text-slate-600">Depende (6)</span><span class="font-black text-blue-500">18%</span></div>
+                                            <div class="w-full bg-slate-200 rounded-full h-2"><div class="bg-blue-400 h-2 rounded-full" style="width: 18%"></div></div>
+                                        </div>
+                                        <div>
+                                            <div class="flex justify-between text-xs mb-1.5"><span class="font-bold text-slate-600">Ninguno (2)</span><span class="font-black text-red-500">6%</span></div>
+                                            <div class="w-full bg-slate-200 rounded-full h-2"><div class="bg-red-400 h-2 rounded-full" style="width: 6%"></div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Carousel C3 -->
+                        <div class="w-full mt-8">
+                            <h4 class="text-sm font-bold text-slate-500 uppercase mb-4 tracking-wider"><i class="fas fa-mobile-alt mr-2"></i>Flujo en WhatsApp</h4>
+                            <div class="carousel-container" id="carousel-c3">
+                                <div class="carousel-track">
+                                    <div class="carousel-slide"><img src="flujoswa/Percepcion-politica-1.jpeg" alt="Paso 1"></div>
+                                    <div class="carousel-slide"><img src="flujoswa/percepcion_politica-2.jpeg" alt="Paso 2"></div>
+                                </div>
+                                <div class="carousel-btn prev" onclick="moveCarousel('carousel-c3', -1)"><i class="fas fa-chevron-left"></i></div>
+                                <div class="carousel-btn next" onclick="moveCarousel('carousel-c3', 1)"><i class="fas fa-chevron-right"></i></div>
+                                <div class="carousel-indicators">
+                                    <div class="indicator active" onclick="setCarouselSlide('carousel-c3', 0)"></div>
+                                    <div class="indicator" onclick="setCarouselSlide('carousel-c3', 1)"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 
                 <!-- Gran Conclusión -->
                 <div class="bg-gradient-to-r from-fecolBlue to-slate-900 p-8 rounded-2xl flex flex-col md:flex-row items-center gap-6 shadow-2xl text-white transform hover:-translate-y-1 transition-transform border border-white/10">
@@ -933,40 +1279,52 @@
                 <div class="badge bg-fecolRed/10 text-fecolRed mb-4">Formato Media</div>
                 <h2 class="text-4xl font-black text-fecolBlue mb-8">Producción Audiovisual (Voces del Juego)</h2>
                 
-                <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
-                    <div class="lg:col-span-3">
-                        <p class="text-lg text-slate-600 mb-6">
-                            Para posicionar a los líderes del gremio, iniciamos la producción de videos de entrevistas cortas y directas, diseñadas para consumo en redes (LinkedIn/Meta).
+                <div class="bg-slate-900 rounded-3xl p-8 md:p-12 shadow-2xl text-white relative overflow-hidden flex flex-col md:flex-row items-center gap-12">
+                    <!-- Decoración de fondo -->
+                    <div class="absolute -top-24 -right-24 w-64 h-64 bg-fecolRed opacity-20 rounded-full blur-3xl"></div>
+                    <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/50 to-transparent"></div>
+
+                    <!-- Text & Stats -->
+                    <div class="relative z-10 w-full md:w-1/2">
+                        <p class="text-xl text-slate-300 mb-8 leading-relaxed font-light">
+                            Para posicionar a los líderes del gremio, iniciamos la producción de videos de entrevistas cortas y directas, diseñadas para alto impacto y consumo ágil en redes sociales (LinkedIn / Meta).
                         </p>
                         
-                        <div class="flex flex-col gap-4">
-                            <div class="flex items-center justify-between p-4 bg-white border border-slate-200 rounded-xl card-shadow">
-                                <div class="flex items-center gap-3">
-                                    <i class="fas fa-video text-fecolRed text-xl"></i>
-                                    <span class="font-bold text-fecolBlue">Videos Grabados y Editados</span>
-                                </div>
-                                <span class="text-2xl font-black">5</span>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-white/10 p-5 rounded-2xl border border-white/10 backdrop-blur-md text-center hover:bg-white/20 transition-colors">
+                                <span class="block text-5xl font-black text-white mb-2">5</span>
+                                <span class="text-xs text-slate-400 font-bold uppercase tracking-wider"><i class="fas fa-video mr-2"></i>Grabados & Editados</span>
                             </div>
-                            <div class="flex items-center justify-between p-4 bg-white border border-slate-200 rounded-xl card-shadow">
-                                <div class="flex items-center gap-3">
-                                    <i class="fas fa-cloud-upload-alt text-green-500 text-xl"></i>
-                                    <span class="font-bold text-fecolBlue">Videos Publicados</span>
-                                </div>
-                                <span class="text-2xl font-black">2</span>
+                            <div class="bg-white/10 p-5 rounded-2xl border border-white/10 backdrop-blur-md text-center hover:bg-white/20 transition-colors">
+                                <span class="block text-5xl font-black text-white mb-2">2</span>
+                                <span class="text-xs text-green-400 font-bold uppercase tracking-wider"><i class="fas fa-cloud-upload-alt mr-2"></i>Publicados</span>
                             </div>
-                            <div class="flex items-center justify-between p-4 bg-white border border-slate-200 rounded-xl card-shadow">
-                                <div class="flex items-center gap-3">
-                                    <i class="fas fa-hourglass-half text-orange-500 text-xl"></i>
-                                    <span class="font-bold text-fecolBlue">Videos por Publicar</span>
-                                </div>
-                                <span class="text-2xl font-black">3</span>
+                            <div class="bg-white/10 p-5 rounded-2xl border border-fecolRed/30 backdrop-blur-md text-center col-span-2 shadow-[0_0_20px_rgba(230,43,46,0.1)]">
+                                <span class="block text-5xl font-black text-fecolRed mb-2">3</span>
+                                <span class="text-xs text-slate-300 font-bold uppercase tracking-wider"><i class="fas fa-hourglass-half mr-2"></i>Listos por Publicar</span>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="lg:col-span-2">
-                        <div class="h-80 rounded-2xl card-shadow border border-slate-100 overflow-hidden">
-                            <img src="videos_editados.jpeg" alt="Videos Editados" class="w-full h-full object-cover object-top">
+                    <!-- Image/Video Mockup -->
+                    <div class="relative z-10 w-full md:w-1/2 flex justify-center">
+                        <div class="relative w-full max-w-sm rounded-2xl overflow-hidden shadow-2xl border border-white/20 bg-black aspect-[9/16]">
+                            <img src="videos_editados.jpeg" alt="Videos Editados" class="w-full h-full object-cover opacity-80">
+                            
+                            <!-- Interfaz de Video -->
+                            <div class="absolute inset-0 flex flex-col justify-between p-4">
+                                <div class="flex justify-end">
+                                    <span class="bg-black/50 text-white text-[10px] px-2 py-1 rounded backdrop-blur-sm font-bold tracking-widest uppercase">HD</span>
+                                </div>
+                                <div class="flex-grow flex items-center justify-center">
+                                    <div class="w-20 h-20 bg-fecolRed/90 rounded-full flex items-center justify-center text-white text-3xl shadow-[0_0_30px_rgba(230,43,46,0.6)] cursor-pointer hover:scale-110 transition-transform hover:bg-fecolRed backdrop-blur-md">
+                                        <i class="fas fa-play ml-2"></i>
+                                    </div>
+                                </div>
+                                <div class="w-full bg-white/20 h-1.5 rounded-full overflow-hidden backdrop-blur-sm">
+                                    <div class="bg-fecolRed w-1/3 h-full"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1091,6 +1449,63 @@
         // Scroll to top of the main container when changing slides
         document.getElementById('main-content').scrollTop = 0;
     }
+
+    // Carousel logic
+    const carouselState = {};
+
+    function getCarouselIndex(carouselId) {
+        if (typeof carouselState[carouselId] === 'undefined') {
+            carouselState[carouselId] = 0;
+        }
+        return carouselState[carouselId];
+    }
+
+    function moveCarousel(carouselId, direction) {
+        const container = document.getElementById(carouselId);
+        if (!container) return;
+        const track = container.querySelector('.carousel-track');
+        const slides = track.querySelectorAll('.carousel-slide');
+        
+        const totalSlides = slides.length;
+        if (totalSlides === 0) return;
+        
+        let currentIndex = getCarouselIndex(carouselId);
+        currentIndex = (currentIndex + direction + totalSlides) % totalSlides;
+        
+        setCarouselSlide(carouselId, currentIndex);
+    }
+
+    function setCarouselSlide(carouselId, index) {
+        const container = document.getElementById(carouselId);
+        if (!container) return;
+        const track = container.querySelector('.carousel-track');
+        const indicators = container.querySelectorAll('.indicator');
+        
+        carouselState[carouselId] = index;
+        
+        // Move track
+        if (track) {
+            track.style.transform = `translateX(-${index * 100}%)`;
+        }
+        
+        // Update indicators
+        if (indicators) {
+            indicators.forEach((ind, i) => {
+                if (i === index) ind.classList.add('active');
+                else ind.classList.remove('active');
+            });
+        }
+    }
+
+    // Initialize carousels on load just in case
+    function initCarousels() {
+        document.querySelectorAll('.carousel-container').forEach(container => {
+            getCarouselIndex(container.id);
+        });
+    }
+    window.addEventListener('DOMContentLoaded', initCarousels);
+    // Also run immediately for static files where event might have passed
+    initCarousels();
 </script>
 
 </body>
