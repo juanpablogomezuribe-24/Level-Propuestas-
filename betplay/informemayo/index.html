@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte de Contenidos - Betplay</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-main: #111827;
+            --text-muted: #6B7280;
+            --card-bg: #F9FAFB;
+            --border-color: #E5E7EB;
+            --accent: #2563EB; /* Premium Blue */
+            --accent-hover: #1D4ED8;
+            --success: #10B981;
+            --highlight: #F59E0B; /* Betplay-ish Yellow/Gold */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .dashboard-container {
+            width: 100%;
+            max-width: 1100px;
+            /* diapositiva aspect ratio approximation */
+            min-height: 700px;
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08);
+            border: 1px solid var(--border-color);
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-titles h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text-main);
+            margin-bottom: 0.25rem;
+        }
+
+        .header-titles p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        .brand-badge {
+            background: var(--text-main);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .brand-badge span {
+            color: var(--highlight);
+        }
+
+        /* Summary Cards */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .summary-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -10px rgba(0,0,0,0.05);
+        }
+
+        .summary-card.total-card {
+            background: var(--text-main);
+            color: white;
+            border-color: var(--text-main);
+        }
+
+        .card-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .total-card .card-label {
+            color: #9CA3AF;
+        }
+
+        .card-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .total-card .card-value {
+            color: var(--highlight);
+        }
+
+        /* Table */
+        .table-container {
+            background: #ffffff;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            flex-grow: 1;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            background: var(--card-bg);
+            padding: 1rem 1.5rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            font-weight: 600;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        td {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.95rem;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background: #F8FAFC;
+        }
+
+        .influencer-name {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.8rem;
+            background: #EFF6FF;
+            color: var(--accent);
+            text-decoration: none;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .link-btn:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        .link-btn svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        @media (max-width: 1024px) {
+            .summary-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+            .dashboard-container {
+                padding: 1.5rem;
+            }
+        }
+        
+        /* Print styles to ensure it looks perfect when saved to PDF */
+        @media print {
+            body { padding: 0; background: white; }
+            .dashboard-container { 
+                box-shadow: none; 
+                border: none;
+                max-width: 100%;
+                padding: 0;
+            }
+            .summary-card.total-card {
+                -webkit-print-color-adjust: exact;
+                background-color: var(--text-main) !important;
+            }
+            .link-btn {
+                -webkit-print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header>
+            <div class="header-titles">
+                <h1>Reporte de Contenidos</h1>
+                <p>Periodo: 1 de Mayo - 5 de Junio</p>
+            </div>
+            <div class="brand-badge">
+                <span>●</span> Betplay
+            </div>
+        </header>
+
+        <!-- Summary -->
+        <div class="summary-grid">
+            <div class="summary-card">
+                <div class="card-label">Total Contenidos</div>
+                <div class="card-value">13</div>
+            </div>
+            <div class="summary-card">
+                <div class="card-label">Inversión Contenidos</div>
+                <div class="card-value">$15.000.000</div>
+            </div>
+            <div class="summary-card">
+                <div class="card-label">Fee de Agencia (15%)</div>
+                <div class="card-value">$2.250.000</div>
+            </div>
+            <div class="summary-card total-card">
+                <div class="card-label">Valor Total</div>
+                <div class="card-value">$17.250.000</div>
+            </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Influencer</th>
+                        <th>Evento / Campaña</th>
+                        <th>Enlace de Contenido</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <!-- Rows will be injected here via JS -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const contents = [
+            { "influencer": "Paola", "link": "https://www.instagram.com/p/DYM-7a5N5wb/", "evento": "Cuartos de final ida - Tolima vs Pasto" },
+            { "influencer": "Bohorquez", "link": "https://www.instagram.com/p/DYSpjimMseE/", "evento": "Cuartos de final vuelta - Nacional vs Inter" },
+            { "influencer": "JuanNico", "link": "https://www.instagram.com/p/DYSW1jsMlca/", "evento": "Cuartos de final vuelta - Santa Fe vs América" },
+            { "influencer": "David Pasto", "link": "https://www.instagram.com/p/DYS8KT8N8G6/", "evento": "Cuartos de final vuelta - Pasto vs Tolima" },
+            { "influencer": "Paola", "link": "https://www.instagram.com/p/DYfnEIusTxq/", "evento": "Liga Colombiana: Semifinal Tolima vs Nacional" },
+            { "influencer": "Jorge Guerre", "link": "https://www.instagram.com/reel/DYkFp87M7xH/", "evento": "Liga Colombiana: Semifinal Santa Fe vs Junior" },
+            { "influencer": "Juanita Gómez", "link": "https://www.instagram.com/p/DYnnLVltvE4/", "evento": "Liga Colombiana: Semifinal Santa Fe vs Junior" },
+            { "influencer": "Geraldine", "link": "historia", "evento": "Copa Colombia: Quindio vs inter de palmira" },
+            { "influencer": "Bohorquez", "link": "https://www.instagram.com/reel/DY25UTZM2w1/?igsh=b3podm9xZHo3MmVo", "evento": "Liga Colombiana: Semifinal  Nacional vs Tolima" },
+            { "influencer": "Isabella", "link": "https://www.instagram.com/p/DY2Yj7KsV42/", "evento": "Liga Colombiana: Semifinal  Junior vs Santa Fe" },
+            { "influencer": "Isabella", "link": "https://www.instagram.com/p/DZQrjCmsorH/", "evento": "Liga Colombiana: Final Ida" },
+            { "influencer": "Bohorquez", "link": "https://www.instagram.com/p/DZa1eoNswZ8/", "evento": "Liga Colombiana: Final Vuelta" },
+            { "influencer": "Isabella", "link": "https://www.instagram.com/reel/DZdEFS8MO50/", "evento": "Liga Colombiana: Final Vuelta" }
+        ];
+
+        const tbody = document.getElementById('table-body');
+        
+        contents.forEach(item => {
+            const tr = document.createElement('tr');
+            
+            // Get initials
+            const initial = item.influencer.charAt(0).toUpperCase();
+            
+            // Create link button safely
+            let linkHtml = `<span class="text-muted">No disponible</span>`;
+            if (item.link && item.link.startsWith('http')) {
+                linkHtml = `<a href="${item.link}" target="_blank" class="link-btn">
+                                Ver Video 
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                            </a>`;
+            } else if (item.link === 'historia') {
+                linkHtml = `<span style="font-size:0.85rem; padding: 0.3rem 0.8rem; background: #F3F4F6; border-radius: 999px; color: #6B7280; font-weight: 600;">Historia (IG)</span>`;
+            }
+
+            tr.innerHTML = `
+                <td>
+                    <div class="influencer-name">
+                        <div class="avatar">${initial}</div>
+                        ${item.influencer}
+                    </div>
+                </td>
+                <td>${item.evento}</td>
+                <td>${linkHtml}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    </script>
+</body>
+</html>
