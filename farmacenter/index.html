@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmacenter - Backoffice</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        brand: {
+                            dark: '#1c1f36',
+                            yellow: '#fde047',
+                            light: '#f8fafc',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px;}
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 20px; }
+        .kanban-col { min-height: 500px; }
+        .kanban-card { cursor: pointer; }
+        .editable-input { width: 100%; border: none; border-bottom: 2px solid #3b82f6; outline: none; background: transparent; font-weight: 900; color: #1e293b; font-size: inherit; padding: 0; margin: 0; }
+        input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        
+        /* Bar chart animation */
+        @keyframes growUp { from { height: 0; opacity: 0; } to { opacity: 1; } }
+        .chart-bar { animation: growUp 1s ease-out forwards; }
+    </style>
+</head>
+<body class="bg-brand-light font-sans text-slate-800 flex h-screen overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside class="w-[260px] bg-brand-dark flex flex-col h-full text-slate-300 flex-shrink-0 z-20 shadow-xl">
+        <div class="h-20 flex items-center px-6 justify-between border-b border-white/5">
+            <h1 class="text-brand-yellow font-black text-2xl tracking-tighter">Farmacenter<span class="text-white text-xs align-top inline-block ml-1">®</span></h1>
+        </div>
+
+        <nav class="flex-1 overflow-y-auto custom-scrollbar px-3 py-4 space-y-1">
+            <div class="px-3 pb-2"><span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Módulos Generales</span></div>
+            <button onclick="switchView('dashboard')" id="nav-dashboard" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors group text-slate-400">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                <span class="font-medium text-[14px]">Dashboard B2B</span>
+            </button>
+            <button onclick="switchView('logistics')" id="nav-logistics" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors group text-slate-400">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                <span class="font-medium text-[14px]">Logística y Activaciones</span>
+            </button>
+            
+            <div class="pt-6 pb-2 px-3"><span class="text-[11px] font-bold text-brand-yellow uppercase tracking-wider">Shopper & CRM</span></div>
+            <button onclick="switchView('sorteos')" id="nav-sorteos" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg bg-[#141629] text-brand-yellow shadow-inner border-l-4 border-brand-yellow group">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                <span class="font-semibold text-[14px]">Sorteos y Validaciones</span>
+            </button>
+            <button onclick="switchView('invoices')" id="nav-invoices" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors group text-slate-400">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                <span class="font-medium text-[14px]">Facturas y Clientes</span>
+            </button>
+
+            <div class="pt-6 pb-2 px-3"><span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Ajustes B2B</span></div>
+            <button onclick="switchView('database')" id="nav-database" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors group text-slate-400">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                <span class="font-medium text-[14px]">Base Droguerías</span>
+            </button>
+            <button onclick="switchView('catalog')" id="nav-catalog" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors group text-slate-400">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                <span class="font-medium text-[14px]">Materiales Activación</span>
+            </button>
+        </nav>
+        
+        <div class="p-4 border-t border-white/10 flex items-center gap-3 bg-black/10">
+            <div class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center font-bold text-white">FC</div>
+            <div class="flex-1 min-w-0"><h4 class="text-sm font-semibold text-white truncate">Admin Farmacenter</h4></div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-full bg-slate-50 relative z-10 overflow-hidden">
+        
+        <header class="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-8 flex-shrink-0 z-20">
+            <div id="header-title">
+                <h2 class="text-xl font-bold text-slate-800">Pipeline de Solicitudes</h2>
+                <p class="text-sm text-slate-500 font-medium">Visualiza y gestiona las activaciones solicitadas por las farmacias.</p>
+            </div>
+            <div id="header-actions" class="flex items-center gap-4">
+                <button class="bg-white border border-slate-200 text-slate-600 px-4 py-2 rounded-lg text-sm font-bold shadow-sm hover:bg-slate-50">Exportar Reporte</button>
+            </div>
+        </header>
+
+        <!-- VIEW 0: DASHBOARD -->
+        <div id="view-dashboard" class="flex-1 flex flex-col h-full overflow-hidden hidden bg-slate-50">
+            <!-- HEADER FILTERS -->
+            <div class="bg-white border-b border-slate-200 p-6 flex justify-between items-center z-10 shadow-sm relative">
+                <div>
+                    <h2 class="text-xl font-black text-slate-800">Rendimiento y Metas (B2B)</h2>
+                    <p class="text-xs text-slate-500 font-medium">Logística y Presupuesto de Activaciones</p>
+                </div>
+                <div class="flex gap-3">
+                    <button onclick="openConfigGoalsModal()" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-sm hover:bg-blue-700 flex items-center gap-2">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg> Configurar Metas
+                    </button>
+                    <select id="dash-filter-month" onchange="updateDashboardFilters()" class="border border-slate-200 text-sm font-bold text-slate-600 rounded-lg px-3 py-2 outline-none w-32 shadow-sm bg-slate-50 focus:border-blue-500 focus:bg-white transition-colors appearance-none">
+                        <option>Mes: Junio</option><option>Mes: Julio</option><option>Mes: Agosto</option>
+                    </select>
+                    <select id="dash-filter-region" onchange="updateDashboardFilters()" class="border border-slate-200 text-sm font-bold text-slate-600 rounded-lg px-3 py-2 outline-none w-40 shadow-sm bg-slate-50 focus:border-blue-500 focus:bg-white transition-colors appearance-none">
+                        <option>Región: Nacional</option><option>Bogotá</option><option>Medellín</option><option>Cali</option>
+                    </select>
+                    <select id="dash-filter-brand" onchange="updateDashboardFilters()" class="border border-slate-200 text-sm font-bold text-slate-600 rounded-lg px-3 py-2 outline-none w-48 shadow-sm bg-slate-50 focus:border-blue-500 focus:bg-white transition-colors appearance-none">
+                        <option>Marca: Todas</option><option>Farmacenter</option><option>Farmaunión</option><option>Independientes</option>
+                    </select>
+                </div>
+                <button id="dash-logistics-alert" onclick="switchView('logistics')" class="hidden bg-amber-100 text-amber-700 border border-amber-300 px-4 py-2 rounded-lg text-sm font-bold shadow-sm flex items-center gap-2 hover:bg-amber-200 transition-colors animate-pulse">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    <span id="dash-logistics-text">Tienes solicitudes pendientes</span>
+                </button>
+            </div>
+
+            <div class="flex-1 overflow-y-auto p-6 space-y-6">
+                
+                <!-- ROW 1: METAS Y PRESUPUESTO -->
+                <div class="grid grid-cols-4 gap-6">
+                    <!-- KPI 1: PRESUPUESTO -->
+                    <div id="dash-budget-card" class="col-span-2 bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl p-6 text-white shadow-md relative overflow-hidden flex flex-col justify-between transition-colors duration-500">
+                        <div class="relative z-10 flex justify-between items-start">
+                            <div>
+                                <p class="text-blue-200 font-bold text-xs uppercase tracking-wider mb-1">Presupuesto General (Año)</p>
+                                <h3 id="dash-budget-total" class="text-3xl font-black mb-1">$200,000,000</h3>
+                                <p class="text-sm text-blue-100 flex items-center gap-1">Fondo Consolidado</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-blue-200 font-bold text-xs uppercase tracking-wider mb-1">Total Copagos Aportados</p>
+                                <h3 class="text-xl font-black text-emerald-300">+$12,500,000</h3>
+                            </div>
+                        </div>
+                        <div class="relative z-10 mt-4">
+                            <div class="flex justify-between text-xs font-bold text-blue-100 mb-1"><span id="dash-budget-executed-text">Ejecutado: $45.2M</span><span id="dash-budget-pct">22%</span></div>
+                            <div class="w-full bg-blue-900/50 rounded-full h-2 overflow-hidden"><div id="dash-budget-bar" class="bg-emerald-400 h-2 rounded-full transition-all duration-500" style="width: 22%"></div></div>
+                        </div>
+                        <svg class="absolute -bottom-4 -right-4 w-32 h-32 opacity-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </div>
+                    <!-- KPI 2: META MENSUAL -->
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between">
+                        <div>
+                            <p class="text-slate-500 font-bold text-xs uppercase tracking-wider mb-2 flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-400"></span> Meta Mensual</p>
+                            <h3 class="text-4xl font-black text-slate-800 mb-1"><span id="dash-monthly-val">128</span> <span class="text-lg text-slate-400 font-bold">/ <span id="dash-monthly-target">200</span></span></h3>
+                            <p id="dash-monthly-status" class="text-xs text-amber-600 font-bold bg-amber-50 inline-block px-2 py-0.5 rounded transition-all duration-300">¡Alerta! Colgados (-72)</p>
+                        </div>
+                        <div class="mt-4">
+                            <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden"><div id="dash-monthly-bar" class="bg-amber-400 h-2 rounded-full transition-all duration-500" style="width: 64%"></div></div>
+                        </div>
+                    </div>
+                    <!-- KPI 3: META ANUAL -->
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between">
+                        <div>
+                            <p class="text-slate-500 font-bold text-xs uppercase tracking-wider mb-2 flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Meta Anual</p>
+                            <h3 class="text-4xl font-black text-slate-800 mb-1"><span id="dash-annual-val">540</span> <span class="text-lg text-slate-400 font-bold">/ <span id="dash-annual-target">1500</span></span></h3>
+                            <p id="dash-annual-status" class="text-xs text-emerald-600 font-bold bg-emerald-50 inline-block px-2 py-0.5 rounded transition-all duration-300">A buen ritmo (36%)</p>
+                        </div>
+                        <div class="mt-4">
+                            <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden"><div id="dash-annual-bar" class="bg-emerald-500 h-2 rounded-full transition-all duration-500" style="width: 36%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ROW 2: DESEMPEÑO -->
+                <div class="grid grid-cols-2 gap-6">
+                    <!-- ACTIVACIONES POR MARCA -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                        <div class="mb-6">
+                            <h3 class="font-bold text-lg text-slate-800">Desempeño por Marca</h3>
+                            <p class="text-xs text-slate-500">Participación en activaciones solicitadas</p>
+                        </div>
+                        <div id="dash-brand-performance" class="space-y-4">
+                            <!-- Inyectado dinámicamente -->
+                        </div>
+                    </div>
+                    
+                    <!-- DESEMPEÑO POR REGIÓN -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                        <div class="mb-6">
+                            <h3 class="font-bold text-lg text-slate-800">Desempeño por Ciudad / Región</h3>
+                            <p class="text-xs text-slate-500">Zonas con mayor tracción</p>
+                        </div>
+                        <div id="dash-region-performance" class="space-y-4">
+                            <!-- Inyectado dinámicamente -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ROW 3: TOP DROGUERIAS -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-800">Top 5 Droguerías</h3>
+                            <p class="text-xs text-slate-500">Filtrado por: <span id="dash-top-label" class="font-bold text-slate-700 uppercase tracking-wider">Nacional - Todas</span></p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4" id="dash-top-pharmacies">
+                        <!-- Inyectado dinámicamente -->
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+        <!-- VIEW 1: LOGISTICS -->
+        <div id="view-logistics" class="flex-1 flex flex-col h-full overflow-hidden hidden bg-slate-50">
+            <!-- TABS -->
+            <div class="bg-white border-b border-slate-200 px-6 pt-4 flex gap-6 text-sm font-bold text-slate-500 z-10 flex-shrink-0">
+                <button onclick="switchLogisticsTab('kanban')" id="tab-log-kanban" class="pb-3 border-b-2 border-blue-600 text-blue-600 transition-colors">Pipeline Solicitudes</button>
+                <button onclick="switchLogisticsTab('agenda')" id="tab-log-agenda" class="pb-3 border-b-2 border-transparent hover:text-slate-800 transition-colors">Calendario Global</button>
+            </div>
+            
+            <div id="subview-kanban" class="flex-1 flex flex-col h-full overflow-hidden">
+                <!-- Metrics Dashboard -->
+            <div class="px-6 pt-6 pb-2 flex gap-4 flex-shrink-0" id="kanban-metrics-container"></div>
+
+            <!-- Kanban Board -->
+            <div class="flex-1 overflow-x-auto overflow-y-hidden p-6 pt-4 custom-scrollbar">
+                <div class="flex gap-6 h-full items-start w-max">
+                    <div class="w-[320px] bg-slate-100/50 border border-slate-200 rounded-2xl flex flex-col h-full max-h-full transition-colors duration-300">
+                        <div class="p-4 border-b border-slate-200 flex justify-between items-center bg-slate-100 rounded-t-2xl">
+                            <div class="flex items-center gap-2"><div class="w-2.5 h-2.5 bg-blue-500 rounded-full shadow-[0_0_8px_rgba(59,130,246,0.5)]"></div><h3 class="font-bold text-slate-700 text-[14px]">Nuevas Solicitudes</h3></div>
+                            <span id="badge-nuevas" class="bg-white px-2 py-0.5 rounded-full text-[11px] font-black text-slate-500 shadow-sm transition-all">1</span>
+                        </div>
+                        <div id="col-nuevas" class="p-3 overflow-y-auto custom-scrollbar flex-1 space-y-3 kanban-col transition-all">
+                            <div id="card-sanmartin" data-date="2026-06-15" data-time="08:00" onclick="openDetailPanel('card-sanmartin')" class="bg-white rounded-xl p-4 shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all kanban-card group relative overflow-hidden">
+                                <div class="flex justify-between items-start mb-3 relative z-10"><span id="status-tag-sanmartin" class="text-[10px] font-black uppercase tracking-wider text-blue-600 bg-blue-50 px-2 py-0.5 rounded transition-colors duration-500">15 Jun - 08:00 AM</span><span class="text-xs text-slate-400">Hace 2h</span></div>
+                                <h4 id="name-card-sanmartin" class="font-bold text-slate-800 text-[15px] mb-1 relative z-10">Farmacenter San Martín</h4>
+                                <p class="text-[12px] text-slate-500 mb-3 flex items-center gap-1 relative z-10"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Cód: 2048 | Solicitante: Juan Pérez</p>
+                                <div class="bg-slate-50 rounded-lg p-2.5 border border-slate-100 mb-2 space-y-1 relative z-10">
+                                    <div class="flex justify-between text-[11px]"><span class="text-slate-500">Total Solicitado:</span><span class="font-bold text-slate-800">$840,000</span></div>
+                                    <div class="flex justify-between text-[11px] pt-1 border-t border-slate-200"><span class="text-red-500 font-bold">A cobrar (Copago + Exc.):</span><span class="font-bold text-red-600">$168,000</span></div>
+                                </div>
+                                <div class="text-[10px] text-blue-600 font-bold text-center opacity-0 group-hover:opacity-100 transition-opacity relative z-10">Haz clic para ver desglose ➔</div>
+                            </div>
+                            <div id="card-larebaja" data-date="2026-06-10" data-time="09:00" onclick="openDetailPanel('card-larebaja')" class="bg-white rounded-xl p-4 shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all kanban-card group relative overflow-hidden">
+                                <div class="flex justify-between items-start mb-3 relative z-10"><span id="status-tag-larebaja" class="text-[10px] font-black uppercase tracking-wider text-blue-600 bg-blue-50 px-2 py-0.5 rounded transition-colors duration-500">10 Jun - 09:00 AM</span><span class="text-xs text-slate-400">Hace 5h</span></div>
+                                <h4 id="name-card-larebaja" class="font-bold text-slate-800 text-[15px] mb-1 relative z-10">Farmacenter La Rebaja</h4>
+                                <p class="text-[12px] text-slate-500 mb-3 flex items-center gap-1 relative z-10"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Cód: 1024 | Solicitante: María López</p>
+                                <div class="bg-slate-50 rounded-lg p-2.5 border border-slate-100 mb-2 space-y-1 relative z-10">
+                                    <div class="flex justify-between text-[11px]"><span class="text-slate-500">Total Solicitado:</span><span class="font-bold text-slate-800">$600,000</span></div>
+                                </div>
+                                <div class="text-[10px] text-blue-600 font-bold text-center opacity-0 group-hover:opacity-100 transition-opacity relative z-10">Haz clic para ver desglose ➔</div>
+                            </div>
+                            <div id="card-pasteur" data-date="2026-06-20" data-time="14:00" onclick="openDetailPanel('card-pasteur')" class="bg-white rounded-xl p-4 shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all kanban-card group relative overflow-hidden">
+                                <div class="flex justify-between items-start mb-3 relative z-10"><span id="status-tag-pasteur" class="text-[10px] font-black uppercase tracking-wider text-blue-600 bg-blue-50 px-2 py-0.5 rounded transition-colors duration-500">20 Jun - 02:00 PM</span><span class="text-xs text-slate-400">Ayer</span></div>
+                                <h4 id="name-card-pasteur" class="font-bold text-slate-800 text-[15px] mb-1 relative z-10">Farmacenter Pasteur</h4>
+                                <p class="text-[12px] text-slate-500 mb-3 flex items-center gap-1 relative z-10"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Cód: 3050 | Solicitante: Carlos Díaz</p>
+                                <div class="bg-slate-50 rounded-lg p-2.5 border border-slate-100 mb-2 space-y-1 relative z-10">
+                                    <div class="flex justify-between text-[11px]"><span class="text-slate-500">Total Solicitado:</span><span class="font-bold text-slate-800">$450,000</span></div>
+                                </div>
+                                <div class="text-[10px] text-blue-600 font-bold text-center opacity-0 group-hover:opacity-100 transition-opacity relative z-10">Haz clic para ver desglose ➔</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="w-[320px] bg-slate-100/50 border border-slate-200 rounded-2xl flex flex-col h-full max-h-full transition-colors duration-300">
+                        <div class="p-4 border-b border-slate-200 flex justify-between items-center bg-slate-100 rounded-t-2xl">
+                            <div class="flex items-center gap-2"><div class="w-2.5 h-2.5 bg-yellow-400 rounded-full shadow-[0_0_8px_rgba(250,204,21,0.5)]"></div><h3 class="font-bold text-slate-700 text-[14px]">Aprobadas (En Prep.)</h3></div>
+                            <span id="badge-aprobadas" class="bg-white px-2 py-0.5 rounded-full text-[11px] font-black text-slate-500 shadow-sm transition-all">0</span>
+                        </div>
+                        <div id="col-aprobadas" class="p-3 overflow-y-auto custom-scrollbar flex-1 space-y-3 kanban-col flex flex-col relative transition-all">
+                            <div id="empty-aprobadas" class="absolute inset-0 flex items-center justify-center"><span class="text-xs text-slate-400 font-medium">Vacío</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            
+            <div id="subview-agenda" class="flex-1 flex flex-col h-full overflow-hidden hidden bg-slate-50">
+                <div class="p-6 pb-4 flex justify-between items-center border-b border-slate-200 bg-white shadow-sm z-10">
+                <div><h3 class="text-lg font-bold text-slate-800">Calendario Global de Activaciones</h3><p class="text-sm text-slate-500">Vista global del calendario. Configura y revisa las fechas disponibles para el chatbot.</p></div>
+                <div class="flex gap-3">
+                    <button onclick="exportCalendarToCSV()" class="bg-white border border-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-bold hover:bg-slate-50 flex items-center gap-2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Descargar Parrilla (CSV)</button>
+                    <button class="bg-white border border-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-bold hover:bg-slate-50 flex items-center gap-2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Sincronizar Calendario</button>
+                    <button onclick="openAddAgendaModal()" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-blue-700 shadow-md transform active:scale-95 transition-transform">+ Abrir Nueva Fecha</button>
+                </div>
+            </div>
+            <div class="flex-1 overflow-y-auto p-6">
+                <!-- Controles de Mes -->
+                <div class="flex justify-between items-center mb-6 bg-white p-3 rounded-xl shadow-sm border border-slate-200">
+                    <button onclick="changeMonth(-1)" class="p-2 hover:bg-slate-100 rounded-lg text-slate-600 font-bold flex items-center justify-center transition-colors"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+                    <h4 id="calendar-month-year" class="text-lg font-black text-slate-800 capitalize tracking-tight">Junio 2026</h4>
+                    <button onclick="changeMonth(1)" class="p-2 hover:bg-slate-100 rounded-lg text-slate-600 font-bold flex items-center justify-center transition-colors"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+                </div>
+                
+                <!-- Grid Calendario -->
+                <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+                    <!-- Dias Semana -->
+                    <div class="grid grid-cols-7 border-b border-slate-200 bg-slate-50/80 backdrop-blur-sm sticky top-0 z-10">
+                        <div class="py-3 text-center text-[11px] font-black text-slate-500 uppercase tracking-widest">Dom</div>
+                        <div class="py-3 text-center text-[11px] font-black text-slate-500 uppercase tracking-widest">Lun</div>
+                        <div class="py-3 text-center text-[11px] font-black text-slate-500 uppercase tracking-widest">Mar</div>
+                        <div class="py-3 text-center text-[11px] font-black text-slate-500 uppercase tracking-widest">Mié</div>
+                        <div class="py-3 text-center text-[11px] font-black text-slate-500 uppercase tracking-widest">Jue</div>
+                        <div class="py-3 text-center text-[11px] font-black text-slate-500 uppercase tracking-widest">Vie</div>
+                        <div class="py-3 text-center text-[11px] font-black text-slate-500 uppercase tracking-widest">Sáb</div>
+                    </div>
+                    <!-- Dias Grid -->
+                    <div id="calendar-grid" class="grid grid-cols-7 auto-rows-[140px] bg-slate-100 gap-[1px]">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <!-- VIEW 2: CATALOGO -->
+        <div id="view-catalog" class="flex-1 flex flex-col h-full overflow-hidden hidden bg-white">
+            <div class="p-6 flex-1 overflow-y-auto">
+                <div class="flex justify-between items-center mb-6"><div><h3 class="text-lg font-bold text-slate-800">Inventario de Materiales y Servicios</h3><p class="text-sm text-slate-500">Lo que edites aquí se reflejará automáticamente en el bot.</p></div><button onclick="openAddItemModal()" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-sm hover:bg-blue-700">+ Añadir Nuevo Item</button></div>
+                <table class="w-full text-left border-collapse"><thead><tr class="border-b border-slate-200 text-[12px] uppercase tracking-wider text-slate-500"><th class="py-3 px-4">Item</th><th class="py-3 px-4">Categoría</th><th class="py-3 px-4">Precio (COP)</th><th class="py-3 px-4 w-32">Stock</th><th class="py-3 px-4">Estado</th><th class="py-3 px-4 text-right">Acciones</th></tr></thead><tbody id="catalog-table-body"></tbody></table>
+            </div>
+        </div>
+
+        <!-- VIEW 3: DATABASE -->
+        <div id="view-database" class="flex-1 flex flex-col h-full overflow-hidden hidden bg-slate-50">
+            <div class="p-6 pb-2 border-b border-slate-200 bg-white">
+                <div class="flex gap-6 items-center">
+                    <div class="flex-1 bg-slate-50 border-2 border-dashed border-slate-300 rounded-xl p-6 text-center hover:bg-blue-50 hover:border-blue-300 cursor-pointer group">
+                        <div class="w-12 h-12 bg-white rounded-full shadow-sm flex items-center justify-center mx-auto mb-3 text-slate-400 group-hover:text-blue-600"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+                        <h4 class="font-bold text-slate-800 mb-1">Importar Base de Datos Farmacias</h4><p class="text-xs text-slate-500">Arrastra un archivo .CSV o .XLSX aquí o haz clic para subir.</p>
+                    </div>
+                    <div class="w-[300px] flex flex-col gap-3">
+                        <div class="bg-blue-50 border border-blue-100 p-4 rounded-xl text-sm text-blue-800"><strong>¡Importante!</strong> El sistema validará la columna <code class="bg-white px-1 py-0.5 rounded text-blue-600 text-xs">Categoría</code>.</div>
+                        <button class="w-full flex items-center justify-center gap-2 bg-white border border-slate-200 text-slate-700 py-2.5 rounded-lg text-sm font-bold shadow-sm hover:bg-slate-50"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Descargar Plantilla</button>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-1 overflow-y-auto p-6 bg-white">
+                <div class="border border-slate-200 rounded-xl overflow-hidden"><div class="bg-slate-50 p-4 border-b border-slate-200"><h4 class="font-bold text-slate-800">Base de Datos de Droguerías</h4></div><table class="w-full text-left border-collapse text-sm"><thead><tr class="bg-slate-50 text-slate-600 border-b border-slate-200 uppercase tracking-wider text-[11px] font-black"><th class="py-3 px-4">Código</th><th class="py-3 px-4">Farmacia / Marca</th><th class="py-3 px-4">Ciudad (Región)</th><th class="py-3 px-4">Encargado / Rol</th><th class="py-3 px-4">Asignar Categoría</th><th class="py-3 px-4 text-right">Presupuesto Asignado</th></tr></thead><tbody id="database-table-body" class="text-slate-700"></tbody></table></div>
+            </div>
+        </div>
+
+        <!-- VIEW 4: SORTEOS -->
+        <div id="view-sorteos" class="flex-1 flex flex-col h-full overflow-hidden hidden bg-slate-50">
+            <div class="p-6 pb-4 border-b border-slate-200 bg-white shadow-sm z-10 flex justify-between items-center">
+                <div>
+                    <h3 class="text-xl font-black text-slate-800">Configuración de Sorteos</h3>
+                    <p class="text-sm text-slate-500">Reglas de facturación y métricas de boletas para el Shopper.</p>
+                </div>
+                <button onclick="alert('Configuración guardada.')" class="bg-blue-600 text-white px-5 py-2.5 rounded-lg text-sm font-bold shadow-sm hover:bg-blue-700 flex items-center gap-2">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Guardar Cambios
+                </button>
+            </div>
+            <div class="flex-1 overflow-y-auto p-6 space-y-6">
+                <!-- KPIs Sorteo -->
+                <div class="grid grid-cols-3 gap-6">
+                    <div class="bg-gradient-to-br from-blue-600 to-blue-800 p-6 rounded-2xl shadow-sm text-white flex flex-col justify-between">
+                        <p class="text-slate-400 font-bold text-xs uppercase tracking-wider mb-2">Rango Total Venta</p>
+                        <h4 class="text-3xl font-black">$45,000,000</h4>
+                        <div class="mt-4 pt-3 border-t border-white/10 flex justify-between text-sm">
+                            <span class="text-slate-300">Acumulado General</span>
+                        </div>
+                    </div>
+                    <div class="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm flex flex-col justify-between relative overflow-hidden">
+                        <div class="relative z-10">
+                            <p class="text-slate-500 font-bold text-xs uppercase tracking-wider mb-2">Tickets Asignados</p>
+                            <h4 class="text-4xl font-black text-blue-600">1,285</h4>
+                        </div>
+                        <svg class="absolute -right-4 -bottom-4 w-24 h-24 text-blue-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    </div>
+                    <div class="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm flex flex-col justify-between relative overflow-hidden">
+                        <div class="relative z-10">
+                            <p class="text-slate-500 font-bold text-xs uppercase tracking-wider mb-2">Tickets Disponibles</p>
+                            <h4 class="text-4xl font-black text-slate-800">8,715 <span class="text-lg text-slate-400 font-bold">/ 10k</span></h4>
+                        </div>
+                        <div class="relative z-10 mt-4">
+                            <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden"><div class="bg-slate-800 h-2 rounded-full" style="width: 12.85%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Configuración Facturación -->
+                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+                    <div class="bg-slate-50 p-5 border-b border-slate-200">
+                        <h4 class="font-bold text-slate-800 flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Configuración de la Dinámica</h4>
+                    </div>
+                    <div class="p-6 grid grid-cols-2 gap-8">
+                        <div class="space-y-5">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Valor Base para 1 Número/Ticket</label>
+                                <div class="relative">
+                                    <span class="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-slate-400">$</span>
+                                    <input type="number" id="sorteo-ticket-value" class="w-full pl-8 pr-4 py-3 bg-slate-50 border border-slate-300 rounded-lg text-slate-800 font-bold focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all" value="35000">
+                                </div>
+                                <p class="text-xs text-slate-500 mt-2">Por compras mayores a este valor se asignará un ticket. El remanente se guarda.</p>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Fecha Inicio</label>
+                                    <input type="date" id="sorteo-start" class="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-lg text-slate-800 font-bold focus:border-blue-500 outline-none" value="2026-06-01">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Fecha Fin</label>
+                                    <input type="date" id="sorteo-end" class="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-lg text-slate-800 font-bold focus:border-blue-500 outline-none" value="2026-06-30">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-5">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Condición de SKUs (Marcas Patrocinadoras)</label>
+                                <div class="p-4 bg-blue-50 border border-blue-200 rounded-xl">
+                                    <label class="flex items-center gap-3 cursor-pointer">
+                                        <input type="checkbox" id="sorteo-require-sku" class="w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500" checked>
+                                        <span class="font-bold text-blue-900 text-sm">Exigir al menos 1 SKU de aliado para validar factura</span>
+                                    </label>
+                                    <p class="text-xs text-blue-700 mt-2 ml-8">Si está activo, el Bot de WhatsApp validará con el motor OCR que la factura contenga al menos un producto del Catálogo de Aliados.</p>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Límite de Tickets por Usuario</label>
+                                <input type="number" id="sorteo-max-tickets" class="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-lg text-slate-800 font-bold focus:border-blue-500 outline-none" value="10">
+                                <p class="text-xs text-slate-500 mt-2">Máximo número de tickets que puede acumular una misma persona.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reglas del Bot -->
+                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+                    <div class="bg-slate-50 p-5 border-b border-slate-200">
+                        <h4 class="font-bold text-slate-800 flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> Reglas de Conversación (WhatsApp Bot)</h4>
+                    </div>
+                    <div class="p-6 grid grid-cols-2 gap-8">
+                        <div class="space-y-5">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Escalamiento a Agente Humano</label>
+                                <div class="relative">
+                                    <select class="w-full pl-4 pr-8 py-3 bg-slate-50 border border-slate-300 rounded-lg text-slate-800 font-bold focus:border-blue-500 outline-none appearance-none">
+                                        <option>Después de 3 errores de OCR</option>
+                                        <option>Si factura es ilegible repetidas veces</option>
+                                        <option>A petición del usuario siempre</option>
+                                    </select>
+                                    <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-5">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Frecuencia de Recordatorios</label>
+                                <div class="relative">
+                                    <select class="w-full pl-4 pr-8 py-3 bg-slate-50 border border-slate-300 rounded-lg text-slate-800 font-bold focus:border-blue-500 outline-none appearance-none">
+                                        <option>Recordar cada 15 días si hay saldo acumulado</option>
+                                        <option>Recordar cada semana (Spam Moderado)</option>
+                                        <option>Nunca enviar recordatorios</option>
+                                    </select>
+                                    <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- VIEW 6: INVOICES -->
+        <div id="view-invoices" class="flex-1 flex flex-col h-full overflow-hidden hidden bg-slate-50">
+            <!-- TABS -->
+            <div class="bg-white border-b border-slate-200 px-6 pt-4 flex gap-6 text-sm font-bold text-slate-500 z-10 flex-shrink-0">
+                <button onclick="switchInvoicesTab('directory')" id="tab-inv-directory" class="pb-3 border-b-2 border-blue-600 text-blue-600 transition-colors">Directorio de Consumidores</button>
+                <button onclick="switchInvoicesTab('analytics')" id="tab-inv-analytics" class="pb-3 border-b-2 border-transparent hover:text-slate-800 transition-colors">Analítica B2C (Top 20)</button>
+            </div>
+
+            <!-- SUBVIEW DIRECTORY -->
+            <div id="subview-inv-directory" class="flex-1 flex flex-col h-full overflow-hidden">
+                <div class="p-6 pb-4 flex justify-between items-center bg-white shadow-sm z-10">
+                <div><h3 class="text-lg font-bold text-slate-800">Directorio de Consumidores</h3><p class="text-sm text-slate-500">Usuarios que han interactuado con el Bot de WhatsApp enviando facturas.</p></div>
+                <div class="bg-blue-50 text-blue-800 border border-blue-200 px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    Regla Activa: 1 Ticket x cada $35.000
+                </div>
+            </div>
+            <div class="flex-1 overflow-y-auto p-6 flex gap-6">
+                <div class="flex-1 bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm self-start">
+                    <table class="w-full text-left border-collapse text-sm">
+                        <thead>
+                            <tr class="bg-slate-50 text-slate-600 border-b border-slate-200 uppercase tracking-wider text-[11px] font-black">
+                                <th class="py-3 px-4">Usuario / Teléfono</th>
+                                <th class="py-3 px-4">Total Validado</th>
+                                <th class="py-3 px-4">Saldo Restante</th>
+                                <th class="py-3 px-4">Tickets Asignados</th>
+                                <th class="py-3 px-4 text-right">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="invoices-table-body" class="text-slate-700"></tbody>
+                    </table>
+                </div>
+
+                <!-- SIDE PANEL RANKING -->
+                <div class="w-80 flex flex-col gap-6 self-start">
+                    <div class="bg-gradient-to-b from-blue-700 to-blue-900 rounded-xl p-5 shadow-lg text-white">
+                        <div class="flex justify-between items-center mb-4">
+                            <h4 class="font-black flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg> Top Shoppers</h4>
+                            <span class="bg-blue-950/50 text-[10px] uppercase font-bold px-2 py-1 rounded border border-blue-500/30">Concurso</span>
+                        </div>
+                        <div id="ranking-container" class="space-y-3">
+                            <!-- JS fills this -->
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!-- SUBVIEW ANALYTICS -->
+            <div id="subview-inv-analytics" class="flex-1 overflow-y-auto p-6 hidden">
+                <div class="grid grid-cols-3 gap-6">
+                    <!-- Top Productos -->
+                    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+                        <h4 class="font-bold text-slate-800 mb-4 border-b border-slate-100 pb-2 flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg> Top 20 Productos</h4>
+                        <div id="b2c-top-products" class="space-y-3"></div>
+                    </div>
+                    <!-- Top Marcas -->
+                    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+                        <h4 class="font-bold text-slate-800 mb-4 border-b border-slate-100 pb-2 flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> Top Marcas</h4>
+                        <div id="b2c-top-brands" class="space-y-3"></div>
+                    </div>
+                    <!-- Top Categorías -->
+                    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+                        <h4 class="font-bold text-slate-800 mb-4 border-b border-slate-100 pb-2 flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> Top Categorías</h4>
+                        <div id="b2c-top-categories" class="space-y-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- SLIDE-OVER DETAIL PANEL -->
+    <div id="detail-panel" class="fixed inset-0 z-50 hidden"><div class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onclick="closeDetailPanel()"></div><div class="absolute right-0 top-0 bottom-0 w-[550px] bg-white shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300" id="detail-panel-content"><div class="h-20 border-b border-slate-200 px-6 flex justify-between items-center bg-slate-50 flex-shrink-0"><div><h3 class="font-bold text-lg text-slate-800">Detalle de Solicitud</h3></div><button onclick="closeDetailPanel()" class="p-2 text-slate-400 hover:bg-slate-200 rounded-full"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div><div class="flex-1 overflow-y-auto p-6 space-y-6"><div class="bg-blue-50 border border-blue-100 rounded-xl p-5 flex items-start gap-4"><div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-blue-600 font-black shadow-sm">2048</div><div class="flex-1"><h4 id="dp-title" class="text-lg font-black text-slate-800">Farmacenter San Martín</h4></div></div><div><h4 class="font-bold text-slate-800 mb-3 border-b border-slate-200 pb-2">Materiales Solicitados</h4><table class="w-full text-left text-[13px]"><tbody class="text-slate-800"><tr class="border-b border-slate-100"><td class="py-2">Promotores (2)</td><td class="py-2">1</td><td class="py-2 text-right font-medium">$350,000</td></tr><tr class="border-b border-slate-100"><td class="py-2">Crispetera</td><td class="py-2">1</td><td class="py-2 text-right font-medium">$250,000</td></tr><tr class="border-b border-slate-100"><td class="py-2">Pendones</td><td class="py-2">2</td><td class="py-2 text-right font-medium">$240,000</td></tr></tbody></table></div><div class="bg-slate-50 border border-slate-200 rounded-xl p-4"><h4 class="font-bold text-slate-800 mb-3 text-sm">Resumen Financiero</h4><div class="space-y-2 text-[13px]"><div class="flex justify-between"><span class="text-slate-500">Total Solicitado:</span><span class="font-bold text-slate-800">$840,000</span></div><div class="flex justify-between text-blue-600"><span>Copago (20%):</span><span>$168,000</span></div></div></div></div><div id="panel-actions" class="p-6 border-t border-slate-200 bg-white flex gap-3 flex-shrink-0"><button onclick="approveCurrentCard()" class="w-full bg-[#00a884] text-white font-bold py-3 rounded-xl hover:bg-green-600 transition-colors shadow-md transform active:scale-95 duration-150">Aprobar y Preparar Envío</button></div></div></div>
+
+    <!-- MODALES VARIOS -->
+    <!-- MODAL CONFIG GOALS -->
+    <div id="config-goals-modal" class="fixed inset-0 z-[80] hidden flex items-center justify-center">
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onclick="closeConfigGoalsModal()"></div>
+        <div class="bg-white rounded-2xl shadow-2xl w-[500px] relative z-10 overflow-hidden flex flex-col">
+            <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+                <h3 class="font-bold text-lg text-slate-800">Configurar Metas y Presupuesto</h3>
+                <button onclick="closeConfigGoalsModal()" class="text-slate-400 hover:bg-slate-200 p-1.5 rounded-full transition-colors"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+            </div>
+            <div class="p-6 space-y-5">
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Presupuesto Anual Total ($)</label>
+                    <input type="number" id="cg-budget" class="w-full bg-white border border-slate-300 rounded-lg px-4 py-2.5 text-slate-800 font-bold focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all" value="200000000">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Meta Anual Activaciones</label>
+                        <input type="number" id="cg-annual" class="w-full bg-white border border-slate-300 rounded-lg px-4 py-2.5 text-slate-800 font-bold focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all" value="400">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Meta Mensual Actual</label>
+                        <input type="number" id="cg-monthly" class="w-full bg-white border border-slate-300 rounded-lg px-4 py-2.5 text-slate-800 font-bold focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all" value="35">
+                    </div>
+                </div>
+            </div>
+            <div class="px-6 py-4 border-t border-slate-100 bg-slate-50 flex justify-end gap-3">
+                <button onclick="closeConfigGoalsModal()" class="px-5 py-2.5 rounded-lg text-sm font-bold text-slate-600 hover:bg-slate-200 transition-colors">Cancelar</button>
+                <button onclick="saveConfigGoals()" class="px-5 py-2.5 rounded-lg text-sm font-bold bg-blue-600 text-white hover:bg-blue-700 transition-colors shadow-sm">Guardar Metas</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CUSTOMER DETAIL MODAL -->
+    <div id="customer-detail-modal" class="fixed inset-0 z-[70] hidden">
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onclick="closeCustomerDetail()"></div>
+        <div class="absolute right-0 top-0 bottom-0 w-[600px] bg-slate-50 shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300" id="customer-detail-content">
+            <div class="h-20 border-b border-slate-200 px-6 flex justify-between items-center bg-white flex-shrink-0 z-10 shadow-sm">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 font-black flex items-center justify-center text-lg" id="cd-avatar">U</div>
+                    <div>
+                        <h3 class="font-bold text-lg text-slate-800 leading-tight" id="cd-name">Usuario</h3>
+                        <p class="text-xs text-slate-500 font-medium" id="cd-phone">+57 000 000 0000</p>
+                    </div>
+                </div>
+                <button onclick="closeCustomerDetail()" class="p-2 text-slate-400 hover:bg-slate-100 rounded-full transition-colors"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto p-6 space-y-6">
+                <!-- Resumen -->
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                        <p class="text-[10px] uppercase font-black tracking-wider text-slate-500 mb-1">Compras Validadas</p>
+                        <h4 class="text-xl font-black text-slate-800" id="cd-total">$0</h4>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-xl border border-blue-100 shadow-sm">
+                        <p class="text-[10px] uppercase font-black tracking-wider text-blue-600 mb-1">Saldo Remanente</p>
+                        <h4 class="text-xl font-black text-blue-700" id="cd-balance">$0</h4>
+                        <p class="text-[10px] text-blue-500 font-medium mt-1">Acumulado para el sig. ticket</p>
+                    </div>
+                    <div class="bg-brand-yellow/20 p-4 rounded-xl border border-brand-yellow/40 shadow-sm">
+                        <p class="text-[10px] uppercase font-black tracking-wider text-slate-700 mb-1">Tickets Asignados</p>
+                        <h4 class="text-xl font-black text-slate-800" id="cd-tickets-count">0</h4>
+                    </div>
+                </div>
+
+                <!-- Botones Accion -->
+                <div class="flex gap-3">
+                    <button onclick="manuallyAddTicket()" class="flex-1 bg-white border border-slate-200 text-slate-700 font-bold py-2.5 rounded-xl hover:bg-slate-50 shadow-sm text-sm flex items-center justify-center gap-2 transition-colors"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg> Añadir Ticket Manual</button>
+                    <button onclick="alert('Función de ajuste de saldo en desarrollo...')" class="flex-1 bg-white border border-slate-200 text-slate-700 font-bold py-2.5 rounded-xl hover:bg-slate-50 shadow-sm text-sm flex items-center justify-center gap-2 transition-colors"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg> Ajustar Saldo Manual</button>
+                </div>
+
+                <!-- Lista de Tickets -->
+                <div>
+                    <h4 class="font-bold text-slate-800 mb-3 text-sm flex items-center justify-between"><span>Mis Tickets (Sorteo)</span></h4>
+                    <div id="cd-tickets-list" class="flex flex-wrap gap-2"></div>
+                </div>
+
+                <!-- Historial Facturas -->
+                <div>
+                    <h4 class="font-bold text-slate-800 mb-3 text-sm">Historial de Facturas Enviadas</h4>
+                    <div id="cd-invoices-list" class="space-y-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="add-item-modal" class="fixed inset-0 z-[60] hidden"><div class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onclick="closeAddItemModal()"></div><div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[450px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden"><div class="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50"><h3 class="font-bold text-slate-800">Añadir Nuevo Item</h3><button onclick="closeAddItemModal()" class="text-slate-400 hover:text-slate-800"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div><div class="p-6 space-y-4"><div><label class="block text-xs font-bold text-slate-500 mb-1">Nombre</label><input id="new-item-name" type="text" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm"></div><div><label class="block text-xs font-bold text-slate-500 mb-1">Categoría</label><select id="new-item-cat" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm bg-white"><option value="Estructuras y POP">Estructuras y POP</option><option value="Servicios y Activaciones">Servicios y Activaciones</option></select></div><div class="grid grid-cols-2 gap-4"><div><label class="block text-xs font-bold text-slate-500 mb-1">Precio (COP)</label><input id="new-item-price" type="number" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm"></div><div><label class="block text-xs font-bold text-slate-500 mb-1">Stock</label><input id="new-item-stock" type="number" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm"></div></div></div><div class="p-5 border-t border-slate-100 flex justify-end gap-3"><button onclick="saveNewItem()" class="px-4 py-2 text-sm font-bold bg-blue-600 text-white rounded-lg">Guardar y Publicar</button></div></div></div>
+    <div id="add-budget-modal" class="fixed inset-0 z-[60] hidden"><div class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onclick="closeAddBudgetModal()"></div><div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden"><div class="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50"><h3 class="font-bold text-slate-800">Nueva Categoría de Presupuesto</h3><button onclick="closeAddBudgetModal()" class="text-slate-400 hover:text-slate-800"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div><div class="p-6 space-y-4"><div><label class="block text-xs font-bold text-slate-500 mb-1">Nombre (Ej: Básico 1)</label><input id="new-budget-name" type="text" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm uppercase"></div><div><label class="block text-xs font-bold text-slate-500 mb-1">Presupuesto Asignado (COP)</label><input id="new-budget-amount" type="number" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm"></div></div><div class="p-5 border-t border-slate-100 flex justify-end gap-3"><button onclick="saveNewBudget()" class="px-4 py-2 text-sm font-bold bg-blue-600 text-white rounded-lg">Guardar Categoría</button></div></div></div>
+    <div id="add-agenda-modal" class="fixed inset-0 z-[60] hidden"><div class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onclick="closeAddAgendaModal()"></div><div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden"><div class="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50"><h3 class="font-bold text-slate-800">Abrir Nueva Fecha</h3><button onclick="closeAddAgendaModal()" class="text-slate-400 hover:text-slate-800"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div><div class="p-6 space-y-4"><div><label class="block text-xs font-bold text-slate-500 mb-1">Fecha</label><input id="new-agenda-date" type="date" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm"></div><div><label class="block text-xs font-bold text-slate-500 mb-1">Hora</label><input id="new-agenda-time" type="time" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm"></div></div><div class="p-5 border-t border-slate-100 flex justify-end gap-3"><button onclick="saveNewAgenda()" class="px-4 py-2 text-sm font-bold bg-blue-600 text-white rounded-lg">Guardar Disponibilidad</button></div></div></div>
+
+    <!-- CALENDAR DETAIL MODAL -->
+    <div id="calendar-detail-modal" class="fixed inset-0 z-[70] hidden">
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onclick="closeCalendarDetailModal()"></div>
+        <div class="absolute right-0 top-0 bottom-0 w-[450px] bg-slate-50 shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300" id="calendar-detail-content">
+            <div class="h-16 border-b border-slate-200 px-6 flex justify-between items-center bg-white flex-shrink-0 z-10 shadow-sm">
+                <h3 class="font-bold text-lg text-slate-800">Detalle de Activación</h3>
+                <button onclick="closeCalendarDetailModal()" class="text-slate-400 hover:text-slate-800 p-2"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+            </div>
+            <div class="flex-1 overflow-y-auto p-6 space-y-6">
+                <div class="bg-blue-600 text-white rounded-xl p-5 shadow-md">
+                    <p class="text-blue-200 text-xs font-bold uppercase tracking-wider mb-1">Fecha Programada</p>
+                    <h2 id="cdm-date" class="text-2xl font-black">15 Jun 2026 - 08:00 AM</h2>
+                </div>
+                <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-4">
+                    <h4 class="font-bold text-slate-800 border-b border-slate-100 pb-2">Datos de la Droguería</h4>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div><p class="text-slate-500 text-xs font-bold">Marca / Farmacia</p><p id="cdm-brand" class="font-bold text-slate-800 mt-0.5">Farmacenter</p></div>
+                        <div><p class="text-slate-500 text-xs font-bold">Ciudad (Región)</p><p id="cdm-city" class="font-bold text-slate-800 mt-0.5">Bogotá</p></div>
+                        <div class="col-span-2"><p class="text-slate-500 text-xs font-bold">Encargado / Rol</p><p id="cdm-manager" class="font-bold text-slate-800 mt-0.5">Juan Pérez (Asociado)</p></div>
+                    </div>
+                </div>
+                <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-4">
+                    <h4 class="font-bold text-slate-800 border-b border-slate-100 pb-2">Información Financiera</h4>
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="text-slate-500 font-bold">Presupuesto Ejecutado</span>
+                        <span class="font-black text-slate-800">$840,000</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="text-red-500 font-bold">Copago Aportado</span>
+                        <span class="font-black text-red-600">$168,000</span>
+                    </div>
+                </div>
+            </div>
+            <div class="p-6 bg-white border-t border-slate-200">
+                <button onclick="closeCalendarDetailModal()" class="w-full bg-slate-100 text-slate-700 font-bold py-3 rounded-xl hover:bg-slate-200 transition-colors">Cerrar Detalle</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ESTADO GLOBAL
+        const defaultMetrics = { budgetAssigned: 12500000, targetActivations: 50, baseExecuted: 4200000, baseCopays: 840000, activationsCount: 14 };
+        let metrics = JSON.parse(localStorage.getItem('farmacenter_metrics')) || defaultMetrics;
+        let catalog = JSON.parse(localStorage.getItem('farmacenter_catalog')) || [{ id: 1, name: 'Pendones', cat: 'Estructuras y POP', price: 120000, stock: 10, status: 'disponible', img: 'https://images.unsplash.com/photo-1583316174775-bd6dc0e9f298?auto=format&fit=crop&w=150&q=80'}, { id: 2, name: 'Crispetera', cat: 'Servicios', price: 250000, stock: -1, status: 'disponible', img: 'https://images.unsplash.com/photo-1578849278619-e73505e9610f?auto=format&fit=crop&w=150&q=80'}];
+        let budgets = JSON.parse(localStorage.getItem('farmacenter_budgets')) || [{ id: 1, name: 'PRO', amount: 850000, color: 'bg-purple-100 text-purple-700' }, { id: 2, name: 'BÁSICO', amount: 500000, color: 'bg-slate-100 text-slate-600' }];
+        let defaultPharmacies = [
+            { id: 2048, name: 'San Martín', address: 'Calle 100 #45-12', city: 'Bogotá', region: 'Centro', brand: 'Farmacenter', type: 'Asociado', manager: 'Juan Pérez', budgetId: 1 },
+            { id: 1055, name: 'El Bosque', address: 'Av. Principal #10-20', city: 'Medellín', region: 'Antioquia', brand: 'Farmaunión', type: 'Dependiente', manager: 'María López', budgetId: 2 },
+            { id: 3050, name: 'Pasteur', address: 'Cra 50 #8-40', city: 'Cali', region: 'Valle', brand: 'Independiente', type: 'Asociado', manager: 'Carlos Díaz', budgetId: 2 },
+            { id: 4022, name: 'La Rebaja Plus', address: 'Av. El Dorado #68-15', city: 'Bogotá', region: 'Centro', brand: 'Independiente', type: 'Dependiente', manager: 'Sandra Gómez', budgetId: 1 },
+            { id: 5011, name: 'Salud Total', address: 'Cl. 30 #5-22', city: 'Barranquilla', region: 'Costa', brand: 'Farmacenter', type: 'Asociado', manager: 'Pedro Navas', budgetId: 2 }
+        ];
+        let pharmacies = defaultPharmacies;
+        localStorage.setItem('farmacenter_pharmacies_v3', JSON.stringify(pharmacies));
+        let productsOcr = JSON.parse(localStorage.getItem('farmacenter_products_ocr')) || [
+            { plu: '1424', barcode: '7701234567890', name: 'Dolex Niños 120ml', cat: 'Analgésicos', brand: 'GSK' },
+            { plu: '1025', barcode: '7709876543210', name: 'Vick VapoRub 50g', cat: 'Gripa', brand: 'P&G' },
+            { plu: '3044', barcode: '7704567891234', name: 'Listerine Cool Mint 500ml', cat: 'Cuidado Oral', brand: 'J&J' }
+        ];
+        let agenda = JSON.parse(localStorage.getItem('farmacenter_agenda_v3')) || [
+            { id: 1, date: '2026-06-10', time: '09:00', status: 'disponible', takenBy: '' },
+            { id: 2, date: '2026-06-15', time: '08:00', status: 'disponible', takenBy: '' },
+            { id: 3, date: '2026-06-20', time: '14:00', status: 'disponible', takenBy: '' }
+        ];
+
+        // MOCK DATA CONSUMIDORES Y FACTURAS
+        let defaultCustomers = [
+            { id: 1, name: 'Andrés Gómez', phone: '+57 300 123 4567', totalValidated: 100000, balance: 30000, tickets: ['4821', '0932'], invoices: [{ id: 101, date: '10 Jun 2026', amount: 45000, items: ['Dolex Niños x 120ml', 'Vitamina C Forte'], img: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=150&q=80', status: 'aprobada' }, { id: 102, date: '11 Jun 2026', amount: 55000, items: ['Pedialyte Coco', 'Ibuprofeno 400mg'], img: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=150&q=80', status: 'aprobada' }] },
+            { id: 2, name: 'María Rodríguez', phone: '+57 311 987 6543', totalValidated: 35000, balance: 0, tickets: ['1145'], invoices: [{ id: 103, date: '09 Jun 2026', amount: 35000, items: ['Dolex Niños x 120ml', 'Gasa Estéril'], img: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=150&q=80', status: 'aprobada' }] },
+            { id: 3, name: 'Carlos Díaz', phone: '+57 320 555 1122', totalValidated: 20000, balance: 20000, tickets: [], invoices: [{ id: 104, date: '11 Jun 2026', amount: 20000, items: ['Vitamina C Forte'], img: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=150&q=80', status: 'aprobada' }] },
+            { id: 4, name: 'Luisa Fernanda', phone: '+57 315 444 8899', totalValidated: 145000, balance: 5000, tickets: ['8812', '9021', '1092', '5512'], invoices: [{ id: 105, date: '12 Jun 2026', amount: 145000, items: ['Listerine Cool Mint 500ml', 'Crema Dental Colgate'], img: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=150&q=80', status: 'aprobada' }] },
+            { id: 5, name: 'Sebastián Mora', phone: '+57 301 222 3344', totalValidated: 75000, balance: 5000, tickets: ['2241', '1984'], invoices: [{ id: 106, date: '12 Jun 2026', amount: 75000, items: ['Vick VapoRub 50g'], img: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=150&q=80', status: 'aprobada' }] }
+        ];
+        let customers = defaultCustomers;
+        localStorage.setItem('farmacenter_customers', JSON.stringify(customers));
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMetrics(); renderCatalog(); renderDatabase(); renderAgenda(); renderInvoices(); renderB2CAnalytics();
+            switchView('dashboard'); // Abrir dashboard por defecto
+        });
+
+        // NAVEGACIÓN
+        
+        function switchLogisticsTab(tab) {
+            document.getElementById('subview-kanban').classList.toggle('hidden', tab !== 'kanban');
+            document.getElementById('subview-agenda').classList.toggle('hidden', tab !== 'agenda');
+            document.getElementById('tab-log-kanban').className = tab === 'kanban' ? 'pb-3 border-b-2 border-blue-600 text-blue-600 transition-colors' : 'pb-3 border-b-2 border-transparent hover:text-slate-800 transition-colors';
+            document.getElementById('tab-log-agenda').className = tab === 'agenda' ? 'pb-3 border-b-2 border-blue-600 text-blue-600 transition-colors' : 'pb-3 border-b-2 border-transparent hover:text-slate-800 transition-colors';
+        }
+
+        function switchView(viewId) {
+            ['view-logistics', 'view-catalog', 'view-database', 'view-sorteos', 'view-dashboard', 'view-invoices'].forEach(id => { const el = document.getElementById(id); if(el) el.classList.add('hidden'); });
+            ['nav-logistics', 'nav-catalog', 'nav-database', 'nav-sorteos', 'nav-dashboard', 'nav-invoices'].forEach(id => { const el = document.getElementById(id); if(el) el.className = 'w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors group text-slate-400'; });
+            const v = document.getElementById('view-' + viewId); if(v) v.classList.remove('hidden');
+            const nv = document.getElementById('nav-' + viewId); if(nv) nv.className = 'w-full flex items-center gap-3 px-3 py-2.5 rounded-lg bg-[#141629] text-brand-yellow shadow-inner border-l-4 border-brand-yellow group';
+
+            const ht = document.getElementById('header-title');
+            if(viewId === 'dashboard') ht.innerHTML = `<h2 class="text-xl font-bold text-slate-800">Dashboard B2B</h2><p class="text-sm text-slate-500 font-medium">Resumen del rendimiento mensual de activaciones.</p>`;
+            else if(viewId === 'logistics') ht.innerHTML = `<h2 class="text-xl font-bold text-slate-800">Logística y Activaciones</h2><p class="text-sm text-slate-500 font-medium">Control de pipeline y calendario global.</p>`;
+            else if(viewId === 'sorteos') ht.innerHTML = `<h2 class="text-xl font-bold text-slate-800">Configuración de Sorteos</h2><p class="text-sm text-slate-500 font-medium">Reglas de facturación y validaciones.</p>`;
+            else if(viewId === 'catalog') ht.innerHTML = `<h2 class="text-xl font-bold text-slate-800">Materiales Activación</h2>`;
+            else if(viewId === 'database') ht.innerHTML = `<h2 class="text-xl font-bold text-slate-800">Directorio de Droguerías</h2>`;
+            else if(viewId === 'invoices') ht.innerHTML = `<h2 class="text-xl font-bold text-slate-800">Facturas y Clientes</h2><p class="text-sm text-slate-500 font-medium">Gestión de saldo y tickets para consumidores.</p>`;
+        }
+
+        // METRICAS KANBAN
+        function renderMetrics() {
+            const container = document.getElementById('kanban-metrics-container');
+            const executionPercentage = Math.round((metrics.baseExecuted / metrics.budgetAssigned) * 100) || 0;
+            const activationPercentage = Math.round((metrics.activationsCount / metrics.targetActivations) * 100) || 0;
+            container.innerHTML = `<div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex-1 relative group"><div class="flex justify-between mb-1"><p class="text-[11px] text-slate-500 font-bold uppercase tracking-wider">Ppto. Anual Asignado</p><button onclick="editMetric('budgetAssigned')" class="text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg></button></div><div class="flex items-center text-slate-800"><span class="text-2xl font-black mr-1">$</span><input type="number" id="metric-budgetAssigned" class="editable-input text-2xl" value="${metrics.budgetAssigned}" onblur="saveMetric('budgetAssigned', this.value)" onkeydown="if(event.key === 'Enter') this.blur();" readonly></div></div><div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex-1"><p class="text-[11px] text-slate-500 font-bold uppercase tracking-wider mb-1">Ppto. Ejecutado</p><h3 class="text-2xl font-black text-blue-600">$${metrics.baseExecuted.toLocaleString()}</h3><div class="flex items-center gap-2 mt-1"><div class="flex-1 bg-slate-100 rounded-full h-1.5 overflow-hidden"><div class="bg-blue-600 h-full" style="width: ${executionPercentage}%"></div></div><span class="text-[10px] font-bold text-slate-400">${executionPercentage}% consumido</span></div></div><div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex-1"><p class="text-[11px] text-slate-500 font-bold uppercase tracking-wider mb-1">Ppto. Disponible</p><h3 class="text-2xl font-black text-[#00a884]">$${(metrics.budgetAssigned - metrics.baseExecuted).toLocaleString()}</h3></div><div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex-1 relative group"><div class="flex justify-between mb-1"><p class="text-[11px] text-slate-500 font-bold uppercase tracking-wider">Meta Activaciones</p><button onclick="editMetric('targetActivations')" class="text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg></button></div><div class="flex items-end gap-1"><h3 class="text-2xl font-black text-slate-800">${metrics.activationsCount}</h3><span class="text-sm text-slate-400 font-medium mb-1">/</span><input type="number" id="metric-targetActivations" class="editable-input text-lg text-slate-400 w-12" value="${metrics.targetActivations}" onblur="saveMetric('targetActivations', this.value)" onkeydown="if(event.key === 'Enter') this.blur();" readonly></div></div>`;
+        }
+
+        function editMetric(key) { const input = document.getElementById(`metric-${key}`); input.removeAttribute('readonly'); input.focus(); input.select(); }
+        function saveMetric(key, val) { const input = document.getElementById(`metric-${key}`); input.setAttribute('readonly', 'true'); metrics[key] = parseInt(val) || 0; localStorage.setItem('farmacenter_metrics', JSON.stringify(metrics)); renderMetrics(); }
+
+        // KANBAN LOGIC
+        let currentCardId = null;
+        function openDetailPanel(cardId) { 
+            currentCardId = cardId; 
+            const cardName = document.getElementById(`name-${cardId}`)?.innerText || 'Detalle de Solicitud';
+            const dpTitle = document.getElementById('dp-title');
+            if(dpTitle) dpTitle.innerText = cardName;
+            
+            document.getElementById('panel-actions').style.display = document.getElementById(cardId).parentElement.id === 'col-aprobadas' ? 'none' : 'flex'; 
+            document.getElementById('detail-panel').classList.remove('hidden'); 
+            setTimeout(() => { document.getElementById('detail-panel-content').classList.remove('translate-x-full'); }, 10); 
+        }
+        function closeDetailPanel() { document.getElementById('detail-panel-content').classList.add('translate-x-full'); setTimeout(() => { document.getElementById('detail-panel').classList.add('hidden'); currentCardId = null; }, 300); }
+        function approveCurrentCard() {
+            if(!currentCardId) return;
+            const card = document.getElementById(currentCardId);
+            const emptyAprobadas = document.getElementById('empty-aprobadas');
+            if(emptyAprobadas) emptyAprobadas.style.display = 'none';
+            card.style.transform = 'scale(0.95)'; card.style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('col-aprobadas').appendChild(card);
+                const tag = document.getElementById(`status-tag-${currentCardId.replace('card-','')}`);
+                if(tag) {
+                    tag.className = 'text-[10px] font-black uppercase tracking-wider text-yellow-700 bg-yellow-100 px-2 py-0.5 rounded';
+                    tag.innerText = 'Aprobada - ' + tag.innerText;
+                }
+                document.getElementById('badge-nuevas').innerText = parseInt(document.getElementById('badge-nuevas').innerText) - 1;
+                document.getElementById('badge-aprobadas').innerText = parseInt(document.getElementById('badge-aprobadas').innerText) + 1;
+                
+                metrics.baseExecuted += 840000; metrics.baseCopays += 168000; metrics.activationsCount += 1;
+                localStorage.setItem('farmacenter_metrics', JSON.stringify(metrics));
+                renderMetrics();
+
+                // LÓGICA DE SINCRONIZACIÓN CON EL CALENDARIO (AGENDA)
+                const targetDate = card.getAttribute('data-date');
+                const targetTime = card.getAttribute('data-time');
+                const cardName = document.getElementById(`name-${currentCardId}`)?.innerText || 'Farmacenter';
+
+                if (targetDate && targetTime) {
+                    const index = agenda.findIndex(e => e.date === targetDate && e.time === targetTime);
+                    if (index !== -1) {
+                        agenda[index].status = 'agotada';
+                        agenda[index].takenBy = cardName;
+                    } else {
+                        // Si por caché del localStorage la fecha no existe, la creamos forzadamente
+                        agenda.push({ id: Date.now(), date: targetDate, time: targetTime, status: 'agotada', takenBy: cardName });
+                    }
+                    localStorage.setItem('farmacenter_agenda_v3', JSON.stringify(agenda));
+                    renderAgenda(); // Actualiza visualmente el calendario
+                }
+                
+                card.style.transform = 'scale(1)'; card.style.opacity = '1';
+                closeDetailPanel();
+            }, 300);
+        }
+
+        // CATALOGO LOGIC
+        function renderCatalog() {
+            const tbody = document.getElementById('catalog-table-body');
+            tbody.innerHTML = '';
+            catalog.forEach((item, index) => {
+                const stockHtml = item.stock === -1 ? `<span class="text-slate-400 text-sm italic">Ilimitado</span>` : `<div class="flex items-center gap-2"><span class="stock-val font-black text-slate-800 text-sm">${item.stock}</span><button onclick="decreaseStock(${index})" class="bg-red-50 text-red-600 border border-red-100 text-[10px] font-bold px-1.5 py-0.5 rounded hover:bg-red-100 active:scale-90">-1</button></div>`;
+                const statusColor = item.status === 'agotado' ? 'bg-red-100 text-red-700 border-red-200' : 'bg-green-100 text-green-700 border-green-200';
+                const tr = document.createElement('tr');
+                tr.className = 'border-b border-slate-100 hover:bg-slate-50 transition-colors';
+                tr.innerHTML = `<td class="py-4 px-4 flex items-center gap-3"><div class="w-10 h-10 bg-slate-100 border border-slate-200 rounded-lg overflow-hidden flex-shrink-0 flex items-center justify-center">${item.img.includes('http') ? `<img src="${item.img}" class="w-full h-full object-cover">` : `<svg width="20" height="20" class="text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/></svg>`}</div><div><p class="font-bold text-slate-800 text-sm">${item.name}</p></div></td><td class="py-4 px-4 text-sm text-slate-600">${item.cat}</td><td class="py-4 px-4 font-bold text-slate-800">$${item.price.toLocaleString()}</td><td class="py-4 px-4">${stockHtml}</td><td class="py-4 px-4"><select onchange="changeStatus(${index}, this.value)" class="font-bold text-xs px-2 py-1.5 rounded outline-none cursor-pointer border appearance-none ${statusColor}"><option value="disponible" ${item.status === 'disponible' ? 'selected' : ''}>Disponible</option><option value="agotado" ${item.status === 'agotado' ? 'selected' : ''}>Agotado</option></select></td><td class="py-4 px-4 text-right"><button onclick="deleteCatalogItem(${index})" class="text-red-500 hover:underline text-sm font-medium">Eliminar</button></td>`;
+                tbody.appendChild(tr);
+            });
+        }
+        function decreaseStock(index) { if(catalog[index].stock > 0) { catalog[index].stock--; if(catalog[index].stock === 0) catalog[index].status = 'agotado'; renderCatalog(); localStorage.setItem('farmacenter_catalog', JSON.stringify(catalog)); } }
+        function changeStatus(index, status) { catalog[index].status = status; renderCatalog(); localStorage.setItem('farmacenter_catalog', JSON.stringify(catalog)); }
+        function openAddItemModal() { document.getElementById('add-item-modal').classList.remove('hidden'); }
+        function closeAddItemModal() { document.getElementById('add-item-modal').classList.add('hidden'); }
+        function saveNewItem() {
+            const name = document.getElementById('new-item-name').value;
+            const price = parseInt(document.getElementById('new-item-price').value);
+            const stock = parseInt(document.getElementById('new-item-stock').value);
+            if(!name || isNaN(price) || isNaN(stock)) return alert('Campos incompletos');
+            catalog.unshift({ id: Date.now(), name, cat: document.getElementById('new-item-cat').value, price, stock, status: stock>0?'disponible':'agotado', img: ''});
+            renderCatalog(); localStorage.setItem('farmacenter_catalog', JSON.stringify(catalog)); closeAddItemModal();
+        }
+        function deleteCatalogItem(index) { if(confirm('¿Eliminar?')) { catalog.splice(index, 1); renderCatalog(); localStorage.setItem('farmacenter_catalog', JSON.stringify(catalog)); } }
+
+        // DATABASE
+        function renderDatabase() {
+            const tbody = document.getElementById('database-table-body');
+            tbody.innerHTML = '';
+            pharmacies.forEach((pharma, index) => {
+                const selectedBudget = budgets.find(b => b.id === pharma.budgetId) || budgets[0];
+                let selectOptions = budgets.map(b => `<option value="${b.id}" ${b.id === (selectedBudget?selectedBudget.id:0) ? 'selected' : ''}>${b.name}</option>`).join('');
+                
+                const brandColors = {'Farmacenter': 'bg-blue-100 text-blue-700', 'Farmaunión': 'bg-orange-100 text-orange-700', 'Independiente': 'bg-slate-100 text-slate-700'};
+                const brandBadge = `<span class="${brandColors[pharma.brand] || 'bg-slate-100'} px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider">${pharma.brand}</span>`;
+                
+                const tr = document.createElement('tr');
+                tr.className = 'border-b border-slate-100 hover:bg-slate-50 transition-colors';
+                tr.innerHTML = `<td class="py-3 px-4 font-bold text-slate-800">${pharma.id}</td><td class="py-3 px-4"><div class="font-bold text-blue-600 mb-0.5">${pharma.name}</div>${brandBadge}</td><td class="py-3 px-4"><div class="leading-tight">${pharma.city} (${pharma.region})</div><div class="text-[11px] text-slate-400">${pharma.address}</div></td><td class="py-3 px-4"><div class="font-medium text-slate-700">${pharma.manager}</div><div class="text-[10px] text-slate-500 uppercase">${pharma.type}</div></td><td class="py-3 px-4"><select onchange="changePharmaBudget(${index}, this.value)" class="bg-slate-50 border border-slate-200 text-slate-700 font-bold text-xs px-2 py-1.5 rounded outline-none cursor-pointer focus:border-blue-500 w-32 shadow-sm appearance-none">${selectOptions}</select></td><td class="py-3 px-4 text-right"><span class="${selectedBudget ? selectedBudget.color : 'bg-slate-100 text-slate-600'} font-black text-[13px] px-2 py-1 rounded">$${selectedBudget ? selectedBudget.amount.toLocaleString() : '0'}</span></td>`;
+                tbody.appendChild(tr);
+            });
+
+            const tbodyOcr = document.getElementById('ocr-table-body');
+            if(tbodyOcr) {
+                tbodyOcr.innerHTML = '';
+                productsOcr.forEach(p => {
+                    const tr = document.createElement('tr');
+                    tr.className = 'border-b border-slate-100 hover:bg-slate-50';
+                    tr.innerHTML = `<td class="py-3 px-4 font-black text-slate-800">${p.plu}</td><td class="py-3 px-4 text-xs text-slate-500">${p.barcode}</td><td class="py-3 px-4 font-bold text-slate-700">${p.name}</td><td class="py-3 px-4">${p.cat}</td><td class="py-3 px-4"><span class="bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider border border-indigo-100">${p.brand}</span></td>`;
+                    tbodyOcr.appendChild(tr);
+                });
+            }
+        }
+        function changePharmaBudget(index, newBudgetId) { pharmacies[index].budgetId = parseInt(newBudgetId); renderDatabase(); localStorage.setItem('farmacenter_pharmacies', JSON.stringify(pharmacies)); }
+
+        // AGENDA CALENDARIO
+        let currentMonth = new Date(2026, 5, 1); // Empezamos en Junio 2026
+        function renderAgenda() {
+            const grid = document.getElementById('calendar-grid');
+            if(!grid) return;
+            const monthYearHeader = document.getElementById('calendar-month-year');
+            const year = currentMonth.getFullYear();
+            const month = currentMonth.getMonth();
+            
+            const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+            monthYearHeader.innerText = `${monthNames[month]} ${year}`;
+            
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            
+            let html = '';
+            for(let i=0; i<firstDay; i++) {
+                html += `<div class="bg-slate-50/50 p-2 border-transparent"></div>`;
+            }
+            
+            for(let d=1; d<=daysInMonth; d++) {
+                const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+                const dayEvents = agenda.filter(e => e.date === dateStr).sort((a,b) => a.time.localeCompare(b.time));
+                
+                let eventsHtml = '';
+                dayEvents.forEach((ev, idx) => {
+                    const globalIdx = agenda.indexOf(ev);
+                    if (ev.status === 'disponible') {
+                        eventsHtml += `<div onclick="changeAgendaStatus(${globalIdx}, 'agotada')" class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-bold px-1.5 py-1 rounded mb-1.5 cursor-pointer hover:bg-emerald-100 hover:shadow-sm transition-all truncate flex justify-between group" title="Clic para marcar como Agotada"><span>${ev.time}</span> <span class="uppercase text-[8px] opacity-70 group-hover:opacity-100 mt-0.5">Disp</span></div>`;
+                    } else {
+                        eventsHtml += `<div onclick="openCalendarDetailModal(${globalIdx})" class="bg-rose-50 text-rose-700 border border-rose-200 text-[10px] font-bold px-1.5 py-1 rounded mb-1.5 cursor-pointer hover:bg-rose-100 hover:shadow-sm transition-all truncate flex justify-between group" title="Clic para ver detalle."><span>${ev.time}</span> <span class="truncate ml-1 max-w-[60px] font-medium text-[9px] opacity-80 group-hover:opacity-100">${ev.takenBy || 'Ocupado'}</span></div>`;
+                    }
+                });
+
+                html += `<div class="bg-white p-2 flex flex-col hover:bg-blue-50/30 transition-colors group relative">
+                            <div class="text-xs font-bold text-slate-400 text-right mb-1.5 group-hover:text-blue-500 transition-colors">${d}</div>
+                            <div class="flex-1 overflow-y-auto custom-scrollbar pr-1">${eventsHtml}</div>
+                         </div>`;
+            }
+            
+            const totalCells = firstDay + daysInMonth;
+            const remainingCells = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
+            for(let i=0; i<remainingCells; i++) {
+                html += `<div class="bg-slate-50/50 p-2 border-transparent"></div>`;
+            }
+            
+            grid.innerHTML = html;
+            localStorage.setItem('farmacenter_agenda_v3', JSON.stringify(agenda));
+        }
+        function changeMonth(delta) { currentMonth.setMonth(currentMonth.getMonth() + delta); renderAgenda(); }
+        function openAddAgendaModal() { document.getElementById('add-agenda-modal').classList.remove('hidden'); }
+        function closeAddAgendaModal() { document.getElementById('add-agenda-modal').classList.add('hidden'); }
+        function saveNewAgenda() {
+            const d = document.getElementById('new-agenda-date').value;
+            const t = document.getElementById('new-agenda-time').value;
+            if(d && t) {
+                agenda.push({ id: Date.now(), date: d, time: t, status: 'disponible', takenBy: '' });
+                localStorage.setItem('farmacenter_agenda_v3', JSON.stringify(agenda));
+                renderAgenda();
+                closeAddAgendaModal();
+            }
+        }
+        function changeAgendaStatus(index, newStatus) { 
+            agenda[index].status = newStatus; 
+            if(newStatus === 'disponible') agenda[index].takenBy = '';
+            else agenda[index].takenBy = 'Ocupado'; 
+            renderAgenda(); 
+        }
+        function deleteAgenda(index) { if(confirm('¿Eliminar fecha?')) { agenda.splice(index, 1); renderAgenda(); } }
+
+        function exportCalendarToCSV() {
+            let csvContent = "data:text/csv;charset=utf-8,Fecha,Hora,Estado,Tomado Por\n";
+            agenda.forEach(row => {
+                csvContent += `${row.date},${row.time},${row.status},"${row.takenBy}"\n`;
+            });
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "calendario_activaciones.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function openCalendarDetailModal(index) {
+            const ev = agenda[index];
+            if(ev.status !== 'agotada') return;
+            
+            const pharma = pharmacies.find(p => ev.takenBy.includes(p.name)) || pharmacies[0];
+            
+            document.getElementById('cdm-date').innerText = `${ev.date} - ${ev.time}`;
+            document.getElementById('cdm-brand').innerText = `${pharma.brand} - ${pharma.name}`;
+            document.getElementById('cdm-city').innerText = `${pharma.city} (${pharma.region})`;
+            document.getElementById('cdm-manager').innerText = `${pharma.manager} (${pharma.type})`;
+            
+            document.getElementById('calendar-detail-modal').classList.remove('hidden');
+            setTimeout(() => { document.getElementById('calendar-detail-content').classList.remove('translate-x-full'); }, 10);
+        }
+        function closeCalendarDetailModal() {
+            document.getElementById('calendar-detail-content').classList.add('translate-x-full');
+            setTimeout(() => { document.getElementById('calendar-detail-modal').classList.add('hidden'); }, 300);
+        }
+
+        // CUSTOMERS & INVOICES LOGIC
+        let currentCustomerId = null;
+        function renderInvoices() {
+            const tbody = document.getElementById('invoices-table-body');
+            tbody.innerHTML = '';
+            customers.forEach((c) => {
+                const tr = document.createElement('tr');
+                tr.className = 'border-b border-slate-100 hover:bg-slate-50 transition-colors cursor-pointer group';
+                tr.onclick = () => openCustomerDetail(c.id);
+                
+                const balanceTag = c.balance > 0 ? `<div class="mt-1"><span class="bg-red-50 text-red-600 border border-red-200 px-1.5 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">Saldo Pendiente</span></div>` : '';
+
+                tr.innerHTML = `
+                    <td class="py-4 px-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 font-bold flex items-center justify-center text-xs flex-shrink-0">${c.name.charAt(0)}</div>
+                            <div>
+                                <p class="font-bold text-slate-800 text-[13px] leading-tight group-hover:text-blue-600 transition-colors">${c.name}</p>
+                                <p class="text-[11px] text-slate-500">${c.phone}</p>
+                                ${balanceTag}
+                            </div>
+                        </div>
+                    </td>
+                    <td class="py-4 px-4 font-black text-slate-700">$${c.totalValidated.toLocaleString()}</td>
+                    <td class="py-4 px-4 font-bold text-blue-600">$${c.balance.toLocaleString()}</td>
+                    <td class="py-4 px-4">
+                        <div class="flex items-center gap-1.5 flex-wrap max-w-[120px]">
+                            ${c.tickets.length > 0 ? c.tickets.map(t => `<span class="bg-brand-yellow/30 text-slate-800 border border-brand-yellow px-1.5 py-0.5 rounded text-[10px] font-black">${t}</span>`).join('') : '<span class="text-xs text-slate-400 italic">0</span>'}
+                        </div>
+                    </td>
+                    <td class="py-4 px-4 text-right">
+                        <button class="text-slate-400 hover:text-blue-600 text-sm font-bold flex items-center justify-end gap-1 w-full transition-colors">Ver Detalle <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            // RENDER RANKING
+            const rankingContainer = document.getElementById('ranking-container');
+            if(rankingContainer) {
+                rankingContainer.innerHTML = '';
+                const topCustomers = [...customers].sort((a,b) => b.totalValidated - a.totalValidated).slice(0, 5);
+                topCustomers.forEach((c, idx) => {
+                    const posColor = idx === 0 ? 'bg-yellow-400 text-yellow-900' : idx === 1 ? 'bg-slate-300 text-slate-800' : idx === 2 ? 'bg-orange-300 text-orange-900' : 'bg-blue-800 text-blue-200';
+                    rankingContainer.innerHTML += `
+                        <div class="flex items-center gap-3 bg-blue-800/50 p-2.5 rounded-lg border border-blue-600/30">
+                            <div class="w-6 h-6 rounded-full ${posColor} font-black text-[10px] flex items-center justify-center flex-shrink-0">${idx+1}</div>
+                            <div class="flex-1 min-w-0">
+                                <p class="font-bold text-[13px] truncate">${c.name}</p>
+                                <p class="text-[10px] text-blue-300">$${c.totalValidated.toLocaleString()}</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-[11px] font-black text-brand-yellow">${c.tickets.length} Tkts</p>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+        }
+
+        function openCustomerDetail(customerId) {
+            currentCustomerId = customerId;
+            const c = customers.find(x => x.id === customerId);
+            if(!c) return;
+
+            document.getElementById('cd-avatar').innerText = c.name.charAt(0);
+            document.getElementById('cd-name').innerText = c.name;
+            document.getElementById('cd-phone').innerText = c.phone;
+            document.getElementById('cd-total').innerText = '$' + c.totalValidated.toLocaleString();
+            document.getElementById('cd-balance').innerText = '$' + c.balance.toLocaleString();
+            document.getElementById('cd-tickets-count').innerText = c.tickets.length;
+
+            const ticketsList = document.getElementById('cd-tickets-list');
+            if(c.tickets.length > 0) {
+                ticketsList.innerHTML = c.tickets.map(t => `<div class="bg-brand-yellow text-slate-800 font-black px-3 py-1.5 rounded-lg shadow-sm border border-yellow-400 flex items-center gap-2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg> ${t}</div>`).join('');
+            } else {
+                ticketsList.innerHTML = '<p class="text-sm text-slate-400 italic">No tiene tickets asignados aún.</p>';
+            }
+
+            const invoicesList = document.getElementById('cd-invoices-list');
+            if(c.invoices.length > 0) {
+                invoicesList.innerHTML = c.invoices.map(inv => `
+                    <div class="bg-white border border-slate-200 rounded-xl p-4 flex items-center justify-between shadow-sm">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-slate-100 rounded-lg overflow-hidden border border-slate-200 flex-shrink-0 cursor-pointer hover:opacity-80 transition-opacity" onclick="window.open('${inv.img}', '_blank')" title="Ver factura original">
+                                <img src="${inv.img}" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <p class="font-bold text-slate-800 text-sm">Factura #${inv.id}</p>
+                                <p class="text-[11px] text-slate-500 mb-1">${inv.date}</p>
+                                <div class="flex flex-wrap gap-1 max-w-[200px]">
+                                    ${inv.items ? inv.items.map(item => `<span class="bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded text-[9px] font-bold border border-slate-200">${item}</span>`).join('') : ''}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-black text-slate-800">$${inv.amount.toLocaleString()}</p>
+                            <span class="text-[9px] font-bold uppercase tracking-wider bg-green-100 text-green-700 px-1.5 py-0.5 rounded">Validada</span>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                invoicesList.innerHTML = '<p class="text-sm text-slate-400 italic">No ha subido facturas.</p>';
+            }
+
+            document.getElementById('customer-detail-modal').classList.remove('hidden');
+            setTimeout(() => { document.getElementById('customer-detail-content').classList.remove('translate-x-full'); }, 10);
+        }
+
+        function switchInvoicesTab(tabName) {
+            document.getElementById('subview-inv-directory').classList.add('hidden');
+            document.getElementById('subview-inv-analytics').classList.add('hidden');
+            document.getElementById('tab-inv-directory').className = "pb-3 border-b-2 border-transparent hover:text-slate-800 transition-colors";
+            document.getElementById('tab-inv-analytics').className = "pb-3 border-b-2 border-transparent hover:text-slate-800 transition-colors";
+
+            if(tabName === 'directory') {
+                document.getElementById('subview-inv-directory').classList.remove('hidden');
+                document.getElementById('subview-inv-directory').classList.add('flex');
+                document.getElementById('tab-inv-directory').className = "pb-3 border-b-2 border-blue-600 text-blue-600 transition-colors";
+            } else {
+                document.getElementById('subview-inv-analytics').classList.remove('hidden');
+                document.getElementById('subview-inv-analytics').classList.add('flex');
+                document.getElementById('tab-inv-analytics').className = "pb-3 border-b-2 border-blue-600 text-blue-600 transition-colors";
+            }
+        }
+
+        function renderB2CAnalytics() {
+            // Mock Data for Top 20 Products
+            const products = [
+                {n: 'Dolex Niños 120ml', brand: 'GSK', cat: 'Analgésicos', v: 450},
+                {n: 'Vick VapoRub 50g', brand: 'P&G', cat: 'Gripa', v: 412},
+                {n: 'Listerine Cool Mint', brand: 'J&J', cat: 'Cuidado Oral', v: 380},
+                {n: 'Aspirina Efervescente', brand: 'Bayer', cat: 'Analgésicos', v: 355},
+                {n: 'Gaviscon Suspensión', brand: 'Reckitt', cat: 'Gástrico', v: 310},
+                {n: 'Ensure Vainilla 400g', brand: 'Abbott', cat: 'Nutrición', v: 290},
+                {n: 'Noraver Garganta', brand: 'Genfar', cat: 'Gripa', v: 285},
+                {n: 'Gillette Mach3', brand: 'P&G', cat: 'Aseo', v: 270},
+                {n: 'Kotex Nocturna', brand: 'Kimberly', cat: 'Cuidado Femenino', v: 265},
+                {n: 'Colgate Total 12', brand: 'Colgate', cat: 'Cuidado Oral', v: 250},
+                {n: 'Advil Max', brand: 'GSK', cat: 'Analgésicos', v: 245},
+                {n: 'Sal de Frutas LUA', brand: 'Novartis', cat: 'Gástrico', v: 230},
+                {n: 'Buscapina Fem', brand: 'Sanofi', cat: 'Analgésicos', v: 215},
+                {n: 'Pañales Winny', brand: 'Tecnoquímicas', cat: 'Infantil', v: 200},
+                {n: 'Pedialyte Coco', brand: 'Abbott', cat: 'Hidratación', v: 195},
+                {n: 'Sevedol Extra Fuerte', brand: 'Bayer', cat: 'Analgésicos', v: 180},
+                {n: 'Shampoo H&S', brand: 'P&G', cat: 'Cuidado Capilar', v: 175},
+                {n: 'Gatorade Naranja', brand: 'PepsiCo', cat: 'Hidratación', v: 160},
+                {n: 'Clotrimazol Crema', brand: 'Genfar', cat: 'Dermatológico', v: 150},
+                {n: 'Vitamina C Cebión', brand: 'Merck', cat: 'Vitaminas', v: 145}
+            ];
+
+            const brands = [
+                {n: 'GSK', v: 1250}, {n: 'P&G', v: 1100}, {n: 'Bayer', v: 980}, {n: 'Abbott', v: 850}, {n: 'J&J', v: 720},
+                {n: 'Tecnoquímicas', v: 650}, {n: 'Sanofi', v: 540}, {n: 'Genfar', v: 510}, {n: 'Colgate', v: 490}, {n: 'Reckitt', v: 460},
+                {n: 'Kimberly', v: 420}, {n: 'Novartis', v: 380}, {n: 'Merck', v: 340}, {n: 'Unilever', v: 310}, {n: 'Pfizer', v: 290},
+                {n: 'Loreal', v: 260}, {n: 'Gillette', v: 240}, {n: 'Nestlé', v: 210}, {n: 'PepsiCo', v: 190}, {n: 'Euroetika', v: 150}
+            ];
+
+            const categories = [
+                {n: 'Analgésicos', v: 2450}, {n: 'Cuidado Oral', v: 1800}, {n: 'Gripa y Tos', v: 1650}, {n: 'Nutrición', v: 1400}, {n: 'Gástrico', v: 1250},
+                {n: 'Aseo Personal', v: 1100}, {n: 'Dermatológico', v: 950}, {n: 'Infantil', v: 880}, {n: 'Cuidado Femenino', v: 760}, {n: 'Hidratación', v: 720},
+                {n: 'Cuidado Capilar', v: 680}, {n: 'Vitaminas', v: 610}, {n: 'Oftálmico', v: 540}, {n: 'Antialérgicos', v: 490}, {n: 'Primeros Auxilios', v: 430},
+                {n: 'Planificación', v: 380}, {n: 'Ortopedia', v: 320}, {n: 'Cuidado Piel', v: 290}, {n: 'Suplementos', v: 250}, {n: 'Naturales', v: 210}
+            ];
+
+            const prodHtml = products.map((p, i) => `
+                <div class="flex items-center gap-3 py-2 border-b border-slate-50 last:border-0 hover:bg-slate-50 rounded px-2 transition-colors">
+                    <span class="w-5 h-5 rounded-full ${i < 3 ? 'bg-yellow-100 text-yellow-700' : 'bg-slate-100 text-slate-500'} flex items-center justify-center text-[10px] font-black flex-shrink-0">${i+1}</span>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-bold text-slate-800 truncate" title="${p.n}">${p.n}</p>
+                        <p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">${p.brand} &bull; ${p.cat}</p>
+                    </div>
+                    <div class="text-right flex-shrink-0">
+                        <p class="text-xs font-black text-emerald-600">${p.v}</p>
+                        <p class="text-[9px] text-slate-400">Tickets</p>
+                    </div>
+                </div>
+            `).join('');
+
+            const brandHtml = brands.map((b, i) => `
+                <div class="flex items-center gap-3 py-2 border-b border-slate-50 last:border-0 hover:bg-slate-50 rounded px-2 transition-colors">
+                    <span class="w-5 h-5 rounded-full ${i < 3 ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-slate-500'} flex items-center justify-center text-[10px] font-black flex-shrink-0">${i+1}</span>
+                    <div class="flex-1 min-w-0"><p class="text-[13px] font-bold text-slate-800 truncate">${b.n}</p></div>
+                    <div class="text-right flex-shrink-0"><p class="text-xs font-black text-blue-600">${b.v}</p></div>
+                </div>
+            `).join('');
+
+            const catHtml = categories.map((c, i) => `
+                <div class="flex items-center gap-3 py-2 border-b border-slate-50 last:border-0 hover:bg-slate-50 rounded px-2 transition-colors">
+                    <span class="w-5 h-5 rounded-full ${i < 3 ? 'bg-purple-100 text-purple-700' : 'bg-slate-100 text-slate-500'} flex items-center justify-center text-[10px] font-black flex-shrink-0">${i+1}</span>
+                    <div class="flex-1 min-w-0"><p class="text-[13px] font-bold text-slate-800 truncate">${c.n}</p></div>
+                    <div class="text-right flex-shrink-0"><p class="text-xs font-black text-purple-600">${c.v}</p></div>
+                </div>
+            `).join('');
+
+            document.getElementById('b2c-top-products').innerHTML = prodHtml;
+            document.getElementById('b2c-top-brands').innerHTML = brandHtml;
+            document.getElementById('b2c-top-categories').innerHTML = catHtml;
+        }
+
+        function closeCustomerDetail() {
+            document.getElementById('customer-detail-content').classList.add('translate-x-full');
+            setTimeout(() => { document.getElementById('customer-detail-modal').classList.add('hidden'); currentCustomerId = null; }, 300);
+        }
+
+        function manuallyAddTicket() {
+            if(!currentCustomerId) return;
+            const c = customers.find(x => x.id === currentCustomerId);
+            const newTicket = String(Math.floor(1000 + Math.random() * 9000));
+            c.tickets.push(newTicket);
+            localStorage.setItem('farmacenter_customers', JSON.stringify(customers));
+            openCustomerDetail(currentCustomerId); // Re-render modal
+            renderInvoices(); // Re-render table behind
+            alert(`Ticket ${newTicket} asignado exitosamente.`);
+        }
+        // DASHBOARD GOALS MODAL & FILTERS
+        function openConfigGoalsModal() {
+            document.getElementById('cg-budget').value = metrics.budgetAssigned || 200000000;
+            document.getElementById('cg-annual').value = metrics.targetActivations || 400;
+            // Let's deduce monthly as approx 1/12 or just keep a static mock
+            document.getElementById('cg-monthly').value = Math.round((metrics.targetActivations || 400) / 12);
+            document.getElementById('config-goals-modal').classList.remove('hidden');
+        }
+
+        function closeConfigGoalsModal() {
+            document.getElementById('config-goals-modal').classList.add('hidden');
+        }
+
+        function saveConfigGoals() {
+            metrics.budgetAssigned = parseInt(document.getElementById('cg-budget').value) || 0;
+            metrics.targetActivations = parseInt(document.getElementById('cg-annual').value) || 0;
+            localStorage.setItem('farmacenter_metrics', JSON.stringify(metrics));
+            
+            // Re-render UI elements
+            updateDashboardFilters();
+            closeConfigGoalsModal();
+        }
+
+        function updateDashboardFilters() {
+            const regionSelect = document.getElementById('dash-filter-region').value;
+            const brandSelect = document.getElementById('dash-filter-brand').value;
+
+            // 1. Random factor to simulate different data sets
+            let factor = Math.random() * 0.4 + 0.8; // between 0.8 and 1.2
+            if (regionSelect !== 'Región: Nacional') factor += 0.1;
+            
+            // 2. Base metrics
+            const baseBudget = metrics.budgetAssigned || 200000000;
+            const baseAnnualTarget = metrics.targetActivations || 400;
+            const baseMonthlyTarget = Math.round(baseAnnualTarget / 12);
+            
+            // If filtered by region/brand, reduce the base target/budget to simulate a subset
+            let subsetRatio = 1.0;
+            if (regionSelect !== 'Región: Nacional') subsetRatio *= 0.35;
+            if (brandSelect !== 'Marca: Todas') subsetRatio *= 0.4;
+            
+            const currentBudget = baseBudget * subsetRatio;
+            const currentAnnualTarget = Math.round(baseAnnualTarget * subsetRatio);
+            const currentMonthlyTarget = Math.round(baseMonthlyTarget * subsetRatio);
+
+            // 3. Execution (Simulated)
+            // Sometimes let it go high (e.g. >85%) to test budget alert
+            const execPct = Math.min(100, Math.round((Math.random() * 60 + 35) * factor)); 
+            const executed = Math.round(currentBudget * (execPct / 100));
+            
+            const monthlyPct = Math.min(100, Math.round((Math.random() * 50 + 50) * factor));
+            const monthlyVal = Math.round(currentMonthlyTarget * (monthlyPct / 100));
+            
+            const annualPct = Math.min(100, Math.round((Math.random() * 50 + 20) * factor));
+            const annualVal = Math.round(currentAnnualTarget * (annualPct / 100));
+            
+            // Update KPI 1: Budget
+            document.getElementById('dash-budget-total').innerText = '$' + currentBudget.toLocaleString();
+            document.getElementById('dash-budget-executed-text').innerText = 'Ejecutado: $' + (executed / 1000000).toFixed(1) + 'M';
+            document.getElementById('dash-budget-pct').innerText = execPct + '%';
+            document.getElementById('dash-budget-bar').style.width = execPct + '%';
+            
+            // Budget Color Alert (>85%)
+            const budgetCard = document.getElementById('dash-budget-card');
+            if (execPct > 85) {
+                budgetCard.className = "col-span-2 bg-gradient-to-br from-rose-600 to-rose-800 rounded-2xl p-6 text-white shadow-md relative overflow-hidden flex flex-col justify-between transition-colors duration-500";
+            } else {
+                budgetCard.className = "col-span-2 bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl p-6 text-white shadow-md relative overflow-hidden flex flex-col justify-between transition-colors duration-500";
+            }
+
+            // Update KPI 2: Monthly
+            document.getElementById('dash-monthly-val').innerText = monthlyVal;
+            document.getElementById('dash-monthly-target').innerText = currentMonthlyTarget;
+            document.getElementById('dash-monthly-bar').style.width = monthlyPct + '%';
+            
+            // Forecasting Pacing
+            const monthlyStatus = document.getElementById('dash-monthly-status');
+            if(monthlyPct < 80) {
+                monthlyStatus.innerText = `¡Alerta! Colgados (${monthlyVal - currentMonthlyTarget})`;
+                monthlyStatus.className = 'text-xs text-amber-600 font-bold bg-amber-50 inline-block px-2 py-0.5 rounded transition-all duration-300';
+            } else {
+                monthlyStatus.innerText = `A este ritmo, cumplimos el ${Math.floor(Math.random() * 5 + 20)} del mes`;
+                monthlyStatus.className = 'text-xs text-emerald-600 font-bold bg-emerald-50 inline-block px-2 py-0.5 rounded transition-all duration-300';
+            }
+            
+            // Update KPI 3: Annual
+            document.getElementById('dash-annual-val').innerText = annualVal;
+            document.getElementById('dash-annual-target').innerText = currentAnnualTarget;
+            document.getElementById('dash-annual-bar').style.width = annualPct + '%';
+            
+            const annualStatus = document.getElementById('dash-annual-status');
+            if(annualPct < 20) {
+                annualStatus.innerText = 'Retraso Crítico (Riesgo)';
+                annualStatus.className = 'text-xs text-red-600 font-bold bg-red-50 inline-block px-2 py-0.5 rounded transition-all duration-300';
+            } else {
+                const months = ['Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+                const projMonth = months[Math.floor(Math.random() * months.length)];
+                annualStatus.innerText = `Proyección meta: ${projMonth}`;
+                annualStatus.className = 'text-xs text-emerald-600 font-bold bg-emerald-50 inline-block px-2 py-0.5 rounded transition-all duration-300';
+            }
+
+            // Logistics Alert Synergy
+            const logAlert = document.getElementById('dash-logistics-alert');
+            if (regionSelect !== 'Región: Nacional' || brandSelect !== 'Marca: Todas') {
+                const pending = Math.floor(Math.random() * 8) + 1;
+                document.getElementById('dash-logistics-text').innerText = `Tienes ${pending} solicitudes pendientes en esta vista`;
+                logAlert.classList.remove('hidden');
+            } else {
+                logAlert.classList.add('hidden');
+            }
+
+            // Drill-down Region Performance
+            const regionContainer = document.getElementById('dash-region-performance');
+            let regionsData = [];
+            if (regionSelect === 'Bogotá') {
+                regionsData = [{n: 'Bogotá (Norte)', v: 34}, {n: 'Bogotá (Centro)', v: 22}, {n: 'Bogotá (Sur)', v: 11}];
+            } else if (regionSelect === 'Medellín') {
+                regionsData = [{n: 'Medellín', v: 29}, {n: 'Bello', v: 18}, {n: 'Envigado', v: 12}];
+            } else if (regionSelect === 'Cali') {
+                regionsData = [{n: 'Cali (Norte)', v: 15}, {n: 'Cali (Sur)', v: 12}, {n: 'Palmira', v: 6}];
+            } else {
+                regionsData = [{n: 'Bogotá (Centro)', v: 65}, {n: 'Medellín (Antioquia)', v: 42}, {n: 'Cali (Valle)', v: 21}];
+            }
+            
+            regionContainer.innerHTML = regionsData.map(r => `
+                <div>
+                    <div class="flex justify-between text-sm font-bold text-slate-700 mb-1"><span>${r.n}</span><span class="text-emerald-600 font-black">${r.v}</span></div>
+                    <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden"><div class="bg-emerald-400 h-1.5 rounded-full" style="width: ${(r.v/regionsData[0].v)*100}%"></div></div>
+                </div>
+            `).join('');
+
+            // Drill-down Brand Performance
+            const brandContainer = document.getElementById('dash-brand-performance');
+            let brandsData = [];
+            if (brandSelect === 'Farmacenter') {
+                brandsData = [{n: 'Farmacenter (VIP)', v: 85, c: 'bg-blue-500'}, {n: 'Farmacenter (Estándar)', v: 45, c: 'bg-blue-400'}];
+            } else if (brandSelect === 'Farmaunión') {
+                brandsData = [{n: 'Farmaunión (Premium)', v: 32, c: 'bg-orange-500'}, {n: 'Farmaunión (Básico)', v: 18, c: 'bg-orange-400'}];
+            } else if (brandSelect === 'Independientes') {
+                brandsData = [{n: 'Red Independiente A', v: 11, c: 'bg-slate-500'}, {n: 'Red Independiente B', v: 5, c: 'bg-slate-400'}];
+            } else {
+                brandsData = [{n: 'Farmacenter', v: 85, c: 'bg-blue-500'}, {n: 'Farmaunión', v: 32, c: 'bg-orange-500'}, {n: 'Independientes', v: 11, c: 'bg-slate-500'}];
+            }
+            brandContainer.innerHTML = brandsData.map(b => `
+                <div>
+                    <div class="flex justify-between text-sm font-bold text-slate-700 mb-1"><span>${b.n}</span><span>${b.v} activaciones</span></div>
+                    <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden"><div class="${b.c} h-2 rounded-full" style="width: ${(b.v/brandsData[0].v)*100}%"></div></div>
+                </div>
+            `).join('');
+
+            // Top Pharmacies
+            const topLabel = document.getElementById('dash-top-label');
+            topLabel.innerText = `${regionSelect} - ${brandSelect}`;
+            const topContainer = document.getElementById('dash-top-pharmacies');
+            const mockNames = ['Farmacia La Rebaja', 'Drogas La Economia', 'Pasteur Principal', 'Farmacenter San Martin', 'Farmaunión Centro', 'Botica de la Piel', 'Cruz Verde Punto', 'Droguería El Ahorro'];
+            let topHtml = '';
+            for(let i=0; i<5; i++) {
+                const randName = mockNames[Math.floor(Math.random() * mockNames.length)];
+                const inv = Math.floor(Math.random() * 50 + 10);
+                const posColor = i === 0 ? 'bg-yellow-100 text-yellow-700' : 'bg-slate-100 text-slate-600';
+                topHtml += `
+                    <div class="border border-slate-200 rounded-xl p-4 flex flex-col gap-2 hover:border-blue-300 transition-colors">
+                        <div class="flex items-center gap-2">
+                            <span class="${posColor} w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-black">${i+1}</span>
+                            <span class="font-bold text-slate-800 text-[13px] truncate" title="${randName}">${randName}</span>
+                        </div>
+                        <div class="mt-2 text-[11px] text-slate-500 font-bold flex justify-between">
+                            <span>Ejecutado:</span> <span class="text-emerald-600">$${(inv/10).toFixed(1)}M</span>
+                        </div>
+                    </div>
+                `;
+            }
+            topContainer.innerHTML = topHtml;
+        }
+    </script>
+</body>
+</html>

@@ -114,7 +114,8 @@
             tati: { name: "Tati Barrera", cost: 330, image: "https://i.postimg.cc/NMh6pvKW/tati-barrera.png" },
             camilo: { name: "Camilo MD", cost: 590, image: "https://i.postimg.cc/NFV6Wb15/camilo-md.jpg" },
             pipe: { name: "Pipe Sierra", cost: 280, image: "https://i.postimg.cc/cL6q7JJw/pipe-Sierra-2.webp" },
-            paula: { name: "Paula Dazzle", cost: 750, image: "https://i.postimg.cc/rp6qXp2x/paula-dazzle.jpg" }
+            paula: { name: "Paula Dazzle", cost: 350, image: "https://i.postimg.cc/rp6qXp2x/paula-dazzle.jpg" },
+            julian: { name: "Julian Valencia", cost: 400, image: "https://i.postimg.cc/XJbbFKK1/julian_valencia.jpg" }
         };
 
         // INFLUENCERS DATA (Full Roster)
@@ -128,8 +129,13 @@
                 link: "https://www.instagram.com/valentinataguado/", 
                 icon: "instagram",
                 mainPlatform: "Instagram / TikTok",
-                gender: "Mixto (50% H / 50% M)",
-                audience: "Público equilibrado, entretenimiento masivo."
+                gender: "53.4% M / 46.6% H",
+                audience: "Alcance masivo, 25-44 años, 80% Colombia.",
+                demographics: [
+                    { label: "25-34 años", value: 49.5 },
+                    { label: "35-44 años", value: 23.8 },
+                    { label: "18-24 años", value: 17.1 }
+                ]
             },
             { 
                 name: "Julian Valencia", 
@@ -357,7 +363,8 @@
                 { id: 'influencers', label: 'Influenciadores' },
                 { id: 'packages', label: 'Paquetes' },
                 { id: 'livespins', label: 'Live Spins' },
-                { id: 'mediakits', label: 'Media Kits (Insights)' }
+                { id: 'mediakits', label: 'Media Kits (Insights)' },
+                { id: 'pilot', label: 'Caja Misteriosa' }
             ];
 
             const navHTML = tabs.map(tab => `
@@ -1247,7 +1254,6 @@
         }
 
         // --- CONTROLLER ---
-
         function render() {
             renderNav();
             const container = document.getElementById('main-content');
@@ -1258,6 +1264,7 @@
             else if (state.activeTab === 'packages') container.innerHTML = renderPackages();
             else if (state.activeTab === 'livespins') container.innerHTML = renderLiveSpins();
             else if (state.activeTab === 'mediakits') container.innerHTML = renderMediaKits();
+            else if (state.activeTab === 'pilot') container.innerHTML = renderPilotPlan(); // NEW ROUTE
 
             lucide.createIcons();
         }
@@ -1323,6 +1330,7 @@
         function renderModal() {
             const modalContainer = document.getElementById('modal-container');
             const type = state.showRefModal;
+            const im = state.influencerMode;
             
             if (!type) {
                 modalContainer.classList.add('hidden');
@@ -1388,8 +1396,8 @@
                         <div class="bg-gradient-to-tr from-green-400 to-green-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"><i data-lucide="video" class="w-8 h-8 text-white"></i></div>
                         <h3 class="text-xl font-bold mb-2">Referencia: Interacción con el juego</h3>
                         <p class="text-sm text-gray-600 mb-6">Usuarios ganando (Efecto Pantalla).</p>
-                        <a href="https://www.instagram.com/p/C3LpaCBgF57/" target="_blank" class="w-full bg-black text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-gray-800 transition-colors">
-                            Ver Video en Instagram <i data-lucide="external-link" class="w-4 h-4"></i>
+                        <a href="https://vt.tiktok.com/ZSmdJpCjB/" target="_blank" class="w-full bg-black text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-gray-800 transition-colors">
+                            Ver Video en TikTok <i data-lucide="external-link" class="w-4 h-4"></i>
                         </a>
                     </div>`;
             } else if (type === 'capsules') {
@@ -1449,6 +1457,120 @@
 
         // Close modal on outside click
         document.getElementById('modal-container').addEventListener('click', closeModal);
+
+        // --- RENDER FUNCIÓN DEL NUEVO TAB: CAJA MISTERIOSA ---
+        function renderPilotPlan() {
+            return `
+                <div class="animate-slide-up p-4 md:p-10 max-w-7xl mx-auto pb-20">
+                    <div class="text-center mb-10">
+                        <div class="inline-flex items-center gap-2 px-4 py-1.5 mb-4 rounded-full bg-purple-50 text-purple-600 text-xs font-bold border border-purple-200 uppercase tracking-wider">
+                            <i data-lucide="package" class="w-4 h-4"></i> Proyecto Piloto
+                        </div>
+                        <h2 class="text-3xl md:text-5xl font-extrabold mb-4 uppercase tracking-tight">La Caja Misteriosa</h2>
+                        <p class="text-gray-500 max-w-2xl mx-auto text-lg">
+                            Torneo de Mesas Evolution en BetPlay<br/>
+                            <span class="font-bold text-black">16 al 30 de Junio de 2026</span>
+                        </p>
+                    </div>
+
+                    <!-- HERO IMAGES -->
+                    <div class="flex justify-center items-center mb-16 relative">
+                        <div class="w-40 h-40 md:w-56 md:h-56 rounded-full border-4 border-white shadow-2xl overflow-hidden relative z-10 transform translate-x-4 md:translate-x-8">
+                            <img src="https://i.postimg.cc/XJbbFKK1/julian_valencia.jpg" class="w-full h-full object-cover" alt="Julian Valencia" />
+                            <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black to-transparent p-2 text-center text-white font-bold text-xs">Julián Valencia</div>
+                        </div>
+                        <div class="w-12 h-12 md:w-16 md:h-16 bg-black text-white rounded-full flex items-center justify-center font-black italic text-xl md:text-2xl z-20 border-4 border-white shadow-xl">
+                            VS
+                        </div>
+                        <div class="w-40 h-40 md:w-56 md:h-56 rounded-full border-4 border-white shadow-2xl overflow-hidden relative z-10 transform -translate-x-4 md:-translate-x-8">
+                            <img src="https://i.postimg.cc/NGWrvK3h/Whats-App-Image-2026-02-10-at-8-03-14-PM.jpg" class="w-full h-full object-cover" alt="Cristian González" />
+                            <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black to-transparent p-2 text-center text-white font-bold text-xs">Cristian González</div>
+                        </div>
+                    </div>
+
+                    <!-- TIMELINE -->
+                    <div class="max-w-4xl mx-auto">
+                        <div class="relative border-l-4 border-black pl-8 md:pl-12 py-6 space-y-12">
+                            
+                            <!-- PREVIA -->
+                            <div class="relative">
+                                <div class="absolute -left-[45px] md:-left-[61px] top-0 w-12 h-12 md:w-14 md:h-14 bg-black text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg">1</div>
+                                <h3 class="text-2xl font-black uppercase mb-2">La Previa (Expectativa)</h3>
+                                <p class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6">Días previos al evento</p>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 hover:border-black transition-colors">
+                                        <div class="flex items-center gap-3 mb-4">
+                                            <img src="https://i.postimg.cc/XJbbFKK1/julian_valencia.jpg" class="w-8 h-8 rounded-full object-cover" />
+                                            <h4 class="font-bold text-sm">Julián Valencia</h4>
+                                        </div>
+                                        <ul class="text-xs text-gray-600 space-y-3 leading-relaxed">
+                                            <li><strong class="text-black block mb-1">Historia 1: El Descubrimiento</strong> Se levanta y encuentra una caja gigante en su cuarto (posible logo Evolution). La caja se mueve sola. "¡Qué es esta vaina!".</li>
+                                            <li><strong class="text-black block mb-1">Historia 2: Caja de Preguntas</strong> Dinámica: "¿Quién creen que está adentro?". Los 5 primeros en adivinar ganan un bono de $100.000 COP en BetPlay para usar el día del stream.</li>
+                                        </ul>
+                                    </div>
+                                    <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 hover:border-black transition-colors">
+                                        <div class="flex items-center gap-3 mb-4">
+                                            <img src="https://i.postimg.cc/NGWrvK3h/Whats-App-Image-2026-02-10-at-8-03-14-PM.jpg" class="w-8 h-8 rounded-full object-cover" />
+                                            <h4 class="font-bold text-sm">Cristian González</h4>
+                                        </div>
+                                        <ul class="text-xs text-gray-600 space-y-3 leading-relaxed">
+                                            <li><strong class="text-black block mb-1">Historia Expectativa:</strong> "Voy para donde un amigo a un reto, ¿quién creen que sea?". Dinámica para regalar 5 bonos adicionales de $100.000 COP.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="mt-6 bg-purple-100 text-purple-800 p-4 rounded-xl text-sm font-bold flex items-center gap-3 shadow-sm border border-purple-200">
+                                    <i data-lucide="link" class="w-5 h-5 flex-shrink-0"></i>
+                                    El Hook Final: Julián abre la caja, sale Cristian con regalos y sueltan el link de la transmisión en vivo (Twitch/Kick).
+                                </div>
+                            </div>
+
+                            <!-- DURANTE -->
+                            <div class="relative">
+                                <div class="absolute -left-[45px] md:-left-[61px] top-0 w-12 h-12 md:w-14 md:h-14 bg-red-600 text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg animate-pulse">2</div>
+                                <h3 class="text-2xl font-black uppercase mb-2">El Durante (El Evento)</h3>
+                                <p class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6">Transmisión en Vivo (2 Horas)</p>
+                                
+                                <div class="bg-white p-8 rounded-2xl border-2 border-red-100 shadow-xl">
+                                    <div class="space-y-8">
+                                        <div>
+                                            <h4 class="font-black text-sm uppercase mb-2 flex items-center gap-2"><i data-lucide="swords" class="w-4 h-4 text-red-500"></i> Retos cada 15 Minutos</h4>
+                                            <p class="text-sm text-gray-600 leading-relaxed">Se transmite jugando el torneo de Evolution en BetPlay. Si cae un número acordado en la Ruleta (ej. el 13) en un lapso de 15 minutos, se activa una pregunta/reto picante entre Julián y Cristian. Si no cae, hay castigo para Julián. (Aprox. 8 retos en el stream).</p>
+                                        </div>
+                                        <div class="bg-red-50 p-4 rounded-xl border border-red-100">
+                                            <h4 class="font-black text-sm uppercase mb-2 flex items-center gap-2"><i data-lucide="gift" class="w-4 h-4 text-red-500"></i> Incentivo de Registro y Juego</h4>
+                                            <p class="text-sm text-gray-800 leading-relaxed">Cristian trae premios físicos (ej. un Celular) y Bonos de $500.000 COP. <br/><br/><strong>La condición:</strong> Para participar, los usuarios del stream deben jugar mínimo $5.000 COP en el Torneo de Mesas durante el stream. <br/><br/><span class="text-xs text-red-600 font-bold">*Logística a definir con Evolution: Sorteo en vivo o publicación al día siguiente en redes (Cristian o Julián).</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- POST -->
+                            <div class="relative">
+                                <div class="absolute -left-[45px] md:-left-[61px] top-0 w-12 h-12 md:w-14 md:h-14 bg-green-500 text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg">3</div>
+                                <h3 class="text-2xl font-black uppercase mb-2">El Post (Amplificación)</h3>
+                                <p class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6">Días posteriores al evento</p>
+                                
+                                <div class="bg-gray-900 text-white p-6 rounded-2xl flex flex-col md:flex-row items-center gap-6 shadow-2xl hover:scale-[1.02] transition-transform">
+                                    <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                                        <i data-lucide="clapperboard" class="w-8 h-8 text-white"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-sm mb-2 text-yellow-400 uppercase tracking-widest">Reel "Mejores Momentos"</h4>
+                                        <p class="text-sm text-gray-300 leading-relaxed">
+                                            Edición premium del contenido de la transmisión. Gritos de victoria, los mejores retos cumplidos, la apertura de la caja y el anuncio de ganadores. 
+                                            <br/><br/>
+                                            Publicado en <strong>Colaboración Oficial (Collab)</strong> entre Julián Valencia x Cristian González x BetPlay.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
 
         // Init
         render();
