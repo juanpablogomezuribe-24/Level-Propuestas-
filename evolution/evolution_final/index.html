@@ -53,19 +53,28 @@
 <body class="min-h-screen bg-white text-black selection:bg-black selection:text-white flex flex-col relative overflow-x-hidden">
 
     <!-- HEADER -->
-    <header class="px-6 md:px-12 py-5 flex justify-between items-center border-b border-gray-100 sticky top-0 bg-white/90 backdrop-blur-xl z-[100]">
-        <div class="flex items-center gap-4">
-           <div class="font-black text-2xl tracking-tighter">LEVEL<span class="text-black">.</span></div>
-           <span class="text-gray-200 h-6 w-px"></span>
-           <img src="https://i.postimg.cc/63WPv5Vn/evolution-logo.webp" alt="Evolution" class="h-6 object-contain" />
+    <header class="px-4 md:px-8 py-4 flex flex-col md:flex-row justify-between items-center gap-4 border-b border-gray-100 sticky top-0 bg-white/95 backdrop-blur-xl z-[100]">
+        <div class="flex items-center gap-4 w-full md:w-auto justify-between md:justify-start">
+           <div class="flex items-center gap-4">
+               <div class="font-black text-xl md:text-2xl tracking-tighter">LEVEL<span class="text-black">.</span></div>
+               <span class="text-gray-200 h-6 w-px"></span>
+               <img src="https://i.postimg.cc/63WPv5Vn/evolution-logo.webp" alt="Evolution" class="h-5 md:h-6 object-contain" />
+           </div>
+           <!-- Status (Visible on mobile next to logo) -->
+           <div class="md:hidden flex items-center gap-1 text-[10px] font-black text-black">
+              <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span> ACTIVE
+           </div>
         </div>
         
-        <nav id="nav-container" class="hidden md:flex gap-1 bg-gray-100 p-1 rounded-2xl flex-wrap justify-center">
-            <!-- Nav buttons injected by JS -->
-        </nav>
+        <!-- SCROLLABLE NAV BAR (Fix para la selección) -->
+        <div class="w-full md:w-auto overflow-hidden">
+            <nav id="nav-container" class="flex gap-2 bg-gray-100 p-1.5 rounded-2xl overflow-x-auto hide-scrollbar snap-x w-full">
+                <!-- Nav buttons injected by JS -->
+            </nav>
+        </div>
 
-        <div class="flex items-center gap-3">
-          <div class="hidden sm:block text-right">
+        <div class="hidden md:flex items-center gap-3">
+          <div class="text-right">
             <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Partner Status</p>
             <p class="text-xs font-black text-black flex items-center justify-end gap-1">
               <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span> ACTIVE
@@ -75,7 +84,7 @@
     </header>
 
     <!-- MAIN CONTENT AREA -->
-    <main id="main-content" class="flex-1 container mx-auto max-w-7xl relative py-10 px-6">
+    <main id="main-content" class="flex-1 container mx-auto max-w-7xl relative py-10 px-4 md:px-6">
         <!-- Views injected by JS -->
     </main>
 
@@ -87,7 +96,7 @@
     </footer>
 
     <!-- MODAL CONTAINER -->
-    <div id="modal-container" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+    <div id="modal-container" class="fixed inset-0 z-[200] hidden flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
         <!-- Modal content injected by JS -->
     </div>
 
@@ -114,8 +123,7 @@
             tati: { name: "Tati Barrera", cost: 330, image: "https://i.postimg.cc/NMh6pvKW/tati-barrera.png" },
             camilo: { name: "Camilo MD", cost: 590, image: "https://i.postimg.cc/NFV6Wb15/camilo-md.jpg" },
             pipe: { name: "Pipe Sierra", cost: 280, image: "https://i.postimg.cc/cL6q7JJw/pipe-Sierra-2.webp" },
-            paula: { name: "Paula Dazzle", cost: 350, image: "https://i.postimg.cc/rp6qXp2x/paula-dazzle.jpg" },
-            julian: { name: "Julian Valencia", cost: 400, image: "https://i.postimg.cc/XJbbFKK1/julian_valencia.jpg" }
+            paula: { name: "Paula Dazzle", cost: 350, image: "https://i.postimg.cc/rp6qXp2x/paula-dazzle.jpg" }
         };
 
         // INFLUENCERS DATA (Full Roster)
@@ -370,8 +378,8 @@
             const navHTML = tabs.map(tab => `
                 <button 
                     onclick="setTab('${tab.id}')" 
-                    class="px-4 py-2 mb-2 md:mb-0 rounded-[0.9rem] text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap
-                    ${state.activeTab === tab.id ? 'bg-black shadow-md text-white' : 'text-gray-400 hover:text-black'}">
+                    class="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap flex-shrink-0 snap-start
+                    ${state.activeTab === tab.id ? 'bg-black shadow-md text-white' : 'text-gray-500 hover:text-black hover:bg-gray-200'}">
                     ${tab.label}
                 </button>
             `).join('');
@@ -821,7 +829,7 @@
                     </div>
                 </div>`;
         }
-        
+
         function renderLiveSpins() {
             // Get selected influencer or default
             const influencerKey = state.selectedLiveInfluencer;
@@ -944,7 +952,6 @@
             `;
         }
 
-        // --- NUEVA VISTA: MEDIA KITS (INSIGHTS) ---
         function renderMediaKits() {
             return `
                 <div class="animate-slide-up p-4 md:p-10 max-w-7xl mx-auto pb-20">
@@ -984,7 +991,7 @@
 
                                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                                     <!-- Col 1: Platform Stats (IG) -->
-                                    <div className="col-span-1 space-y-4">
+                                    <div class="col-span-1 space-y-4">
                                         <h4 class="text-xs font-black uppercase tracking-widest text-gray-400 border-b border-gray-100 pb-2 mb-4">Rendimiento (Instagram 30d)</h4>
                                         
                                         <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100">
@@ -1018,7 +1025,7 @@
                                     </div>
 
                                     <!-- Col 2: Demographics (IG) -->
-                                    <div className="col-span-1 space-y-4">
+                                    <div class="col-span-1 space-y-4">
                                         <h4 class="text-xs font-black uppercase tracking-widest text-gray-400 border-b border-gray-100 pb-2 mb-4">Demografía (Instagram)</h4>
                                         
                                         <div class="flex gap-4">
@@ -1062,7 +1069,7 @@
                                     </div>
 
                                     <!-- Col 3: Visual Proof -->
-                                    <div className="col-span-1 space-y-4">
+                                    <div class="col-span-1 space-y-4">
                                         <h4 class="text-xs font-black uppercase tracking-widest text-gray-400 border-b border-gray-100 pb-2 mb-4">Capturas Oficiales (Evidencia)</h4>
                                         <p class="text-xs text-gray-500 mb-4 leading-relaxed">
                                             Métricas extraídas directamente de la cuenta de Julián. Alta fidelización y retención constante en todo su embudo de contenido.
@@ -1092,17 +1099,16 @@
                                     </div>
                                     <div class="flex-1">
                                         <h3 class="text-3xl font-black flex items-center gap-2">Valentina Taguado <i data-lucide="check-circle" class="w-6 h-6 text-blue-500 fill-blue-500"></i></h3>
-                                        <p class="text-sm font-bold text-gray-500 uppercase tracking-wider">Entretenimiento Masivo & Estilo de Vida</p>
+                                        <p class="text-sm font-bold text-gray-500 uppercase tracking-wider">Entretenimiento Masivo</p>
                                     </div>
                                     <div class="flex gap-2">
-                                        <span class="bg-gradient-to-r from-pink-500 to-orange-400 text-white px-3 py-1 rounded-lg text-xs font-bold flex items-center gap-1"><i data-lucide="instagram" class="w-4 h-4"></i> IG Focus</span>
-                                        <span class="bg-black text-white px-3 py-1 rounded-lg text-xs font-bold flex items-center gap-1"><i data-lucide="video" class="w-4 h-4"></i> TikTok</span>
+                                        <span class="bg-black text-white px-3 py-1 rounded-lg text-xs font-bold flex items-center gap-1"><i data-lucide="video" class="w-4 h-4"></i> TikTok Focus</span>
                                     </div>
                                 </div>
 
                                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                                     <!-- Col 1: Platform Stats -->
-                                    <div className="col-span-1 space-y-4">
+                                    <div class="col-span-1 space-y-4">
                                         <h4 class="text-xs font-black uppercase tracking-widest text-gray-400 border-b border-gray-100 pb-2 mb-4">Alcance & Rendimiento (TikTok 60d)</h4>
                                         
                                         <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100 relative overflow-hidden">
@@ -1147,7 +1153,7 @@
                                     </div>
 
                                     <!-- Col 2: Demographics -->
-                                    <div className="col-span-1 space-y-4">
+                                    <div class="col-span-1 space-y-4">
                                         <h4 class="text-xs font-black uppercase tracking-widest text-gray-400 border-b border-gray-100 pb-2 mb-4">Demografía de Audiencia</h4>
                                         
                                         <div class="flex gap-4">
@@ -1195,7 +1201,7 @@
                                     </div>
 
                                     <!-- Col 3: Insights & Evidence -->
-                                    <div className="col-span-1 space-y-4">
+                                    <div class="col-span-1 space-y-4">
                                         <h4 class="text-xs font-black uppercase tracking-widest text-gray-400 border-b border-gray-100 pb-2 mb-4">Engagement & Adquisición</h4>
                                         
                                         <div class="flex items-center justify-between bg-yellow-50 border border-yellow-100 rounded-2xl p-4">
@@ -1253,7 +1259,218 @@
             `;
         }
 
+        // --- RENDER FUNCIÓN DEL NUEVO TAB: CAJA MISTERIOSA ---
+        function renderPilotPlan() {
+            return `
+                <div class="animate-slide-up p-4 md:p-10 max-w-7xl mx-auto pb-20">
+                    <div class="text-center mb-10">
+                        <div class="inline-flex items-center gap-2 px-4 py-1.5 mb-4 rounded-full bg-red-50 text-red-600 text-xs font-bold border border-red-200 uppercase tracking-wider">
+                            <i data-lucide="swords" class="w-4 h-4"></i> Proyecto Piloto
+                        </div>
+                        <h2 class="text-3xl md:text-5xl font-extrabold mb-4 uppercase tracking-tight">El Reto de las Cartas</h2>
+                        <p class="text-gray-500 max-w-2xl mx-auto text-lg">
+                            Torneo de Mesas Evolution en BetPlay<br/>
+                            <span class="font-bold text-black">16 al 30 de Junio de 2026</span>
+                        </p>
+                    </div>
+
+                    <!-- HERO IMAGES -->
+                    <div class="flex justify-center items-center mb-16 relative">
+                        <div class="w-40 h-40 md:w-56 md:h-56 rounded-full border-4 border-white shadow-2xl overflow-hidden relative z-10 transform translate-x-4 md:translate-x-8">
+                            <img src="https://i.postimg.cc/XJbbFKK1/julian_valencia.jpg" class="w-full h-full object-cover" alt="Julian Valencia" />
+                            <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black to-transparent p-2 text-center text-white font-bold text-xs">Julián Valencia</div>
+                        </div>
+                        <div class="w-12 h-12 md:w-16 md:h-16 bg-black text-white rounded-full flex items-center justify-center font-black italic text-xl md:text-2xl z-20 border-4 border-white shadow-xl">
+                            VS
+                        </div>
+                        <div class="w-40 h-40 md:w-56 md:h-56 rounded-full border-4 border-white shadow-2xl overflow-hidden relative z-10 transform -translate-x-4 md:-translate-x-8">
+                            <img src="https://i.postimg.cc/NGWrvK3h/Whats-App-Image-2026-02-10-at-8-03-14-PM.jpg" class="w-full h-full object-cover" alt="Cristian González" />
+                            <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black to-transparent p-2 text-center text-white font-bold text-xs">Cristian González</div>
+                        </div>
+                    </div>
+
+                    <!-- TIMELINE -->
+                    <div class="max-w-4xl mx-auto">
+                        <div class="relative border-l-4 border-black pl-8 md:pl-12 py-6 space-y-12">
+                            
+                            <!-- PREVIA -->
+                            <div class="relative">
+                                <div class="absolute -left-[45px] md:-left-[61px] top-0 w-12 h-12 md:w-14 md:h-14 bg-black text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg">1</div>
+                                <h3 class="text-2xl font-black uppercase mb-2">La Previa (El Beef)</h3>
+                                <p class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6">Storytelling cronológico en Redes</p>
+                                
+                                <div class="space-y-4">
+                                    <!-- Paso 1 -->
+                                    <div class="bg-gray-50 p-5 rounded-2xl border border-gray-100 flex gap-4 items-start hover:border-black transition-colors">
+                                        <img src="https://i.postimg.cc/XJbbFKK1/julian_valencia.jpg" class="w-10 h-10 rounded-full object-cover shadow-sm mt-1" />
+                                        <div>
+                                            <div class="flex items-center gap-2 mb-1">
+                                                <h4 class="font-bold text-sm">Julián Valencia</h4>
+                                                <span class="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-[9px] font-bold uppercase">Reel</span>
+                                            </div>
+                                            <p class="text-xs text-gray-700 leading-relaxed"><strong class="text-black">Paso 1. Reto 21 en el Semáforo:</strong> Julián en su moto para en un semáforo y le dice a un conductor: "Saque cartas, si suma 21 le doy 100 lucas". El usuario saca cartas (ej. saca 15 y se planta o se pasa). Julián saca cartas y saca 20. El usuario pierde. <span class="bg-yellow-100 font-bold px-1">Lo repite con 3 personas distintas</span> y todas pierden. Cierra el video diciendo: <i>"Estaré por Bogotá a ver quién me gana al 21"</i> (Cero mención de marca).</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Paso 2 -->
+                                    <div class="bg-gray-50 p-5 rounded-2xl border border-gray-100 flex gap-4 items-start hover:border-black transition-colors">
+                                        <img src="https://i.postimg.cc/NGWrvK3h/Whats-App-Image-2026-02-10-at-8-03-14-PM.jpg" class="w-10 h-10 rounded-full object-cover shadow-sm mt-1" />
+                                        <div>
+                                            <div class="flex items-center gap-2 mb-1">
+                                                <h4 class="font-bold text-sm">Cristian González</h4>
+                                                <span class="bg-purple-100 text-purple-700 px-2 py-0.5 rounded text-[9px] font-bold uppercase">Historia</span>
+                                            </div>
+                                            <p class="text-xs text-gray-700 leading-relaxed"><strong class="text-black">Paso 2. La Reacción:</strong> A los pocos días, Cristian se graba viendo el Reel de Julián y le dice a su audiencia: "Oigan, estaba viendo este video... obviamente tiene el juego arreglado. Qué venga, soy capaz de ganarle y apostarle duro".</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Paso 3 -->
+                                    <div class="bg-gray-50 p-5 rounded-2xl border border-gray-100 flex gap-4 items-start hover:border-black transition-colors">
+                                        <img src="https://i.postimg.cc/XJbbFKK1/julian_valencia.jpg" class="w-10 h-10 rounded-full object-cover shadow-sm mt-1" />
+                                        <div>
+                                            <div class="flex items-center gap-2 mb-1">
+                                                <h4 class="font-bold text-sm">Julián Valencia</h4>
+                                                <span class="bg-purple-100 text-purple-700 px-2 py-0.5 rounded text-[9px] font-bold uppercase">Historia</span>
+                                            </div>
+                                            <p class="text-xs text-gray-700 leading-relaxed"><strong class="text-black">Paso 3. La Respuesta:</strong> Sus seguidores le mandan el video de Cristian. Julián sube un pantallazo con una encuesta interactiva: "¿Le apostamos 10 millones sí o no?". Gana el SÍ. Etiqueta a Cristian: "Diga dónde y cuándo".</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Paso 4 -->
+                                    <div class="bg-gray-50 p-5 rounded-2xl border border-gray-100 flex gap-4 items-start hover:border-black transition-colors">
+                                        <img src="https://i.postimg.cc/NGWrvK3h/Whats-App-Image-2026-02-10-at-8-03-14-PM.jpg" class="w-10 h-10 rounded-full object-cover shadow-sm mt-1" />
+                                        <div>
+                                            <div class="flex items-center gap-2 mb-1">
+                                                <h4 class="font-bold text-sm">Cristian González</h4>
+                                                <span class="bg-purple-100 text-purple-700 px-2 py-0.5 rounded text-[9px] font-bold uppercase">Historia</span>
+                                            </div>
+                                            <p class="text-xs text-gray-700 leading-relaxed"><strong class="text-black">Paso 4. Acepta el Reto:</strong> Cristian le responde a Julián públicamente dando la hora y el lugar exacto para el encuentro definitivo.</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Paso 5 -->
+                                    <div class="bg-gray-900 text-white p-5 rounded-2xl border border-gray-800 flex gap-4 items-start hover:border-gray-600 transition-colors shadow-lg">
+                                        <div class="flex -space-x-3 mt-1">
+                                            <img src="https://i.postimg.cc/XJbbFKK1/julian_valencia.jpg" class="w-10 h-10 rounded-full object-cover shadow-sm border-2 border-gray-900" />
+                                            <img src="https://i.postimg.cc/NGWrvK3h/Whats-App-Image-2026-02-10-at-8-03-14-PM.jpg" class="w-10 h-10 rounded-full object-cover shadow-sm border-2 border-gray-900" />
+                                        </div>
+                                        <div>
+                                            <div class="flex items-center gap-2 mb-1">
+                                                <h4 class="font-bold text-sm text-yellow-400">Julián & Cristian</h4>
+                                                <span class="bg-red-500/20 text-red-400 px-2 py-0.5 rounded text-[9px] font-bold uppercase border border-red-500/30">Clímax (Historias)</span>
+                                            </div>
+                                            <p class="text-xs text-gray-300 leading-relaxed"><strong class="text-white">Paso 5. El Encuentro:</strong> Julián llega al lugar. "Listo, 10 millones en la mesa". Ambos sacan las cartas... Julián voltea su carta hacia la cámara y... ¡Corte a negro!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-6 bg-red-100 text-red-800 p-4 rounded-xl text-sm font-bold flex items-center gap-3 shadow-sm border border-red-200 animate-pulse">
+                                    <i data-lucide="link" class="w-5 h-5 flex-shrink-0"></i>
+                                    El Hook Final: Se sube una historia a ambas cuentas: "¿Quieren saber quién ganó los 10 palos al 21? Entren al Stream YA". (Link directo al en vivo de Evolution).
+                                </div>
+                            </div>
+
+                            <!-- DURANTE -->
+                            <div class="relative">
+                                <div class="absolute -left-[45px] md:-left-[61px] top-0 w-12 h-12 md:w-14 md:h-14 bg-red-600 text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg animate-pulse">2</div>
+                                <h3 class="text-2xl font-black uppercase mb-2">El Durante (El Evento)</h3>
+                                <p class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6">Transmisión en Vivo (2 Horas)</p>
+                                
+                                <div class="bg-white p-8 rounded-2xl border-2 border-red-100 shadow-xl">
+                                    <div class="space-y-8">
+                                        <div>
+                                            <h4 class="font-black text-sm uppercase mb-2 flex items-center gap-2"><i data-lucide="monitor-play" class="w-4 h-4 text-red-500"></i> Resolución y Gameplay</h4>
+                                            <p class="text-sm text-gray-600 leading-relaxed">Se abre el Stream revelando quién ganó la carta en la calle. Como la temática es Blackjack/21, anuncian que jugarán en las mesas de <strong>Evolution en BetPlay</strong> para multiplicar o recuperar la plata.</p>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-black text-sm uppercase mb-2 flex items-center gap-2"><i data-lucide="swords" class="w-4 h-4 text-red-500"></i> Retos con Cartas (Cada 15 Min)</h4>
+                                            <p class="text-sm text-gray-600 leading-relaxed">Durante las 2 horas de transmisión, cada 15 minutos sacan una carta de la baraja (o se define en un juego de la ruleta de Evolution). El perdedor de esa ronda debe cumplir un reto picante en vivo o responder una pregunta extrema. (Aprox. 8 retos, puro show).</p>
+                                        </div>
+                                        <div class="bg-red-50 p-4 rounded-xl border border-red-100">
+                                            <h4 class="font-black text-sm uppercase mb-2 flex items-center gap-2"><i data-lucide="gift" class="w-4 h-4 text-red-500"></i> Incentivo de Registro y Juego</h4>
+                                            <p class="text-sm text-gray-800 leading-relaxed">Para involucrar a la audiencia activa, se sortean premios físicos (ej. Celulares) o Bonos de BetPlay. <br/><br/><strong>La condición:</strong> Para participar, los espectadores deben haber jugado un mínimo de $5.000 COP en las mesas de Evolution durante el stream.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- POST -->
+                            <div class="relative">
+                                <div class="absolute -left-[45px] md:-left-[61px] top-0 w-12 h-12 md:w-14 md:h-14 bg-green-500 text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg">3</div>
+                                <h3 class="text-2xl font-black uppercase mb-2">El Post (Amplificación)</h3>
+                                <p class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6">Días posteriores al evento</p>
+                                
+                                <div class="bg-gray-900 text-white p-6 rounded-2xl flex flex-col md:flex-row items-center gap-6 shadow-2xl hover:scale-[1.02] transition-transform">
+                                    <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                                        <i data-lucide="clapperboard" class="w-8 h-8 text-white"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-sm mb-2 text-yellow-400 uppercase tracking-widest">Reel "Mejores Momentos"</h4>
+                                        <p class="text-sm text-gray-300 leading-relaxed">
+                                            Edición premium resumiendo la historia completa: El reto 21 del semáforo, el encuentro de los 10 millones en efectivo, la tensión en el stream, los castigos sufridos y el anuncio de los ganadores reales.
+                                            <br/><br/>
+                                            Publicado en <strong>Colaboración Oficial (Collab)</strong> entre Julián Valencia x Cristian González x BetPlay.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- CHECKLIST -->
+                            <div class="mt-16 bg-white p-8 rounded-3xl border border-gray-200 shadow-xl relative overflow-hidden">
+                                <div class="absolute top-0 right-0 p-6 opacity-5">
+                                    <i data-lucide="list-checks" class="w-24 h-24"></i>
+                                </div>
+                                <div class="relative z-10">
+                                    <h3 class="text-2xl font-black uppercase mb-2">Checklist de Ejecución</h3>
+                                    <p class="text-sm text-gray-500 mb-6">Requerimientos operativos por parte de Evolution y el Operador para arrancar el piloto.</p>
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div class="flex items-start gap-3 bg-gray-50 p-4 rounded-xl">
+                                            <div class="bg-black text-white p-1.5 rounded-md mt-0.5"><i data-lucide="calendar" class="w-4 h-4"></i></div>
+                                            <div>
+                                                <h4 class="font-bold text-sm">1. Fecha y Hora</h4>
+                                                <p class="text-xs text-gray-600">Definir el día exacto y la hora del stream.</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start gap-3 bg-gray-50 p-4 rounded-xl">
+                                            <div class="bg-black text-white p-1.5 rounded-md mt-0.5"><i data-lucide="wallet" class="w-4 h-4"></i></div>
+                                            <div>
+                                                <h4 class="font-bold text-sm">2. Fondeo de Cuenta</h4>
+                                                <p class="text-xs text-gray-600">Cargar los $10.000.000 COP a la cuenta de BetPlay de Julián Valencia.</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start gap-3 bg-gray-50 p-4 rounded-xl">
+                                            <div class="bg-black text-white p-1.5 rounded-md mt-0.5"><i data-lucide="gift" class="w-4 h-4"></i></div>
+                                            <div>
+                                                <h4 class="font-bold text-sm">3. Incentivos y Premios</h4>
+                                                <p class="text-xs text-gray-600">Definir los premios de Evolution para la audiencia que juegue en el stream (bonos, físicos, etc.).</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start gap-3 bg-gray-50 p-4 rounded-xl">
+                                            <div class="bg-black text-white p-1.5 rounded-md mt-0.5"><i data-lucide="bar-chart-2" class="w-4 h-4"></i></div>
+                                            <div>
+                                                <h4 class="font-bold text-sm">4. Data en Tiempo Real</h4>
+                                                <p class="text-xs text-gray-600">Sistema o enlace directo con Evolution/BetPlay para verificar jugadores activos y elegir ganadores en vivo.</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start gap-3 bg-gray-50 p-4 rounded-xl md:col-span-2">
+                                            <div class="bg-black text-white p-1.5 rounded-md mt-0.5"><i data-lucide="check-square" class="w-4 h-4"></i></div>
+                                            <div>
+                                                <h4 class="font-bold text-sm">5. Aprobación de Retos</h4>
+                                                <p class="text-xs text-gray-600">Revisión y OK por parte de la marca a la lista de castigos/retos que cumplirán los influencers en el stream.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
         // --- CONTROLLER ---
+
         function render() {
             renderNav();
             const container = document.getElementById('main-content');
@@ -1457,167 +1674,6 @@
 
         // Close modal on outside click
         document.getElementById('modal-container').addEventListener('click', closeModal);
-
-        // --- RENDER FUNCIÓN DEL NUEVO TAB: CAJA MISTERIOSA ---
-        function renderPilotPlan() {
-            return `
-                <div class="animate-slide-up p-4 md:p-10 max-w-7xl mx-auto pb-20">
-                    <div class="text-center mb-10">
-                        <div class="inline-flex items-center gap-2 px-4 py-1.5 mb-4 rounded-full bg-red-50 text-red-600 text-xs font-bold border border-red-200 uppercase tracking-wider">
-                            <i data-lucide="swords" class="w-4 h-4"></i> Proyecto Piloto
-                        </div>
-                        <h2 class="text-3xl md:text-5xl font-extrabold mb-4 uppercase tracking-tight">El Reto de las Cartas</h2>
-                        <p class="text-gray-500 max-w-2xl mx-auto text-lg">
-                            Torneo de Mesas Evolution en BetPlay<br/>
-                            <span class="font-bold text-black">16 al 30 de Junio de 2026</span>
-                        </p>
-                    </div>
-
-                    <!-- HERO IMAGES -->
-                    <div class="flex justify-center items-center mb-16 relative">
-                        <div class="w-40 h-40 md:w-56 md:h-56 rounded-full border-4 border-white shadow-2xl overflow-hidden relative z-10 transform translate-x-4 md:translate-x-8">
-                            <img src="https://i.postimg.cc/XJbbFKK1/julian_valencia.jpg" class="w-full h-full object-cover" alt="Julian Valencia" />
-                            <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black to-transparent p-2 text-center text-white font-bold text-xs">Julián Valencia</div>
-                        </div>
-                        <div class="w-12 h-12 md:w-16 md:h-16 bg-black text-white rounded-full flex items-center justify-center font-black italic text-xl md:text-2xl z-20 border-4 border-white shadow-xl">
-                            VS
-                        </div>
-                        <div class="w-40 h-40 md:w-56 md:h-56 rounded-full border-4 border-white shadow-2xl overflow-hidden relative z-10 transform -translate-x-4 md:-translate-x-8">
-                            <img src="https://i.postimg.cc/NGWrvK3h/Whats-App-Image-2026-02-10-at-8-03-14-PM.jpg" class="w-full h-full object-cover" alt="Cristian González" />
-                            <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black to-transparent p-2 text-center text-white font-bold text-xs">Cristian González</div>
-                        </div>
-                    </div>
-
-                    <!-- TIMELINE -->
-                    <div class="max-w-4xl mx-auto">
-                        <div class="relative border-l-4 border-black pl-8 md:pl-12 py-6 space-y-12">
-                            
-                            <!-- PREVIA -->
-                            <div class="relative">
-                                <div class="absolute -left-[45px] md:-left-[61px] top-0 w-12 h-12 md:w-14 md:h-14 bg-black text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg">1</div>
-                                <h3 class="text-2xl font-black uppercase mb-2">La Previa (El Beef)</h3>
-                                <p class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6">Storytelling cronológico en Redes</p>
-                                
-                                <div class="space-y-4">
-                                    <!-- Paso 1 -->
-                                    <div class="bg-gray-50 p-5 rounded-2xl border border-gray-100 flex gap-4 items-start hover:border-black transition-colors">
-                                        <img src="https://i.postimg.cc/XJbbFKK1/julian_valencia.jpg" class="w-10 h-10 rounded-full object-cover shadow-sm mt-1" />
-                                        <div>
-                                            <div class="flex items-center gap-2 mb-1">
-                                                <h4 class="font-bold text-sm">Julián Valencia</h4>
-                                                <span class="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-[9px] font-bold uppercase">Reel</span>
-                                            </div>
-                                            <p class="text-xs text-gray-700 leading-relaxed"><strong class="text-black">Paso 1. Reto en el Semáforo:</strong> Julián en su moto para en un semáforo y le dice a un conductor: "Saque una carta, si saca la mayor le doy 100 lucas". El usuario pierde. <span class="bg-yellow-100 font-bold px-1">Lo repite con 3 personas distintas</span> y todas pierden. Cierra el video diciendo: <i>"Estaré por Bogotá a ver quién me gana"</i> (Cero mención de marca).</p>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- Paso 2 -->
-                                    <div class="bg-gray-50 p-5 rounded-2xl border border-gray-100 flex gap-4 items-start hover:border-black transition-colors">
-                                        <img src="https://i.postimg.cc/NGWrvK3h/Whats-App-Image-2026-02-10-at-8-03-14-PM.jpg" class="w-10 h-10 rounded-full object-cover shadow-sm mt-1" />
-                                        <div>
-                                            <div class="flex items-center gap-2 mb-1">
-                                                <h4 class="font-bold text-sm">Cristian González</h4>
-                                                <span class="bg-purple-100 text-purple-700 px-2 py-0.5 rounded text-[9px] font-bold uppercase">Historia</span>
-                                            </div>
-                                            <p class="text-xs text-gray-700 leading-relaxed"><strong class="text-black">Paso 2. La Reacción:</strong> A los pocos días, Cristian se graba viendo el Reel de Julián y le dice a su audiencia: "Oigan, estaba viendo este video... obviamente tiene el juego arreglado. Qué venga, soy capaz de ganarle y apostarle duro".</p>
-                                        </div>
-                                    </div>
-
-                                    <!-- Paso 3 -->
-                                    <div class="bg-gray-50 p-5 rounded-2xl border border-gray-100 flex gap-4 items-start hover:border-black transition-colors">
-                                        <img src="https://i.postimg.cc/XJbbFKK1/julian_valencia.jpg" class="w-10 h-10 rounded-full object-cover shadow-sm mt-1" />
-                                        <div>
-                                            <div class="flex items-center gap-2 mb-1">
-                                                <h4 class="font-bold text-sm">Julián Valencia</h4>
-                                                <span class="bg-purple-100 text-purple-700 px-2 py-0.5 rounded text-[9px] font-bold uppercase">Historia</span>
-                                            </div>
-                                            <p class="text-xs text-gray-700 leading-relaxed"><strong class="text-black">Paso 3. La Respuesta:</strong> Sus seguidores le mandan el video de Cristian. Julián sube un pantallazo con una encuesta interactiva: "¿Le apostamos 10 millones sí o no?". Gana el SÍ. Etiqueta a Cristian: "Diga dónde y cuándo".</p>
-                                        </div>
-                                    </div>
-
-                                    <!-- Paso 4 -->
-                                    <div class="bg-gray-50 p-5 rounded-2xl border border-gray-100 flex gap-4 items-start hover:border-black transition-colors">
-                                        <img src="https://i.postimg.cc/NGWrvK3h/Whats-App-Image-2026-02-10-at-8-03-14-PM.jpg" class="w-10 h-10 rounded-full object-cover shadow-sm mt-1" />
-                                        <div>
-                                            <div class="flex items-center gap-2 mb-1">
-                                                <h4 class="font-bold text-sm">Cristian González</h4>
-                                                <span class="bg-purple-100 text-purple-700 px-2 py-0.5 rounded text-[9px] font-bold uppercase">Historia</span>
-                                            </div>
-                                            <p class="text-xs text-gray-700 leading-relaxed"><strong class="text-black">Paso 4. Acepta el Reto:</strong> Cristian le responde a Julián públicamente dando la hora y el lugar exacto para el encuentro definitivo.</p>
-                                        </div>
-                                    </div>
-
-                                    <!-- Paso 5 -->
-                                    <div class="bg-gray-900 text-white p-5 rounded-2xl border border-gray-800 flex gap-4 items-start hover:border-gray-600 transition-colors shadow-lg">
-                                        <div class="flex -space-x-3 mt-1">
-                                            <img src="https://i.postimg.cc/XJbbFKK1/julian_valencia.jpg" class="w-10 h-10 rounded-full object-cover shadow-sm border-2 border-gray-900" />
-                                            <img src="https://i.postimg.cc/NGWrvK3h/Whats-App-Image-2026-02-10-at-8-03-14-PM.jpg" class="w-10 h-10 rounded-full object-cover shadow-sm border-2 border-gray-900" />
-                                        </div>
-                                        <div>
-                                            <div class="flex items-center gap-2 mb-1">
-                                                <h4 class="font-bold text-sm text-yellow-400">Julián & Cristian</h4>
-                                                <span class="bg-red-500/20 text-red-400 px-2 py-0.5 rounded text-[9px] font-bold uppercase border border-red-500/30">Clímax (Historias)</span>
-                                            </div>
-                                            <p class="text-xs text-gray-300 leading-relaxed"><strong class="text-white">Paso 5. El Encuentro:</strong> Julián llega al lugar. "Listo, 10 millones en la mesa". Ambos sacan las cartas... Julián voltea su carta hacia la cámara y... ¡Corte a negro!</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mt-6 bg-red-100 text-red-800 p-4 rounded-xl text-sm font-bold flex items-center gap-3 shadow-sm border border-red-200 animate-pulse">
-                                    <i data-lucide="link" class="w-5 h-5 flex-shrink-0"></i>
-                                    El Hook Final: Se sube una historia a ambas cuentas: "¿Quieren saber quién ganó los 10 palos? Entren al Stream YA". (Link directo al en vivo de Evolution).
-                                </div>
-                            </div>
-
-                            <!-- DURANTE -->
-                            <div class="relative">
-                                <div class="absolute -left-[45px] md:-left-[61px] top-0 w-12 h-12 md:w-14 md:h-14 bg-red-600 text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg animate-pulse">2</div>
-                                <h3 class="text-2xl font-black uppercase mb-2">El Durante (El Evento)</h3>
-                                <p class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6">Transmisión en Vivo (2 Horas)</p>
-                                
-                                <div class="bg-white p-8 rounded-2xl border-2 border-red-100 shadow-xl">
-                                    <div class="space-y-8">
-                                        <div>
-                                            <h4 class="font-black text-sm uppercase mb-2 flex items-center gap-2"><i data-lucide="monitor-play" class="w-4 h-4 text-red-500"></i> Resolución y Gameplay</h4>
-                                            <p class="text-sm text-gray-600 leading-relaxed">Se abre el Stream revelando quién ganó la carta en la calle. Como la temática son cartas y casino, anuncian que jugarán en las mesas de <strong>Evolution en BetPlay</strong> para multiplicar o recuperar la plata.</p>
-                                        </div>
-                                        <div>
-                                            <h4 class="font-black text-sm uppercase mb-2 flex items-center gap-2"><i data-lucide="swords" class="w-4 h-4 text-red-500"></i> Retos con Cartas (Cada 15 Min)</h4>
-                                            <p class="text-sm text-gray-600 leading-relaxed">Durante las 2 horas de transmisión, cada 15 minutos sacan una carta de la baraja (o se define en un juego de la ruleta de Evolution). El perdedor de esa ronda debe cumplir un reto picante en vivo o responder una pregunta extrema. (Aprox. 8 retos, puro show).</p>
-                                        </div>
-                                        <div class="bg-red-50 p-4 rounded-xl border border-red-100">
-                                            <h4 class="font-black text-sm uppercase mb-2 flex items-center gap-2"><i data-lucide="gift" class="w-4 h-4 text-red-500"></i> Incentivo de Registro y Juego</h4>
-                                            <p class="text-sm text-gray-800 leading-relaxed">Para involucrar a la audiencia activa, se sortean premios físicos (ej. Celulares) o Bonos de BetPlay. <br/><br/><strong>La condición:</strong> Para participar, los espectadores deben haber jugado un mínimo de $5.000 COP en las mesas de Evolution durante el stream.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- POST -->
-                            <div class="relative">
-                                <div class="absolute -left-[45px] md:-left-[61px] top-0 w-12 h-12 md:w-14 md:h-14 bg-green-500 text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg">3</div>
-                                <h3 class="text-2xl font-black uppercase mb-2">El Post (Amplificación)</h3>
-                                <p class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6">Días posteriores al evento</p>
-                                
-                                <div class="bg-gray-900 text-white p-6 rounded-2xl flex flex-col md:flex-row items-center gap-6 shadow-2xl hover:scale-[1.02] transition-transform">
-                                    <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
-                                        <i data-lucide="clapperboard" class="w-8 h-8 text-white"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-bold text-sm mb-2 text-yellow-400 uppercase tracking-widest">Reel "Mejores Momentos"</h4>
-                                        <p class="text-sm text-gray-300 leading-relaxed">
-                                            Edición premium resumiendo la historia completa: El reto del semáforo, el encuentro de los 10 millones en efectivo, la tensión en el stream, los castigos sufridos y el anuncio de los ganadores reales.
-                                            <br/><br/>
-                                            Publicado en <strong>Colaboración Oficial (Collab)</strong> entre Julián Valencia x Cristian González x BetPlay.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
 
         // Init
         render();
