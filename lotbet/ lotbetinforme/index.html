@@ -1,631 +1,650 @@
-<!DOCTYPE html>
-<html lang="es" class="h-full bg-slate-950">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tablero de Gestión Digital - LotBet</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#f0fdf4',
-                            100: '#dcfce7',
-                            500: '#22c55e',
-                            600: '#16a34a',
-                            700: '#15803d',
-                            950: '#052e16',
-                        },
-                        dark: {
-                            800: '#1e293b',
-                            900: '#0f172a',
-                            950: '#020617',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
-    </style>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.4">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
 </head>
-<body class="h-full text-slate-100 flex flex-col bg-slate-950 antialiased">
-
-    <!-- Header Principal -->
-    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50 px-4 py-3 sm:px-6">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            <div>
-                <div class="flex items-center gap-2">
-                    <span class="px-2.5 py-1 text-xs font-semibold rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center gap-1.5 animate-pulse">
-                        <span class="w-2 h-2 rounded-full bg-amber-500"></span>
-                        Estado: Standby & Recuperación
-                    </span>
-                    <span class="text-xs text-slate-400">| Reporte Confidencial</span>
-                </div>
-                <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight text-white mt-1">
-                    Informe de Gestión Digital — <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-green-500">LotBet</span>
-                </h1>
-                <p class="text-xs text-slate-400 mt-0.5">Operación por Level Producciones • Período: Junio 2026</p>
-            </div>
-            <div class="flex items-center gap-3">
-                <div class="text-right hidden md:block">
-                    <span class="block text-xs text-slate-400">Holding</span>
-                    <span class="text-sm font-semibold text-slate-200">Base España (Con Restricción)</span>
-                </div>
-                <div class="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-black tracking-widest text-lg">
-                    L⭐B
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Layout Container -->
-    <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-6 sm:px-6 lg:py-8 space-y-6">
-
-        <!-- Banner de Restricción Crítica -->
-        <div class="rounded-xl border border-red-500/20 bg-gradient-to-r from-red-500/10 via-amber-500/5 to-slate-900 p-4 sm:p-5 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <div class="flex items-start gap-3">
-                <div class="p-2.5 rounded-lg bg-red-500/20 text-red-400 mt-1 md:mt-0">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                </div>
-                <div>
-                    <h3 class="font-bold text-red-200 text-sm sm:text-base">RESTRICCIÓN DE META ACTIVA (CONEXIÓN ESPAÑA)</h3>
-                    <p class="text-xs sm:text-sm text-slate-300 mt-1">
-                        La optimización de campañas por <strong class="text-white">"Inicio de Conversación"</strong> permanece bloqueada por la estructura societaria en España. Las campañas se han reorientado temporalmente a Clics e Impresiones, lo que eleva la fricción de conversión.
-                    </p>
-                </div>
-            </div>
-            <button onclick="switchTab('infra')" class="w-full md:w-auto px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-300 text-xs font-semibold rounded-lg border border-red-500/30 transition-all whitespace-nowrap">
-                Ver Alternativas
-            </button>
-        </div>
-
-        <!-- KPI Cards Grid -->
-        <section class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            <!-- Card 1 -->
-            <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl flex flex-col justify-between">
-                <div class="flex justify-between items-center text-slate-400">
-                    <span class="text-xs font-semibold uppercase tracking-wider">Impresiones Meta</span>
-                    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                </div>
-                <div class="mt-4">
-                    <span class="text-2xl sm:text-3xl font-extrabold text-white">411.389</span>
-                    <span class="block text-xs text-slate-400 mt-1">Visualizaciones totales de pauta</span>
-                </div>
-            </div>
-            <!-- Card 2 -->
-            <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl flex flex-col justify-between">
-                <div class="flex justify-between items-center text-slate-400">
-                    <span class="text-xs font-semibold uppercase tracking-wider">Alcance Único</span>
-                    <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                </div>
-                <div class="mt-4">
-                    <span class="text-2xl sm:text-3xl font-extrabold text-white">175.667</span>
-                    <span class="block text-xs text-slate-400 mt-1">Personas únicas impactadas</span>
-                </div>
-            </div>
-            <!-- Card 3 -->
-            <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl flex flex-col justify-between">
-                <div class="flex justify-between items-center text-slate-400">
-                    <span class="text-xs font-semibold uppercase tracking-wider">CPA Promedio (COP)</span>
-                    <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Excelente</span>
-                </div>
-                <div class="mt-4">
-                    <span class="text-2xl sm:text-3xl font-extrabold text-white">$99,00</span>
-                    <span class="block text-xs text-slate-400 mt-1">Costo por clic / visita promedio</span>
-                </div>
-            </div>
-            <!-- Card 4 -->
-            <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl flex flex-col justify-between">
-                <div class="flex justify-between items-center text-slate-400">
-                    <span class="text-xs font-semibold uppercase tracking-wider">Registros LogBet</span>
-                    <span class="text-xs px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">Pre-Blast</span>
-                </div>
-                <div class="mt-4">
-                    <span class="text-2xl sm:text-3xl font-extrabold text-white">2 <span class="text-sm font-normal text-slate-400">/ 400 cont.</span></span>
-                    <span class="block text-xs text-slate-400 mt-1">Conversiones efectivas iniciales</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Navigation Tabs -->
-        <div class="border-b border-slate-800">
-            <nav class="flex space-x-2 sm:space-x-4 overflow-x-auto pb-px" aria-label="Tabs">
-                <button onclick="switchTab('resumen')" id="tab-resumen" class="tab-btn active px-3 py-2.5 text-sm font-medium border-b-2 border-emerald-500 text-emerald-400 whitespace-nowrap flex items-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2z"/></svg>
-                    Resumen y Pauta
-                </button>
-                <button onclick="switchTab('infra')" id="tab-infra" class="tab-btn px-3 py-2.5 text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-slate-200 hover:border-slate-700 whitespace-nowrap flex items-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-                    Estructura Multicanal
-                </button>
-                <button onclick="switchTab('incidente')" id="tab-incidente" class="tab-btn px-3 py-2.5 text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-slate-200 hover:border-slate-700 whitespace-nowrap flex items-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                    Incidente Operativo
-                </button>
-                <button onclick="switchTab('proyector')" id="tab-proyector" class="tab-btn px-3 py-2.5 text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-slate-200 hover:border-slate-700 whitespace-nowrap flex items-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 11h.01M12 7h.01M9 11h.01M12 14h.01M15 11h.01M15 7h.01M3 12a9 9 0 1118 0 9 9 0 01-18 0z"/></svg>
-                    Simulador Proyección
-                </button>
-            </nav>
-        </div>
-
-        <!-- TAB CONTENT: RESUMEN Y PAUTA -->
-        <div id="content-resumen" class="tab-content space-y-6">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                
-                <!-- Columna Tabla Campañas Meta -->
-                <div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4">
-                    <div class="flex justify-between items-center">
-                        <h3 class="font-bold text-lg text-white">Resultados de Campañas de Pauta (Meta Ads)</h3>
-                        <span class="text-xs text-emerald-400 font-medium">Segmentación: Temática Deportiva</span>
-                    </div>
-                    
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left text-sm text-slate-300">
-                            <thead class="text-xs uppercase bg-slate-950 text-slate-400">
-                                <tr>
-                                    <th class="p-3">Campaña / Enfoque</th>
-                                    <th class="p-3">Tipo</th>
-                                    <th class="p-3 text-right">Resultados</th>
-                                    <th class="p-3 text-right">Impresiones</th>
-                                    <th class="p-3 text-right">CPA (COP)</th>
-                                    <th class="p-3 text-center">Estado</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-slate-800">
-                                <tr class="hover:bg-slate-800/50 transition">
-                                    <td class="p-3 font-medium text-white">Trivia Messi Mundialista</td>
-                                    <td class="p-3 text-xs text-indigo-400">Clic en Enlace</td>
-                                    <td class="p-3 text-right font-bold">1.385</td>
-                                    <td class="p-3 text-right text-slate-400">134.649</td>
-                                    <td class="p-3 text-right text-emerald-400">$97,22</td>
-                                    <td class="p-3 text-center"><span class="px-2 py-0.5 bg-slate-800 rounded-full text-xs text-slate-500">Inactiva</span></td>
-                                </tr>
-                                <tr class="hover:bg-slate-800/50 transition">
-                                    <td class="p-3 font-medium text-white">Neymar Último Mundial</td>
-                                    <td class="p-3 text-xs text-purple-400">Vista de Página</td>
-                                    <td class="p-3 text-right font-bold">1.723</td>
-                                    <td class="p-3 text-right text-slate-400">154.973</td>
-                                    <td class="p-3 text-right text-emerald-400">$89,94</td>
-                                    <td class="p-3 text-center"><span class="px-2 py-0.5 bg-slate-800 rounded-full text-xs text-slate-500">Inactiva</span></td>
-                                </tr>
-                                <tr class="hover:bg-slate-800/50 transition">
-                                    <td class="p-3 font-medium text-white">Trivia Messi Núm. 2</td>
-                                    <td class="p-3 text-xs text-indigo-400">Clic en Enlace</td>
-                                    <td class="p-3 text-right font-bold">1.098</td>
-                                    <td class="p-3 text-right text-slate-400">121.767</td>
-                                    <td class="p-3 text-right text-emerald-400">$110,90</td>
-                                    <td class="p-3 text-center"><span class="px-2 py-0.5 bg-slate-800 rounded-full text-xs text-slate-500">Inactiva</span></td>
-                                </tr>
-                                <tr class="bg-slate-950 font-bold text-white">
-                                    <td class="p-3">TOTALES</td>
-                                    <td class="p-3 text-xs text-slate-400">—</td>
-                                    <td class="p-3 text-right text-emerald-400">4.206</td>
-                                    <td class="p-3 text-right text-slate-400">411.389</td>
-                                    <td class="p-3 text-right text-emerald-400">$99,00 <span class="text-[10px] text-slate-500">(Prom)</span></td>
-                                    <td class="p-3 text-center">—</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="p-3 bg-slate-950 rounded-lg text-xs text-slate-400 flex items-center gap-2">
-                        <svg class="w-4 h-4 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                        <span>El CPA promedio de <strong>$99 COP</strong> por resultado es extremadamente eficiente en la industria deportiva. Esto comprueba que los ganchos orgánicos de trivia de alto impacto (Messi / Neymar) tuvieron una excelente recepción en el público objetivo.</span>
-                    </div>
-                </div>
-
-                <!-- Embudo WABA Controlado -->
-                <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4">
-                    <div class="flex justify-between items-center">
-                        <h3 class="font-bold text-lg text-white">Embudo de Envío WABA</h3>
-                        <span class="text-xs px-2 py-0.5 bg-green-500/10 text-green-400 border border-green-500/20 rounded">Fase Controlada</span>
-                    </div>
-                    <p class="text-xs text-slate-400">
-                        Resultados de los primeros 8 batches controlados previo al incidente masivo (~400 contactos alcanzados de la base de datos).
-                    </p>
-
-                    <!-- Funnel Visual -->
-                    <div class="space-y-4 pt-2">
-                        <!-- Step 1 -->
-                        <div>
-                            <div class="flex justify-between text-xs text-slate-300 mb-1">
-                                <span>1. Base Total Disponible</span>
-                                <span class="font-bold">~3.000 (100%)</span>
-                            </div>
-                            <div class="w-full bg-slate-950 rounded-full h-3 overflow-hidden">
-                                <div class="bg-slate-600 h-full rounded-full" style="width: 100%"></div>
-                            </div>
-                        </div>
-                        <!-- Step 2 -->
-                        <div>
-                            <div class="flex justify-between text-xs text-slate-300 mb-1">
-                                <span>2. Alcanzados en Batches</span>
-                                <span class="font-bold">~400 (13.3%)</span>
-                            </div>
-                            <div class="w-full bg-slate-950 rounded-full h-3 overflow-hidden">
-                                <div class="bg-indigo-500 h-full rounded-full" style="width: 13.3%"></div>
-                            </div>
-                        </div>
-                        <!-- Step 3 -->
-                        <div>
-                            <div class="flex justify-between text-xs text-slate-300 mb-1">
-                                <span>3. Interacciones Recibidas (5%)</span>
-                                <span class="font-bold">20 (5% de alcanzados)</span>
-                            </div>
-                            <div class="w-full bg-slate-950 rounded-full h-3 overflow-hidden">
-                                <div class="bg-amber-500 h-full rounded-full" style="width: 5%"></div>
-                            </div>
-                        </div>
-                        <!-- Step 4 -->
-                        <div>
-                            <div class="flex justify-between text-xs text-slate-300 mb-1">
-                                <span>4. Registrados LotBet (0.5%)</span>
-                                <span class="font-bold">2 (10% de interacciones)</span>
-                            </div>
-                            <div class="w-full bg-slate-950 rounded-full h-3 overflow-hidden">
-                                <div class="bg-emerald-500 h-full rounded-full animate-pulse" style="width: 0.5%"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="pt-4 border-t border-slate-800 space-y-2 text-xs text-slate-400">
-                        <div class="flex justify-between">
-                            <span>Tasa de interacción:</span>
-                            <span class="font-semibold text-slate-200">5.0%</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span>Conversión a Registro sobre alcanzados:</span>
-                            <span class="font-semibold text-slate-200">0.5%</span>
-                        </div>
-                        <p class="text-[10px] text-amber-500/80 mt-2 bg-amber-500/5 p-2 rounded border border-amber-500/10">
-                            *Nota: Sin la restricción técnica de España, la optimización nativa por conversación en pauta hubiese incrementado drásticamente la tasa de interacción al evitar el abandono de flujo.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB CONTENT: INFRAESTRUCTURA MULTICANAL -->
-        <div id="content-infra" class="tab-content hidden space-y-6">
-            <div class="p-5 bg-slate-900 border border-slate-800 rounded-xl">
-                <h3 class="font-bold text-lg text-white mb-2">Estrategia de Redundancia y Backup de Activos</h3>
-                <p class="text-sm text-slate-400">
-                    Se crearon dos ecosistemas completamente independientes en Meta Business Manager con el fin de tener redundancia en caso de bloqueos. Esto permitió migrar operaciones rápidamente cuando se dio el incidente en el portafolio principal.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Portafolio Principal -->
-                <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 px-4 py-1 text-xs font-semibold bg-red-500/20 text-red-400 border-l border-b border-slate-800 rounded-bl-xl">
-                        En Revisión
-                    </div>
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400 font-bold">
-                            AP
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-white">Portafolio Principal: AfiWins</h4>
-                            <span class="text-xs text-slate-400">Afectado por reportes de spam</span>
-                        </div>
-                    </div>
-
-                    <div class="space-y-3">
-                        <div class="flex justify-between items-center text-sm p-2 bg-slate-950 rounded">
-                            <span class="text-slate-300">Páginas de Facebook</span>
-                            <span class="font-bold text-white">3 Páginas</span>
-                        </div>
-                        <div class="flex justify-between items-center text-sm p-2 bg-slate-950 rounded">
-                            <span class="text-slate-300">Cuentas de Instagram</span>
-                            <span class="font-bold text-white">2 Perfiles</span>
-                        </div>
-                        <div class="flex justify-between items-center text-sm p-2 bg-slate-950 rounded">
-                            <span class="text-slate-300">WABAs (WhatsApp Business API)</span>
-                            <span class="font-bold text-white">1 API / 2 Números Activos</span>
-                        </div>
-                    </div>
-
-                    <div class="mt-6 p-4 rounded-lg bg-red-500/5 border border-red-500/20 space-y-2">
-                        <h5 class="text-xs font-bold text-red-300 uppercase tracking-wider">Plan de Acción Corrector</h5>
-                        <p class="text-xs text-slate-300">
-                            Proceso de apelación y limpieza reputacional de la línea telefónica ante Meta Business Manager. Se busca reducir el "Spam Score" mediante campañas de pauta orgánica que aporten historial de comportamiento ético.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Portafolio de Backup -->
-                <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 px-4 py-1 text-xs font-semibold bg-emerald-500/20 text-emerald-400 border-l border-b border-slate-800 rounded-bl-xl">
-                        En Activación
-                    </div>
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold">
-                            CC
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-white">Portafolio Backup: Cancha Central</h4>
-                            <span class="text-xs text-slate-400">Seguridad reputacional completada</span>
-                        </div>
-                    </div>
-
-                    <div class="space-y-3">
-                        <div class="flex justify-between items-center text-sm p-2 bg-slate-950 rounded">
-                            <span class="text-slate-300">Páginas de Facebook</span>
-                            <span class="font-bold text-white">2 Páginas</span>
-                        </div>
-                        <div class="flex justify-between items-center text-sm p-2 bg-slate-950 rounded">
-                            <span class="text-slate-300">Cuentas de Instagram</span>
-                            <span class="font-bold text-white">2 Perfiles</span>
-                        </div>
-                        <div class="flex justify-between items-center text-sm p-2 bg-slate-950 rounded">
-                            <span class="text-slate-300">WABAs (WhatsApp Business API)</span>
-                            <span class="font-bold text-white">1 API / 2 Números Activos</span>
-                        </div>
-                    </div>
-
-                    <div class="mt-6 p-4 rounded-lg bg-emerald-500/5 border border-emerald-500/20 space-y-2">
-                        <h5 class="text-xs font-bold text-emerald-300 uppercase tracking-wider">Plan de Acción Corrector</h5>
-                        <p class="text-xs text-slate-300">
-                            Se está desvinculando técnicamente el portafolio para garantizar que el historial negativo de AfiWins no vuelva a contaminar las campañas de Cancha Central. El calentamiento orgánico previo de 1 semana ya protege este portafolio.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB CONTENT: INCIDENTE OPERATIVO -->
-        <div id="content-incidente" class="tab-content hidden space-y-6">
-            <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 md:p-6">
-                <div class="flex items-center gap-3 border-b border-slate-800 pb-4 mb-5">
-                    <div class="p-2.5 bg-rose-500/20 text-rose-400 rounded-lg">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-lg text-white">Análisis de Incidente Humano (WhatsApp Business API)</h3>
-                        <p class="text-xs text-slate-400">Por qué se frenó la tasa de conversión en la base de datos de 3.000 contactos</p>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="md:col-span-1 space-y-4">
-                        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800">
-                            <h4 class="font-bold text-sm text-red-400 uppercase tracking-wider mb-2">¿Qué Ocurrió?</h4>
-                            <p class="text-xs text-slate-300 leading-relaxed">
-                                Un operario omitió el protocolo técnico de envío por lotes controlados (batches) y ejecutó una difusión masiva directa a la totalidad de la base de datos (~3.000 contactos) de manera simultánea.
-                            </p>
-                        </div>
-                        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800">
-                            <h4 class="font-bold text-sm text-red-400 uppercase tracking-wider mb-2">Impacto Directo</h4>
-                            <p class="text-xs text-slate-300 leading-relaxed">
-                                WhatsApp detectó actividad anómala por volumen y velocidad. Muchos usuarios marcaron el mensaje entrante como "Spam", lo que bloqueó de inmediato la reputación del número en el portafolio principal de AfiWins.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Linea de tiempo -->
-                    <div class="md:col-span-2 bg-slate-950/50 rounded-xl p-5 border border-slate-800 space-y-6">
-                        <h4 class="font-bold text-sm text-slate-300 uppercase tracking-wider">Secuencia de Eventos y Mitigación</h4>
-                        
-                        <div class="space-y-6 relative before:absolute before:inset-0 before:left-3.5 before:w-0.5 before:bg-slate-800">
-                            <!-- Event 1 -->
-                            <div class="relative pl-10">
-                                <span class="absolute left-0 top-1 w-7.5 h-7.5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/30 text-xs font-bold">1</span>
-                                <div>
-                                    <h5 class="text-sm font-semibold text-white">Batches Iniciales Seguros (8 lotes)</h5>
-                                    <p class="text-xs text-slate-400 mt-1">Condujo a un envío limpio sobre ~400 personas. Generó 20 interacciones de valor y los primeros 2 registros confirmados de LotBet (conversión sana de 0.5%).</p>
-                                </div>
-                            </div>
-                            
-                            <!-- Event 2 -->
-                            <div class="relative pl-10">
-                                <span class="absolute left-0 top-1 w-7.5 h-7.5 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center border border-rose-500/30 text-xs font-bold">2</span>
-                                <div>
-                                    <h5 class="text-sm font-semibold text-rose-300">Ejecución del "Blast" No Autorizado</h5>
-                                    <p class="text-xs text-slate-400 mt-1">Acción manual masiva sobre los ~2.600 contactos restantes. Meta activa alerta algorítmica por velocidad de entrega de WhatsApp.</p>
-                                </div>
-                            </div>
-
-                            <!-- Event 3 -->
-                            <div class="relative pl-10">
-                                <span class="absolute left-0 top-1 w-7.5 h-7.5 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center border border-amber-500/30 text-xs font-bold">3</span>
-                                <div>
-                                    <h5 class="text-sm font-semibold text-amber-300">Mitigación Inmediata de Redundancia</h5>
-                                    <p class="text-xs text-slate-400 mt-1">Se congelaron los accesos del número de AfiWins. Se procedió a desvincular el portafolio de backup Cancha Central para evitar bloqueo cruzado permanente de Meta.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB CONTENT: SIMULADOR DE PROYECCIÓN -->
-        <div id="content-proyector" class="tab-content hidden space-y-6">
-            <div class="bg-slate-900 border border-slate-800 rounded-xl p-5">
-                <h3 class="font-bold text-lg text-white mb-1">Simulador Financiero y de Conversión</h3>
-                <p class="text-xs text-slate-400">
-                    Utilice este simulador para estimar el potencial de conversiones de la base de datos de 3.000 contactos una vez normalizados los portafolios y optimizado el flujo.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Parámetros -->
-                <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-6">
-                    <h4 class="font-bold text-sm text-white uppercase tracking-wider border-b border-slate-800 pb-2">Ajuste de Variables</h4>
-                    
-                    <!-- Control 1 -->
-                    <div class="space-y-2">
-                        <div class="flex justify-between text-xs font-medium">
-                            <span class="text-slate-300">Base de Contactos Meta</span>
-                            <span class="text-emerald-400 font-bold" id="val-db">3.000</span>
-                        </div>
-                        <input type="range" id="input-db" min="500" max="10000" step="500" value="3000" oninput="calculateProjections()" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-500">
-                        <span class="text-[10px] text-slate-500">Contactos actuales en base: 3.000</span>
-                    </div>
-
-                    <!-- Control 2 -->
-                    <div class="space-y-2">
-                        <div class="flex justify-between text-xs font-medium">
-                            <span class="text-slate-300">Tasa de Interacción esperada</span>
-                            <span class="text-indigo-400 font-bold" id="val-int">8%</span>
-                        </div>
-                        <input type="range" id="input-int" min="2" max="25" step="1" value="8" oninput="calculateProjections()" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-indigo-500">
-                        <span class="text-[10px] text-slate-500">Actualmente con pauta limitada: 5%</span>
-                    </div>
-
-                    <!-- Control 3 -->
-                    <div class="space-y-2">
-                        <div class="flex justify-between text-xs font-medium">
-                            <span class="text-slate-300">Tasa de Conversión (a Registro)</span>
-                            <span class="text-amber-400 font-bold" id="val-conv">1.5%</span>
-                        </div>
-                        <input type="range" id="input-conv" min="0.5" max="5" step="0.5" value="1.5" oninput="calculateProjections()" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-500">
-                        <span class="text-[10px] text-slate-500">Actualmente sin optimizador: 0.5%</span>
-                    </div>
-
-                    <!-- Control 4 -->
-                    <div class="space-y-2">
-                        <div class="flex justify-between text-xs font-medium">
-                            <span class="text-slate-300">Valor Estimado de un Cliente Registrado (COP)</span>
-                            <span class="text-emerald-400 font-bold" id="val-cltv">$45.000</span>
-                        </div>
-                        <input type="range" id="input-cltv" min="10000" max="150000" step="5000" value="45000" oninput="calculateProjections()" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-500">
-                        <span class="text-[10px] text-slate-500">LTV estimado a 3 meses en LotBet</span>
-                    </div>
-                </div>
-
-                <!-- Resultados Proyectados -->
-                <div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-xl p-5 flex flex-col justify-between">
-                    <div>
-                        <h4 class="font-bold text-sm text-white uppercase tracking-wider border-b border-slate-800 pb-2 mb-4">Potencial de Retorno de la Base de Datos</h4>
-                        
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/80">
-                                <span class="text-xs text-slate-400 block">Contactos Interactuando</span>
-                                <span class="text-2xl font-black text-indigo-400 block mt-1" id="res-contacts">240</span>
-                                <span class="text-[10px] text-slate-500">Usuarios respondiendo</span>
-                            </div>
-
-                            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/80">
-                                <span class="text-xs text-slate-400 block">Nuevos Registros Estimados</span>
-                                <span class="text-2xl font-black text-amber-400 block mt-1" id="res-registers">36</span>
-                                <span class="text-[10px] text-slate-500">En base de datos total</span>
-                            </div>
-
-                            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/80">
-                                <span class="text-xs text-slate-400 block">Valor Retorno Proyectado</span>
-                                <span class="text-2xl font-black text-emerald-400 block mt-1" id="res-roi">$1.620.000</span>
-                                <span class="text-[10px] text-slate-500">Valor de vida estimado</span>
-                            </div>
-                        </div>
-
-                        <!-- Nota Técnica -->
-                        <div class="mt-6 p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-3">
-                            <h5 class="text-xs font-bold text-slate-300 uppercase tracking-wider">Cómo desbloquear estas cifras:</h5>
-                            <ol class="list-decimal list-inside text-xs text-slate-400 space-y-1.5">
-                                <li><strong>Resolver Restricción de España:</strong> Activar el optimizador de Meta Ads para redirigir directamente a conversaciones WABA nativas. Esto sube la interacción histórica del 5% a tasas mayores al 10%.</li>
-                                <li><strong>Operar con Cancha Central (Backup):</strong> Desvincular de AfiWins de inmediato para reactivar pautas de WhatsApp sin penalizaciones algorítmicas de Meta.</li>
-                                <li><strong>Incentivos Deportivos:</strong> Usar ganchos directos de "Bono de registro por Trivia Messi" en la primera respuesta interactiva.</li>
-                            </ol>
-                        </div>
-                    </div>
-
-                    <div class="text-[11px] text-slate-500 mt-4 text-center border-t border-slate-800 pt-3">
-                        Este simulador es un modelo estadístico basado en el comportamiento histórico previo al incidente masivo.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Recomendaciones y Próximos Pasos -->
-        <section class="bg-slate-900 border border-slate-800 p-5 rounded-xl space-y-4">
-            <h3 class="font-bold text-lg text-white">Recomendaciones Estratégicas Level Producciones</h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                <div class="p-3 bg-slate-950 rounded-lg space-y-1">
-                    <span class="text-xs font-bold text-emerald-400 uppercase">1. Reestructurar la Cuenta Meta</span>
-                    <p class="text-xs text-slate-400">
-                        Establecer el Business Manager con personería jurídica de una jurisdicción distinta a España para poder desbloquear la opción de "Inicio de Conversación" en Meta Ads.
-                    </p>
-                </div>
-                <div class="p-3 bg-slate-950 rounded-lg space-y-1">
-                    <span class="text-xs font-bold text-emerald-400 uppercase">2. Recuperación Reputacional</span>
-                    <p class="text-xs text-slate-400">
-                        Inyectar pauta de branding menor en el portafolio de Cancha Central. Esto genera "buena conducta" ante el algoritmo de Meta, facilitando la desvinculación segura de AfiWins.
-                    </p>
-                </div>
-                <div class="p-3 bg-slate-950 rounded-lg space-y-1">
-                    <span class="text-xs font-bold text-emerald-400 uppercase">3. Blindaje de Operadores</span>
-                    <p class="text-xs text-slate-400">
-                        Instalar bloqueos de software en la API de WhatsApp para impedir que ningún operador de soporte pueda realizar envíos superiores a 50 contactos por bloque de manera directa.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Footer de Confidencialidad -->
-    <footer class="border-t border-slate-800 bg-slate-950 py-4 px-6 text-center text-xs text-slate-500">
-        <p>© 2026 Level Producciones para LotBet. Prohibida la distribución de este reporte confidencial a terceros no autorizados.</p>
-    </footer>
-
-    <!-- Scripts de Interacción -->
-    <script>
-        function switchTab(tabId) {
-            // Ocultar todos los contenidos de pestaña
-            document.querySelectorAll('.tab-content').forEach(element => {
-                element.classList.add('hidden');
-            });
-            // Quitar estilos activos de todos los botones
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active', 'border-emerald-500', 'text-emerald-400');
-                btn.classList.add('border-transparent', 'text-slate-400');
-            });
-
-            // Mostrar la pestaña seleccionada
-            document.getElementById('content-' + tabId).classList.remove('hidden');
-            // Activar botón correspondiente
-            const activeBtn = document.getElementById('tab-' + tabId);
-            activeBtn.classList.add('active', 'border-emerald-500', 'text-emerald-400');
-            activeBtn.classList.remove('border-transparent', 'text-slate-400');
-        }
-
-        function calculateProjections() {
-            // Obtener inputs
-            const db = parseInt(document.getElementById('input-db').value);
-            const intRate = parseFloat(document.getElementById('input-int').value) / 100;
-            const convRate = parseFloat(document.getElementById('input-conv').value) / 100;
-            const cltv = parseInt(document.getElementById('input-cltv').value);
-
-            // Actualizar etiquetas
-            document.getElementById('val-db').innerText = db.toLocaleString('es-CO');
-            document.getElementById('val-int').innerText = (intRate * 100).toFixed(0) + '%';
-            document.getElementById('val-conv').innerText = (convRate * 100).toFixed(1) + '%';
-            document.getElementById('val-cltv').innerText = '$' + cltv.toLocaleString('es-CO');
-
-            // Calcular resultados
-            const totalInteractions = Math.round(db * intRate);
-            const totalRegisters = Math.round(totalInteractions * convRate);
-            const totalROI = totalRegisters * cltv;
-
-            // Actualizar salidas en UI
-            document.getElementById('res-contacts').innerText = totalInteractions.toLocaleString('es-CO');
-            document.getElementById('res-registers').innerText = totalRegisters.toLocaleString('es-CO');
-            document.getElementById('res-roi').innerText = '$' + totalROI.toLocaleString('es-CO');
-        }
-
-        // Ejecutar primer cálculo al cargar la página
-        window.onload = function() {
-            calculateProjections();
-        }
-    </script>
+<body>
+<p class="p1">```html</p>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="es" class="h-full bg-slate-950"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Tablero de Gestión Digital - LotBet&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Tailwind CSS --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>tailwind.config = {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>theme: {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>extend: {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>colors: {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>brand: {</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>50: '#f0fdf4',</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>100: '#dcfce7',</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>500: '#22c55e',</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>600: '#16a34a',</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>700: '#15803d',</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>950: '#052e16',</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>dark: {</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>800: '#1e293b',</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>900: '#0f172a',</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>950: '#020617',</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Plus Jakarta Sans', sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body class="h-full text-slate-100 flex flex-col bg-slate-950 antialiased"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Header Principal --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50 px-4 py-3 sm:px-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="flex items-center gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="px-2.5 py-1 text-xs font-semibold rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center gap-1.5 animate-pulse"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="w-2 h-2 rounded-full bg-amber-500"&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Estado: Standby &amp; Recuperación</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="text-xs text-slate-400"&gt;| Reporte Confidencial&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h1 class="text-xl sm:text-2xl font-extrabold tracking-tight text-white mt-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>Informe de Gestión Digital — &lt;span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-green-500"&gt;LotBet&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="text-xs text-slate-400 mt-0.5"&gt;Operación por Level Producciones • Período: Junio 2026&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="flex items-center gap-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="text-right hidden md:block"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="block text-xs text-slate-400"&gt;Holding&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="text-sm font-semibold text-slate-200"&gt;Base España (Con Restricción)&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-black tracking-widest text-lg"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>L⭐B</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/header&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Main Layout Container --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;main class="flex-1 max-w-7xl w-full mx-auto px-4 py-6 sm:px-6 lg:py-8 space-y-6"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Banner de Restricción Crítica --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="rounded-xl border border-red-500/20 bg-gradient-to-r from-red-500/10 via-amber-500/5 to-slate-900 p-4 sm:p-5 flex flex-col md:flex-row justify-between items-start md:items-center gap-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="flex items-start gap-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="p-2.5 rounded-lg bg-red-500/20 text-red-400 mt-1 md:mt-0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"&gt;&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/&gt;&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h3 class="font-bold text-red-200 text-sm sm:text-base"&gt;RESTRICCIÓN DE META ACTIVA (CONEXIÓN ESPAÑA)&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-xs sm:text-sm text-slate-300 mt-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>La optimización de campañas por &lt;strong class="text-white"&gt;"Inicio de Conversación"&lt;/strong&gt; permanece bloqueada por la estructura societaria en España. Las campañas se han reorientado temporalmente a Clics e Impresiones, lo que eleva la fricción de conversión.</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button onclick="switchTab('infra')" class="w-full md:w-auto px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-300 text-xs font-semibold rounded-lg border border-red-500/30 transition-all whitespace-nowrap"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>Ver Alternativas</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- KPI Cards Grid --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;section class="grid grid-cols-2 lg:grid-cols-4 gap-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Card 1 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="bg-slate-900 border border-slate-800 p-4 rounded-xl flex flex-col justify-between"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="flex justify-between items-center text-slate-400"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="text-xs font-semibold uppercase tracking-wider"&gt;Impresiones Meta&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"&gt;&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/&gt;&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/&gt;&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="mt-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="text-2xl sm:text-3xl font-extrabold text-white"&gt;411.389&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="block text-xs text-slate-400 mt-1"&gt;Visualizaciones totales de pauta&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Card 2 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="bg-slate-900 border border-slate-800 p-4 rounded-xl flex flex-col justify-between"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="flex justify-between items-center text-slate-400"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="text-xs font-semibold uppercase tracking-wider"&gt;Alcance Único&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"&gt;&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/&gt;&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="mt-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="text-2xl sm:text-3xl font-extrabold text-white"&gt;175.667&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="block text-xs text-slate-400 mt-1"&gt;Personas únicas impactadas&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Card 3 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="bg-slate-900 border border-slate-800 p-4 rounded-xl flex flex-col justify-between"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="flex justify-between items-center text-slate-400"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="text-xs font-semibold uppercase tracking-wider"&gt;CPA Promedio (COP)&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="text-xs px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"&gt;Excelente&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="mt-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="text-2xl sm:text-3xl font-extrabold text-white"&gt;$99,00&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="block text-xs text-slate-400 mt-1"&gt;Costo por clic / visita promedio&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Card 4 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="bg-slate-900 border border-slate-800 p-4 rounded-xl flex flex-col justify-between"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="flex justify-between items-center text-slate-400"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="text-xs font-semibold uppercase tracking-wider"&gt;Registros LogBet&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="text-xs px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20"&gt;Pre-Blast&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="mt-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="text-2xl sm:text-3xl font-extrabold text-white"&gt;2 &lt;span class="text-sm font-normal text-slate-400"&gt;/ 400 cont.&lt;/span&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="block text-xs text-slate-400 mt-1"&gt;Conversiones efectivas iniciales&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Navigation Tabs --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="border-b border-slate-800"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;nav class="flex space-x-2 sm:space-x-4 overflow-x-auto pb-px" aria-label="Tabs"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button onclick="switchTab('resumen')" id="tab-resumen" class="tab-btn active px-3 py-2.5 text-sm font-medium border-b-2 border-emerald-500 text-emerald-400 whitespace-nowrap flex items-center gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"&gt;&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2z"/&gt;&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>Resumen y Pauta</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button onclick="switchTab('infra')" id="tab-infra" class="tab-btn px-3 py-2.5 text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-slate-200 hover:border-slate-700 whitespace-nowrap flex items-center gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"&gt;&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/&gt;&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>Estructura Multicanal</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button onclick="switchTab('incidente')" id="tab-incidente" class="tab-btn px-3 py-2.5 text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-slate-200 hover:border-slate-700 whitespace-nowrap flex items-center gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"&gt;&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/&gt;&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>Incidente Operativo</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button onclick="switchTab('proyector')" id="tab-proyector" class="tab-btn px-3 py-2.5 text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-slate-200 hover:border-slate-700 whitespace-nowrap flex items-center gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"&gt;&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 11h.01M12 7h.01M9 11h.01M12 14h.01M15 11h.01M15 7h.01M3 12a9 9 0 1118 0 9 9 0 01-18 0z"/&gt;&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>Simulador Proyección</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/nav&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- TAB CONTENT: RESUMEN Y PAUTA --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="content-resumen" class="tab-content space-y-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="grid grid-cols-1 lg:grid-cols-3 gap-6"&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Columna Tabla Campañas Meta --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex justify-between items-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h3 class="font-bold text-lg text-white"&gt;Resultados de Campañas de Pauta (Meta Ads)&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="text-xs text-emerald-400 font-medium"&gt;Segmentación: Temática Deportiva&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="overflow-x-auto"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;table class="w-full text-left text-sm text-slate-300"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;thead class="text-xs uppercase bg-slate-950 text-slate-400"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;th class="p-3"&gt;Campaña / Enfoque&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;th class="p-3"&gt;Tipo&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;th class="p-3 text-right"&gt;Resultados&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;th class="p-3 text-right"&gt;Impresiones&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;th class="p-3 text-right"&gt;CPA (COP)&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;th class="p-3 text-center"&gt;Estado&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/thead&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;tbody class="divide-y divide-slate-800"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;tr class="hover:bg-slate-800/50 transition"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;td class="p-3 font-medium text-white"&gt;Trivia Messi Mundialista&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;td class="p-3 text-xs text-indigo-400"&gt;Clic en Enlace&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;td class="p-3 text-right font-bold"&gt;1.385&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;td class="p-3 text-right text-slate-400"&gt;134.649&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;td class="p-3 text-right text-emerald-400"&gt;$97,22&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;td class="p-3 text-center"&gt;&lt;span class="px-2 py-0.5 bg-slate-800 rounded-full text-xs text-slate-500"&gt;Inactiva&lt;/span&gt;&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;tr class="hover:bg-slate-800/50 transition"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;td class="p-3 font-medium text-white"&gt;Neymar Último Mundial&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;td class="p-3 text-xs text-purple-400"&gt;Vista de Página&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;td class="p-3 text-right font-bold"&gt;1.723&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;td class="p-3 text-right text-slate-400"&gt;154.973&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;td class="p-3 text-right text-emerald-400"&gt;$89,94&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;td class="p-3 text-center"&gt;&lt;span class="px-2 py-0.5 bg-slate-800 rounded-full text-xs text-slate-500"&gt;Inactiva&lt;/span&gt;&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;tr class="hover:bg-slate-800/50 transition"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;td class="p-3 font-medium text-white"&gt;Trivia Messi Núm. 2&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;td class="p-3 text-xs text-indigo-400"&gt;Clic en Enlace&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;td class="p-3 text-right font-bold"&gt;1.098&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;td class="p-3 text-right text-slate-400"&gt;121.767&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;td class="p-3 text-right text-emerald-400"&gt;$110,90&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;td class="p-3 text-center"&gt;&lt;span class="px-2 py-0.5 bg-slate-800 rounded-full text-xs text-slate-500"&gt;Inactiva&lt;/span&gt;&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;tr class="bg-slate-950 font-bold text-white"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;td class="p-3"&gt;TOTALES&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;td class="p-3 text-xs text-slate-400"&gt;—&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;td class="p-3 text-right text-emerald-400"&gt;4.206&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;td class="p-3 text-right text-slate-400"&gt;411.389&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;td class="p-3 text-right text-emerald-400"&gt;$99,00 &lt;span class="text-[10px] text-slate-500"&gt;(Prom)&lt;/span&gt;&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;td class="p-3 text-center"&gt;—&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/tbody&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/table&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="p-3 bg-slate-950 rounded-lg text-xs text-slate-400 flex items-center gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;svg class="w-4 h-4 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"&gt;&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/&gt;&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span&gt;El CPA promedio de &lt;strong&gt;$99 COP&lt;/strong&gt; por resultado es extremadamente eficiente en la industria deportiva. Esto comprueba que los ganchos orgánicos de trivia de alto impacto (Messi / Neymar) tuvieron una excelente recepción en el público objetivo.&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Embudo WABA Controlado --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex justify-between items-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h3 class="font-bold text-lg text-white"&gt;Embudo de Envío WABA&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="text-xs px-2 py-0.5 bg-green-500/10 text-green-400 border border-green-500/20 rounded"&gt;Fase Controlada&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-xs text-slate-400"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Resultados de los primeros 8 batches controlados previo al incidente masivo (~400 contactos alcanzados de la base de datos).</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/p&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- Funnel Visual --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="space-y-4 pt-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;!-- Step 1 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="flex justify-between text-xs text-slate-300 mb-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;span&gt;1. Base Total Disponible&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;span class="font-bold"&gt;~3.000 (100%)&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="w-full bg-slate-950 rounded-full h-3 overflow-hidden"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="bg-slate-600 h-full rounded-full" style="width: 100%"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;!-- Step 2 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="flex justify-between text-xs text-slate-300 mb-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;span&gt;2. Alcanzados en Batches&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;span class="font-bold"&gt;~400 (13.3%)&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="w-full bg-slate-950 rounded-full h-3 overflow-hidden"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="bg-indigo-500 h-full rounded-full" style="width: 13.3%"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;!-- Step 3 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="flex justify-between text-xs text-slate-300 mb-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;span&gt;3. Interacciones Recibidas (5%)&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;span class="font-bold"&gt;20 (5% de alcanzados)&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="w-full bg-slate-950 rounded-full h-3 overflow-hidden"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="bg-amber-500 h-full rounded-full" style="width: 5%"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;!-- Step 4 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="flex justify-between text-xs text-slate-300 mb-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;span&gt;4. Registrados LotBet (0.5%)&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;span class="font-bold"&gt;2 (10% de interacciones)&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="w-full bg-slate-950 rounded-full h-3 overflow-hidden"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="bg-emerald-500 h-full rounded-full animate-pulse" style="width: 0.5%"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="pt-4 border-t border-slate-800 space-y-2 text-xs text-slate-400"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flex justify-between"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span&gt;Tasa de interacción:&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="font-semibold text-slate-200"&gt;5.0%&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flex justify-between"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span&gt;Conversión a Registro sobre alcanzados:&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="font-semibold text-slate-200"&gt;0.5%&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-[10px] text-amber-500/80 mt-2 bg-amber-500/5 p-2 rounded border border-amber-500/10"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>*Nota: Sin la restricción técnica de España, la optimización nativa por conversación en pauta hubiese incrementado drásticamente la tasa de interacción al evitar el abandono de flujo.</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- TAB CONTENT: INFRAESTRUCTURA MULTICANAL --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="content-infra" class="tab-content hidden space-y-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="p-5 bg-slate-900 border border-slate-800 rounded-xl"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3 class="font-bold text-lg text-white mb-2"&gt;Estrategia de Redundancia y Backup de Activos&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="text-sm text-slate-400"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>Se crearon dos ecosistemas completamente independientes en Meta Business Manager con el fin de tener redundancia en caso de bloqueos. Esto permitió migrar operaciones rápidamente cuando se dio el incidente en el portafolio principal.</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="grid grid-cols-1 md:grid-cols-2 gap-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Portafolio Principal --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="bg-slate-900 border border-slate-800 rounded-xl p-5 relative overflow-hidden"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="absolute top-0 right-0 px-4 py-1 text-xs font-semibold bg-red-500/20 text-red-400 border-l border-b border-slate-800 rounded-bl-xl"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>En Revisión</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex items-center gap-3 mb-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400 font-bold"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>AP</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4 class="font-bold text-white"&gt;Portafolio Principal: AfiWins&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-xs text-slate-400"&gt;Afectado por reportes de spam&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="space-y-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flex justify-between items-center text-sm p-2 bg-slate-950 rounded"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-slate-300"&gt;Páginas de Facebook&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="font-bold text-white"&gt;3 Páginas&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flex justify-between items-center text-sm p-2 bg-slate-950 rounded"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-slate-300"&gt;Cuentas de Instagram&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="font-bold text-white"&gt;2 Perfiles&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flex justify-between items-center text-sm p-2 bg-slate-950 rounded"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-slate-300"&gt;WABAs (WhatsApp Business API)&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="font-bold text-white"&gt;1 API / 2 Números Activos&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="mt-6 p-4 rounded-lg bg-red-500/5 border border-red-500/20 space-y-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h5 class="text-xs font-bold text-red-300 uppercase tracking-wider"&gt;Plan de Acción Corrector&lt;/h5&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-xs text-slate-300"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>Proceso de apelación y limpieza reputacional de la línea telefónica ante Meta Business Manager. Se busca reducir el "Spam Score" mediante campañas de pauta orgánica que aporten historial de comportamiento ético.</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Portafolio de Backup --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="bg-slate-900 border border-slate-800 rounded-xl p-5 relative overflow-hidden"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="absolute top-0 right-0 px-4 py-1 text-xs font-semibold bg-emerald-500/20 text-emerald-400 border-l border-b border-slate-800 rounded-bl-xl"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>En Activación</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex items-center gap-3 mb-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>CC</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4 class="font-bold text-white"&gt;Portafolio Backup: Cancha Central&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-xs text-slate-400"&gt;Seguridad reputacional completada&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="space-y-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flex justify-between items-center text-sm p-2 bg-slate-950 rounded"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-slate-300"&gt;Páginas de Facebook&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="font-bold text-white"&gt;2 Páginas&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flex justify-between items-center text-sm p-2 bg-slate-950 rounded"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-slate-300"&gt;Cuentas de Instagram&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="font-bold text-white"&gt;2 Perfiles&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flex justify-between items-center text-sm p-2 bg-slate-950 rounded"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-slate-300"&gt;WABAs (WhatsApp Business API)&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="font-bold text-white"&gt;1 API / 2 Números Activos&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="mt-6 p-4 rounded-lg bg-emerald-500/5 border border-emerald-500/20 space-y-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h5 class="text-xs font-bold text-emerald-300 uppercase tracking-wider"&gt;Plan de Acción Corrector&lt;/h5&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-xs text-slate-300"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>Se está desvinculando técnicamente el portafolio para garantizar que el historial negativo de AfiWins no vuelva a contaminar las campañas de Cancha Central. El calentamiento orgánico previo de 1 semana ya protege este portafolio.</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- TAB CONTENT: INCIDENTE OPERATIVO --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="content-incidente" class="tab-content hidden space-y-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="bg-slate-900 border border-slate-800 rounded-xl p-5 md:p-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="flex items-center gap-3 border-b border-slate-800 pb-4 mb-5"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="p-2.5 bg-rose-500/20 text-rose-400 rounded-lg"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"&gt;&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/&gt;&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h3 class="font-bold text-lg text-white"&gt;Análisis de Incidente Humano (WhatsApp Business API)&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-xs text-slate-400"&gt;Por qué se frenó la tasa de conversión en la base de datos de 3.000 contactos&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="grid grid-cols-1 md:grid-cols-3 gap-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="md:col-span-1 space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="p-4 bg-slate-950 rounded-xl border border-slate-800"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4 class="font-bold text-sm text-red-400 uppercase tracking-wider mb-2"&gt;¿Qué Ocurrió?&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="text-xs text-slate-300 leading-relaxed"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>Un operario omitió el protocolo técnico de envío por lotes controlados (batches) y ejecutó una difusión masiva directa a la totalidad de la base de datos (~3.000 contactos) de manera simultánea.</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="p-4 bg-slate-950 rounded-xl border border-slate-800"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4 class="font-bold text-sm text-red-400 uppercase tracking-wider mb-2"&gt;Impacto Directo&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="text-xs text-slate-300 leading-relaxed"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>WhatsApp detectó actividad anómala por volumen y velocidad. Muchos usuarios marcaron el mensaje entrante como "Spam", lo que bloqueó de inmediato la reputación del número en el portafolio principal de AfiWins.</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- Linea de tiempo --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="md:col-span-2 bg-slate-950/50 rounded-xl p-5 border border-slate-800 space-y-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h4 class="font-bold text-sm text-slate-300 uppercase tracking-wider"&gt;Secuencia de Eventos y Mitigación&lt;/h4&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="space-y-6 relative before:absolute before:inset-0 before:left-3.5 before:w-0.5 before:bg-slate-800"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;!-- Event 1 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="relative pl-10"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;span class="absolute left-0 top-1 w-7.5 h-7.5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/30 text-xs font-bold"&gt;1&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;h5 class="text-sm font-semibold text-white"&gt;Batches Iniciales Seguros (8 lotes)&lt;/h5&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;p class="text-xs text-slate-400 mt-1"&gt;Condujo a un envío limpio sobre ~400 personas. Generó 20 interacciones de valor y los primeros 2 registros confirmados de LotBet (conversión sana de 0.5%).&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                            </span></p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;!-- Event 2 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="relative pl-10"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;span class="absolute left-0 top-1 w-7.5 h-7.5 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center border border-rose-500/30 text-xs font-bold"&gt;2&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;h5 class="text-sm font-semibold text-rose-300"&gt;Ejecución del "Blast" No Autorizado&lt;/h5&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;p class="text-xs text-slate-400 mt-1"&gt;Acción manual masiva sobre los ~2.600 contactos restantes. Meta activa alerta algorítmica por velocidad de entrega de WhatsApp.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;!-- Event 3 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="relative pl-10"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;span class="absolute left-0 top-1 w-7.5 h-7.5 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center border border-amber-500/30 text-xs font-bold"&gt;3&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;h5 class="text-sm font-semibold text-amber-300"&gt;Mitigación Inmediata de Redundancia&lt;/h5&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;p class="text-xs text-slate-400 mt-1"&gt;Se congelaron los accesos del número de AfiWins. Se procedió a desvincular el portafolio de backup Cancha Central para evitar bloqueo cruzado permanente de Meta.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- TAB CONTENT: SIMULADOR DE PROYECCIÓN --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="content-proyector" class="tab-content hidden space-y-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="bg-slate-900 border border-slate-800 rounded-xl p-5"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3 class="font-bold text-lg text-white mb-1"&gt;Simulador Financiero y de Conversión&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="text-xs text-slate-400"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>Utilice este simulador para estimar el potencial de conversiones de la base de datos de 3.000 contactos una vez normalizados los portafolios y optimizado el flujo.</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="grid grid-cols-1 lg:grid-cols-3 gap-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Parámetros --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h4 class="font-bold text-sm text-white uppercase tracking-wider border-b border-slate-800 pb-2"&gt;Ajuste de Variables&lt;/h4&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- Control 1 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="space-y-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flex justify-between text-xs font-medium"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-slate-300"&gt;Base de Contactos Meta&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-emerald-400 font-bold" id="val-db"&gt;3.000&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;input type="range" id="input-db" min="500" max="10000" step="500" value="3000" oninput="calculateProjections()" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-500"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="text-[10px] text-slate-500"&gt;Contactos actuales en base: 3.000&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- Control 2 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="space-y-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flex justify-between text-xs font-medium"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-slate-300"&gt;Tasa de Interacción esperada&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-indigo-400 font-bold" id="val-int"&gt;8%&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;input type="range" id="input-int" min="2" max="25" step="1" value="8" oninput="calculateProjections()" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-indigo-500"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="text-[10px] text-slate-500"&gt;Actualmente con pauta limitada: 5%&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- Control 3 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="space-y-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flex justify-between text-xs font-medium"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-slate-300"&gt;Tasa de Conversión (a Registro)&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-amber-400 font-bold" id="val-conv"&gt;1.5%&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;input type="range" id="input-conv" min="0.5" max="5" step="0.5" value="1.5" oninput="calculateProjections()" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-500"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="text-[10px] text-slate-500"&gt;Actualmente sin optimizador: 0.5%&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- Control 4 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="space-y-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flex justify-between text-xs font-medium"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-slate-300"&gt;Valor Estimado de un Cliente Registrado (COP)&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-emerald-400 font-bold" id="val-cltv"&gt;$45.000&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;input type="range" id="input-cltv" min="10000" max="150000" step="5000" value="45000" oninput="calculateProjections()" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-500"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="text-[10px] text-slate-500"&gt;LTV estimado a 3 meses en LotBet&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Resultados Proyectados --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-xl p-5 flex flex-col justify-between"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h4 class="font-bold text-sm text-white uppercase tracking-wider border-b border-slate-800 pb-2 mb-4"&gt;Potencial de Retorno de la Base de Datos&lt;/h4&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="grid grid-cols-1 sm:grid-cols-3 gap-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="bg-slate-950 p-4 rounded-xl border border-slate-800/80"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;span class="text-xs text-slate-400 block"&gt;Contactos Interactuando&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;span class="text-2xl font-black text-indigo-400 block mt-1" id="res-contacts"&gt;240&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;span class="text-[10px] text-slate-500"&gt;Usuarios respondiendo&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="bg-slate-950 p-4 rounded-xl border border-slate-800/80"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;span class="text-xs text-slate-400 block"&gt;Nuevos Registros Estimados&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;span class="text-2xl font-black text-amber-400 block mt-1" id="res-registers"&gt;36&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;span class="text-[10px] text-slate-500"&gt;En base de datos total&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="bg-slate-950 p-4 rounded-xl border border-slate-800/80"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;span class="text-xs text-slate-400 block"&gt;Valor Retorno Proyectado&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;span class="text-2xl font-black text-emerald-400 block mt-1" id="res-roi"&gt;$1.620.000&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;span class="text-[10px] text-slate-500"&gt;Valor de vida estimado&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;!-- Nota Técnica --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="mt-6 p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h5 class="text-xs font-bold text-slate-300 uppercase tracking-wider"&gt;Cómo desbloquear estas cifras:&lt;/h5&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;ol class="list-decimal list-inside text-xs text-slate-400 space-y-1.5"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;li&gt;&lt;strong&gt;Resolver Restricción de España:&lt;/strong&gt; Activar el optimizador de Meta Ads para redirigir directamente a conversaciones WABA nativas. Esto sube la interacción histórica del 5% a tasas mayores al 10%.&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;li&gt;&lt;strong&gt;Operar con Cancha Central (Backup):&lt;/strong&gt; Desvincular de AfiWins de inmediato para reactivar pautas de WhatsApp sin penalizaciones algorítmicas de Meta.&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;li&gt;&lt;strong&gt;Incentivos Deportivos:&lt;/strong&gt; Usar ganchos directos de "Bono de registro por Trivia Messi" en la primera respuesta interactiva.&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/ol&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="text-[11px] text-slate-500 mt-4 text-center border-t border-slate-800 pt-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Este simulador es un modelo estadístico basado en el comportamiento histórico previo al incidente masivo.</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Recomendaciones y Próximos Pasos --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;section class="bg-slate-900 border border-slate-800 p-5 rounded-xl space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3 class="font-bold text-lg text-white"&gt;Recomendaciones Estratégicas Level Producciones&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="p-3 bg-slate-950 rounded-lg space-y-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="text-xs font-bold text-emerald-400 uppercase"&gt;1. Reestructurar la Cuenta Meta&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-xs text-slate-400"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Establecer el Business Manager con personería jurídica de una jurisdicción distinta a España para poder desbloquear la opción de "Inicio de Conversación" en Meta Ads.</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="p-3 bg-slate-950 rounded-lg space-y-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="text-xs font-bold text-emerald-400 uppercase"&gt;2. Recuperación Reputacional&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-xs text-slate-400"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Inyectar pauta de branding menor en el portafolio de Cancha Central. Esto genera "buena conducta" ante el algoritmo de Meta, facilitando la desvinculación segura de AfiWins.</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="p-3 bg-slate-950 rounded-lg space-y-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="text-xs font-bold text-emerald-400 uppercase"&gt;3. Blindaje de Operadores&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-xs text-slate-400"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Instalar bloqueos de software en la API de WhatsApp para impedir que ningún operador de soporte pueda realizar envíos superiores a 50 contactos por bloque de manera directa.</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/main&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Footer de Confidencialidad --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;footer class="border-t border-slate-800 bg-slate-950 py-4 px-6 text-center text-xs text-slate-500"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;© 2026 Level Producciones para LotBet. Prohibida la distribución de este reporte confidencial a terceros no autorizados.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/footer&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Scripts de Interacción --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function switchTab(tabId) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Ocultar todos los contenidos de pestaña</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.querySelectorAll('.tab-content').forEach(element =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>element.classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Quitar estilos activos de todos los botones</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.querySelectorAll('.tab-btn').forEach(btn =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>btn.classList.remove('active', 'border-emerald-500', 'text-emerald-400');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>btn.classList.add('border-transparent', 'text-slate-400');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Mostrar la pestaña seleccionada</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('content-' + tabId).classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Activar botón correspondiente</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const activeBtn = document.getElementById('tab-' + tabId);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>activeBtn.classList.add('active', 'border-emerald-500', 'text-emerald-400');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>activeBtn.classList.remove('border-transparent', 'text-slate-400');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function calculateProjections() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Obtener inputs</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const db = parseInt(document.getElementById('input-db').value);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const intRate = parseFloat(document.getElementById('input-int').value) / 100;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const convRate = parseFloat(document.getElementById('input-conv').value) / 100;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const cltv = parseInt(document.getElementById('input-cltv').value);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Actualizar etiquetas</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('val-db').innerText = db.toLocaleString('es-CO');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('val-int').innerText = (intRate * 100).toFixed(0) + '%';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('val-conv').innerText = (convRate * 100).toFixed(1) + '%';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('val-cltv').innerText = '$' + cltv.toLocaleString('es-CO');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Calcular resultados</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const totalInteractions = Math.round(db * intRate);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const totalRegisters = Math.round(totalInteractions * convRate);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const totalROI = totalRegisters * cltv;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Actualizar salidas en UI</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('res-contacts').innerText = totalInteractions.toLocaleString('es-CO');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('res-registers').innerText = totalRegisters.toLocaleString('es-CO');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('res-roi').innerText = '$' + totalROI.toLocaleString('es-CO');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Ejecutar primer cálculo al cargar la página</p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.onload = function() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>calculateProjections();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">```</p>
 </body>
 </html>
