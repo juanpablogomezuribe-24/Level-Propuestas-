@@ -7,7 +7,306 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <style>
+:root {
+    --bg-color: #f8f9fa;
+    --surface-color: #ffffff;
+    --text-primary: #1d1d1f;
+    --text-secondary: #86868b;
+    --accent-color: #ffc107; /* Aguila Yellow */
+    --accent-hover: #ffb300;
+    --border-color: #e5e5ea;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+    --shadow-lg: 0 12px 24px rgba(0,0,0,0.12);
+    --radius-md: 12px;
+    --radius-lg: 20px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    border-radius: var(--radius-lg);
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 1rem;
+    z-index: 100;
+}
+
+.header .logo h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.badge {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: #000;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    margin-top: 0.25rem;
+    text-transform: uppercase;
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Overview Section */
+.overview-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.metric-card {
+    background-color: var(--surface-color);
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.metric-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.metric-title {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+.metric-value {
+    font-size: 2.25rem;
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+/* Events Section */
+.event-block {
+    margin-bottom: 4rem;
+}
+
+.event-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.event-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.event-date {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+}
+
+.post-card {
+    background-color: var(--surface-color);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.post-header {
+    padding: 1.5rem 1.5rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.post-medium {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.post-action {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.post-link {
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    color: #0066cc;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.post-link:hover {
+    text-decoration: underline;
+}
+
+.post-body {
+    padding: 1.5rem;
+    flex-grow: 1;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.stat-value {
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+/* Gallery inside post card */
+.post-gallery {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    scrollbar-width: thin;
+}
+
+.post-gallery::-webkit-scrollbar {
+    height: 6px;
+}
+.post-gallery::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
+}
+
+.gallery-img {
+    height: 80px;
+    width: auto;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid var(--border-color);
+    transition: opacity 0.2s;
+}
+
+.gallery-img:hover {
+    opacity: 0.8;
+}
+
+/* Modal */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.8); 
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#modal-img {
+    max-width: 100%;
+    max-height: 90vh;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.close-modal {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    .overview-section {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+    </style>
 </head>
 <body>
     <div class="app-container">
@@ -20,13 +319,8 @@
         </header>
 
         <main>
-            <section class="overview-section" id="overview">
-                <!-- Overview metrics injected via JS -->
-            </section>
-
-            <section class="events-section" id="events-container">
-                <!-- Events injected via JS -->
-            </section>
+            <section class="overview-section" id="overview"></section>
+            <section class="events-section" id="events-container"></section>
         </main>
     </div>
 
@@ -38,7 +332,135 @@
         </div>
     </div>
 
-    <script src="data.js"></script>
-    <script src="script.js"></script>
+    <script>
+const reportData = {"totals": {"views": 4461115, "reach": 3689336, "interactions": 452810, "posts": 26}, "events": [{"name": "¿Qué hace un colombiano hasta el último minuto?", "day": "2026-06-23", "posts": [{"medium": "Goles en Directo", "action": "Post en Colaboración", "link": "https://www.instagram.com/p/DZ8UJd7nAmV/?igsh=MW4xaWM0ZzgwZGNobA==", "views": 361440, "reach": 158707, "likes": 22000, "comments": 109, "reposts": 383, "shares": 1200, "saves": 908, "images": ["./img/golesdirecto_goles1.jpeg", "./img/golesdirecto_goles2.jpeg", "./img/golesdirecto_goles3.jpeg"]}, {"medium": "Futbol Sin Limite", "action": "Reel en Colaboración", "link": "https://www.instagram.com/p/DZ8Q37GR4k-/", "views": 16640, "reach": 12619, "likes": 175, "comments": 6, "reposts": 2, "shares": 0, "saves": 6, "images": ["./img/futbolsinlimite_fsl1.jpeg", "./img/futbolsinlimite_fsl2.jpeg", "./img/futbolsinlimite_fsl3.jpeg", "./img/futbolsinlimite_fsl4.jpeg"]}, {"medium": "Futbol Sin Limite", "action": "Post Estatua", "link": "https://www.instagram.com/p/DZ9GIHuxnzO/", "views": 219719, "reach": 45085, "likes": 3200, "comments": 90, "reposts": 79, "shares": 481, "saves": 24, "images": ["./img/futbolsinlimite_fsl1.jpeg", "./img/futbolsinlimite_fsl2.jpeg", "./img/futbolsinlimite_fsl3.jpeg", "./img/futbolsinlimite_fsl4.jpeg"]}, {"medium": "Futbol Recargado", "action": "Post en Colaboración", "link": "https://www.instagram.com/p/DZ8XXKemSsI/?igsh=MXR0YjI4MDhrYzBxaA==", "views": 10326, "reach": 7942, "likes": 168, "comments": 2, "reposts": 4, "shares": 3, "saves": 3, "images": ["./img/recargado_recargado1.jpeg", "./img/recargado_recargado2.jpeg", "./img/recargado_recargado3.jpeg"]}, {"medium": "La Pelotona", "action": "Post en Colaboración", "link": "https://www.instagram.com/p/DZ8PQO2xFSs/?igsh=MTgzcTZ3ZGt1bXltMw==", "views": 62024, "reach": 31012, "likes": 574, "comments": 43, "reposts": 4, "shares": 1, "saves": 6, "images": []}, {"medium": "Habla el Balón", "action": "Post en Colaboración", "link": "https://www.instagram.com/p/DZ8dm8wD-e5/?igsh=MWM0d3Jvd3M0anA3Zg==", "views": 17727, "reach": 7006, "likes": 426, "comments": 4, "reposts": 6, "shares": 12, "saves": 14, "images": ["./img/hablaelbalon_habla1.jpeg", "./img/hablaelbalon_habla2.jpeg", "./img/hablaelbalon_habla3.jpeg"]}, {"medium": "Flecha deportes", "action": "Reel en Colaboración", "link": "https://www.instagram.com/reel/DZ8VnMfiKOW/?igsh=MmVzemZ3OHN0dWFh", "views": 191660, "reach": 133519, "likes": 20000, "comments": 133, "reposts": 1100, "shares": 579, "saves": 697, "images": ["./img/flechadeportes_flecha1.jpeg", "./img/flechadeportes_flecha2.jpeg", "./img/flechadeportes_flecha3.jpeg", "./img/flechadeportes_flecha4.jpeg"]}, {"medium": "Flecha deportes", "action": "Replica en Tiktok ", "link": "https://vt.tiktok.com/ZSC5a5jVY/", "views": 2800000, "reach": 2800000, "likes": 320500, "comments": 1031, "reposts": 0, "shares": 9027, "saves": 17600, "images": ["./img/flechadeportes_flecha1.jpeg", "./img/flechadeportes_flecha2.jpeg", "./img/flechadeportes_flecha3.jpeg", "./img/flechadeportes_flecha4.jpeg"]}, {"medium": "Flecha deportes", "action": "Pauta IG + Tiktok ", "link": "", "views": 0, "reach": 0, "likes": 0, "comments": 0, "reposts": 0, "shares": 0, "saves": 0, "images": ["./img/flechadeportes_flecha1.jpeg", "./img/flechadeportes_flecha2.jpeg", "./img/flechadeportes_flecha3.jpeg", "./img/flechadeportes_flecha4.jpeg"]}]}, {"name": "Partido Colombia vs Portugal", "day": "2026-06-27", "posts": [{"medium": "Flecha deportes", "action": "Reel emovito ", "link": "https://www.instagram.com/reel/DaGJZ2ouetU/?igsh=MWZ5cGJzY3ZrMDRrZw==", "views": 117189, "reach": 86210, "likes": 12000, "comments": 291, "reposts": 1300, "shares": 919, "saves": 328, "images": ["./img/flechadeportes_flecha1.jpeg", "./img/flechadeportes_flecha2.jpeg", "./img/flechadeportes_flecha3.jpeg", "./img/flechadeportes_flecha4.jpeg"]}]}, {"name": "Partido Colombia vs Portugal | ES hoy es HOY", "day": "2026-06-27", "posts": [{"medium": "Goles en Directo", "action": "Post en Colaboración", "link": "https://www.instagram.com/reel/DaGDmf3pBtE/?igsh=MTRxZnVtanJ1YTRmYw==", "views": 61814, "reach": 39472, "likes": 4000, "comments": 23, "reposts": 105, "shares": 245, "saves": 42, "images": ["./img/golesdirecto_goles1.jpeg", "./img/golesdirecto_goles2.jpeg", "./img/golesdirecto_goles3.jpeg"]}, {"medium": "Futbol Sin Limite", "action": "Reel en Colaboración", "link": "https://www.instagram.com/p/DaGDgkKRPEn/", "views": 20532, "reach": 13562, "likes": 512, "comments": 1, "reposts": 27, "shares": 41, "saves": 13, "images": ["./img/futbolsinlimite_fsl1.jpeg", "./img/futbolsinlimite_fsl2.jpeg", "./img/futbolsinlimite_fsl3.jpeg", "./img/futbolsinlimite_fsl4.jpeg"]}, {"medium": "Futbol Recargado", "action": "Post en Colaboración", "link": "https://www.instagram.com/reel/DaGEiflOzg9/?igsh=cWx5MTlzMG9ybHp6", "views": 3867, "reach": 2780, "likes": 66, "comments": 0, "reposts": 5, "shares": 0, "saves": 4, "images": ["./img/recargado_recargado1.jpeg", "./img/recargado_recargado2.jpeg", "./img/recargado_recargado3.jpeg"]}, {"medium": "La Pelotona", "action": "Post en Colaboración", "link": "https://www.instagram.com/reel/DaGFGsHRBZS/?igsh=MWtsdDJ0OWhqNXp0dQ==", "views": 3209, "reach": 2004, "likes": 75, "comments": 23, "reposts": 12, "shares": 12, "saves": 1, "images": []}, {"medium": "Habla el Balón", "action": "Post en Colaboración", "link": "https://www.instagram.com/reel/DaGEGqCuYml/?igsh=MTl1a3YwYmJwbzFmOA==", "views": 3239, "reach": 2003, "likes": 105, "comments": 0, "reposts": 4, "shares": 6, "saves": 0, "images": ["./img/hablaelbalon_habla1.jpeg", "./img/hablaelbalon_habla2.jpeg", "./img/hablaelbalon_habla3.jpeg"]}, {"medium": "Flecha deportes", "action": "Reel en Colaboración", "link": "https://www.instagram.com/reel/DaGwlHPCnSA/?igsh=YnVyeTl5b2dkMmJ2", "views": 14516, "reach": 10404, "likes": 681, "comments": 7, "reposts": 31, "shares": 23, "saves": 27, "images": ["./img/flechadeportes_flecha1.jpeg", "./img/flechadeportes_flecha2.jpeg", "./img/flechadeportes_flecha3.jpeg", "./img/flechadeportes_flecha4.jpeg"]}]}, {"name": "Vídeo del Bicho", "day": "2026-06-28", "posts": [{"medium": "Goles en Directo", "action": "Post en Colaboración", "link": "https://www.instagram.com/reel/DaI9bmIpCgy/?igsh=MWtlMTdxNmpqNG5yMg==", "views": 98924, "reach": 60603, "likes": 5300, "comments": 25, "reposts": 193, "shares": 1000, "saves": 112, "images": ["./img/golesdirecto_goles1.jpeg", "./img/golesdirecto_goles2.jpeg", "./img/golesdirecto_goles3.jpeg"]}, {"medium": "Futbol Sin Limite", "action": "Reel en Colaboración", "link": "https://www.instagram.com/p/DaIx6stRAi6/", "views": 82691, "reach": 50475, "likes": 3200, "comments": 49, "reposts": 174, "shares": 849, "saves": 81, "images": ["./img/futbolsinlimite_fsl1.jpeg", "./img/futbolsinlimite_fsl2.jpeg", "./img/futbolsinlimite_fsl3.jpeg", "./img/futbolsinlimite_fsl4.jpeg"]}, {"medium": "Futbol Recargado", "action": "Reel en Colaboración", "link": "https://www.instagram.com/reel/DaIzCdzuvN-/?igsh=MWNrdTlsdzVuajZqOA==", "views": 14270, "reach": 9190, "likes": 373, "comments": 3, "reposts": 24, "shares": 103, "saves": 14, "images": ["./img/recargado_recargado1.jpeg", "./img/recargado_recargado2.jpeg", "./img/recargado_recargado3.jpeg"]}, {"medium": "La Pelotona", "action": "Reel en Colaboración", "link": "https://www.instagram.com/reel/DaI1RaQRWIo/?igsh=MWIxdTNyeXZmaGExZA==", "views": 85757, "reach": 42878, "likes": 1900, "comments": 111, "reposts": 92, "shares": 24, "saves": 14, "images": []}, {"medium": "Habla el Balón", "action": "Reel en Colaboración", "link": "https://www.instagram.com/reel/DaI0C12u-5k/?igsh=MWZmZGwycXE4cm9hOA==", "views": 16203, "reach": 9936, "likes": 659, "comments": 5, "reposts": 25, "shares": 134, "saves": 15, "images": ["./img/hablaelbalon_habla1.jpeg", "./img/hablaelbalon_habla2.jpeg", "./img/hablaelbalon_habla3.jpeg"]}, {"medium": "Flecha deportes", "action": "Reel en Colaboración", "link": "https://www.instagram.com/reel/DaI5Y1kiTEk/?igsh=cHVkeDRkcHIyOWQ4", "views": 76740, "reach": 52101, "likes": 4600, "comments": 139, "reposts": 219, "shares": 582, "saves": 185, "images": ["./img/flechadeportes_flecha1.jpeg", "./img/flechadeportes_flecha2.jpeg", "./img/flechadeportes_flecha3.jpeg", "./img/flechadeportes_flecha4.jpeg"]}, {"medium": "Futbol sin limite", "action": "", "link": "https://www.instagram.com/p/DZ5UkJCILgz/", "views": 0, "reach": 0, "likes": 0, "comments": 0, "reposts": 0, "shares": 0, "saves": 0, "images": ["./img/futbolsinlimite_fsl1.jpeg", "./img/futbolsinlimite_fsl2.jpeg", "./img/futbolsinlimite_fsl3.jpeg", "./img/futbolsinlimite_fsl4.jpeg"]}]}, {"name": "Vídeo partido contra Ghana", "day": "2026-07-03", "posts": [{"medium": "Futbol Al Instante", "action": "Post en Colaboración", "link": "https://www.instagram.com/reel/DaV7kjkhoMp/?igsh=N2lzZ3FjNnZ5endr", "views": 98924, "reach": 60603, "likes": 5300, "comments": 25, "reposts": 193, "shares": 1000, "saves": 112, "images": ["./img/futbolalinstante_futbolalinstante.jpeg"]}, {"medium": "Juez Central", "action": "Reel en Colaboración", "link": "https://www.instagram.com/reel/DaV3Hbjs4WW/?igsh=dDMxam9pNWNhb2Fm", "views": 82691, "reach": 50475, "likes": 3200, "comments": 49, "reposts": 174, "shares": 849, "saves": 81, "images": ["./img/juezcentral_juezcentral.jpeg"]}, {"medium": "Fútbol Intacto", "action": "Reel en Colaboración", "link": "https://www.instagram.com/reel/DaV3GkeRZWw/?igsh=MXcxajZtOGgzOHM3ag==", "views": 1013, "reach": 750, "likes": 87, "comments": 2, "reposts": 3, "shares": 0, "saves": 2, "images": ["./img/futbolintacto_futbolintacto.jpeg"]}]}]};
+
+document.addEventListener('DOMContentLoaded', () => {
+    // The data is now available in the global reportData variable from data.js
+    if (typeof reportData !== 'undefined') {
+        renderOverview(reportData.totals);
+        renderEvents(reportData.events);
+        setupModal();
+    } else {
+        console.error('Data not found. Make sure data.js is loaded.');
+    }
+});
+
+function formatNumber(num) {
+    return new Intl.NumberFormat('es-CO').format(num);
+}
+
+function renderOverview(totals) {
+    const overviewContainer = document.getElementById('overview');
+    
+    const metrics = [
+        { label: 'Visualizaciones', value: totals.views },
+        { label: 'Cuentas Alcanzadas', value: totals.reach },
+        { label: 'Interacciones Totales', value: totals.interactions },
+        { label: 'Publicaciones', value: totals.posts }
+    ];
+
+    let html = '';
+    metrics.forEach(m => {
+        html += `
+            <div class="metric-card">
+                <div class="metric-title">${m.label}</div>
+                <div class="metric-value">${formatNumber(m.value)}</div>
+            </div>
+        `;
+    });
+    
+    overviewContainer.innerHTML = html;
+}
+
+function renderEvents(events) {
+    const eventsContainer = document.getElementById('events-container');
+    let html = '';
+
+    events.forEach(ev => {
+        if (!ev.posts || ev.posts.length === 0) return;
+
+        html += `
+            <div class="event-block">
+                <div class="event-header">
+                    <h2 class="event-title">${ev.name}</h2>
+                    <span class="event-date">${ev.day}</span>
+                </div>
+                <div class="posts-grid">
+                    ${ev.posts.map(post => renderPost(post)).join('')}
+                </div>
+            </div>
+        `;
+    });
+
+    eventsContainer.innerHTML = html;
+}
+
+function renderPost(post) {
+    let imagesHtml = '';
+    if (post.images && post.images.length > 0) {
+        imagesHtml = `
+            <div class="post-gallery">
+                ${post.images.map(img => `<img src="${img}" class="gallery-img" alt="Screenshot ${post.medium}">`).join('')}
+            </div>
+        `;
+    }
+
+    return `
+        <div class="post-card">
+            <div class="post-header">
+                <h3 class="post-medium">${post.medium}</h3>
+                <div class="post-action">${post.action}</div>
+                ${post.link && post.link !== 'nan' ? `<a href="${post.link}" class="post-link" target="_blank" rel="noopener noreferrer">Ver Publicación &rarr;</a>` : ''}
+            </div>
+            <div class="post-body">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-label">Visualizaciones</span>
+                        <span class="stat-value">${formatNumber(post.views)}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Alcance</span>
+                        <span class="stat-value">${formatNumber(post.reach)}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Likes</span>
+                        <span class="stat-value">${formatNumber(post.likes)}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Comentarios</span>
+                        <span class="stat-value">${formatNumber(post.comments)}</span>
+                    </div>
+                </div>
+                ${imagesHtml}
+            </div>
+        </div>
+    `;
+}
+
+function setupModal() {
+    const modal = document.getElementById('image-modal');
+    const modalImg = document.getElementById('modal-img');
+    const closeBtn = document.querySelector('.close-modal');
+
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('gallery-img')) {
+            modal.style.display = 'block';
+            modalImg.src = e.target.src;
+        }
+    });
+
+    closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+}
+
+    </script>
 </body>
 </html>
