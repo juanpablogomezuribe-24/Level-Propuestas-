@@ -68,7 +68,9 @@
             BarChart: (props) => <Icon {...props} path={<><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></>} />,
             Smartphone: (props) => <Icon {...props} path={<><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></>} />,
             Gift: (props) => <Icon {...props} path={<><polyline points="20 12 20 22 4 22 4 12"/><rect width="20" height="5" x="2" y="7"/><line x1="12" x2="12" y1="22" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></>} />,
-            Mic: (props) => <Icon {...props} path={<><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></>} />
+            Mic: (props) => <Icon {...props} path={<><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></>} />,
+            CheckCircle: (props) => <Icon {...props} path={<><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></>} />,
+            Globe: (props) => <Icon {...props} path={<><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></>} />
         };
 
         // --- DATOS ---
@@ -115,7 +117,7 @@
             },
             {
                 name: "Éxito",
-                description: "Influenciadores.",
+                description: "Manejo de influenciadores para campañas estratégicas.",
                 tags: ["Influencers"]
             },
             {
@@ -134,7 +136,7 @@
                 tags: ["Consultoría", "Tech", "Pauta"]
             },
             {
-                name: "Agencias de Influenciadores",
+                name: "Agencias Aliadas",
                 description: "Partners corporativos en el ecosistema digital: Goldfish, DC Influencers, Alina Comunicaciones, La Tope.",
                 tags: ["Partners Estratégicos"]
             }
@@ -245,6 +247,17 @@
                         </div>
                     )}
                 </div>
+            </div>
+        );
+
+        const MetricBox = ({ title, value, subtitle, icon: IconComponent, colorClass = "text-purple-400" }) => (
+            <div className="bg-slate-900/80 p-4 rounded-xl border border-slate-700 hover:border-slate-500 transition-all group">
+                <div className="flex items-center gap-2 mb-2">
+                    <IconComponent size={16} className={colorClass} />
+                    <span className="text-slate-400 text-xs font-bold uppercase tracking-wider">{title}</span>
+                </div>
+                <p className="text-2xl font-black text-white group-hover:scale-105 origin-left transition-transform">{value}</p>
+                {subtitle && <p className="text-slate-500 text-xs mt-1">{subtitle}</p>}
             </div>
         );
 
@@ -480,96 +493,228 @@
                     case 4: // Tecnología
                         return (
                             <div className="animate-fade-in space-y-10">
-                                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                                    <div className="lg:col-span-1 space-y-6">
-                                        <h3 className="text-2xl font-bold text-white flex items-center gap-2">
-                                            <Icons.Cpu className="text-purple-500" size={32} /> Level Tech
-                                        </h3>
-                                        <p className="text-slate-300 text-lg leading-relaxed">
-                                            Desarrollo in-house. <span className="text-white font-bold">No tercerizamos, creamos.</span>
-                                        </p>
-                                        <p className="text-slate-400">Desde soluciones complejas en WhatsApp hasta E-commerce robustos y escalables. Nuestra tecnología impulsa tus ventas.</p>
-                                        <div className="space-y-4 pt-4">
-                                            <div className="p-4 bg-slate-800 rounded-xl border border-slate-700 flex items-center gap-3">
-                                                <Icons.MessageSquare className="text-green-400" />
-                                                <div>
-                                                    <h4 className="font-bold text-white">Soluciones WhatsApp</h4>
-                                                    <p className="text-xs text-slate-400">Bots, CRM, Juegos</p>
-                                                </div>
-                                            </div>
-                                            <div className="p-4 bg-slate-800 rounded-xl border border-slate-700 flex items-center gap-3">
-                                                <Icons.ShoppingBag className="text-blue-400" />
-                                                <div>
-                                                    <h4 className="font-bold text-white">E-commerce</h4>
-                                                    <p className="text-xs text-slate-400">Shopify & Custom Dev</p>
-                                                </div>
-                                            </div>
-                                            <div className="p-4 bg-slate-800 rounded-xl border border-slate-700 flex items-center gap-3">
-                                                <Icons.Smartphone className="text-purple-400" />
-                                                <div>
-                                                    <h4 className="font-bold text-white">Herramientas Personalizadas</h4>
-                                                    <p className="text-xs text-slate-400">Desarrollo a la medida</p>
-                                                </div>
-                                            </div>
+                                <div>
+                                    <h3 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                                        <Icons.Cpu className="text-purple-500" size={32} /> Level Tech
+                                    </h3>
+                                    <p className="text-slate-300 text-lg leading-relaxed max-w-4xl mb-4">
+                                        Desarrollo in-house. <span className="text-white font-bold">No tercerizamos, creamos.</span> Desde soluciones transaccionales complejas en WhatsApp hasta E-commerce robustos y escalables.
+                                    </p>
+                                </div>
+
+                                {/* BLUPIT - CASOS DE ÉXITO ESTRELLA */}
+                                <div className="bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 rounded-3xl border border-slate-700 p-8 shadow-2xl">
+                                    <div className="flex items-center gap-4 mb-8 border-b border-slate-800 pb-6">
+                                        <div className="bg-green-500/20 p-3 rounded-xl">
+                                            <Icons.MessageSquare className="text-green-400" size={32} />
+                                        </div>
+                                        <div>
+                                            <h4 className="text-2xl font-black text-white">Casos de Éxito: Blupit</h4>
+                                            <p className="text-slate-400">Automatización, Inteligencia Artificial y Gamificación en WhatsApp.</p>
                                         </div>
                                     </div>
-                                    <div className="lg:col-span-2 space-y-8">
-                                        <div>
-                                            <h4 className="text-white font-bold mb-4 flex items-center gap-2 border-b border-slate-800 pb-2">
-                                                <Icons.MessageSquare className="text-green-400" size={18} /> SaaS & Productos Propios
-                                            </h4>
-                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                                <Card title="Blupit" subtitle="CRM & Gamificación" description="Fidelización, gamificación y educación por WhatsApp. Centraliza tu comunidad." tags={['SaaS', 'WhatsApp', 'CRM']} imageUrl="https://i.postimg.cc/G26HmQKt/BLUPIT.png" link="https://www.app.blupit.com.co" />
-                                                <Card title="Polla Deportiva" subtitle="Gaming & Engagement" description="Plataforma interactiva para pronósticos deportivos. Ideal para torneos y fidelización." tags={['Game', 'Sports', 'Web']} imageUrl="https://i.postimg.cc/50frbtnR/Whats-App-Image-2026-03-30-at-9-42-20-PM.jpg" />
+
+                                    {/* Caso SC Johnson */}
+                                    <div className="mb-12 bg-slate-950/50 rounded-2xl p-6 border border-slate-800">
+                                        <div className="flex flex-col md:flex-row gap-6 items-center mb-6">
+                                            <div className="flex-1">
+                                                <h5 className="text-xl font-bold text-white mb-2">SC Johnson: Campaña Regional</h5>
+                                                <p className="text-slate-400 text-sm leading-relaxed mb-4">
+                                                    <strong className="text-slate-300">El Reto:</strong> Implementar una campaña promocional simultánea para Colombia, Perú y Ecuador desde una única plataforma. Por la compra de productos SCJ, los usuarios reciben un número aleatorio de 5 dígitos validado por WhatsApp.
+                                                </p>
+                                                <div className="flex flex-wrap gap-2 mb-4">
+                                                    <span className="text-[10px] uppercase font-bold bg-green-900/40 text-green-400 px-2 py-1 rounded border border-green-500/20">API WhatsApp</span>
+                                                    <span className="text-[10px] uppercase font-bold bg-purple-900/40 text-purple-400 px-2 py-1 rounded border border-purple-500/20">Sorteo Automatizado</span>
+                                                    <span className="text-[10px] uppercase font-bold bg-blue-900/40 text-blue-400 px-2 py-1 rounded border border-blue-500/20">Multi-País</span>
+                                                </div>
                                             </div>
                                         </div>
                                         
-                                        {/* NUEVA SECCIÓN DE PROMOCIONALES WHATSAPP */}
-                                        <div>
-                                            <h4 className="text-white font-bold mb-4 flex items-center gap-2 border-b border-slate-800 pb-2">
-                                                <Icons.Smartphone className="text-purple-400" size={18} /> Promocionales WhatsApp
-                                            </h4>
-                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                                <Card 
-                                                    title="SC Johnson" 
-                                                    subtitle="Campaña Mundialista" 
-                                                    description="Ejecución de la campaña mundialista para Perú, Ecuador y Colombia integrada en WhatsApp." 
-                                                    tags={['WhatsApp', 'Promocional', 'Latam']} 
-                                                    imageUrl="https://i.postimg.cc/Vk1ZjvPx/Whats-App-Image-2026-03-30-at-9-45-47-PM.jpg" 
-                                                />
-                                                <Card 
-                                                    title="Hisense" 
-                                                    subtitle="Promo Mundialista" 
-                                                    description="Ejecución y tecnología para la campaña promocional mundialista de Hisense 100% por chat." 
-                                                    tags={['WhatsApp', 'Promo', 'Mundial']} 
-                                                    imageUrl="https://i.postimg.cc/PqvDJbFT/Whats-App-Image-2026-03-30-at-9-45-24-PM.jpg" 
-                                                />
-                                            </div>
+                                        {/* Métricas SCJ */}
+                                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                                            <MetricBox title="Ventas Generadas" value="$622 M" subtitle="En pesos colombianos" icon={Icons.TrendingUp} colorClass="text-green-400" />
+                                            <MetricBox title="Países Simultáneos" value="3" subtitle="Colombia, Perú, Ecuador" icon={Icons.Globe} colorClass="text-blue-400" />
+                                            <MetricBox title="Mensajes" value="62.551" subtitle="Gestionados por Blupit" icon={Icons.MessageSquare} colorClass="text-purple-400" />
+                                            <MetricBox title="Registros WA" value="98.7%" subtitle="Realizados desde el chat" icon={Icons.Smartphone} colorClass="text-cyan-400" />
+                                        </div>
+                                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                                            <MetricBox title="Contactos" value="3.320" subtitle="Administrados" icon={Icons.Users} colorClass="text-indigo-400" />
+                                            <MetricBox title="Participantes" value="1.272" subtitle="Registrados" icon={Icons.CheckCircle} colorClass="text-emerald-400" />
+                                            <MetricBox title="Facturas" value="383" subtitle="Registradas" icon={Icons.BookOpen} colorClass="text-amber-400" />
+                                            <MetricBox title="Tasa de Entrega" value="96.4%" subtitle="De campañas enviadas" icon={Icons.Target} colorClass="text-rose-400" />
+                                        </div>
+                                        <div className="bg-slate-900 p-4 rounded-xl border border-slate-700 mb-6">
+                                            <h6 className="text-white font-bold text-sm mb-2 flex items-center gap-2"><Icons.Star className="text-yellow-400" size={16} /> IMPACTO</h6>
+                                            <p className="text-slate-400 text-xs">La solución permitió administrar una campaña regional desde una sola plataforma, automatizando procesos de registro, validación de compras y comunicación con los usuarios, logrando altos niveles de eficiencia operativa y conversión.</p>
                                         </div>
 
-                                        <div>
-                                            <h4 className="text-white font-bold mb-4 flex items-center gap-2 border-b border-slate-800 pb-2">
-                                                <Icons.Cpu className="text-cyan-400" size={18} /> Herramientas a la Medida
-                                            </h4>
-                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                                <Card title="Aorra" subtitle="FinTech WhatsApp" description="Plataforma de finanzas personales y hábitos gestionada 100% por chat." tags={['FinTech', 'Habits', 'Bot']} imageUrl="https://i.postimg.cc/rpPS55jr/Whats-App-Image-2026-02-02-at-11-58-39-AM.jpg" link="https://www.aorra.online" />
-                                                <Card title="Bingo Multiplayer" subtitle="Gaming & Activación" description="Juego masivo multijugador integrado en WhatsApp para activación de marcas en tiempo real." tags={['Game', 'Engagement']} imageUrl="https://i.postimg.cc/htGzMfXW/Whats-App-Image-2026-02-02-at-11-56-52-AM.jpg" link="https://bingo.remakia.com" />
+                                        {/* Galeria Interactiva SCJ */}
+                                        <div className="flex overflow-x-auto gap-4 pb-4 snap-x scrollbar-hide">
+                                            <img src="https://i.postimg.cc/Vk1ZjvPx/Whats-App-Image-2026-03-30-at-9-45-47-PM.jpg" className="h-80 w-auto rounded-xl shadow-lg snap-center object-contain bg-slate-900 border border-slate-800" alt="Campaña Stand SCJ" />
+                                            <img src="https://i.postimg.cc/gjRBrmKK/scjcolombia.jpg" className="h-80 w-auto rounded-xl shadow-lg snap-center object-contain bg-slate-900 border border-slate-800" alt="Bot SCJ Colombia" />
+                                            <img src="https://i.postimg.cc/nc4PJVzR/scjecuador.jpg" className="h-80 w-auto rounded-xl shadow-lg snap-center object-contain bg-slate-900 border border-slate-800" alt="Bot SCJ Ecuador" />
+                                            <img src="https://i.postimg.cc/pVhQNPkm/scjperu.jpg" className="h-80 w-auto rounded-xl shadow-lg snap-center object-contain bg-slate-900 border border-slate-800" alt="Bot SCJ Peru" />
+                                        </div>
+                                    </div>
+
+                                    {/* Caso Hisense */}
+                                    <div className="bg-slate-950/50 rounded-2xl p-6 border border-slate-800">
+                                        <div className="flex flex-col md:flex-row gap-6 items-center mb-6">
+                                            <div className="flex-1">
+                                                <h5 className="text-xl font-bold text-white mb-2">Hisense: Te Lleva al Mundial</h5>
+                                                <p className="text-slate-400 text-sm leading-relaxed mb-4">
+                                                    <strong className="text-slate-300">El Reto:</strong> Crear una experiencia conversacional donde el usuario registra su compra, una Inteligencia Artificial (OCR) valida la factura en tiempo real, y si es correcta, accede a una trivia mundialista de 3 preguntas en 10 segundos para ganar puntos.
+                                                </p>
+                                                <div className="flex flex-wrap gap-2 mb-4">
+                                                    <span className="text-[10px] uppercase font-bold bg-green-900/40 text-green-400 px-2 py-1 rounded border border-green-500/20">OCR Facturas (IA)</span>
+                                                    <span className="text-[10px] uppercase font-bold bg-yellow-900/40 text-yellow-400 px-2 py-1 rounded border border-yellow-500/20">Trivia Gamificada</span>
+                                                    <span className="text-[10px] uppercase font-bold bg-red-900/40 text-red-400 px-2 py-1 rounded border border-red-500/20">Fidelización</span>
+                                                </div>
                                             </div>
+                                        </div>
+                                        
+                                        {/* Métricas Hisense */}
+                                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                                            <MetricBox title="Compras Registradas" value="$2.372 M" subtitle="En pesos colombianos" icon={Icons.ShoppingBag} colorClass="text-green-400" />
+                                            <MetricBox title="Facturas por IA" value="85%" subtitle="Procesadas automáticamente" icon={Icons.Cpu} colorClass="text-purple-400" />
+                                            <MetricBox title="Finalización Trivia" value="99.7%" subtitle="Alta retención en el juego" icon={Icons.CheckCircle} colorClass="text-yellow-400" />
+                                            <MetricBox title="Mensajes" value="45.323" subtitle="Respuestas automáticas" icon={Icons.MessageSquare} colorClass="text-cyan-400" />
+                                        </div>
+                                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                                            <MetricBox title="Participantes" value="1.710" subtitle="Registrados" icon={Icons.Users} colorClass="text-indigo-400" />
+                                            <MetricBox title="Facturas" value="1.321" subtitle="Validadas" icon={Icons.BookOpen} colorClass="text-emerald-400" />
+                                            <MetricBox title="Sesiones Trivia" value="1.148" subtitle="Jugadas" icon={Icons.Play} colorClass="text-amber-400" />
+                                            <MetricBox title="Rankings" value="1.100" subtitle="Generados automáticamente" icon={Icons.BarChart} colorClass="text-rose-400" />
+                                        </div>
+                                        <div className="bg-slate-900 p-4 rounded-xl border border-slate-700 mb-6">
+                                            <h6 className="text-white font-bold text-sm mb-2 flex items-center gap-2"><Icons.Star className="text-yellow-400" size={16} /> IMPACTO</h6>
+                                            <p className="text-slate-400 text-xs">La campaña permitió automatizar completamente la experiencia del consumidor, reduciendo procesos manuales, aumentando la participación y generando una interacción constante entre la marca y sus compradores mediante una experiencia conversacional gamificada.</p>
                                         </div>
 
-                                        <div>
-                                            <div className="mb-4 border-b border-slate-800 pb-2">
-                                                <h4 className="text-white font-bold flex items-center gap-2">
-                                                    <Icons.ShoppingBag className="text-blue-400" size={18} /> Desarrollo Web & E-commerce
-                                                </h4>
-                                                <p className="text-slate-400 text-xs mt-1">Expertos en Shopify y desarrollo a medida.</p>
-                                            </div>
-                                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                                <Card title="Fecoljuegos" subtitle="Web Corporativa" description="Portal gremial desarrollado con altos estándares de seguridad y UX." tags={['Web', 'Corporate']} imageUrl="https://i.postimg.cc/T35NyYT6/Whats-App-Image-2026-02-02-at-11-52-14-AM.jpg" link="https://www.fecoljuegos.com.co" />
-                                                <Card title="Sugaberrio" subtitle="E-commerce Ganadero" description="Subastas y comercialización digital. Transformación digital del agro." tags={['Shopify', 'Auction']} imageUrl="https://i.postimg.cc/4dPWCYQz/Whats-App-Image-2026-02-02-at-11-52-47-AM.jpg" link="https://sugaberrio.co" />
-                                                <Card title="Aida Victoria" subtitle="E-commerce" description="Tienda oficial de productos físicos y digitales. Alto tráfico y conversión." tags={['Shopify', 'Retail']} imageUrl="https://i.postimg.cc/25fGVQHw/Whats-App-Image-2026-02-02-at-11-52-26-AM.jpg" link="https://aidavictoria.co" />
+                                        {/* Galeria Interactiva Hisense */}
+                                        <div className="flex overflow-x-auto gap-4 pb-4 snap-x scrollbar-hide">
+                                            <img src="https://i.postimg.cc/PqvDJbFT/Whats-App-Image-2026-03-30-at-9-45-24-PM.jpg" className="h-80 w-auto rounded-xl shadow-lg snap-center object-contain bg-slate-900 border border-slate-800" alt="Campaña Hisense" />
+                                            <img src="https://i.postimg.cc/Y2ZH9StL/Whats-App-Image-2026-07-10-at-4-16-20-PM.jpg" className="h-80 w-auto rounded-xl shadow-lg snap-center object-contain bg-slate-900 border border-slate-800" alt="Bot Hisense 1" />
+                                            <img src="https://i.postimg.cc/02SqJqNZ/Whats-App-Image-2026-07-10-at-4-16-23-PM-(1).jpg" className="h-80 w-auto rounded-xl shadow-lg snap-center object-contain bg-slate-900 border border-slate-800" alt="Bot Hisense 2" />
+                                            <img src="https://i.postimg.cc/Mp8J7rMc/Whats-App-Image-2026-07-10-at-4-16-23-PM.jpg" className="h-80 w-auto rounded-xl shadow-lg snap-center object-contain bg-slate-900 border border-slate-800" alt="Bot Hisense 3" />
+                                        </div>
+                                    </div>
+
+                                    {/* Caso Colgas */}
+                                    <div className="mt-8 bg-slate-950/50 rounded-2xl p-6 border border-slate-800">
+                                        <div className="flex flex-col md:flex-row gap-6 items-center mb-6">
+                                            <div className="flex-1">
+                                                <h5 className="text-xl font-bold text-white mb-2">Colgas: Actualización de Datos (Taxi Carey)</h5>
+                                                <p className="text-slate-400 text-sm leading-relaxed mb-4">
+                                                    <strong className="text-slate-300">El Reto:</strong> Colgas necesitaba perfilar su base de datos para identificar si los receptores de la factura física de gas eran <strong>propietarios o arrendatarios</strong> del inmueble.
+                                                </p>
+                                                <p className="text-slate-400 text-sm leading-relaxed mb-4">
+                                                    <strong className="text-slate-300">Nuestra Solución:</strong> Implementamos un código QR en el volante de la factura física. Al escanearlo, el usuario llegaba a WhatsApp, indicaba su estado (propietario/arrendatario) e ingresaba su código de suscriptor. Blupit se conectó vía API a la base de datos de Colgas para validarlo en tiempo real y, al ser correcto, habilitaba una <strong>trivia mundialista gamificada</strong> que premiaba el conocimiento y la rapidez.
+                                                </p>
+                                                <div className="flex flex-wrap gap-2 mb-4">
+                                                    <span className="text-[10px] uppercase font-bold bg-green-900/40 text-green-400 px-2 py-1 rounded border border-green-500/20">Integración BD (API)</span>
+                                                    <span className="text-[10px] uppercase font-bold bg-purple-900/40 text-purple-400 px-2 py-1 rounded border border-purple-500/20">First-Party Data</span>
+                                                    <span className="text-[10px] uppercase font-bold bg-yellow-900/40 text-yellow-400 px-2 py-1 rounded border border-yellow-500/20">O2O (Offline to Online)</span>
+                                                </div>
                                             </div>
                                         </div>
+                                        
+                                        {/* Métricas Colgas */}
+                                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                                            <MetricBox title="Inicios de Flujo" value="1.796" subtitle="Usuarios desde el QR" icon={Icons.Smartphone} colorClass="text-green-400" />
+                                            <MetricBox title="Participantes" value="1.389" subtitle="Códigos validados" icon={Icons.CheckCircle} colorClass="text-blue-400" />
+                                            <MetricBox title="Tasa de Participación" value="77.3%" subtitle="De escanear a jugar" icon={Icons.TrendingUp} colorClass="text-purple-400" />
+                                            <MetricBox title="Juegos Completados" value="1.348" subtitle="Terminaron la trivia" icon={Icons.Play} colorClass="text-yellow-400" />
+                                        </div>
+                                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                                            <MetricBox title="Retención Gamificada" value="97%" subtitle="Finalización del juego" icon={Icons.Target} colorClass="text-emerald-400" />
+                                            <MetricBox title="Data Recolectada" value="100%" subtitle="Perfilamiento logrado" icon={Icons.Users} colorClass="text-rose-400" />
+                                            <MetricBox title="Validación" value="Real-Time" subtitle="Conexión segura" icon={Icons.Cpu} colorClass="text-cyan-400" />
+                                            <MetricBox title="Canal Principal" value="WhatsApp" subtitle="Sin descargar apps" icon={Icons.MessageSquare} colorClass="text-indigo-400" />
+                                        </div>
+                                        <div className="bg-slate-900 p-4 rounded-xl border border-slate-700 mb-6">
+                                            <h6 className="text-white font-bold text-sm mb-2 flex items-center gap-2"><Icons.Star className="text-yellow-400" size={16} /> IMPACTO</h6>
+                                            <p className="text-slate-400 text-xs">Se transformó un proceso tedioso de actualización de datos en una experiencia inmersiva O2O (Offline to Online). Al incentivar al usuario con una trivia directamente en su chat de WhatsApp, se logró una retención brutal del 97% durante el juego, limpiando y segmentando la base de datos de Colgas de manera automatizada y amigable.</p>
+                                        </div>
+
+                                        {/* Galeria Interactiva Colgas */}
+                                        <div className="flex overflow-x-auto gap-4 pb-4 snap-x scrollbar-hide">
+                                            <img src="https://i.postimg.cc/pLzx3551/Whats-App-Image-2026-07-10-at-5-01-05-PM.jpg" className="h-80 w-auto rounded-xl shadow-lg snap-center object-contain bg-slate-900 border border-slate-800" alt="Bot Colgas Paso 1" />
+                                            <img src="https://i.postimg.cc/PrBT6QJD/Whats-App-Image-2026-07-10-at-5-01-05-PM-(1).jpg" className="h-80 w-auto rounded-xl shadow-lg snap-center object-contain bg-slate-900 border border-slate-800" alt="Bot Colgas Paso 2" />
+                                            <img src="https://i.postimg.cc/KYbFbctC/Whats-App-Image-2026-07-10-at-5-01-05-PM-(2).jpg" className="h-80 w-auto rounded-xl shadow-lg snap-center object-contain bg-slate-900 border border-slate-800" alt="Bot Colgas Paso 3" />
+                                        </div>
+                                    </div>
+
+                                    {/* Caso Sugaberrío */}
+                                    <div className="mt-8 bg-slate-950/50 rounded-2xl p-6 border border-slate-800">
+                                        <div className="flex flex-col md:flex-row gap-6 items-center mb-6">
+                                            <div className="flex-1">
+                                                <h5 className="text-xl font-bold text-white mb-2">Sugaberrío: Ecosistema Digital Ganadero</h5>
+                                                <p className="text-slate-400 text-sm leading-relaxed mb-4">
+                                                    Compañía del sector ganadero que conecta productores, compradores y aliados a través de subastas, eventos y oportunidades comerciales.
+                                                </p>
+                                                <p className="text-slate-400 text-sm leading-relaxed mb-4">
+                                                    <strong className="text-slate-300">El Reto:</strong> Evolucionar de una subasta ganadera tradicional a un ecosistema digital capaz de conectar a su comunidad, activar su participación y convertir esa atención en datos, oportunidades comerciales y nuevas fuentes de ingresos.
+                                                </p>
+                                                <p className="text-slate-400 text-sm leading-relaxed mb-4">
+                                                    <strong className="text-slate-300">Nuestra Solución:</strong> Diseñamos, junto con Blupit, una estrategia permanente de comunicación, gamificación y generación de oportunidades comerciales a través de WhatsApp.
+                                                </p>
+                                                <div className="flex flex-wrap gap-2 mb-4">
+                                                    <span className="text-[10px] uppercase font-bold bg-green-900/40 text-green-400 px-2 py-1 rounded border border-green-500/20">AgroTech</span>
+                                                    <span className="text-[10px] uppercase font-bold bg-purple-900/40 text-purple-400 px-2 py-1 rounded border border-purple-500/20">Comunidad Digital</span>
+                                                    <span className="text-[10px] uppercase font-bold bg-yellow-900/40 text-yellow-400 px-2 py-1 rounded border border-yellow-500/20">Gamificación</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        {/* Métricas Sugaberrio */}
+                                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6">
+                                            <MetricBox title="Contactos" value="8.299" subtitle="Segmentados" icon={Icons.Users} colorClass="text-green-400" />
+                                            <MetricBox title="Campañas" value="243" subtitle="Lanzadas" icon={Icons.Target} colorClass="text-blue-400" />
+                                            <MetricBox title="Mensajes" value="+19.6k" subtitle="Enviados" icon={Icons.MessageSquare} colorClass="text-purple-400" />
+                                            <MetricBox title="Jugadores" value="+2.500" subtitle="Ganaderos" icon={Icons.Play} colorClass="text-yellow-400" />
+                                            <MetricBox title="Sedes" value="5" subtitle="Conectadas" icon={Icons.Globe} colorClass="text-emerald-400" />
+                                        </div>
+                                        
+                                        <div className="bg-slate-900 p-4 rounded-xl border border-slate-700 mb-6">
+                                            <h6 className="text-white font-bold text-sm mb-2 flex items-center gap-2"><Icons.Star className="text-yellow-400" size={16} /> IMPACTO</h6>
+                                            <p className="text-slate-400 text-xs">Transformamos a una audiencia tradicional del agro en una comunidad digital altamente activa, generando retención constante a través de dinámicas en WhatsApp y canalizando esa atención hacia conversiones en subastas reales.</p>
+                                        </div>
+
+                                        {/* Galeria Interactiva Sugaberrio */}
+                                        <div className="flex overflow-x-auto gap-4 pb-4 snap-x scrollbar-hide">
+                                            <img src="https://i.postimg.cc/9Fr3XZsJ/Whats-App-Image-2026-07-13-at-7-15-06-PM.jpg" className="h-80 w-auto rounded-xl shadow-lg snap-center object-contain bg-slate-900 border border-slate-800" alt="Promo Sugaberrio" />
+                                            <img src="https://i.postimg.cc/yYkq6c2G/Whats-App-Image-2026-07-13-at-6-43-35-PM.jpg" className="h-80 w-auto rounded-xl shadow-lg snap-center object-contain bg-slate-900 border border-slate-800" alt="Bot Sugaberrio 1" />
+                                            <img src="https://i.postimg.cc/Yqhc2YJ7/Whats-App-Image-2026-07-13-at-6-43-41-PM.jpg" className="h-80 w-auto rounded-xl shadow-lg snap-center object-contain bg-slate-900 border border-slate-800" alt="Bot Sugaberrio 2" />
+                                            <img src="https://i.postimg.cc/m2txZC0Z/Whats-App-Image-2026-07-13-at-6-43-46-PM.jpg" className="h-80 w-auto rounded-xl shadow-lg snap-center object-contain bg-slate-900 border border-slate-800" alt="Bot Sugaberrio 3" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* OTRAS HERRAMIENTAS */}
+                                <div>
+                                    <h4 className="text-white font-bold mb-4 flex items-center gap-2 border-b border-slate-800 pb-2">
+                                        <Icons.Cpu className="text-cyan-400" size={18} /> Herramientas a la Medida
+                                    </h4>
+                                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                                        <Card title="Aorra" subtitle="FinTech WhatsApp" description="Plataforma de finanzas personales y hábitos gestionada 100% por chat." tags={['FinTech', 'Habits']} imageUrl="https://i.postimg.cc/rpPS55jr/Whats-App-Image-2026-02-02-at-11-58-39-AM.jpg" link="https://www.aorra.online" />
+                                        <Card title="Bingo Multiplayer" subtitle="Gaming & Activación" description="Juego masivo multijugador integrado en WhatsApp para activación de marcas en tiempo real." tags={['Game', 'Engagement']} imageUrl="https://i.postimg.cc/htGzMfXW/Whats-App-Image-2026-02-02-at-11-56-52-AM.jpg" link="https://bingo.remakia.com" />
+                                        <Card title="Polla Deportiva" subtitle="Gaming WhatsApp" description="Plataforma interactiva para pronósticos deportivos. Ideal para torneos y fidelización." tags={['Deportes', 'Trivia']} imageUrl="https://i.postimg.cc/50frbtnR/Whats-App-Image-2026-03-30-at-9-42-20-PM.jpg" />
+                                    </div>
+                                </div>
+
+                                {/* E-COMMERCE */}
+                                <div>
+                                    <div className="mb-4 border-b border-slate-800 pb-2">
+                                        <h4 className="text-white font-bold flex items-center gap-2">
+                                            <Icons.ShoppingBag className="text-blue-400" size={18} /> Desarrollo Web & E-commerce
+                                        </h4>
+                                        <p className="text-slate-400 text-xs mt-1">Expertos en Shopify y desarrollo a medida.</p>
+                                    </div>
+                                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                        <Card title="Fecoljuegos" subtitle="Web Corporativa" description="Portal gremial desarrollado con altos estándares de seguridad y UX." tags={['Web', 'Corporate']} imageUrl="https://i.postimg.cc/T35NyYT6/Whats-App-Image-2026-02-02-at-11-52-14-AM.jpg" link="https://www.fecoljuegos.com.co" />
+                                        <Card title="Sugaberrio" subtitle="E-commerce Ganadero" description="Subastas y comercialización digital. Transformación digital del agro." tags={['Shopify', 'Auction']} imageUrl="https://i.postimg.cc/4dPWCYQz/Whats-App-Image-2026-02-02-at-11-52-47-AM.jpg" link="https://sugaberrio.co" />
+                                        <Card title="Aida Victoria" subtitle="E-commerce" description="Tienda oficial de productos físicos y digitales. Alto tráfico y conversión." tags={['Shopify', 'Retail']} imageUrl="https://i.postimg.cc/25fGVQHw/Whats-App-Image-2026-02-02-at-11-52-26-AM.jpg" link="https://aidavictoria.co" />
                                     </div>
                                 </div>
                             </div>
