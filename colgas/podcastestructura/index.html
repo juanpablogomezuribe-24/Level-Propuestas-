@@ -54,14 +54,21 @@
             </div>
             
             <!-- Tab Switcher responsivo con área táctil cómoda -->
-            <div class="bg-slate-100 p-1 rounded-2xl flex gap-1 w-full md:w-auto">
-                <button onclick="switchTab('estructura')" id="tab-btn-estructura" class="flex-1 md:flex-none px-4 md:px-6 py-3 rounded-xl text-xs md:text-sm font-semibold transition-all bg-white text-slate-900 shadow-sm flex items-center justify-center gap-2">
+            <div class="bg-slate-100 p-1 rounded-2xl flex gap-1 w-full md:w-auto overflow-x-auto">
+                <button onclick="switchTab('estructura')" id="tab-btn-estructura" class="flex-1 md:flex-none px-4 md:px-6 py-3 rounded-xl text-xs md:text-sm font-semibold transition-all bg-white text-slate-900 shadow-sm flex items-center justify-center gap-2 whitespace-nowrap">
                     <i data-lucide="layout-template" class="w-4 h-4"></i>
-                    Estructura general
+                    <span class="hidden md:inline">Estructura general</span>
+                    <span class="inline md:hidden">Estructura</span>
                 </button>
-                <button onclick="switchTab('episodio1')" id="tab-btn-episodio1" class="flex-1 md:flex-none px-4 md:px-6 py-3 rounded-xl text-xs md:text-sm font-semibold transition-all text-slate-600 hover:text-slate-900 flex items-center justify-center gap-2">
-                    <i data-lucide="play" class="w-4 h-4"></i>
-                    Aplicación al episodio 1
+                <button onclick="switchTab('capitulo1')" id="tab-btn-capitulo1" class="flex-1 md:flex-none px-4 md:px-6 py-3 rounded-xl text-xs md:text-sm font-semibold transition-all text-slate-600 hover:text-slate-900 flex items-center justify-center gap-2 whitespace-nowrap">
+                    <i data-lucide="activity" class="w-4 h-4"></i>
+                    <span class="hidden md:inline">Capítulo 1: Panorama energético 2026</span>
+                    <span class="inline md:hidden">Capítulo 1</span>
+                </button>
+                <button onclick="switchTab('capitulo2')" id="tab-btn-capitulo2" class="flex-1 md:flex-none px-4 md:px-6 py-3 rounded-xl text-xs md:text-sm font-semibold transition-all text-slate-600 hover:text-slate-900 flex items-center justify-center gap-2 whitespace-nowrap">
+                    <i data-lucide="sun" class="w-4 h-4"></i>
+                    <span class="hidden md:inline">Capítulo 2: Energía solar con Tiendas Ara</span>
+                    <span class="inline md:hidden">Capítulo 2</span>
                 </button>
             </div>
         </div>
@@ -230,6 +237,11 @@
                             </div>
                             
                             <div class="space-y-4">
+                                <!-- Imagen de apoyo específica para Bloque 2 -->
+                                <div id="detail-image-container" class="hidden rounded-2xl overflow-hidden border border-slate-100 shadow-sm max-h-[220px]">
+                                    <img src="https://i.postimg.cc/cHMkyCbY/Whats-App-Image-2026-07-15-at-8-27-37-AM.jpg" alt="Introducción del host solo a cámara" class="w-full h-full object-cover">
+                                </div>
+
                                 <div>
                                     <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-1">¿Qué sucede en el set?</span>
                                     <p id="detail-happens" class="text-sm text-slate-600 leading-relaxed">
@@ -272,7 +284,7 @@
                     <span class="bg-orange-500 text-slate-900 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full w-fit">Elemento distintivo</span>
                     <h3 class="text-2xl md:text-3xl font-black tracking-tight text-white">Momento Colgas: Dinámica de valores corporativos</h3>
                     <p class="text-slate-400 text-sm leading-relaxed max-w-xl">
-                        Este bloque es el espacio distintivo del episodio. Utiliza tarjetas físicas reales con los valores de Colgas situadas en la mesa de grabación, con el fin de obtener historias, anécdotas y reflexiones personales de los invitados. Cada participante escribirá una frase de valor en su tarjeta, las cuales se conservarán como memoria física de la Tercera temporada del podcast.
+                        Momento Colgas es el espacio distintivo de cada episodio. A través de tarjetas físicas con los valores de la compañía, los invitados conectarán las decisiones del proyecto o su experiencia personal con el valor que mejor los representa. La dinámica permitirá obtener respuestas más humanas, historias concretas y una reflexión que quedará registrada en las tarjetas del podcast. Cada invitado escribirá en la tarjeta una frase breve que defina el valor desde su propia experiencia. Las tarjetas se conservarán como memoria física de la tercera temporada.
                     </p>
                     
                     <!-- Selection Switcher -->
@@ -317,7 +329,7 @@
                                 <span class="w-2 h-2 rounded-full bg-orange-500"></span> Parte delantera / Valores
                             </span>
                             <div class="bg-slate-900 rounded-xl overflow-hidden shadow-xl p-2 flex items-center justify-center">
-                                <img src="https://i.postimg.cc/6pshkyg5/tarjeta-trasera.png" alt="Tarjeta Frente" class="w-full h-auto max-h-[320px] object-contain rounded-lg" onerror="this.src='https://placehold.co/600x375/0f172a/f97316?text=Tarjeta+Frente+Valores'">
+                                <img src="https://i.postimg.cc/6pshkyg5/tarjeta-trasera.png" alt="Tarjeta Frente" class="w-full h-auto max-h-[320px] object-contain rounded-lg">
                             </div>
                         </div>
                         <!-- Tarjeta Reverso -->
@@ -326,7 +338,7 @@
                                 <span class="w-2 h-2 rounded-full bg-orange-500"></span> Parte trasera / Identidad del podcast
                             </span>
                             <div class="bg-slate-900 rounded-xl overflow-hidden shadow-xl p-2 flex items-center justify-center">
-                                <img src="https://i.postimg.cc/L8zV2mFT/parte-trasera-podcast.png" alt="Tarjeta Reverso" class="w-full h-auto max-h-[320px] object-contain rounded-lg" onerror="this.src='https://placehold.co/600x375/0f172a/f97316?text=Tarjeta+Reverso+Podcast'">
+                                <img src="https://i.postimg.cc/L8zV2mFT/parte-trasera-podcast.png" alt="Tarjeta Reverso" class="w-full h-auto max-h-[320px] object-contain rounded-lg">
                             </div>
                         </div>
                     </div>
@@ -345,19 +357,19 @@
                     </h3>
                 </div>
                 <p class="text-sm text-slate-600 leading-relaxed max-w-3xl">
-                    Para asegurar que los conceptos del sector energético sean accesibles y sencillos de comprender para todo público, la edición de cada episodio podrá incorporar textos descriptivos, animaciones dinámicas, comparaciones prácticas y recursos gráficos que aclaren de manera directa conceptos complejos, cifras y datos de la conversación.
+                    Para facilitar la comprensión de conceptos técnicos, cifras y datos, la edición podrá incorporar textos, animaciones, comparaciones y recursos gráficos en pantalla. Estos elementos ayudarán a traducir la información del sector energético a un lenguaje más claro y permitirán que los clips conserven su contexto cuando se publiquen de manera independiente.
                 </p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
                     <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl flex flex-col gap-3">
                         <span class="text-[10px] text-slate-400 uppercase tracking-widest font-black">Ejemplo 1: Explicadores conceptuales de soporte</span>
                         <div class="bg-white rounded-xl overflow-hidden border border-slate-100 shadow-md p-2 flex items-center justify-center">
-                            <img src="https://i.postimg.cc/pdJkYR0P/Whats-App-Image-2026-07-14-at-7-36-40-PM.jpg" alt="Gráfico de Apoyo 1" class="w-full h-auto max-h-[280px] object-contain rounded-lg" onerror="this.src='https://placehold.co/600x337/f1f5f9/0f172a?text=Grafico+de+Apoyo+1'">
+                            <img src="https://i.postimg.cc/pdJkYR0P/Whats-App-Image-2026-07-14-at-7-36-40-PM.jpg" alt="Gráfico de Apoyo 1" class="w-full h-auto max-h-[280px] object-contain rounded-lg">
                         </div>
                     </div>
                     <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl flex flex-col gap-3">
                         <span class="text-[10px] text-slate-400 uppercase tracking-widest font-black">Ejemplo 2: Presentación gráfica de métricas y datos</span>
                         <div class="bg-white rounded-xl overflow-hidden border border-slate-100 shadow-md p-2 flex items-center justify-center">
-                            <img src="https://i.postimg.cc/SKfV7kZX/Whats-App-Image-2026-07-14-at-7-36-59-PM.jpg" alt="Gráfico de Apoyo 2" class="w-full h-auto max-h-[280px] object-contain rounded-lg" onerror="this.src='https://placehold.co/600x337/f1f5f9/0f172a?text=Grafico+de+Apoyo+2'">
+                            <img src="https://i.postimg.cc/SKfV7kZX/Whats-App-Image-2026-07-14-at-7-36-59-PM.jpg" alt="Gráfico de Apoyo 2" class="w-full h-auto max-h-[280px] object-contain rounded-lg">
                         </div>
                     </div>
                 </div>
@@ -370,16 +382,380 @@
             </section>
         </div>
 
-        <!-- ================= TAB 2: APLICACIÓN EPISODIO 1 ================= -->
-        <div id="tab-episodio1" class="tab-content hidden space-y-6 md:space-y-8">
+        <!-- ================= TAB 2: CAPÍTULO 1 ================= -->
+        <div id="tab-capitulo1" class="tab-content hidden space-y-6 md:space-y-8">
             
             <!-- Context card Episode 1 -->
             <div class="bg-white border border-slate-100 rounded-3xl p-6 md:p-10 shadow-sm flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                 <div class="space-y-2">
-                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Ejemplo práctico de aplicación</span>
-                    <h3 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Episodio 1: Energía solar con Jerónimo Martins y Tiendas Ara</h3>
-                    <p class="text-slate-500 text-sm max-w-2xl">
-                        Navega a través de cada bloque de la escaleta interactiva para ver el guion propuesto y las dinámicas en set. Al tratarse de un caso con un proyecto empresarial concreto, se utilizará exclusivamente la <span class="font-bold text-colgas-blue">Opción A del Momento Colgas</span>.
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Capítulo 1: Panorama energético 2026</span>
+                    <h3 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Transición de gobierno, fenómeno de El Niño y alternativas para la industria</h3>
+                    <p class="text-slate-500 text-sm max-w-2xl leading-relaxed">
+                        Colombia entra a la segunda mitad de 2026 en un escenario de decisiones importantes para el sector energético. La transición de gobierno, las condiciones climáticas y la necesidad de mantener la continuidad de las operaciones plantean nuevas preguntas para la industria. El episodio conectará el panorama institucional y climático con las decisiones concretas que una empresa puede tomar para proteger su operación, diversificar sus fuentes de energía y avanzar de manera responsable en su transición energética.
+                    </p>
+                </div>
+                <div class="bg-amber-50 border border-amber-200 p-4 rounded-2xl shrink-0 flex items-center gap-3 w-full lg:w-auto">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0">
+                        <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+                    </div>
+                    <div class="text-xs">
+                        <span class="font-bold text-slate-900 uppercase block mb-0.5">Nota de Validación</span>
+                        <p class="text-slate-600 leading-tight">Los datos políticos, climáticos y de<br>abastecimiento deberán verificarse durante<br>la semana de grabación en vivo.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cast Grid -->
+            <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white border border-slate-100 p-6 rounded-2xl shadow-xs">
+                    <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-4">
+                        <i data-lucide="user-check" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Host del Capítulo</span>
+                    <h4 class="font-bold text-base text-slate-900 mt-1">Iván Gómez</h4>
+                    <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                        Gerente Comercial Nacional de la UEN Industria de Colgas, con más de 20 años de experiencia en el sector energético. Su rol será conectar la coyuntura política y regulatoria con la toma de decisiones prácticas de las industrias colombianas.
+                    </p>
+                </div>
+
+                <div class="bg-white border border-slate-100 p-6 rounded-2xl shadow-xs">
+                    <div class="w-10 h-10 bg-orange-50 text-orange-600 rounded-xl flex items-center justify-center mb-4">
+                        <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Invitado Institucional</span>
+                    <h4 class="font-bold text-base text-slate-900 mt-1">Andrés Bitar Arrázola</h4>
+                    <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                        Profesional con más de 14 años de experiencia en políticas públicas, sector mineroenergético y servicios públicos, con trayectoria nacional e internacional y participación como consultor de la OCDE. Aportará la mirada de transición de gobierno y análisis de mecanismos de continuidad energética.
+                    </p>
+                </div>
+
+                <div class="bg-white border border-slate-100 p-6 rounded-2xl shadow-xs">
+                    <div class="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center mb-4">
+                        <i data-lucide="factory" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Invitado del Sector</span>
+                    <h4 class="font-bold text-base text-slate-900 mt-1">Invitado industrial por confirmar</h4>
+                    <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                        Representante del sector productivo. Explicará el día a día de una planta industrial, los costos operativos, la viabilidad de la diversificación de combustibles y su perspectiva real de respaldo energético frente a la incertidumbre.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Interactive Accordion list for Capítulo 1 -->
+            <div class="space-y-4">
+                <!-- BLOQUE 1 -->
+                <div class="bg-white border border-slate-150 rounded-2xl overflow-hidden shadow-xs">
+                    <button onclick="toggleCap1Block(1)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
+                        <span class="flex items-center gap-3">
+                            <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-mono font-bold shrink-0">1</span>
+                            <span>Bloque 1: Cabezote de apertura</span>
+                        </span>
+                        <i data-lucide="chevron-down" id="cap1-icon-1" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
+                    </button>
+                    <div id="cap1-content-1" class="accordion-content border-t border-slate-100 bg-slate-50/50">
+                        <div class="p-5 md:p-8 space-y-4">
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                El episodio se abre con la nueva identidad audiovisual de la Tercera temporada de Colgas en pantalla. Combina clips de plantas industriales, tomas climáticas neutras, el logotipo corporativo y la firma sonora renovada para marcar el inicio del show.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BLOQUE 2 -->
+                <div class="bg-white border border-slate-150 rounded-2xl overflow-hidden shadow-xs">
+                    <button onclick="toggleCap1Block(2)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
+                        <span class="flex items-center gap-3">
+                            <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-mono font-bold shrink-0">2</span>
+                            <span>Bloque 2: Introducción del host solo a cámara</span>
+                        </span>
+                        <i data-lucide="chevron-down" id="cap1-icon-2" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
+                    </button>
+                    <div id="cap1-content-2" class="accordion-content border-t border-slate-100 bg-slate-50/50">
+                        <div class="p-5 md:p-8 space-y-4">
+                            <div class="bg-blue-50 border border-blue-100 p-4 rounded-xl text-xs text-blue-900 mb-4 flex items-start gap-2">
+                                <i data-lucide="info" class="w-4 h-4 mt-0.5 shrink-0"></i>
+                                <span>Puesta en escena: Iván Gómez aparece sentado solo, mirando de frente al lente. Los invitados no están en plano aún, estructurando la dirección inicial con fuerza.</span>
+                            </div>
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block">Guion del host</span>
+                            <div class="bg-white border-l-4 border-colgas-blue p-4 rounded-r-xl italic text-xs md:text-sm text-slate-600 space-y-3 leading-relaxed">
+                                <p class="font-bold text-slate-900 not-italic">"Bienvenidos a la tercera temporada de nuestro podcast Mejor Energía, Mejor Vida."</p>
+                                <p>"En esta nueva temporada tendremos grandes invitados con quienes conversaremos sobre las temáticas más interesantes de nuestro sector, como lo son las energías renovables, responsabilidad empresarial, descarbonización, sostenibilidad y mucho más."</p>
+                                <p>"En este episodio vamos a hablar de un tema que hoy está en la agenda de muchas empresas: cómo prepararse frente a un escenario energético marcado por cambios políticos, condiciones climáticas exigentes y la necesidad de mantener la operación sin perder competitividad."</p>
+                                <p class="font-bold text-slate-900 not-italic">"Hoy trataremos de responder varias preguntas muy concretas:"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BLOQUE 3 -->
+                <div class="bg-white border border-slate-150 rounded-2xl overflow-hidden shadow-xs">
+                    <button onclick="toggleCap1Block(3)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
+                        <span class="flex items-center gap-3">
+                            <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-mono font-bold shrink-0">3</span>
+                            <span>Bloque 3: Tres preguntas del episodio</span>
+                        </span>
+                        <i data-lucide="chevron-down" id="cap1-icon-3" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
+                    </button>
+                    <div id="cap1-content-3" class="accordion-content border-t border-slate-100 bg-slate-50/50">
+                        <div class="p-5 md:p-8 space-y-6">
+                            <p class="text-xs text-slate-500 leading-relaxed">
+                                El host enuncia de manera directa las tres promesas del contenido de este episodio. Cada una se despliega completa en pantalla y permite la extracción directa de clips independientes para redes.
+                            </p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="bg-white p-4 rounded-xl border border-slate-150 shadow-xs">
+                                    <span class="text-[9px] font-bold text-blue-600 uppercase">Pregunta 1</span>
+                                    <p class="font-bold text-xs text-slate-900 mt-1 leading-snug">¿Está preparada la industria colombiana para un escenario de mayor incertidumbre energética?</p>
+                                </div>
+                                <div class="bg-white p-4 rounded-xl border border-slate-150 shadow-xs">
+                                    <span class="text-[9px] font-bold text-blue-600 uppercase">Pregunta 2</span>
+                                    <p class="font-bold text-xs text-slate-900 mt-1 leading-snug">¿Qué decisiones puede tomar hoy una empresa para proteger la continuidad de su operación?</p>
+                                </div>
+                                <div class="bg-white p-4 rounded-xl border border-slate-150 shadow-xs">
+                                    <span class="text-[9px] font-bold text-blue-600 uppercase">Pregunta 3</span>
+                                    <p class="font-bold text-xs text-slate-900 mt-1 leading-snug">¿Qué papel puede jugar el GLP dentro de una transición energética responsable?</p>
+                                </div>
+                            </div>
+                            <div class="bg-orange-50 border border-orange-100 p-4 rounded-xl text-xs space-y-1">
+                                <span class="font-bold text-orange-900">Llamado de transición hacia el set:</span>
+                                <p class="italic text-orange-800">"Para entender el panorama institucional, conocer lo que está ocurriendo dentro de las plantas y analizar qué alternativas existen, hoy tenemos dos grandes invitados. Vamos a conocerlos."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BLOQUE 4 -->
+                <div class="bg-white border border-slate-150 rounded-2xl overflow-hidden shadow-xs">
+                    <button onclick="toggleCap1Block(4)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
+                        <span class="flex items-center gap-3">
+                            <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-mono font-bold shrink-0">4</span>
+                            <span>Bloque 4: Presentación de invitados en set</span>
+                        </span>
+                        <i data-lucide="chevron-down" id="cap1-icon-4" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
+                    </button>
+                    <div id="cap1-content-4" class="accordion-content border-t border-slate-100 bg-slate-50/50">
+                        <div class="p-5 md:p-8 space-y-4">
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                Transición audiovisual al set completo. Iván saluda a Andrés Bitar y luego al invitado del sector con una fórmula abierta que fomenta su autopresentación fluida:
+                            </p>
+                            <div class="bg-white p-4 rounded-xl border border-slate-200 text-xs text-slate-700 italic space-y-2">
+                                <p class="font-bold not-italic text-slate-900">“Andrés, bienvenido a Mejor Energía, Mejor Vida. Es un gusto tenerte con nosotros. ¿Cómo estás?”</p>
+                                <p>“Para las personas que todavía no te conocen, cuéntanos: ¿quién eres, a qué te dedicas y desde qué experiencia llegas a esta conversación?”</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BLOQUE 5 -->
+                <div class="bg-white border border-slate-150 rounded-2xl overflow-hidden shadow-xs">
+                    <button onclick="toggleCap1Block(5)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
+                        <span class="flex items-center gap-3">
+                            <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-mono font-bold shrink-0">5</span>
+                            <span>Bloque 5: Pregunta de apertura</span>
+                        </span>
+                        <i data-lucide="chevron-down" id="cap1-icon-5" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
+                    </button>
+                    <div id="cap1-content-5" class="accordion-content border-t border-slate-100 bg-slate-50/50">
+                        <div class="p-5 md:p-8 space-y-3">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block">Comenzando desde el origen</span>
+                            <p class="text-sm italic text-slate-700 font-semibold">
+                                “Antes de hablar de paneles, cifras y tecnología, quiero que empecemos por el principio. ¿Qué necesidad tenía Tiendas Ara y por qué la energía solar apareció como una alternativa?”
+                            </p>
+                            <p class="text-xs text-slate-500 leading-relaxed">
+                                Esta primera formulación abre el espacio para contextualizar el reto antes de sumergirse en detalles más especializados.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BLOQUE 6 -->
+                <div class="bg-white border border-slate-150 rounded-2xl overflow-hidden shadow-xs">
+                    <button onclick="toggleCap1Block(6)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
+                        <span class="flex items-center gap-3">
+                            <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-mono font-bold shrink-0">6</span>
+                            <span>Bloque 6: Desarrollo narrativo de la conversación</span>
+                        </span>
+                        <i data-lucide="chevron-down" id="cap1-icon-6" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
+                    </button>
+                    <div id="cap1-content-6" class="accordion-content border-t border-slate-100 bg-slate-50/50">
+                        <div class="p-5 md:p-8 space-y-6">
+                            
+                            <!-- MOMENTO 1 -->
+                            <div class="border-l-4 border-l-blue-600 pl-4 space-y-2">
+                                <span class="text-xs font-extrabold uppercase text-blue-600 tracking-wider">Momento 1: El contexto energético</span>
+                                <p class="text-xs text-slate-500">Hechos y escenarios posibles, sin afirmaciones alarmistas sobre crisis no validadas.</p>
+                                <ul class="list-disc pl-4 text-xs text-slate-700 space-y-1">
+                                    <li>"Andrés, ¿cómo describirías el panorama energético de Colombia en esta segunda mitad de 2026?"</li>
+                                    <li>"¿Qué elementos de la transición de gobierno y clima deberían observar con mayor atención los empresarios?"</li>
+                                </ul>
+                            </div>
+
+                            <!-- MOMENTO 2 -->
+                            <div class="border-l-4 border-l-orange-500 pl-4 space-y-2">
+                                <span class="text-xs font-extrabold uppercase text-orange-600 tracking-wider">Momento 2: La mirada institucional</span>
+                                <p class="text-xs text-slate-500">Mecanismos de continuidad desde el enfoque de políticas públicas de Andrés Bitar.</p>
+                                <ul class="list-disc pl-4 text-xs text-slate-700 space-y-1">
+                                    <li>"¿Cómo avanzar en la descarbonización en el país sin arriesgar la confiabilidad del suministro?"</li>
+                                    <li>"¿Qué aprendizajes o modelos regulatorios de otros países podríamos aplicar aquí?"</li>
+                                </ul>
+                            </div>
+
+                            <!-- MOMENTO 3 -->
+                            <div class="border-l-4 border-l-emerald-600 pl-4 space-y-2">
+                                <span class="text-xs font-extrabold uppercase text-emerald-600 tracking-wider">Momento 3: La realidad de la planta</span>
+                                <p class="text-xs text-slate-500">Aterrizar la conversación a la operación y los costos diarios.</p>
+                                <ul class="list-disc pl-4 text-xs text-slate-700 space-y-1">
+                                    <li>"Desde la operación de una planta, ¿cuáles son hoy las principales preocupaciones de energía?"</li>
+                                    <li>"¿Cómo equilibran la reducción de emisiones con la obligación de mantener la planta funcionando?"</li>
+                                </ul>
+                            </div>
+
+                            <!-- MOMENTO 4 -->
+                            <div class="border-l-4 border-l-purple-600 pl-4 space-y-2">
+                                <span class="text-xs font-extrabold uppercase text-purple-600 tracking-wider">Momento 4: Alternativas y decisiones</span>
+                                <p class="text-xs text-slate-500">Ubicación y ventajas del GLP comparativamente como opción limpia y de transición.</p>
+                                <ul class="list-disc pl-4 text-xs text-slate-700 space-y-1">
+                                    <li>"¿En qué tipos de procesos industriales puede ser viable el GLP?"</li>
+                                    <li>"¿El GLP debe entenderse como un combustible de transición o como una solución definitiva?"</li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BLOQUE 7 -->
+                <div class="bg-white border border-slate-150 rounded-2xl overflow-hidden shadow-xs">
+                    <button onclick="toggleCap1Block(7)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
+                        <span class="flex items-center gap-3">
+                            <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-mono font-bold shrink-0">7</span>
+                            <span>Bloque 7: Momento Colgas - Decisiones que revelan valores (Opción B)</span>
+                        </span>
+                        <i data-lucide="chevron-down" id="cap1-icon-7" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
+                    </button>
+                    <div id="cap1-content-7" class="accordion-content border-t border-slate-100 bg-slate-50/50">
+                        <div class="p-5 md:p-8 space-y-6">
+                            <div class="space-y-1">
+                                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block font-mono">Dilema para los invitados</span>
+                                <p class="text-xs text-slate-600">Al tratarse de un episodio de tendencias sin un proyecto específico completado, se plantea un dilema real sobre la transición energética gradual frente a la acelerada.</p>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-white p-5 rounded-2xl border border-slate-200">
+                                    <span class="bg-blue-50 text-blue-700 text-[10px] font-black uppercase px-2 py-0.5 rounded">Opción A</span>
+                                    <h5 class="font-bold text-sm text-slate-900 mt-2">Acelerar la transición</h5>
+                                    <p class="text-xs text-slate-500 mt-1 leading-relaxed">Implica mayores niveles de inversión y ajustes en la operación interna en el corto plazo.</p>
+                                </div>
+                                <div class="bg-white p-5 rounded-2xl border border-slate-200">
+                                    <span class="bg-orange-50 text-orange-700 text-[10px] font-black uppercase px-2 py-0.5 rounded">Opción B</span>
+                                    <h5 class="font-bold text-sm text-slate-900 mt-2">Avanzar de manera gradual</h5>
+                                    <p class="text-xs text-slate-500 mt-1 leading-relaxed">Prioriza la seguridad en el suministro energético y la continuidad operativa industrial.</p>
+                                </div>
+                            </div>
+
+                            <div class="bg-slate-900 text-white p-5 rounded-2xl space-y-3">
+                                <span class="text-xs uppercase tracking-widest text-orange-400 font-bold flex items-center gap-1.5">
+                                    <i data-lucide="message-square" class="w-4 h-4"></i> Pregunta base de Iván Gómez
+                                </span>
+                                <p class="text-sm italic font-medium">"¿Qué camino tomarían y cuál de los valores de Colgas (Resiliencia, Legado, Esfuerzo, Disciplina, Sacrificio, Perseverancia) debería guiar esa decisión?"</p>
+                                <div class="text-[11px] text-slate-400 border-t border-white/15 pt-3 leading-relaxed">
+                                    <strong>Dinámica:</strong> Tras responder, el invitado escribe su definición breve en la tarjeta: <em class="italic">"Para mí, este valor significa..."</em>, conservándola como memoria física de la Tercera temporada.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BLOQUE 8 -->
+                <div class="bg-white border border-slate-150 rounded-2xl overflow-hidden shadow-xs">
+                    <button onclick="toggleCap1Block(8)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
+                        <span class="flex items-center gap-3">
+                            <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-mono font-bold shrink-0">8</span>
+                            <span>Bloque 8: Pregunta final del capítulo</span>
+                        </span>
+                        <i data-lucide="chevron-down" id="cap1-icon-8" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
+                    </button>
+                    <div id="cap1-content-8" class="accordion-content border-t border-slate-100 bg-slate-50/50">
+                        <div class="p-5 md:p-8 space-y-4">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block">Pregunta de cierre para el panel</span>
+                            <div class="bg-white border border-slate-200 p-4 rounded-xl italic font-semibold text-slate-800 text-sm">
+                                “Para cerrar, ¿qué decisión debería comenzar a tomar hoy una empresa que quiera proteger su operación y avanzar responsablemente en su transición energética?”
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BLOQUE 9 -->
+                <div class="bg-white border border-slate-150 rounded-2xl overflow-hidden shadow-xs">
+                    <button onclick="toggleCap1Block(9)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
+                        <span class="flex items-center gap-3">
+                            <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-mono font-bold shrink-0">9</span>
+                            <span>Bloque 9: Cierre del host Iván Gómez</span>
+                        </span>
+                        <i data-lucide="chevron-down" id="cap1-icon-9" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
+                    </button>
+                    <div id="cap1-content-9" class="accordion-content border-t border-slate-100 bg-slate-50/50">
+                        <div class="p-5 md:p-8 space-y-4">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block">Guion del presentador</span>
+                            <div class="bg-white border-l-4 border-colgas-blue p-5 rounded-r-xl italic text-xs md:text-sm text-slate-600 leading-relaxed">
+                                “Hoy entendimos que la transición energética no consiste únicamente en cambiar de combustible. También implica anticiparse, comparar alternativas y tomar decisiones que permitan avanzar en sostenibilidad sin poner en riesgo la continuidad de las empresas. Gracias a nuestros invitados por ayudarnos a conectar la política pública, la realidad de la industria y las alternativas que hoy están disponibles. Esto fue Mejor Energía, Mejor Vida, el podcast de Colgas. Nos encontramos en un próximo episodio.”
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BLOQUE 10 -->
+                <div class="bg-white border border-slate-150 rounded-2xl overflow-hidden shadow-xs">
+                    <button onclick="toggleCap1Block(10)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
+                        <span class="flex items-center gap-3">
+                            <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-mono font-bold shrink-0">10</span>
+                            <span>Bloque 10: Apoyos visuales sugeridos</span>
+                        </span>
+                        <i data-lucide="chevron-down" id="cap1-icon-10" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
+                    </button>
+                    <div id="cap1-content-10" class="accordion-content border-t border-slate-100 bg-slate-50/50">
+                        <div class="p-5 md:p-8 space-y-4">
+                            <p class="text-xs text-slate-500 leading-relaxed">
+                                Elementos recomendados para incorporar en la postproducción de este episodio para asentar los conceptos explicados:
+                            </p>
+                            <ul class="text-xs text-slate-700 space-y-2 list-disc pl-4">
+                                <li>Línea de tiempo de la transición regulatoria o gubernamental.</li>
+                                <li>Explicación conceptual sencilla sobre los impactos del fenómeno de El Niño.</li>
+                                <li>Comparación visual de emisiones (fuente de datos pendiente de validación por Colgas).</li>
+                                <li>Infografía simple del dilema del Momento Colgas (A vs B).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Audiovisual Guidelines -->
+            <section class="bg-white border border-slate-100 rounded-3xl p-6 md:p-8 shadow-sm space-y-4">
+                <h4 class="font-bold text-slate-900 text-sm uppercase tracking-wider flex items-center gap-2">
+                    <i data-lucide="video" class="text-blue-600"></i> Lineamientos de Grabación en Set
+                </h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-600 leading-relaxed">
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        <p class="font-semibold text-slate-800 mb-1">Ritmo Editorial y Naturalidad</p>
+                        Favorecer una conversación natural y recomendar a los invitados evitar posturas demasiado rígidas. La edición ágil alternará de forma fluida entre planos generales, primeros planos y planos cruzados.
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        <p class="font-semibold text-slate-800 mb-1">Cámara de Escucha y Reacción</p>
+                        La cámara de apoyo registrará gestos naturales, momentos de escucha, reacciones, pausas e interacción con las tarjetas de valores. Se evitan tomas sobreactuadas o forzadas.
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= TAB 3: CAPÍTULO 2 ================= -->
+        <div id="tab-capitulo2" class="tab-content hidden space-y-6 md:space-y-8">
+            
+            <!-- Context card Episode 2 -->
+            <div class="bg-white border border-slate-100 rounded-3xl p-6 md:p-10 shadow-sm flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+                <div class="space-y-2">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Capítulo 2: Energía solar con Tiendas Ara</span>
+                    <h3 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Proyecto de energía solar con Jerónimo Martins y Tiendas Ara</h3>
+                    <p class="text-slate-500 text-sm max-w-2xl leading-relaxed">
+                        Navega a través de los bloques interactivos para ver el desarrollo de la escaleta propuesta para este caso de éxito empresarial. Al tratarse de un proyecto ya completado, se utilizará en set la <span class="font-bold text-colgas-blue">Opción A del Momento Colgas</span>.
                     </p>
                 </div>
                 <div class="bg-blue-50 border border-blue-100 p-4 rounded-2xl shrink-0 flex items-center gap-3 w-full lg:w-auto">
@@ -388,7 +764,7 @@
                     </div>
                     <div class="text-xs">
                         <span class="font-bold text-slate-900 uppercase block mb-0.5">Nota de marca</span>
-                        <p class="text-slate-600 leading-tight">Durante el diálogo se usará principalmente<br/><span class="font-bold text-colgas-blue">Tiendas Ara</span> por su alta recordación.</p>
+                        <p class="text-slate-600 leading-tight">Durante el diálogo se usará principalmente<br><span class="font-bold text-colgas-blue">Tiendas Ara</span> por su alta recordación.</p>
                     </div>
                 </div>
             </div>
@@ -398,23 +774,23 @@
 
                 <!-- BLOQUE 1 -->
                 <div class="bg-white border border-slate-150 rounded-2xl overflow-hidden shadow-xs transition-all duration-300">
-                    <button onclick="toggleEpisodeBlock(1)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
+                    <button onclick="toggleCap2Block(1)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
                         <span class="flex items-center gap-3">
                             <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-mono font-bold shrink-0">1</span>
                             <span>Bloque 1: Cabezote de apertura</span>
                         </span>
                         <div class="flex items-center gap-3">
                             <span class="text-[10px] md:text-xs font-normal text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full font-mono">Cabezote oficial</span>
-                            <i data-lucide="chevron-down" id="ep-icon-1" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
+                            <i data-lucide="chevron-down" id="cap2-icon-1" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
                         </div>
                     </button>
-                    <div id="ep-content-1" class="accordion-content border-t border-slate-100 bg-slate-50/50">
+                    <div id="cap2-content-1" class="accordion-content border-t border-slate-100 bg-slate-50/50">
                         <div class="p-5 md:p-8 space-y-4">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="space-y-3">
                                     <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block">¿Qué sucede en pantalla?</span>
                                     <p class="text-sm text-slate-600 leading-relaxed">
-                                        El podcast inicia con el cabezote audiovisual oficial de la Tercera temporada. Una animación que presenta el cambio de identidad visual y sonora de Colgas.
+                                        El podcast inicia con el cabezote audiovisual oficial de la Tercera temporada. Una animación que presenta el cambio de identidad visual y sonora de Colgas de manera elegante.
                                     </p>
                                 </div>
                                 <div class="bg-white p-4 rounded-xl border border-slate-100 space-y-2">
@@ -432,23 +808,23 @@
 
                 <!-- BLOQUE 2 -->
                 <div class="bg-white border border-slate-150 rounded-2xl overflow-hidden shadow-xs transition-all duration-300">
-                    <button onclick="toggleEpisodeBlock(2)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
+                    <button onclick="toggleCap2Block(2)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
                         <span class="flex items-center gap-3">
                             <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-mono font-bold shrink-0">2</span>
-                            <span>Bloque 2: Introducción del host (Solo a cámara)</span>
+                            <span>Bloque 2: Introducción del host solo a cámara</span>
                         </span>
                         <div class="flex items-center gap-3">
                             <span class="text-[10px] md:text-xs font-normal text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full font-mono">Host solo</span>
-                            <i data-lucide="chevron-down" id="ep-icon-2" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
+                            <i data-lucide="chevron-down" id="cap2-icon-2" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
                         </div>
                     </button>
-                    <div id="ep-content-2" class="accordion-content border-t border-slate-100 bg-slate-50/50">
+                    <div id="cap2-content-2" class="accordion-content border-t border-slate-100 bg-slate-50/50">
                         <div class="p-5 md:p-8 space-y-6">
                             <div class="bg-blue-50/50 border border-blue-100 p-4 rounded-xl flex items-start gap-3">
                                 <i data-lucide="eye" class="text-colgas-blue w-5 h-5 mt-0.5 shrink-0"></i>
                                 <div class="text-xs">
                                     <span class="font-bold text-blue-900 block mb-0.5">Puesta en escena</span>
-                                    <p class="text-slate-600 leading-relaxed">El host aparece solo, sentado y mirando directamente a cámara. Los invitados no están en plano aún. Esto marca un cambio frente a las temporadas pasadas, asegurando una conducción editorial fuerte.</p>
+                                    <p class="text-slate-600 leading-relaxed">El host aparece solo, sentado y mirando directamente a cámara. Los invitados no están en plano aún. Esto marca un cambio frente a las temporadas pasadas, asegurando una dirección clara.</p>
                                 </div>
                             </div>
 
@@ -467,17 +843,17 @@
 
                 <!-- BLOQUE 3 -->
                 <div class="bg-white border border-slate-150 rounded-2xl overflow-hidden shadow-xs transition-all duration-300">
-                    <button onclick="toggleEpisodeBlock(3)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
+                    <button onclick="toggleCap2Block(3)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
                         <span class="flex items-center gap-3">
                             <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-mono font-bold shrink-0">3</span>
                             <span>Bloque 3: Las tres preguntas del episodio</span>
                         </span>
                         <div class="flex items-center gap-3">
                             <span class="text-[10px] md:text-xs font-normal text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full font-mono font-bold text-orange-600">Preguntas de apertura</span>
-                            <i data-lucide="chevron-down" id="ep-icon-3" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
+                            <i data-lucide="chevron-down" id="cap2-icon-3" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
                         </div>
                     </button>
-                    <div id="ep-content-3" class="accordion-content border-t border-slate-100 bg-slate-50/50">
+                    <div id="cap2-content-3" class="accordion-content border-t border-slate-100 bg-slate-50/50">
                         <div class="p-5 md:p-8 space-y-6">
                             <div class="space-y-1">
                                 <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block">Lógica de las preguntas de apertura</span>
@@ -504,7 +880,6 @@
                             <div class="bg-orange-50 border border-orange-100 p-4 rounded-xl text-xs space-y-1">
                                 <p class="font-bold text-orange-950">Transición del host hacia el set completo (Cierre de introducción):</p>
                                 <p class="italic text-orange-900">“Para conocer cómo nació este proyecto, cómo se llevó a la realidad y cuáles fueron sus principales retos, hoy tenemos grandes invitados. Vamos a conocerlos.”</p>
-                                <p class="text-[10px] text-orange-700 uppercase tracking-wider font-bold mt-2">[CORTE Y TRANSICIÓN AUDIOVISUAL - ENTRADA A SET COMPLETO]</p>
                             </div>
                         </div>
                     </div>
@@ -512,23 +887,23 @@
 
                 <!-- BLOQUE 4 -->
                 <div class="bg-white border border-slate-150 rounded-2xl overflow-hidden shadow-xs transition-all duration-300">
-                    <button onclick="toggleEpisodeBlock(4)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
+                    <button onclick="toggleCap2Block(4)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
                         <span class="flex items-center gap-3">
                             <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-mono font-bold shrink-0">4</span>
                             <span>Bloque 4: Presentación de los invitados (Set completo)</span>
                         </span>
                         <div class="flex items-center gap-3">
-                            <span class="text-[10px] md:text-xs font-normal text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full font-mono">Casting</span>
-                            <i data-lucide="chevron-down" id="ep-icon-4" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
+                            <span class="text-[10px] md:text-xs font-normal text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full font-mono">Invitados</span>
+                            <i data-lucide="chevron-down" id="cap2-icon-4" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
                         </div>
                     </button>
-                    <div id="ep-content-4" class="accordion-content border-t border-slate-100 bg-slate-50/50">
+                    <div id="cap2-content-4" class="accordion-content border-t border-slate-100 bg-slate-50/50">
                         <div class="p-5 md:p-8 space-y-6">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="space-y-4">
                                     <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block">Dinámica de bienvenida</span>
                                     <p class="text-sm text-slate-600 leading-relaxed">
-                                        Se pasa al plano general con todos los invitados listos y sentados. El presentador les da la bienvenida directa con una fórmula cercana que promueve que el invitado se presente con sus propias palabras, evitando lecturas de perfiles muy extensas.
+                                        Se pasa al plano general con todos los invitados listos y sentados. El presentador les da la bienvenida directa con una fórmula cercana que promueve que el invitado se presente con sus propias palabras.
                                     </p>
                                     <div class="bg-white p-4 rounded-xl border border-slate-100 text-xs italic space-y-2">
                                         <p class="font-bold text-slate-800">Ejemplo de locución:</p>
@@ -552,17 +927,17 @@
 
                 <!-- BLOQUE 5 -->
                 <div class="bg-white border border-slate-150 rounded-2xl overflow-hidden shadow-xs transition-all duration-300">
-                    <button onclick="toggleEpisodeBlock(5)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
+                    <button onclick="toggleCap2Block(5)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
                         <span class="flex items-center gap-3">
                             <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-mono font-bold shrink-0">5</span>
                             <span>Bloque 5: Origen de la conversación</span>
                         </span>
                         <div class="flex items-center gap-3">
                             <span class="text-[10px] md:text-xs font-normal text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full font-mono">Conversación</span>
-                            <i data-lucide="chevron-down" id="ep-icon-5" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
+                            <i data-lucide="chevron-down" id="cap2-icon-5" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
                         </div>
                     </button>
-                    <div id="ep-content-5" class="accordion-content border-t border-slate-100 bg-slate-50/50">
+                    <div id="cap2-content-5" class="accordion-content border-t border-slate-100 bg-slate-50/50">
                         <div class="p-5 md:p-8 space-y-6">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="space-y-3">
@@ -574,7 +949,7 @@
                                 <div class="bg-white p-5 rounded-xl border border-slate-150 shadow-xs space-y-3">
                                     <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block">Fórmula de set sugerida</span>
                                     <p class="text-sm italic font-medium text-slate-900 leading-relaxed">
-                                        “Antes de hablar de paneles, cifras y tecnología, quiero que empecemos por el principio. ¿Qué necesidad tenía Tiendas Ara y por qué la energía solar apareció como una alternativa?”
+                                        “Antes de hablar de paneles, cifras y tecnología, quiero que empezamos por el principio. ¿Qué necesidad tenía Tiendas Ara y por qué la energía solar apareció como una alternativa?”
                                     </p>
                                 </div>
                             </div>
@@ -584,17 +959,17 @@
 
                 <!-- BLOQUE 6 -->
                 <div class="bg-white border border-slate-150 rounded-2xl overflow-hidden shadow-xs transition-all duration-300">
-                    <button onclick="toggleEpisodeBlock(6)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
+                    <button onclick="toggleCap2Block(6)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
                         <span class="flex items-center gap-3">
                             <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-mono font-bold shrink-0">6</span>
                             <span>Bloque 6: Desarrollo de la conversación</span>
                         </span>
                         <div class="flex items-center gap-3">
                             <span class="text-[10px] md:text-xs font-normal text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full font-mono">Narrativa en 4 momentos</span>
-                            <i data-lucide="chevron-down" id="ep-icon-6" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
+                            <i data-lucide="chevron-down" id="cap2-icon-6" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
                         </div>
                     </button>
-                    <div id="ep-content-6" class="accordion-content border-t border-slate-100 bg-slate-50/50">
+                    <div id="cap2-content-6" class="accordion-content border-t border-slate-100 bg-slate-50/50">
                         <div class="p-5 md:p-8 space-y-6">
                             <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-1">Recorrido temático del episodio</span>
                             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
@@ -625,17 +1000,17 @@
 
                 <!-- BLOQUE 7 -->
                 <div class="bg-white border border-slate-150 rounded-2xl overflow-hidden shadow-xs transition-all duration-300">
-                    <button onclick="toggleEpisodeBlock(7)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
+                    <button onclick="toggleCap2Block(7)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
                         <span class="flex items-center gap-3">
                             <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-mono font-bold shrink-0">7</span>
                             <span>Bloque 7: Tratamiento de preguntas de Colgas</span>
                         </span>
                         <div class="flex items-center gap-3">
                             <span class="text-[10px] md:text-xs font-normal text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full font-mono">Criterio editorial</span>
-                            <i data-lucide="chevron-down" id="ep-icon-7" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
+                            <i data-lucide="chevron-down" id="cap2-icon-7" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
                         </div>
                     </button>
-                    <div id="ep-content-7" class="accordion-content border-t border-slate-100 bg-slate-50/50">
+                    <div id="cap2-content-7" class="accordion-content border-t border-slate-100 bg-slate-50/50">
                         <div class="p-5 md:p-8 space-y-6">
                             <div class="space-y-1">
                                 <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block font-mono">Comparador dinámico de estilo</span>
@@ -728,7 +1103,7 @@
                                     <div id="inner-content-4" class="hidden border-t border-slate-100 bg-slate-50/50 p-4 md:p-5 grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
                                         <div class="bg-white p-4 rounded-lg border border-slate-100">
                                             <span class="font-bold text-slate-400 uppercase block mb-1">Original de Colgas</span>
-                                            <p class="text-slate-600 italic">"Juan, ¿cuéntanos cómo se ha desarrollado este proyecto con Jerónimo Martins? ¿Cuántos paneles se han instalado? ¿Cuántas tiendas Ara tienen paneles solares hoy? ¿Cuál es la capacidad instalada?"</p>
+                                            <p class="text-slate-600 italic">"Juan, ¿cómo se ha desarrollado este proyecto con Jerónimo Martins? ¿Cuántos paneles se han instalado? ¿Cuántas tiendas Ara tienen paneles solares hoy? ¿Cuál es la capacidad instalada?"</p>
                                         </div>
                                         <div class="bg-blue-50/50 p-4 rounded-lg border border-blue-100">
                                             <span class="font-bold text-blue-700 uppercase block mb-1">Recomendación editorial (División de la pregunta)</span>
@@ -781,17 +1156,17 @@
 
                 <!-- BLOQUE 8 -->
                 <div class="bg-white border border-slate-150 rounded-2xl overflow-hidden shadow-xs transition-all duration-300">
-                    <button onclick="toggleEpisodeBlock(8)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
+                    <button onclick="toggleCap2Block(8)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
                         <span class="flex items-center gap-3">
                             <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-mono font-bold shrink-0">8</span>
                             <span>Bloque 8: Momento Colgas (Sección de valores en acción)</span>
                         </span>
                         <div class="flex items-center gap-3">
                             <span class="text-[10px] md:text-xs font-normal text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full font-mono">Valores oficiales</span>
-                            <i data-lucide="chevron-down" id="ep-icon-8" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
+                            <i data-lucide="chevron-down" id="cap2-icon-8" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
                         </div>
                     </button>
-                    <div id="ep-content-8" class="accordion-content border-t border-slate-100 bg-slate-50/50">
+                    <div id="cap2-content-8" class="accordion-content border-t border-slate-100 bg-slate-50/50">
                         <div class="p-5 md:p-8 space-y-6">
                             <div class="space-y-2">
                                 <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block font-mono">Valores oficiales Colgas</span>
@@ -865,17 +1240,17 @@
 
                 <!-- BLOQUE 9 -->
                 <div class="bg-white border border-slate-150 rounded-2xl overflow-hidden shadow-xs transition-all duration-300">
-                    <button onclick="toggleEpisodeBlock(9)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
+                    <button onclick="toggleCap2Block(9)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
                         <span class="flex items-center gap-3">
                             <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-mono font-bold shrink-0">09</span>
                             <span>Bloque 9: Pregunta final (Cierre del diálogo)</span>
                         </span>
                         <div class="flex items-center gap-3">
                             <span class="text-[10px] md:text-xs font-normal text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full font-mono">Conclusión</span>
-                            <i data-lucide="chevron-down" id="ep-icon-9" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
+                            <i data-lucide="chevron-down" id="cap2-icon-9" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
                         </div>
                     </button>
-                    <div id="ep-content-9" class="accordion-content border-t border-slate-100 bg-slate-50/50">
+                    <div id="cap2-content-9" class="accordion-content border-t border-slate-100 bg-slate-50/50">
                         <div class="p-5 md:p-8 space-y-6">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="space-y-3">
@@ -897,17 +1272,17 @@
 
                 <!-- BLOQUE 10 -->
                 <div class="bg-white border border-slate-150 rounded-2xl overflow-hidden shadow-xs transition-all duration-300">
-                    <button onclick="toggleEpisodeBlock(10)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
+                    <button onclick="toggleCap2Block(10)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
                         <span class="flex items-center gap-3">
                             <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-mono font-bold shrink-0">10</span>
                             <span>Bloque 10: Cierre del host y despedida</span>
                         </span>
                         <div class="flex items-center gap-3">
                             <span class="text-[10px] md:text-xs font-normal text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full font-mono">Salida</span>
-                            <i data-lucide="chevron-down" id="ep-icon-10" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
+                            <i data-lucide="chevron-down" id="cap2-icon-10" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
                         </div>
                     </button>
-                    <div id="ep-content-10" class="accordion-content border-t border-slate-100 bg-slate-50/50">
+                    <div id="cap2-content-10" class="accordion-content border-t border-slate-100 bg-slate-50/50">
                         <div class="p-5 md:p-8 space-y-6">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="space-y-3">
@@ -934,30 +1309,30 @@
                 <div class="text-center max-w-xl mx-auto mb-6 md:mb-10 space-y-2">
                     <h3 class="text-lg md:text-xl font-bold text-slate-900">Síntesis de recorrido de conversación</h3>
                     <p class="text-xs text-slate-500 leading-relaxed">
-                        Un vistazo rápido a la secuencia lógica estructurada para el Episodio 1, diseñada para captivar tanto a tomadores de decisiones como al público digital.
+                        Un vistazo rápido a la secuencia lógica estructurada para el Capítulo 2, diseñada para captivar tanto a tomadores de decisiones como al público digital.
                     </p>
                 </div>
                 
                 <div class="flex flex-wrap justify-center gap-2 md:gap-4 max-w-4xl mx-auto">
-                    <span class="bg-blue-50 text-blue-700 text-[10px] md:text-xs font-bold px-3 py-2 rounded-xl border border-blue-100">01. Cabezote</span>
+                    <span class="bg-blue-50 text-blue-700 text-[10px] md:text-xs font-bold px-3 py-2 rounded-xl border border-blue-100 font-medium">01. Cabezote</span>
                     <i data-lucide="arrow-right" class="w-4 h-4 text-slate-300 self-center hidden md:block"></i>
-                    <span class="bg-blue-50 text-blue-700 text-[10px] md:text-xs font-bold px-3 py-2 rounded-xl border border-blue-100">02. Host solo</span>
+                    <span class="bg-blue-50 text-blue-700 text-[10px] md:text-xs font-bold px-3 py-2 rounded-xl border border-blue-100 font-medium">02. Host solo</span>
                     <i data-lucide="arrow-right" class="w-4 h-4 text-slate-300 self-center hidden md:block"></i>
-                    <span class="bg-blue-50 text-blue-700 text-[10px] md:text-xs font-bold px-3 py-2 rounded-xl border border-blue-100">03. 3 Preguntas</span>
+                    <span class="bg-blue-50 text-blue-700 text-[10px] md:text-xs font-bold px-3 py-2 rounded-xl border border-blue-100 font-medium">03. 3 Preguntas</span>
                     <i data-lucide="arrow-right" class="w-4 h-4 text-slate-300 self-center hidden md:block"></i>
-                    <span class="bg-blue-50 text-blue-700 text-[10px] md:text-xs font-bold px-3 py-2 rounded-xl border border-blue-100">04. Presentación</span>
+                    <span class="bg-blue-50 text-blue-700 text-[10px] md:text-xs font-bold px-3 py-2 rounded-xl border border-blue-100 font-medium">04. Presentación</span>
                     <i data-lucide="arrow-right" class="w-4 h-4 text-slate-300 self-center hidden md:block"></i>
-                    <span class="bg-blue-50 text-blue-700 text-[10px] md:text-xs font-bold px-3 py-2 rounded-xl border border-blue-100">05. Origen charla</span>
+                    <span class="bg-blue-50 text-blue-700 text-[10px] md:text-xs font-bold px-3 py-2 rounded-xl border border-blue-100 font-medium">05. Origen charla</span>
                     <i data-lucide="arrow-right" class="w-4 h-4 text-slate-300 self-center hidden md:block"></i>
-                    <span class="bg-blue-50 text-blue-700 text-[10px] md:text-xs font-bold px-3 py-2 rounded-xl border border-blue-100">06. Desarrollo</span>
+                    <span class="bg-blue-50 text-blue-700 text-[10px] md:text-xs font-bold px-3 py-2 rounded-xl border border-blue-100 font-medium">06. Desarrollo</span>
                     <i data-lucide="arrow-right" class="w-4 h-4 text-slate-300 self-center hidden md:block"></i>
-                    <span class="bg-blue-50 text-blue-700 text-[10px] md:text-xs font-bold px-3 py-2 rounded-xl border border-blue-100">07. Preguntas Colgas</span>
+                    <span class="bg-blue-50 text-blue-700 text-[10px] md:text-xs font-bold px-3 py-2 rounded-xl border border-blue-100 font-medium">07. Preguntas Colgas</span>
                     <i data-lucide="arrow-right" class="w-4 h-4 text-slate-300 self-center hidden md:block"></i>
-                    <span class="bg-blue-50 text-blue-700 text-[10px] md:text-xs font-bold px-3 py-2 rounded-xl border border-blue-100">08. Valores</span>
+                    <span class="bg-blue-50 text-blue-700 text-[10px] md:text-xs font-bold px-3 py-2 rounded-xl border border-blue-100 font-medium">08. Valores</span>
                     <i data-lucide="arrow-right" class="w-4 h-4 text-slate-300 self-center hidden md:block"></i>
-                    <span class="bg-blue-50 text-blue-700 text-[10px] md:text-xs font-bold px-3 py-2 rounded-xl border border-blue-100">09. Pregunta final</span>
+                    <span class="bg-blue-50 text-blue-700 text-[10px] md:text-xs font-bold px-3 py-2 rounded-xl border border-blue-100 font-medium">09. Pregunta final</span>
                     <i data-lucide="arrow-right" class="w-4 h-4 text-slate-300 self-center hidden md:block"></i>
-                    <span class="bg-blue-50 text-blue-700 text-[10px] md:text-xs font-bold px-3 py-2 rounded-xl border border-blue-100">10. Cierre</span>
+                    <span class="bg-blue-50 text-blue-700 text-[10px] md:text-xs font-bold px-3 py-2 rounded-xl border border-blue-100 font-medium">10. Cierre</span>
                 </div>
             </section>
         </div>
@@ -965,7 +1340,7 @@
 
     <!-- Footer branding -->
     <footer class="bg-white border-t border-slate-100 py-6 text-center text-slate-400 text-xs mt-auto">
-        <div class="max-w-7xl mx-auto px-6">
+        <div class="max-w-7xl mx-auto px-6 font-medium">
             <p>&copy; 2026 Colgas. Todos los derechos reservados. Presentación Estratégica Digital - Tercera temporada.</p>
         </div>
     </footer>
@@ -979,12 +1354,15 @@
             });
             document.getElementById(`tab-${tabId}`).classList.remove('hidden');
 
-            // Style buttons
+            // Style buttons (using adaptive text classes for desktop/mobile tags)
             document.getElementById('tab-btn-estructura').className = "flex-1 md:flex-none px-4 md:px-6 py-3 rounded-xl text-xs md:text-sm font-semibold transition-all flex items-center justify-center gap-2 " + 
                 (tabId === 'estructura' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900');
             
-            document.getElementById('tab-btn-episodio1').className = "flex-1 md:flex-none px-4 md:px-6 py-3 rounded-xl text-xs md:text-sm font-semibold transition-all flex items-center justify-center gap-2 " + 
-                (tabId === 'episodio1' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900');
+            document.getElementById('tab-btn-capitulo1').className = "flex-1 md:flex-none px-4 md:px-6 py-3 rounded-xl text-xs md:text-sm font-semibold transition-all flex items-center justify-center gap-2 " + 
+                (tabId === 'capitulo1' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900');
+
+            document.getElementById('tab-btn-capitulo2').className = "flex-1 md:flex-none px-4 md:px-6 py-3 rounded-xl text-xs md:text-sm font-semibold transition-all flex items-center justify-center gap-2 " + 
+                (tabId === 'capitulo2' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900');
         }
 
         // Structural blocks static data dictionary (Pestaña 1)
@@ -993,7 +1371,7 @@
                 tag: "Bloque 1",
                 title: "Cabezote de apertura",
                 icon: "clapperboard",
-                happens: "El episodio comienza con un cabezote audiovisual corto que presenta la nueva identidad de la Tercera temporada de Colgas de forma dinámica.",
+                happens: "El episodio comienza con un cabezote audiovisual corto que presenta la nueva identidad de la tercera temporada de Colgas de forma dinámica.",
                 includes: [
                     "Nueva identidad gráfica moderna",
                     "Animación de marca sofisticada",
@@ -1002,7 +1380,8 @@
                     "Imágenes de territorios, personas y sostenibilidad"
                 ],
                 objective: "Marcar desde el primer instante una renovación de formato con estándares corporativos.",
-                hasFixedText: false
+                hasFixedText: false,
+                hasImage: false
             },
             2: {
                 tag: "Bloque 2",
@@ -1015,8 +1394,9 @@
                     "Mención directa del caso, empresa o proyecto central",
                     "Apertura del espacio conversacional"
                 ],
-                objective: "Dar dirección clara, plantear la tesis del episodio y evitar saludos informales o vacíos al aire.",
-                hasFixedText: true
+                objective: "Dar dirección clara, plantear la tesis del episodio y preparar a la audiencia para la conversación.",
+                hasFixedText: true,
+                hasImage: true
             },
             3: {
                 tag: "Bloque 3",
@@ -1027,10 +1407,11 @@
                     "Preguntas formuladas de manera corta",
                     "Mención de contextos claros por sí solas",
                     "Ausencia de modismos complejos o técnicos",
-                    "Preparación del fragmento como un contenido para redes sociales"
+                    "Preparación de los clips para redes sociales"
                 ],
-                objective: "Enganchar la atención del público digital y preparar los insumos para la distribución.",
-                hasFixedText: false
+                objective: "Generar expectativa y pensar el contenido desde el inicio para su distribución en redes sociales.",
+                hasFixedText: false,
+                hasImage: false
             },
             4: {
                 tag: "Bloque 4",
@@ -1044,7 +1425,8 @@
                     "Duración máxima de 20-40 segundos por invitado"
                 ],
                 objective: "Evitar la lectura de perfiles profesionales extensos y dar dinamismo al set.",
-                hasFixedText: false
+                hasFixedText: false,
+                hasImage: false
             },
             5: {
                 tag: "Bloque 5",
@@ -1058,7 +1440,8 @@
                     "Explicación en formato de historia para el público"
                 ],
                 objective: "Asegurar que cualquier persona comprenda el porqué del proyecto antes de entrar en detalles técnicos.",
-                hasFixedText: false
+                hasFixedText: false,
+                hasImage: false
             },
             6: {
                 tag: "Bloque 6",
@@ -1072,7 +1455,8 @@
                     "Experiencia y cambios observados con cifras y aportes integrados"
                 ],
                 objective: "Construir una narrativa de transformación fluida en vez de un cuestionario rígido.",
-                hasFixedText: false
+                hasFixedText: false,
+                hasImage: false
             },
             7: {
                 tag: "Bloque 7",
@@ -1086,7 +1470,8 @@
                     "Estructuración de datos en unidades comprensibles"
                 ],
                 objective: "Garantizar la presencia de la marca con total fuerza y elegancia.",
-                hasFixedText: false
+                hasFixedText: false,
+                hasImage: false
             },
             8: {
                 tag: "Bloque 8",
@@ -1100,7 +1485,8 @@
                     "Uso exclusivo de una opción según el perfil del capítulo"
                 ],
                 objective: "Humanizar la marca, generar reflexiones sinceras y contar historias reales.",
-                hasFixedText: false
+                hasFixedText: false,
+                hasImage: false
             },
             9: {
                 tag: "Bloque 9",
@@ -1114,7 +1500,8 @@
                     "Fórmula de respuesta en una frase contundente"
                 ],
                 objective: "Cerrar con una idea clara, útil y replicable para los tomadores de decisiones.",
-                hasFixedText: false
+                hasFixedText: false,
+                hasImage: false
             },
             10: {
                 tag: "Bloque 10",
@@ -1128,7 +1515,8 @@
                     "Transición fluida al cabezote oficial de salida"
                 ],
                 objective: "Garantizar una despedida ágil que mantenga la recordación institucional.",
-                hasFixedText: false
+                hasFixedText: false,
+                hasImage: false
             }
         };
 
@@ -1177,6 +1565,14 @@
                     includesContainer.appendChild(li);
                 });
 
+                // Handle image support (Block 2 custom image)
+                const imgContainer = document.getElementById('detail-image-container');
+                if (data.hasImage) {
+                    imgContainer.classList.remove('hidden');
+                } else {
+                    imgContainer.classList.add('hidden');
+                }
+
                 // Handle fixed text block for Host Intro
                 if (data.hasFixedText) {
                     document.getElementById('detail-text-fixed-container').classList.remove('hidden');
@@ -1187,25 +1583,43 @@
             }, 150);
         }
 
-        // Pestaña 2: Expand/Collapse Episode Blocks
-        function toggleEpisodeBlock(blockId) {
-            const content = document.getElementById(`ep-content-${blockId}`);
-            const icon = document.getElementById(`ep-icon-${blockId}`);
+        // Pestaña 2: Expand/Collapse Episode Blocks for Capítulo 1
+        function toggleCap1Block(blockId) {
+            const content = document.getElementById(`cap1-content-${blockId}`);
+            const icon = document.getElementById(`cap1-icon-${blockId}`);
             
             if (content.classList.contains('open')) {
                 content.classList.remove('open');
                 icon.style.transform = 'rotate(0deg)';
             } else {
-                // Collapsing other open blocks (accordion effect)
-                document.querySelectorAll('.tab-content .accordion-content').forEach(c => c.classList.remove('open'));
-                document.querySelectorAll('.tab-content [id^="ep-icon-"]').forEach(i => i.style.transform = 'rotate(0deg)');
+                // Collapsing other open blocks (accordion effect inside Cap 1)
+                document.querySelectorAll('#tab-capitulo1 .accordion-content').forEach(c => c.classList.remove('open'));
+                document.querySelectorAll('#tab-capitulo1 [id^="cap1-icon-"]').forEach(i => i.style.transform = 'rotate(0deg)');
                 
                 content.classList.add('open');
                 icon.style.transform = 'rotate(180deg)';
             }
         }
 
-        // Accordion function for Question comparators inside Bloque 7
+        // Pestaña 3: Expand/Collapse Episode Blocks for Capítulo 2
+        function toggleCap2Block(blockId) {
+            const content = document.getElementById(`cap2-content-${blockId}`);
+            const icon = document.getElementById(`cap2-icon-${blockId}`);
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                // Collapsing other open blocks (accordion effect inside Cap 2)
+                document.querySelectorAll('#tab-capitulo2 .accordion-content').forEach(c => c.classList.remove('open'));
+                document.querySelectorAll('#tab-capitulo2 [id^="cap2-icon-"]').forEach(i => i.style.transform = 'rotate(0deg)');
+                
+                content.classList.add('open');
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        // Accordion function for Question comparators inside Bloque 7 (Capítulo 2)
         function toggleInnerAccordion(id) {
             const content = document.getElementById(`inner-content-${id}`);
             const icon = document.getElementById(`inner-icon-${id}`);
@@ -1261,7 +1675,7 @@
             lucide.createIcons();
         }
 
-        // Value Card simulation click logic for 6 actual values (Tab 2, Bloque 8)
+        // Value Card simulation click logic for 6 actual values (Tab 3, Bloque 8)
         function selectValueCard(valueName, principalText, repreguntaText) {
             const promptBox = document.getElementById('value-prompt-box');
             document.getElementById('selected-value-title').innerText = valueName;
@@ -1277,8 +1691,9 @@
         // Auto initialization
         window.onload = function() {
             lucide.createIcons();
-            // Start with block 2 open by default in Episode 1
-            toggleEpisodeBlock(2);
+            // Start with block 2 open by default in Capítulo 1 and Capítulo 2
+            toggleCap1Block(2);
+            toggleCap2Block(2);
         }
     </script>
 </body>
