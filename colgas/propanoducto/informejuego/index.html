@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trivia Mundialista Colgas - Reporte de Campaña</title>
+    <!-- Google Fonts: Poppins (Títulos corporativos) y Urbanist (Contenido moderno) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Urbanist:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Tailwind CSS para el diseño ágil -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        colgasBlue: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#2563eb',
+                            600: '#1d4ed8',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        colgasDark: '#0f172a',
+                    },
+                    fontFamily: {
+                        sans: ['Urbanist', 'sans-serif'],
+                        title: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Transición suave para cambio de slides */
+        .slide-content {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease-out;
+            display: none;
+        }
+        .slide-content.active {
+            opacity: 1;
+            transform: translateY(0);
+            display: flex;
+        }
+        /* Scrollbars elegantes para sidebar y contenido */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans h-screen overflow-hidden flex flex-col md:flex-row">
+
+
+<!-- BARRA LATERAL IZQUIERDA (AZUL COLGAS) -->
+<aside class="w-full md:w-80 bg-gradient-to-b from-colgasBlue-900 to-colgasBlue-800 text-white flex flex-col h-auto md:h-screen flex-shrink-0 border-r border-colgasBlue-700 shadow-xl z-20">
+    <!-- Logo y Título de Campaña -->
+    <div class="p-6 border-b border-colgasBlue-700/50">
+        <div class="flex items-center gap-3">
+            <div class="bg-white/10 p-2.5 rounded-xl border border-white/20">
+                <i class="fa-solid fa-trophy text-amber-400 text-xl"></i>
+            </div>
+            <div>
+                <h1 class="font-title font-extrabold text-lg tracking-tight uppercase leading-tight">Colgas</h1>
+                <p class="text-xs text-colgasBlue-200 font-medium tracking-wider">TRIVIA MUNDIALISTA</p>
+            </div>
+        </div>
+        <div class="mt-3 bg-colgasBlue-900/50 border border-colgasBlue-600/30 rounded-lg p-2.5 text-center">
+            <span class="text-[10px] uppercase tracking-widest text-colgasBlue-200 font-bold">Reporte de Campaña O2O</span>
+        </div>
+    </div>
+
+    <!-- Menú de Diapositivas -->
+    <nav class="flex-grow overflow-y-auto px-4 py-4 space-y-1" id="sidebar-menu">
+        <!-- Generado dinámicamente o por clases activas en JS -->
+        <button onclick="goToSlide(1)" id="menu-item-1" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-left text-sm font-semibold transition-all duration-200 group bg-white/10 text-white shadow-sm">
+            <span class="w-7 h-7 flex items-center justify-center bg-white/10 rounded-lg text-xs group-hover:bg-white/20">01</span>
+            <span class="truncate">Portada de Campaña</span>
+        </button>
+        <button onclick="goToSlide(2)" id="menu-item-2" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-left text-sm font-semibold transition-all duration-200 group text-colgasBlue-100 hover:bg-white/5 hover:text-white">
+            <span class="w-7 h-7 flex items-center justify-center bg-black/10 rounded-lg text-xs">02</span>
+            <span class="truncate">El Reto de Negocio</span>
+        </button>
+        <button onclick="goToSlide(3)" id="menu-item-3" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-left text-sm font-semibold transition-all duration-200 group text-colgasBlue-100 hover:bg-white/5 hover:text-white">
+            <span class="w-7 h-7 flex items-center justify-center bg-black/10 rounded-lg text-xs">03</span>
+            <span class="truncate">Solución Conversacional O2O</span>
+        </button>
+        <button onclick="goToSlide(4)" id="menu-item-4" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-left text-sm font-semibold transition-all duration-200 group text-colgasBlue-100 hover:bg-white/5 hover:text-white">
+            <span class="w-7 h-7 flex items-center justify-center bg-black/10 rounded-lg text-xs">04</span>
+            <span class="truncate">Embudo de Conversión</span>
+        </button>
+        <button onclick="goToSlide(5)" id="menu-item-5" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-left text-sm font-semibold transition-all duration-200 group text-colgasBlue-100 hover:bg-white/5 hover:text-white">
+            <span class="w-7 h-7 flex items-center justify-center bg-black/10 rounded-lg text-xs">05</span>
+            <span class="truncate">Métricas de Impacto</span>
+        </button>
+        <button onclick="goToSlide(6)" id="menu-item-6" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-left text-sm font-semibold transition-all duration-200 group text-colgasBlue-100 hover:bg-white/5 hover:text-white">
+            <span class="w-7 h-7 flex items-center justify-center bg-black/10 rounded-lg text-xs">06</span>
+            <span class="truncate">Dashboard Administrativo</span>
+        </button>
+        <button onclick="goToSlide(7)" id="menu-item-7" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-left text-sm font-semibold transition-all duration-200 group text-colgasBlue-100 hover:bg-white/5 hover:text-white">
+            <span class="w-7 h-7 flex items-center justify-center bg-black/10 rounded-lg text-xs">07</span>
+            <span class="truncate">Análisis de Tráfico QR</span>
+        </button>
+        <button onclick="goToSlide(8)" id="menu-item-8" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-left text-sm font-semibold transition-all duration-200 group text-colgasBlue-100 hover:bg-white/5 hover:text-white">
+            <span class="w-7 h-7 flex items-center justify-center bg-black/10 rounded-lg text-xs">08</span>
+            <span class="truncate">Podio de Ganadores Oficial</span>
+        </button>
+        <button onclick="goToSlide(9)" id="menu-item-9" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-left text-sm font-semibold transition-all duration-200 group text-colgasBlue-100 hover:bg-white/5 hover:text-white">
+            <span class="w-7 h-7 flex items-center justify-center bg-black/10 rounded-lg text-xs">09</span>
+            <span class="truncate">Experiencia WhatsApp - Caso A</span>
+        </button>
+        <button onclick="goToSlide(10)" id="menu-item-10" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-left text-sm font-semibold transition-all duration-200 group text-colgasBlue-100 hover:bg-white/5 hover:text-white">
+            <span class="w-7 h-7 flex items-center justify-center bg-black/10 rounded-lg text-xs">10</span>
+            <span class="truncate">Experiencia WhatsApp - Caso B</span>
+        </button>
+        <button onclick="goToSlide(11)" id="menu-item-11" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-left text-sm font-semibold transition-all duration-200 group text-colgasBlue-100 hover:bg-white/5 hover:text-white">
+            <span class="w-7 h-7 flex items-center justify-center bg-black/10 rounded-lg text-xs">11</span>
+            <span class="truncate">Impacto y Perfilamiento</span>
+        </button>
+        <button onclick="goToSlide(12)" id="menu-item-12" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-left text-sm font-semibold transition-all duration-200 group text-colgasBlue-100 hover:bg-white/5 hover:text-white">
+            <span class="w-7 h-7 flex items-center justify-center bg-black/10 rounded-lg text-xs">12</span>
+            <span class="truncate">Conclusión y Cierre</span>
+        </button>
+    </nav>
+
+    <!-- Controles de Navegación del Pie de la Barra -->
+    <div class="p-4 border-t border-colgasBlue-700/50 bg-colgasBlue-900/40 flex items-center justify-between">
+        <button onclick="prevSlide()" id="prev-btn" class="p-2.5 bg-white/10 hover:bg-white/20 text-white rounded-lg transition disabled:opacity-30 disabled:cursor-not-allowed">
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <div class="text-center">
+            <span class="text-[11px] text-colgasBlue-300 block uppercase font-bold tracking-wider">Diapositiva</span>
+            <span id="slide-counter" class="text-sm font-extrabold font-title">1 / 12</span>
+        </div>
+        <button onclick="nextSlide()" id="next-btn" class="p-2.5 bg-white/10 hover:bg-white/20 text-white rounded-lg transition disabled:opacity-30 disabled:cursor-not-allowed">
+            <i class="fa-solid fa-arrow-right"></i>
+        </button>
+    </div>
+</aside>
+
+
+<!-- CONTENEDOR PRINCIPAL DE DIAPOSITIVAS (FONDO BLANCO PREMIUM) -->
+<main class="flex-grow h-full bg-white relative overflow-y-auto flex flex-col justify-between p-6 md:p-12 z-10">
+    
+    <!-- CONTENIDO DE LAS DIAPOSITIVAS -->
+    <div class="flex-grow flex items-center justify-center max-w-6xl mx-auto w-full">
+        
+        <!-- DIAPOSITIVA 1: PORTADA -->
+        <div id="slide1" class="slide-content active flex-col justify-center w-full h-full text-left">
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="space-y-6">
+                    <span class="inline-flex items-center gap-2 px-3 py-1 bg-colgasBlue-50 border border-colgasBlue-200 rounded-full text-xs font-bold text-colgasBlue-700 uppercase tracking-widest">
+                        <i class="fa-solid fa-flag-checkered text-colgasBlue-600"></i> Informe de Campaña O2O
+                    </span>
+                    <h2 class="font-title font-extrabold text-5xl md:text-6xl text-slate-900 tracking-tight leading-tight">
+                        Trivia Mundialista <br>
+                        <span class="text-colgasBlue-600">Colgas</span>
+                    </h2>
+                    <p class="text-lg text-slate-500 leading-relaxed font-light">
+                        Estrategia lúdica de actualización de datos en tiempo real, perfilamiento de suscriptores y fidelización móvil para Taxi Carey.
+                    </p>
+                    <div class="flex flex-wrap items-center gap-6 pt-4 text-xs font-bold text-slate-400 tracking-wider">
+                        <div>
+                            <span class="block text-[10px] text-slate-400 uppercase">Módulo</span>
+                            <span class="text-slate-800 text-sm">Offline to Online (O2O)</span>
+                        </div>
+                        <div class="h-8 w-px bg-slate-200"></div>
+                        <div>
+                            <span class="block text-[10px] text-slate-400 uppercase">Período</span>
+                            <span class="text-slate-800 text-sm">Julio 2026</span>
+                        </div>
+                        <div class="h-8 w-px bg-slate-200"></div>
+                        <div>
+                            <span class="block text-[10px] text-slate-400 uppercase">Tecnología</span>
+                            <span class="text-slate-800 text-sm">API Blupit & WhatsApp</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative flex justify-center">
+                    <!-- Decoración Visual con Esferas e Imagen de Fondo -->
+                    <div class="absolute inset-0 bg-gradient-to-tr from-colgasBlue-100 to-transparent rounded-3xl -rotate-3 transform scale-95 opacity-50"></div>
+                    <div class="relative bg-gradient-to-br from-colgasBlue-500 to-colgasBlue-800 p-8 rounded-3xl text-white shadow-xl max-w-sm w-full overflow-hidden">
+                        <div class="absolute -right-12 -bottom-12 w-48 h-48 bg-white/10 rounded-full blur-2xl"></div>
+                        <div class="relative space-y-4">
+                            <div class="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center">
+                                <i class="fa-solid fa-gamepad text-2xl"></i>
+                            </div>
+                            <h3 class="font-title font-bold text-2xl leading-snug">Una experiencia 100% interactiva</h3>
+                            <p class="text-sm text-colgasBlue-100 leading-relaxed">
+                                Uniendo correspondencia tradicional en papel con automatización conversacional móvil para limpiar bases de datos físicas de forma masiva.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 2: EL RETO DE NEGOCIO -->
+        <div id="slide2" class="slide-content flex-col w-full text-left space-y-6">
+            <div>
+                <span class="text-colgasBlue-600 font-bold uppercase tracking-wider text-xs block">El Contexto Operativo</span>
+                <h2 class="font-title font-extrabold text-3xl md:text-4xl text-slate-900 mt-1">El Gran Reto de Negocio</h2>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="space-y-4 text-slate-600">
+                    <p class="text-base leading-relaxed">
+                        Colgas requería limpiar, depurar y segmentar la base de datos de los receptores de la <strong>factura física</strong> de gas domiciliario de forma voluntaria.
+                    </p>
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-3">
+                        <div class="flex gap-3">
+                            <span class="w-6 h-6 rounded-full bg-red-100 text-red-600 flex items-center justify-center text-xs flex-shrink-0 mt-0.5"><i class="fa-solid fa-triangle-exclamation"></i></span>
+                            <p class="text-sm text-slate-700"><strong>Variable Crítica:</strong> Era obligatorio identificar con total exactitud si el usuario final es el <strong>Propietario</strong> o el <strong>Arrendatario</strong> del inmueble.</p>
+                        </div>
+                        <div class="flex gap-3">
+                            <span class="w-6 h-6 rounded-full bg-red-100 text-red-600 flex items-center justify-center text-xs flex-shrink-0 mt-0.5"><i class="fa-solid fa-dollar-sign"></i></span>
+                            <p class="text-sm text-slate-700"><strong>Fricción de Costos:</strong> Las campañas clásicas de actualización telefónica o presencial resultaban costosas, lentas y con bajísima conversión.</p>
+                        </div>
+                    </div>
+                    <p class="text-sm italic text-slate-400">
+                        La solución exigía gamificar el proceso para transformar un trámite administrativo en un canal divertido con recompensas reales.
+                    </p>
+                </div>
+                <!-- Tarjeta con Número Gigante de la Base de Datos -->
+                <div class="bg-gradient-to-br from-colgasBlue-50 to-white border-2 border-colgasBlue-100 rounded-3xl p-8 shadow-sm flex flex-col justify-between h-72">
+                    <div>
+                        <span class="text-xs uppercase font-extrabold text-colgasBlue-600 tracking-widest block">Universo Inicial</span>
+                        <div class="text-6xl font-extrabold font-title text-slate-900 mt-2 mb-4">26,221</div>
+                        <p class="text-sm text-slate-600 leading-relaxed font-semibold">
+                            Usuarios totales receptores de la factura impresa física.
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3 text-xs font-bold text-slate-500 border-t border-slate-200/60 pt-4">
+                        <i class="fa-solid fa-database text-colgasBlue-500"></i> Base de Datos Físicos Colgas S.A.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 3: LA SOLUCIÓN O2O -->
+        <div id="slide3" class="slide-content flex-col w-full text-left space-y-6">
+            <div>
+                <span class="text-colgasBlue-600 font-bold uppercase tracking-wider text-xs block">La Estrategia Conversacional</span>
+                <h2 class="font-title font-extrabold text-3xl md:text-4xl text-slate-900 mt-1">Solución O2O: WhatsApp & Gamificación</h2>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="space-y-4 text-slate-600">
+                    <p class="text-base leading-relaxed">
+                        Se implementó un flujo estratégico que conectó de manera limpia el papel físico con la automatización digital móvil:
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-3">
+                            <span class="w-6 h-6 rounded-full bg-colgasBlue-100 text-colgasBlue-700 flex items-center justify-center text-xs flex-shrink-0 font-bold mt-0.5">1</span>
+                            <span class="text-sm text-slate-700"><strong>QR en Factura Física:</strong> Punto de partida impreso directo con un llamado a la acción mundialista de alto impacto.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="w-6 h-6 rounded-full bg-colgasBlue-100 text-colgasBlue-700 flex items-center justify-center text-xs flex-shrink-0 font-bold mt-0.5">2</span>
+                            <span class="text-sm text-slate-700"><strong>Flujo de WhatsApp:</strong> Al escanear, el bot enrutador validaba en milisegundos vía API con Colgas la identificación del usuario.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="w-6 h-6 rounded-full bg-colgasBlue-100 text-colgasBlue-700 flex items-center justify-center text-xs flex-shrink-0 font-bold mt-0.5">3</span>
+                            <span class="text-sm text-slate-700"><strong>Trivia Gamificada:</strong> Validado el predio y su rol, se abría la trivia interactiva en un entorno responsive para web móvil.</span>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Maquetas de Celular del Juego de la Trivia -->
+                <div class="flex justify-center gap-4">
+                    <div class="relative group cursor-pointer" onclick="openZoom('https://i.postimg.cc/pLzx3551/Whats-App-Image-2026-07-10-at-5-01-05-PM.jpg')">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white font-bold rounded-2xl transition duration-200">
+                            <i class="fa-solid fa-magnifying-glass-plus text-2xl"></i>
+                        </div>
+                        <img src="https://i.postimg.cc/pLzx3551/Whats-App-Image-2026-07-10-at-5-01-05-PM.jpg" class="w-40 h-80 object-cover rounded-2xl shadow-md border-4 border-slate-900" alt="Pantalla de Juego Trivia 1">
+                        <p class="text-[10px] text-center text-slate-400 mt-1.5 font-bold uppercase">Pantalla de Juego</p>
+                    </div>
+                    <div class="relative group cursor-pointer" onclick="openZoom('https://i.postimg.cc/PrBT6QJD/Whats-App-Image-2026-07-10-at-5-01-05-PM-(1).jpg')">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white font-bold rounded-2xl transition duration-200">
+                            <i class="fa-solid fa-magnifying-glass-plus text-2xl"></i>
+                        </div>
+                        <img src="https://i.postimg.cc/PrBT6QJD/Whats-App-Image-2026-07-10-at-5-01-05-PM-(1).jpg" class="w-40 h-80 object-cover rounded-2xl shadow-md border-4 border-slate-900" alt="Pantalla de Juego Trivia 2">
+                        <p class="text-[10px] text-center text-slate-400 mt-1.5 font-bold uppercase">Resultado y Puntuación</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 4: EL EMBUDO DE CONVERSIÓN -->
+        <div id="slide4" class="slide-content flex-col w-full text-left space-y-6">
+            <div>
+                <span class="text-colgasBlue-600 font-bold uppercase tracking-wider text-xs block">El Rendimiento Paso a Paso</span>
+                <h2 class="font-title font-extrabold text-3xl md:text-4xl text-slate-900 mt-1">Embudo de Conversión de Campaña</h2>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <!-- Funnel List UI -->
+                <div class="space-y-3">
+                    <!-- Fila 1 -->
+                    <div class="flex items-center gap-3">
+                        <span class="w-32 text-xs font-extrabold text-slate-500 uppercase text-right">Base Facturada:</span>
+                        <div class="flex-grow bg-slate-100 h-9 rounded-lg overflow-hidden flex relative items-center px-4">
+                            <div class="bg-colgasBlue-900 h-full absolute left-0 top-0 transition-all duration-1000" style="width: 100%"></div>
+                            <span class="relative text-xs font-extrabold text-white z-10">26,221 Registros</span>
+                        </div>
+                        <span class="w-12 text-xs font-bold text-slate-400 text-right">100%</span>
+                    </div>
+                    <!-- Fila 2 -->
+                    <div class="flex items-center gap-3">
+                        <span class="w-32 text-xs font-extrabold text-slate-500 uppercase text-right">Clics en QR:</span>
+                        <div class="flex-grow bg-slate-100 h-9 rounded-lg overflow-hidden flex relative items-center px-4">
+                            <div class="bg-colgasBlue-700 h-full absolute left-0 top-0 transition-all duration-1000" style="width: 71%"></div>
+                            <span class="relative text-xs font-extrabold text-white z-10">3,103 Escaneos</span>
+                        </div>
+                        <span class="w-12 text-xs font-bold text-colgasBlue-600 text-right">11.8%</span>
+                    </div>
+                    <!-- Fila 3 -->
+                    <div class="flex items-center gap-3">
+                        <span class="w-32 text-xs font-extrabold text-slate-500 uppercase text-right">Iniciaron Chat:</span>
+                        <div class="flex-grow bg-slate-100 h-9 rounded-lg overflow-hidden flex relative items-center px-4">
+                            <div class="bg-colgasBlue-500 h-full absolute left-0 top-0 transition-all duration-1000" style="width: 58%"></div>
+                            <span class="relative text-xs font-extrabold text-white z-10">1,796 Chats</span>
+                        </div>
+                        <span class="w-12 text-xs font-bold text-colgasBlue-600 text-right">57.9%</span>
+                    </div>
+                    <!-- Fila 4 -->
+                    <div class="flex items-center gap-3">
+                        <span class="w-32 text-xs font-extrabold text-slate-500 uppercase text-right">Validados API:</span>
+                        <div class="flex-grow bg-slate-100 h-9 rounded-lg overflow-hidden flex relative items-center px-4">
+                            <div class="bg-teal-600 h-full absolute left-0 top-0 transition-all duration-1000" style="width: 45%"></div>
+                            <span class="relative text-xs font-extrabold text-white z-10">1,389 Códigos</span>
+                        </div>
+                        <span class="w-12 text-xs font-bold text-teal-600 text-right">77.3%</span>
+                    </div>
+                    <!-- Fila 5 -->
+                    <div class="flex items-center gap-3">
+                        <span class="w-32 text-xs font-extrabold text-slate-500 uppercase text-right">Trivias Completas:</span>
+                        <div class="flex-grow bg-slate-100 h-9 rounded-lg overflow-hidden flex relative items-center px-4">
+                            <div class="bg-emerald-500 h-full absolute left-0 top-0 transition-all duration-1000" style="width: 43%"></div>
+                            <span class="relative text-xs font-extrabold text-white z-10">1,348 Jugadores</span>
+                        </div>
+                        <span class="w-12 text-xs font-bold text-emerald-500 text-right">97.0%</span>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6">
+                        <h4 class="font-title font-bold text-slate-800 text-lg mb-2">Análisis de la Conversión</h4>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            La transición desde el volante impreso (universo offline analógico) hacia la plataforma digital móvil a través del QR obtuvo una tasa de respuesta excepcional.
+                        </p>
+                        <p class="text-sm text-slate-600 leading-relaxed mt-2">
+                            La bajísima pérdida entre la validación del código de suscriptor y la finalización de la trivia (<strong class="text-emerald-600">97% de retención</strong>) demuestra el enorme atractivo del concepto gamificado de premios en comparación con los formatos convencionales.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 5: METRICAS DE IMPACTO CON MATHML -->
+        <div id="slide5" class="slide-content flex-col w-full text-left space-y-6">
+            <div>
+                <span class="text-colgasBlue-600 font-bold uppercase tracking-wider text-xs block">Métricas Clave del Negocio</span>
+                <h2 class="font-title font-extrabold text-3xl md:text-4xl text-slate-900 mt-1">Impacto de la Campaña</h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="border border-slate-200 rounded-2xl p-5 hover:border-colgasBlue-500 transition duration-300">
+                    <div class="text-3xl font-extrabold font-title text-colgasBlue-600">77.3%</div>
+                    <h3 class="font-title font-bold text-slate-800 text-sm mt-1 mb-2">Tasa de Participación</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">De los usuarios totales que iniciaron el flujo de chat en WhatsApp, el 77.3% validó exitosamente su código.</p>
+                </div>
+                <div class="border border-slate-200 rounded-2xl p-5 hover:border-emerald-500 transition duration-300">
+                    <div class="text-3xl font-extrabold font-title text-emerald-600">97%</div>
+                    <h3 class="font-title font-bold text-slate-800 text-sm mt-1 mb-2">Retención Gamificada</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">Prácticamente la totalidad de los usuarios validados completaron todas las preguntas de la Trivia Mundialista.</p>
+                </div>
+                <div class="border border-slate-200 rounded-2xl p-5 hover:border-amber-500 transition duration-300">
+                    <div class="text-3xl font-extrabold font-title text-amber-500">100%</div>
+                    <h3 class="font-title font-bold text-slate-800 text-sm mt-1 mb-2">Data Recolectada</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">Garantía absoluta de estructuración de leads en propietarios vs arrendatarios con validación en CRM de Colgas.</p>
+                </div>
+            </div>
+            
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div>
+                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 block mb-1">Cálculo Académico</span>
+                    <h4 class="font-title font-bold text-slate-800 text-sm mb-2">Tasa de Participación Operativa:</h4>
+                    <p class="text-xs text-slate-500">Relación porcentual de conversión directa basada en los códigos únicos autenticados.</p>
+                </div>
+                <div class="bg-white px-6 py-4 rounded-xl border border-slate-200/80 shadow-sm">
+                    <math style="display: block; font-size: 16px;" class="font-title">
+                        <msub>
+                            <mi class="text-colgasBlue-600 font-semibold">Tasa</mi>
+                            <mi class="text-slate-500">Participación</mi>
+                        </msub>
+                        <mo>=</mo>
+                        <mfrac>
+                            <mi class="font-semibold">1,389 (Códigos)</mi>
+                            <mi class="font-semibold text-slate-400">1,796 (Inicios)</mi>
+                        </mfrac>
+                        <mo>×</mo>
+                        <mn>100</mn>
+                        <mo>=</mo>
+                        <mn class="font-bold text-colgasBlue-600">77.3</mn>
+                        <mo>%</mo>
+                    </math>
+                </div>
+            </div>
+            
+            <p class="text-[11px] text-slate-400 italic">
+                * Todos los datos coinciden milimétricamente con el archivo de referencia técnica: <strong>Captura de pantalla 2026-07-15 a las 1.17.59 p.m..jpg</strong>.
+            </p>
+        </div>
+
+        <!-- DIAPOSITIVA 6: DASHBOARD ADMINISTRATIVO -->
+        <div id="slide6" class="slide-content flex-col w-full text-left space-y-6">
+            <div>
+                <span class="text-colgasBlue-600 font-bold uppercase tracking-wider text-xs block">Consolidado del Backoffice</span>
+                <h2 class="font-title font-extrabold text-3xl md:text-4xl text-slate-900 mt-1">Dashboard Administrativo de Campaña</h2>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="space-y-4 text-slate-600">
+                    <p class="text-base leading-relaxed">
+                        El panel administrativo de la campaña permitió monitorear, validar y exportar en tiempo real todas las métricas de participación de los usuarios:
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-2.5 text-sm text-slate-700">
+                            <i class="fa-solid fa-circle-check text-colgasBlue-500"></i>
+                            <span>Consolidación total de <strong>1,389</strong> jugadores validados.</span>
+                        </li>
+                        <li class="flex items-center gap-2.5 text-sm text-slate-700">
+                            <i class="fa-solid fa-circle-check text-colgasBlue-500"></i>
+                            <span>Medición precisa de tiempos de juego (en milisegundos).</span>
+                        </li>
+                        <li class="flex items-center gap-2.5 text-sm text-slate-700">
+                            <i class="fa-solid fa-circle-check text-colgasBlue-500"></i>
+                            <span>Fácil exportación a formatos XLS/CSV para integración con CRM.</span>
+                        </li>
+                    </ul>
+                    <div class="bg-colgasBlue-50 border border-colgasBlue-200 rounded-xl p-4">
+                        <p class="text-xs text-colgasBlue-800 leading-relaxed">
+                            <i class="fa-solid fa-circle-info mr-1"></i> El sistema garantizó la máxima transparencia para definir los ganadores, previniendo fraudes y automatizando la tabulación de la velocidad de los usuarios.
+                        </p>
+                    </div>
+                </div>
+                <!-- Imagen real del reporte de usuarios -->
+                <div class="relative group cursor-pointer flex flex-col items-center" onclick="openZoom('https://i.postimg.cc/Qx246Vh8/Whats-App-Image-2026-07-15-at-1-08-40-PM.jpg')">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white font-bold rounded-2xl transition duration-200">
+                        <i class="fa-solid fa-magnifying-glass-plus text-3xl"></i>
+                    </div>
+                    <img src="https://i.postimg.cc/Qx246Vh8/Whats-App-Image-2026-07-15-at-1-08-40-PM.jpg" class="w-full h-64 object-cover rounded-2xl shadow-md border border-slate-200" alt="Dashboard de Reportes">
+                    <span class="text-xs text-slate-400 mt-2 italic">Haz clic en la imagen para expandir el panel completo</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 7: ANALISIS TRAFICO QR -->
+        <div id="slide7" class="slide-content flex-col w-full text-left space-y-6">
+            <div>
+                <span class="text-colgasBlue-600 font-bold uppercase tracking-wider text-xs block">El Canal de Captación</span>
+                <h2 class="font-title font-extrabold text-3xl md:text-4xl text-slate-900 mt-1">Análisis del Canal QR Impreso</h2>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <!-- Imagen real de clics analiticos del QR -->
+                <div class="relative group cursor-pointer flex flex-col items-center" onclick="openZoom('https://i.postimg.cc/x8KRh39x/Whats-App-Image-2026-07-15-at-1-13-26-PM.jpg')">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white font-bold rounded-2xl transition duration-200">
+                        <i class="fa-solid fa-magnifying-glass-plus text-3xl"></i>
+                    </div>
+                    <img src="https://i.postimg.cc/x8KRh39x/Whats-App-Image-2026-07-15-at-1-13-26-PM.jpg" class="w-full h-64 object-cover rounded-2xl shadow-md border border-slate-200" alt="Análisis de Código QR">
+                    <span class="text-xs text-slate-400 mt-2 italic">Hacer clic para expandir gráfica de analítica de clics</span>
+                </div>
+                <div class="space-y-4 text-slate-600">
+                    <div class="bg-gradient-to-tr from-slate-50 to-white border border-slate-200 p-6 rounded-2xl space-y-3">
+                        <div class="text-sm font-bold text-slate-400 uppercase tracking-wider">Tráfico Consolidado del QR</div>
+                        <div class="text-5xl font-extrabold font-title text-slate-900">3,103</div>
+                        <div class="text-sm font-semibold text-colgasBlue-600">Clics Únicos Totales Registrados</div>
+                    </div>
+                    <p class="text-sm leading-relaxed">
+                        El código QR fue colocado en el volante adjunto a la correspondencia masiva física de Colgas. Esto resolvió el problema de conectar un medio netamente tradicional con un flujo 100% interactivo.
+                    </p>
+                    <ul class="space-y-2 text-xs">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-angle-right text-colgasBlue-500 font-bold"></i> Mayor interacción durante los primeros días de la entrega de la correspondencia.</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-angle-right text-colgasBlue-500 font-bold"></i> Cero inversión en pauta digital paga de captación de leads.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 8: GANADORES DE LA TRIVIA -->
+        <div id="slide8" class="slide-content flex-col w-full text-left space-y-6">
+            <div>
+                <span class="text-amber-500 font-bold uppercase tracking-wider text-xs block">El Resultado Competitivo</span>
+                <h2 class="font-title font-extrabold text-3xl md:text-4xl text-slate-900 mt-1">Podio Oficial de Ganadores</h2>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="space-y-4 text-slate-600">
+                    <p class="text-sm leading-relaxed">
+                        De acuerdo con los términos y condiciones del juego, los ganadores fueron seleccionados de forma automática bajo un doble criterio estricto: **el puntaje de respuestas correctas (10/10)** y **el menor tiempo empleado** medido de forma digital.
+                    </p>
+                    <!-- Tabla de Ganadores Directa de la Imagen de Soporte -->
+                    <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-50 border-b border-slate-200 text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                                    <th class="px-4 py-2.5">Puesto</th>
+                                    <th class="px-4 py-2.5">Jugador</th>
+                                    <th class="px-4 py-2.5">Puntaje</th>
+                                    <th class="px-4 py-2.5">Tiempo</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-xs divide-y divide-slate-100 text-slate-700">
+                                <tr>
+                                    <td class="px-4 py-2.5 font-bold text-amber-500"><i class="fa-solid fa-crown mr-1"></i> 1°</td>
+                                    <td class="px-4 py-2.5 font-semibold">Luis Alfonso G.</td>
+                                    <td class="px-4 py-2.5">10 / 10</td>
+                                    <td class="px-4 py-2.5 font-mono">19 seg</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2.5 font-bold text-slate-400">2°</td>
+                                    <td class="px-4 py-2.5">Cesar Augusto O.</td>
+                                    <td class="px-4 py-2.5">10 / 10</td>
+                                    <td class="px-4 py-2.5 font-mono">20 seg</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2.5 font-bold text-amber-700">3°</td>
+                                    <td class="px-4 py-2.5">Maria Helena O.</td>
+                                    <td class="px-4 py-2.5">10 / 10</td>
+                                    <td class="px-4 py-2.5 font-mono">20 seg</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2.5 text-slate-400">4°</td>
+                                    <td class="px-4 py-2.5">Pedro Antonio H.</td>
+                                    <td class="px-4 py-2.5">10 / 10</td>
+                                    <td class="px-4 py-2.5 font-mono">21 seg</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2.5 text-slate-400">5°</td>
+                                    <td class="px-4 py-2.5">Jorge Eliécer P.</td>
+                                    <td class="px-4 py-2.5">10 / 10</td>
+                                    <td class="px-4 py-2.5 font-mono">21 seg</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- Ilustración Podio / Medallas -->
+                <div class="bg-gradient-to-br from-slate-50 to-white border border-slate-200 p-6 rounded-3xl flex flex-col justify-center items-center text-center">
+                    <div class="w-16 h-16 bg-amber-50 rounded-full flex items-center justify-center border border-amber-200 mb-3 shadow-sm">
+                        <i class="fa-solid fa-tv text-amber-500 text-2xl"></i>
+                    </div>
+                    <h4 class="font-title font-bold text-slate-800 text-sm">Premio Mayor Entregado</h4>
+                    <p class="text-xs text-slate-500 mt-1.5 max-w-xs leading-relaxed">
+                        Televisor LED de 55 pulgadas de última generación, entregado en acto público y transparente bajo las bases de Colgas.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 9: EXPERIENCIA WHATSAPP CASO A -->
+        <div id="slide9" class="slide-content flex-col w-full text-left space-y-6">
+            <div>
+                <span class="text-colgasBlue-600 font-bold uppercase tracking-wider text-xs block">Interacción del Usuario</span>
+                <h2 class="font-title font-extrabold text-3xl md:text-4xl text-slate-900 mt-1">Flujo en WhatsApp: Caso de Uso A</h2>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="space-y-4 text-slate-600">
+                    <p class="text-sm leading-relaxed">
+                        Esta conversación real en WhatsApp muestra cómo el sistema asiste amablemente al usuario desde el saludo inicial:
+                    </p>
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-3.5">
+                        <div class="flex gap-2.5 text-xs">
+                            <span class="font-extrabold text-colgasBlue-600 uppercase w-20 flex-shrink-0">Bot:</span>
+                            <span class="text-slate-600">Da una cálida bienvenida, explica el objetivo del juego y los espectaculares premios de la trivia.</span>
+                        </div>
+                        <div class="flex gap-2.5 text-xs">
+                            <span class="font-extrabold text-slate-800 uppercase w-20 flex-shrink-0">Usuario:</span>
+                            <span class="text-slate-600">Confirma su disposición y solicita el código para ingresar al juego.</span>
+                        </div>
+                        <div class="flex gap-2.5 text-xs">
+                            <span class="font-extrabold text-colgasBlue-600 uppercase w-20 flex-shrink-0">Validación:</span>
+                            <span class="text-slate-600 font-semibold text-emerald-600">Cero fricción, respuesta instantánea en menos de 1 segundo.</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Captura de pantalla de la conversacion real 1 -->
+                <div class="relative group cursor-pointer flex flex-col items-center" onclick="openZoom('https://i.postimg.cc/BbyYfnFP/Whats-App-Image-2026-07-15-at-1-06-14-PM-(1).jpg')">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white font-bold rounded-2xl transition duration-200">
+                        <i class="fa-solid fa-magnifying-glass-plus text-3xl"></i>
+                    </div>
+                    <img src="https://i.postimg.cc/BbyYfnFP/Whats-App-Image-2026-07-15-at-1-06-14-PM-(1).jpg" class="h-80 w-auto object-contain rounded-2xl shadow-md border border-slate-200" alt="Chat de WhatsApp Caso A">
+                    <span class="text-[10px] text-slate-400 mt-2 italic font-bold uppercase">Chat de Validación Inicial</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 10: EXPERIENCIA WHATSAPP CASO B -->
+        <div id="slide10" class="slide-content flex-col w-full text-left space-y-6">
+            <div>
+                <span class="text-colgasBlue-600 font-bold uppercase tracking-wider text-xs block">Interacción de Clasificación</span>
+                <h2 class="font-title font-extrabold text-3xl md:text-4xl text-slate-900 mt-1">Flujo en WhatsApp: Caso de Uso B</h2>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <!-- Captura de pantalla de la conversacion real 2 -->
+                <div class="relative group cursor-pointer flex flex-col items-center" onclick="openZoom('https://i.postimg.cc/7YGtMSvG/Whats-App-Image-2026-07-15-at-1-07-39-PM-(1).jpg')">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white font-bold rounded-2xl transition duration-200">
+                        <i class="fa-solid fa-magnifying-glass-plus text-3xl"></i>
+                    </div>
+                    <img src="https://i.postimg.cc/7YGtMSvG/Whats-App-Image-2026-07-15-at-1-07-39-PM-(1).jpg" class="h-80 w-auto object-contain rounded-2xl shadow-md border border-slate-200" alt="Chat de WhatsApp Caso B">
+                    <span class="text-[10px] text-slate-400 mt-2 italic font-bold uppercase">Conversación Real del Usuario B</span>
+                </div>
+                <div class="space-y-4 text-slate-600">
+                    <p class="text-sm leading-relaxed">
+                        Este segundo caso real muestra la captura de la variable más importante para el negocio: el rol de habitante de la vivienda:
+                    </p>
+                    <ul class="space-y-3 text-xs">
+                        <li class="flex gap-2 bg-slate-50 border border-slate-200 rounded-xl p-3">
+                            <span class="w-5 h-5 rounded-full bg-colgasBlue-100 text-colgasBlue-700 flex items-center justify-center font-bold flex-shrink-0">A</span>
+                            <div>
+                                <strong class="text-slate-800">Identificación de Predio:</strong>
+                                <p class="text-slate-500 mt-0.5">El sistema asocia el código de suscriptor digitado directamente en la base de datos de facturación.</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-2 bg-slate-50 border border-slate-200 rounded-xl p-3">
+                            <span class="w-5 h-5 rounded-full bg-colgasBlue-100 text-colgasBlue-700 flex items-center justify-center font-bold flex-shrink-0">B</span>
+                            <div>
+                                <strong class="text-slate-800">Pregunta de Perfilamiento:</strong>
+                                <p class="text-slate-500 mt-0.5">Clasifica al usuario de forma amigable (Propietario o Arrendatario) por medio de botones rápidos con número.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 11: IMPACTO Y PERFILAMIENTO -->
+        <div id="slide11" class="slide-content flex-col w-full text-left space-y-6">
+            <div>
+                <span class="text-colgasBlue-600 font-bold uppercase tracking-wider text-xs block">El Retorno sobre la Estrategia</span>
+                <h2 class="font-title font-extrabold text-3xl md:text-4xl text-slate-900 mt-1">Impacto de la Calidad de Datos</h2>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="space-y-4 text-slate-600">
+                    <div class="border border-slate-200 rounded-2xl p-6 space-y-3 hover:shadow-md transition">
+                        <h3 class="font-title font-bold text-slate-800 text-base flex items-center gap-2">
+                            <i class="fa-solid fa-database text-colgasBlue-600"></i> Base de Datos Calificada
+                        </h3>
+                        <p class="text-xs leading-relaxed">
+                            A través de la campaña se logró enriquecer de manera exitosa los registros pasivos en un CRM dinámico e interactivo.
+                        </p>
+                        <p class="text-xs leading-relaxed">
+                            Permitirá a Colgas realizar futuras segmentaciones de facturas electrónicas, mercadeo inteligente y servicios diferenciados para dueños versus inquilinos de viviendas.
+                        </p>
+                    </div>
+                </div>
+                <div class="space-y-4 text-slate-600">
+                    <div class="border border-slate-200 rounded-2xl p-6 space-y-3 hover:shadow-md transition">
+                        <h3 class="font-title font-bold text-slate-800 text-base flex items-center gap-2">
+                            <i class="fa-solid fa-circle-nodes text-emerald-600"></i> Canal Recurrente Construido
+                        </h3>
+                        <p class="text-xs leading-relaxed">
+                            Al entablar un contacto voluntario en WhatsApp, el usuario deja una conversación de valor guardada. No requiere de descargas de aplicaciones móviles nativas complejas.
+                        </p>
+                        <p class="text-xs leading-relaxed">
+                            El canal se conserva abierto y habilitado para futuros comunicados masivos autorizados de forma orgánica (Opt-in aprobado).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 12: CONCLUSIÓN Y CIERRE -->
+        <div id="slide12" class="slide-content flex-col w-full text-left space-y-6">
+            <div>
+                <span class="text-colgasBlue-600 font-bold uppercase tracking-wider text-xs block">Resumen de Campaña</span>
+                <h2 class="font-title font-extrabold text-3xl md:text-4xl text-slate-900 mt-1">Conclusiones de la Campaña</h2>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="space-y-4 text-slate-600">
+                    <p class="text-sm leading-relaxed">
+                        La campaña **Trivia Mundialista Colgas** representa un caso de éxito excepcional de la metodología Offline-to-Online (O2O). 
+                    </p>
+                    <p class="text-sm leading-relaxed">
+                        Demuestra que la diversión gamificada junto con una recompensa real es la mejor forma de romper la inercia del público ante el llamado corporativo tradicional de actualización de datos.
+                    </p>
+                    <div class="bg-colgasBlue-50 border border-colgasBlue-200 rounded-xl p-4">
+                        <p class="text-xs font-bold text-colgasBlue-900">
+                            La combinación de folletos físicos impresos + Código QR de acceso + Flujos automáticos de chat de WhatsApp representa una estrategia escalable a bajo costo.
+                        </p>
+                    </div>
+                </div>
+                <!-- Resumen de Indicadores Clave Financieros/Operativos -->
+                <div class="bg-gradient-to-br from-slate-50 to-white border border-slate-200 p-6 rounded-3xl space-y-4">
+                    <h3 class="font-title font-bold text-slate-800 text-sm border-b border-slate-200 pb-2">Kpis Consolidados del Proyecto</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm text-center">
+                            <span class="text-[10px] text-slate-400 block uppercase font-bold">Universo Base</span>
+                            <span class="text-xl font-extrabold text-slate-800 font-title block mt-1">26,221</span>
+                        </div>
+                        <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm text-center">
+                            <span class="text-[10px] text-slate-400 block uppercase font-bold">Clics en QR</span>
+                            <span class="text-xl font-extrabold text-colgasBlue-600 font-title block mt-1">3,103</span>
+                        </div>
+                        <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm text-center">
+                            <span class="text-[10px] text-slate-400 block uppercase font-bold">Validados API</span>
+                            <span class="text-xl font-extrabold text-teal-600 font-title block mt-1">1,389</span>
+                        </div>
+                        <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm text-center">
+                            <span class="text-[10px] text-slate-400 block uppercase font-bold">Tasa Retención</span>
+                            <span class="text-xl font-extrabold text-emerald-500 font-title block mt-1">97%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- PIE DE PÁGINA COMÚN -->
+    <footer class="mt-8 border-t border-slate-100 pt-4 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 max-w-6xl mx-auto w-full">
+        <div>
+            <span>Presentación Ejecutiva • <strong>Colgas & Taxi Carey</strong></span>
+        </div>
+        <div class="mt-2 sm:mt-0 font-medium text-[10px] uppercase tracking-wider text-slate-400">
+            Julio 2026 • Desarrollado con tecnología Blupit
+        </div>
+    </footer>
+</main>
+
+
+<!-- MODAL INTERACTIVO DE ZOOM PARA IMÁGENES -->
+<div id="zoom-modal" class="fixed inset-0 bg-slate-900/90 z-50 hidden flex-col items-center justify-center p-4 backdrop-blur-sm transition-opacity duration-300">
+    <!-- Botón de Cerrar -->
+    <button onclick="closeZoom()" class="absolute top-6 right-6 text-white/70 hover:text-white bg-white/10 hover:bg-white/20 p-3 rounded-full transition text-lg">
+        <i class="fa-solid fa-xmark"></i>
+    </button>
+    <!-- Imagen del Modal -->
+    <div class="relative max-w-4xl w-full max-h-[80vh] flex justify-center items-center">
+        <img id="zoom-image" src="" class="max-w-full max-h-[80vh] object-contain rounded-xl shadow-2xl" alt="Imagen ampliada">
+    </div>
+    <!-- Pie del Modal -->
+    <div class="mt-4 text-center">
+        <p class="text-slate-300 text-sm font-semibold">Usa la tecla <kbd class="px-2 py-1 bg-white/10 text-white text-xs rounded">Esc</kbd> o el botón superior para cerrar</p>
+    </div>
+</div>
+
+<!-- SCRIPT DE CONTROL E INTERACTIVIDAD DE DIAPOSITIVAS -->
+<script>
+    let currentSlide = 1;
+    const totalSlides = 12;
+
+    // Actualizar botones, menú lateral e indicador de la slide activa
+    function updateControls() {
+        // Ocultar todas las diapositivas y mostrar la actual
+        for (let i = 1; i <= totalSlides; i++) {
+            const slide = document.getElementById(`slide${i}`);
+            if (i === currentSlide) {
+                slide.classList.add('active');
+            } else {
+                slide.classList.remove('active');
+            }
+        }
+
+        // Desactivar o activar botones de control anterior/siguiente
+        document.getElementById('prev-btn').disabled = (currentSlide === 1);
+        document.getElementById('next-btn').disabled = (currentSlide === totalSlides);
+
+        // Actualizar el contador numérico de slides
+        document.getElementById('slide-counter').textContent = `${currentSlide} / ${totalSlides}`;
+
+        // Actualizar los elementos de la barra lateral de navegación
+        for (let i = 1; i <= totalSlides; i++) {
+            const menuItem = document.getElementById(`menu-item-${i}`);
+            if (i === currentSlide) {
+                menuItem.className = "w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-left text-sm font-semibold transition-all duration-200 group bg-white/10 text-white shadow-sm border-l-4 border-amber-400";
+                const numSpan = menuItem.querySelector('span:first-child');
+                numSpan.className = "w-7 h-7 flex items-center justify-center bg-white/20 rounded-lg text-xs font-bold text-amber-300";
+            } else {
+                menuItem.className = "w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-left text-sm font-semibold transition-all duration-200 group text-colgasBlue-100 hover:bg-white/5 hover:text-white border-l-4 border-transparent";
+                const numSpan = menuItem.querySelector('span:first-child');
+                numSpan.className = "w-7 h-7 flex items-center justify-center bg-black/10 rounded-lg text-xs text-colgasBlue-200";
+            }
+        }
+    }
+
+    // Funciones de navegación directa
+    function nextSlide() {
+        if (currentSlide < totalSlides) {
+            currentSlide++;
+            updateControls();
+        }
+    }
+
+    function prevSlide() {
+        if (currentSlide > 1) {
+            currentSlide--;
+            updateControls();
+        }
+    }
+
+    function goToSlide(n) {
+        if (n >= 1 && n <= totalSlides) {
+            currentSlide = n;
+            updateControls();
+        }
+    }
+
+    // Navegación con teclado amigable
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'ArrowRight' || event.key === 'Space') {
+            nextSlide();
+        } else if (event.key === 'ArrowLeft') {
+            prevSlide();
+        } else if (event.key === 'Escape') {
+            closeZoom();
+        }
+    });
+
+    // Control del visualizador interactivo de fotos (Zoom Modal)
+    function openZoom(imgUrl) {
+        const modal = document.getElementById('zoom-modal');
+        const zoomImage = document.getElementById('zoom-image');
+        zoomImage.src = imgUrl;
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    }
+
+    function closeZoom() {
+        const modal = document.getElementById('zoom-modal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    }
+</script>
+
+</body>
+</html>
