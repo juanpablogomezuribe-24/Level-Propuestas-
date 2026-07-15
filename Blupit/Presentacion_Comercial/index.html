@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blupit - Presentación Comercial</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    
+    <!-- Top Navigation / Branding -->
+    <nav class="top-nav">
+        <div class="logo-container" onclick="nav.goTo('home')">
+            <span class="logo-text">BLUPIT</span>
+        </div>
+        <div class="nav-controls">
+            <button class="nav-btn btn-secondary" onclick="nav.goTo('industries')">Casos e Industrias</button>
+            <button class="nav-btn btn-primary demo-btn" onclick="app.launchDemo()">Abrir Blupit</button>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main id="app-container">
+
+        <!-- SCREEN: HOME -->
+        <section id="home" class="screen active">
+            <div class="content-wrapper centered hero">
+                <h1 class="hero-title">Conversaciones que se convierten en resultados.</h1>
+                <p class="hero-subtitle">WhatsApp ya es el canal. Blupit construye la experiencia.</p>
+                <button class="btn btn-primary btn-large glow" onclick="nav.goTo('definition')">Explorar Blupit</button>
+            </div>
+        </section>
+
+        <!-- SCREEN: DEFINITION -->
+        <section id="definition" class="screen">
+            <div class="content-wrapper centered">
+                <h2 class="section-title">Blupit es una plataforma de comunicación, gamificación y educación a través de WhatsApp.</h2>
+                <div class="concept-cards">
+                    <div class="concept-card"><h3>Comunicar</h3></div>
+                    <div class="concept-card"><h3>Activar</h3></div>
+                    <div class="concept-card"><h3>Convertir</h3></div>
+                </div>
+                <div class="nav-bottom">
+                    <button class="btn btn-primary" onclick="nav.goTo('trajectory')">Siguiente</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCREEN: TRAJECTORY -->
+        <section id="trajectory" class="screen">
+            <div class="content-wrapper centered">
+                <h2 class="section-title big">Dos años convirtiendo WhatsApp en experiencias reales de marca</h2>
+                <div class="trajectory-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">+2 Años</span>
+                        <span class="stat-label">Construyendo tecnología</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">Múltiples</span>
+                        <span class="stat-label">Industrias conectadas</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">Miles</span>
+                        <span class="stat-label">De usuarios validados</span>
+                    </div>
+                </div>
+                <div class="nav-bottom">
+                    <button class="btn btn-primary btn-large" onclick="nav.goTo('industries')">Ver industrias</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCREEN: INDUSTRIES HUB -->
+        <section id="industries" class="screen">
+            <div class="content-wrapper">
+                <h2 class="section-title">Industrias Conectadas</h2>
+                <p class="section-subtitle">Selecciona una industria para ver los casos de éxito correspondientes.</p>
+                
+                <div class="industry-grid">
+                    <div class="industry-card" onclick="ui.showIndustryCases('consumo')">
+                        <h3>Consumo Masivo</h3>
+                        <p>Promociones, registro de facturas, fidelización.</p>
+                    </div>
+                    <div class="industry-card" onclick="ui.showIndustryCases('energia')">
+                        <h3>Energía y Servicios</h3>
+                        <p>Actualización de datos, first-party data, códigos.</p>
+                    </div>
+                    <div class="industry-card" onclick="ui.showIndustryCases('ganaderia')">
+                        <h3>Ganadería y Agro</h3>
+                        <p>Comunidades, eventos, leads comerciales.</p>
+                    </div>
+                    <div class="industry-card" onclick="ui.showIndustryCases('tecnologia')">
+                        <h3>Tecnología de Consumo</h3>
+                        <p>Validación OCR, trivias mundiales, rankings.</p>
+                    </div>
+                    <div class="industry-card" onclick="ui.showIndustryCases('juegos')">
+                        <h3>Juegos y Entretenimiento</h3>
+                        <p>Predicciones, gamificación, jugadores.</p>
+                    </div>
+                    <div class="industry-card" onclick="ui.showIndustryCases('farma')">
+                        <h3>Farmacéutica</h3>
+                        <p>Educación, recorridos, segmentación.</p>
+                    </div>
+                </div>
+
+                <!-- Modals / Expandable for Cases within Industry -->
+                <div id="cases-drawer" class="cases-drawer hidden">
+                    <div class="drawer-header">
+                        <h3 id="drawer-title">Casos</h3>
+                        <button class="close-btn" onclick="ui.hideIndustryCases()">×</button>
+                    </div>
+                    <div id="drawer-content" class="drawer-content-grid">
+                        <!-- Populated via JS -->
+                    </div>
+                </div>
+                <div class="nav-bottom right">
+                    <button class="btn btn-secondary" onclick="nav.goTo('capabilities')">Ver todas las capacidades</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- CASE SCREENS -->
+        
+        <!-- CASE: SUGABERRIO -->
+        <section id="case-sugaberrio" class="screen case-screen">
+            <div class="content-wrapper case-wrapper">
+                <div class="case-header">
+                    <span class="client-name">SUGABERRÍO (Ganadería y Agroindustria)</span>
+                    <h2 class="case-title">De subasta ganadera a ecosistema digital</h2>
+                    <div class="tags">
+                        <span class="tag">COMUNIDAD DIGITAL</span>
+                        <span class="tag">GAMIFICACIÓN</span>
+                        <span class="tag">MONETIZACIÓN</span>
+                    </div>
+                </div>
+                
+                <div class="case-body">
+                    <div class="case-text">
+                        <div class="text-block">
+                            <h4>El Reto</h4>
+                            <p>Evolucionar de una subasta tradicional a un ecosistema digital capaz de conectar a su comunidad, activar su participación y convertir esa atención en datos, oportunidades comerciales y nuevas fuentes de ingresos.</p>
+                        </div>
+                        <div class="text-block">
+                            <h4>La Solución Construida</h4>
+                            <p>Creación de una comunidad permanente por WhatsApp para centralizar contactos, difundir subastas, crear juegos, entregar puntos y captar leads comerciales para entregar patrocinios.</p>
+                        </div>
+                        <div class="text-block impact-quote">
+                            <p>"Blupit convirtió WhatsApp en el punto de encuentro entre Sugaberrío y su comunidad ganadera... detectando intereses comerciales y abriendo nuevas posibilidades de monetización."</p>
+                        </div>
+                        <button class="btn btn-primary case-demo-btn" onclick="app.launchDemo()">Ver cómo funciona en Blupit</button>
+                    </div>
+                    <div class="case-data">
+                        <div class="data-grid">
+                            <div class="data-card"><h2>8.299</h2><p>Contactos segmentados</p></div>
+                            <div class="data-card"><h2>19.693</h2><p>Impactos acumulados</p></div>
+                            <div class="data-card"><h2>243</h2><p>Campañas lanzadas</p></div>
+                            <div class="data-card"><h2>+2.500</h2><p>Participantes</p></div>
+                            <div class="data-card"><h2>1.013</h2><p>Conversaciones entrantes</p></div>
+                            <div class="data-card"><h2>5</h2><p>Sedes conectadas</p></div>
+                        </div>
+                        <!-- Placeholder for WhatsApp mockups -->
+                        <div class="mockup-placeholder">
+                            <p>[Capturas reales de WhatsApp Sugaberrío]</p>
+                        </div>
+                    </div>
+                </div>
+        <!-- CASE: HISENSE -->
+        <section id="case-hisense" class="screen case-study-page">
+            <div class="content-wrapper scrollable-content">
+                <button class="btn-back" onclick="nav.goTo('industries')">← Volver a Industrias</button>
+
+                <!-- HERO -->
+                <div class="case-hero">
+                    <div class="case-hero-text">
+                        <h1 class="case-headline">85% Facturas por IA: Cómo Hisense Gamificó su Promoción en WhatsApp</h1>
+                        <p class="case-subheadline">Automatización del registro de compras y validación en tiempo real con OCR, conectada a una trivia interactiva.</p>
+                    </div>
+                    <div class="case-hero-image">
+                        <img src="assets/hisense_2.jpg" alt="WhatsApp Hisense" class="hero-img">
+                    </div>
+                </div>
+
+                <!-- METRICS -->
+                <div class="case-key-metrics">
+                    <div class="metric-item">
+                        <span class="metric-number">$2.372 M</span>
+                        <span class="metric-label">Compras Registradas</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-number">85%</span>
+                        <span class="metric-label">Facturas por IA</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-number">99.7%</span>
+                        <span class="metric-label">Retención Trivia</span>
+                    </div>
+                </div>
+
+                <!-- CONTENT -->
+                <div class="case-content">
+                    <div class="content-section">
+                        <h2>El Reto</h2>
+                        <p>Crear una experiencia conversacional donde el usuario registra su compra, una Inteligencia Artificial (OCR) valida la factura en tiempo real, y si es correcta, accede a una trivia mundialista de 3 preguntas en 10 segundos para ganar puntos.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h2>La Solución</h2>
+                        <p>Se desarrolló un flujo 100% conversacional en WhatsApp impulsado por Blupit que combinó OCR para leer facturas, bases de datos en tiempo real y una trivia gamificada que enganchó al consumidor desde el primer mensaje.</p>
+                        <div class="tags dashboard-tags" style="margin-top: 20px;">
+                            <span class="tag tag-green">OCR FACTURAS (IA)</span>
+                            <span class="tag tag-yellow">TRIVIA GAMIFICADA</span>
+                            <span class="tag tag-red">FIDELIZACIÓN</span>
+                        </div>
+                    </div>
+
+                    <div class="content-section">
+                        <h2>Resultados</h2>
+                        <ul class="results-list">
+                            <li><strong>45.323</strong> Mensajes de respuestas automáticas</li>
+                            <li><strong>1.710</strong> Participantes registrados</li>
+                            <li><strong>1.321</strong> Facturas validadas exitosamente</li>
+                            <li><strong>1.148</strong> Sesiones de trivia jugadas</li>
+                            <li><strong>1.100</strong> Rankings generados automáticamente</li>
+                        </ul>
+                        <p class="impact-text">La campaña permitió automatizar completamente la experiencia del consumidor, reduciendo procesos manuales y aumentando la participación.</p>
+                    </div>
+                </div>
+
+                <!-- CTA -->
+                <div class="case-cta">
+                    <h2>¿Listo para automatizar campañas en WhatsApp?</h2>
+                    <p>Conversemos sobre cómo aumentar conversión, gamificar la experiencia y reducir procesos manuales de validación.</p>
+                    <button class="btn btn-primary btn-large glow" onclick="app.launchDemo()">Lanzar Demostración de Blupit →</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- CASE: SC JOHNSON -->
+        <section id="case-scjohnson" class="screen case-study-page">
+            <div class="content-wrapper scrollable-content">
+                <button class="btn-back" onclick="nav.goTo('industries')">← Volver a Industrias</button>
+
+                <!-- HERO -->
+                <div class="case-hero">
+                    <div class="case-hero-text">
+                        <h1 class="case-headline">Campaña Regional: Cómo SC Johnson unificó 3 países en WhatsApp</h1>
+                        <p class="case-subheadline">Implementar una campaña promocional simultánea para Colombia, Perú y Ecuador desde una única plataforma conectada a WhatsApp.</p>
+                    </div>
+                    <div class="case-hero-image">
+                        <!-- Placeholder for SC Johnson image -->
+                        <div style="width:100%; height:300px; background:linear-gradient(45deg,#111,#222); display:flex; align-items:center; justify-content:center; color:#555;">Mockup SC Johnson</div>
+                    </div>
+                </div>
+
+                <!-- METRICS -->
+                <div class="case-key-metrics">
+                    <div class="metric-item">
+                        <span class="metric-number">$622 M</span>
+                        <span class="metric-label">Ventas Generadas</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-number">98.7%</span>
+                        <span class="metric-label">Registros por WA</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-number">3</span>
+                        <span class="metric-label">Países Simultáneos</span>
+                    </div>
+                </div>
+
+                <!-- CONTENT -->
+                <div class="case-content">
+                    <div class="content-section">
+                        <h2>El Reto</h2>
+                        <p>Por la compra de productos SCJ, los usuarios reciben un número aleatorio de 5 dígitos validado por WhatsApp. El desafío era orquestar toda esta mecánica en 3 países de manera simultánea sin fricción para el usuario final.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h2>La Solución</h2>
+                        <p>La solución desarrollada en Blupit permitió administrar la campaña regional centralizada, automatizando los procesos de registro, validación de compras y comunicación constante.</p>
+                        <div class="tags dashboard-tags" style="margin-top: 20px;">
+                            <span class="tag tag-green">API WHATSAPP</span>
+                            <span class="tag tag-purple" style="background:rgba(142,68,173,0.2);color:#9b59b6;border-color:rgba(155,89,182,0.4);">SORTEO AUTOMATIZADO</span>
+                            <span class="tag tag-blue" style="background:rgba(41,128,185,0.2);color:#3498db;border-color:rgba(52,152,219,0.4);">MULTI-PAÍS</span>
+                        </div>
+                    </div>
+
+                    <div class="content-section">
+                        <h2>Resultados</h2>
+                        <ul class="results-list">
+                            <li><strong>62.551</strong> Mensajes gestionados por Blupit</li>
+                            <li><strong>3.320</strong> Contactos administrados</li>
+                            <li><strong>1.272</strong> Participantes registrados</li>
+                            <li><strong>383</strong> Facturas registradas</li>
+                            <li><strong>96.4%</strong> Tasa de entrega de campañas enviadas</li>
+                        </ul>
+                        <p class="impact-text">Se lograron altos niveles de eficiencia operativa y conversión al tener un solo hub conversacional regional.</p>
+                    </div>
+                </div>
+
+                <!-- CTA -->
+                <div class="case-cta">
+                    <h2>¿Listo para escalar promociones en WhatsApp?</h2>
+                    <p>Conversemos sobre cómo gestionar estrategias regionales y sorteos masivos centralizando tu data en Blupit.</p>
+                    <button class="btn btn-primary btn-large glow" onclick="app.launchDemo()">Lanzar Demostración de Blupit →</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- CASE: COLGAS -->
+        <section id="case-colgas" class="screen case-screen">
+            <div class="content-wrapper case-wrapper">
+                <div class="case-header">
+                    <span class="client-name">COLGAS (Energía y Servicios Públicos)</span>
+                    <h2 class="case-title">De la factura física al first-party data</h2>
+                    <div class="tags">
+                        <span class="tag">INTEGRACIÓN API</span>
+                        <span class="tag">FIRST-PARTY DATA</span>
+                        <span class="tag">OFFLINE TO ONLINE</span>
+                    </div>
+                </div>
+                
+                <div class="case-body">
+                    <div class="case-text">
+                        <div class="text-block">
+                            <h4>El Reto</h4>
+                            <p>Perfilar la base de datos e identificar si quienes recibían la factura física eran propietarios o arrendatarios, actualizando datos obsoletos.</p>
+                        </div>
+                        <div class="text-block">
+                            <h4>La Solución Construida</h4>
+                            <p>Código QR en factura que llevaba a WhatsApp. Verificación de propiedad, validación de código vía API en tiempo real con Colgas, y acceso a trivia gamificada con recompensas.</p>
+                        </div>
+                        <div class="text-block impact-quote">
+                            <p>"Transformó un proceso aburrido de actualización de datos en una experiencia interactiva que conectó la factura física con WhatsApp con 97% de finalización."</p>
+                        </div>
+                        <button class="btn btn-primary case-demo-btn" onclick="app.launchDemo()">Ver cómo funciona en Blupit</button>
+                    </div>
+                    <div class="case-data">
+                        <div class="data-grid">
+                            <div class="data-card"><h2>1.796</h2><p>Inicios de flujo</p></div>
+                            <div class="data-card"><h2>1.389</h2><p>Códigos validados</p></div>
+                            <div class="data-card"><h2>77.3%</h2><p>Conversión (Escaneo->Juego)</p></div>
+                            <div class="data-card"><h2>97%</h2><p>Finalización de trivia</p></div>
+                            <div class="data-card"><h2>100%</h2><p>Perfilamiento completado</p></div>
+                            <div class="data-card"><h2>< ></h2><p>API Tiempo Real</p></div>
+                        </div>
+                        <div class="mockup-placeholder">
+                            <p>[Capturas reales de WhatsApp Colgas]</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SCREEN: CAPABILITIES -->
+        <section id="capabilities" class="screen">
+            <div class="content-wrapper centered">
+                <h2 class="section-title">Todo esto ocurrió desde una sola plataforma</h2>
+                <div class="capabilities-grid">
+                    <div class="cap-group">
+                        <h3>Comunicación</h3>
+                        <ul>
+                            <li>Campañas & Plantillas</li>
+                            <li>Mensajes segmentados</li>
+                            <li>Notificaciones y Noticias</li>
+                        </ul>
+                    </div>
+                    <div class="cap-group">
+                        <h3>Data</h3>
+                        <ul>
+                            <li>First-party data</li>
+                            <li>Procesamiento de facturas</li>
+                            <li>Integraciones API</li>
+                        </ul>
+                    </div>
+                    <div class="cap-group">
+                        <h3>Gamificación</h3>
+                        <ul>
+                            <li>Trivias y Retos</li>
+                            <li>Rankings y Puntos</li>
+                            <li>Premios</li>
+                        </ul>
+                    </div>
+                    <div class="cap-group">
+                        <h3>Educación</h3>
+                        <ul>
+                            <li>Contenidos Interactivos</li>
+                            <li>Evaluaciones</li>
+                            <li>Certificaciones</li>
+                        </ul>
+                    </div>
+                    <div class="cap-group highlight">
+                        <h3>Conversión</h3>
+                        <ul>
+                            <li>Detección de Leads</li>
+                            <li>Segmentación Avanzada</li>
+                            <li>Automatizaciones</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="nav-bottom">
+                    <button class="btn btn-primary btn-large glow demo-btn" onclick="app.launchDemo()">Explorar el Dashboard (Demo)</button>
+                </div>
+                <div class="nav-bottom right" style="margin-top:20px;">
+                    <button class="btn btn-secondary" onclick="nav.goTo('business-models')">Ver Modelos de Negocio</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCREEN: BUSINESS MODELS -->
+        <section id="business-models" class="screen">
+            <div class="content-wrapper">
+                <h2 class="section-title centered">Modelos de Implementación</h2>
+                <p class="section-subtitle centered">Blupit se adapta al alcance tecnológico y operativo de tu marca.</p>
+                
+                <div class="models-container">
+                    <div class="model-card">
+                        <div class="model-icon">☁️</div>
+                        <h3>Uso de Plataforma Compartida</h3>
+                        <p>Despliegue rápido sobre la infraestructura existente de Blupit.</p>
+                        <ul class="model-features">
+                            <li>Cargo mensual por uso (SaaS).</li>
+                            <li>Acceso a módulos de Gamificación, Data y Campañas.</li>
+                            <li><strong>Modalidad 1:</strong> Tu equipo opera la plataforma.</li>
+                            <li><strong>Modalidad 2:</strong> Nuestro equipo diseña y opera por ti.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="model-card premium">
+                        <div class="model-icon">🏢</div>
+                        <h3>Clúster Independiente</h3>
+                        <p>Un entorno tecnológico dedicado y aislado para tu compañía.</p>
+                        <ul class="model-features">
+                            <li>Infraestructura y servidores dedicados.</li>
+                            <li>Máxima seguridad y gobierno de datos.</li>
+                            <li>Integraciones empresariales complejas.</li>
+                            <li>Soporte técnico dedicado.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="nav-bottom right">
+                    <button class="btn btn-primary" onclick="nav.goTo('closing')">Finalizar</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCREEN: CLOSING -->
+        <section id="closing" class="screen">
+            <div class="content-wrapper centered hero">
+                <h1 class="hero-title">Tu audiencia ya está en WhatsApp.<br>Construyamos lo que debe pasar después.</h1>
+                <p class="hero-subtitle">Comunicación, gamificación, educación y datos desde una plataforma que ya existe y funciona.</p>
+                <button class="btn btn-primary btn-large glow" onclick="nav.goTo('home')">Diseñemos tu próximo caso de uso</button>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

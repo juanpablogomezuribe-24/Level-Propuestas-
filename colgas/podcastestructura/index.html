@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación Estratégica Podcast Colgas - Tercera temporada</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC;
+        }
+        .colgas-blue { color: #004A99; }
+        .bg-colgas-blue { background-color: #004A99; }
+        .border-colgas-blue { border-color: #004A99; }
+        .colgas-orange { color: #F97316; }
+        .bg-colgas-orange { background-color: #F97316; }
+        
+        /* Transición suave para acordeones */
+        .accordion-content {
+            transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
+            max-height: 0;
+            overflow: hidden;
+        }
+        .accordion-content.open {
+            max-height: 2000px; /* Suficiente espacio para el contenido */
+            transition: max-height 0.4s ease-in-out;
+        }
+        .transition-all {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <header class="bg-white border-b border-slate-100 py-6 px-4 md:px-8 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3 w-full md:w-auto">
+                <div class="w-10 h-10 rounded-xl bg-colgas-blue flex items-center justify-center text-white font-black text-xl tracking-tighter shrink-0">
+                    C
+                </div>
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-slate-400">Propuesta de Formato</span>
+                    <h1 class="text-lg md:text-xl font-extrabold tracking-tight text-slate-900 flex items-center gap-2 flex-wrap">
+                        Mejor Energía, Mejor Vida 
+                        <span class="text-[10px] md:text-xs bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full font-bold">Tercera temporada</span>
+                    </h1>
+                </div>
+            </div>
+            
+            <!-- Tab Switcher responsivo con área táctil cómoda -->
+            <div class="bg-slate-100 p-1 rounded-2xl flex gap-1 w-full md:w-auto">
+                <button onclick="switchTab('estructura')" id="tab-btn-estructura" class="flex-1 md:flex-none px-4 md:px-6 py-3 rounded-xl text-xs md:text-sm font-semibold transition-all bg-white text-slate-900 shadow-sm flex items-center justify-center gap-2">
+                    <i data-lucide="layout-template" class="w-4 h-4"></i>
+                    Estructura general
+                </button>
+                <button onclick="switchTab('episodio1')" id="tab-btn-episodio1" class="flex-1 md:flex-none px-4 md:px-6 py-3 rounded-xl text-xs md:text-sm font-semibold transition-all text-slate-600 hover:text-slate-900 flex items-center justify-center gap-2">
+                    <i data-lucide="play" class="w-4 h-4"></i>
+                    Aplicación al episodio 1
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 md:px-8 py-6 md:py-10">
+
+        <!-- ================= TAB 1: ESTRUCTURA GENERAL ================= -->
+        <div id="tab-estructura" class="tab-content space-y-8 md:space-y-12">
+            
+            <!-- Hero Intro -->
+            <div class="bg-white border border-slate-100 rounded-3xl p-6 md:p-12 shadow-sm relative overflow-hidden">
+                <div class="max-w-3xl relative z-10 space-y-4">
+                    <span class="text-[10px] md:text-xs font-black uppercase tracking-widest text-orange-600 bg-orange-50 px-3 py-1 rounded-full">Concepto de la temporada</span>
+                    <h2 class="text-2xl md:text-4xl font-black tracking-tight text-slate-900 leading-tight">
+                        Una nueva forma de contar las historias que están transformando la energía.
+                    </h2>
+                    <p class="text-slate-500 text-sm md:text-base leading-relaxed">
+                        La tercera temporada propone conversaciones empresariales más claras, cercanas y dinámicas. Cada episodio tendrá la profundidad necesaria para desarrollar el tema completo y, al mismo tiempo, generará momentos breves que podrán adaptarse a contenidos para redes sociales.
+                    </p>
+                </div>
+                <div class="absolute right-0 top-0 w-1/3 h-full bg-gradient-to-l from-blue-50/50 to-transparent pointer-events-none hidden md:block"></div>
+            </div>
+
+            <!-- Strategic Pillars Section -->
+            <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white border border-slate-100 p-6 md:p-8 rounded-3xl shadow-xs hover:shadow-md transition-all">
+                    <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6">
+                        <i data-lucide="briefcase" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-900 mb-2">Dimensión empresarial</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed">
+                        ¿Qué retos estratégicos están enfrentando las compañías y de qué manera transforman sus operaciones diarias?
+                    </p>
+                </div>
+                
+                <div class="bg-white border border-slate-100 p-6 md:p-8 rounded-3xl shadow-xs hover:shadow-md transition-all">
+                    <div class="w-12 h-12 bg-orange-50 text-orange-600 rounded-2xl flex items-center justify-center mb-6">
+                        <i data-lucide="zap" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-900 mb-2">Dimensión energética</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed">
+                        ¿Qué soluciones, tecnologías o modelos eficientes y sostenibles lideran el camino hacia la descarbonización?
+                    </p>
+                </div>
+
+                <div class="bg-white border border-slate-100 p-6 md:p-8 rounded-3xl shadow-xs hover:shadow-md transition-all">
+                    <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mb-6">
+                        <i data-lucide="users" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-900 mb-2">Dimensión humana</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed">
+                        ¿Qué decisiones valientes, qué liderazgos inspiradores y qué valores permitieron que cada hito fuera posible?
+                    </p>
+                </div>
+            </section>
+
+            <!-- Interactive Timeline / Bloques del Episodio -->
+            <section class="space-y-6 md:space-y-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-100 pb-6">
+                    <div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Navegación Narrativa</span>
+                        <h3 class="text-xl md:text-2xl font-bold tracking-tight text-slate-900 mt-1">El recorrido del episodio</h3>
+                    </div>
+                    <p class="text-sm text-slate-500 max-w-md">
+                        Selecciona un bloque para profundizar en su lógica editorial. Toda la estructura está planeada para enganchar al espectador desde el primer segundo.
+                    </p>
+                </div>
+
+                <!-- Structural Grid with Details Side-by-Side -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 items-start">
+                    <!-- Left List: Interactive Blocks -->
+                    <div class="lg:col-span-5 space-y-2 md:space-y-3 max-h-[300px] lg:max-h-[550px] overflow-y-auto pr-1">
+                        <button onclick="selectBlock(1)" id="btn-block-1" class="block-selector w-full text-left p-3.5 md:p-4 rounded-2xl border-2 border-colgas-blue bg-white shadow-xs transition-all flex items-center justify-between gap-4">
+                            <div class="flex items-center gap-3">
+                                <span class="w-8 h-8 rounded-xl bg-colgas-blue text-white flex items-center justify-center text-xs font-bold font-mono shrink-0">01</span>
+                                <span class="font-bold text-xs md:text-sm text-slate-900">Cabezote de apertura</span>
+                            </div>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+                        </button>
+
+                        <button onclick="selectBlock(2)" id="btn-block-2" class="block-selector w-full text-left p-3.5 md:p-4 rounded-2xl border border-slate-100 hover:border-slate-300 bg-white shadow-xs transition-all flex items-center justify-between gap-4">
+                            <div class="flex items-center gap-3">
+                                <span class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold font-mono shrink-0">02</span>
+                                <span class="font-bold text-xs md:text-sm text-slate-700">Introducción del host</span>
+                            </div>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+                        </button>
+
+                        <button onclick="selectBlock(3)" id="btn-block-3" class="block-selector w-full text-left p-3.5 md:p-4 rounded-2xl border border-slate-100 hover:border-slate-300 bg-white shadow-xs transition-all flex items-center justify-between gap-4">
+                            <div class="flex items-center gap-3">
+                                <span class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold font-mono shrink-0">03</span>
+                                <span class="font-bold text-xs md:text-sm text-slate-700">Tres preguntas o temas del episodio</span>
+                            </div>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+                        </button>
+
+                        <button onclick="selectBlock(4)" id="btn-block-4" class="block-selector w-full text-left p-3.5 md:p-4 rounded-2xl border border-slate-100 hover:border-slate-300 bg-white shadow-xs transition-all flex items-center justify-between gap-4">
+                            <div class="flex items-center gap-3">
+                                <span class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold font-mono shrink-0">04</span>
+                                <span class="font-bold text-xs md:text-sm text-slate-700">Presentación de los invitados</span>
+                            </div>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+                        </button>
+
+                        <button onclick="selectBlock(5)" id="btn-block-5" class="block-selector w-full text-left p-3.5 md:p-4 rounded-2xl border border-slate-100 hover:border-slate-300 bg-white shadow-xs transition-all flex items-center justify-between gap-4">
+                            <div class="flex items-center gap-3">
+                                <span class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold font-mono shrink-0">05</span>
+                                <span class="font-bold text-xs md:text-sm text-slate-700">Origen de la conversación</span>
+                            </div>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+                        </button>
+
+                        <button onclick="selectBlock(6)" id="btn-block-6" class="block-selector w-full text-left p-3.5 md:p-4 rounded-2xl border border-slate-100 hover:border-slate-300 bg-white shadow-xs transition-all flex items-center justify-between gap-4">
+                            <div class="flex items-center gap-3">
+                                <span class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold font-mono shrink-0">06</span>
+                                <span class="font-bold text-xs md:text-sm text-slate-700">Desarrollo de la conversación</span>
+                            </div>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+                        </button>
+
+                        <button onclick="selectBlock(7)" id="btn-block-7" class="block-selector w-full text-left p-3.5 md:p-4 rounded-2xl border border-slate-100 hover:border-slate-300 bg-white shadow-xs transition-all flex items-center justify-between gap-4">
+                            <div class="flex items-center gap-3">
+                                <span class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold font-mono shrink-0">07</span>
+                                <span class="font-bold text-xs md:text-sm text-slate-700">Tratamiento de preguntas de Colgas</span>
+                            </div>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+                        </button>
+
+                        <button onclick="selectBlock(8)" id="btn-block-8" class="block-selector w-full text-left p-3.5 md:p-4 rounded-2xl border border-slate-100 hover:border-slate-300 bg-white shadow-xs transition-all flex items-center justify-between gap-4">
+                            <div class="flex items-center gap-3">
+                                <span class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold font-mono shrink-0">08</span>
+                                <span class="font-bold text-xs md:text-sm text-slate-700">Momento Colgas: valores</span>
+                            </div>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+                        </button>
+
+                        <button onclick="selectBlock(9)" id="btn-block-9" class="block-selector w-full text-left p-3.5 md:p-4 rounded-2xl border border-slate-100 hover:border-slate-300 bg-white shadow-xs transition-all flex items-center justify-between gap-4">
+                            <div class="flex items-center gap-3">
+                                <span class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold font-mono shrink-0">09</span>
+                                <span class="font-bold text-xs md:text-sm text-slate-700">Pregunta final</span>
+                            </div>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+                        </button>
+
+                        <button onclick="selectBlock(10)" id="btn-block-10" class="block-selector w-full text-left p-3.5 md:p-4 rounded-2xl border border-slate-100 hover:border-slate-300 bg-white shadow-xs transition-all flex items-center justify-between gap-4">
+                            <div class="flex items-center gap-3">
+                                <span class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold font-mono shrink-0">10</span>
+                                <span class="font-bold text-xs md:text-sm text-slate-700">Cierre del host</span>
+                            </div>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+                        </button>
+                    </div>
+
+                    <!-- Right Card: Rich Details Dynamic Viewer -->
+                    <div class="lg:col-span-7 bg-white border border-slate-100 rounded-3xl p-6 md:p-8 shadow-sm space-y-6 min-h-[380px] lg:min-h-[450px] flex flex-col justify-between transition-all duration-200" id="block-details-card">
+                        <div class="space-y-4 md:space-y-6">
+                            <div class="flex justify-between items-center pb-4 border-b border-slate-100">
+                                <div>
+                                    <span id="detail-tag" class="text-xs font-black uppercase tracking-wider text-blue-600">Bloque 1</span>
+                                    <h4 id="detail-title" class="text-lg md:text-xl font-bold text-slate-900 mt-1">Cabezote de apertura</h4>
+                                </div>
+                                <div class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                                    <i data-lucide="clapperboard" id="detail-icon" class="w-5 h-5"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-1">¿Qué sucede en el set?</span>
+                                    <p id="detail-happens" class="text-sm text-slate-600 leading-relaxed">
+                                        El episodio comienza con un cabezote audiovisual corto que presenta la nueva identidad de la Tercera temporada de Colgas de forma dinámica.
+                                    </p>
+                                </div>
+
+                                <div id="detail-includes-container">
+                                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-2">Elementos clave incluidos</span>
+                                    <ul id="detail-includes" class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs text-slate-600">
+                                        <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> Nueva identidad gráfica</li>
+                                        <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> Animación moderna</li>
+                                        <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> Identidad sonora / Firma</li>
+                                        <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> Nombre: "Tercera temporada"</li>
+                                    </ul>
+                                </div>
+
+                                <div id="detail-text-fixed-container" class="hidden bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-1">Texto fijo de temporada</span>
+                                    <p id="detail-text-fixed" class="text-xs text-slate-600 italic leading-relaxed">
+                                        "Bienvenidos a la tercera temporada de nuestro podcast Mejor Energía, Mejor Vida. En esta nueva temporada tendremos grandes invitados con quienes conversaremos sobre las temáticas más interesantes de nuestro sector, como lo son las energías renovables, responsabilidad empresarial, descarbonización, sostenibilidad y mucho más."
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-4 md:pt-6 border-t border-slate-100 flex items-center justify-between bg-slate-50/50 -mx-6 md:-mx-8 -mb-6 md:-mb-8 p-6 md:p-8 rounded-b-3xl">
+                            <div>
+                                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block">Objetivo de este bloque</span>
+                                <p id="detail-objective" class="text-xs font-semibold text-slate-700 mt-0.5">Marcar desde el inicio que se trata de una nueva etapa del podcast sin tiempos rígidos.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Spotlight: Momento Colgas (Sección de Valores) -->
+            <section class="bg-slate-900 text-white rounded-3xl p-6 md:p-12 space-y-8 relative overflow-hidden">
+                <div class="max-w-3xl relative z-10 space-y-6">
+                    <span class="bg-orange-500 text-slate-900 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full w-fit">Elemento distintivo</span>
+                    <h3 class="text-2xl md:text-3xl font-black tracking-tight text-white">Momento Colgas: Dinámica de valores corporativos</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed max-w-xl">
+                        Este bloque es el espacio distintivo del episodio. Utiliza tarjetas físicas reales con los valores de Colgas situadas en la mesa de grabación, con el fin de obtener historias, anécdotas y reflexiones personales de los invitados. Cada participante escribirá una frase de valor en su tarjeta, las cuales se conservarán como memoria física de la Tercera temporada del podcast.
+                    </p>
+                    
+                    <!-- Selection Switcher -->
+                    <div class="flex flex-wrap gap-2 bg-white/5 p-1 rounded-2xl w-fit">
+                        <button onclick="switchValType('optionA')" id="btn-val-A" class="px-4 py-2.5 rounded-xl text-xs font-semibold transition-all bg-white text-slate-900 shadow-sm">
+                            Opción A: El valor que hizo posible el proyecto
+                        </button>
+                        <button onclick="switchValType('optionB')" id="btn-val-B" class="px-4 py-2.5 rounded-xl text-xs font-semibold transition-all text-slate-300 hover:text-white">
+                            Opción B: El valor que me mueve
+                        </button>
+                    </div>
+
+                    <!-- Dynamic Value Explanation -->
+                    <div class="bg-white/5 border border-white/10 rounded-2xl p-5 md:p-6 space-y-4" id="val-type-desc">
+                        <div class="flex items-center gap-2 text-orange-400 font-bold text-sm">
+                            <i data-lucide="check" class="w-4 h-4"></i>
+                            <span>¿Cuándo se utiliza la Opción A?</span>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Se implementa en episodios que giran en torno a un proyecto concreto, alianza, implementación de tecnologías específicas o transformaciones logradas entre varias organizaciones asociadas a Colgas.
+                        </p>
+                        <div class="pt-4 border-t border-white/5 space-y-2">
+                            <span class="text-[10px] uppercase tracking-wider text-slate-500 block">Pregunta clave de set</span>
+                            <p class="text-sm italic font-medium">"Después de conocer la dimensión y los retos de este proyecto, ¿cuál de estos valores oficiales de Colgas consideran que hizo posible que se convirtiera en realidad y por qué?"</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Showcase de Tarjetas Físicas del Momento Colgas con Visualización Completa -->
+                <div class="relative z-10 space-y-4 border-t border-white/15 pt-8">
+                    <div class="flex items-center gap-2 text-orange-400 font-bold text-xs uppercase tracking-widest">
+                        <i data-lucide="layers" class="w-4 h-4"></i>
+                        <span>Diseño físico de las tarjetas de valores para la mesa</span>
+                    </div>
+                    <p class="text-xs text-slate-400 max-w-2xl leading-relaxed">
+                        A continuación se presenta el diseño de la parte delantera y trasera de las tarjetas impresas que los invitados sostendrán en el set. Se muestran completas y adaptables en proporción original.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl">
+                        <!-- Tarjeta Frente -->
+                        <div class="bg-slate-950 border border-white/10 p-4 rounded-2xl flex flex-col gap-3">
+                            <span class="text-[10px] text-orange-500 uppercase tracking-wider font-extrabold flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-orange-500"></span> Parte delantera / Valores
+                            </span>
+                            <div class="bg-slate-900 rounded-xl overflow-hidden shadow-xl p-2 flex items-center justify-center">
+                                <img src="https://i.postimg.cc/6pshkyg5/tarjeta-trasera.png" alt="Tarjeta Frente" class="w-full h-auto max-h-[320px] object-contain rounded-lg" onerror="this.src='https://placehold.co/600x375/0f172a/f97316?text=Tarjeta+Frente+Valores'">
+                            </div>
+                        </div>
+                        <!-- Tarjeta Reverso -->
+                        <div class="bg-slate-950 border border-white/10 p-4 rounded-2xl flex flex-col gap-3">
+                            <span class="text-[10px] text-orange-500 uppercase tracking-wider font-extrabold flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-orange-500"></span> Parte trasera / Identidad del podcast
+                            </span>
+                            <div class="bg-slate-900 rounded-xl overflow-hidden shadow-xl p-2 flex items-center justify-center">
+                                <img src="https://i.postimg.cc/L8zV2mFT/parte-trasera-podcast.png" alt="Tarjeta Reverso" class="w-full h-auto max-h-[320px] object-contain rounded-lg" onerror="this.src='https://placehold.co/600x375/0f172a/f97316?text=Tarjeta+Reverso+Podcast'">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="absolute right-0 bottom-0 w-1/3 h-2/3 bg-gradient-to-t from-orange-500/10 to-transparent pointer-events-none rounded-full blur-3xl"></div>
+            </section>
+
+            <!-- Apoyos Visuales para Facilitar la Comprensión -->
+            <section class="bg-white border border-slate-100 rounded-3xl p-6 md:p-12 shadow-sm space-y-6">
+                <div class="border-b border-slate-100 pb-4">
+                    <span class="text-xs font-black uppercase tracking-widest text-orange-600 bg-orange-50 px-3 py-1 rounded-full">Soporte narrativo y visual</span>
+                    <h3 class="text-xl md:text-2xl font-black tracking-tight text-slate-900 mt-3 flex items-center gap-2">
+                        <i data-lucide="clapperboard" class="text-colgas-blue"></i>
+                        Apoyos visuales para facilitar la comprensión
+                    </h3>
+                </div>
+                <p class="text-sm text-slate-600 leading-relaxed max-w-3xl">
+                    Para asegurar que los conceptos del sector energético sean accesibles y sencillos de comprender para todo público, la edición de cada episodio podrá incorporar textos descriptivos, animaciones dinámicas, comparaciones prácticas y recursos gráficos que aclaren de manera directa conceptos complejos, cifras y datos de la conversación.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl flex flex-col gap-3">
+                        <span class="text-[10px] text-slate-400 uppercase tracking-widest font-black">Ejemplo 1: Explicadores conceptuales de soporte</span>
+                        <div class="bg-white rounded-xl overflow-hidden border border-slate-100 shadow-md p-2 flex items-center justify-center">
+                            <img src="https://i.postimg.cc/pdJkYR0P/Whats-App-Image-2026-07-14-at-7-36-40-PM.jpg" alt="Gráfico de Apoyo 1" class="w-full h-auto max-h-[280px] object-contain rounded-lg" onerror="this.src='https://placehold.co/600x337/f1f5f9/0f172a?text=Grafico+de+Apoyo+1'">
+                        </div>
+                    </div>
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl flex flex-col gap-3">
+                        <span class="text-[10px] text-slate-400 uppercase tracking-widest font-black">Ejemplo 2: Presentación gráfica de métricas y datos</span>
+                        <div class="bg-white rounded-xl overflow-hidden border border-slate-100 shadow-md p-2 flex items-center justify-center">
+                            <img src="https://i.postimg.cc/SKfV7kZX/Whats-App-Image-2026-07-14-at-7-36-59-PM.jpg" alt="Gráfico de Apoyo 2" class="w-full h-auto max-h-[280px] object-contain rounded-lg" onerror="this.src='https://placehold.co/600x337/f1f5f9/0f172a?text=Grafico+de+Apoyo+2'">
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-blue-50 border border-blue-100 p-4 rounded-2xl flex items-center gap-3">
+                    <i data-lucide="info" class="text-colgas-blue shrink-0"></i>
+                    <p class="text-xs text-slate-700 leading-relaxed font-semibold">
+                        Este soporte visual ayuda a que las ideas complejas se transmitan con claridad y dinamismo a lo largo del episodio, facilitando su comprensión sin explicaciones adicionales.
+                    </p>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= TAB 2: APLICACIÓN EPISODIO 1 ================= -->
+        <div id="tab-episodio1" class="tab-content hidden space-y-6 md:space-y-8">
+            
+            <!-- Context card Episode 1 -->
+            <div class="bg-white border border-slate-100 rounded-3xl p-6 md:p-10 shadow-sm flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+                <div class="space-y-2">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Ejemplo práctico de aplicación</span>
+                    <h3 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Episodio 1: Energía solar con Jerónimo Martins y Tiendas Ara</h3>
+                    <p class="text-slate-500 text-sm max-w-2xl">
+                        Navega a través de cada bloque de la escaleta interactiva para ver el guion propuesto y las dinámicas en set. Al tratarse de un caso con un proyecto empresarial concreto, se utilizará exclusivamente la <span class="font-bold text-colgas-blue">Opción A del Momento Colgas</span>.
+                    </p>
+                </div>
+                <div class="bg-blue-50 border border-blue-100 p-4 rounded-2xl shrink-0 flex items-center gap-3 w-full lg:w-auto">
+                    <div class="w-10 h-10 rounded-xl bg-colgas-blue text-white flex items-center justify-center shrink-0">
+                        <i data-lucide="info" class="w-5 h-5"></i>
+                    </div>
+                    <div class="text-xs">
+                        <span class="font-bold text-slate-900 uppercase block mb-0.5">Nota de marca</span>
+                        <p class="text-slate-600 leading-tight">Durante el diálogo se usará principalmente<br/><span class="font-bold text-colgas-blue">Tiendas Ara</span> por su alta recordación.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordion List Container -->
+            <div class="space-y-4">
+
+                <!-- BLOQUE 1 -->
+                <div class="bg-white border border-slate-150 rounded-2xl overflow-hidden shadow-xs transition-all duration-300">
+                    <button onclick="toggleEpisodeBlock(1)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
+                        <span class="flex items-center gap-3">
+                            <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-mono font-bold shrink-0">1</span>
+                            <span>Bloque 1: Cabezote de apertura</span>
+                        </span>
+                        <div class="flex items-center gap-3">
+                            <span class="text-[10px] md:text-xs font-normal text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full font-mono">Cabezote oficial</span>
+                            <i data-lucide="chevron-down" id="ep-icon-1" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
+                        </div>
+                    </button>
+                    <div id="ep-content-1" class="accordion-content border-t border-slate-100 bg-slate-50/50">
+                        <div class="p-5 md:p-8 space-y-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-3">
+                                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block">¿Qué sucede en pantalla?</span>
+                                    <p class="text-sm text-slate-600 leading-relaxed">
+                                        El podcast inicia con el cabezote audiovisual oficial de la Tercera temporada. Una animación que presenta el cambio de identidad visual y sonora de Colgas.
+                                    </p>
+                                </div>
+                                <div class="bg-white p-4 rounded-xl border border-slate-100 space-y-2">
+                                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block">Elementos gráficos que aparecen</span>
+                                    <ul class="text-xs text-slate-600 space-y-1">
+                                        <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> Nombre: "Mejor Energía, Mejor Vida"</li>
+                                        <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> Identificador: "Tercera temporada"</li>
+                                        <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> Firma animada de Colgas</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BLOQUE 2 -->
+                <div class="bg-white border border-slate-150 rounded-2xl overflow-hidden shadow-xs transition-all duration-300">
+                    <button onclick="toggleEpisodeBlock(2)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
+                        <span class="flex items-center gap-3">
+                            <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-mono font-bold shrink-0">2</span>
+                            <span>Bloque 2: Introducción del host (Solo a cámara)</span>
+                        </span>
+                        <div class="flex items-center gap-3">
+                            <span class="text-[10px] md:text-xs font-normal text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full font-mono">Host solo</span>
+                            <i data-lucide="chevron-down" id="ep-icon-2" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
+                        </div>
+                    </button>
+                    <div id="ep-content-2" class="accordion-content border-t border-slate-100 bg-slate-50/50">
+                        <div class="p-5 md:p-8 space-y-6">
+                            <div class="bg-blue-50/50 border border-blue-100 p-4 rounded-xl flex items-start gap-3">
+                                <i data-lucide="eye" class="text-colgas-blue w-5 h-5 mt-0.5 shrink-0"></i>
+                                <div class="text-xs">
+                                    <span class="font-bold text-blue-900 block mb-0.5">Puesta en escena</span>
+                                    <p class="text-slate-600 leading-relaxed">El host aparece solo, sentado y mirando directamente a cámara. Los invitados no están en plano aún. Esto marca un cambio frente a las temporadas pasadas, asegurando una conducción editorial fuerte.</p>
+                                </div>
+                            </div>
+
+                            <div class="space-y-4">
+                                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block">Guion del host</span>
+                                <div class="bg-white border-l-4 border-colgas-blue p-5 md:p-6 rounded-r-2xl text-slate-700 space-y-4 text-xs md:text-sm italic leading-relaxed">
+                                    <p class="font-bold text-slate-900 not-italic">"Bienvenidos a la tercera temporada de nuestro podcast Mejor Energía, Mejor Vida."</p>
+                                    <p class="text-slate-500">"En esta nueva temporada tendremos grandes invitados con quienes conversaremos sobre las temáticas más interesantes de nuestro sector, como lo son las energías renovables, responsabilidad empresarial, descarbonización, sostenibilidad y mucho más."</p>
+                                    <p class="text-slate-500">"Desde Colgas venimos avanzando en la transición energética a través de Colgas Energía, nuestro negocio transversal, con el que desarrollamos soluciones energéticas para empresas de diferentes sectores."</p>
+                                    <p class="font-bold text-slate-900 not-italic">"En este episodio vamos a conocer el proyecto de energía solar desarrollado junto a Jerónimo Martins y Tiendas Ara..."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BLOQUE 3 -->
+                <div class="bg-white border border-slate-150 rounded-2xl overflow-hidden shadow-xs transition-all duration-300">
+                    <button onclick="toggleEpisodeBlock(3)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
+                        <span class="flex items-center gap-3">
+                            <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-mono font-bold shrink-0">3</span>
+                            <span>Bloque 3: Las tres preguntas del episodio</span>
+                        </span>
+                        <div class="flex items-center gap-3">
+                            <span class="text-[10px] md:text-xs font-normal text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full font-mono font-bold text-orange-600">Preguntas de apertura</span>
+                            <i data-lucide="chevron-down" id="ep-icon-3" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
+                        </div>
+                    </button>
+                    <div id="ep-content-3" class="accordion-content border-t border-slate-100 bg-slate-50/50">
+                        <div class="p-5 md:p-8 space-y-6">
+                            <div class="space-y-1">
+                                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block">Lógica de las preguntas de apertura</span>
+                                <p class="text-sm text-slate-600 leading-relaxed">
+                                    Las preguntas deben plantearse de forma clara y autoexplicativa, lo que permite que en postproducción puedan adaptarse como contenidos breves para redes sociales.
+                                </p>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="bg-white border border-l-4 border-l-blue-600 p-4 rounded-r-xl border border-slate-150 shadow-xs">
+                                    <span class="text-[10px] font-bold text-blue-600 uppercase tracking-widest block">Pregunta de apertura 1</span>
+                                    <h5 class="font-bold text-xs md:text-sm text-slate-900 mt-2 leading-snug">¿La energía solar realmente genera ahorro para una empresa?</h5>
+                                </div>
+                                <div class="bg-white border border-l-4 border-l-blue-600 p-4 rounded-r-xl border border-slate-150 shadow-xs">
+                                    <span class="text-[10px] font-bold text-blue-600 uppercase tracking-widest block">Pregunta de apertura 2</span>
+                                    <h5 class="font-bold text-xs md:text-sm text-slate-900 mt-2 leading-snug">¿Cómo se implementa un proyecto de energía solar en una cadena como Tiendas Ara?</h5>
+                                </div>
+                                <div class="bg-white border border-l-4 border-l-blue-600 p-4 rounded-r-xl border border-slate-150 shadow-xs">
+                                    <span class="text-[10px] font-bold text-blue-600 uppercase tracking-widest block">Pregunta de apertura 3</span>
+                                    <h5 class="font-bold text-xs md:text-sm text-slate-900 mt-2 leading-snug">¿Qué impacto ha tenido la energía solar en la operación y en la huella ambiental de Tiendas Ara?</h5>
+                                </div>
+                            </div>
+
+                            <div class="bg-orange-50 border border-orange-100 p-4 rounded-xl text-xs space-y-1">
+                                <p class="font-bold text-orange-950">Transición del host hacia el set completo (Cierre de introducción):</p>
+                                <p class="italic text-orange-900">“Para conocer cómo nació este proyecto, cómo se llevó a la realidad y cuáles fueron sus principales retos, hoy tenemos grandes invitados. Vamos a conocerlos.”</p>
+                                <p class="text-[10px] text-orange-700 uppercase tracking-wider font-bold mt-2">[CORTE Y TRANSICIÓN AUDIOVISUAL - ENTRADA A SET COMPLETO]</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BLOQUE 4 -->
+                <div class="bg-white border border-slate-150 rounded-2xl overflow-hidden shadow-xs transition-all duration-300">
+                    <button onclick="toggleEpisodeBlock(4)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
+                        <span class="flex items-center gap-3">
+                            <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-mono font-bold shrink-0">4</span>
+                            <span>Bloque 4: Presentación de los invitados (Set completo)</span>
+                        </span>
+                        <div class="flex items-center gap-3">
+                            <span class="text-[10px] md:text-xs font-normal text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full font-mono">Casting</span>
+                            <i data-lucide="chevron-down" id="ep-icon-4" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
+                        </div>
+                    </button>
+                    <div id="ep-content-4" class="accordion-content border-t border-slate-100 bg-slate-50/50">
+                        <div class="p-5 md:p-8 space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-4">
+                                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block">Dinámica de bienvenida</span>
+                                    <p class="text-sm text-slate-600 leading-relaxed">
+                                        Se pasa al plano general con todos los invitados listos y sentados. El presentador les da la bienvenida directa con una fórmula cercana que promueve que el invitado se presente con sus propias palabras, evitando lecturas de perfiles muy extensas.
+                                    </p>
+                                    <div class="bg-white p-4 rounded-xl border border-slate-100 text-xs italic space-y-2">
+                                        <p class="font-bold text-slate-800">Ejemplo de locución:</p>
+                                        <p class="text-slate-600 font-semibold">“Frank, bienvenido a Mejor Energía, Mejor Vida. Es un gusto tenerte con nosotros. ¿Cómo estás?”</p>
+                                        <p class="text-slate-600 font-semibold">“Para las personas que todavía no te conocen, cuéntanos: ¿quién eres y a qué te dedicas?”</p>
+                                    </div>
+                                </div>
+                                <div class="bg-white p-5 rounded-xl border border-slate-100 space-y-3">
+                                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block">Datos que aporta el invitado</span>
+                                    <ul class="text-xs text-slate-600 space-y-2">
+                                        <li class="flex items-start gap-2"><i data-lucide="check" class="text-green-500 w-4 h-4 shrink-0"></i> Nombre completo</li>
+                                        <li class="flex items-start gap-2"><i data-lucide="check" class="text-green-500 w-4 h-4 shrink-0"></i> Cargo o profesión</li>
+                                        <li class="flex items-start gap-2"><i data-lucide="check" class="text-green-500 w-4 h-4 shrink-0"></i> Compañía a la que representa</li>
+                                        <li class="flex items-start gap-2"><i data-lucide="check" class="text-green-500 w-4 h-4 shrink-0"></i> Relación específica con el proyecto solar</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BLOQUE 5 -->
+                <div class="bg-white border border-slate-150 rounded-2xl overflow-hidden shadow-xs transition-all duration-300">
+                    <button onclick="toggleEpisodeBlock(5)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
+                        <span class="flex items-center gap-3">
+                            <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-mono font-bold shrink-0">5</span>
+                            <span>Bloque 5: Origen de la conversación</span>
+                        </span>
+                        <div class="flex items-center gap-3">
+                            <span class="text-[10px] md:text-xs font-normal text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full font-mono">Conversación</span>
+                            <i data-lucide="chevron-down" id="ep-icon-5" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
+                        </div>
+                    </button>
+                    <div id="ep-content-5" class="accordion-content border-t border-slate-100 bg-slate-50/50">
+                        <div class="p-5 md:p-8 space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-3">
+                                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block">La primera pregunta</span>
+                                    <p class="text-sm text-slate-600 leading-relaxed">
+                                        Iniciamos con el origen de la historia, no con números o lenguaje excesivamente técnico. Esto asegura que la audiencia se conecte de inmediato con el contexto.
+                                    </p>
+                                </div>
+                                <div class="bg-white p-5 rounded-xl border border-slate-150 shadow-xs space-y-3">
+                                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block">Fórmula de set sugerida</span>
+                                    <p class="text-sm italic font-medium text-slate-900 leading-relaxed">
+                                        “Antes de hablar de paneles, cifras y tecnología, quiero que empecemos por el principio. ¿Qué necesidad tenía Tiendas Ara y por qué la energía solar apareció como una alternativa?”
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BLOQUE 6 -->
+                <div class="bg-white border border-slate-150 rounded-2xl overflow-hidden shadow-xs transition-all duration-300">
+                    <button onclick="toggleEpisodeBlock(6)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
+                        <span class="flex items-center gap-3">
+                            <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-mono font-bold shrink-0">6</span>
+                            <span>Bloque 6: Desarrollo de la conversación</span>
+                        </span>
+                        <div class="flex items-center gap-3">
+                            <span class="text-[10px] md:text-xs font-normal text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full font-mono">Narrativa en 4 momentos</span>
+                            <i data-lucide="chevron-down" id="ep-icon-6" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
+                        </div>
+                    </button>
+                    <div id="ep-content-6" class="accordion-content border-t border-slate-100 bg-slate-50/50">
+                        <div class="p-5 md:p-8 space-y-6">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-1">Recorrido temático del episodio</span>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                                <div class="bg-white p-4 rounded-xl border border-slate-100 space-y-1">
+                                    <span class="text-[9px] font-bold text-blue-600 uppercase">Momento 1</span>
+                                    <h5 class="font-bold text-xs text-slate-800">Origen de Colgas Energía</h5>
+                                    <p class="text-[10px] text-slate-500">Cómo nace Colgas Energía como unidad transversal para dar solución al sector.</p>
+                                </div>
+                                <div class="bg-white p-4 rounded-xl border border-slate-100 space-y-1">
+                                    <span class="text-[9px] font-bold text-blue-600 uppercase">Momento 2</span>
+                                    <h5 class="font-bold text-xs text-slate-800">Visión de Jerónimo Martins y Tiendas Ara</h5>
+                                    <p class="text-[10px] text-slate-500">La importancia del entorno y de las metas de descarbonización.</p>
+                                </div>
+                                <div class="bg-white p-4 rounded-xl border border-slate-100 space-y-1">
+                                    <span class="text-[9px] font-bold text-blue-600 uppercase">Momento 3</span>
+                                    <h5 class="font-bold text-xs text-slate-800">Desarrollo del proyecto</h5>
+                                    <p class="text-[10px] text-slate-500">La implementación, retos logísticos superados y el proceso de instalación.</p>
+                                </div>
+                                <div class="bg-white p-4 rounded-xl border border-slate-100 space-y-1">
+                                    <span class="text-[9px] font-bold text-blue-600 uppercase">Momento 4</span>
+                                    <h5 class="font-bold text-xs text-slate-800">Experiencia y cambios observados</h5>
+                                    <p class="text-[10px] text-slate-500">Cifras, resultados medibles, efectos en la operación y aportes ambientales integrados.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BLOQUE 7 -->
+                <div class="bg-white border border-slate-150 rounded-2xl overflow-hidden shadow-xs transition-all duration-300">
+                    <button onclick="toggleEpisodeBlock(7)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
+                        <span class="flex items-center gap-3">
+                            <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-mono font-bold shrink-0">7</span>
+                            <span>Bloque 7: Tratamiento de preguntas de Colgas</span>
+                        </span>
+                        <div class="flex items-center gap-3">
+                            <span class="text-[10px] md:text-xs font-normal text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full font-mono">Criterio editorial</span>
+                            <i data-lucide="chevron-down" id="ep-icon-7" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
+                        </div>
+                    </button>
+                    <div id="ep-content-7" class="accordion-content border-t border-slate-100 bg-slate-50/50">
+                        <div class="p-5 md:p-8 space-y-6">
+                            <div class="space-y-1">
+                                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block font-mono">Comparador dinámico de estilo</span>
+                                <p class="text-sm text-slate-600">Las preguntas de Colgas se preservan en su intención fundamental, pero se adaptan editorialmente para promover un diálogo más fluido.</p>
+                            </div>
+
+                            <!-- Inner Accordion System for the 5 Questions -->
+                            <div class="space-y-4">
+                                <!-- Colgas Q1 -->
+                                <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
+                                    <button onclick="toggleInnerAccordion(1)" class="w-full px-4 py-3 md:px-5 md:py-3.5 text-left font-semibold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-xs md:text-sm">
+                                        <span>Eje 1: Colgas Energía y el negocio transversal</span>
+                                        <i data-lucide="chevron-down" id="inner-icon-1" class="w-4 h-4 text-slate-400 transition-all shrink-0"></i>
+                                    </button>
+                                    <div id="inner-content-1" class="hidden border-t border-slate-100 bg-slate-50/50 p-4 md:p-5 grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                                        <div class="bg-white p-4 rounded-lg border border-slate-100">
+                                            <span class="font-bold text-slate-400 uppercase block mb-1">Original de Colgas</span>
+                                            <p class="text-slate-600 italic">"¿Cómo ha sido el camino que Colgas ha recorrido en términos de la creación de su negocio transversal Colgas Energía?"</p>
+                                        </div>
+                                        <div class="bg-blue-50/50 p-4 rounded-lg border border-blue-100">
+                                            <span class="font-bold text-blue-700 uppercase block mb-1">Versión recomendada</span>
+                                            <p class="text-slate-900 font-bold">"¿Cómo nació Colgas Energía y por qué Colgas decidió ampliar sus soluciones más allá del GLP?"</p>
+                                        </div>
+                                        <div class="bg-emerald-50/50 p-4 rounded-lg border border-emerald-100">
+                                            <span class="font-bold text-emerald-700 uppercase block mb-1">Repreguntas de apoyo</span>
+                                            <ul class="list-disc pl-4 text-slate-600 space-y-1">
+                                                <li>¿Qué significa que sea un negocio transversal?</li>
+                                                <li>¿Cómo cambia la relación cuando se pasa de vender un producto a acompañar una transformación energética completa?</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Colgas Q2 -->
+                                <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
+                                    <button onclick="toggleInnerAccordion(2)" class="w-full px-4 py-3 md:px-5 md:py-3.5 text-left font-semibold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-xs md:text-sm">
+                                        <span>Eje 2: Visión de Jerónimo Martins y Tiendas Ara</span>
+                                        <i data-lucide="chevron-down" id="inner-icon-2" class="w-4 h-4 text-slate-400 transition-all shrink-0"></i>
+                                    </button>
+                                    <div id="inner-content-2" class="hidden border-t border-slate-100 bg-slate-50/50 p-4 md:p-5 grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                                        <div class="bg-white p-4 rounded-lg border border-slate-100">
+                                            <span class="font-bold text-slate-400 uppercase block mb-1">Original de Colgas</span>
+                                            <p class="text-slate-600 italic">"¿Cuál es la visión de Jerónimo Martins como uno de los retails más importantes del país, en términos de cuidado del medio ambiente?"</p>
+                                        </div>
+                                        <div class="bg-blue-50/50 p-4 rounded-lg border border-blue-100">
+                                            <span class="font-bold text-blue-700 uppercase block mb-1">Versión recomendada</span>
+                                            <p class="text-slate-900 font-bold">"¿Qué lugar ocupa la sostenibilidad dentro de la visión de Jerónimo Martins y Tiendas Ara?"</p>
+                                        </div>
+                                        <div class="bg-emerald-50/50 p-4 rounded-lg border border-emerald-100">
+                                            <span class="font-bold text-emerald-700 uppercase block mb-1">Repreguntas de apoyo</span>
+                                            <ul class="list-disc pl-4 text-slate-600 space-y-1">
+                                                <li>¿La sostenibilidad se entiende como una responsabilidad ambiental, una decisión empresarial o ambas?</li>
+                                                <li>¿Qué metas globales tiene la compañía frente a su huella de carbono?</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Colgas Q3 -->
+                                <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
+                                    <button onclick="toggleInnerAccordion(3)" class="w-full px-4 py-3 md:px-5 md:py-3.5 text-left font-semibold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-xs md:text-sm">
+                                        <span>Eje 3: Reducción de huella de carbono</span>
+                                        <i data-lucide="chevron-down" id="inner-icon-3" class="w-4 h-4 text-slate-400 transition-all shrink-0"></i>
+                                    </button>
+                                    <div id="inner-content-3" class="hidden border-t border-slate-100 bg-slate-50/50 p-4 md:p-5 grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                                        <div class="bg-white p-4 rounded-lg border border-slate-100">
+                                            <span class="font-bold text-slate-400 uppercase block mb-1">Original de Colgas</span>
+                                            <p class="text-slate-600 italic">"Teniendo en cuenta esta visión, ¿cómo se han sumado desde su operación para llevar a cabo estas iniciativas de reducción de la huella de carbono y mejoramiento en la calidad y optimización de sus procesos?"</p>
+                                        </div>
+                                        <div class="bg-blue-50/50 p-4 rounded-lg border border-blue-100">
+                                            <span class="font-bold text-blue-700 uppercase block mb-1">Versión recomendada</span>
+                                            <p class="text-slate-900 font-bold">"¿Qué cambios han realizado en la operación de Tiendas Ara para reducir su huella de carbono y ser más eficientes?"</p>
+                                        </div>
+                                        <div class="bg-emerald-50/50 p-4 rounded-lg border border-emerald-100">
+                                            <span class="font-bold text-emerald-700 uppercase block mb-1">Repreguntas de apoyo</span>
+                                            <ul class="list-disc pl-4 text-slate-600 space-y-1">
+                                                <li>¿Cuál de estas iniciativas ha tenido el mayor impacto?</li>
+                                                <li>¿Cómo se logra que estas acciones no se queden únicamente en una política de papel?</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Colgas Q4 -->
+                                <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
+                                    <button onclick="toggleInnerAccordion(4)" class="w-full px-4 py-3 md:px-5 md:py-3.5 text-left font-semibold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-xs md:text-sm">
+                                        <span>Eje 4: Datos, cifras y alcance del proyecto solar</span>
+                                        <i data-lucide="chevron-down" id="inner-icon-4" class="w-4 h-4 text-slate-400 transition-all shrink-0"></i>
+                                    </button>
+                                    <div id="inner-content-4" class="hidden border-t border-slate-100 bg-slate-50/50 p-4 md:p-5 grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                                        <div class="bg-white p-4 rounded-lg border border-slate-100">
+                                            <span class="font-bold text-slate-400 uppercase block mb-1">Original de Colgas</span>
+                                            <p class="text-slate-600 italic">"Juan, ¿cuéntanos cómo se ha desarrollado este proyecto con Jerónimo Martins? ¿Cuántos paneles se han instalado? ¿Cuántas tiendas Ara tienen paneles solares hoy? ¿Cuál es la capacidad instalada?"</p>
+                                        </div>
+                                        <div class="bg-blue-50/50 p-4 rounded-lg border border-blue-100">
+                                            <span class="font-bold text-blue-700 uppercase block mb-1">Recomendación editorial (División de la pregunta)</span>
+                                            <p class="text-slate-900 font-bold mb-1">Dividir la pregunta para que cada dato tenga espacio y se facilite la conversación:</p>
+                                            <ul class="list-disc pl-4 text-slate-800 space-y-1 font-semibold">
+                                                <li>¿Cómo se desarrolló el proyecto de energía solar con Ara?</li>
+                                                <li>¿Cuántas tiendas cuentan con paneles actualmente?</li>
+                                                <li>¿Cuál es la capacidad instalada del proyecto?</li>
+                                                <li>Para alguien que no conoce el sector, ¿qué representa esa capacidad?</li>
+                                            </ul>
+                                        </div>
+                                        <div class="bg-emerald-50/50 p-4 rounded-lg border border-emerald-100">
+                                            <span class="font-bold text-emerald-700 uppercase block mb-1">Repreguntas de apoyo</span>
+                                            <ul class="list-disc pl-4 text-slate-600 space-y-1">
+                                                <li>¿Todas las tiendas podían recibir la misma solución?</li>
+                                                <li>¿Cómo se realizó la instalación sin interrumpir la operación de venta diaria de Tiendas Ara?</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Colgas Q5 -->
+                                <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
+                                    <button onclick="toggleInnerAccordion(5)" class="w-full px-4 py-3 md:px-5 md:py-3.5 text-left font-semibold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-xs md:text-sm">
+                                        <span>Eje 5: Impacto directo en la operación de Ara</span>
+                                        <i data-lucide="chevron-down" id="inner-icon-5" class="w-4 h-4 text-slate-400 transition-all shrink-0"></i>
+                                    </button>
+                                    <div id="inner-content-5" class="hidden border-t border-slate-100 bg-slate-50/50 p-4 md:p-5 grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                                        <div class="bg-white p-4 rounded-lg border border-slate-100">
+                                            <span class="font-bold text-slate-400 uppercase block mb-1">Original de Colgas</span>
+                                            <p class="text-slate-600 italic">"¿Cómo ha impactado en su operación la instalación de estos paneles solares?"</p>
+                                        </div>
+                                        <div class="bg-blue-50/50 p-4 rounded-lg border border-blue-100">
+                                            <span class="font-bold text-blue-700 uppercase block mb-1">Versión recomendada</span>
+                                            <p class="text-slate-900 font-bold">"¿Qué impacto ha tenido la energía solar en la operación de Tiendas Ara?"</p>
+                                        </div>
+                                        <div class="bg-emerald-50/50 p-4 rounded-lg border border-emerald-100">
+                                            <span class="font-bold text-emerald-700 uppercase block mb-1">Repreguntas de apoyo</span>
+                                            <ul class="list-disc pl-4 text-slate-600 space-y-1">
+                                                <li>¿Qué porcentaje del consumo total se ha logrado mitigar?</li>
+                                                <li>¿Los beneficios observados son tanto ambientales como económicos?</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BLOQUE 8 -->
+                <div class="bg-white border border-slate-150 rounded-2xl overflow-hidden shadow-xs transition-all duration-300">
+                    <button onclick="toggleEpisodeBlock(8)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
+                        <span class="flex items-center gap-3">
+                            <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-mono font-bold shrink-0">8</span>
+                            <span>Bloque 8: Momento Colgas (Sección de valores en acción)</span>
+                        </span>
+                        <div class="flex items-center gap-3">
+                            <span class="text-[10px] md:text-xs font-normal text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full font-mono">Valores oficiales</span>
+                            <i data-lucide="chevron-down" id="ep-icon-8" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
+                        </div>
+                    </button>
+                    <div id="ep-content-8" class="accordion-content border-t border-slate-100 bg-slate-50/50">
+                        <div class="p-5 md:p-8 space-y-6">
+                            <div class="space-y-2">
+                                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block font-mono">Valores oficiales Colgas</span>
+                                <p class="text-sm text-slate-600 leading-relaxed">
+                                    En el set se disponen tarjetas físicas reales con los 6 valores oficiales de Colgas. Al realizar la dinámica, cada invitado seleccionará un valor. Haz clic en cualquier valor para revelar la pregunta del set y su repregunta específica para este caso.
+                                </p>
+                            </div>
+
+                            <div class="grid grid-cols-2 md:grid-cols-6 gap-3" id="values-grid">
+                                <!-- RESILIENCIA -->
+                                <button onclick="selectValueCard('Resiliencia', 'Durante el desarrollo de esta alianza, ¿en qué momentos sintieron que la resiliencia fue el factor clave para mantener el avance del proyecto?', '¿A qué desafíos imprevistos se enfrentaron y de qué manera el equipo logró resolverlos?')" class="bg-white border border-slate-100 hover:border-orange-500 hover:bg-orange-50 p-4 rounded-xl transition-all text-center group flex flex-col items-center justify-center gap-2">
+                                    <i data-lucide="shield" class="w-6 h-6 text-orange-500 group-hover:text-orange-600"></i>
+                                    <span class="text-[10px] font-bold uppercase tracking-wider block">Resiliencia</span>
+                                </button>
+                                <!-- LEGADO -->
+                                <button onclick="selectValueCard('Legado', 'Al integrar energías limpias en la operación de Tiendas Ara, ¿qué tipo de legado esperan construir para la comunidad y el entorno?', '¿Cómo visualizan la trascendencia de este proyecto en la visión de sostenibilidad de ambas compañías a largo plazo?')" class="bg-white border border-slate-100 hover:border-orange-500 hover:bg-orange-50 p-4 rounded-xl transition-all text-center group flex flex-col items-center justify-center gap-2">
+                                    <i data-lucide="award" class="w-6 h-6 text-orange-500 group-hover:text-orange-600"></i>
+                                    <span class="text-[10px] font-bold uppercase tracking-wider block">Legado</span>
+                                </button>
+                                <!-- ESFUERZO -->
+                                <button onclick="selectValueCard('Esfuerzo', 'La puesta en marcha de un proyecto conjunto requiere un esfuerzo coordinado importante. ¿Cuáles fueron las etapas de mayor exigencia para sus equipos de trabajo?', '¿De qué manera la articulación entre las partes facilitó la superación de las fases más complejas?')" class="bg-white border border-slate-100 hover:border-orange-500 hover:bg-orange-50 p-4 rounded-xl transition-all text-center group flex flex-col items-center justify-center gap-2">
+                                    <i data-lucide="zap" class="w-6 h-6 text-orange-500 group-hover:text-orange-600"></i>
+                                    <span class="text-[10px] font-bold uppercase tracking-wider block">Esfuerzo</span>
+                                </button>
+                                <!-- DISCIPLINA -->
+                                <button onclick="selectValueCard('Disciplina', 'Para cumplir con los cronogramas y asegurar el éxito del proyecto, la disciplina operativa es fundamental. ¿Cómo se estructuró el trabajo diario para mantener la eficiencia en el set de instalación?', '¿Qué dinámicas de coordinación y orden interno destacaría durante la ejecución?')" class="bg-white border border-slate-100 hover:border-orange-500 hover:bg-orange-50 p-4 rounded-xl transition-all text-center group flex flex-col items-center justify-center gap-2">
+                                    <i data-lucide="check-square" class="w-6 h-6 text-orange-500 group-hover:text-orange-600"></i>
+                                    <span class="text-[10px] font-bold uppercase tracking-wider block">Disciplina</span>
+                                </button>
+                                <!-- SACRIFICIO -->
+                                <button onclick="selectValueCard('Sacrificio', 'Asumir retos de transformación implica a veces priorizar la sostenibilidad sobre metodologías tradicionales. ¿Cómo vivieron el proceso de adaptación a estas nuevas dinámicas?', '¿De qué manera este cambio ha aportado valor al equipo de trabajo y a la organización?')" class="bg-white border border-slate-100 hover:border-orange-500 hover:bg-orange-50 p-4 rounded-xl transition-all text-center group flex flex-col items-center justify-center gap-2">
+                                    <i data-lucide="heart" class="w-6 h-6 text-orange-500 group-hover:text-orange-600"></i>
+                                    <span class="text-[10px] font-bold uppercase tracking-wider block">Sacrificio</span>
+                                </button>
+                                <!-- PERSEVERANCIA -->
+                                <button onclick="selectValueCard('Perseverancia', 'Consolidar alianzas a largo plazo requiere un compromiso sostenido. ¿Cómo se mantuvo la perseverancia a lo largo de las distintas etapas del diseño del proyecto?', 'Frente a las alternativas y ajustes necesarios en la planificación, ¿de qué forma el equipo mantuvo el enfoque en el objetivo común?')" class="bg-white border border-slate-100 hover:border-orange-500 hover:bg-orange-50 p-4 rounded-xl transition-all text-center group flex flex-col items-center justify-center gap-2">
+                                    <i data-lucide="trending-up" class="w-6 h-6 text-orange-500 group-hover:text-orange-600"></i>
+                                    <span class="text-[10px] font-bold uppercase tracking-wider block">Perseverancia</span>
+                                </button>
+                            </div>
+
+                            <!-- Value Specific Prompt Output Area -->
+                            <div id="value-prompt-box" class="hidden bg-slate-900 text-white p-6 rounded-2xl space-y-4 transition-all duration-300">
+                                <div class="flex items-center gap-2 text-orange-400 font-bold text-xs uppercase tracking-widest">
+                                    <i data-lucide="message-square" class="w-4 h-4"></i>
+                                    Guion de set para el host (Para el valor seleccionado)
+                                </div>
+                                <div>
+                                    <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Valor elegido por el invitado</span>
+                                    <h5 id="selected-value-title" class="font-bold text-white text-lg">Resiliencia</h5>
+                                </div>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2 border-t border-white/10">
+                                    <div>
+                                        <span class="text-[10px] text-slate-400 uppercase tracking-wider block mb-1">Pregunta principal del host</span>
+                                        <p id="selected-value-prompt" class="text-sm text-white italic font-medium leading-relaxed">
+                                            Selecciona un valor para conocer la pregunta principal.
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <span class="text-[10px] text-orange-400 uppercase tracking-wider block mb-1">Repregunta sugerida</span>
+                                        <p id="selected-value-repregunta" class="text-sm text-slate-300 italic leading-relaxed">
+                                            Selecciona un valor para conocer la repregunta específica.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BLOQUE 9 -->
+                <div class="bg-white border border-slate-150 rounded-2xl overflow-hidden shadow-xs transition-all duration-300">
+                    <button onclick="toggleEpisodeBlock(9)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
+                        <span class="flex items-center gap-3">
+                            <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-mono font-bold shrink-0">09</span>
+                            <span>Bloque 9: Pregunta final (Cierre del diálogo)</span>
+                        </span>
+                        <div class="flex items-center gap-3">
+                            <span class="text-[10px] md:text-xs font-normal text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full font-mono">Conclusión</span>
+                            <i data-lucide="chevron-down" id="ep-icon-9" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
+                        </div>
+                    </button>
+                    <div id="ep-content-9" class="accordion-content border-t border-slate-100 bg-slate-50/50">
+                        <div class="p-5 md:p-8 space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-3">
+                                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block">Propósito del cierre</span>
+                                    <p class="text-sm text-slate-600 leading-relaxed">
+                                        Se busca extraer una idea concisa de valor para el espectador y otros tomadores de decisiones de la industria en Colombia.
+                                    </p>
+                                </div>
+                                <div class="bg-white p-5 rounded-xl border border-slate-150 shadow-xs space-y-3">
+                                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block">Pregunta de set sugerida</span>
+                                    <p class="text-sm italic font-semibold text-slate-900 leading-relaxed">
+                                        “Después de vivir este proceso, ¿qué le dirían a una empresa que está pensando en comenzar su propia transición energética?”
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BLOQUE 10 -->
+                <div class="bg-white border border-slate-150 rounded-2xl overflow-hidden shadow-xs transition-all duration-300">
+                    <button onclick="toggleEpisodeBlock(10)" class="w-full px-5 py-4 md:px-6 md:py-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors flex justify-between items-center text-sm md:text-base">
+                        <span class="flex items-center gap-3">
+                            <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-mono font-bold shrink-0">10</span>
+                            <span>Bloque 10: Cierre del host y despedida</span>
+                        </span>
+                        <div class="flex items-center gap-3">
+                            <span class="text-[10px] md:text-xs font-normal text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full font-mono">Salida</span>
+                            <i data-lucide="chevron-down" id="ep-icon-10" class="w-5 h-5 text-slate-400 transition-all duration-200"></i>
+                        </div>
+                    </button>
+                    <div id="ep-content-10" class="accordion-content border-t border-slate-100 bg-slate-50/50">
+                        <div class="p-5 md:p-8 space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-3">
+                                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block">Cierre de la conversación</span>
+                                    <p class="text-sm text-slate-600 leading-relaxed">
+                                        El presentador retoma el control del set, resume el propósito de la temporada y despide oficialmente el programa antes de dar paso al cabezote de salida.
+                                    </p>
+                                </div>
+                                <div class="bg-white p-5 rounded-xl border border-slate-150 shadow-xs space-y-3">
+                                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block">Texto de salida propuesto</span>
+                                    <p class="text-xs italic text-slate-700 leading-relaxed">
+                                        “Hoy conocimos cómo Colgas Energía, Jerónimo Martins y Tiendas Ara trabajaron juntos para desarrollar un proyecto que demuestra que la sostenibilidad, la eficiencia y la transformación empresarial pueden avanzar de la mano. Gracias a nuestros invitados por compartir la historia, los retos y las decisiones detrás de esta iniciativa. Esto fue Mejor Energía, Mejor Vida, el podcast de Colgas. Nos encontramos en un próximo episodio.”
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Síntesis del recorrido del episodio -->
+            <section class="bg-white border border-slate-100 rounded-3xl p-6 md:p-8 shadow-sm">
+                <div class="text-center max-w-xl mx-auto mb-6 md:mb-10 space-y-2">
+                    <h3 class="text-lg md:text-xl font-bold text-slate-900">Síntesis de recorrido de conversación</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        Un vistazo rápido a la secuencia lógica estructurada para el Episodio 1, diseñada para captivar tanto a tomadores de decisiones como al público digital.
+                    </p>
+                </div>
+                
+                <div class="flex flex-wrap justify-center gap-2 md:gap-4 max-w-4xl mx-auto">
+                    <span class="bg-blue-50 text-blue-700 text-[10px] md:text-xs font-bold px-3 py-2 rounded-xl border border-blue-100">01. Cabezote</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 text-slate-300 self-center hidden md:block"></i>
+                    <span class="bg-blue-50 text-blue-700 text-[10px] md:text-xs font-bold px-3 py-2 rounded-xl border border-blue-100">02. Host solo</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 text-slate-300 self-center hidden md:block"></i>
+                    <span class="bg-blue-50 text-blue-700 text-[10px] md:text-xs font-bold px-3 py-2 rounded-xl border border-blue-100">03. 3 Preguntas</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 text-slate-300 self-center hidden md:block"></i>
+                    <span class="bg-blue-50 text-blue-700 text-[10px] md:text-xs font-bold px-3 py-2 rounded-xl border border-blue-100">04. Presentación</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 text-slate-300 self-center hidden md:block"></i>
+                    <span class="bg-blue-50 text-blue-700 text-[10px] md:text-xs font-bold px-3 py-2 rounded-xl border border-blue-100">05. Origen charla</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 text-slate-300 self-center hidden md:block"></i>
+                    <span class="bg-blue-50 text-blue-700 text-[10px] md:text-xs font-bold px-3 py-2 rounded-xl border border-blue-100">06. Desarrollo</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 text-slate-300 self-center hidden md:block"></i>
+                    <span class="bg-blue-50 text-blue-700 text-[10px] md:text-xs font-bold px-3 py-2 rounded-xl border border-blue-100">07. Preguntas Colgas</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 text-slate-300 self-center hidden md:block"></i>
+                    <span class="bg-blue-50 text-blue-700 text-[10px] md:text-xs font-bold px-3 py-2 rounded-xl border border-blue-100">08. Valores</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 text-slate-300 self-center hidden md:block"></i>
+                    <span class="bg-blue-50 text-blue-700 text-[10px] md:text-xs font-bold px-3 py-2 rounded-xl border border-blue-100">09. Pregunta final</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 text-slate-300 self-center hidden md:block"></i>
+                    <span class="bg-blue-50 text-blue-700 text-[10px] md:text-xs font-bold px-3 py-2 rounded-xl border border-blue-100">10. Cierre</span>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer branding -->
+    <footer class="bg-white border-t border-slate-100 py-6 text-center text-slate-400 text-xs mt-auto">
+        <div class="max-w-7xl mx-auto px-6">
+            <p>&copy; 2026 Colgas. Todos los derechos reservados. Presentación Estratégica Digital - Tercera temporada.</p>
+        </div>
+    </footer>
+
+    <!-- JS Logic -->
+    <script>
+        // Tab switching logic
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+
+            // Style buttons
+            document.getElementById('tab-btn-estructura').className = "flex-1 md:flex-none px-4 md:px-6 py-3 rounded-xl text-xs md:text-sm font-semibold transition-all flex items-center justify-center gap-2 " + 
+                (tabId === 'estructura' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900');
+            
+            document.getElementById('tab-btn-episodio1').className = "flex-1 md:flex-none px-4 md:px-6 py-3 rounded-xl text-xs md:text-sm font-semibold transition-all flex items-center justify-center gap-2 " + 
+                (tabId === 'episodio1' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900');
+        }
+
+        // Structural blocks static data dictionary (Pestaña 1)
+        const blockDetails = {
+            1: {
+                tag: "Bloque 1",
+                title: "Cabezote de apertura",
+                icon: "clapperboard",
+                happens: "El episodio comienza con un cabezote audiovisual corto que presenta la nueva identidad de la Tercera temporada de Colgas de forma dinámica.",
+                includes: [
+                    "Nueva identidad gráfica moderna",
+                    "Animación de marca sofisticada",
+                    "Firma o logotipo sonoro propio",
+                    "Identificador explícito: Tercera temporada",
+                    "Imágenes de territorios, personas y sostenibilidad"
+                ],
+                objective: "Marcar desde el primer instante una renovación de formato con estándares corporativos.",
+                hasFixedText: false
+            },
+            2: {
+                tag: "Bloque 2",
+                title: "Introducción del host",
+                icon: "user",
+                happens: "Aparece el host solo, sentado de frente a cámara de manera empática y natural. Los invitados permanecen fuera de plano temporalmente para asegurar una dirección clara.",
+                includes: [
+                    "Bienvenida del presentador a cámara",
+                    "Mención institucional clave de Colgas",
+                    "Mención directa del caso, empresa o proyecto central",
+                    "Apertura del espacio conversacional"
+                ],
+                objective: "Dar dirección clara, plantear la tesis del episodio y evitar saludos informales o vacíos al aire.",
+                hasFixedText: true
+            },
+            3: {
+                tag: "Bloque 3",
+                title: "Tres preguntas o temas del episodio",
+                icon: "list-todo",
+                happens: "El presentador introduce tres temas específicos que se resolverán a lo largo de la conversación, estructurando las promesas de contenido del show.",
+                includes: [
+                    "Preguntas formuladas de manera corta",
+                    "Mención de contextos claros por sí solas",
+                    "Ausencia de modismos complejos o técnicos",
+                    "Preparación del fragmento como un contenido para redes sociales"
+                ],
+                objective: "Enganchar la atención del público digital y preparar los insumos para la distribución.",
+                hasFixedText: false
+            },
+            4: {
+                tag: "Bloque 4",
+                title: "Presentación de los invitados",
+                icon: "users-round",
+                happens: "Transición al plano completo del set con los invitados sentados. Cada invitado se introduce a sí mismo de manera concisa.",
+                includes: [
+                    "Saludo rápido de bienvenida por el host",
+                    "Fórmula de autopresentación por el invitado",
+                    "Mención de cargo, compañía y relación con el caso",
+                    "Duración máxima de 20-40 segundos por invitado"
+                ],
+                objective: "Evitar la lectura de perfiles profesionales extensos y dar dinamismo al set.",
+                hasFixedText: false
+            },
+            5: {
+                tag: "Bloque 5",
+                title: "Origen de la conversación",
+                icon: "history",
+                happens: "La charla comienza desde el origen de la necesidad corporativa, humanizando el reto de ingeniería o negocio.",
+                includes: [
+                    "Contexto de la problemática inicial",
+                    "Barreras e inquietudes de la empresa aliada",
+                    "Aproximación inicial de alternativas",
+                    "Explicación en formato de historia para el público"
+                ],
+                objective: "Asegurar que cualquier persona comprenda el porqué del proyecto antes de entrar en detalles técnicos.",
+                hasFixedText: false
+            },
+            6: {
+                tag: "Bloque 6",
+                title: "Desarrollo de la conversación",
+                icon: "book-open",
+                happens: "Se avanza de forma lógica a través de cuatro momentos clave que integran la visión del proyecto y sus resultados.",
+                includes: [
+                    "Origen de Colgas Energía",
+                    "Visión de Jerónimo Martins y Tiendas Ara",
+                    "Desarrollo del proyecto",
+                    "Experiencia y cambios observados con cifras y aportes integrados"
+                ],
+                objective: "Construir una narrativa de transformación fluida en vez de un cuestionario rígido.",
+                hasFixedText: false
+            },
+            7: {
+                tag: "Bloque 7",
+                title: "Tratamiento de preguntas de Colgas",
+                icon: "file-heart",
+                happens: "Las preguntas de Colgas se adaptan y simplifican para asegurar la fluidez y fuerza del diálogo.",
+                includes: [
+                    "Preservación intacta del mensaje corporativo",
+                    "Reformulación de tono conversacional y directo",
+                    "Diseño de repreguntas para indagar anécdotas",
+                    "Estructuración de datos en unidades comprensibles"
+                ],
+                objective: "Garantizar la presencia de la marca con total fuerza y elegancia.",
+                hasFixedText: false
+            },
+            8: {
+                tag: "Bloque 8",
+                title: "Momento Colgas: sección de valores",
+                icon: "sparkles",
+                happens: "Dinámica interactiva en set mediante el uso físico de tarjetas impresas reales con los valores corporativos de Colgas.",
+                includes: [
+                    "Dinámica física con tarjetas oficiales de Colgas",
+                    "Opción A: El valor que hizo posible el proyecto",
+                    "Opción B: El valor que me mueve en la vida",
+                    "Uso exclusivo de una opción según el perfil del capítulo"
+                ],
+                objective: "Humanizar la marca, generar reflexiones sinceras y contar historias reales.",
+                hasFixedText: false
+            },
+            9: {
+                tag: "Bloque 9",
+                title: "Pregunta final",
+                icon: "help-circle",
+                happens: "Una última pregunta diseñada para extraer un aprendizaje clave, un titular o un consejo inspirador para la audiencia.",
+                includes: [
+                    "Consejo práctico para otras compañías",
+                    "Llamado a la acción de sostenibilidad",
+                    "Síntesis final del aprendizaje del show",
+                    "Fórmula de respuesta en una frase contundente"
+                ],
+                objective: "Cerrar con una idea clara, útil y replicable para los tomadores de decisiones.",
+                hasFixedText: false
+            },
+            10: {
+                tag: "Bloque 10",
+                title: "Cierre del host",
+                icon: "door-closed",
+                happens: "El presentador resume la conversación, agradece cordialmente a los invitados y cierra el capítulo.",
+                includes: [
+                    "Resumen general del caso",
+                    "Agradecimientos oficiales al equipo y patrocinadores",
+                    "Conexión con el propósito global del podcast",
+                    "Transición fluida al cabezote oficial de salida"
+                ],
+                objective: "Garantizar una despedida ágil que mantenga la recordación institucional.",
+                hasFixedText: false
+            }
+        };
+
+        // Select active narrative block on structural view (Tab 1)
+        function selectBlock(id) {
+            // Remove active styles on all buttons
+            document.querySelectorAll('.block-selector').forEach(btn => {
+                btn.className = "block-selector w-full text-left p-3.5 md:p-4 rounded-2xl border border-slate-100 hover:border-slate-300 bg-white shadow-xs transition-all flex items-center justify-between gap-4";
+                const numSpan = btn.querySelector('span:first-child');
+                if (numSpan) {
+                    numSpan.className = "w-8 h-8 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold font-mono shrink-0";
+                }
+            });
+
+            // Set active button style
+            const activeBtn = document.getElementById(`btn-block-${id}`);
+            activeBtn.className = "block-selector w-full text-left p-3.5 md:p-4 rounded-2xl border-2 border-colgas-blue bg-white shadow-xs transition-all flex items-center justify-between gap-4";
+            const activeNumSpan = activeBtn.querySelector('span:first-child');
+            if (activeNumSpan) {
+                activeNumSpan.className = "w-8 h-8 rounded-xl bg-colgas-blue text-white flex items-center justify-center text-xs font-bold font-mono shrink-0";
+            }
+
+            // Update details card
+            const data = blockDetails[id];
+            const detailsCard = document.getElementById('block-details-card');
+            detailsCard.style.opacity = 0;
+            
+            setTimeout(() => {
+                document.getElementById('detail-tag').innerText = data.tag;
+                document.getElementById('detail-title').innerText = data.title;
+                document.getElementById('detail-happens').innerText = data.happens;
+                document.getElementById('detail-objective').innerText = data.objective;
+
+                // Change Icon
+                const iconEl = document.getElementById('detail-icon');
+                iconEl.setAttribute('data-lucide', data.icon);
+                lucide.createIcons();
+
+                // Populate list
+                const includesContainer = document.getElementById('detail-includes');
+                includesContainer.innerHTML = '';
+                data.includes.forEach(inc => {
+                    const li = document.createElement('li');
+                    li.className = "flex items-center gap-2";
+                    li.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></span> ${inc}`;
+                    includesContainer.appendChild(li);
+                });
+
+                // Handle fixed text block for Host Intro
+                if (data.hasFixedText) {
+                    document.getElementById('detail-text-fixed-container').classList.remove('hidden');
+                } else {
+                    document.getElementById('detail-text-fixed-container').classList.add('hidden');
+                }
+                detailsCard.style.opacity = 1;
+            }, 150);
+        }
+
+        // Pestaña 2: Expand/Collapse Episode Blocks
+        function toggleEpisodeBlock(blockId) {
+            const content = document.getElementById(`ep-content-${blockId}`);
+            const icon = document.getElementById(`ep-icon-${blockId}`);
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                // Collapsing other open blocks (accordion effect)
+                document.querySelectorAll('.tab-content .accordion-content').forEach(c => c.classList.remove('open'));
+                document.querySelectorAll('.tab-content [id^="ep-icon-"]').forEach(i => i.style.transform = 'rotate(0deg)');
+                
+                content.classList.add('open');
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        // Accordion function for Question comparators inside Bloque 7
+        function toggleInnerAccordion(id) {
+            const content = document.getElementById(`inner-content-${id}`);
+            const icon = document.getElementById(`inner-icon-${id}`);
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                content.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Momento Colgas Values Type Switcher (Option A vs Option B) (Tab 1)
+        const valTypes = {
+            optionA: {
+                title: "¿Cuándo se utiliza la Opción A?",
+                desc: "Se implementa en episodios que giran en torno a un proyecto concreto, alianza, implementación de tecnologías específicas o transformaciones logradas entre varias organizaciones asociadas a Colgas.",
+                question: "“Después de conocer la dimensión y los retos de este proyecto, ¿cuál de estos valores oficiales de Colgas consideran que hizo posible que se convirtiera en realidad y por qué?”"
+            },
+            optionB: {
+                title: "¿Cuándo se utiliza la Opción B?",
+                desc: "Se utiliza en episodios que giran en torno a reflexiones sobre el sector, tendencias de sostenibilidad, cultura corporativa o visiones generales de futuro.",
+                question: "“¿Cuál de estos valores corporativos oficiales sienten que les mueve principalmente en su vida personal y cuál en el ámbito profesional?”"
+            }
+        };
+
+        function switchValType(type) {
+            const data = valTypes[type];
+            document.getElementById('val-type-desc').innerHTML = `
+                <div class="flex items-center gap-2 text-orange-400 font-bold text-sm">
+                    <i data-lucide="check" class="w-4 h-4"></i>
+                    <span>${data.title}</span>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                    ${data.desc}
+                </p>
+                <div class="pt-4 border-t border-white/5 space-y-2">
+                    <span class="text-[10px] uppercase tracking-wider text-slate-500 block">Pregunta clave de set</span>
+                    <p class="text-sm italic font-medium">${data.question}</p>
+                </div>
+            `;
+
+            // Style buttons
+            document.getElementById('btn-val-A').className = type === 'optionA' ? 
+                "px-4 py-2.5 rounded-xl text-xs font-semibold transition-all bg-white text-slate-900 shadow-sm" : 
+                "px-4 py-2.5 rounded-xl text-xs font-semibold transition-all text-slate-300 hover:text-white";
+            
+            document.getElementById('btn-val-B').className = type === 'optionB' ? 
+                "px-4 py-2.5 rounded-xl text-xs font-semibold transition-all bg-white text-slate-900 shadow-sm" : 
+                "px-4 py-2.5 rounded-xl text-xs font-semibold transition-all text-slate-300 hover:text-white";
+
+            lucide.createIcons();
+        }
+
+        // Value Card simulation click logic for 6 actual values (Tab 2, Bloque 8)
+        function selectValueCard(valueName, principalText, repreguntaText) {
+            const promptBox = document.getElementById('value-prompt-box');
+            document.getElementById('selected-value-title').innerText = valueName;
+            document.getElementById('selected-value-prompt').innerText = `“${principalText}”`;
+            document.getElementById('selected-value-repregunta').innerText = `“${repreguntaText}”`;
+            
+            promptBox.classList.remove('hidden');
+            
+            // Smooth scroll to card details
+            promptBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Auto initialization
+        window.onload = function() {
+            lucide.createIcons();
+            // Start with block 2 open by default in Episode 1
+            toggleEpisodeBlock(2);
+        }
+    </script>
+</body>
+</html>
