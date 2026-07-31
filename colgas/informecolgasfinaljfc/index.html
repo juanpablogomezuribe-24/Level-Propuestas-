@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados: Colgas x Juan Felipe Cadavid</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --colgas-blue: #004a99;
+            --colgas-orange: #ff6600;
+        }
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #f0f4f8;
+            color: #1e293b;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* Glassmorphism elements */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 74, 153, 0.05);
+        }
+
+        .active-tab {
+            color: var(--colgas-orange) !important;
+            border-bottom: 4px solid var(--colgas-orange);
+        }
+        .tab-content { 
+            display: none; 
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+        }
+        .tab-content.active { 
+            display: block; 
+            opacity: 1;
+            animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        /* Modern hover effects */
+        .hover-lift {
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 74, 153, 0.1);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--colgas-blue) 0%, var(--colgas-orange) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .pulse-circle {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 102, 0, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 102, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 102, 0, 0); }
+        }
+    </style>
+</head>
+<body class="pb-10">
+
+    <!-- Header Premium -->
+    <header class="bg-gradient-to-r from-[#003366] via-[#004a99] to-[#005bb5] text-white p-8 shadow-2xl relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-[#ff6600] rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
+        <div class="max-w-4xl mx-auto flex items-center justify-between relative z-10">
+            <div class="flex items-center gap-5">
+                <div class="bg-white p-2 rounded-2xl shadow-lg">
+                    <img src="https://i.postimg.cc/7hT0tVMD/colgas-hinchas-mundialista.jpg" alt="Logo" class="h-14 w-auto rounded-xl">
+                </div>
+                <div>
+                    <h1 class="text-2xl font-black uppercase italic tracking-tight">Hinchas de la Energía</h1>
+                    <p class="text-xs text-[#ffb380] font-bold uppercase tracking-widest mt-1">Informe de Resultados 2026</p>
+                </div>
+            </div>
+            <div class="hidden md:block text-right">
+                <span class="bg-[#ff6600] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-lg pulse-circle">Campaña Completada</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="sticky-nav overflow-x-auto whitespace-nowrap scrollbar-hide shadow-sm">
+        <div class="max-w-4xl mx-auto flex justify-around">
+            <button onclick="switchTab('tab-kpis')" class="tab-btn px-6 py-5 text-sm font-black uppercase tracking-wider text-gray-400 active-tab transition-colors" id="btn-tab-kpis"><i class="fas fa-chart-line mr-2"></i>Resultados</button>
+            <button onclick="switchTab('tab-entregables')" class="tab-btn px-6 py-5 text-sm font-black uppercase tracking-wider text-gray-400 transition-colors" id="btn-tab-entregables"><i class="fas fa-video mr-2"></i>Entregables</button>
+            <button onclick="switchTab('tab-bonus')" class="tab-btn px-6 py-5 text-sm font-black uppercase tracking-wider text-gray-400 transition-colors" id="btn-tab-bonus"><i class="fas fa-gift mr-2"></i>Valores</button>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto p-4 md:p-8 mt-4">
+
+        <!-- SECCIÓN: RESULTADOS GLOBALES (KPIs) -->
+        <section id="tab-kpis" class="tab-content active space-y-6">
+            
+            <div class="text-center mb-8">
+                <h2 class="text-3xl md:text-4xl font-black uppercase italic gradient-text mb-2">Impacto Masivo</h2>
+                <p class="text-gray-500 font-medium">El desempeño de los contenidos orgánicos superó todas las expectativas.</p>
+            </div>
+
+            <!-- Big Numbers Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Alcance Total -->
+                <div class="glass-card p-8 rounded-3xl text-center hover-lift relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-[#004a99]"></div>
+                    <i class="fas fa-eye text-4xl text-[#004a99] mb-4 opacity-80"></i>
+                    <p class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-2">Total Reproducciones / Alcance</p>
+                    <div class="text-5xl font-black italic text-[#004a99] tracking-tighter counter" data-target="2018345">2.018.345</div>
+                </div>
+                
+                <!-- Interacciones -->
+                <div class="glass-card p-8 rounded-3xl text-center hover-lift relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-[#ff6600]"></div>
+                    <i class="fas fa-heart text-4xl text-[#ff6600] mb-4 opacity-80"></i>
+                    <p class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-2">Total Interacciones (Métrica global)</p>
+                    <div class="text-5xl font-black italic text-[#ff6600] tracking-tighter counter" data-target="2037515">2.037.515</div>
+                </div>
+            </div>
+
+            <!-- Desglose de Interacciones -->
+            <div class="glass-card rounded-3xl p-6 md:p-8 mt-6">
+                <h3 class="text-lg font-black uppercase text-[#004a99] mb-6 border-b pb-4"><i class="fas fa-chart-pie mr-2 text-[#ff6600]"></i>Desglose de Engagements</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                    <div class="bg-blue-50 p-4 rounded-2xl hover-lift">
+                        <i class="fas fa-thumbs-up text-blue-500 mb-2 text-xl"></i>
+                        <p class="text-2xl font-black text-gray-800">17.931</p>
+                        <p class="text-[10px] uppercase font-bold text-gray-500">Me Gusta</p>
+                    </div>
+                    <div class="bg-orange-50 p-4 rounded-2xl hover-lift">
+                        <i class="fas fa-comment text-orange-500 mb-2 text-xl"></i>
+                        <p class="text-2xl font-black text-gray-800">843</p>
+                        <p class="text-[10px] uppercase font-bold text-gray-500">Comentarios</p>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-2xl hover-lift">
+                        <i class="fas fa-share text-blue-500 mb-2 text-xl"></i>
+                        <p class="text-2xl font-black text-gray-800">240</p>
+                        <p class="text-[10px] uppercase font-bold text-gray-500">Shares & Reposts</p>
+                    </div>
+                    <div class="bg-orange-50 p-4 rounded-2xl hover-lift">
+                        <i class="fas fa-bookmark text-orange-500 mb-2 text-xl"></i>
+                        <p class="text-2xl font-black text-gray-800">156</p>
+                        <p class="text-[10px] uppercase font-bold text-gray-500">Guardados</p>
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+
+        <!-- SECCIÓN: ENTREGABLES VS PROPUESTA -->
+        <section id="tab-entregables" class="tab-content space-y-8">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-black uppercase italic text-[#004a99] mb-2">Over-Delivery Estratégico</h2>
+                <p class="text-gray-500 font-medium">Reenfocamos los esfuerzos en los formatos de mayor impacto: <span class="text-[#ff6600] font-bold">Los Reels de Instagram.</span></p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Lo Propuesto -->
+                <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm opacity-70 hover:opacity-100 transition-opacity">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="bg-gray-100 p-3 rounded-full"><i class="fas fa-file-contract text-gray-500"></i></div>
+                        <h3 class="font-black uppercase text-gray-500 text-lg">Lo Propuesto</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-center justify-between border-b pb-2">
+                            <span class="text-sm font-semibold text-gray-600">Reels Colab (IG)</span>
+                            <span class="font-black text-gray-400 text-xl">10</span>
+                        </li>
+                        <li class="flex items-center justify-between border-b pb-2">
+                            <span class="text-sm font-semibold text-gray-600">Videos YouTube</span>
+                            <span class="font-black text-gray-400 text-xl">8</span>
+                        </li>
+                        <li class="flex items-center justify-between border-b pb-2">
+                            <span class="text-sm font-semibold text-gray-600">Historias (IG)</span>
+                            <span class="font-black text-gray-400 text-xl">4</span>
+                        </li>
+                        <li class="flex items-center justify-between border-b pb-2">
+                            <span class="text-sm font-semibold text-gray-600">Video Croma Big Promo</span>
+                            <span class="font-black text-gray-400 text-xl">1</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Lo Ejecutado -->
+                <div class="bg-gradient-to-br from-[#004a99] to-[#002244] p-6 rounded-3xl shadow-xl text-white hover-lift transform scale-105">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="bg-[#ff6600] p-3 rounded-full"><i class="fas fa-rocket text-white"></i></div>
+                        <h3 class="font-black uppercase text-[#ffb380] text-lg">Lo Ejecutado</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-center justify-between border-b border-blue-800 pb-2">
+                            <span class="text-sm font-semibold">Reels Colab (IG)</span>
+                            <div class="flex items-center gap-2">
+                                <span class="text-[10px] bg-green-500 text-white px-2 py-1 rounded-full uppercase font-bold">+10 Extra</span>
+                                <span class="font-black text-3xl text-white">20</span>
+                            </div>
+                        </li>
+                        <li class="flex items-center justify-between border-b border-blue-800 pb-2 opacity-80">
+                            <span class="text-sm font-semibold">Videos YouTube</span>
+                            <span class="font-black text-xl">4</span>
+                        </li>
+                        <li class="flex items-center justify-between border-b border-blue-800 pb-2">
+                            <span class="text-sm font-semibold">Historias Orgánicas JF</span>
+                            <span class="font-black text-2xl">3</span>
+                        </li>
+                        <li class="flex items-center justify-between border-b border-blue-800 pb-2">
+                            <span class="text-sm font-semibold">Historias Editadas (Pauta)</span>
+                            <span class="font-black text-2xl">3</span>
+                        </li>
+                        <li class="flex items-center justify-between border-b border-blue-800 pb-2">
+                            <span class="text-sm font-semibold">Videos Pauta (Incl. Croma)</span>
+                            <div class="flex items-center gap-2">
+                                <span class="text-[10px] bg-green-500 text-white px-2 py-1 rounded-full uppercase font-bold">+3 Extra</span>
+                                <span class="font-black text-2xl">4</span>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="mt-6 pt-4 border-t border-blue-700">
+                        <p class="text-[11px] text-blue-200 italic leading-relaxed">
+                            <strong>Nota Estratégica:</strong> Se ejecutaron <strong>24 contenidos principales</strong> (20 Reels y 4 de YouTube). Sustituimos varios formatos para sumar Reels extra de altísimo impacto, tales como: Pitazo inicial (rueda de prensa), Invitación Hinchas Colgas, 3 videos con la Familia, video Ganadores Big Promo, y video en casa pidiendo el azulito.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: VALORES AGREGADOS -->
+        <section id="tab-bonus" class="tab-content space-y-6">
+            <div class="bg-gradient-to-r from-[#fff7ed] to-white border border-orange-100 p-8 rounded-[2.5rem] shadow-sm relative overflow-hidden">
+                <div class="absolute -right-10 -top-10 text-orange-100 opacity-50"><i class="fas fa-gift text-9xl"></i></div>
+                
+                <h2 class="text-2xl font-black text-[#ff6600] uppercase italic mb-6 relative z-10">Más allá del contrato</h2>
+                <p class="text-gray-600 mb-8 relative z-10 text-sm">La campaña se enriqueció con elementos exclusivos que no estaban valorizados en la propuesta original, entregando un ROI (Retorno de Inversión) muy superior para la marca Colgas.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 relative z-10">
+                    <!-- Bonus Item -->
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-[#ff6600] flex items-start gap-4 hover-lift">
+                        <div class="bg-orange-100 text-[#ff6600] p-3 rounded-xl"><i class="fas fa-microphone-alt"></i></div>
+                        <div>
+                            <h4 class="font-black text-sm uppercase text-[#004a99]">Locución para Cuña Radial</h4>
+                            <p class="text-[11px] text-gray-500 mt-1">Grabación profesional de la voz de Juan Felipe Cadavid cedida para uso en radio a nivel nacional.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Bonus Item -->
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-[#ff6600] flex items-start gap-4 hover-lift">
+                        <div class="bg-orange-100 text-[#ff6600] p-3 rounded-xl"><i class="fas fa-users"></i></div>
+                        <div>
+                            <h4 class="font-black text-sm uppercase text-[#004a99]">Participación Familiar</h4>
+                            <p class="text-[11px] text-gray-500 mt-1">Inclusión orgánica de Cristina Estupiñán y los hijos de Juan Felipe, dándole un tono emotivo e invaluable a la campaña.</p>
+                        </div>
+                    </div>
+
+                    <!-- Bonus Item -->
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-[#004a99] flex items-start gap-4 hover-lift">
+                        <div class="bg-blue-100 text-[#004a99] p-3 rounded-xl"><i class="fas fa-copyright"></i></div>
+                        <div>
+                            <h4 class="font-black text-sm uppercase text-[#004a99]">Derechos de Imagen Extensos</h4>
+                            <p class="text-[11px] text-gray-500 mt-1">Cesión de derechos digitales por 7 meses, uso en pauta (amplificación) y exclusividad total en la categoría de gas.</p>
+                        </div>
+                    </div>
+
+                    <!-- Bonus Item -->
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-[#004a99] flex items-start gap-4 hover-lift">
+                        <div class="bg-blue-100 text-[#004a99] p-3 rounded-xl"><i class="fas fa-star"></i></div>
+                        <div>
+                            <h4 class="font-black text-sm uppercase text-[#004a99]">Ganadores Reales</h4>
+                            <p class="text-[11px] text-gray-500 mt-1">Reemplazo estratégico de los reels de mamás por un video interactuando con los ganadores de la Big Promo y un video pidiendo el azulito en casa.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 bg-white/60 p-4 rounded-2xl text-center backdrop-blur-sm border border-orange-50">
+                    <p class="text-xs font-black text-[#004a99] uppercase tracking-widest">Valorización Estimada de estos Entregables Extra:</p>
+                    <p class="text-2xl font-black italic text-[#ff6600] mt-1">Invaluable (ROI +300%)</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-12 bg-white py-12 px-6 border-t border-gray-200 text-center">
+        <p class="text-xl font-black text-[#004a99] italic">LEVEL <span class="text-[#ff6600]">COLOMBIA</span></p>
+        <p class="text-[10px] text-gray-400 font-bold uppercase mt-2 tracking-widest">Reporte de Resultados Oficial 2026</p>
+    </footer>
+
+    <script>
+        // Tab switching logic
+        function switchTab(id) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active-tab'));
+            
+            const activeTab = document.getElementById(id);
+            activeTab.classList.add('active');
+            document.getElementById('btn-' + id).classList.add('active-tab');
+            
+            // Re-trigger animations if needed
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Simple counter animation for big numbers
+        document.addEventListener('DOMContentLoaded', () => {
+            const counters = document.querySelectorAll('.counter');
+            
+            const animateCounters = () => {
+                counters.forEach(counter => {
+                    const target = +counter.getAttribute('data-target');
+                    const duration = 2000; // 2 seconds
+                    const increment = target / (duration / 16); // 60fps
+                    
+                    let current = 0;
+                    const updateCounter = () => {
+                        current += increment;
+                        if (current < target) {
+                            counter.innerText = Math.ceil(current).toLocaleString('es-CO');
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            counter.innerText = target.toLocaleString('es-CO');
+                        }
+                    };
+                    updateCounter();
+                });
+            };
+
+            // Trigger animation
+            setTimeout(animateCounters, 300);
+        });
+    </script>
+</body>
+</html>
