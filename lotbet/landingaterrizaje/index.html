@@ -10,7 +10,9 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #0a1128;
+            background-color: #020617;
+            background-image: radial-gradient(ellipse at top, rgba(14, 165, 233, 0.15) 0%, transparent 70%);
+            background-attachment: fixed;
             color: #ffffff;
             overflow-x: hidden;
         }
@@ -78,8 +80,9 @@
     <!-- Contenido Principal -->
     <main class="flex-1 flex flex-col items-center justify-center p-6 text-center relative z-10">
         <!-- Logo -->
-        <div class="bg-cyan-500 text-white font-black text-4xl md:text-5xl px-8 py-3 rounded-2xl mb-6 italic tracking-tighter shadow-lg shadow-cyan-500/20">
-            LOTBET
+        <div class="mb-8 mt-2 flex items-center justify-center relative">
+            <div class="absolute inset-0 bg-cyan-500/20 blur-[40px] rounded-full"></div>
+            <img src="assets/logo.png" alt="LotBet Logo" class="h-12 md:h-16 object-contain relative z-10" style="filter: brightness(0) invert(1);">
         </div>
         
         <div class="inline-flex items-center gap-2 bg-white/10 px-4 py-1.5 rounded-full border border-white/10 mb-8 text-sm text-cyan-400 font-medium backdrop-blur-sm">
@@ -87,14 +90,17 @@
         </div>
 
         <h1 class="text-4xl md:text-6xl font-black text-white mb-4 leading-tight">
-            ¡Elige un cofre y <br class="hidden md:block"/><span class="text-emerald-400">multiplica tu saldo!</span>
+            ¡Elige un cofre y <br class="hidden md:block"/><span class="text-emerald-400">descubre tu premio!</span>
         </h1>
         <p class="text-slate-400 text-base md:text-lg mb-16 max-w-xl mx-auto">
-            Tu primer depósito vale el triple. Abre tu cofre ahora y empieza a jugar con ventaja en Casino o Deportes.
+            Abre tu cofre ahora y empieza a jugar con ventaja en Casino o Deportes.
         </p>
 
         <!-- Los 3 Cofres Animados -->
-        <div class="flex flex-wrap gap-8 justify-center" id="chest-container">
+        <div class="flex flex-wrap gap-8 justify-center relative" id="chest-container">
+            <!-- Pájaro 1 señalando -->
+            <img src="assets/pajaro-1.png" alt="Mascota LotBet" class="hidden md:block absolute -left-28 lg:-left-40 bottom-0 w-36 lg:w-44 z-20 drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)] pointer-events-none hover:scale-105 transition-transform origin-bottom-right">
+
             <!-- Cofre 1 -->
             <div class="chest-float cursor-pointer hover:scale-110 transition-transform duration-300 chest-item" onclick="openChest(this)">
                 <div class="w-32 h-32 md:w-40 md:h-40 bg-gradient-to-br from-amber-400 to-amber-600 rounded-3xl shadow-[0_0_40px_rgba(251,191,36,0.3)] border-[6px] border-amber-300 flex items-center justify-center relative overflow-hidden">
@@ -119,17 +125,122 @@
                 </div>
             </div>
         </div>
+
+        <!-- Nueva sección de Beneficios -->
+        <div class="mt-32 w-full max-w-6xl mx-auto text-left relative z-10">
+            <h2 class="text-3xl md:text-4xl font-black text-white text-center mb-10">Todo lo que obtienes con <span class="text-cyan-400">LotBet</span></h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                <!-- Tarjeta 1 -->
+                <div class="bg-slate-900/80 backdrop-blur-sm border border-slate-700/50 p-6 rounded-2xl hover:border-cyan-500/50 transition-colors">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i data-lucide="dices" class="w-6 h-6 text-white"></i>
+                        <h3 class="font-bold text-white text-sm">Casino en vivo y slots</h3>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed">Mesas en vivo, tragamonedas y más — disponibles desde el momento en que creas tu cuenta.</p>
+                </div>
+                
+                <!-- Tarjeta 2 -->
+                <div class="bg-slate-900/80 backdrop-blur-sm border border-slate-700/50 p-6 rounded-2xl hover:border-cyan-500/50 transition-colors">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i data-lucide="trophy" class="w-6 h-6 text-amber-400"></i>
+                        <h3 class="font-bold text-white text-sm">Apuestas deportivas</h3>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed">Apuesta a fútbol, básquetbol y decenas de deportes en tiempo real con las mejores cuotas.</p>
+                </div>
+
+                <!-- Tarjeta 3 -->
+                <div class="bg-slate-900/80 backdrop-blur-sm border border-slate-700/50 p-6 rounded-2xl hover:border-cyan-500/50 transition-colors">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i data-lucide="tags" class="w-6 h-6 text-rose-500"></i>
+                        <h3 class="font-bold text-white text-sm">Torneos y promociones</h3>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed">Beneficios activos toda la semana: recargas, cashback y torneos con premios reales.</p>
+                </div>
+
+                <!-- Tarjeta 4 -->
+                <div class="bg-slate-900/80 backdrop-blur-sm border border-slate-700/50 p-6 rounded-2xl hover:border-cyan-500/50 transition-colors">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i data-lucide="credit-card" class="w-6 h-6 text-emerald-400"></i>
+                        <h3 class="font-bold text-white text-sm">Retiros rápidos</h3>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed">Retira con los métodos que ya usas. Los pagos se procesan en minutos, sin complicaciones.</p>
+                </div>
+
+                <!-- Tarjeta 5 -->
+                <div class="bg-slate-900/80 backdrop-blur-sm border border-slate-700/50 p-6 rounded-2xl hover:border-cyan-500/50 transition-colors">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i data-lucide="headphones" class="w-6 h-6 text-blue-400"></i>
+                        <h3 class="font-bold text-white text-sm">Soporte 24/7</h3>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed">Tienes un equipo real disponible todo el día para ayudarte cuando lo necesitas.</p>
+                </div>
+
+                <!-- Tarjeta 6 -->
+                <div class="bg-slate-900/80 backdrop-blur-sm border border-slate-700/50 p-6 rounded-2xl hover:border-cyan-500/50 transition-colors">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i data-lucide="zap" class="w-6 h-6 text-amber-300"></i>
+                        <h3 class="font-bold text-white text-sm">Registro en 1 minuto</h3>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed">Sin papeleo, sin esperas. En menos de 60 segundos tu cuenta está activa y lista para jugar.</p>
+                </div>
+            </div>
+
+            <!-- Contador de Bonos en Vivo -->
+            <div class="bg-slate-900/90 backdrop-blur-md border border-slate-700/50 p-8 rounded-3xl max-w-2xl mx-auto flex flex-col items-center text-center mt-8 shadow-2xl relative overflow-hidden mb-12">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-400 via-cyan-500 to-emerald-400"></div>
+                
+                <div class="flex items-center gap-2 text-emerald-400 font-bold text-xs uppercase tracking-widest mb-6">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    En vivo ahora
+                </div>
+                
+                <h3 class="text-xl md:text-2xl font-black text-white mb-2 flex items-center justify-center gap-3 flex-wrap">
+                    <i data-lucide="gift" class="text-emerald-400"></i>
+                    <span class="text-cyan-400">76</span> de 200 bonos reclamados hoy
+                </h3>
+                
+                <p class="text-amber-400 font-bold text-lg mb-6">¡Quedan 124!</p>
+                
+                <div class="w-full bg-slate-800 h-3 rounded-full mb-6 overflow-hidden border border-slate-700">
+                    <div class="bg-gradient-to-r from-cyan-500 to-emerald-400 h-full rounded-full" style="width: 38%;"></div>
+                </div>
+                
+                <p class="text-xs md:text-sm text-slate-400">Los bonos son limitados. ¡Abre tu cofre y asegura el tuyo!</p>
+            </div>
+        </div>
+
+
+
     </main>
+
+    <!-- Footer estilo LotBet -->
+    <footer class="w-full py-16 flex flex-col items-center relative z-10">
+        <div class="mb-8 relative">
+            <img src="assets/logo.png" alt="LotBet" class="h-8 md:h-10 object-contain opacity-80 hover:opacity-100 transition-opacity" style="filter: brightness(0) invert(1);">
+        </div>
+        <p class="text-[10px] md:text-xs text-slate-500 max-w-4xl text-center px-8 leading-relaxed mb-10">
+            LotBet es una plataforma de entretenimiento para adultos mayores de 18 años. El juego debe ser practicado de forma responsable. Si sientes que el juego está afectando tu vida, busca ayuda.
+        </p>
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="bg-gradient-to-r from-emerald-400 to-emerald-500 hover:from-emerald-300 hover:to-emerald-400 hover:scale-105 transition-all duration-300 text-slate-900 font-black text-lg md:text-xl px-12 py-4 rounded-xl shadow-[0_0_40px_rgba(16,185,129,0.25)] flex items-center gap-3">
+            🎁 ¡Quiero mi bono!
+        </button>
+    </footer>
 
     <!-- Overlay del Formulario (Oculto inicialmente) -->
     <div id="form-overlay" class="fixed inset-0 bg-[#0a1128]/95 backdrop-blur-md z-50 flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 p-6">
-        <div class="bg-slate-900 border border-slate-700 p-8 rounded-[2.5rem] w-full max-w-md shadow-2xl transform translate-y-8 transition-transform duration-500" id="form-modal">
+        <div class="bg-slate-900 border border-slate-700 p-8 rounded-[2.5rem] w-full max-w-md shadow-2xl transform translate-y-8 transition-transform duration-500 relative" id="form-modal">
             
-            <div class="w-20 h-20 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-6 border border-emerald-500/30 shadow-[0_0_40px_rgba(16,185,129,0.3)]">
-                <i data-lucide="gift" class="w-10 h-10 text-emerald-400"></i>
+            <!-- Mascota asomada -->
+            <div class="absolute -top-[120px] left-1/2 -translate-x-1/2 w-48 drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)] z-10 hidden md:block">
+                <img src="assets/pajaro-2.png" alt="¡Ganaste!" class="w-full h-auto animate-[float_4s_ease-in-out_infinite]">
+            </div>
+            <!-- Mascota mobile -->
+            <div class="md:hidden w-32 mx-auto mb-4 drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)]">
+                <img src="assets/pajaro-2.png" alt="¡Ganaste!" class="w-full h-auto animate-[float_4s_ease-in-out_infinite]">
             </div>
             
-            <h3 class="text-2xl font-black text-white text-center mb-1 leading-tight">¡TRIPLICAMOS TU<br/>PRIMER DEPÓSITO!</h3>
+            <h3 class="text-2xl md:text-3xl font-black text-white text-center mb-2 leading-tight">¡TRIPLICAMOS TU<br/>PRIMER DEPÓSITO!</h3>
             <p class="text-sm text-emerald-400 font-bold text-center mb-1">+ Q50 GRATIS al registrarte</p>
             <p class="text-xs text-slate-400 text-center mb-8">Bono de hasta Q15,000. Déjanos tus datos para asegurar tu bienvenida.</p>
             
@@ -171,9 +282,10 @@
         </div>
     </div>
 
-    <!-- Elementos de fondo decorativos -->
-    <div class="fixed top-0 left-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none -translate-x-1/2 -translate-y-1/2"></div>
-    <div class="fixed bottom-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-[100px] pointer-events-none translate-x-1/2 translate-y-1/2"></div>
+    <!-- Luces de Estadio (Fondo estilo reflector) -->
+    <div class="fixed top-[-10%] left-[10%] w-[50vw] h-[50vw] bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none z-[-1]"></div>
+    <div class="fixed top-[-10%] right-[10%] w-[50vw] h-[50vw] bg-blue-500/10 rounded-full blur-[120px] pointer-events-none z-[-1]"></div>
+    <div class="fixed top-[20%] left-1/2 -translate-x-1/2 w-[60vw] h-[60vw] bg-cyan-400/5 rounded-full blur-[150px] pointer-events-none z-[-1]"></div>
 
     <script>
         lucide.createIcons();
@@ -216,7 +328,7 @@
                 setTimeout(() => {
                     // En la vida real aquí haríamos el POST a Blupit, 
                     // por ahora redirigimos directo a Lotbet simulando éxito total.
-                    window.location.href = 'https://lotbet.vip';
+                    window.location.href = 'https://lotbet.vip/signin?affiliateRegisterToken=OIcx5QNvlmDlHdzfDb9EEa6EkxnBAVdL';
                 }, 1800);
 
             }, 800);
