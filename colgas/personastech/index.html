@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blupit · Colgas — Prototipo navegable</title>
+  <style>
+    :root{
+      --nav:#17192f;
+      --nav-2:#202544;
+      --lime:#d7ff00;
+      --green:#0a9a63;
+      --green-2:#e8f7f0;
+      --blue:#3d6ee8;
+      --orange:#e89b16;
+      --red:#dc4b4b;
+      --ink:#162033;
+      --muted:#687386;
+      --line:#e3e7ee;
+      --surface:#ffffff;
+      --bg:#f6f8fb;
+      --shadow:0 8px 24px rgba(31,42,68,.06);
+      --radius:16px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg)}
+    button,input,select,textarea{font:inherit}
+    button{cursor:pointer}
+    .app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}
+    .sidebar{background:linear-gradient(180deg,var(--nav),#121526);color:#fff;padding:22px 14px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh}
+    .brand{display:flex;align-items:center;justify-content:space-between;padding:0 12px 20px;font-weight:900;font-size:30px;color:var(--lime);letter-spacing:-1px}
+    .collapse{width:30px;height:30px;border:1px solid rgba(255,255,255,.18);border-radius:8px;background:transparent;color:#fff}
+    .nav{display:flex;flex-direction:column;gap:7px}
+    .nav button{border:0;background:transparent;color:#fff;padding:12px 14px;border-radius:11px;text-align:left;display:flex;align-items:center;gap:11px;font-weight:650}
+    .nav button:hover{background:rgba(255,255,255,.07)}
+    .nav button.active{background:#173e6d;color:var(--lime)}
+    .nav .dot{width:10px;height:10px;border:2px solid currentColor;border-radius:3px;display:inline-block}
+    .sidebar-foot{margin-top:auto;padding:18px 12px 0;border-top:1px solid rgba(255,255,255,.12)}
+    .colgas{font-size:22px;font-weight:900;letter-spacing:1px;margin-bottom:5px}
+    .small{font-size:12px;color:#9aa4b6}
+    .status{margin-top:16px;border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:10px 12px;color:#dce4ef;font-size:13px}
+    .status::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:#12c27c;margin-right:8px}
+    .main{min-width:0}
+    .topbar{background:#fff;border-bottom:1px solid var(--line);padding:18px 28px 0;position:sticky;top:0;z-index:9}
+    .topline{display:flex;align-items:center;justify-content:space-between;gap:18px;padding-bottom:15px}
+    .tenant{display:flex;align-items:center;gap:14px}
+    .tenant-mark{width:46px;height:46px;border-radius:50%;background:var(--green-2);display:grid;place-items:center;color:var(--green);font-size:24px;font-weight:900}
+    h1{font-size:26px;margin:0 0 2px}
+    .subtitle{font-size:13px;color:var(--muted)}
+    .top-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    .datebox,.ghost,.primary,.danger,.secondary{border:1px solid var(--line);border-radius:10px;padding:10px 13px;background:#fff;color:var(--ink)}
+    .primary{background:var(--green);color:#fff;border-color:var(--green);font-weight:700}
+    .secondary{background:#eff6ff;color:#2459b7;border-color:#d8e7ff;font-weight:700}
+    .danger{color:var(--red);border-color:#f1cccc;background:#fff7f7;font-weight:700}
+    .ghost:hover,.datebox:hover{background:#f7f9fc}
+    .notify,.profile{border:0;background:transparent;position:relative}
+    .notify{font-size:20px}
+    .badge{position:absolute;top:-5px;right:-5px;background:var(--lime);color:#152000;border-radius:20px;font-size:10px;padding:2px 5px;font-weight:900}
+    .profile{display:flex;align-items:center;gap:8px}
+    .avatar{width:34px;height:34px;border-radius:50%;background:var(--lime);display:grid;place-items:center;font-weight:900}
+    .tabs{display:flex;gap:18px;overflow-x:auto}
+    .tabs button{border:0;background:transparent;padding:13px 4px 14px;color:#657187;border-bottom:2px solid transparent;white-space:nowrap}
+    .tabs button.active{color:var(--green);border-color:var(--green);font-weight:750}
+    .content{padding:22px 28px 40px}
+    .view{display:none}
+    .view.active{display:block}
+    .grid{display:grid;gap:16px}
+    .kpis{grid-template-columns:repeat(6,minmax(0,1fr));margin-bottom:16px}
+    .kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+    .kpi .label{font-size:13px;font-weight:700;color:#313c4e}
+    .kpi .value{font-size:28px;font-weight:850;color:var(--green);margin:10px 0 8px;letter-spacing:-.7px}
+    .trend{font-size:12px;color:var(--green)}
+    .trend.down{color:var(--red)}
+    .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+    .card-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line)}
+    .card-header h2{font-size:16px;margin:0}
+    .card-body{padding:16px 18px}
+    .dashboard-main{grid-template-columns:1.2fr .85fr 1.35fr;margin-bottom:16px}
+    .chart-wrap{height:250px;padding:5px 0 0}
+    svg{width:100%;height:100%}
+    table{width:100%;border-collapse:collapse;font-size:13px}
+    th,td{padding:12px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+    th{font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:#687386;background:#fbfcfe}
+    tr:hover td{background:#fbfdfc}
+    .chip{display:inline-flex;align-items:center;border-radius:999px;padding:4px 9px;font-size:11px;font-weight:800}
+    .chip.green{background:#e6f7ef;color:#08734b}.chip.blue{background:#e9f0ff;color:#2d59bd}.chip.orange{background:#fff2dc;color:#a35d00}.chip.red{background:#ffe8e8;color:#b32626}.chip.gray{background:#eef0f3;color:#5b6676}
+    .goals{padding:0 18px 12px}
+    .goal{display:grid;grid-template-columns:220px 1fr 90px 120px;gap:16px;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}
+    .progress{height:8px;background:#edf0f4;border-radius:20px;overflow:hidden}
+    .progress span{display:block;height:100%;background:var(--green);border-radius:20px}
+    .toolbar{display:flex;gap:10px;flex-wrap:wrap}
+    .toolbar input,.toolbar select{border:1px solid var(--line);border-radius:10px;padding:10px 11px;background:#fff;min-width:145px}
+    .three-col{display:grid;grid-template-columns:370px minmax(430px,1fr) 330px;gap:16px}
+    .filters{display:flex;gap:8px;flex-wrap:wrap}
+    .filter-tab{border:1px solid var(--line);background:#fff;padding:8px 11px;border-radius:9px}
+    .filter-tab.active{background:var(--green-2);border-color:#bce8d4;color:var(--green);font-weight:800}
+    .inbox-list{max-height:620px;overflow:auto}
+    .inbox-row{display:grid;grid-template-columns:1.1fr 1.5fr .8fr .5fr;gap:8px;align-items:center;padding:12px 14px;border-bottom:1px solid var(--line);font-size:12px;cursor:pointer}
+    .inbox-row.active{background:#eef9f4}
+    .chat{display:flex;flex-direction:column;min-height:620px}
+    .chat-head{padding:15px 18px;border-bottom:1px solid var(--line);font-weight:800}
+    .messages{flex:1;padding:18px;background:#fafbfc;overflow:auto;display:flex;flex-direction:column;gap:12px}
+    .msg{max-width:72%;padding:11px 13px;border-radius:12px;background:#fff;border:1px solid var(--line);font-size:13px;line-height:1.45}
+    .msg.out{align-self:flex-end;background:#e9f8ef;border-color:#c7ebd7}
+    .msg .time{font-size:10px;color:#8791a1;margin-left:8px;float:right}
+    .chat-compose{padding:14px;border-top:1px solid var(--line);display:flex;gap:8px}
+    .chat-compose input{flex:1;border:1px solid var(--line);border-radius:10px;padding:11px 12px}
+    .side-stat{display:flex;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--line)}
+    .side-stat strong{font-size:22px;color:var(--green)}
+    .detail-list{display:grid;grid-template-columns:1fr 1.2fr;font-size:13px}
+    .detail-list div{padding:13px 0;border-bottom:1px solid var(--line)}
+    .subgrid{display:grid;grid-template-columns:1.5fr .7fr;gap:16px}
+    .client-layout{display:grid;grid-template-columns:420px 1fr;gap:16px}
+    .listbox{max-height:650px;overflow:auto}
+    .client-row{padding:12px 14px;border-bottom:1px solid var(--line);cursor:pointer;display:flex;justify-content:space-between;gap:12px}
+    .client-row.active{background:#eef9f4}
+    .info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .info-box{border:1px solid var(--line);border-radius:12px;padding:14px;background:#fff}
+    .info-box h3{font-size:13px;margin:0 0 10px}
+    .info-box p{margin:6px 0;font-size:12px;color:#4f5b6e}
+    .orders-layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px}
+    .scroll-table{overflow:auto}
+    .actionbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .payments-layout{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px}
+    .timeline{border-left:2px solid #cfeadf;margin-left:8px;padding-left:18px}
+    .timeline-step{position:relative;padding:0 0 20px}
+    .timeline-step::before{content:"";position:absolute;left:-24px;top:2px;width:10px;height:10px;border-radius:50%;background:var(--green)}
+    .settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .setting-row{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--line)}
+    .switch{width:46px;height:26px;border-radius:30px;background:#cfd5de;position:relative;border:0}
+    .switch::after{content:"";position:absolute;width:20px;height:20px;border-radius:50%;background:#fff;top:3px;left:3px;transition:.2s;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+    .switch.on{background:var(--green)}
+    .switch.on::after{left:23px}
+    .modal-backdrop{position:fixed;inset:0;background:rgba(9,15,29,.55);display:none;align-items:center;justify-content:center;z-index:30;padding:20px}
+    .modal-backdrop.open{display:flex}
+    .modal{width:min(620px,100%);background:#fff;border-radius:18px;box-shadow:0 25px 80px rgba(0,0,0,.25);overflow:hidden}
+    .modal-header{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--line)}
+    .modal-header h3{margin:0}
+    .modal-body{padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:13px}
+    .modal-body .full{grid-column:1/-1}
+    .modal-body label{font-size:12px;font-weight:800;color:#4f5b6e}
+    .modal-body input,.modal-body select,.modal-body textarea{width:100%;margin-top:6px;border:1px solid var(--line);border-radius:10px;padding:10px 11px}
+    .modal-footer{display:flex;justify-content:flex-end;gap:10px;padding:15px 20px;border-top:1px solid var(--line)}
+    .toast{position:fixed;right:22px;bottom:22px;background:#162033;color:#fff;padding:12px 16px;border-radius:12px;box-shadow:0 12px 35px rgba(0,0,0,.22);opacity:0;transform:translateY(15px);pointer-events:none;transition:.25s;z-index:50;max-width:360px}
+    .toast.show{opacity:1;transform:translateY(0)}
+    .dropdown{position:absolute;right:28px;top:66px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:8px;display:none;z-index:25;min-width:220px}
+    .dropdown.open{display:block}
+    .dropdown button{display:block;width:100%;text-align:left;border:0;background:#fff;padding:10px;border-radius:8px}
+    .dropdown button:hover{background:#f4f7fb}
+
+    .quote-panels .quote-panel{display:none}
+    .quote-panels .quote-panel.active{display:block}
+    .quote-kpi-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+
+    .framework-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .framework-card{border:1px solid var(--line);border-radius:14px;padding:16px;background:#fff;min-height:170px}
+    .framework-tag{display:inline-flex;align-items:center;border-radius:999px;padding:5px 10px;background:#e8f7f0;color:var(--green);font-size:11px;font-weight:800;letter-spacing:.03em;text-transform:uppercase}
+    .framework-card h3{font-size:17px;margin:12px 0 10px}
+    .framework-card ul{margin:0;padding-left:18px;color:#4f5b6e;line-height:1.55}
+    .framework-card li{margin:0 0 8px}
+
+    .quote-kpi-card{border:1px solid var(--line);border-radius:14px;padding:18px;background:#fff}
+    .quote-kpi-card .eyebrow{font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+    .quote-kpi-card .big{font-size:34px;font-weight:900;color:var(--green);margin:10px 0 6px;letter-spacing:-.04em}
+    .quote-kpi-card .title{font-size:18px;font-weight:800;margin-bottom:8px}
+    .quote-kpi-card p{margin:0;color:#4f5b6e;line-height:1.55}
+    .phase-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+    .phase-card{border:1px solid var(--line);border-radius:14px;padding:18px;background:#fff;min-height:160px}
+    .phase-card .num{font-size:32px;font-weight:900;color:var(--green);line-height:1}
+    .phase-card .unit{font-size:13px;color:var(--muted);font-weight:700;margin-top:4px}
+    .phase-card h3{font-size:16px;margin:12px 0 8px}
+    .phase-card p{margin:0;color:#4f5b6e;line-height:1.5;font-size:13px}
+    .muted{color:var(--muted)}
+    .right{text-align:right}
+    .hidden{display:none!important}
+    @media (max-width:1200px){.kpis{grid-template-columns:repeat(3,1fr)}.dashboard-main{grid-template-columns:1fr}.three-col{grid-template-columns:330px 1fr}.three-col>.card:last-child{grid-column:1/-1}.client-layout,.orders-layout,.payments-layout,.subgrid{grid-template-columns:1fr}.settings-grid{grid-template-columns:1fr}.phase-grid{grid-template-columns:1fr 1fr !important}.framework-grid{grid-template-columns:1fr 1fr !important}}
+    @media (max-width:800px){.app{grid-template-columns:1fr}.sidebar{position:relative;height:auto}.nav{display:grid;grid-template-columns:1fr 1fr}.sidebar-foot{display:none}.topbar{position:relative;padding:14px 16px 0}.content{padding:16px}.topline{align-items:flex-start}.kpis{grid-template-columns:1fr 1fr}.three-col{grid-template-columns:1fr}.goal{grid-template-columns:1fr}.info-grid{grid-template-columns:1fr}.modal-body{grid-template-columns:1fr}.modal-body .full{grid-column:auto}.phase-grid{grid-template-columns:1fr !important}.framework-grid{grid-template-columns:1fr !important}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><span>blupit</span><button class="collapse" id="collapseBtn">◧</button></div>
+    <nav class="nav" id="sideNav">
+      <button class="active" data-view="dashboard"><span class="dot"></span>Dashboard</button>
+      <button data-view="conversations"><span class="dot"></span>Conversaciones</button>
+      <button data-view="clients"><span class="dot"></span>Clientes</button>
+      <button data-view="catalog"><span class="dot"></span>Catálogo y Precios</button>
+      <button data-view="orders"><span class="dot"></span>Pedidos y Logística</button>
+      <button data-view="payments"><span class="dot"></span>Pagos</button>
+      <button data-view="settings"><span class="dot"></span>Configuración</button>
+      <button data-view="quote"><span class="dot"></span>Cotización</button>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="colgas">◉ COLGAS</div><div class="small">Colgas S.A. E.S.P.</div>
+      <div class="status">Operación activa</div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="topline">
+        <div class="tenant"><div class="tenant-mark">C</div><div><h1 id="pageTitle">Colgas</h1><div class="subtitle" id="pageSubtitle">Operación conversacional y pedidos</div></div></div>
+        <div class="top-actions">
+          <input class="datebox" type="date" id="dateFrom" value="2025-05-19" aria-label="Fecha desde" />
+          <input class="datebox" type="date" id="dateTo" value="2025-05-25" aria-label="Fecha hasta" />
+          <button class="ghost" id="exportBtn">Exportar</button>
+          <button class="notify" id="notifyBtn" aria-label="Notificaciones">♢<span class="badge">4</span></button>
+          <button class="profile" id="profileBtn"><span class="avatar">O</span><span><strong>Operaciones Colgas</strong><br><span class="small">Administrador</span></span>⌄</button>
+        </div>
+      </div>
+      <div class="tabs" id="topTabs">
+        <button class="active" data-view="dashboard">Dashboard</button>
+        <button data-view="conversations">Conversaciones</button>
+        <button data-view="clients">Clientes</button>
+        <button data-view="catalog">Catálogo y Precios</button>
+        <button data-view="orders">Pedidos y Logística</button>
+        <button data-view="payments">Pagos</button>
+        <button data-view="settings">Configuración</button>
+        <button data-view="quote">Cotización</button>
+      </div>
+    </header>
+
+    <div class="dropdown" id="notifyMenu">
+      <button data-jump="orders">23 pedidos con retraso</button>
+      <button data-jump="payments">12 pagos sin confirmar</button>
+      <button data-jump="conversations">24 conversaciones en cola</button>
+      <button data-jump="catalog">Precios sincronizados hace 15 min</button>
+    </div>
+    <div class="dropdown" id="profileMenu" style="top:70px">
+      <button id="profileDataBtn">Ver datos de la cuenta</button>
+      <button id="supportBtn">Soporte</button>
+      <button id="logoutBtn">Cerrar sesión de demo</button>
+    </div>
+
+    <section class="content">
+      <!-- DASHBOARD -->
+      <div class="view active" id="view-dashboard">
+        <div class="grid kpis">
+          <div class="kpi"><div class="label">Conversaciones del mes</div><div class="value">35.028</div><div class="trend">↑ 17,6% vs. periodo anterior</div></div>
+          <div class="kpi"><div class="label">Pedidos por WhatsApp</div><div class="value">3.042</div><div class="trend">↑ 13,5%</div></div>
+          <div class="kpi"><div class="label">Autogestión</div><div class="value">49%</div><div class="trend">↑ 2,4 pp</div></div>
+          <div class="kpi"><div class="label">Transferidas a agente</div><div class="value">51%</div><div class="trend down">↓ 2,4 pp</div></div>
+          <div class="kpi"><div class="label">Consultas de precios</div><div class="value">8.124</div><div class="trend">↑ 10,0%</div></div>
+          <div class="kpi"><div class="label">Tiempo prom. respuesta</div><div class="value">02:18</div><div class="trend">15 s más rápido</div></div>
+        </div>
+        <div class="grid dashboard-main">
+          <div class="card"><div class="card-header"><h2>Resumen diario</h2><select id="chartRange"><option>Últimos 7 días</option><option>Últimos 30 días</option></select></div><div class="card-body chart-wrap"><svg viewBox="0 0 700 250" aria-label="Gráfico de conversaciones y pedidos"><line x1="45" y1="210" x2="670" y2="210" stroke="#dfe4eb"/><line x1="45" y1="160" x2="670" y2="160" stroke="#edf0f4"/><line x1="45" y1="110" x2="670" y2="110" stroke="#edf0f4"/><line x1="45" y1="60" x2="670" y2="60" stroke="#edf0f4"/><polyline fill="none" stroke="#0a9a63" stroke-width="4" points="55,88 150,65 245,90 340,102 435,76 530,116 625,162"/><polyline fill="none" stroke="#3d6ee8" stroke-width="4" points="55,175 150,162 245,158 340,164 435,159 530,160 625,184"/><g fill="#0a9a63"><circle cx="55" cy="88" r="5"/><circle cx="150" cy="65" r="5"/><circle cx="245" cy="90" r="5"/><circle cx="340" cy="102" r="5"/><circle cx="435" cy="76" r="5"/><circle cx="530" cy="116" r="5"/><circle cx="625" cy="162" r="5"/></g><g fill="#3d6ee8"><circle cx="55" cy="175" r="5"/><circle cx="150" cy="162" r="5"/><circle cx="245" cy="158" r="5"/><circle cx="340" cy="164" r="5"/><circle cx="435" cy="159" r="5"/><circle cx="530" cy="160" r="5"/><circle cx="625" cy="184" r="5"/></g><text x="52" y="235" font-size="12">19 may.</text><text x="145" y="235" font-size="12">20 may.</text><text x="240" y="235" font-size="12">21 may.</text><text x="335" y="235" font-size="12">22 may.</text><text x="430" y="235" font-size="12">23 may.</text><text x="525" y="235" font-size="12">24 may.</text><text x="620" y="235" font-size="12">25 may.</text><text x="480" y="22" font-size="12" fill="#0a9a63">● Conversaciones</text><text x="590" y="22" font-size="12" fill="#3d6ee8">● Pedidos</text></svg></div></div>
+          <div class="card"><div class="card-header"><h2>Cuellos de botella</h2></div><div class="scroll-table"><table><thead><tr><th>Motivo</th><th>Volumen</th><th>Impacto</th></tr></thead><tbody><tr><td>Consulta de precios manual</td><td>2.361</td><td><span class="chip red">Alto</span></td></tr><tr><td>Transferencia por flujo incompleto</td><td>1.487</td><td><span class="chip red">Alto</span></td></tr><tr><td>Pago por link</td><td>924</td><td><span class="chip orange">Medio</span></td></tr><tr><td>Demora de respuesta</td><td>642</td><td><span class="chip orange">Medio</span></td></tr></tbody></table></div></div>
+          <div class="card"><div class="card-header"><h2>Últimas conversaciones críticas</h2><button class="ghost" data-view="conversations">Ver todas</button></div><div class="scroll-table"><table><thead><tr><th>Cliente</th><th>Motivo</th><th>Estado</th><th>Responsable</th><th>Actualización</th></tr></thead><tbody><tr><td>Juan Camilo R.</td><td>Consulta de precios</td><td><span class="chip red">Abierta</span></td><td>Laura M.</td><td>Hace 3 min</td></tr><tr><td>María Patricia G.</td><td>Pago no confirmado</td><td><span class="chip blue">En curso</span></td><td>Andrés T.</td><td>Hace 6 min</td></tr><tr><td>Oscar Salazar</td><td>Retraso en entrega</td><td><span class="chip orange">Pendiente</span></td><td>Sofía R.</td><td>Hace 11 min</td></tr><tr><td>Luis Gómez</td><td>Información de pedido</td><td><span class="chip red">Abierta</span></td><td>Carlos P.</td><td>Hace 18 min</td></tr></tbody></table></div></div>
+        </div>
+        <div class="card"><div class="card-header"><h2>Objetivos operativos</h2></div><div class="goals"><div class="goal"><strong>Autogestión</strong><div class="progress"><span style="width:49%"></span></div><strong>49% / 55%</strong><span class="chip blue">En progreso</span></div><div class="goal"><strong>Tiempo de respuesta</strong><div class="progress"><span style="width:76%"></span></div><strong>02:18 / 03:00</strong><span class="chip green">Cumple</span></div><div class="goal"><strong>Pedidos autogestionados</strong><div class="progress"><span style="width:67%"></span></div><strong>67% / 70%</strong><span class="chip blue">En progreso</span></div></div></div>
+      </div>
+
+      <!-- CONVERSATIONS -->
+      <div class="view" id="view-conversations">
+        <div class="three-col">
+          <div class="card"><div class="card-header"><h2>Bandeja de conversaciones</h2></div><div class="card-body"><div class="filters" id="conversationFilters"><button class="filter-tab active" data-type="Todas">Todas</button><button class="filter-tab" data-type="Pedidos">Pedidos</button><button class="filter-tab" data-type="Precios">Precios</button><button class="filter-tab" data-type="Pagos">Pagos</button><button class="filter-tab" data-type="Quejas">Quejas</button></div><div style="margin-top:12px"><input id="conversationSearch" class="datebox" style="width:100%" placeholder="Buscar conversación o cliente..." /></div></div><div class="inbox-list" id="inboxList"></div></div>
+          <div class="card chat"><div class="chat-head"><span id="chatClient">Juan Camilo R.</span> · WhatsApp</div><div class="messages" id="messageList"></div><div class="chat-compose"><input id="messageInput" placeholder="Escribir mensaje..."/><button class="primary" id="sendMessageBtn">Enviar</button></div><div class="card-body toolbar"><button class="primary" id="takeConversationBtn">Tomar conversación</button><button class="ghost" id="createOrderFromChatBtn">Crear pedido</button><button class="ghost" id="templateReplyBtn">Responder con plantilla</button></div></div>
+          <div class="grid" style="gap:16px"><div class="card"><div class="card-header"><h2>Resumen operativo</h2></div><div class="card-body"><div class="side-stat"><span>Conversaciones activas</span><strong>156</strong></div><div class="side-stat"><span>En cola</span><strong style="color:var(--orange)">24</strong></div><div class="side-stat"><span>Transferidas a agente</span><strong style="color:var(--blue)">67</strong></div><div class="side-stat"><span>Primera respuesta</span><strong style="color:var(--ink)">01:48</strong></div></div></div><div class="card"><div class="card-header"><h2>Datos útiles del caso</h2></div><div class="card-body detail-list" id="caseDetails"></div></div></div>
+        </div>
+      </div>
+
+      <!-- CLIENTS -->
+      <div class="view" id="view-clients">
+        <div class="client-layout">
+          <div class="card"><div class="card-header"><h2>Clientes</h2><button class="primary" id="newClientBtn">Nuevo cliente</button></div><div class="card-body"><input id="clientSearch" class="datebox" style="width:100%" placeholder="Buscar por nombre, documento o ciudad..."/></div><div class="listbox" id="clientList"></div></div>
+          <div class="card"><div class="card-header"><h2 id="clientName">Juan Camilo Ramírez</h2><div class="toolbar"><button class="ghost" id="editClientBtn">Editar datos</button><button class="primary" id="clientCreateOrderBtn">Crear pedido</button></div></div><div class="card-body"><div class="info-grid" id="clientInfo"></div><div style="margin-top:16px" class="card"><div class="card-header"><h2>Historial de pedidos</h2></div><div class="scroll-table"><table><thead><tr><th>Fecha</th><th>Producto</th><th>Valor</th><th>Pago</th><th>Estado</th><th>Canal</th></tr></thead><tbody id="clientOrdersBody"></tbody></table></div></div></div></div>
+        </div>
+      </div>
+
+      <!-- CATALOG -->
+      <div class="view" id="view-catalog">
+        <div class="grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:16px"><div class="kpi"><div class="label">Consultas de precios</div><div class="value">8.124</div></div><div class="kpi"><div class="label">Versión vigente</div><div class="value" style="font-size:22px;color:var(--ink)">v5.2 · Mayo 2025</div></div><div class="kpi"><div class="label">Referencias activas</div><div class="value">6</div></div><div class="kpi"><div class="label">Última sincronización</div><div class="value" style="font-size:24px;color:var(--ink)">Hace 15 min</div></div></div>
+        <div class="subgrid"><div class="card"><div class="card-header"><h2>Catálogo de cilindros</h2><div class="toolbar"><button class="ghost" id="updatePricesBtn">Actualizar precios</button><button class="primary" id="newProductBtn">Nuevo producto</button></div></div><div class="card-body"><div class="toolbar"><input id="productSearch" placeholder="Buscar producto..."/><select id="capacityFilter"><option value="">Todas las capacidades</option><option>2 kg</option><option>5 kg</option><option>10 kg</option><option>20 lb</option><option>30 lb</option><option>40 lb</option></select><select id="cityFilter"><option value="">Todas las ciudades</option><option>Bogotá D.C.</option><option>Medellín</option><option>Cali</option></select><select id="productStatusFilter"><option value="">Todos los estados</option><option>Activo</option><option>Inactivo</option></select></div></div><div class="scroll-table"><table><thead><tr><th>Producto</th><th>Capacidad</th><th>Valor líquido</th><th>Valor comodato</th><th>Estado</th><th>Ciudades disponibles</th><th>Última actualización</th><th></th></tr></thead><tbody id="productTableBody"></tbody></table></div></div><div class="card"><div class="card-header"><h2>Cobertura</h2></div><div class="scroll-table"><table><thead><tr><th>Ciudad</th><th>Disponible</th><th>WhatsApp</th></tr></thead><tbody><tr><td>Bogotá D.C.</td><td>✓</td><td>✓</td></tr><tr><td>Medellín</td><td>✓</td><td>✓</td></tr><tr><td>Cali</td><td>✓</td><td>✓</td></tr><tr><td>Barranquilla</td><td>✓</td><td>✓</td></tr><tr><td>Bucaramanga</td><td>✓</td><td>✓</td></tr><tr><td><strong>Total ciudades</strong></td><td colspan="2"><strong>47</strong></td></tr></tbody></table></div></div></div>
+        <div class="card" style="margin-top:16px"><div class="card-header"><h2>Reglas de precio</h2><button class="ghost" id="editRulesBtn">Editar reglas</button></div><div class="scroll-table"><table><thead><tr><th>Región</th><th>Ciudades</th><th>Ajuste</th><th>Estado</th></tr></thead><tbody id="priceRulesBody"></tbody></table></div></div>
+      </div>
+
+      <!-- ORDERS -->
+      <div class="view" id="view-orders">
+        <div class="grid" style="grid-template-columns:repeat(5,1fr);margin-bottom:16px"><div class="kpi"><div class="label">Pedidos recibidos</div><div class="value">1.286</div></div><div class="kpi"><div class="label">Confirmados</div><div class="value">1.032</div></div><div class="kpi"><div class="label">En preparación</div><div class="value">312</div></div><div class="kpi"><div class="label">En ruta</div><div class="value">542</div></div><div class="kpi"><div class="label">Cancelados</div><div class="value" style="color:var(--red)">54</div></div></div>
+        <div class="orders-layout"><div class="card"><div class="card-header"><h2>Pedidos</h2><button class="primary" id="newOrderBtn">Crear pedido</button></div><div class="card-body"><div class="toolbar"><select id="orderCityFilter"><option value="">Todas las ciudades</option><option>Bogotá D.C.</option><option>Medellín</option><option>Cali</option><option>Bucaramanga</option></select><select id="orderStatusFilter"><option value="">Todos los estados</option><option>Confirmado</option><option>En preparación</option><option>En ruta</option><option>Cancelado</option></select><select id="orderPaymentFilter"><option value="">Todos los pagos</option><option>Pagado</option><option>Contra entrega</option></select><select id="orderChannelFilter"><option value="">Todos los canales</option><option>WhatsApp</option><option>Web</option><option>App Colgas</option></select></div></div><div class="scroll-table"><table><thead><tr><th><input type="checkbox" id="selectAllOrders"/></th><th>Número</th><th>Cliente</th><th>Ciudad</th><th>Producto</th><th>Valor</th><th>Pago</th><th>Código</th><th>Estado</th><th>Canal</th><th>Responsable</th><th>Hora</th></tr></thead><tbody id="ordersTableBody"></tbody></table></div><div class="card-body actionbar"><button class="ghost bulk-action" data-action="Asignar repartidor">Asignar repartidor</button><button class="ghost bulk-action" data-action="Reenviar código">Reenviar código</button><button class="ghost bulk-action" data-action="Marcar incidencia">Marcar incidencia</button><button class="danger bulk-action" data-action="Cancelar pedido">Cancelar pedido</button></div></div><div class="grid" style="gap:16px"><div class="card"><div class="card-header"><h2>Alertas operativas</h2></div><div class="scroll-table"><table><tbody><tr><td>Pedidos retrasados</td><td class="right" style="color:var(--red)"><strong>23</strong></td></tr><tr><td>Pedidos sin asignar</td><td class="right" style="color:var(--orange)"><strong>41</strong></td></tr><tr><td>Incidencias abiertas</td><td class="right" style="color:var(--orange)"><strong>17</strong></td></tr><tr><td>Sin confirmación de pago</td><td class="right" style="color:var(--orange)"><strong>12</strong></td></tr></tbody></table></div></div><div class="card"><div class="card-header"><h2>Conversación → Pedido</h2></div><div class="card-body"><div class="side-stat"><span>Conversaciones</span><strong>3.042</strong></div><div class="side-stat"><span>Pedidos generados</span><strong>1.586</strong></div><div class="side-stat"><span>Conversión</span><strong>52%</strong></div></div></div></div></div>
+      </div>
+
+      <!-- PAYMENTS -->
+      <div class="view" id="view-payments">
+        <div class="grid" style="grid-template-columns:repeat(5,1fr);margin-bottom:16px"><div class="kpi"><div class="label">Pagos iniciados</div><div class="value">128</div></div><div class="kpi"><div class="label">Links enviados</div><div class="value">112</div></div><div class="kpi"><div class="label">Aprobados</div><div class="value">86</div></div><div class="kpi"><div class="label">Pendientes</div><div class="value" style="color:var(--orange)">19</div></div><div class="kpi"><div class="label">Rechazados</div><div class="value" style="color:var(--red)">7</div></div></div>
+        <div class="payments-layout"><div class="card"><div class="card-header"><h2>Transacciones de pago</h2><button class="primary" id="newPaymentLinkBtn">Generar link</button></div><div class="card-body"><input id="paymentSearch" class="datebox" style="width:100%" placeholder="Buscar por cliente, pedido o referencia..."/></div><div class="scroll-table"><table><thead><tr><th>Cliente</th><th>Pedido</th><th>Valor</th><th>Método</th><th>Estado</th><th>Link</th><th>Envío</th><th>Conciliación</th><th></th></tr></thead><tbody id="paymentTableBody"></tbody></table></div></div><div class="card"><div class="card-header"><h2>Detalle del pago</h2></div><div class="card-body" id="paymentDetail"></div></div></div>
+      </div>
+
+
+      <!-- QUOTE -->
+      <div class="view" id="view-quote">
+        <div class="grid" style="grid-template-columns:minmax(0,1.7fr) minmax(320px,.9fr);align-items:start;gap:16px">
+          <div class="card">
+            <div class="card-header">
+              <h2>Propuesta</h2>
+            </div>
+            <div class="card-body">
+              <div class="framework-grid">
+                <div class="framework-card">
+                 
+                  <h3>Integración y conectividad</h3>
+                  <ul>
+                    <li>Conexión del portal Colgas con Blupit por medio de API.</li>
+                    <li>Consolidación de datos de pedidos, clientes y pagos visibles tanto en Blupit como en el portal Colgas.</li>
+                  </ul>
+                </div>
+                <div class="framework-card">
+                 
+                  <h3>CRM conversacional</h3>
+                  <ul>
+                    <li>CRM de automatización de conversaciones.</li>
+                    <li>Agentes más amplios para conversaciones consultivas que reduzcan el desgaste operativo manual.</li>
+                  </ul>
+                </div>
+                <div class="framework-card">
+                 
+                  <h3>Agentes IA y eficiencia</h3>
+                  <ul>
+                    <li>Agentes IA para toma de pedidos.</li>
+                    <li>Reducción importante de la tasa de asesoría manual.</li>
+                  </ul>
+                </div>
+                <div class="framework-card">
+                 
+                  <h3>Pagos automatizados</h3>
+                  <ul>
+                    <li>Gestión de pagos automatizada por Wompi.</li>
+                    <li>Confirmación automática del pago recibido y trazabilidad completa de la venta dentro de WhatsApp.</li>
+                  </ul>
+                </div>
+                <div class="framework-card" style="grid-column:1 / -1;min-height:auto">
+                 
+                  <h3>Mensajería outbound</h3>
+                  <ul>
+                    <li>Hasta 60.000 mensajes outbound al mes.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="grid" style="gap:16px">
+            <div class="kpi" style="padding:24px">
+              <div class="label" style="font-size:14px">Inversión anual</div>
+              <div class="value" style="font-size:44px;line-height:1.05;margin:18px 0 10px">$240.000.000</div>
+              <div class="trend" style="font-size:14px;color:var(--ink)">Valor total por año</div>
+            </div>
+            <div class="card">
+              <div class="card-header"><h2>KPI</h2></div>
+              <div class="card-body">
+                <div class="quote-kpi-grid" style="grid-template-columns:1fr;gap:14px">
+                  <div class="quote-kpi-card">
+                    <div class="eyebrow">Objetivo operativo</div>
+                    <div class="big">3 meses</div>
+                    <div class="title">Reducir de forma sustancial la gestión manual</div>
+                    <p>Meta de migración progresiva hacia autogestión, automatización conversacional y agentes IA, con un rango estimado de tres meses.</p>
+                  </div>
+                  <div class="quote-kpi-card">
+                    <div class="eyebrow">Objetivo transaccional</div>
+                    <div class="big">Pagos autom.</div>
+                    <div class="title">Gestionar el sistema de pagos automatizados</div>
+                    <p>Operación de pagos por Wompi con confirmación automática, trazabilidad en WhatsApp y visibilidad total dentro de Blupit y Colgas.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:16px">
+          <div class="card-header"><h2>Tiempos de trabajo</h2></div>
+          <div class="card-body">
+            <div class="phase-grid" style="grid-template-columns:repeat(2,minmax(0,1fr));gap:14px">
+              <div class="phase-card" style="min-height:170px">
+                <div class="num">40</div>
+                <div class="unit">días</div>
+                <h3>Desarrollo</h3>
+                <p>Construcción funcional del flujo, integraciones base, automatización conversacional y estructura operativa del proyecto.</p>
+              </div>
+              <div class="phase-card" style="min-height:170px">
+                <div class="num">20</div>
+                <div class="unit">días</div>
+                <h3>Pruebas</h3>
+                <p>Validación técnica, ajustes, pruebas de conversación, revisión de pagos y afinación del comportamiento del sistema.</p>
+              </div>
+              <div class="phase-card" style="min-height:170px">
+                <div class="num">30</div>
+                <div class="unit">días</div>
+                <h3>Piloto</h3>
+                <p>Ejecución controlada del piloto, seguimiento cercano y aprendizaje operacional. <strong>Este periodo no se cobra.</strong></p>
+              </div>
+              <div class="phase-card" style="min-height:170px">
+                <div class="num">20</div>
+                <div class="unit">días</div>
+                <h3>Periodo de transición</h3>
+                <p>Estabilización final, transferencia gradual a operación y acompañamiento para dejar el sistema listo en producción.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="view" id="view-settings">
+        <div class="settings-grid"><div class="card"><div class="card-header"><h2>Reglas conversacionales</h2></div><div class="card-body"><div class="setting-row"><div><strong>Transferencia automática a agente</strong><div class="small">Cuando el bot no entiende dos mensajes consecutivos.</div></div><button class="switch on" data-setting="handoff"></button></div><div class="setting-row"><div><strong>Consulta de precios por API</strong><div class="small">Responde usando el precio vigente de Colgas.</div></div><button class="switch on" data-setting="priceApi"></button></div><div class="setting-row"><div><strong>Creación automática de pedido</strong><div class="small">Permite cerrar pedidos completos desde WhatsApp.</div></div><button class="switch on" data-setting="autoOrder"></button></div><div class="setting-row"><div><strong>Notas de voz</strong><div class="small">Interpretación de intención en mensajes de audio.</div></div><button class="switch" data-setting="voice"></button></div></div></div><div class="card"><div class="card-header"><h2>Integraciones</h2></div><div class="card-body"><div class="setting-row"><div><strong>Colgas Ya · API</strong><div class="small">Última sincronización: hace 15 min.</div></div><span class="chip green">Conectada</span></div><div class="setting-row"><div><strong>Wompi</strong><div class="small">Generación y validación de links de pago.</div></div><span class="chip green">Conectada</span></div><div class="setting-row"><div><strong>WhatsApp Business</strong><div class="small">Número operativo verificado.</div></div><span class="chip green">Activo</span></div><div class="setting-row"><div><strong>SMS de respaldo</strong><div class="small">Se usa cuando el cliente no tiene WhatsApp.</div></div><span class="chip blue">Disponible</span></div></div></div></div><div class="toolbar" style="margin-top:16px;justify-content:flex-end"><button class="ghost" id="resetSettingsBtn">Restablecer</button><button class="primary" id="saveSettingsBtn">Guardar configuración</button></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal">
+    <div class="modal-header"><h3 id="modalTitle">Formulario</h3><button class="ghost" id="closeModalBtn">Cerrar</button></div>
+    <form id="modalForm"><div class="modal-body" id="modalBody"></div><div class="modal-footer"><button type="button" class="ghost" id="cancelModalBtn">Cancelar</button><button type="submit" class="primary" id="submitModalBtn">Guardar</button></div></form>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(() => {
+  const state = {
+    currentView:'dashboard', selectedConversation:1, selectedClient:1, selectedPayment:1,
+    conversations:[
+      {id:1,name:'Juan Camilo R.',type:'Pedidos',reason:'Pedido de cilindros',status:'En curso',time:'5 min',city:'Bucaramanga',priority:'Media',lastOrder:'PED-98765 · 12 may. 2025',messages:[['in','Hola, ¿cuál es el precio del cilindro de gas de 15 kg?','09:14'],['out','Hola Juan Camilo, el cilindro de 15 kg tiene un precio de $68.000. ¿Te gustaría realizar el pedido?','09:15'],['in','Sí, por favor. Necesito 2 cilindros.','09:16'],['out','Perfecto, ¿para qué dirección de entrega los necesitas?','09:16'],['in','Calle 45 #22-16, Barrio La Esperanza, Bucaramanga.','09:17'],['out','Listo Juan Camilo, registré tu pedido por 2 cilindros de 15 kg para entrega hoy en la tarde.','09:18']]},
+      {id:2,name:'María P.',type:'Precios',reason:'Consulta de precios',status:'Abierta',time:'2 min',city:'Medellín',priority:'Baja',lastOrder:'PED-97220 · 8 may. 2025',messages:[['in','¿Cuánto cuesta el cilindro de 10 kg?','10:01'],['out','El valor vigente es de $48.000.','10:01']]},
+      {id:3,name:'Ana L.',type:'Pedidos',reason:'Información de pedido',status:'En cola',time:'8 min',city:'Cali',priority:'Media',lastOrder:'PED-96441 · 3 may. 2025',messages:[['in','¿A qué hora llega mi pedido?','10:40']]},
+      {id:4,name:'Carlos R.',type:'Precios',reason:'Consulta de precios',status:'Abierta',time:'12 min',city:'Bogotá D.C.',priority:'Baja',lastOrder:'PED-94110 · 28 abr. 2025',messages:[['in','Precio del cilindro de 40 lb','11:02']]},
+      {id:5,name:'Sofía G.',type:'Quejas',reason:'Queja por entrega',status:'Abierta',time:'18 min',city:'Barranquilla',priority:'Alta',lastOrder:'PED-93210 · 25 abr. 2025',messages:[['in','El pedido no llegó completo.','11:30']]},
+      {id:6,name:'Diego A.',type:'Pagos',reason:'Información de pago',status:'Cerrada',time:'1 h',city:'Pereira',priority:'Baja',lastOrder:'PED-91881 · 20 abr. 2025',messages:[['in','¿Me confirman el pago?','08:30'],['out','Tu pago fue aprobado.','08:31']]}
+    ],
+    clients:[
+      {id:1,name:'Juan Camilo Ramírez',doc:'CC 1.234.567.890',city:'Bucaramanga',phone:'300 123 4567',email:'juan@email.com',habeas:'Autorizado',segment:'Residencial',status:'Activo',address:'Calle 45 #22-16, Barrio La Esperanza',orders:[['22 may. 2025','Cilindro 15 kg','$136.000','PSE','Entregado','WhatsApp'],['12 may. 2025','Cilindro 15 kg','$68.000','Efectivo','Entregado','WhatsApp']]},
+      {id:2,name:'María Patricia Gómez',doc:'CC 43.765.432',city:'Medellín',phone:'310 555 6677',email:'maria@email.com',habeas:'Autorizado',segment:'Residencial',status:'Activo',address:'Carrera 33 #10-20',orders:[['15 may. 2025','Cilindro 10 kg','$48.000','Nequi','Entregado','WhatsApp']]},
+      {id:3,name:'Oscar García',doc:'CC 8.765.432',city:'Cali',phone:'315 310 4400',email:'oscar@email.com',habeas:'Autorizado',segment:'Comercial',status:'Activo',address:'Calle 8 #11-34',orders:[['08 may. 2025','Cilindro 20 lb','$98.000','Tarjeta','Entregado','Web']]},
+      {id:4,name:'Ana Sofía Restrepo',doc:'CC 1.036.589.741',city:'Bello',phone:'300 771 2288',email:'ana@email.com',habeas:'Pendiente',segment:'Residencial',status:'Activo',address:'Diagonal 54 #45-20',orders:[]}
+    ],
+    products:[
+      {id:1,name:'Cilindro de Gas 2 kg',capacity:'2 kg',liquid:18500,comodato:20000,status:'Activo',cities:22,updated:'19 may. 2025, 08:30'},
+      {id:2,name:'Cilindro de Gas 5 kg',capacity:'5 kg',liquid:46000,comodato:35000,status:'Activo',cities:45,updated:'19 may. 2025, 08:30'},
+      {id:3,name:'Cilindro de Gas 10 kg',capacity:'10 kg',liquid:86000,comodato:43000,status:'Activo',cities:47,updated:'19 may. 2025, 08:30'},
+      {id:4,name:'Cilindro de Gas 20 lb',capacity:'20 lb',liquid:98000,comodato:47000,status:'Activo',cities:24,updated:'19 may. 2025, 08:30'},
+      {id:5,name:'Cilindro de Gas 30 lb',capacity:'30 lb',liquid:146000,comodato:61000,status:'Activo',cities:22,updated:'19 may. 2025, 08:30'},
+      {id:6,name:'Cilindro de Gas 40 lb',capacity:'40 lb',liquid:195000,comodato:81000,status:'Activo',cities:18,updated:'19 may. 2025, 08:30'}
+    ],
+    priceRules:[['Región Andina',22,'+$2.000','Activa'],['Región Caribe',12,'+$1.000','Activa'],['Región Pacífico',7,'+$1.500','Activa'],['Región Orinoquía',6,'+$2.500','Activa']],
+    orders:[
+      {id:'PED-2025-001286',client:'Juan Camilo R.',city:'Bogotá D.C.',product:'Cilindro 15 kg',value:68000,payment:'Pagado',code:'284615',status:'En ruta',channel:'WhatsApp',owner:'Laura M.',time:'11:30'},
+      {id:'PED-2025-001285',client:'María Paula G.',city:'Medellín',product:'Cilindro 5 kg',value:34000,payment:'Pagado',code:'619372',status:'En preparación',channel:'Web',owner:'Andrés T.',time:'12:00'},
+      {id:'PED-2025-001284',client:'Oscar Salazar',city:'Cali',product:'Cilindro 10 kg',value:48000,payment:'Contra entrega',code:'905731',status:'Confirmado',channel:'WhatsApp',owner:'Sofía R.',time:'13:00'},
+      {id:'PED-2025-001283',client:'Luis Gómez',city:'Barranquilla',product:'Cilindro 15 kg',value:68000,payment:'Pagado',code:'173628',status:'En ruta',channel:'App Colgas',owner:'Carlos P.',time:'11:45'},
+      {id:'PED-2025-001282',client:'Ana Lucía M.',city:'Bucaramanga',product:'Cilindro 5 kg',value:34000,payment:'Pagado',code:'746281',status:'En preparación',channel:'WhatsApp',owner:'Diana V.',time:'12:30'},
+      {id:'PED-2025-001281',client:'Felipe Arango',city:'Pereira',product:'Cilindro 40 lb',value:116000,payment:'Contra entrega',code:'382917',status:'Confirmado',channel:'Web',owner:'Mateo G.',time:'14:00'},
+      {id:'PED-2025-001280',client:'Valentina Torres',city:'Cartagena',product:'Cilindro 10 kg',value:48000,payment:'Pagado',code:'561209',status:'Cancelado',channel:'WhatsApp',owner:'Laura M.',time:'—'},
+      {id:'PED-2025-001279',client:'Diego Herrera',city:'Manizales',product:'Cilindro 15 kg',value:68000,payment:'Pagado',code:'829104',status:'En ruta',channel:'App Colgas',owner:'Andrés T.',time:'12:15'}
+    ],
+    payments:[
+      {id:1,client:'Juan Camilo R.',order:'PED-2025-1287',value:120000,method:'Tarjeta débito',status:'Aprobado',link:'wompi.co/l/w9k3aB',sent:'23 may. 09:15',recon:'Conciliado'},
+      {id:2,client:'María Patricia G.',order:'PED-2025-1286',value:98000,method:'PSE',status:'Pendiente',link:'wompi.co/l/3h7dQz',sent:'23 may. 10:02',recon:'Pendiente'},
+      {id:3,client:'Oscar Suárez',order:'PED-2025-1285',value:210000,method:'Tarjeta crédito',status:'Aprobado',link:'wompi.co/l/k2mP9f',sent:'23 may. 08:47',recon:'Conciliado'},
+      {id:4,client:'Luisa Gómez',order:'PED-2025-1284',value:75000,method:'Nequi',status:'Rechazado',link:'wompi.co/l/a8JpLm',sent:'22 may. 16:20',recon:'No conciliado'}
+    ]
+  };
+
+  const $ = s => document.querySelector(s);
+  const $$ = s => [...document.querySelectorAll(s)];
+  const money = n => '$' + Number(n).toLocaleString('es-CO');
+  const chipClass = s => ({'Activo':'green','Activa':'green','Aprobado':'green','Confirmado':'green','En ruta':'blue','En preparación':'orange','En curso':'blue','Abierta':'red','Pendiente':'orange','Rechazado':'red','Cancelado':'red','Cerrada':'gray','Conciliado':'green','No conciliado':'red','Contra entrega':'orange','Pagado':'green'}[s]||'gray');
+  const toast = msg => { const t=$('#toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(t._timer); t._timer=setTimeout(()=>t.classList.remove('show'),2600); };
+
+  function switchView(view){
+    state.currentView=view;
+    $$('.view').forEach(v=>v.classList.toggle('active',v.id===`view-${view}`));
+    $$('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));
+    const meta={dashboard:['Colgas','Operación conversacional y pedidos'],conversations:['Colgas','Conversaciones con clientes'],clients:['Colgas','Gestión de clientes'],catalog:['Colgas','Catálogo y precios'],orders:['Colgas','Pedidos y logística'],payments:['Colgas','Pagos y conciliación'],quote:['Colgas','Cotización comercial'],settings:['Colgas','Configuración operativa']};
+    $('#pageTitle').textContent=meta[view][0]; $('#pageSubtitle').textContent=meta[view][1];
+    $('#notifyMenu').classList.remove('open'); $('#profileMenu').classList.remove('open');
+  }
+  document.addEventListener('click',e=>{const b=e.target.closest('[data-view]'); if(b){switchView(b.dataset.view);}});
+
+  function renderConversations(){
+    const activeType=$('#conversationFilters .active')?.dataset.type||'Todas'; const q=($('#conversationSearch')?.value||'').toLowerCase();
+    const rows=state.conversations.filter(c=>(activeType==='Todas'||c.type===activeType)&&(`${c.name} ${c.reason}`.toLowerCase().includes(q)));
+    $('#inboxList').innerHTML='<div class="inbox-row muted" style="font-weight:800"><span>Cliente</span><span>Motivo</span><span>Estado</span><span>Tiempo</span></div>'+rows.map(c=>`<div class="inbox-row ${c.id===state.selectedConversation?'active':''}" data-conversation-id="${c.id}"><span>${c.name}</span><span>${c.reason}</span><span><span class="chip ${chipClass(c.status)}">${c.status}</span></span><span>${c.time}</span></div>`).join('');
+    renderSelectedConversation();
+  }
+  function renderSelectedConversation(){
+    const c=state.conversations.find(x=>x.id===state.selectedConversation)||state.conversations[0];
+    $('#chatClient').textContent=c.name;
+    $('#messageList').innerHTML=c.messages.map(m=>`<div class="msg ${m[0]==='out'?'out':''}">${m[1]}<span class="time">${m[2]}</span></div>`).join('');
+    $('#caseDetails').innerHTML=`<div class="muted">Cliente</div><div>${c.name}</div><div class="muted">Último pedido</div><div>${c.lastOrder}</div><div class="muted">Intención detectada</div><div>${c.reason}</div><div class="muted">Ciudad</div><div>${c.city}</div><div class="muted">Prioridad</div><div><span class="chip ${c.priority==='Alta'?'red':c.priority==='Media'?'orange':'green'}">${c.priority}</span></div>`;
+    setTimeout(()=>{$('#messageList').scrollTop=$('#messageList').scrollHeight},0);
+  }
+  $('#conversationFilters').addEventListener('click',e=>{const b=e.target.closest('.filter-tab');if(!b)return;$$('#conversationFilters .filter-tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderConversations();});
+  $('#conversationSearch').addEventListener('input',renderConversations);
+  $('#inboxList').addEventListener('click',e=>{const r=e.target.closest('[data-conversation-id]');if(!r)return;state.selectedConversation=Number(r.dataset.conversationId);renderConversations();});
+  $('#sendMessageBtn').addEventListener('click',()=>{const input=$('#messageInput'); const val=input.value.trim(); if(!val)return; const c=state.conversations.find(x=>x.id===state.selectedConversation); c.messages.push(['out',val,new Date().toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'})]); input.value=''; renderSelectedConversation(); toast('Mensaje enviado en el prototipo.');});
+  $('#messageInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('#sendMessageBtn').click();});
+  $('#takeConversationBtn').addEventListener('click',()=>{const c=state.conversations.find(x=>x.id===state.selectedConversation);c.status='En curso';renderConversations();toast(`Conversación de ${c.name} asignada a tu usuario.`);});
+  $('#templateReplyBtn').addEventListener('click',()=>{const input=$('#messageInput');input.value='Hola, estamos revisando tu solicitud. Te confirmaremos la información en un momento.';input.focus();toast('Plantilla cargada. Puedes editarla antes de enviar.');});
+
+  function renderClients(){
+    const q=($('#clientSearch').value||'').toLowerCase(); const list=state.clients.filter(c=>`${c.name} ${c.doc} ${c.city}`.toLowerCase().includes(q));
+    $('#clientList').innerHTML=list.map(c=>`<div class="client-row ${c.id===state.selectedClient?'active':''}" data-client-id="${c.id}"><div><strong>${c.name}</strong><div class="small">${c.doc}</div></div><span>${c.city}</span></div>`).join('');
+    renderClientDetails();
+  }
+  function renderClientDetails(){
+    const c=state.clients.find(x=>x.id===state.selectedClient)||state.clients[0]; $('#clientName').textContent=c.name;
+    $('#clientInfo').innerHTML=`<div class="info-box"><h3>Datos básicos</h3><p><strong>Documento:</strong> ${c.doc}</p><p><strong>Ciudad:</strong> ${c.city}</p><p><strong>Estado:</strong> ${c.status}</p></div><div class="info-box"><h3>Contacto</h3><p><strong>Teléfono:</strong> ${c.phone}</p><p><strong>Correo:</strong> ${c.email}</p><p><strong>Canal:</strong> WhatsApp</p></div><div class="info-box"><h3>Datos operativos</h3><p><strong>Habeas data:</strong> ${c.habeas}</p><p><strong>Segmento:</strong> ${c.segment}</p><p><strong>Dirección:</strong> ${c.address}</p></div>`;
+    $('#clientOrdersBody').innerHTML=c.orders.length?c.orders.map(o=>`<tr>${o.map((x,i)=>`<td>${i===4?`<span class="chip ${chipClass(x)}">${x}</span>`:x}</td>`).join('')}</tr>`).join(''):`<tr><td colspan="6" class="muted">Este cliente todavía no tiene pedidos.</td></tr>`;
+  }
+  $('#clientSearch').addEventListener('input',renderClients); $('#clientList').addEventListener('click',e=>{const r=e.target.closest('[data-client-id]');if(!r)return;state.selectedClient=Number(r.dataset.clientId);renderClients();});
+
+  function renderProducts(){
+    const q=($('#productSearch').value||'').toLowerCase(), cap=$('#capacityFilter').value, st=$('#productStatusFilter').value;
+    const rows=state.products.filter(p=>p.name.toLowerCase().includes(q)&&(!cap||p.capacity===cap)&&(!st||p.status===st));
+    $('#productTableBody').innerHTML=rows.map(p=>`<tr><td>${p.name}</td><td>${p.capacity}</td><td>${money(p.liquid)}</td><td>${money(p.comodato)}</td><td><span class="chip ${chipClass(p.status)}">${p.status}</span></td><td>${p.cities} ciudades</td><td>${p.updated}</td><td><button class="ghost edit-product" data-id="${p.id}">Editar</button></td></tr>`).join('');
+    $('#priceRulesBody').innerHTML=state.priceRules.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td><span class="chip green">${r[3]}</span></td></tr>`).join('');
+  }
+  ['productSearch','capacityFilter','cityFilter','productStatusFilter'].forEach(id=>$('#'+id).addEventListener('input',renderProducts));
+
+  function renderOrders(){
+    const city=$('#orderCityFilter').value,st=$('#orderStatusFilter').value,pay=$('#orderPaymentFilter').value,ch=$('#orderChannelFilter').value;
+    const rows=state.orders.filter(o=>(!city||o.city===city)&&(!st||o.status===st)&&(!pay||o.payment===pay)&&(!ch||o.channel===ch));
+    $('#ordersTableBody').innerHTML=rows.map((o,i)=>`<tr><td><input class="order-check" type="checkbox" data-index="${state.orders.indexOf(o)}"></td><td>${o.id}</td><td>${o.client}</td><td>${o.city}</td><td>${o.product}</td><td>${money(o.value)}</td><td>${o.payment}</td><td>${o.code}</td><td><span class="chip ${chipClass(o.status)}">${o.status}</span></td><td>${o.channel}</td><td>${o.owner}</td><td>${o.time}</td></tr>`).join('');
+  }
+  ['orderCityFilter','orderStatusFilter','orderPaymentFilter','orderChannelFilter'].forEach(id=>$('#'+id).addEventListener('input',renderOrders));
+  $('#selectAllOrders').addEventListener('change',e=>$$('.order-check').forEach(c=>c.checked=e.target.checked));
+  $$('.bulk-action').forEach(b=>b.addEventListener('click',()=>{const selected=$$('.order-check:checked'); if(!selected.length)return toast('Selecciona al menos un pedido.'); toast(`${b.dataset.action} aplicado a ${selected.length} pedido(s) en la demo.`);}));
+
+  function renderPayments(){
+    const q=($('#paymentSearch').value||'').toLowerCase(); const rows=state.payments.filter(p=>`${p.client} ${p.order} ${p.link}`.toLowerCase().includes(q));
+    $('#paymentTableBody').innerHTML=rows.map(p=>`<tr data-payment-id="${p.id}" style="cursor:pointer"><td>${p.client}</td><td>${p.order}</td><td>${money(p.value)}</td><td>${p.method}</td><td><span class="chip ${chipClass(p.status)}">${p.status}</span></td><td>${p.link}</td><td>${p.sent}</td><td><span class="chip ${chipClass(p.recon)}">${p.recon}</span></td><td><button class="ghost copy-link" data-link="${p.link}">Copiar</button></td></tr>`).join('');
+    renderPaymentDetail();
+  }
+  function renderPaymentDetail(){
+    const p=state.payments.find(x=>x.id===state.selectedPayment)||state.payments[0];
+    $('#paymentDetail').innerHTML=`<h3 style="margin-top:0">${p.client}</h3><p><strong>Pedido:</strong> ${p.order}</p><p><strong>Valor:</strong> ${money(p.value)}</p><p><strong>Método:</strong> ${p.method}</p><p><strong>Estado:</strong> <span class="chip ${chipClass(p.status)}">${p.status}</span></p><hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><div class="timeline"><div class="timeline-step"><strong>Link generado</strong><div class="small">${p.link}</div></div><div class="timeline-step"><strong>Link enviado por WhatsApp</strong><div class="small">${p.sent}</div></div><div class="timeline-step"><strong>${p.status==='Aprobado'?'Pago aprobado':p.status==='Pendiente'?'Esperando pago':'Pago rechazado'}</strong></div></div><div class="toolbar"><button class="ghost" id="detailResendBtn">Reenviar link</button><button class="primary" id="detailValidateBtn">Validar pago</button></div>`;
+    $('#detailResendBtn').onclick=()=>toast('Link reenviado por WhatsApp.');
+    $('#detailValidateBtn').onclick=()=>{p.status='Aprobado';p.recon='Conciliado';renderPayments();toast('Pago validado y pedido liberado.');};
+  }
+  $('#paymentSearch').addEventListener('input',renderPayments); $('#paymentTableBody').addEventListener('click',e=>{const copy=e.target.closest('.copy-link');if(copy){navigator.clipboard?.writeText(copy.dataset.link);toast('Link copiado.');return;}const r=e.target.closest('[data-payment-id]');if(r){state.selectedPayment=Number(r.dataset.paymentId);renderPaymentDetail();}});
+
+  function openModal(title,fields,onSubmit){
+    $('#modalTitle').textContent=title; $('#modalBody').innerHTML=fields; $('#modalBackdrop').classList.add('open');
+    $('#modalForm').onsubmit=e=>{e.preventDefault();const data=Object.fromEntries(new FormData(e.target).entries());onSubmit(data);closeModal();};
+  }
+  function closeModal(){ $('#modalBackdrop').classList.remove('open'); $('#modalForm').reset(); }
+  $('#closeModalBtn').onclick=closeModal; $('#cancelModalBtn').onclick=closeModal; $('#modalBackdrop').addEventListener('click',e=>{if(e.target===$('#modalBackdrop'))closeModal();});
+
+  const clientFields=c=>`<label>Nombre<input name="name" required value="${c?.name||''}"></label><label>Documento<input name="doc" required value="${c?.doc||''}"></label><label>Ciudad<input name="city" required value="${c?.city||''}"></label><label>Teléfono<input name="phone" required value="${c?.phone||''}"></label><label>Correo<input name="email" type="email" value="${c?.email||''}"></label><label>Segmento<select name="segment"><option>Residencial</option><option>Comercial</option></select></label><label class="full">Dirección<input name="address" required value="${c?.address||''}"></label>`;
+  $('#newClientBtn').onclick=()=>openModal('Nuevo cliente',clientFields(),d=>{state.clients.push({id:Date.now(),...d,habeas:'Pendiente',status:'Activo',orders:[]});renderClients();toast('Cliente creado.');});
+  $('#editClientBtn').onclick=()=>{const c=state.clients.find(x=>x.id===state.selectedClient);openModal('Editar cliente',clientFields(c),d=>{Object.assign(c,d);renderClients();toast('Datos actualizados.');});};
+
+  const productFields=p=>`<label>Producto<input name="name" required value="${p?.name||''}"></label><label>Capacidad<input name="capacity" required value="${p?.capacity||''}"></label><label>Valor líquido<input name="liquid" required type="number" value="${p?.liquid||''}"></label><label>Valor comodato<input name="comodato" required type="number" value="${p?.comodato||''}"></label><label>Ciudades disponibles<input name="cities" required type="number" value="${p?.cities||''}"></label><label>Estado<select name="status"><option>Activo</option><option>Inactivo</option></select></label>`;
+  $('#newProductBtn').onclick=()=>openModal('Nuevo producto',productFields(),d=>{state.products.push({id:Date.now(),name:d.name,capacity:d.capacity,liquid:+d.liquid,comodato:+d.comodato,cities:+d.cities,status:d.status,updated:'Ahora'});renderProducts();toast('Producto creado.');});
+  $('#productTableBody').addEventListener('click',e=>{const b=e.target.closest('.edit-product');if(!b)return;const p=state.products.find(x=>x.id===Number(b.dataset.id));openModal('Editar producto',productFields(p),d=>{Object.assign(p,{name:d.name,capacity:d.capacity,liquid:+d.liquid,comodato:+d.comodato,cities:+d.cities,status:d.status,updated:'Ahora'});renderProducts();toast('Producto actualizado.');});});
+  $('#updatePricesBtn').onclick=()=>openModal('Actualizar precios','<label class="full">Ajuste porcentual<input name="percent" type="number" step="0.1" value="1.0" required></label><label class="full">Aplicar a<select name="scope"><option>Todos los productos</option><option>Solo visibles</option></select></label>',d=>{const factor=1+(+d.percent/100);state.products.forEach(p=>{p.liquid=Math.round(p.liquid*factor);p.comodato=Math.round(p.comodato*factor);p.updated='Ahora'});renderProducts();toast(`Precios actualizados ${d.percent}%.`);});
+  $('#editRulesBtn').onclick=()=>openModal('Editar reglas de precio','<label>Región<select name="region"><option>Región Andina</option><option>Región Caribe</option><option>Región Pacífico</option><option>Región Orinoquía</option></select></label><label>Ajuste<input name="adjust" value="+$2.000" required></label>',d=>{const r=state.priceRules.find(x=>x[0]===d.region);r[2]=d.adjust;renderProducts();toast('Regla actualizada.');});
+
+  const orderFields=pref=>`<label>Cliente<input name="client" required value="${pref?.client||''}"></label><label>Ciudad<input name="city" required value="${pref?.city||'Bucaramanga'}"></label><label>Producto<select name="product">${state.products.map(p=>`<option>${p.name}</option>`).join('')}</select></label><label>Valor<input name="value" type="number" required value="68000"></label><label>Pago<select name="payment"><option>Pagado</option><option>Contra entrega</option><option>Pendiente</option></select></label><label>Canal<select name="channel"><option>WhatsApp</option><option>Web</option><option>App Colgas</option></select></label><label>Responsable<input name="owner" value="Laura M."></label><label>Hora prometida<input name="time" type="time" value="13:00"></label>`;
+  function openOrder(pref){openModal('Crear pedido',orderFields(pref),d=>{state.orders.unshift({id:`PED-2025-${String(Date.now()).slice(-6)}`,client:d.client,city:d.city,product:d.product,value:+d.value,payment:d.payment,code:String(Math.floor(100000+Math.random()*899999)),status:'Confirmado',channel:d.channel,owner:d.owner,time:d.time});renderOrders();toast('Pedido creado y confirmado.');});}
+  $('#newOrderBtn').onclick=()=>openOrder(); $('#clientCreateOrderBtn').onclick=()=>{const c=state.clients.find(x=>x.id===state.selectedClient);openOrder({client:c.name,city:c.city});}; $('#createOrderFromChatBtn').onclick=()=>{const c=state.conversations.find(x=>x.id===state.selectedConversation);openOrder({client:c.name,city:c.city});};
+  $('#newPaymentLinkBtn').onclick=()=>openModal('Generar link de pago','<label>Cliente<input name="client" required></label><label>Pedido<input name="order" required></label><label>Valor<input name="value" type="number" required></label><label>Método<select name="method"><option>PSE</option><option>Tarjeta débito</option><option>Tarjeta crédito</option><option>Nequi</option></select></label>',d=>{const token=Math.random().toString(36).slice(2,8);state.payments.unshift({id:Date.now(),client:d.client,order:d.order,value:+d.value,method:d.method,status:'Pendiente',link:`wompi.co/l/${token}`,sent:'Ahora',recon:'Pendiente'});state.selectedPayment=state.payments[0].id;renderPayments();toast('Link generado y enviado por WhatsApp.');});
+
+  $('#saveSettingsBtn').onclick=()=>toast('Configuración guardada.'); $('#resetSettingsBtn').onclick=()=>{$$('.switch').forEach((s,i)=>s.classList.toggle('on',i<3));toast('Configuración restablecida.');}; $$('.switch').forEach(s=>s.onclick=()=>s.classList.toggle('on'));
+  $('#exportBtn').onclick=()=>{const map={dashboard:[['Métrica','Valor'],['Conversaciones del mes','35.028'],['Pedidos por WhatsApp','3.042'],['Autogestión','49%']],orders:[['Pedido','Cliente','Ciudad','Estado'],...state.orders.map(o=>[o.id,o.client,o.city,o.status])],catalog:[['Producto','Capacidad','Valor líquido','Estado'],...state.products.map(p=>[p.name,p.capacity,p.liquid,p.status])],payments:[['Cliente','Pedido','Valor','Estado'],...state.payments.map(p=>[p.client,p.order,p.value,p.status])],clients:[['Cliente','Documento','Ciudad'],...state.clients.map(c=>[c.name,c.doc,c.city])],conversations:[['Cliente','Motivo','Estado'],...state.conversations.map(c=>[c.name,c.reason,c.status])],quote:[['Concepto','Detalle'],['Integración API','Portal Colgas conectado con Blupit'],['CRM conversacional','Automatización de conversaciones'],['Agentes IA','Toma de pedidos y conversaciones consultivas'],['Pagos','Gestión automatizada con Wompi'],['Outbound','Hasta 60.000 mensajes al mes'],['Precio anual','$240.000.000']],settings:[['Configuración','Estado'],['Demo','Activa']]};const rows=map[state.currentView]||map.dashboard;const csv=rows.map(r=>r.map(v=>`"${String(v).replaceAll('"','""')}"`).join(',')).join('\n');const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`colgas-${state.currentView}.csv`;a.click();URL.revokeObjectURL(a.href);toast('Archivo CSV exportado.');};
+  $('#dateFrom').onchange=$('#dateTo').onchange=()=>toast('Rango de fechas actualizado para la demo.');
+  $('#notifyBtn').onclick=()=>{$('#notifyMenu').classList.toggle('open');$('#profileMenu').classList.remove('open');}; $('#profileBtn').onclick=()=>{$('#profileMenu').classList.toggle('open');$('#notifyMenu').classList.remove('open');};
+  $('#notifyMenu').addEventListener('click',e=>{const b=e.target.closest('[data-jump]');if(b)switchView(b.dataset.jump);});
+  $('#profileDataBtn').onclick=()=>toast('Cuenta: Operaciones Colgas · Rol Administrador.'); $('#supportBtn').onclick=()=>toast('Soporte de prototipo: este flujo es demostrativo.'); $('#logoutBtn').onclick=()=>toast('Sesión de demo mantenida para que sigas explorando.');
+  $('#collapseBtn').onclick=()=>toast('En esta demo la barra lateral permanece visible para facilitar la navegación.'); $('#chartRange').onchange=e=>toast(`Gráfico actualizado a: ${e.target.value}.`);
+
+  renderConversations(); renderClients(); renderProducts(); renderOrders(); renderPayments();
+})();
+</script>
+</body>
+</html>
