@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generador T&C - Coljuegos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    .pending-text { color: #dc2626; font-weight: bold; background-color: #fee2e2; padding: 2px 4px; border-radius: 4px; display: inline-block; }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800 h-screen overflow-hidden flex flex-col font-sans">
+  <div id="root" class="h-full flex flex-col"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    const MODULES = [
+      {
+        id: "m1",
+        title: "1. Promotor y Titular del Trámite",
+        questions: [
+          { id: "promotor", label: "¿Quién será formalmente el promotor / titular del juego promocional?", type: "radio", options: ["Banco de Bogotá", "Level Colombia", "Otro"] },
+          { id: "solicitante", label: "¿A nombre de qué sociedad se presentará la solicitud ante Coljuegos?", type: "text" },
+          { id: "responsable_portal", label: "¿Quién tendrá o utilizará la cuenta en el Portal del Operador de Coljuegos?", type: "text" },
+          { id: "tomador_poliza", label: "¿Quién será el tomador de la póliza/garantía?", type: "text" },
+          { id: "responsable_premios", label: "¿Quién asumirá formalmente frente a Coljuegos la obligación de entregar los premios?", type: "text" }
+        ]
+      },
+      {
+        id: "m2",
+        title: "2. Identidad de la Actividad",
+        questions: [
+          { id: "nombre_oficial", label: "¿Cuál será el nombre oficial del juego promocional?", type: "text" },
+          { id: "nombre_campana", label: "¿El Banco ya tiene un nombre de campaña definido? (Opcional)", type: "text" },
+          { id: "nombre_comercial_producto", label: "¿El producto se denomina oficialmente 'Cuenta de Ahorros en Dólares' o tiene otra denominación comercial?", type: "text" }
+        ]
+      },
+      {
+        id: "m3",
+        title: "3. Calendario del Promocional",
+        questions: [
+          { id: "fecha_inicio", label: "Fecha de inicio de la actividad", type: "date" },
+          { id: "fecha_cierre", label: "Fecha de cierre de participación", type: "date" },
+          { id: "hora_cierre", label: "Hora exacta de cierre", type: "time" },
+          { id: "fecha_validacion", label: "Fecha de validación de la base", type: "date" },
+          { id: "fecha_sorteo", label: "Fecha del sorteo", type: "date" },
+          { id: "hora_sorteo", label: "Hora del sorteo", type: "time" }
+        ]
+      },
+      {
+        id: "m4",
+        title: "4. Participantes",
+        questions: [
+          { id: "edad_minima", label: "¿Edad mínima para participar?", type: "radio", options: ["18 años", "21 años", "Otro"] },
+          { id: "residencia", label: "Residencia y ubicación", type: "radio", options: ["Residentes en Colombia", "Colombianos en el exterior", "Extranjeros residentes", "Cualquier persona elegible"] },
+          { id: "tipo_cliente", label: "¿Quiénes participan?", type: "radio", options: ["Clientes nuevos", "Clientes actuales", "Ambos"] },
+          { id: "exclusiones", label: "Exclusiones principales (Ej. Empleados de Banco de Bogotá, Level)", type: "textarea" }
+        ]
+      },
+      {
+        id: "m5",
+        title: "5. Condición Principal para Participar",
+        questions: [
+          { id: "monto_minimo", label: "Monto mínimo requerido (USD)", type: "number" },
+          { id: "meses_permanencia", label: "Tiempo de permanencia del dinero (Ej. 2 meses)", type: "text" },
+          { id: "inicio_permanencia", label: "¿Desde qué momento se cuenta la permanencia?", type: "radio", options: ["Apertura de la cuenta", "Primer depósito", "Cumplimiento del saldo mínimo"] },
+          { id: "oportunidades", label: "¿Cada persona participa una sola vez o el monto depositado genera más oportunidades?", type: "text" }
+        ]
+      },
+      {
+        id: "m6",
+        title: "6. Registro y Base de Datos",
+        questions: [
+          { id: "forma_registro", label: "¿La participación es automática o debe inscribirse?", type: "radio", options: ["Automática al cumplir condiciones", "Debe inscribirse (Landing/Formulario)"] },
+          { id: "certifica_base", label: "¿Banco de Bogotá certificará formalmente que la base entregada contiene únicamente participantes habilitados?", type: "radio", options: ["Sí", "No", "Pendiente Validar Jurídico"] }
+        ]
+      },
+      {
+        id: "m8",
+        title: "8. Plan de Premios",
+        questions: [
+          { id: "valor_dubai", label: "Valor Oficial Viaje a Dubái (COP)", type: "number" },
+          { id: "valor_aruba", label: "Valor Oficial Viaje a Aruba (COP)", type: "number" },
+          { id: "valor_total", label: "Valor Total Definitivo Plan de Premios (COP)", type: "number" }
+        ]
+      },
+      {
+        id: "m10",
+        title: "10. Selección y Sorteo",
+        questions: [
+          { id: "num_ganadores", label: "Número de ganadores principales", type: "number" },
+          { id: "num_suplentes", label: "Número de suplentes", type: "radio", options: ["10", "20", "Otro"] },
+          { id: "lugar_ciudad", label: "Ciudad del sorteo", type: "text" },
+          { id: "lugar_direccion", label: "Dirección exacta del sorteo", type: "text" },
+          { id: "lugar_sitio", label: "Lugar del sorteo", type: "text" },
+          { id: "transmision", label: "¿El sorteo se transmitirá en vivo?", type: "radio", options: ["Sí", "No", "Por definir"] },
+          { id: "canal_transmision", label: "Canal de transmisión (si aplica)", type: "text" }
+        ]
+      }
+    ];
+
+    const DEFAULT_DATA = {
+      promotor: "Banco de Bogotá",
+      edad_minima: "18 años",
+      tipo_cliente: "Ambos",
+      num_ganadores: "2"
+    };
+
+    function App() {
+      const [answers, setAnswers] = useState(() => {
+        const saved = localStorage.getItem("coljuegos_tc_answers");
+        return saved ? JSON.parse(saved) : DEFAULT_DATA;
+      });
+      const [activeModuleIndex, setActiveModuleIndex] = useState(0);
+
+      useEffect(() => {
+        localStorage.setItem("coljuegos_tc_answers", JSON.stringify(answers));
+      }, [answers]);
+
+      const handleAnswerChange = (id, value) => {
+        setAnswers(prev => ({ ...prev, [id]: value }));
+      };
+
+      const calculateProgress = () => {
+        let total = 0;
+        let answered = 0;
+        MODULES.forEach(m => {
+          m.questions.forEach(q => {
+            total++;
+            if (answers[q.id] && answers[q.id].toString().trim() !== "") {
+              answered++;
+            }
+          });
+        });
+        return Math.round((answered / total) * 100);
+      };
+
+      const renderVal = (id, placeholder) => {
+        const val = answers[id];
+        if (!val) {
+          return <span className="pending-text">[PENDIENTE: {placeholder}]</span>;
+        }
+        return <span className="text-blue-800 font-semibold bg-blue-50 px-1 rounded">{val}</span>;
+      };
+
+      const activeModule = MODULES[activeModuleIndex];
+
+      return (
+        <div className="flex flex-col h-full bg-white">
+          {/* Header */}
+          <header className="bg-slate-900 text-white px-6 py-4 flex items-center justify-between shrink-0 shadow-md z-20">
+            <div>
+              <h1 className="text-xl font-bold flex items-center gap-2">
+                <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                Generador de Expediente - Coljuegos
+              </h1>
+              <p className="text-sm text-slate-400 mt-1">Juego Promocional Cuenta de Ahorros en Dólares | Banco de Bogotá + Level</p>
+            </div>
+            <div className="flex items-center gap-6">
+              <div className="text-right w-48">
+                <div className="flex justify-between items-center mb-1">
+                  <p className="text-sm font-semibold">Avance del Checklist</p>
+                  <p className="text-sm font-bold text-blue-400">{calculateProgress()}%</p>
+                </div>
+                <div className="w-full bg-slate-700 rounded-full h-2">
+                  <div className="bg-green-500 h-2 rounded-full transition-all duration-500" style={{ width: `${calculateProgress()}%` }}></div>
+                </div>
+              </div>
+              <button 
+                onClick={() => window.print()}
+                className="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded text-sm font-medium transition-colors shadow-lg shadow-blue-500/30 flex items-center gap-2"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" /></svg>
+                Exportar Borrador
+              </button>
+            </div>
+          </header>
+
+          <div className="flex flex-1 overflow-hidden">
+            {/* Sidebar Modules List */}
+            <div className="w-64 bg-slate-50 border-r border-slate-200 overflow-y-auto shrink-0 flex flex-col">
+              <ul className="flex-1 p-2 space-y-1 mt-2">
+                {MODULES.map((m, idx) => {
+                  const isActive = idx === activeModuleIndex;
+                  const answeredInModule = m.questions.filter(q => answers[q.id] && answers[q.id].toString().trim() !== "").length;
+                  const isComplete = m.questions.length === answeredInModule;
+                  
+                  return (
+                    <li key={m.id}>
+                      <button
+                        onClick={() => setActiveModuleIndex(idx)}
+                        className={`w-full text-left px-3 py-2.5 rounded text-sm transition-colors flex items-center justify-between ${isActive ? 'bg-blue-100 text-blue-800 font-bold' : 'text-slate-600 hover:bg-slate-200'}`}
+                      >
+                        <span className="truncate pr-2">{m.title}</span>
+                        {isComplete ? (
+                          <svg className={`w-4 h-4 shrink-0 ${isActive ? 'text-blue-600' : 'text-green-500'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                        ) : (
+                          <span className={`text-xs font-medium px-1.5 py-0.5 rounded-full ${isActive ? 'bg-blue-200 text-blue-800' : 'bg-slate-200 text-slate-500'}`}>
+                            {answeredInModule}/{m.questions.length}
+                          </span>
+                        )}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+
+            {/* Left Panel: Form */}
+            <div className="flex-1 border-r border-slate-200 flex flex-col bg-white overflow-hidden shadow-[inset_-10px_0_15px_-10px_rgba(0,0,0,0.05)] z-10 relative">
+              <div className="p-6 border-b border-slate-100 bg-white sticky top-0 z-10">
+                <h2 className="text-2xl font-bold text-slate-800">{activeModule.title}</h2>
+              </div>
+              <div className="p-8 overflow-y-auto flex-1 space-y-8 bg-slate-50">
+                {activeModule.questions.map(q => (
+                  <div key={q.id} className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+                    <label className="block text-base font-semibold text-slate-800 mb-4">{q.label}</label>
+                    
+                    {q.type === 'radio' ? (
+                      <div className="space-y-3">
+                        {q.options.map(opt => (
+                          <label key={opt} className={`flex items-center gap-3 cursor-pointer p-3 rounded-lg border ${answers[q.id] === opt ? 'bg-blue-50 border-blue-200' : 'bg-slate-50 border-transparent hover:bg-slate-100'} transition-all`}>
+                            <input 
+                              type="radio" 
+                              name={q.id} 
+                              value={opt} 
+                              checked={answers[q.id] === opt}
+                              onChange={(e) => handleAnswerChange(q.id, e.target.value)}
+                              className="w-4 h-4 text-blue-600"
+                            />
+                            <span className={`text-sm ${answers[q.id] === opt ? 'font-medium text-blue-900' : 'text-slate-700'}`}>{opt}</span>
+                          </label>
+                        ))}
+                      </div>
+                    ) : q.type === 'textarea' ? (
+                      <textarea
+                        value={answers[q.id] || ''}
+                        onChange={(e) => handleAnswerChange(q.id, e.target.value)}
+                        className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none min-h-[100px] text-sm"
+                        placeholder="Escribe aquí..."
+                      />
+                    ) : (
+                      <input
+                        type={q.type}
+                        value={answers[q.id] || ''}
+                        onChange={(e) => handleAnswerChange(q.id, e.target.value)}
+                        className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm"
+                        placeholder="Escribe aquí..."
+                      />
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right Panel: T&C Preview */}
+            <div className="flex-1 bg-[#f4f6f8] overflow-y-auto flex flex-col relative">
+              <div className="bg-slate-200/80 backdrop-blur px-6 py-3 border-b border-slate-300 sticky top-0 z-20 flex items-center justify-between">
+                <span className="text-xs font-bold text-slate-700 uppercase tracking-widest">
+                  Borrador Automático (Base Remakia)
+                </span>
+                <span className="text-[10px] bg-green-100 text-green-800 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span> Live
+                </span>
+              </div>
+              <div className="p-8 pb-32 w-full flex justify-center">
+                <div className="bg-white p-12 rounded-sm shadow-lg border border-slate-200 text-sm leading-relaxed prose prose-slate w-full max-w-2xl">
+                  
+                  <div className="text-center mb-8 border-b border-slate-200 pb-6">
+                    <h1 className="text-2xl font-bold text-slate-900 mb-2">TÉRMINOS Y CONDICIONES PROMOCIONAL</h1>
+                    <h2 className="text-xl font-semibold text-blue-900 uppercase">
+                      {renderVal('nombre_oficial', 'NOMBRE DEL SORTEO')}
+                    </h2>
+                  </div>
+
+                  <h3 className="font-bold text-base mb-2">1. Objeto</h3>
+                  <p className="mb-4 text-justify">
+                    Este reglamento delimita y aclara las condiciones bajo las cuales se regirá el juego promocional {renderVal('nombre_oficial', 'NOMBRE DEL SORTEO')}, 
+                    organizado por {renderVal('promotor', 'PROMOTOR / TITULAR')}.
+                    La solicitud de autorización será presentada por {renderVal('solicitante', 'SOLICITANTE ANTE COLJUEGOS')}, quien asumirá la obligación frente a Coljuegos de entregar los premios: {renderVal('responsable_premios', 'RESPONSABLE PREMIOS')}.
+                  </p>
+                  <p className="mb-4 text-justify">
+                    Lo dispuesto en el presente reglamento, relacionado con las condiciones, restricciones, mecánica, sorteo y premios del Juego Promocional (en adelante, los “Términos y Condiciones”), será de acatamiento obligatorio para los participantes. 
+                    Se entenderá que todo participante del Juego Promocional conoce y acepta los Términos y Condiciones, así como las limitaciones establecidas en los mismos.
+                  </p>
+                  <p className="mb-4 text-justify">
+                    La participación en el Juego implica la decisión del participante de obligarse por estas reglas y por las decisiones de {renderVal('promotor', 'PROMOTOR')}, la entidad encargada de organizar el evento.
+                  </p>
+                  <p className="mb-4 text-justify">
+                    Cualquier violación al contenido de estos Términos y Condiciones implicará la inmediata exclusión del participante y/o la revocación de los premios.
+                  </p>
+
+                  <h3 className="font-bold text-base mb-2 mt-6">2. Vigencia y cobertura</h3>
+                  <p className="mb-4 text-justify">
+                    La actividad promocional iniciará el {renderVal('fecha_inicio', 'FECHA DE INICIO')} y finalizará el {renderVal('fecha_cierre', 'FECHA DE CIERRE')} a las {renderVal('hora_cierre', 'HORA DE CIERRE')}, con cobertura a nivel nacional.
+                  </p>
+
+                  <h3 className="font-bold text-base mb-2 mt-6">3. Condiciones para participar del Juego Promocional</h3>
+                  <p className="mb-4 text-justify">Para participar, es necesario cumplir con los siguientes requisitos:</p>
+                  <ul className="list-disc pl-5 mb-4 space-y-2">
+                    <li>Ser mayor de {renderVal('edad_minima', 'EDAD MÍNIMA')}.</li>
+                    <li>Cumplir con las condiciones de residencia: {renderVal('residencia', 'RESIDENCIA')}.</li>
+                    <li>Ser clasificado como {renderVal('tipo_cliente', 'TIPO DE CLIENTE')} del producto {renderVal('nombre_comercial_producto', 'CUENTA DE AHORROS EN DÓLARES')}.</li>
+                    <li>La participación será {renderVal('forma_registro', 'FORMA DE REGISTRO / INSCRIPCIÓN')}.</li>
+                    <li>
+                      El participante deberá realizar un depósito por un monto mínimo de USD ${renderVal('monto_minimo', 'MONTO MÍNIMO EN DÓLARES')} 
+                      y mantenerlo durante {renderVal('meses_permanencia', 'TIEMPO DE PERMANENCIA')}. 
+                      Dicha permanencia se calculará desde {renderVal('inicio_permanencia', 'INICIO PERMANENCIA')}.
+                    </li>
+                  </ul>
+                  <p className="mb-4 text-justify">
+                    Oportunidades de participación: {renderVal('oportunidades', 'REGLAS DE OPORTUNIDADES')}.
+                  </p>
+                  <p className="mb-4 text-justify">
+                    Se excluyen de esta promoción las siguientes personas: {renderVal('exclusiones', 'EXCLUSIONES')}.
+                  </p>
+
+                  <h3 className="font-bold text-base mb-2 mt-6">4. Sorteos y Método de Selección</h3>
+                  <p className="mb-4 text-justify">
+                    El sorteo se realizará de forma aleatoria, transparente y verificable el día {renderVal('fecha_sorteo', 'FECHA DEL SORTEO')} a las {renderVal('hora_sorteo', 'HORA DEL SORTEO')} 
+                    en {renderVal('lugar_ciudad', 'CIUDAD DEL SORTEO')}, específicamente en {renderVal('lugar_sitio', 'LUGAR')}, ubicado en {renderVal('lugar_direccion', 'DIRECCIÓN')}.
+                  </p>
+                  <p className="mb-4 text-justify">
+                    El sorteo {renderVal('transmision', 'TRANSMITIRÁ')} será transmitido en vivo mediante {renderVal('canal_transmision', 'CANAL DE TRANSMISIÓN')}.
+                  </p>
+                  <p className="mb-4 text-justify">
+                    La selección se realizará mediante el software especializado Blupit, operado por Level Colombia, a partir de una base de datos 
+                    que Banco de Bogotá {renderVal('certifica_base', 'CERTIFICARÁ')} que contiene únicamente a los participantes habilitados. 
+                    Se elegirán {renderVal('num_ganadores', 'GANADORES')} ganadores principales y {renderVal('num_suplentes', 'SUPLENTES')} suplentes.
+                  </p>
+
+                  <h3 className="font-bold text-base mb-2 mt-6">5. Contacto al ganador y Entrega</h3>
+                  <p className="mb-4 text-justify">
+                    Una vez realizado el sorteo y verificado en la base de datos quién fue el ganador, el equipo autorizado se comunicará inmediatamente con el ganador vía telefónica, realizando hasta tres (3) intentos de llamada para informarle que ha resultado ganador. En caso de no lograrse comunicación por este medio, se contactará el mismo día por mensaje de texto (WhatsApp) o correo electrónico.
+                  </p>
+                  <p className="mb-4 text-justify">
+                    Si después de tres (3) días de haber sido seleccionado el ganador principal no se logra contacto o no se recibe aceptación expresa del premio, se procederá al contacto del primer suplente, y de igual manera con los suplentes sucesivos.
+                  </p>
+                  <p className="mb-4 text-justify">
+                    De acuerdo con lo establecido en el Artículo 2.7.4.10 del Decreto 1068 de 2015, modificado por el Artículo 4 del Decreto 2104 de 2016, el premio debe entregarse en un plazo no mayor a treinta (30) días calendario contados a partir de la fecha del sorteo. El operador garantiza la aleatoriedad del juego autorizado por Coljuegos.
+                  </p>
+                  <p className="mb-4 text-justify">
+                    De la realización del sorteo y de la entrega del premio se dejará constancia escrita mediante actas que serán remitidas a Coljuegos dentro de los diez (10) y treinta (30) días siguientes, respectivamente.
+                  </p>
+
+                  <h3 className="font-bold text-base mb-2 mt-6">6. Plan de premios</h3>
+                  <p className="mb-4 text-justify">
+                    El plan de premios de la presente actividad promocional tiene un valor total definitivo de COP ${renderVal('valor_total', 'VALOR TOTAL DEL PLAN DE PREMIOS')}.
+                  </p>
+                  <ul className="list-disc pl-5 mb-4 space-y-2 text-justify">
+                    <li><strong>Premio 1:</strong> Viaje a Dubái para dos personas. (Valor estimado: COP ${renderVal('valor_dubai', 'VALOR DUBÁI')}).</li>
+                    <li><strong>Premio 2:</strong> Viaje a Aruba para dos personas. (Valor estimado: COP ${renderVal('valor_aruba', 'VALOR ARUBA')}).</li>
+                  </ul>
+                  <p className="mb-4 text-justify">
+                    El premio no será sustituido por dinero en efectivo, ni por ningún otro premio distinto al aquí descrito. Respecto de la ganancia ocasional, debe ser asumida por el ganador.
+                  </p>
+
+                  <h3 className="font-bold text-base mb-2 mt-6">7. Autorización de tratamiento de datos</h3>
+                  <p className="mb-4 text-justify">
+                    Los participantes ganadores del Juego Promocional autorizan expresamente, con su participación, la utilización, publicación y reproducción, sin limitación o restricción alguna, de su imagen y datos personales en cualquier tipo de publicidad, promoción o publicación, a través de cualquier medio, con fines comerciales o informativos, de conformidad con lo establecido en el Régimen de Protección de Datos Personales (Ley 1581 de 2012, Decreto 1377 de 2013 y demás normatividad aplicable).
+                  </p>
+
+                  <h3 className="font-bold text-base mb-2 mt-6">8. Exclusión de responsabilidad</h3>
+                  <p className="mb-4 text-justify">
+                    Los participantes y ganadores reconocen y aceptan que la responsabilidad del promotor se limita exclusivamente a la entrega de los premios en los términos previstos. Cualquier uso de métodos de participación fraudulentos o similares anulará todas las participaciones realizadas.
+                  </p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
