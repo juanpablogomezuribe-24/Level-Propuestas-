@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotización - LEVEL COLOMBIA PRODUCCIONES</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        level: {
+                            purple: '#6b21a8', // Purple-800
+                            light: '#f3e8ff',  // Purple-100
+                            dark: '#3b0764'    // Purple-900
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .collapsible-content {
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .collapsible-content.open {
+            max-height: 2000px;
+            opacity: 1;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        .chevron {
+            transition: transform 0.3s ease-out;
+        }
+        .chevron.open {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+    <div class="max-w-4xl mx-auto p-4 md:p-8">
+        
+        <!-- Header -->
+        <header class="bg-white rounded-2xl shadow-sm p-6 md:p-10 mb-6 flex flex-col md:flex-row items-center justify-between border-t-4 border-level-purple">
+            <div class="flex items-center gap-4 mb-6 md:mb-0">
+                <div class="bg-level-purple text-white p-4 rounded-xl flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-3xl font-bold text-level-dark tracking-tight">LEVEL</h1>
+                    <p class="text-sm font-semibold text-level-purple uppercase tracking-widest">Colombia Producciones</p>
+                </div>
+            </div>
+            
+            <div class="text-center md:text-right">
+                <h2 class="text-2xl font-bold text-gray-800">COTIZACIÓN</h2>
+                <p class="text-gray-500 mt-1">Nº <span class="font-semibold text-gray-800">LVL-31189</span></p>
+                <p class="text-gray-500">Fecha: <span class="font-semibold text-gray-800">27 de Agosto, 2026</span></p>
+            </div>
+        </header>
+
+        <!-- Client Info -->
+        <div class="bg-white rounded-2xl shadow-sm p-6 md:p-10 mb-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Preparado Para</h3>
+                <p class="text-lg font-bold text-gray-800">LIGA LIDERES COLGAS</p>
+                <p class="text-gray-600 mt-1 text-sm">Locaciones: Bogotá, Jumbo, Bello, Cúcuta, Bucaramanga</p>
+            </div>
+            <div class="md:text-right">
+                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Detalles del Servicio</h3>
+                <p class="text-sm font-semibold text-gray-800">Servicio Técnico y Producción de Evento</p>
+                <p class="text-sm text-gray-600">Fecha Evento: 11 de Noviembre</p>
+                <p class="text-sm text-gray-600">1 Día de montaje y pruebas</p>
+            </div>
+        </div>
+
+        <!-- Items Interactive Sections -->
+        <div class="space-y-4 mb-6">
+            
+            <!-- Section 1: Bogota -->
+            <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+                <button onclick="toggleSection('section-bogota')" class="w-full px-6 py-5 flex items-center justify-between bg-white hover:bg-gray-50 transition-colors border-b border-gray-100">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-level-light text-level-purple rounded-full p-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800 text-left">Punto Fijo Bogotá</h3>
+                    </div>
+                    <svg id="icon-section-bogota" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 chevron" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div id="section-bogota" class="collapsible-content px-6 bg-gray-50/50">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 text-sm text-gray-700">
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>1 Switcher HD</li>
+                            <li>4 Cámaras HD, Trípode y Cableado - Operario</li>
+                            <li>1 Servidor Play/Record</li>
+                            <li>1 Generador de Caracteres</li>
+                            <li>1 Tarjeta Capturadora de Pantalla</li>
+                            <li>1 Encoder SRT</li>
+                            <li>1 Enlace Plataforma Meet</li>
+                            <li>1 Plataforma de Video Llamadas</li>
+                            <li>1 Consola de Sonido</li>
+                            <li>4 Micrófonos de Mano</li>
+                            <li>1 Sistema de Apuntadores</li>
+                            <li>1 Servicio de Internet Dedicado de 100 Megas</li>
+                        </ul>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>1 Alquiler Salón para 100 PAX</li>
+                            <li>1 Alquiler de Tarima de 6x5</li>
+                            <li>1 Charolina o Moqueta para Tarima</li>
+                            <li>1 Alquiler de Pantalla de 5x3</li>
+                            <li>1 Punto Fijo para Pantalla</li>
+                            <li>1 Alquiler de Sonido</li>
+                            <li>1 Alquiler de Luces Escenario + Ambientación</li>
+                            <li>1 Alquiler Estructura Luces</li>
+                            <li>1 Escenografía Tarima</li>
+                            <li>1 Arco Entrada Salón</li>
+                            <li>1 Mesa de Registro con Backing</li>
+                            <li>2 Logístico de Registro</li>
+                            <li>50 Escarapelas Evento</li>
+                            <li>50 Punto de Café Permanente & Coffee AM</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Otras Ciudades -->
+            <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+                <button onclick="toggleSection('section-ciudades')" class="w-full px-6 py-5 flex items-center justify-between bg-white hover:bg-gray-50 transition-colors border-b border-gray-100">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-level-light text-level-purple rounded-full p-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800 text-left">Puntos Jumbo, Bello, Cúcuta y Bucaramanga</h3>
+                    </div>
+                    <svg id="icon-section-ciudades" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 chevron" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div id="section-ciudades" class="collapsible-content px-6 bg-gray-50/50">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 text-sm text-gray-700">
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>1 Switcher HD</li>
+                            <li>2 Cámaras</li>
+                            <li>1 Servidor Play - Record</li>
+                            <li>2 Consolas de Sonido - Micrófonos Inalámbricos de Mano</li>
+                            <li>1 Captura de Pantalla</li>
+                            <li>1 Plataforma Streaming</li>
+                            <li>1 Encoder</li>
+                            <li>1 Internet Dedicado de 40 Megas</li>
+                        </ul>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>1 Alquiler Salón para 100 PAX</li>
+                            <li>1 Alquiler de Tarima de 5x3</li>
+                            <li>1 Charolina o Moqueta para Tarima</li>
+                            <li>1 Alquiler de Pantalla de 3x2</li>
+                            <li>1 Punto Fijo para Pantalla</li>
+                            <li>1 Alquiler de Sonido</li>
+                            <li>1 Alquiler de Luces Escenario + Ambientación</li>
+                            <li>1 Alquiler Estructura Luces</li>
+                            <li>1 Escenografía Tarima</li>
+                            <li>1 Arco Entrada Salón</li>
+                            <li>1 Mesa de Registro con Backing</li>
+                            <li>2 Logístico de Registro</li>
+                            <li>50 Escarapelas Evento</li>
+                            <li>50 Punto de Café Permanente & Coffee AM</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Servicios Adicionales -->
+            <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+                <button onclick="toggleSection('section-servicios')" class="w-full px-6 py-5 flex items-center justify-between bg-white hover:bg-gray-50 transition-colors border-b border-gray-100">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-level-light text-level-purple rounded-full p-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800 text-left">Personal, Transporte y Viáticos</h3>
+                    </div>
+                    <svg id="icon-section-servicios" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 chevron" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div id="section-servicios" class="collapsible-content px-6 bg-gray-50/50">
+                    <ul class="list-disc list-inside space-y-1 text-sm text-gray-700">
+                        <li>Personal de Montaje y Desmontaje</li>
+                        <li>Personal Técnico Especializado</li>
+                        <li>Transporte de Equipos a todas las locaciones</li>
+                        <li>Producción General</li>
+                        <li>Viáticos Productores</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Totals -->
+        <div class="bg-level-dark text-white rounded-2xl shadow-lg p-6 md:p-8">
+            <div class="flex flex-col md:flex-row justify-between items-center md:items-end gap-6 border-b border-white/20 pb-6 mb-6">
+                <div>
+                    <h3 class="text-xl font-bold mb-1">Resumen de Inversión</h3>
+                </div>
+                <div class="w-full md:w-64 space-y-3">
+                    <div class="flex justify-between text-level-light">
+                        <span>Subtotal</span>
+                        <span class="font-medium">$ 360.352.500</span>
+                    </div>
+                    <div class="flex justify-between text-level-light">
+                        <span>IVA (19%)</span>
+                        <span class="font-medium">$ 68.466.975</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-xl md:text-2xl font-bold">TOTAL</span>
+                <span class="text-3xl md:text-4xl font-bold text-white">$ 428.819.475</span>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-10 text-center text-gray-500 text-sm">
+            <p class="mt-2 font-semibold">LEVEL COLOMBIA PRODUCCIONES</p>
+        </footer>
+    </div>
+
+    <script>
+        function toggleSection(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById('icon-' + id);
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                icon.classList.remove('open');
+            } else {
+                content.classList.add('open');
+                icon.classList.add('open');
+            }
+        }
+        
+        // Open the first section by default
+        document.addEventListener('DOMContentLoaded', () => {
+            toggleSection('section-bogota');
+        });
+    </script>
+</body>
+</html>
