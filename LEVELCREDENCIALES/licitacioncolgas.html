@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Credenciales Colgas | Level Colombia</title>
+  <meta name="description" content="Experiencia, casos de éxito y capacidad operativa de Level Colombia para la licitación de Agencia Digital Integral de Colgas.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: dark; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: #020617; color: #e2e8f0; font-family: Inter, system-ui, sans-serif; }
+    .mesh { background-image: radial-gradient(circle at 18% 18%, rgba(124,58,237,.20), transparent 30%), radial-gradient(circle at 82% 28%, rgba(6,182,212,.14), transparent 28%), linear-gradient(180deg,#020617,#07111f); }
+    .glass { background: rgba(15,23,42,.72); backdrop-filter: blur(14px); }
+    .metric { font-variant-numeric: tabular-nums; letter-spacing: -.04em; }
+    .bar { background: linear-gradient(90deg,#8b5cf6,#22d3ee); }
+    .dot-grid { background-image: radial-gradient(rgba(148,163,184,.16) 1px, transparent 1px); background-size: 22px 22px; }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1); }
+    .reveal.is-visible { opacity: 1; transform: none; }
+    .case-filter[aria-pressed="true"] { color: #020617; background: #67e8f9; border-color: #67e8f9; }
+    [data-case].case-hidden { display: none; }
+    .interactive-card { transition: transform .25s ease, border-color .25s ease, background .25s ease; }
+    .interactive-card:hover { transform: translateY(-5px); border-color: rgba(103,232,249,.35); }
+    #reading-progress { transform-origin: left; transform: scaleX(0); }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .reveal { opacity: 1; transform: none; transition: none; } .interactive-card { transition: none; } }
+    @media print {
+      @page { size: A4 landscape; margin: 10mm; }
+      nav, .no-print, #section-controls, #reading-progress, .case-filter { display: none !important; }
+      body { background: #020617 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      header { min-height: 175mm; display: flex; align-items: center; break-after: page; }
+      main > section { break-before: page; break-inside: auto; padding-top: 12mm !important; padding-bottom: 12mm !important; }
+      article, figure, details, .interactive-card { break-inside: avoid; }
+      details > * { display: block !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+      [data-case].case-hidden { display: block !important; }
+      a { text-decoration: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div id="reading-progress" class="fixed left-0 top-0 z-[70] h-1 w-full bg-gradient-to-r from-violet-500 via-cyan-300 to-amber-300"></div>
+  <nav class="sticky top-0 z-50 border-b border-white/10 glass">
+    <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
+      <div class="text-xl font-black text-white">LEVEL<span class="text-violet-500">.</span></div>
+      <div class="hidden gap-6 text-xs font-semibold uppercase tracking-widest text-slate-400 md:flex">
+        <a href="#trayectoria" class="hover:text-white">Trayectoria</a><a href="#experiencia-colgas" class="hover:text-white">Colgas</a><a href="#casos" class="hover:text-white">Casos</a><a href="#propuesta" class="hover:text-white">Propuesta</a><a href="#equipo" class="hover:text-white">Equipo</a>
+      </div>
+      <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-bold uppercase tracking-widest">Licitación 2027</span>
+    </div>
+  </nav>
+
+  <header class="mesh relative overflow-hidden border-b border-white/5 px-6 py-24 md:py-32">
+    <div class="dot-grid absolute inset-0 opacity-40"></div>
+    <div class="relative mx-auto max-w-7xl">
+      <p class="mb-5 text-sm font-bold uppercase tracking-[.28em] text-cyan-300">Credenciales para Colgas</p>
+      <h1 class="max-w-5xl text-5xl font-black leading-[.95] tracking-tight text-white md:text-8xl">Estrategia que se convierte en <span class="bg-gradient-to-r from-violet-400 to-cyan-300 bg-clip-text text-transparent">resultados medibles</span></h1>
+      <p class="mt-8 max-w-3xl text-lg leading-relaxed text-slate-300 md:text-xl">Level integra planeación, estrategia, creatividad, producción, operación, conversación y pauta para construir comunidades digitales activas, relevantes y en constante evolución.</p>
+      <div class="mt-12 grid max-w-6xl grid-cols-2 gap-4 md:grid-cols-5">
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-5"><div class="metric text-3xl font-black text-white">+9</div><div class="mt-1 text-xs text-slate-400">años de experiencia</div></div>
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-5"><div class="metric text-3xl font-black text-white">+55</div><div class="mt-1 text-xs text-slate-400">marcas han confiado en Level</div></div>
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-5"><div class="metric text-3xl font-black text-white">+250</div><div class="mt-1 text-xs text-slate-400">campañas desarrolladas</div></div>
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-5"><div class="metric text-3xl font-black text-white">8 años</div><div class="mt-1 text-xs text-slate-400">como agencia digital de Wplay</div></div>
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-5"><div class="metric text-3xl font-black text-white">2017</div><div class="mt-1 text-xs text-slate-400">el año en que comenzó el recorrido</div></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="trayectoria" class="border-b border-white/5 px-6 py-20">
+      <div class="mx-auto max-w-7xl">
+        <div class="grid gap-10 lg:grid-cols-[.7fr_1.3fr] lg:items-end">
+          <div><p class="text-xs font-bold uppercase tracking-[.25em] text-cyan-300">Nuestra trayectoria</p><h2 class="mt-3 text-4xl font-black text-white">Nueve años creciendo junto a las marcas.</h2><p class="mt-5 leading-relaxed text-slate-400">Desde 2017 hemos acompañado más de 55 marcas con estrategia, creatividad, producción y operación digital. Hoy estamos cerca de completar una década construyendo relaciones que evolucionan con el negocio.</p></div>
+          <div>
+            <div class="relative pb-3 pt-12">
+              <div class="absolute left-0 right-0 top-[3.9rem] h-1 rounded-full bg-slate-800"></div>
+              <div class="bar absolute left-0 right-[4%] top-[3.9rem] h-1 rounded-full"></div>
+              <div class="relative grid grid-cols-10 gap-1">
+                <div class="text-center"><div class="mx-auto h-4 w-4 rounded-full bg-violet-500 ring-4 ring-violet-500/15"></div><p class="mt-3 text-[10px] font-bold text-white">2017</p></div>
+                <div class="text-center"><div class="mx-auto h-3 w-3 rounded-full bg-violet-400"></div><p class="mt-3 text-[10px] text-slate-500">2018</p></div>
+                <div class="text-center"><div class="mx-auto h-3 w-3 rounded-full bg-violet-400"></div><p class="mt-3 text-[10px] text-slate-500">2019</p></div>
+                <div class="text-center"><div class="mx-auto h-3 w-3 rounded-full bg-violet-400"></div><p class="mt-3 text-[10px] text-slate-500">2020</p></div>
+                <div class="text-center"><div class="mx-auto h-3 w-3 rounded-full bg-violet-400"></div><p class="mt-3 text-[10px] text-slate-500">2021</p></div>
+                <div class="text-center"><div class="mx-auto h-3 w-3 rounded-full bg-cyan-400"></div><p class="mt-3 text-[10px] text-slate-500">2022</p></div>
+                <div class="text-center"><div class="mx-auto h-3 w-3 rounded-full bg-cyan-400"></div><p class="mt-3 text-[10px] text-slate-500">2023</p></div>
+                <div class="text-center"><div class="mx-auto h-3 w-3 rounded-full bg-cyan-400"></div><p class="mt-3 text-[10px] text-slate-500">2024</p></div>
+                <div class="text-center"><div class="mx-auto h-3 w-3 rounded-full bg-cyan-400"></div><p class="mt-3 text-[10px] text-slate-500">2025</p></div>
+                <div class="text-center"><div class="mx-auto h-5 w-5 rounded-full bg-cyan-300 ring-4 ring-cyan-300/15"></div><p class="mt-3 text-[10px] font-bold text-white">2026</p></div>
+              </div>
+            </div>
+            <div class="mt-7 grid grid-cols-3 gap-3"><div class="rounded-2xl bg-slate-900 p-4 text-center"><b class="metric text-3xl text-white">+9</b><p class="text-[10px] text-slate-500">años</p></div><div class="rounded-2xl bg-slate-900 p-4 text-center"><b class="metric text-3xl text-white">+55</b><p class="text-[10px] text-slate-500">marcas</p></div><div class="rounded-2xl bg-slate-900 p-4 text-center"><b class="metric text-3xl text-white">+250</b><p class="text-[10px] text-slate-500">campañas desarrolladas</p></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experiencia-colgas" class="relative overflow-hidden border-b border-white/5 bg-gradient-to-b from-blue-950/20 to-slate-950 px-6 py-24">
+      <div class="absolute inset-0 dot-grid opacity-20"></div>
+      <div class="relative mx-auto max-w-7xl">
+        <div class="grid gap-10 lg:grid-cols-[.72fr_1.28fr] lg:items-end">
+          <div><p class="text-xs font-bold uppercase tracking-[.25em] text-cyan-300">Ya trabajamos juntos</p><h2 class="mt-3 text-5xl font-black leading-none text-white md:text-6xl"><span class="metric text-cyan-300">7 meses</span><br>conociendo a Colgas desde adentro.</h2></div>
+          <div><p class="max-w-3xl text-xl leading-relaxed text-slate-300">Level no empieza desde cero. Ya conocemos al equipo de mercadeo, sus dinámicas de trabajo y las necesidades de diferentes unidades de negocio.</p><p class="mt-5 max-w-3xl text-base leading-relaxed text-slate-400">Ese conocimiento reduce la curva de aprendizaje, acelera la implementación y nos permite concentrarnos antes en optimizar resultados.</p></div>
+        </div>
+
+        <div class="mt-14 space-y-4">
+          <details class="colgas-accordion group overflow-hidden rounded-3xl border border-slate-800 bg-slate-950/80">
+            <summary class="flex cursor-pointer list-none items-center gap-5 p-6 md:p-8"><span class="metric flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-cyan-300 text-lg font-black text-slate-950">01</span><div class="min-w-0 flex-1"><p class="text-[10px] font-bold uppercase tracking-widest text-cyan-300">Campaña mundialista</p><h3 class="mt-1 text-xl font-black text-white md:text-2xl">Juan Felipe Cadavid en el ecosistema Colgas</h3><p class="mt-2 text-sm text-slate-400">Seis meses construyendo una campaña de cara al evento deportivo más importante del año.</p></div><span class="hidden rounded-full border border-cyan-300/30 px-4 py-2 text-xs font-bold text-cyan-300 sm:block">Ver campaña</span><span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/5 text-xl text-white transition group-open:rotate-45">+</span></summary>
+            <div class="border-t border-slate-800 p-5 md:p-8"><div class="grid gap-4 md:grid-cols-2"><img src="juanfelipe1.jpeg" alt="Juan Felipe Cadavid con la mascota de Colgas" class="h-[32rem] w-full rounded-2xl bg-black object-contain"><img src="juanfelipe2.jpeg" alt="Activación de Juan Felipe Cadavid para Colgas" class="h-[32rem] w-full rounded-2xl bg-black object-contain"></div><p class="mt-5 text-sm leading-relaxed text-slate-400">Integramos a Juan Felipe Cadavid en el ecosistema de Colgas mediante contenidos, activaciones y una narrativa sostenida alrededor del fútbol y la marca.</p></div>
+          </details>
+
+          <details class="colgas-accordion group overflow-hidden rounded-3xl border border-slate-800 bg-slate-950/80">
+            <summary class="flex cursor-pointer list-none items-center gap-5 p-6 md:p-8"><span class="metric flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-violet-500 text-lg font-black text-white">02</span><div class="min-w-0 flex-1"><p class="text-[10px] font-bold uppercase tracking-widest text-violet-300">Contenido editorial</p><h3 class="mt-1 text-xl font-black text-white md:text-2xl">Sección Colgas con Cristina Estupiñán</h3><p class="mt-2 text-sm text-slate-400">Acompañamiento estratégico, planeación y producción.</p></div><span class="hidden rounded-full border border-violet-300/30 px-4 py-2 text-xs font-bold text-violet-300 sm:block">Ver producción</span><span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/5 text-xl text-white transition group-open:rotate-45">+</span></summary>
+            <div class="border-t border-slate-800 p-5 md:p-8"><img src="cristina.jpeg" alt="Cristina Estupiñán durante la sección de Colgas" class="aspect-video w-full rounded-2xl object-cover object-center"><p class="mt-5 text-sm leading-relaxed text-slate-400">Planeamos y producimos la participación de Colgas dentro del podcast de Cristina Estupiñán, conectando el contenido editorial con los objetivos de comunicación de la marca.</p></div>
+          </details>
+
+          <details class="colgas-accordion group overflow-hidden rounded-3xl border border-slate-800 bg-slate-950/80">
+            <summary class="flex cursor-pointer list-none items-center gap-5 p-6 md:p-8"><span class="metric flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-violet-500 text-lg font-black text-white">03</span><div class="min-w-0 flex-1"><p class="text-[10px] font-bold uppercase tracking-widest text-violet-300">Producción de podcast</p><h3 class="mt-1 text-xl font-black text-white md:text-2xl">Mejor energía, mejor vida · Temporada 3</h3><p class="mt-2 text-sm text-slate-400">Planeación, grabación y edición de la tercera temporada.</p></div><span class="hidden rounded-full border border-violet-300/30 px-4 py-2 text-xs font-bold text-violet-300 sm:block">Ver podcast</span><span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/5 text-xl text-white transition group-open:rotate-45">+</span></summary>
+            <div class="border-t border-slate-800 p-5 md:p-8"><img src="podcasttercera.jpeg" alt="Tercera temporada del podcast Mejor energía, mejor vida" class="aspect-video w-full rounded-2xl object-cover object-center"><p class="mt-5 text-sm leading-relaxed text-slate-400">Acompañamos todo el proceso de producción de la tercera temporada, desde la planeación temática hasta la grabación y edición de cada entrega.</p></div>
+          </details>
+
+          <details class="colgas-accordion group overflow-hidden rounded-3xl border border-slate-800 bg-slate-950/80">
+            <summary class="flex cursor-pointer list-none items-center gap-5 p-6 md:p-8"><span class="metric flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-emerald-400 text-lg font-black text-slate-950">04</span><div class="min-w-0 flex-1"><p class="text-[10px] font-bold uppercase tracking-widest text-emerald-300">Tecnología y conversión</p><h3 class="mt-1 text-xl font-black text-white md:text-2xl">Campañas y automatizaciones en WhatsApp</h3><p class="mt-2 text-sm text-slate-400">Dos implementaciones para perfilar usuarios, actualizar datos y captar prospectos.</p></div><span class="hidden rounded-full border border-emerald-300/30 px-4 py-2 text-xs font-bold text-emerald-300 sm:block">Ver resultados</span><span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/5 text-xl text-white transition group-open:rotate-45">+</span></summary>
+            <div class="grid gap-8 border-t border-slate-800 p-5 md:p-8 lg:grid-cols-2">
+              <article class="overflow-hidden rounded-2xl border border-violet-400/20 bg-slate-950"><img src="Colgas/colgas1resultados.png" alt="Resultados de la campaña de actualización de datos y trivia mundialista de Colgas" class="aspect-video w-full bg-white object-contain"><div class="p-6"><div class="flex flex-col justify-between gap-3 sm:flex-row sm:items-start"><div><p class="text-[10px] font-bold uppercase tracking-widest text-violet-300">WhatsApp + gamificación + API</p><h4 class="mt-2 text-lg font-black text-white">Actualización de datos y trivia mundialista</h4></div><span class="rounded-full bg-violet-500/15 px-3 py-1 text-xs font-bold text-violet-300">97% de retención</span></div><div class="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4"><div><b class="metric text-xl text-white">1.796</b><p class="text-[9px] text-slate-500">inicios</p></div><div><b class="metric text-xl text-white">1.389</b><p class="text-[9px] text-slate-500">validados</p></div><div><b class="metric text-xl text-white">77,3%</b><p class="text-[9px] text-slate-500">participación</p></div><div><b class="metric text-xl text-white">1.348</b><p class="text-[9px] text-slate-500">juegos</p></div></div></div></article>
+              <article class="overflow-hidden rounded-2xl border border-emerald-400/20 bg-slate-950"><img src="Colgas/colgas2resultados.png" alt="Resultados de la campaña de movilidad y leads para AutoGLP de Colgas" class="aspect-video w-full bg-white object-contain"><div class="p-6"><div class="flex flex-col justify-between gap-3 sm:flex-row sm:items-start"><div><p class="text-[10px] font-bold uppercase tracking-widest text-emerald-300">Meta Ads + WhatsApp</p><h4 class="mt-2 text-lg font-black text-white">Captación de leads para AutoGLP</h4></div><span class="rounded-full bg-emerald-400/15 px-3 py-1 text-xs font-bold text-emerald-300">20 conversiones</span></div><div class="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4"><div><b class="metric text-xl text-white">90.244</b><p class="text-[9px] text-slate-500">alcance</p></div><div><b class="metric text-xl text-white">2.046</b><p class="text-[9px] text-slate-500">conversaciones</p></div><div><b class="metric text-xl text-white">556</b><p class="text-[9px] text-slate-500">registros</p></div><div><b class="metric text-xl text-white">3,60%</b><p class="text-[9px] text-slate-500">conversión</p></div></div></div></article>
+            </div>
+          </details>
+        </div>
+
+        <div class="mt-10 rounded-3xl border border-cyan-300/20 bg-cyan-300/[.06] p-8 text-center"><p class="text-xs font-bold uppercase tracking-[.25em] text-cyan-300">La ventaja de continuar</p><p class="mx-auto mt-3 max-w-4xl text-2xl font-bold leading-relaxed text-white">Menos tiempo entendiendo la operación. Más tiempo creando, implementando y mejorando resultados para Colgas.</p></div>
+      </div>
+    </section>
+
+    <section id="encaje" class="px-6 py-20">
+      <div class="mx-auto max-w-7xl">
+        <div class="grid gap-10 lg:grid-cols-[.8fr_1.2fr]">
+          <div><p class="text-xs font-bold uppercase tracking-[.25em] text-violet-400">Experiencia integral</p><h2 class="mt-3 text-4xl font-black text-white">Lo que Colgas necesita.<br>Lo que Level ya sabe ejecutar.</h2><p class="mt-5 leading-relaxed text-slate-400">Nuestra experiencia cubre el ciclo completo: planeación, producción multiplataforma, administración de canales, escucha, paid media y analítica.</p></div>
+          <div class="grid gap-3 sm:grid-cols-2">
+            <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-5"><b class="text-white">Estrategia y parrillas</b><p class="mt-2 text-sm text-slate-400">Planeación trimestral, líneas narrativas, calendario mensual y optimización basada en KPIs.</p></div>
+            <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-5"><b class="text-white">Contenido multiformato</b><p class="mt-2 text-sm text-slate-400">Piezas gráficas, reels, video horizontal y vertical, motion graphics y contenidos con IA.</p></div>
+            <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-5"><b class="text-white">Paid media y analítica</b><p class="mt-2 text-sm text-slate-400">Planeación, segmentación, montaje, monitoreo, optimización y reportes accionables.</p></div>
+            <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-5"><b class="text-white">Conversación y reputación</b><p class="mt-2 text-sm text-slate-400">Community management, tendencias, social listening, alertas y real time marketing.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="casos" class="border-y border-white/5 bg-slate-900/25 px-6 py-24">
+      <div class="mx-auto max-w-7xl">
+        <p class="text-center text-xs font-bold uppercase tracking-[.25em] text-cyan-300">Casos de éxito</p>
+        <h2 class="mt-3 text-center text-4xl font-black text-white md:text-5xl">Resultados que hablan por nuestro trabajo.</h2>
+        <p class="mx-auto mt-5 max-w-2xl text-center text-slate-400">Relaciones de largo plazo, ideas memorables y resultados construidos con estrategia, creatividad y ejecución.</p>
+
+        <div class="mt-10 flex flex-wrap justify-center gap-2" aria-label="Filtrar casos de éxito">
+          <button type="button" class="case-filter rounded-full border border-slate-700 px-4 py-2 text-xs font-bold text-slate-300 transition hover:border-cyan-300" data-filter="all" aria-pressed="true">Todos</button>
+          <button type="button" class="case-filter rounded-full border border-slate-700 px-4 py-2 text-xs font-bold text-slate-300 transition hover:border-cyan-300" data-filter="wplay" aria-pressed="false">Wplay</button>
+          <button type="button" class="case-filter rounded-full border border-slate-700 px-4 py-2 text-xs font-bold text-slate-300 transition hover:border-cyan-300" data-filter="hisense" aria-pressed="false">Hisense</button>
+          <button type="button" class="case-filter rounded-full border border-slate-700 px-4 py-2 text-xs font-bold text-slate-300 transition hover:border-cyan-300" data-filter="pierre" aria-pressed="false">Pierre</button>
+          <button type="button" class="case-filter rounded-full border border-slate-700 px-4 py-2 text-xs font-bold text-slate-300 transition hover:border-cyan-300" data-filter="remakia" aria-pressed="false">Remakia</button>
+        </div>
+
+        <article data-case="wplay" class="interactive-card mt-10 overflow-hidden rounded-3xl border border-slate-800 bg-slate-950">
+          <div class="grid lg:grid-cols-[.9fr_1.1fr]">
+            <div class="relative min-h-[340px] overflow-hidden bg-slate-900">
+              <img src="https://i.postimg.cc/k5kxyGDh/rene-higuita.avif" alt="Campaña Wplay René Higuita" class="absolute inset-0 h-full w-full object-cover opacity-55">
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+              <div class="absolute bottom-0 p-8"><span class="rounded-full bg-violet-500 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white">Ocho años como agencia digital</span><h3 class="mt-4 text-3xl font-black text-white">Wplay.co<br>#ApuestaleAHiguita</h3><p class="mt-3 max-w-md text-sm text-slate-300">Wplay es una de las casas de apuestas más grandes del país. Level lidera su ecosistema digital desde hace ocho años.</p></div>
+            </div>
+            <div class="p-8 md:p-10">
+              <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+                <div><div class="metric text-3xl font-black text-white">14,078 M</div><p class="text-xs text-slate-500">usuarios únicos potenciales</p></div>
+                <div><div class="metric text-3xl font-black text-white">50 M</div><p class="text-xs text-slate-500">impactos potenciales</p></div>
+                <div><div class="metric text-3xl font-black text-white">+120 K</div><p class="text-xs text-slate-500">registros en plataforma</p></div>
+                <div><div class="metric text-3xl font-black text-white">22%</div><p class="text-xs text-slate-500">First Deposit reportado</p></div>
+              </div>
+              <div class="mt-9 border-t border-slate-800 pt-7"><p class="text-xs font-bold uppercase tracking-widest text-slate-500">La apuesta memorable</p><p class="mt-3 leading-relaxed text-slate-300">Creamos una apuesta con una figura reconocida en Colombia y el mundo: René Higuita se cortaría el pelo si la Selección no ganaba la Copa América. Level desarrolló el concepto, la planeación, la estrategia de influenciadores, la creatividad, la producción y la conversación digital. El lanzamiento fue tendencia durante cuatro horas.</p></div>
+              <div class="mt-6 rounded-2xl border border-cyan-400/20 bg-cyan-400/5 p-5"><p class="text-xs font-bold uppercase tracking-widest text-cyan-300">Una operación que continúa creciendo</p><div class="mt-3 grid grid-cols-3 gap-3"><div><b class="metric text-xl text-white">8 años</b><p class="text-[10px] text-slate-500">de relación continua</p></div><div><b class="metric text-xl text-white">~300</b><p class="text-[10px] text-slate-500">contenidos cada mes</p></div><div><b class="metric text-xl text-white">360°</b><p class="text-[10px] text-slate-500">ecosistema digital</p></div></div><p class="mt-3 text-xs text-slate-400">Planeación, estrategia, creatividad, producción, operación digital e influencer marketing para todos los canales de Wplay.</p></div>
+              <div class="mt-6 flex flex-wrap gap-2 text-[10px] font-bold uppercase tracking-wider text-slate-300"><span class="rounded-full border border-slate-700 px-3 py-1">Estrategia</span><span class="rounded-full border border-slate-700 px-3 py-1">Influenciadores</span><span class="rounded-full border border-slate-700 px-3 py-1">PR digital</span><span class="rounded-full border border-slate-700 px-3 py-1">Real time</span></div>
+            </div>
+          </div>
+          <details class="group border-t border-slate-800 bg-gradient-to-r from-blue-950/80 to-slate-950" open>
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-5 px-8 py-6 md:px-10"><div><span class="text-xs font-bold uppercase tracking-widest text-yellow-300">Nuevo lanzamiento Wplay 2026</span><h4 class="mt-2 text-2xl font-black text-white">Jorge Barón y la patadita de la buena suerte</h4></div><span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 text-xl text-white transition group-open:rotate-45">+</span></summary>
+            <div class="grid gap-8 px-8 pb-9 md:px-10 lg:grid-cols-[.75fr_1.25fr]">
+              <div><div class="mb-5 overflow-hidden rounded-2xl border border-white/10"><img src="jorgebaronfoto.jpg" alt="Jorge Barón en la campaña de Wplay" class="aspect-video w-full object-cover object-center"></div><p class="text-sm leading-relaxed text-slate-300">Level lideró la amplificación digital del lanzamiento de la nueva campaña de Wplay: selección y coordinación de 26 creadores, ejecución simultánea de contenidos y despliegue de formatos para convertir el estreno del comercial en conversación.</p><a href="https://www.levelpropuestas.com/WPLAY-MUNDIAL/LANZAMIENTO_JB" target="_blank" rel="noopener noreferrer" class="mt-5 inline-flex items-center gap-2 text-xs font-bold text-yellow-300 hover:text-yellow-200">Ver informe completo <span>↗</span></a></div>
+              <div>
+                <div class="grid grid-cols-2 gap-3 md:grid-cols-4"><div class="rounded-2xl border border-white/10 bg-white/5 p-4"><b class="metric text-3xl text-white">3,15 M</b><p class="mt-1 text-[10px] text-blue-200">reproducciones</p></div><div class="rounded-2xl border border-white/10 bg-white/5 p-4"><b class="metric text-3xl text-white">137 K</b><p class="mt-1 text-[10px] text-blue-200">interacciones</p></div><div class="rounded-2xl border border-white/10 bg-white/5 p-4"><b class="metric text-3xl text-white">26</b><p class="mt-1 text-[10px] text-blue-200">creadores coordinados</p></div><div class="rounded-2xl border border-yellow-300/20 bg-yellow-300/10 p-4"><b class="metric text-3xl text-yellow-300">$31</b><p class="mt-1 text-[10px] text-yellow-100/70">COP de CPV promedio</p></div></div>
+                <div class="mt-5 grid gap-4 md:grid-cols-2">
+                  <div class="rounded-2xl bg-white/5 p-5"><div class="flex items-end justify-between"><div><p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Amplificación con creadores</p><b class="metric mt-1 block text-2xl text-white">1,05 M</b></div><span class="text-xs font-bold text-emerald-300">105% de la meta</span></div><div class="mt-4 h-2 overflow-hidden rounded-full bg-white/10"><div class="h-full w-full rounded-full bg-gradient-to-r from-blue-500 to-cyan-300"></div></div><p class="mt-2 text-[10px] text-slate-500">Meta: 1 millón de reproducciones</p></div>
+                  <div class="rounded-2xl bg-white/5 p-5"><div class="flex items-end justify-between"><div><p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Contenido de La Liendra</p><b class="metric mt-1 block text-2xl text-white">2,1 M</b></div><span class="text-xs font-bold text-yellow-300">4,2x la meta</span></div><div class="mt-4 h-2 overflow-hidden rounded-full bg-white/10"><div class="h-full w-full rounded-full bg-gradient-to-r from-yellow-400 to-orange-400"></div></div><p class="mt-2 text-[10px] text-slate-500">Meta: 500.000 reproducciones</p></div>
+                </div>
+                <div class="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-[11px] text-slate-400"><span><b class="text-white">98,5 K</b> likes</span><span><b class="text-white">38,5 K</b> comentarios</span><span><b class="text-white">$97,3 M</b> de inversión gestionada en amplificación</span></div>
+              </div>
+            </div>
+          </details>
+        </article>
+
+        <div class="mt-8 grid gap-8 lg:grid-cols-2">
+          <article data-case="hisense" class="interactive-card rounded-3xl border border-slate-800 bg-slate-950 p-8">
+            <div class="-mx-8 -mt-8 mb-7 flex h-72 items-center justify-center overflow-hidden rounded-t-3xl bg-black"><img src="hisense_te_llevaalmundial.jpeg" alt="Campaña Hisense te lleva al Mundial" class="h-full w-full object-contain"></div>
+            <div class="flex items-center justify-between gap-4"><div><span class="text-xs font-bold uppercase tracking-widest text-cyan-300">Engagement</span><h3 class="mt-2 text-3xl font-black text-white">Hisense<br>Rumbo al Mundial de Clubes</h3></div><div class="rounded-2xl bg-cyan-400/10 px-4 py-3 text-right"><div class="metric text-3xl font-black text-cyan-300">3,95%</div><div class="text-[10px] text-slate-500">engagement rate</div></div></div>
+            <p class="mt-6 text-sm leading-relaxed text-slate-400">Hisense, patrocinador del Mundial de Clubes, necesitaba amplificar su discurso de marca con un presupuesto limitado. Creamos una serie digital de ocho capítulos con creadores de contenido y una historia diseñada para vivir en reels, TikTok, historias y YouTube.</p>
+            <div class="mt-8 grid grid-cols-3 gap-3">
+              <div><div class="metric text-2xl font-black text-white">4.679.055</div><p class="text-[11px] text-slate-500">visualizaciones</p></div><div><div class="metric text-2xl font-black text-white">142.592</div><p class="text-[11px] text-slate-500">interacciones</p></div><div><div class="metric text-2xl font-black text-white">42</div><p class="text-[11px] text-slate-500">acciones publicadas</p></div>
+            </div>
+            <div class="mt-8"><div class="mb-2 flex justify-between text-[10px] font-bold uppercase tracking-wider text-slate-500"><span>Meta de engagement 1,5%</span><span>Resultado 3,95%</span></div><div class="h-2 overflow-hidden rounded-full bg-slate-800"><div class="bar h-full w-full rounded-full"></div></div><p class="mt-2 text-xs text-cyan-300">2,6 veces la tasa objetivo.</p></div>
+          </article>
+
+          <article data-case="pierre" class="interactive-card rounded-3xl border border-slate-800 bg-slate-950 p-8">
+            <div class="-mx-8 -mt-8 mb-7 h-72 overflow-hidden rounded-t-3xl bg-white"><img src="pierre.jpeg" alt="Tienda Pierre D’Agostiny" class="h-full w-full object-cover object-center"></div>
+            <div class="flex items-center justify-between gap-4"><div><span class="text-xs font-bold uppercase tracking-widest text-violet-400">Resultados 2025</span><h3 class="mt-2 text-3xl font-black text-white">Pierre D’Agostiny<br>Contenido que construye comunidad</h3></div><div class="rounded-2xl bg-violet-500/10 px-4 py-3 text-right"><div class="metric text-3xl font-black text-violet-300">+44,2%</div><div class="text-[10px] text-slate-500">crecimiento de comunidad</div></div></div>
+            <p class="mt-6 text-sm leading-relaxed text-slate-400">Durante 2025 integramos estrategia de contenido, producción, gestión de comunidad y pauta de alcance. Instagram pasó de 14.133 a más de 20.000 seguidores, mientras Facebook, Instagram y TikTok ampliaron de forma sostenida la visibilidad de la marca.</p>
+            <div class="mt-8 grid grid-cols-3 gap-3"><div><div class="metric text-2xl font-black text-white">1,23 M</div><p class="text-[11px] text-slate-500">visualizaciones en Facebook</p></div><div><div class="metric text-2xl font-black text-white">504.587</div><p class="text-[11px] text-slate-500">visualizaciones en Instagram</p></div><div><div class="metric text-2xl font-black text-white">107.412</div><p class="text-[11px] text-slate-500">visualizaciones en TikTok</p></div></div>
+            <div class="mt-8 rounded-2xl border border-violet-500/20 bg-violet-500/5 p-5"><p class="text-xs font-bold uppercase tracking-widest text-violet-300">La comunidad respondió</p><p class="mt-2 text-sm text-slate-300">Facebook alcanzó 31.600 interacciones en diciembre, Instagram creció 115,4% en interacciones y los compartidos en TikTok aumentaron 515,1%.</p></div>
+          </article>
+        </div>
+
+        <article data-case="remakia" class="interactive-card mt-8 rounded-3xl border border-amber-400/20 bg-amber-400/[.04] p-8">
+          <div>
+            <div class="grid gap-8 lg:grid-cols-[1fr_.85fr] lg:items-center">
+              <div><span class="text-xs font-bold uppercase tracking-widest text-amber-300">Performance y conversión</span><h3 class="mt-2 text-3xl font-black text-white">Editorial Remakia · Lanzamientos editoriales de creadores</h3><p class="mt-4 max-w-3xl text-sm leading-relaxed text-slate-300">Creamos y acompañamos lanzamientos editoriales de creadores de contenido como Aída Merlano, Cintia Cossio, Bryan Mantilla y Julián Valencia.</p></div>
+              <div class="grid grid-cols-2 gap-3 text-center"><div class="rounded-2xl bg-slate-950 px-5 py-5"><div class="metric text-4xl font-black text-amber-300">+160 K</div><div class="mt-1 text-[10px] text-slate-500">usuarios compradores de e-books</div></div><div class="rounded-2xl bg-slate-950 px-5 py-5"><div class="metric text-4xl font-black text-amber-300">$5.400 M</div><div class="mt-1 text-[10px] text-slate-500">recaudo total reportado</div></div></div>
+            </div>
+            <div class="mt-8 grid gap-4 sm:grid-cols-3">
+              <figure class="group overflow-hidden rounded-2xl border border-amber-300/15 bg-slate-950"><div class="flex h-72 items-center justify-center overflow-hidden bg-black"><img src="remakia_aida.jpeg" alt="E-book Victoria de Aída Merlano publicado por Editorial Remakia" class="h-full w-full object-contain transition duration-500 group-hover:scale-105"></div><figcaption class="border-t border-white/5 p-4"><p class="text-xs font-bold text-white">Victoria</p><p class="mt-1 text-[10px] text-slate-500">Aída Victoria Merlano</p></figcaption></figure>
+              <figure class="group overflow-hidden rounded-2xl border border-amber-300/15 bg-slate-950"><div class="flex h-72 items-center justify-center overflow-hidden bg-white"><img src="cintia_cossio_ebook.webp" alt="E-book Cintia al desnudo publicado por Editorial Remakia" class="h-full w-full object-contain transition duration-500 group-hover:scale-105"></div><figcaption class="border-t border-white/5 p-4"><p class="text-xs font-bold text-white">Cintia al desnudo</p><p class="mt-1 text-[10px] text-slate-500">Cintia Cossio</p></figcaption></figure>
+              <figure class="group overflow-hidden rounded-2xl border border-amber-300/15 bg-slate-950"><div class="flex h-72 items-center justify-center overflow-hidden bg-white"><img src="el brayan_ebook.webp" alt="E-book Las inversiones fallidas de Brayan publicado por Editorial Remakia" class="h-full w-full object-contain transition duration-500 group-hover:scale-105"></div><figcaption class="border-t border-white/5 p-4"><p class="text-xs font-bold text-white">Las inversiones fallidas de Brayan</p><p class="mt-1 text-[10px] text-slate-500">Bryan Mantilla</p></figcaption></figure>
+            </div>
+            <div class="mt-7 rounded-2xl border border-amber-300/15 bg-slate-950/70 p-6">
+              <div class="flex flex-col justify-between gap-4 md:flex-row md:items-end"><div><p class="text-[10px] font-bold uppercase tracking-[.2em] text-amber-300">Lanzamiento destacado</p><h4 class="mt-2 text-2xl font-black text-white">E-book de Aída Merlano</h4><p class="mt-2 max-w-2xl text-sm leading-relaxed text-slate-400">Más de 50.000 usuarios compraron el e-book en aproximadamente mes y medio, con un valor unitario de $35.000 COP y una inversión de pauta de $5 millones COP.</p></div><div class="rounded-2xl bg-amber-300 px-6 py-4 text-center text-slate-950"><div class="metric text-4xl font-black">22x</div><div class="text-[10px] font-bold uppercase tracking-wider">ROAS reportado</div></div></div>
+              <div class="mt-6 grid grid-cols-2 gap-3 md:grid-cols-4"><div class="rounded-xl bg-white/5 p-4"><b class="metric text-2xl text-white">+50 K</b><p class="mt-1 text-[10px] text-slate-500">usuarios compradores</p></div><div class="rounded-xl bg-white/5 p-4"><b class="metric text-2xl text-white">$35.000</b><p class="mt-1 text-[10px] text-slate-500">valor por e-book</p></div><div class="rounded-xl bg-white/5 p-4"><b class="metric text-2xl text-white">$1.750 M</b><p class="mt-1 text-[10px] text-slate-500">valor bruto reportado</p></div><div class="rounded-xl bg-white/5 p-4"><b class="metric text-2xl text-white">$5 M</b><p class="mt-1 text-[10px] text-slate-500">inversión en pauta</p></div></div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="propuesta" class="relative overflow-hidden border-b border-white/5 px-6 py-24">
+      <div class="absolute inset-0 bg-gradient-to-br from-violet-950/20 via-transparent to-cyan-950/20"></div>
+      <div class="relative mx-auto max-w-7xl">
+        <div class="grid gap-10 lg:grid-cols-[1.15fr_.85fr] lg:items-end">
+          <div><p class="text-xs font-bold uppercase tracking-[.25em] text-violet-400">Nuestra propuesta para Colgas</p><h2 class="mt-3 max-w-3xl text-4xl font-black text-white md:text-6xl">Una operación digital integral, pensada para cada unidad de negocio.</h2><p class="mt-6 max-w-3xl text-lg leading-relaxed text-slate-400">Planeamos, creamos, producimos, publicamos, escuchamos y optimizamos. Un solo equipo conecta la estrategia de marca con la operación diaria y convierte los datos en decisiones.</p></div>
+          <div class="rounded-3xl border border-violet-400/20 bg-violet-500/10 p-8"><p class="text-xs font-bold uppercase tracking-widest text-violet-300">Inversión mensual</p><div class="metric mt-2 text-5xl font-black text-white md:text-6xl">$21.000.000</div><p class="mt-3 text-sm text-slate-400">Fee mensual de servicios profesionales. La inversión directa en medios se administra de manera independiente.</p></div>
+        </div>
+
+        <div class="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+          <article class="interactive-card rounded-3xl border border-slate-800 bg-slate-950 p-6"><div class="text-3xl">◉</div><h3 class="mt-5 text-lg font-bold text-white">Planeación y estrategia</h3><p class="mt-3 text-sm leading-relaxed text-slate-400">Ruta trimestral, parrillas mensuales, líneas narrativas y coordinación con las campañas corporativas y comerciales.</p></article>
+          <article class="interactive-card rounded-3xl border border-slate-800 bg-slate-950 p-6"><div class="text-3xl">✦</div><h3 class="mt-5 text-lg font-bold text-white">Creatividad y producción</h3><p class="mt-3 text-sm leading-relaxed text-slate-400">Conceptos, piezas gráficas, video, animación, inteligencia artificial y contenidos diseñados para cada plataforma.</p></article>
+          <article class="interactive-card rounded-3xl border border-slate-800 bg-slate-950 p-6"><div class="text-3xl">◎</div><h3 class="mt-5 text-lg font-bold text-white">Operación y conversación</h3><p class="mt-3 text-sm leading-relaxed text-slate-400">Administración de canales, publicación, community management, cubrimientos, tendencias y escucha activa.</p></article>
+          <article class="interactive-card rounded-3xl border border-slate-800 bg-slate-950 p-6"><div class="text-3xl">↗</div><h3 class="mt-5 text-lg font-bold text-white">Pauta y optimización</h3><p class="mt-3 text-sm leading-relaxed text-slate-400">Planeación de medios, segmentación, implementación, monitoreo, ajustes continuos y lectura de resultados.</p></article>
+        </div>
+
+        <div class="mt-14 grid gap-8 lg:grid-cols-[1.25fr_.75fr]">
+          <div class="rounded-3xl border border-slate-800 bg-slate-950 p-8">
+            <div class="flex flex-col justify-between gap-3 border-b border-slate-800 pb-6 sm:flex-row sm:items-end"><div><p class="text-xs font-bold uppercase tracking-widest text-cyan-300">Producción mensual</p><h3 class="mt-2 text-2xl font-black text-white">Contenido para mantener el ecosistema activo</h3></div><p class="text-xs text-slate-500">Volumen mínimo incluido</p></div>
+            <div class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3">
+              <div class="rounded-2xl bg-slate-900 p-5"><div class="metric text-4xl font-black text-white">40</div><p class="mt-2 text-xs text-slate-400">piezas gráficas y adaptaciones</p></div>
+              <div class="rounded-2xl bg-slate-900 p-5"><div class="metric text-4xl font-black text-white">8</div><p class="mt-2 text-xs text-slate-400">videos con animación 2D y motion</p></div>
+              <div class="rounded-2xl bg-slate-900 p-5"><div class="metric text-4xl font-black text-white">5</div><p class="mt-2 text-xs text-slate-400">contenidos animados con IA</p></div>
+              <div class="rounded-2xl bg-slate-900 p-5"><div class="metric text-4xl font-black text-white">6</div><p class="mt-2 text-xs text-slate-400">videos tipo reel en tendencia</p></div>
+              <div class="rounded-2xl bg-slate-900 p-5"><div class="metric text-4xl font-black text-white">1</div><p class="mt-2 text-xs text-slate-400">cubrimiento presencial mensual</p></div>
+              <div class="rounded-2xl bg-slate-900 p-5"><div class="metric text-4xl font-black text-white">24 h</div><p class="mt-2 text-xs text-slate-400">entrega del reel de cubrimiento</p></div>
+            </div>
+            <div class="mt-4 grid gap-4 sm:grid-cols-2"><div class="rounded-2xl border border-slate-800 p-5"><b class="text-white">2 landing pages al año</b><p class="mt-2 text-xs text-slate-500">Diseño UX/UI, maquetación y desarrollo.</p></div><div class="rounded-2xl border border-slate-800 p-5"><b class="text-white">Material audiovisual en crudo</b><p class="mt-2 text-xs text-slate-500">Entrega incluida en cada cubrimiento.</p></div></div>
+          </div>
+
+          <div class="space-y-5">
+            <div class="rounded-3xl border border-amber-400/20 bg-gradient-to-br from-amber-400/15 to-orange-500/5 p-8"><p class="text-xs font-bold uppercase tracking-widest text-amber-300">Bonus incluido</p><h3 class="mt-2 text-2xl font-black text-white">Diagnóstico y planeación estratégica general</h3><p class="mt-4 text-sm leading-relaxed text-slate-300">Una lectura inicial del ecosistema para establecer prioridades, oportunidades, indicadores y una hoja de ruta compartida.</p></div>
+            <div class="rounded-3xl border border-slate-800 bg-slate-950 p-8"><p class="text-xs font-bold uppercase tracking-widest text-cyan-300">Cobertura</p><h3 class="mt-2 text-xl font-black text-white">Producción donde Colgas la necesita</h3><p class="mt-4 text-sm leading-relaxed text-slate-400">Bogotá, Medellín, Cali, Barranquilla, Cartagena y Bucaramanga, con coordinación de equipo, producción y logística.</p></div>
+            <div class="rounded-3xl border border-slate-800 bg-slate-950 p-8"><p class="text-xs font-bold uppercase tracking-widest text-violet-300">Dedicación base</p><div class="mt-5 space-y-4"><div><div class="flex justify-between text-xs"><span class="text-slate-300">Community Manager</span><b class="text-white">100%</b></div><div class="mt-2 h-1.5 rounded-full bg-slate-800"><div class="bar h-full w-full rounded-full"></div></div></div><div><div class="flex justify-between text-xs"><span class="text-slate-300">Dirección de Cuenta</span><b class="text-white">80%</b></div><div class="mt-2 h-1.5 rounded-full bg-slate-800"><div class="bar h-full w-4/5 rounded-full"></div></div></div><div><div class="flex justify-between text-xs"><span class="text-slate-300">Planeación Estratégica</span><b class="text-white">50%</b></div><div class="mt-2 h-1.5 rounded-full bg-slate-800"><div class="bar h-full w-1/2 rounded-full"></div></div></div></div></div>
+          </div>
+        </div>
+
+        <div class="mt-14 rounded-3xl border border-slate-800 bg-slate-950 p-8 md:p-10">
+          <div class="max-w-3xl"><p class="text-xs font-bold uppercase tracking-widest text-violet-300">Así trabajaremos</p><h3 class="mt-2 text-3xl font-black text-white">Una visión anual que aprende y se ajusta durante la ejecución.</h3><p class="mt-4 text-sm leading-relaxed text-slate-400">La estrategia parte de los objetivos de Colgas, se convierte en una hoja de ruta trimestral y evoluciona con el desempeño real de los contenidos, las campañas y las audiencias.</p></div>
+          <div class="mt-10 grid gap-5 md:grid-cols-4">
+            <div class="relative rounded-2xl bg-slate-900 p-6"><span class="text-xs font-black text-violet-300">00</span><h4 class="mt-3 font-bold text-white">Inmersión</h4><p class="mt-2 text-xs leading-relaxed text-slate-500">Conocemos las UEN, objetivos, públicos, aprendizajes, restricciones y calendario.</p></div>
+            <div class="relative rounded-2xl bg-slate-900 p-6"><span class="text-xs font-black text-violet-300">01</span><h4 class="mt-3 font-bold text-white">Ruta estratégica</h4><p class="mt-2 text-xs leading-relaxed text-slate-500">Definimos KPIs, narrativas, prioridades, campañas y plan de trabajo trimestral.</p></div>
+            <div class="relative rounded-2xl bg-slate-900 p-6"><span class="text-xs font-black text-cyan-300">02</span><h4 class="mt-3 font-bold text-white">Ejecución y aprendizaje</h4><p class="mt-2 text-xs leading-relaxed text-slate-500">Producimos, publicamos, pautamos, escuchamos y optimizamos de manera continua.</p></div>
+            <div class="relative rounded-2xl bg-gradient-to-br from-violet-500/20 to-cyan-400/10 p-6"><span class="text-xs font-black text-cyan-300">03</span><h4 class="mt-3 font-bold text-white">Revisión y evolución</h4><p class="mt-2 text-xs leading-relaxed text-slate-400">Consolidamos aprendizajes y ajustamos el siguiente ciclo con información real.</p></div>
+          </div>
+        </div>
+
+        <div class="mt-8 grid gap-5 md:grid-cols-3">
+          <div class="rounded-2xl border border-slate-800 p-6"><p class="text-[10px] font-bold uppercase tracking-widest text-slate-500">Validez</p><p class="mt-2 font-bold text-white">30 días desde la emisión</p></div>
+          <div class="rounded-2xl border border-slate-800 p-6"><p class="text-[10px] font-bold uppercase tracking-widest text-slate-500">Forma de pago</p><p class="mt-2 font-bold text-white">Mensual anticipada contra factura</p></div>
+          <div class="rounded-2xl border border-slate-800 p-6"><p class="text-[10px] font-bold uppercase tracking-widest text-slate-500">Inicio</p><p class="mt-2 font-bold text-white">Tras la aprobación y el kickoff</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="equipo" class="border-t border-white/5 bg-slate-900/25 px-6 py-24">
+      <div class="mx-auto max-w-7xl">
+        <p class="text-center text-xs font-bold uppercase tracking-[.25em] text-cyan-300">Célula dedicada</p><h2 class="mt-3 text-center text-4xl font-black text-white">Especialistas con responsabilidades claras</h2>
+        <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <article class="interactive-card overflow-hidden rounded-3xl border border-slate-800 bg-slate-950">
+            <div class="aspect-[4/3] overflow-hidden bg-slate-900"><img src="equipo_trabajo/paola_morales.JPG.jpeg" alt="Paola Morales" class="h-full w-full object-cover object-[center_30%]"></div>
+            <div class="p-6"><p class="text-[10px] font-bold uppercase tracking-widest text-cyan-300">Directora de Cuenta</p><h3 class="mt-2 text-2xl font-black text-white">Paola Morales</h3><p class="mt-3 text-sm leading-relaxed text-slate-400">Comunicadora social y periodista con 7 años liderando estrategias de comunicación digital y campañas de pauta, con experiencia en LinkedIn. Coordina prioridades, equipos y resultados.</p><div class="mt-5 flex flex-wrap gap-2 text-[9px] font-bold uppercase tracking-wider text-slate-300"><span class="rounded-full border border-slate-700 px-3 py-1">Dirección de cuenta</span><span class="rounded-full border border-slate-700 px-3 py-1">Estrategia digital</span><span class="rounded-full border border-slate-700 px-3 py-1">LinkedIn Ads</span><span class="rounded-full border border-slate-700 px-3 py-1">Gestión de equipos</span></div></div>
+          </article>
+          <article class="interactive-card overflow-hidden rounded-3xl border border-slate-800 bg-slate-950">
+            <div class="aspect-[4/3] overflow-hidden bg-slate-900"><img src="equipo_trabajo/maria_paula_mateus.jpeg" alt="Maria Paula Mateus" class="h-full w-full object-cover object-[center_30%]"></div>
+            <div class="p-6"><p class="text-[10px] font-bold uppercase tracking-widest text-violet-300">Media Planner y Estratega Digital</p><h3 class="mt-2 text-2xl font-black text-white">Maria Paula Mateus</h3><p class="mt-3 text-sm leading-relaxed text-slate-400">Profesional en marketing y publicidad especializada en estrategia digital, audiencias y optimización de campañas. Convierte objetivos de negocio y datos en planes de medios accionables.</p><div class="mt-5 flex flex-wrap gap-2 text-[9px] font-bold uppercase tracking-wider text-slate-300"><span class="rounded-full border border-slate-700 px-3 py-1">Media planning</span><span class="rounded-full border border-slate-700 px-3 py-1">Segmentación</span><span class="rounded-full border border-slate-700 px-3 py-1">Paid media</span><span class="rounded-full border border-slate-700 px-3 py-1">Optimización</span><span class="rounded-full border border-slate-700 px-3 py-1">Insights</span></div></div>
+          </article>
+          <article class="interactive-card overflow-hidden rounded-3xl border border-slate-800 bg-slate-950">
+            <div class="aspect-[4/3] overflow-hidden bg-slate-900"><img src="equipo_trabajo/Edwar_sierra.jpeg" alt="Edwar Sierra" class="h-full w-full object-cover object-[center_30%]"></div>
+            <div class="p-6"><p class="text-[10px] font-bold uppercase tracking-widest text-violet-300">Director Creativo</p><h3 class="mt-2 text-2xl font-black text-white">Edwar Sierra</h3><p class="mt-3 text-sm leading-relaxed text-slate-400">Comunicador social y periodista con 9 años de experiencia en marketing. Lidera estrategia y creatividad para marcas de diferentes industrias, convirtiendo objetivos en ideas relevantes.</p><div class="mt-5 flex flex-wrap gap-2 text-[9px] font-bold uppercase tracking-wider text-slate-300"><span class="rounded-full border border-slate-700 px-3 py-1">Dirección creativa</span><span class="rounded-full border border-slate-700 px-3 py-1">Conceptualización</span><span class="rounded-full border border-slate-700 px-3 py-1">Storytelling</span><span class="rounded-full border border-slate-700 px-3 py-1">Estrategia de marca</span></div></div>
+          </article>
+          <article class="interactive-card overflow-hidden rounded-3xl border border-slate-800 bg-slate-950">
+            <div class="aspect-[4/3] overflow-hidden bg-slate-900"><img src="equipo_trabajo/paula_betancurt.JPG.jpeg" alt="Paula Betancourt" class="h-full w-full object-cover object-[center_30%]"></div>
+            <div class="p-6"><p class="text-[10px] font-bold uppercase tracking-widest text-cyan-300">Diseñadora</p><h3 class="mt-2 text-2xl font-black text-white">Paula Betancourt</h3><p class="mt-3 text-sm leading-relaxed text-slate-400">Diseñadora industrial con 6 años creando identidades y sistemas visuales para marcas digitales, con énfasis en nuevos formatos y adaptación multiplataforma.</p><div class="mt-5 flex flex-wrap gap-2 text-[9px] font-bold uppercase tracking-wider text-slate-300"><span class="rounded-full border border-slate-700 px-3 py-1">Identidad visual</span><span class="rounded-full border border-slate-700 px-3 py-1">Diseño digital</span><span class="rounded-full border border-slate-700 px-3 py-1">Nuevos formatos</span><span class="rounded-full border border-slate-700 px-3 py-1">Multiplataforma</span></div></div>
+          </article>
+          <article class="interactive-card overflow-hidden rounded-3xl border border-slate-800 bg-slate-950">
+            <div class="aspect-[4/3] overflow-hidden bg-slate-900"><img src="equipo_trabajo/david_gomez.jpeg" alt="David Gómez" class="h-full w-full object-cover object-[center_30%]"></div>
+            <div class="p-6"><p class="text-[10px] font-bold uppercase tracking-widest text-amber-300">Editor Audiovisual</p><h3 class="mt-2 text-2xl font-black text-white">David Gómez</h3><p class="mt-3 text-sm leading-relaxed text-slate-400">Comunicador social y periodista con más de 5 años de experiencia en edición de audio y video. Integra herramientas de inteligencia artificial a los procesos de producción audiovisual.</p><div class="mt-5 flex flex-wrap gap-2 text-[9px] font-bold uppercase tracking-wider text-slate-300"><span class="rounded-full border border-slate-700 px-3 py-1">Edición de video</span><span class="rounded-full border border-slate-700 px-3 py-1">Edición de audio</span><span class="rounded-full border border-slate-700 px-3 py-1">IA audiovisual</span><span class="rounded-full border border-slate-700 px-3 py-1">Postproducción</span></div></div>
+          </article>
+          <article class="interactive-card overflow-hidden rounded-3xl border border-slate-800 bg-slate-950">
+            <div class="aspect-[4/3] overflow-hidden bg-slate-900"><img src="equipo_trabajo/sebastian_cetina.jpeg" alt="Sebastian Cetina" class="h-full w-full object-cover object-[center_30%]"></div>
+            <div class="p-6"><p class="text-[10px] font-bold uppercase tracking-widest text-emerald-300">Community Manager</p><h3 class="mt-2 text-2xl font-black text-white">Sebastian Cetina</h3><p class="mt-3 text-sm leading-relaxed text-slate-400">Comunicador social y periodista con 2 años de experiencia en community management, creación de contenidos y edición de video para ecosistemas digitales.</p><div class="mt-5 flex flex-wrap gap-2 text-[9px] font-bold uppercase tracking-wider text-slate-300"><span class="rounded-full border border-slate-700 px-3 py-1">Community management</span><span class="rounded-full border border-slate-700 px-3 py-1">Copywriting</span><span class="rounded-full border border-slate-700 px-3 py-1">Contenido</span><span class="rounded-full border border-slate-700 px-3 py-1">Edición de video</span></div></div>
+          </article>
+        </div>
+        <p class="mx-auto mt-8 max-w-3xl text-center text-sm text-slate-500">Equipo dedicado a la planeación, creatividad, producción, operación, pauta y optimización del ecosistema digital de Colgas.</p>
+      </div>
+    </section>
+
+    <section class="px-6 py-24">
+      <div class="mx-auto max-w-5xl rounded-[2rem] border border-violet-500/20 bg-gradient-to-br from-violet-500/10 to-cyan-400/5 p-10 text-center md:p-16">
+        <p class="text-xs font-bold uppercase tracking-[.25em] text-violet-300">Level × Colgas</p><h2 class="mt-4 text-4xl font-black text-white md:text-5xl">Una operación creativa con disciplina de resultados.</h2><p class="mx-auto mt-6 max-w-2xl text-slate-300">Estamos listos para convertir la estrategia digital de Colgas en una presencia activa, coherente y medible para cada unidad de negocio.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-white/5 px-6 py-10 text-center text-xs text-slate-500"><p>Level Colombia Producciones S.A.S. · Credenciales confidenciales para Colgas · 2026</p></footer>
+
+  <div id="section-controls" class="fixed bottom-5 right-5 z-50 hidden items-center gap-2 rounded-full border border-white/10 bg-slate-950/90 p-2 shadow-2xl backdrop-blur md:flex">
+    <button id="prev-section" type="button" class="flex h-10 w-10 items-center justify-center rounded-full text-white hover:bg-white/10" aria-label="Sección anterior">↑</button>
+    <span id="section-status" class="min-w-20 px-2 text-center text-[10px] font-bold uppercase tracking-wider text-slate-400" aria-live="polite">Inicio</span>
+    <button id="next-section" type="button" class="flex h-10 w-10 items-center justify-center rounded-full text-white hover:bg-white/10" aria-label="Sección siguiente">↓</button>
+  </div>
+
+  <script>
+    (() => {
+      const sections = [...document.querySelectorAll('header, main > section')];
+      const status = document.getElementById('section-status');
+      const labels = ['Inicio', 'Trayectoria', 'Colgas', 'Experiencia', 'Casos', 'Propuesta', 'Equipo', 'Cierre'];
+      let activeIndex = 0;
+
+      document.querySelectorAll('main > section > div').forEach((el) => el.classList.add('reveal'));
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add('is-visible'); });
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+
+      const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          activeIndex = sections.indexOf(entry.target);
+          status.textContent = labels[activeIndex] || `Sección ${activeIndex + 1}`;
+          document.querySelectorAll('nav a').forEach((link) => {
+            const currentId = entry.target.id;
+            link.classList.toggle('text-white', currentId && link.getAttribute('href') === `#${currentId}`);
+          });
+        });
+      }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
+      sections.forEach((section) => sectionObserver.observe(section));
+
+      const goTo = (index) => {
+        activeIndex = Math.max(0, Math.min(sections.length - 1, index));
+        sections[activeIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      };
+      document.getElementById('prev-section').addEventListener('click', () => goTo(activeIndex - 1));
+      document.getElementById('next-section').addEventListener('click', () => goTo(activeIndex + 1));
+
+      document.querySelectorAll('.colgas-accordion').forEach((panel) => {
+        panel.addEventListener('toggle', () => {
+          if (!panel.open) return;
+          document.querySelectorAll('.colgas-accordion').forEach((other) => {
+            if (other !== panel) other.open = false;
+          });
+        });
+      });
+
+      document.querySelectorAll('.case-filter').forEach((button) => {
+        button.addEventListener('click', () => {
+          const filter = button.dataset.filter;
+          document.querySelectorAll('.case-filter').forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+          document.querySelectorAll('[data-case]').forEach((card) => card.classList.toggle('case-hidden', filter !== 'all' && card.dataset.case !== filter));
+        });
+      });
+
+      const updateProgress = () => {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = max > 0 ? window.scrollY / max : 0;
+        document.getElementById('reading-progress').style.transform = `scaleX(${Math.min(1, Math.max(0, progress))})`;
+      };
+      updateProgress();
+      window.addEventListener('scroll', updateProgress, { passive: true });
+      window.addEventListener('resize', updateProgress);
+      window.addEventListener('beforeprint', () => {
+        document.querySelectorAll('details').forEach((panel) => { panel.open = true; });
+        document.querySelectorAll('[data-case]').forEach((card) => card.classList.remove('case-hidden'));
+      });
+    })();
+  </script>
+</body>
+</html>

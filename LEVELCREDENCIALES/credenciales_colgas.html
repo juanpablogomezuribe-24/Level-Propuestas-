@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credenciales Licitación - Colgas | Level Colombia</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        body { background-color: #020617; color: #e2e8f0; font-family: 'Inter', sans-serif; }
+        .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // --- ICONOS ---
+        const Icon = ({ path, size = 24, className }) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                {path}
+            </svg>
+        );
+        const Icons = {
+            Users: (props) => <Icon {...props} path={<><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></>} />,
+            Target: (props) => <Icon {...props} path={<><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></>} />,
+            TrendingUp: (props) => <Icon {...props} path={<><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></>} />,
+            Play: (props) => <Icon {...props} path={<><polygon points="5 3 19 12 5 21 5 3"/></>} />,
+            Award: (props) => <Icon {...props} path={<><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></>} />,
+            CheckCircle: (props) => <Icon {...props} path={<><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></>} />,
+        };
+
+        // --- DATOS COLGAS ---
+        const CASOS_EXITO = [
+            {
+                cliente: "Wplay.co",
+                campana: "René Higuita - El día que Higuita se cortó el pelo",
+                objetivo: "Generar Brand Awareness masivo, viralidad y posicionamiento de marca.",
+                gestion: "Estrategia digital, dirección creativa, producción en vivo y PR Digital.",
+                metricas: [
+                    { label: "Views en vivo", value: "+600K" },
+                    { label: "Impacto", value: "Trending Topic" }
+                ],
+                tag: "Alcance",
+                imageUrl: "https://i.postimg.cc/k5kxyGDh/rene-higuita.avif"
+            },
+            {
+                cliente: "Hisense",
+                campana: "Rumbo a la Euro (Web Serie)",
+                objetivo: "Storytelling de alto valor para generar interacciones masivas.",
+                gestion: "Creación, guionización, producción audiovisual y manejo de talento.",
+                metricas: [
+                    { label: "Views Orgánicas", value: "+1M" },
+                    { label: "Formato", value: "8 Capítulos" }
+                ],
+                tag: "Engagement",
+                imageUrl: "https://i.postimg.cc/RCRx2H9G/hisense.jpg"
+            },
+            {
+                cliente: "Editorial Remakia",
+                campana: "Lanzamiento Libro Aida Merlano",
+                objetivo: "Maximizar ventas mediante estrategias de pauta optimizadas.",
+                gestion: "Planeación, segmentación y optimización continua en Meta Ads.",
+                metricas: [
+                    { label: "Ventas Ebooks", value: "+50K" },
+                    { label: "ROAS (Retorno)", value: "20x" }
+                ],
+                tag: "Conversión / ROAS",
+                imageUrl: "https://i.postimg.cc/gcsMqyq1/aida-merlano.avif" 
+            }
+        ];
+
+        const EQUIPO = [
+            { nombre: "Paola Morales", cargo: "Director de Cuenta", desc: "Líder estratégica y contacto principal para la gestión del ecosistema digital de Colgas.", img: "foto_paola.jpg" },
+            { nombre: "Edwar Sierra", cargo: "Director Creativo", desc: "Encargado de la conceptualización, disrupción e innovación visual de las campañas.", img: "foto_edwar.jpg" },
+            { nombre: "Paula Betancourt", cargo: "Diseñadora Gráfica", desc: "Desarrollo de piezas estáticas, adaptaciones y líneas gráficas bajo estándares de marca.", img: "foto_paula.jpg" },
+            { nombre: "Sebastian Cetina", cargo: "Community Manager", desc: "Administración, publicación y relacionamiento directo en los canales digitales oficiales.", img: "foto_sebastian.jpg" },
+            { nombre: "Maria Paula Mateus", cargo: "Media Planner & Social Listening", desc: "Diseño de estrategia Paid Media, optimización de presupuesto, ROAS y monitoreo de reputación.", img: "foto_mariapaula.jpg" },
+            { nombre: "David Gómez", cargo: "Editor Audiovisual", desc: "Producción y edición de video, animación gráfica, IA y formatos dinámicos tipo Reel.", img: "foto_david.jpg" }
+        ];
+
+        // --- APP ---
+        function App() {
+            return (
+                <div className="min-h-screen bg-slate-950 text-slate-200">
+                    
+                    {/* NAVBAR */}
+                    <nav className="w-full border-b border-white/10 bg-slate-950/80 backdrop-blur-lg sticky top-0 z-50">
+                        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                                <span className="text-2xl font-black text-white">LEVEL<span className="text-purple-500">.</span></span>
+                                <span className="text-slate-600">|</span>
+                                <span className="text-sm font-semibold tracking-widest text-slate-400 uppercase hidden sm:inline">Credenciales</span>
+                            </div>
+                            <div className="px-4 py-1.5 rounded-full bg-slate-900 border border-slate-800 text-xs font-bold text-slate-300">
+                                Licitación Agencia Digital 2027
+                            </div>
+                        </div>
+                    </nav>
+
+                    {/* HERO */}
+                    <header className="py-24 px-6 text-center relative overflow-hidden border-b border-white/5">
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10 pointer-events-none">
+                            <div className="absolute top-[20%] left-[30%] w-[400px] h-[400px] bg-purple-600/20 rounded-full blur-[100px]" />
+                        </div>
+                        <div className="max-w-4xl mx-auto animate-fade-in-up">
+                            <h4 className="text-purple-400 font-bold tracking-widest uppercase text-sm mb-4">Propuesta Exclusiva</h4>
+                            <h1 className="text-5xl md:text-7xl font-black text-white mb-6 leading-tight tracking-tight">
+                                COLGAS <span className="text-slate-600">&times;</span> <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">LEVEL</span>
+                            </h1>
+                            <p className="text-xl text-slate-400 font-light mb-10 max-w-2xl mx-auto">
+                                Transformamos el scroll en conversión. Presentamos nuestras credenciales, casos de éxito y el talento dedicado para liderar el ecosistema digital de Colgas.
+                            </p>
+                            <a href="#experiencia" className="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full font-bold hover:scale-105 transition-transform shadow-lg shadow-white/10">
+                                Ver Credenciales
+                            </a>
+                        </div>
+                    </header>
+
+                    {/* EXPERIENCIA (Requisito 1) */}
+                    <section id="experiencia" className="py-20 px-6 bg-slate-900/30">
+                        <div className="max-w-5xl mx-auto text-center">
+                            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-slate-900 border border-slate-700 mb-6">
+                                <Icons.Award className="text-purple-500" size={32} />
+                            </div>
+                            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Experiencia Comprobada (+8 Años)</h2>
+                            <p className="text-lg text-slate-400 leading-relaxed max-w-3xl mx-auto">
+                                En Level Colombia Producciones no solo ejecutamos, <strong className="text-white">pensamos y construimos relaciones a largo plazo</strong>. Contamos con una sólida trayectoria de más de 8 años en el mercado prestando servicios de agencia digital integral para empresas de diversos sectores. Nuestro enfoque se centra en la innovación, la producción de formatos de alto impacto y la optimización de ecosistemas digitales fundamentada en datos.
+                            </p>
+                        </div>
+                    </section>
+
+                    {/* CASOS DE EXITO (Requisito 2) */}
+                    <section className="py-24 px-6 border-t border-white/5">
+                        <div className="max-w-7xl mx-auto">
+                            <div className="mb-16 md:text-center">
+                                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Casos de Éxito Exigidos</h2>
+                                <p className="text-slate-400 max-w-2xl mx-auto">Resultados medibles en incremento de alcance, engagement y retorno de inversión en pauta (ROAS), tal como lo requiere el pliego de la licitación.</p>
+                            </div>
+
+                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                                {CASOS_EXITO.map((caso, i) => (
+                                    <div key={i} className="bg-slate-900/50 border border-slate-800 rounded-3xl overflow-hidden hover:border-purple-500/50 transition-colors group flex flex-col">
+                                        <div className="h-48 bg-slate-800 relative overflow-hidden">
+                                            <img src={caso.imageUrl} alt={caso.cliente} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100" />
+                                            <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md border border-white/10 px-3 py-1 rounded-full text-xs font-bold text-white uppercase tracking-wider">
+                                                {caso.tag}
+                                            </div>
+                                        </div>
+                                        <div className="p-8 flex-1 flex flex-col">
+                                            <p className="text-purple-400 font-bold text-sm mb-1">{caso.cliente}</p>
+                                            <h3 className="text-2xl font-bold text-white mb-4 leading-tight">{caso.campana}</h3>
+                                            
+                                            <div className="space-y-4 mb-8 flex-1">
+                                                <div>
+                                                    <span className="text-xs text-slate-500 font-semibold uppercase tracking-wider block mb-1">El Objetivo</span>
+                                                    <p className="text-sm text-slate-300 leading-relaxed">{caso.objetivo}</p>
+                                                </div>
+                                                <div>
+                                                    <span className="text-xs text-slate-500 font-semibold uppercase tracking-wider block mb-1">Nuestra Gestión</span>
+                                                    <p className="text-sm text-slate-300 leading-relaxed">{caso.gestion}</p>
+                                                </div>
+                                            </div>
+                                            
+                                            <div className="grid grid-cols-2 gap-4 pt-6 border-t border-slate-800">
+                                                {caso.metricas.map((m, j) => (
+                                                    <div key={j}>
+                                                        <p className="text-2xl font-black text-white">{m.value}</p>
+                                                        <p className="text-xs text-slate-500">{m.label}</p>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* EQUIPO (Requisito 3) */}
+                    <section className="py-24 px-6 bg-slate-900/20 border-t border-white/5">
+                        <div className="max-w-7xl mx-auto">
+                            <div className="mb-16 md:text-center">
+                                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">El Equipo Dedicado a Colgas</h2>
+                                <p className="text-slate-400 max-w-2xl mx-auto">El talento especializado que estará a cargo de planear, ejecutar, medir y optimizar el ecosistema digital de la marca durante 2027.</p>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                {EQUIPO.map((miembro, i) => (
+                                    <div key={i} className="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex items-start gap-4 hover:border-slate-600 transition-colors group">
+                                        <div className="w-16 h-16 rounded-xl bg-slate-800 shrink-0 overflow-hidden border border-slate-700 relative">
+                                            {/* REEMPLAZAR SRC CON LAS FOTOS REALES. Las imágenes deben estar en la misma carpeta o ser URLs externas. */}
+                                            <img src={miembro.img} alt={miembro.nombre} className="w-full h-full object-cover transition-transform group-hover:scale-110" onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }} />
+                                            <div className="w-full h-full absolute inset-0 flex items-center justify-center text-slate-600 bg-slate-800 hidden">
+                                                <Icons.Users size={24} />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h4 className="text-lg font-bold text-white leading-tight">{miembro.nombre}</h4>
+                                            <p className="text-purple-400 text-sm font-semibold mb-2">{miembro.cargo}</p>
+                                            <p className="text-xs text-slate-400 leading-relaxed">{miembro.desc}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* FOOTER */}
+                    <footer className="py-10 text-center border-t border-white/5 text-slate-500 text-sm">
+                        <p>Documento de credenciales exclusivo para la licitación Agencia Digital 2027 - Colgas.</p>
+                        <p className="mt-2 font-bold text-slate-400">Level Colombia Producciones S.A.S</p>
+                    </footer>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
