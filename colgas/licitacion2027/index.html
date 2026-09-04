@@ -25,6 +25,13 @@
     .interactive-card { transition: transform .25s ease, border-color .25s ease, background .25s ease; }
     .interactive-card:hover { transform: translateY(-5px); border-color: rgba(103,232,249,.35); }
     #reading-progress { transform-origin: left; transform: scaleX(0); }
+    @media (max-width: 639px) {
+      #casos .interactive-card, #casos .grid > * { min-width: 0; }
+      #casos .interactive-card.rounded-3xl.p-8 { padding: 1.25rem; }
+      #casos .interactive-card > .\-mx-8 { margin-left: -1.25rem; margin-right: -1.25rem; margin-top: -1.25rem; }
+      #casos .absolute.bottom-0.p-8 { padding: 1.25rem; }
+      #casos .metric { overflow-wrap: anywhere; }
+    }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .reveal { opacity: 1; transform: none; transition: none; } .interactive-card { transition: none; } }
     @media print {
       nav, .no-print, #section-controls { display: none !important; }
