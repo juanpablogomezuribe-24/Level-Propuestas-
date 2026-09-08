@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level x Wplay - 8 Años Creciendo Juntos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --wplay-blue: #0A192F;
+            --wplay-gold: #FACC15;
+            --wplay-gold-dark: #CA8A04;
+            --bg-light: #FFFFFF;
+            --surface: #F8FAFC;
+            --text-main: #0F172A;
+            --text-muted: #475569;
+            --border-light: #E2E8F0;
+            --accent: #3B82F6;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: #F1F5F9; font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text-main); display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .app-container { width: 1366px; height: 768px; background-color: var(--bg-light); display: flex; flex-direction: column; overflow: hidden; position: relative; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); border-radius: 12px;}
+
+        /* HEADER */
+        .header { padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-light); background: var(--bg-light); z-index: 10;}
+        .brand { display: flex; align-items: center; gap: 15px; }
+        .logo-box { width: 48px; height: 48px; background: var(--wplay-gold); color: var(--wplay-blue); border-radius: 12px; display: grid; place-items: center; font-weight: 800; font-size: 24px; }
+        
+        .nav-tabs { display: flex; gap: 5px; background: var(--surface); padding: 5px; border-radius: 16px; border: 1px solid var(--border-light); }
+        .tab-btn { background: transparent; border: none; color: var(--text-muted); font-family: inherit; font-weight: 700; font-size: 13px; padding: 12px 18px; border-radius: 12px; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; }
+        .tab-btn:hover { color: var(--wplay-blue); background: rgba(0,0,0,0.02); }
+        .tab-btn.active { background: var(--bg-light); color: var(--wplay-blue); box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid var(--border-light); }
+
+        /* MAIN CONTENT */
+        .main-content { flex: 1; padding: 35px 40px; overflow-y: auto; position: relative; background: var(--bg-light); }
+        .view-section { display: none; opacity: 0; transform: translateY(20px); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .view-section.active { display: block; opacity: 1; transform: translateY(0); }
+
+        /* BENTO GRID */
+        .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; grid-auto-rows: minmax(140px, auto); }
+        .bento-box { background: var(--bg-light); border-radius: 20px; padding: 25px; border: 1px solid var(--border-light); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: default; }
+        .bento-box:hover { border-color: var(--wplay-gold); transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+
+        .col-3 { grid-column: span 3; } .col-4 { grid-column: span 4; } .col-6 { grid-column: span 6; } .col-8 { grid-column: span 8; } .col-12 { grid-column: span 12; }
+        .row-2 { grid-row: span 2; }
+
+        h2.title { font-size: 32px; font-weight: 800; color: var(--wplay-blue); margin-bottom: 20px; line-height: 1.2; letter-spacing: -1px; }
+        h2.title span { color: var(--wplay-gold-dark); }
+        h3.box-title { font-size: 18px; font-weight: 800; color: var(--wplay-blue); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        p.text { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+        /* TIMELINE */
+        .timeline { display: flex; justify-content: space-between; align-items: flex-start; position: relative; margin-top: 40px; padding-top: 20px; }
+        .timeline::before { content: ''; position: absolute; top: 35px; left: 60px; right: 60px; height: 3px; background: var(--border-light); z-index: 1; }
+        .timeline-step { flex: 1; text-align: center; position: relative; z-index: 2; padding: 0 10px; transition: transform 0.3s; cursor: pointer; }
+        .timeline-step:hover { transform: translateY(-8px); }
+        .timeline-icon { width: 40px; height: 40px; background: var(--bg-light); border: 3px solid var(--border-light); border-radius: 50%; display: grid; place-items: center; margin: 0 auto 15px; color: var(--text-muted); font-size: 16px; transition: all 0.3s; }
+        .timeline-step:hover .timeline-icon { border-color: var(--wplay-gold); color: var(--wplay-gold-dark); transform: scale(1.1); box-shadow: 0 0 15px rgba(250, 204, 21, 0.4); }
+        .step-active .timeline-icon { border-color: var(--wplay-blue); color: var(--wplay-blue); background: var(--wplay-gold); }
+        .timeline-title { font-size: 15px; font-weight: 800; color: var(--wplay-blue); margin-bottom: 5px; }
+        .timeline-desc { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
+
+        /* AVATARS & CARDS */
+        .avatar-card { display: flex; align-items: flex-start; gap: 15px; padding: 15px; background: var(--surface); border-radius: 12px; border: 1px solid var(--border-light); transition: all 0.3s; cursor: pointer; position: relative; text-decoration: none;}
+        .avatar-card:hover { transform: scale(1.02); border-color: var(--wplay-gold); background: var(--bg-light); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); }
+        .avatar-img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 3px solid var(--wplay-gold); background: #E2E8F0; }
+        .link-icon { position: absolute; top: 15px; right: 15px; color: var(--wplay-blue); opacity: 0; transition: opacity 0.3s; }
+        .avatar-card:hover .link-icon { opacity: 1; }
+        
+        .social-badge { width: 35px; height: 35px; border-radius: 8px; display: grid; place-items: center; font-size: 18px; color: white; margin-bottom: 12px; }
+        .ig { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); } .tk { background: #000; } .fb { background: #1877F2; } .yt { background: #FF0000; }
+        
+        .format-card { background: var(--surface); border: 1px solid var(--border-light); border-radius: 12px; padding: 15px; cursor: pointer; transition: all 0.3s; position: relative; display: flex; flex-direction: column; }
+        .format-card:hover { background: var(--bg-light); border-color: var(--wplay-blue); transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+        .format-badge { font-size: 10px; padding: 4px 8px; border-radius: 4px; background: var(--wplay-gold); color: var(--wplay-blue); font-weight: 800; display: inline-block; margin-bottom: 8px; text-transform: uppercase; align-self: flex-start; }
+        .btn-link-format { margin-top: auto; padding-top: 10px; display: inline-flex; align-items: center; gap: 5px; color: var(--accent); font-size: 12px; font-weight: 700; text-decoration: none; transition: color 0.2s; }
+        .btn-link-format:hover { color: var(--wplay-blue); }
+
+        .btn-primary { display: inline-block; background: var(--wplay-blue); color: white; font-weight: 800; padding: 15px 35px; border-radius: 12px; text-decoration: none; font-size: 16px; transition: all 0.3s; margin-top: 20px; border: none; cursor: pointer; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(10, 25, 47, 0.2); background: var(--wplay-gold-dark); }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+        
+        .stat-number { font-size: 48px; font-weight: 900; color: var(--wplay-blue); }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    
+    <header class="header">
+        <div class="brand">
+            <div class="logo-box">L</div>
+            <div>
+                <h1 style="font-size: 20px; font-weight: 800; color: var(--wplay-blue); letter-spacing: 1px;">LEVEL <span style="color: var(--wplay-gold-dark);">WPLAY</span></h1>
+                <div style="font-size: 12px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">8 Años Trabajando Juntos</div>
+            </div>
+        </div>
+        <nav class="nav-tabs">
+            <button class="tab-btn active" onclick="switchView('intro')"><i class="fa-solid fa-bolt"></i> 8 Años Creciendo</button>
+            <button class="tab-btn" onclick="switchView('assets')"><i class="fa-solid fa-users"></i> Los Activos</button>
+            <button class="tab-btn" onclick="switchView('workflow')"><i class="fa-solid fa-arrows-spin"></i> Producción y Flujo</button>
+            <button class="tab-btn" onclick="switchView('ecosystem')"><i class="fa-solid fa-network-wired"></i> Ecosistema Wplay</button>
+            <button class="tab-btn" onclick="switchView('results')"><i class="fa-solid fa-chart-line"></i> Resultados</button>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        
+        <!-- VIEW 1: INTRO (8 AÑOS) -->
+        <div id="intro" class="view-section active">
+            <div class="bento-grid">
+                
+                <div class="bento-box col-12" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px 40px; background: var(--surface); border: 2px solid var(--border-light); overflow: hidden; position: relative;">
+                    <div style="position: absolute; top: -50px; right: -50px; width: 200px; height: 200px; background: var(--wplay-gold); opacity: 0.1; border-radius: 50%; filter: blur(40px);"></div>
+                    <div style="position: absolute; bottom: -50px; left: -50px; width: 200px; height: 200px; background: var(--wplay-blue); opacity: 0.05; border-radius: 50%; filter: blur(40px);"></div>
+                    
+                    <div style="font-size: 100px; font-weight: 900; color: var(--wplay-gold); line-height: 1; margin-bottom: 20px; text-shadow: 2px 2px 0px rgba(0,0,0,0.1);">8 AÑOS</div>
+                    <h2 class="title" style="margin-bottom: 25px; font-size: 40px;">Trabajando con la marca líder</h2>
+                    <p class="text" style="font-size: 18px; max-width: 800px; color: var(--text-main); font-weight: 500;">
+                        Level es la <strong>agencia digital de Wplay</strong>. Nos enfocamos en la estrategia de crecimiento de todo el ecosistema digital a través de la creación de contenidos con los diferentes <strong>activos digitales</strong> que tiene contratados Wplay.
+                    </p>
+                    <button class="btn-primary" style="margin-top: 40px;" onclick="switchView('assets')">Conoce nuestros activos <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i></button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- VIEW 2: LOS ACTIVOS -->
+        <div id="assets" class="view-section">
+            <h2 class="title" style="margin-bottom: 25px;">Nuestros <span>Activos Digitales</span></h2>
+            
+            <div class="bento-grid">
+                <!-- Embajadores -->
+                <div class="bento-box col-8 row-2">
+                    <h3 class="box-title"><i class="fa-solid fa-microphone"></i> Embajadores (Periodistas)</h3>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
+                        
+                        <div class="avatar-card">
+                            <img src="eduardo.jpg" alt="Eduardo Luis" class="avatar-img" onerror="this.src='https://ui-avatars.com/api/?name=Eduardo+Luis&background=0A192F&color=fff&size=150'">
+                            <div>
+                                <h4 style="color: var(--wplay-blue); font-size: 15px; font-weight: 800; margin-bottom: 5px;">Eduardo Luis (Nuevo)</h4>
+                                <ul style="font-size: 11px; color: var(--text-muted); padding-left: 15px; line-height: 1.5;">
+                                    <li>Opinión Redes (4/mes) + Videos Wplay (4/mes).</li>
+                                    <li>Videos Pauta (10/mes) + Panelista Encartados.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="avatar-card">
+                            <img src="juanfelipe.jpg" alt="Juan Felipe Cadavid" class="avatar-img" onerror="this.src='https://ui-avatars.com/api/?name=Juan+Felipe&background=0A192F&color=fff&size=150'">
+                            <div>
+                                <h4 style="color: var(--wplay-blue); font-size: 15px; font-weight: 800; margin-bottom: 5px;">Juan Felipe Cadavid</h4>
+                                <ul style="font-size: 11px; color: var(--text-muted); padding-left: 15px; line-height: 1.5;">
+                                    <li>Menciones YT + Contenido Diario IG.</li>
+                                    <li>Amplificación FB/TikTok.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="avatar-card">
+                            <img src="sheyla.jpg" alt="Sheyla García" class="avatar-img" onerror="this.src='https://ui-avatars.com/api/?name=Sheyla+Garcia&background=0A192F&color=fff&size=150'">
+                            <div>
+                                <h4 style="color: var(--wplay-blue); font-size: 15px; font-weight: 800; margin-bottom: 5px;">Sheyla García</h4>
+                                <ul style="font-size: 11px; color: var(--text-muted); padding-left: 15px; line-height: 1.5;">
+                                    <li>Encartados (12/mes) + En vivo (1/sem).</li>
+                                    <li>Pauta (4/mes) + 4 Videos en redes.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <a href="https://www.instagram.com/alexisnoticias/" target="_blank" class="avatar-card">
+                            <i class="fa-solid fa-arrow-up-right-from-square link-icon"></i>
+                            <img src="alexis.jpg" alt="Alexis Rodríguez" class="avatar-img" onerror="this.src='https://ui-avatars.com/api/?name=Alexis+Rodriguez&background=0A192F&color=fff&size=150'">
+                            <div>
+                                <h4 style="color: var(--wplay-blue); font-size: 15px; font-weight: 800; margin-bottom: 5px;">Alexis Rodríguez</h4>
+                                <ul style="font-size: 11px; color: var(--text-muted); padding-left: 15px; line-height: 1.5;">
+                                    <li>Mano derecha de Eduardo Luis.</li>
+                                    <li>Panelista Encartados + Cobertura en X.</li>
+                                </ul>
+                            </div>
+                        </a>
+
+                    </div>
+                </div>
+
+                <!-- Influencers y Comunidades -->
+                <div class="bento-box col-4">
+                    <h3 class="box-title"><i class="fa-solid fa-mobile-screen"></i> Influencers & Medios</h3>
+                    <ul style="font-size: 13px; color: var(--text-main); padding-left: 18px; line-height: 2;">
+                        <li><strong>Fútbol Sin Límite:</strong> Exclusividad y alcance masivo.</li>
+                        <li><a href="https://www.instagram.com/lauriix06/" target="_blank" style="color: var(--wplay-blue); font-weight: bold; text-decoration: none;">Laura Ortiz <i class="fa-solid fa-link" style="font-size: 10px;"></i></a>: Pauta Ilimitada + Redes.</li>
+                        <li><a href="https://www.instagram.com/felipefcb_10/" target="_blank" style="color: var(--wplay-blue); font-weight: bold; text-decoration: none;">Felipe Cerón <i class="fa-solid fa-link" style="font-size: 10px;"></i></a>: Humor y Comedia.</li>
+                        <li><strong>JP Gómez:</strong> Pauta + Redes.</li>
+                    </ul>
+                </div>
+
+                <!-- Equipo Level -->
+                <div class="bento-box col-4">
+                    <h3 class="box-title"><i class="fa-solid fa-video"></i> Equipo Level</h3>
+                    <ul style="font-size: 13px; color: var(--text-main); padding-left: 18px; line-height: 2;">
+                        <li><strong>4 Corresponsales:</strong> BOG, MED, CAL, BAQ.</li>
+                        <li><strong>5 Periodistas:</strong> Apoyo Encartados.</li>
+                        <li><a href="https://wplaysports.com" target="_blank" style="color: var(--wplay-blue); font-weight: bold; text-decoration: none;">Blog SEO (wplaysports) <i class="fa-solid fa-link" style="font-size: 10px;"></i></a>: (2/día).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 3: PRODUCCIÓN Y FLUJO -->
+        <div id="workflow" class="view-section">
+            <div class="bento-grid">
+                
+                <!-- El Flujo -->
+                <div class="bento-box col-12">
+                    <h2 class="title" style="text-align: center; margin-bottom: 10px;">Flujo de Trabajo: <span>La Máquina Level</span></h2>
+                    
+                    <div style="display: flex; justify-content: center; gap: 40px; margin-top: 30px; margin-bottom: 10px;">
+                        <div style="text-align: center; padding: 20px; background: var(--surface); border-radius: 16px; border: 1px solid var(--border-light); min-width: 200px;">
+                            <div class="stat-number" id="stat-month">250</div>
+                            <div style="font-size: 12px; color: var(--text-muted); font-weight: 800; text-transform: uppercase;">Contenidos al Mes</div>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: var(--surface); border-radius: 16px; border: 1px solid var(--border-light); min-width: 200px;">
+                            <div class="stat-number">~8</div>
+                            <div style="font-size: 12px; color: var(--text-muted); font-weight: 800; text-transform: uppercase;">Contenidos Diarios</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline">
+                        <div class="timeline-step">
+                            <div class="timeline-icon"><i class="fa-solid fa-calendar-days"></i></div>
+                            <div class="timeline-title">1. Planeación (Trello)</div>
+                            <div class="timeline-desc">Semana antes del cierre de mes, mapeamos el cronograma.</div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="timeline-icon"><i class="fa-solid fa-handshake"></i></div>
+                            <div class="timeline-title">2. Revisión con Wplay</div>
+                            <div class="timeline-desc">Validación conjunta de eventos y promociones.</div>
+                        </div>
+                        <div class="timeline-step step-active">
+                            <div class="timeline-icon"><i class="fa-solid fa-scissors"></i></div>
+                            <div class="timeline-title">3. Producción (Level)</div>
+                            <div class="timeline-desc">Hacemos 100% guiones, creatividad y edición profesional.</div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="timeline-icon"><i class="fa-solid fa-comments"></i></div>
+                            <div class="timeline-title">4. Revisión Semanal</div>
+                            <div class="timeline-desc">Cada martes ajustamos la estrategia.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Los Formatos -->
+                <div class="bento-box col-12">
+                    <h3 class="box-title" style="margin-bottom: 20px;">¿Qué producimos? <span>Formatos Nativos y Creadores</span></h3>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 20px;">
+                        <div class="format-card" style="border-left: 4px solid var(--wplay-gold);">
+                            <span class="format-badge">Éxito #1</span>
+                            <h4 style="color: var(--wplay-blue); font-size: 14px; margin-bottom: 5px; font-weight: 800;">El Desahogo</h4>
+                            <p style="font-size: 11px; color: var(--text-muted);">Reacciones de hinchas (Millos, Cali, DIM, Junior).</p>
+                            <a href="https://www.instagram.com/p/Dc0xn4HRKIQ/" target="_blank" class="btn-link-format"><i class="fa-solid fa-play"></i> Ver ejemplo</a>
+                        </div>
+                        <div class="format-card">
+                            <h4 style="color: var(--wplay-blue); font-size: 14px; margin-bottom: 5px; font-weight: 800;">Pregunta Divertida</h4>
+                            <p style="font-size: 11px; color: var(--text-muted);">Corresponsales abordando coyunturas con humor.</p>
+                            <a href="https://www.instagram.com/p/DcljGVqxHrj/" target="_blank" class="btn-link-format"><i class="fa-solid fa-play"></i> Ver ejemplo</a>
+                        </div>
+                        <div class="format-card">
+                            <h4 style="color: var(--wplay-blue); font-size: 14px; margin-bottom: 5px; font-weight: 800;">Memes</h4>
+                            <p style="font-size: 11px; color: var(--text-muted);">Desarrollo constante para comunicación rápida.</p>
+                            <a href="https://www.instagram.com/p/Dc2ad6rtBbP/" target="_blank" class="btn-link-format"><i class="fa-solid fa-play"></i> Ver ejemplo</a>
+                        </div>
+                        <div class="format-card">
+                            <h4 style="color: var(--wplay-blue); font-size: 14px; margin-bottom: 5px; font-weight: 800;">Top Hincha / Fijazo</h4>
+                            <p style="font-size: 11px; color: var(--text-muted);">Formatos paramétricos de interacción y fidelización.</p>
+                            <a href="https://www.instagram.com/p/DbJzhlLRLUe/" target="_blank" class="btn-link-format"><i class="fa-solid fa-play"></i> Ver ejemplo</a>
+                        </div>
+                        <div class="format-card" style="border-left: 4px solid var(--accent);">
+                            <span class="format-badge" style="background: var(--accent); color: white;">Nuevo</span>
+                            <h4 style="color: var(--wplay-blue); font-size: 14px; margin-bottom: 5px; font-weight: 800;">Short Dinámico</h4>
+                            <p style="font-size: 11px; color: var(--text-muted);">Alta edición y guion. Nace en YT (8/mes).</p>
+                            <a href="https://www.instagram.com/p/Dci1DetR470/" target="_blank" class="btn-link-format"><i class="fa-solid fa-play"></i> Ver ejemplo</a>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px;">
+                        <div style="background: var(--surface); padding: 15px; border-radius: 12px; border: 1px solid var(--border-light);">
+                            <strong style="color: var(--wplay-blue); font-size: 13px;">Juan F. Cadavid & Eduardo Luis</strong>
+                            <p style="font-size: 11px; color: var(--text-muted); margin-top: 5px;">Formatos de Tendencia (Awareness con logo y legales).</p>
+                        </div>
+                        <div style="background: var(--surface); padding: 15px; border-radius: 12px; border: 1px solid var(--border-light); display: flex; flex-direction: column;">
+                            <strong style="color: var(--wplay-blue); font-size: 13px;">Sheyla García</strong>
+                            <p style="font-size: 11px; color: var(--text-muted); margin-top: 5px;">"Las 3 de la semana", Reel en colaboración.</p>
+                            <a href="https://www.instagram.com/p/Dc4TAOeOPCf/" target="_blank" class="btn-link-format" style="margin-top: 10px;"><i class="fa-solid fa-play"></i> Ver ejemplo</a>
+                        </div>
+                        <div style="background: var(--surface); padding: 15px; border-radius: 12px; border: 1px solid var(--border-light); display: flex; flex-direction: column;">
+                            <strong style="color: var(--wplay-blue); font-size: 13px;">Alexis Rodríguez</strong>
+                            <p style="font-size: 11px; color: var(--text-muted); margin-top: 5px;">"Cortitas de la semana".</p>
+                            <a href="https://www.instagram.com/p/Dczfs3rRlS9/" target="_blank" class="btn-link-format" style="margin-top: 10px;"><i class="fa-solid fa-play"></i> Ver ejemplo</a>
+                        </div>
+                        <div style="background: var(--surface); padding: 15px; border-radius: 12px; border: 1px solid var(--border-light);">
+                            <strong style="color: var(--wplay-blue); font-size: 13px;">Influencers (FSL, Laura, Felipe)</strong>
+                            <p style="font-size: 11px; color: var(--text-muted); margin-top: 5px;">Comedia, lifestyle y comunidad.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- VIEW 4: ECOSISTEMA WPLAY -->
+        <div id="ecosystem" class="view-section">
+            <h2 class="title" style="margin-bottom: 25px;">Implicación Directa: <span>Ecosistema Redes Sociales y Pauta</span></h2>
+            
+            <div class="bento-grid">
+                
+                <!-- Meta -->
+                <div class="bento-box col-6 row-2" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
+                    <div style="padding: 20px; border-bottom: 1px solid var(--border-light); background: var(--surface);">
+                        <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                            <div class="social-badge ig" style="margin:0;"><i class="fa-brands fa-instagram"></i></div>
+                            <div class="social-badge fb" style="margin:0;"><i class="fa-brands fa-facebook-f"></i></div>
+                        </div>
+                        <h3 class="box-title">Meta (IG & FB)</h3>
+                        <p class="text" style="font-size: 12px;">En <span style="color: #ef4444; font-weight: bold;">rojo</span> el contenido operado por Level (Más del 70%).</p>
+                    </div>
+                    <div style="padding: 20px; background: #fff; flex: 1;">
+                        <img src="Parilla%20Instagram.jpg" alt="Parrilla Meta" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-light); box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                    </div>
+                </div>
+
+                <!-- Pauta (NUEVO) -->
+                <div class="bento-box col-6 row-2" style="padding: 0; overflow: hidden; display: flex; flex-direction: column; cursor: pointer;" onclick="window.open('https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=CO&is_targeted_country=false&media_type=all&search_type=page&sort_data[direction]=desc&sort_data[mode]=total_impressions&view_all_page_id=1685062381791556', '_blank')">
+                    <div style="padding: 20px; border-bottom: 1px solid var(--border-light); background: var(--surface);">
+                        <div class="social-badge fb" style="margin-bottom: 15px; background: #10B981;"><i class="fa-solid fa-bullseye"></i></div>
+                        <h3 class="box-title">Pauta Digital <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 12px; color: var(--text-muted);"></i></h3>
+                        <p class="text" style="font-size: 12px;">Creación y edición estratégica de todo el contenido de performance. (Clic para ver librería de anuncios)</p>
+                    </div>
+                    <div style="padding: 20px; background: #fff; flex: 1;">
+                        <img src="pauta_contenidos.jpeg" alt="Pauta Wplay" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-light); box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                    </div>
+                </div>
+
+                <!-- TikTok -->
+                <div class="bento-box col-6 row-2" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
+                    <div style="padding: 20px; border-bottom: 1px solid var(--border-light); background: var(--surface);">
+                        <div class="social-badge tk" style="margin-bottom: 15px;"><i class="fa-brands fa-tiktok"></i></div>
+                        <h3 class="box-title">TikTok</h3>
+                        <p class="text" style="font-size: 12px;">Lenguaje orgánico, humor y formatos virales operados directamente.</p>
+                    </div>
+                    <div style="padding: 20px; background: #fff; flex: 1;">
+                        <img src="tiktok.png" alt="TikTok Grid" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-light); box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                    </div>
+                </div>
+
+                <!-- YouTube -->
+                <div class="bento-box col-6 row-2" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
+                    <div style="padding: 20px; border-bottom: 1px solid var(--border-light); background: var(--surface);">
+                        <div class="social-badge yt" style="margin-bottom: 15px;"><i class="fa-brands fa-youtube"></i></div>
+                        <h3 class="box-title">YouTube</h3>
+                        <p class="text" style="font-size: 12px;">Donde nace el Short Dinámico y viven nuestros programas en vivo.</p>
+                    </div>
+                    <div style="padding: 20px; background: #fff; flex: 1;">
+                        <img src="youtube.png" alt="YouTube Channel" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-light); box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- VIEW 5: RESULTADOS -->
+        <div id="results" class="view-section">
+            <h2 class="title" style="margin-bottom: 10px; text-align: center;">Operación y Resultados</h2>
+            <p class="text" style="text-align: center; margin-bottom: 30px;">Consolidado de desempeño orgánico, pauta y alcances del ecosistema digital completo.</p>
+            
+            <div class="bento-grid">
+                
+                <div class="bento-box col-6 row-3" style="padding: 0; overflow: hidden; border: 2px solid var(--border-light);">
+                    <div style="padding: 15px 20px; background: var(--surface); border-bottom: 1px solid var(--border-light);">
+                        <h3 class="box-title" style="margin: 0; font-size: 16px;">Informe Agosto 2026</h3>
+                    </div>
+                    <div style="background: #fff; padding: 10px; display: flex; justify-content: center;">
+                        <img src="resumen_agosto.png" alt="Resumen Agosto" style="max-width: 100%; height: auto; border-radius: 8px;">
+                    </div>
+                </div>
+
+                <div class="bento-box col-6 row-3" style="padding: 0; overflow: hidden; border: 2px solid var(--wplay-gold);">
+                    <div style="padding: 15px 20px; background: rgba(250, 204, 21, 0.1); border-bottom: 1px solid rgba(250, 204, 21, 0.3);">
+                        <h3 class="box-title" style="margin: 0; font-size: 16px; color: var(--wplay-gold-dark);">Informe Acumulado (Anual)</h3>
+                    </div>
+                    <div style="background: #fff; padding: 10px; display: flex; justify-content: center;">
+                        <img src="resumen_anual.png" alt="Resumen Anual" style="max-width: 100%; height: auto; border-radius: 8px;">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<script>
+    function switchView(viewId) {
+        const sections = document.querySelectorAll('.view-section');
+        sections.forEach(sec => sec.classList.remove('active'));
+        const tabs = document.querySelectorAll('.tab-btn');
+        tabs.forEach(tab => tab.classList.remove('active'));
+        
+        const target = document.getElementById(viewId);
+        if(target) {
+            target.classList.add('active');
+            
+            // Animate number if workflow is opened
+            if(viewId === 'workflow') {
+                const stat = document.getElementById('stat-month');
+                if(stat.innerText !== '250') return; 
+                let count = 0;
+                stat.innerText = '0';
+                const interval = setInterval(() => {
+                    count += 10;
+                    stat.innerText = count;
+                    if(count >= 250) {
+                        clearInterval(interval);
+                        stat.innerText = '250';
+                    }
+                }, 20);
+            }
+        }
+        
+        const activeTab = document.querySelector(`button[onclick="switchView('${viewId}')"]`);
+        if(activeTab) activeTab.classList.add('active');
+    }
+</script>
+
+</body>
+</html>
