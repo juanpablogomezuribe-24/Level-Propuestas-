@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estrategia de Pauta Digital - La Perfumería (@laperfumeriaofc)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandBlue: {
+                            50: '#f0f6fc',
+                            100: '#dbeafe',
+                            500: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1b365d',
+                        },
+                        amberGold: '#d4af37',
+                        softGold: '#f7e7ce',
+                        cardBg: '#ffffff',
+                        warmBg: '#f8f9fa'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 580px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 380px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+    </style>
+    <!-- Chosen Palette: Navy Perfume Blue & Soft Gold Neutral (Deep Royal Navy, Warm Cream, Accent Amber Gold) -->
+    <!-- Application Structure Plan:
+        1. Encabezado de Marca Real: Datos extraídos del Instagram oficial (@laperfumeriaofc) incluyendo dirección física temporal (Mall Muelle 18), sedes (Pereira, Manizales, Belén de Umbría) y WhatsApp directo.
+        2. Objetivos Tácticos en Infinitivo: Marco conceptual orientado a ejecutar, medir y optimizar las campañas digitales.
+        3. Calculadora de Inversión y Tráfico Proyectado en Pesos Colombianos (COP): Simulación en tiempo real con gráfico Chart.js (Donut) para asignar presupuesto a TOFU, MOFU y BOFU.
+        4. Matriz Interactiva de Pilares de Contenido: Selección por filtros con ejemplos contextualizados en fragancias inspiradas y la historia del terremoto.
+        5. Embudo Estratégico Meta Ads vs TikTok Ads: Fichas comparativas para pautar en Instagram/Facebook y TikTok Ads adaptadas a perfumería.
+        6. Protocolo de Atención en WhatsApp Blupit: Etapas operativas y generador de plantillas de reactivación de clientes históricos.
+    -->
+    <!-- Visualization & Content Choices:
+        - Gráfico de Torta/Dona (Chart.js Canvas) -> Visualizar distribución porcentual del presupuesto publicitario.
+        - Filtros Dinámicos JS -> Clasificar pilares de contenido (Emocional, Promocional, Educativo, Prueba Social).
+        - Tabs Interactivos JS -> Alternar entre Meta Ads y TikTok Ads para facilitar la lectura.
+        - Simulador Dinámico -> Calcular alcance, clics y chats según presupuesto en COP.
+        - NO SVG NATIVO NI MERMAID JS UTILIZADOS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- Header Navigation with Brand Profile Data -->
+    <header class="bg-brandBlue-900 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col md:flex-row justify-between items-center gap-3">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-brandBlue-700 border-2 border-amberGold flex items-center justify-center font-bold text-lg text-amberGold shadow-inner">
+                    LP
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h1 class="text-lg font-bold text-amberGold tracking-wide">La Perfumería</h1>
+                        <span class="text-xs bg-brandBlue-800 text-blue-200 px-2 py-0.5 rounded-full font-mono">@laperfumeriaofc</span>
+                    </div>
+                    <p class="text-xs text-slate-300">Fragancias inspiradas en los mejores perfumes &bull; Fragancias para el Hogar</p>
+                </div>
+            </div>
+            
+            <div class="flex flex-wrap items-center justify-center gap-2 text-xs">
+                <a href="https://wa.me/573207802906" target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded-full font-semibold flex items-center gap-1 transition shadow-sm">
+                    <span>📲 WhatsApp: +57 320 780 2906</span>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Bar de sedes e información física -->
+        <div class="bg-brandBlue-800 text-blue-100 text-xs py-1.5 px-4 border-t border-brandBlue-700">
+            <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2 text-[11px]">
+                <div class="flex items-center gap-1">
+                    <span class="text-amberGold">📍 Sede Pereira:</span>
+                    <span>Calle 18 # 5-30 Local 16, Mall Muelle 18 (Ubicación Temporal por Reubicación)</span>
+                </div>
+                <div class="flex gap-3">
+                    <span>📍 Belén de Umbría</span>
+                    <span>📍 Manizales</span>
+                    <span class="text-amberGold font-medium">📦 Envíos Nacionales</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sub-Nav Anchors -->
+    <nav class="bg-white border-b border-slate-200 sticky top-[73px] z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 flex overflow-x-auto py-2 gap-4 text-xs font-semibold text-slate-600 no-scrollbar">
+            <a href="#marco" class="hover:text-brandBlue-700 whitespace-nowrap py-1">1. Marco Táctico</a>
+            <a href="#simulador" class="hover:text-brandBlue-700 whitespace-nowrap py-1">2. Simulador de Pauta</a>
+            <a href="#pilares" class="hover:text-brandBlue-700 whitespace-nowrap py-1">3. Pilares de Contenido</a>
+            <a href="#embudo" class="hover:text-brandBlue-700 whitespace-nowrap py-1">4. Meta & TikTok Ads</a>
+            <a href="#whatsapp" class="hover:text-brandBlue-700 whitespace-nowrap py-1">5. Protocolo WhatsApp Blupit</a>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-10">
+
+        <!-- Banner Marco Táctico (Todo en Verbos en Infinitivo) -->
+        <section id="marco" class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 space-y-6">
+            <div class="border-b border-slate-100 pb-4 flex flex-col md:flex-row justify-between md:items-center gap-2">
+                <div>
+                    <span class="text-xs font-semibold tracking-wider text-brandBlue-700 uppercase bg-blue-50 px-3 py-1 rounded-full border border-blue-100">Acciones Tácticas en Infinitivo</span>
+                    <h2 class="text-2xl font-serif text-brandBlue-900 mt-2 font-bold">Hoja de Ruta Estratégica para Pauta Digital</h2>
+                </div>
+                <span class="text-xs font-mono bg-amber-50 text-amber-800 border border-amber-200 px-3 py-1.5 rounded-lg">
+                    Enfoque: Perfumería + Fragancias de Hogar
+                </span>
+            </div>
+
+            <p class="text-slate-600 leading-relaxed text-sm">
+                Estructurar, ejecutar y optimizar el plan de pauta digital para <strong>La Perfumería (@laperfumeriaofc)</strong> con el fin de superar el impacto comercial provocado por la reubicación tras el terremoto en Pereira. Aprovechar la resiliencia de la marca para conectar emocionalmente con la comunidad local y nacional.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <div class="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                    <div class="text-xl">🏛️</div>
+                    <h3 class="font-bold text-brandBlue-900 text-sm">1. Posicionar la Nueva Sede</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Comunicar la nueva ubicación temporal en el <strong>Mall Muelle 18 (Local 16)</strong> en Pereira, reorientando geográficamente a los clientes tradicionales de la marca.
+                    </p>
+                </div>
+
+                <div class="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                    <div class="text-xl">💎</div>
+                    <h3 class="font-bold text-brandBlue-900 text-sm">2. Promover Fragancias Inspiradas</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Destacar el catálogo de fragancias inspiradas en los mejores perfumes del mundo y la línea de fragancias para el hogar, enfatizando alta fijación y calidad.
+                    </p>
+                </div>
+
+                <div class="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                    <div class="text-xl">📲</div>
+                    <h3 class="font-bold text-brandBlue-900 text-sm">3. Canalizar a WhatsApp Blupit</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Derivar el tráfico calificado directamente a la línea activa de WhatsApp (<strong>+57 320 780 2906</strong>) para brindar asesoría olfativa personalizada y cerrar ventas.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Simulador Interactiva de Inversión y Retorno en COP -->
+        <section id="simulador" class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 space-y-6">
+            <div class="border-b border-slate-100 pb-4">
+                <span class="text-xs font-semibold tracking-wider text-brandBlue-700 uppercase bg-blue-50 px-3 py-1 rounded-full border border-blue-100">Calculadora Dinámica</span>
+                <h2 class="text-2xl font-serif text-brandBlue-900 mt-2 font-bold">Proyectar Inversión en Pauta y Tráfico Estimado</h2>
+                <p class="text-xs text-slate-600 mt-1">
+                    Ajustar el presupuesto mensual estimado en Pesos Colombianos (COP) para calcular el alcance regional, los clics generados y las conversaciones en WhatsApp.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Inputs & Display -->
+                <div class="lg:col-span-5 space-y-6 bg-slate-50 p-6 rounded-xl border border-slate-200">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label for="budgetInput" class="text-xs font-bold text-brandBlue-900 uppercase tracking-wide">
+                                Presupuesto Mensual Sugerido:
+                            </label>
+                            <span id="budgetValue" class="text-base font-extrabold text-brandBlue-700 font-mono">$1.500.000 COP</span>
+                        </div>
+                        <input type="range" id="budgetInput" min="600000" max="6000000" step="100000" value="1500000" 
+                            class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-brandBlue-700">
+                        <div class="flex justify-between text-[10px] text-slate-500 font-mono mt-1">
+                            <span>$600.000 COP</span>
+                            <span>$3.000.000 COP</span>
+                            <span>$6.000.000 COP</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 pt-3 text-xs border-t border-slate-200">
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-600">Alcance Estimado (Eje Cafetero + Nal):</span>
+                            <span id="estReach" class="font-bold font-mono text-slate-800">180,000 - 300,000</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-600">Clics Totales Proyectados:</span>
+                            <span id="estClicks" class="font-bold font-mono text-slate-800">3,750</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-600">Chats Iniciados en WhatsApp (+57 320 780...):</span>
+                            <span id="estChats" class="font-bold font-mono text-brandBlue-700">375 - 562</span>
+                        </div>
+                        <div class="flex justify-between items-center font-bold border-t border-slate-200 pt-2 text-slate-900">
+                            <span>Ventas Estimadas (Fragancias & Hogar):</span>
+                            <span id="estSales" class="text-emerald-700 font-mono text-sm">37 - 84 pedidos</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Canvas Chart -->
+                <div class="lg:col-span-7 flex flex-col items-center justify-center space-y-2">
+                    <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider">Distribución Recomendada del Presupuesto (Embudo)</h3>
+                    <div class="chart-container">
+                        <canvas id="budgetChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pilares de Contenido Estratégico -->
+        <section id="pilares" class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 space-y-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                <div>
+                    <span class="text-xs font-semibold tracking-wider text-brandBlue-700 uppercase bg-blue-50 px-3 py-1 rounded-full border border-blue-100">Matriz Creativa</span>
+                    <h2 class="text-2xl font-serif text-brandBlue-900 mt-2 font-bold">Pilares de Contenido para Redes y Anuncios</h2>
+                </div>
+                <!-- Filtros Dinámicos JS -->
+                <div class="flex flex-wrap gap-1.5" id="pilarFilters">
+                    <button data-filter="all" class="px-3 py-1 text-xs rounded-full bg-brandBlue-900 text-white font-medium filter-btn shadow-sm">Todos</button>
+                    <button data-filter="emocional" class="px-3 py-1 text-xs rounded-full bg-slate-100 text-slate-700 font-medium hover:bg-slate-200 filter-btn">Emocional (Terremoto)</button>
+                    <button data-filter="educativo" class="px-3 py-1 text-xs rounded-full bg-slate-100 text-slate-700 font-medium hover:bg-slate-200 filter-btn">Educativo (Inspirados)</button>
+                    <button data-filter="promocional" class="px-3 py-1 text-xs rounded-full bg-slate-100 text-slate-700 font-medium hover:bg-slate-200 filter-btn">Promocional</button>
+                    <button data-filter="prueba" class="px-3 py-1 text-xs rounded-full bg-slate-100 text-slate-700 font-medium hover:bg-slate-200 filter-btn">Prueba Social</button>
+                </div>
+            </div>
+
+            <p class="text-xs text-slate-600">
+                Explorar cada pilar interactivo redactado completamente en infinitivo para guiar la producción de video e imágenes:
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="pilaresGrid">
+                <!-- Pilar 1: Emocional -->
+                <div class="pilar-card bg-slate-50 rounded-xl p-5 border border-slate-200 space-y-3" data-category="emocional">
+                    <div class="flex justify-between items-center">
+                        <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-100 text-amber-900 border border-amber-200">1. Emocional & Resiliencia</span>
+                        <span class="text-lg">🌋</span>
+                    </div>
+                    <h3 class="font-bold text-brandBlue-900 text-base">Narrar la Historia del Traslado tras el Terremoto</h3>
+                    <ul class="text-xs text-slate-700 space-y-2 list-disc list-inside leading-relaxed">
+                        <li><strong>Relatar:</strong> Documentar el impacto del movimiento telúrico en Pereira y el emotivo cambio del local histórico.</li>
+                        <li><strong>Reafirmar:</strong> Comunicar que la esencia y calidad de las fragancias siguen intactas en la nueva sede del <strong>Mall Muelle 18 (Local 16)</strong>.</li>
+                        <li><strong>Grabar:</strong> Producir recorridos en video mostrando el nuevo punto de atención y el esfuerzo del equipo.</li>
+                        <li><strong>Conectar:</strong> Invitar a los clientes de Pereira, Manizales y Belén de Umbría a visitar las instalaciones o hacer sus pedidos online.</li>
+                    </ul>
+                </div>
+
+                <!-- Pilar 2: Educativo -->
+                <div class="pilar-card bg-slate-50 rounded-xl p-5 border border-slate-200 space-y-3" data-category="educativo">
+                    <div class="flex justify-between items-center">
+                        <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-blue-100 text-blue-900 border border-blue-200">2. Educativo & Inspiraciones</span>
+                        <span class="text-lg">🧪</span>
+                    </div>
+                    <h3 class="font-bold text-brandBlue-900 text-base">Enseñar sobre Fragancias Inspiradas y Fijación</h3>
+                    <ul class="text-xs text-slate-700 space-y-2 list-disc list-inside leading-relaxed">
+                        <li><strong>Explicar:</strong> Mostrar la similitud y concentración de las fragancias inspiradas frente a los perfumes de diseñador de alto costo.</li>
+                        <li><strong>Aconsejar:</strong> Enseñar técnicas de aplicación para prolongar la durabilidad del perfume en la piel durante todo el día.</li>
+                        <li><strong>Demostrar:</strong> Presentar la gama de fragancias para el hogar (difusores, sprays), explicando sus notas olfativas.</li>
+                        <li><strong>Guiar:</strong> Ofrecer tops de fragancias para clima cálido o frío en el Eje Cafetero.</li>
+                    </ul>
+                </div>
+
+                <!-- Pilar 3: Promocional -->
+                <div class="pilar-card bg-slate-50 rounded-xl p-5 border border-slate-200 space-y-3" data-category="promocional">
+                    <div class="flex justify-between items-center">
+                        <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-900 border border-emerald-200">3. Promocional & Ofertas</span>
+                        <span class="text-lg">🛍️</span>
+                    </div>
+                    <h3 class="font-bold text-brandBlue-900 text-base">Promover Días de Reapertura y Combos Especiales</h3>
+                    <ul class="text-xs text-slate-700 space-y-2 list-disc list-inside leading-relaxed">
+                        <li><strong>Lanzar:</strong> Ofrecer descuentos especiales por visita a la sede temporal o compras por WhatsApp.</li>
+                        <li><strong>Exhibir:</strong> Publicar carruseles fotográficos de alta calidad mostrando los envases y presentaciones.</li>
+                        <li><strong>Armar:</strong> Diseñar combos que integren fragancia personal + producto de hogar con tarifa preferencial de envío.</li>
+                        <li><strong>Dirigir:</strong> Incluir enlace directo al WhatsApp <strong>+57 320 780 2906</strong> en cada anuncio.</li>
+                    </ul>
+                </div>
+
+                <!-- Pilar 4: Prueba Social -->
+                <div class="pilar-card bg-slate-50 rounded-xl p-5 border border-slate-200 space-y-3" data-category="prueba">
+                    <div class="flex justify-between items-center">
+                        <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-purple-100 text-purple-900 border border-purple-200">4. Prueba Social & Confianza</span>
+                        <span class="text-lg">⭐</span>
+                    </div>
+                    <h3 class="font-bold text-brandBlue-900 text-base">Exhibir Reseñas y Compras de Clientes Reales</h3>
+                    <ul class="text-xs text-slate-700 space-y-2 list-disc list-inside leading-relaxed">
+                        <li><strong>Compartir:</strong> Publicar capturas de pantalla de clientes satisfechos que reciben sus envíos en Manizales y Belén de Umbría.</li>
+                        <li><strong>Mostrar:</strong> Producir videos breves de unboxing y preparación de paquetes con detalles personalizados.</li>
+                        <li><strong>Validar:</strong> Confirmar la rapidez en el despacho y la excelente fijación percibida por la comunidad.</li>
+                        <li><strong>Eliminar:</strong> Derribar objeciones sobre comprar perfumes inspirados a través de Internet.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Embudo Estratégico Meta Ads vs TikTok Ads -->
+        <section id="embudo" class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 space-y-6">
+            <div>
+                <span class="text-xs font-semibold tracking-wider text-brandBlue-700 uppercase bg-blue-50 px-3 py-1 rounded-full border border-blue-100">Configuración Técnica</span>
+                <h2 class="text-2xl font-serif text-brandBlue-900 mt-2 font-bold">Estructura de Campañas en Meta y TikTok Ads</h2>
+                <p class="text-xs text-slate-600 mt-1">
+                    Definir la segmentación geográfica, los presupuestos por fase y la estrategia publicitaria para cada plataforma.
+                </p>
+            </div>
+
+            <!-- Tabs Meta vs TikTok -->
+            <div class="flex border-b border-slate-200">
+                <button id="tabMeta" onclick="switchPlatform('meta')" class="py-2.5 px-5 font-bold text-xs border-b-2 border-brandBlue-700 text-brandBlue-900 focus:outline-none">
+                    Meta Ads (Instagram @laperfumeriaofc & Facebook)
+                </button>
+                <button id="tabTikTok" onclick="switchPlatform('tiktok')" class="py-2.5 px-5 font-medium text-xs text-slate-500 border-b-2 border-transparent hover:text-brandBlue-900 focus:outline-none">
+                    TikTok Ads (Formato Orgánico/Viral)
+                </button>
+            </div>
+
+            <!-- Tab Content: Meta Ads -->
+            <div id="contentMeta" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <!-- TOFU -->
+                    <div class="border border-slate-200 rounded-xl p-5 bg-slate-50 space-y-3">
+                        <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+                            <span class="font-bold text-xs text-brandBlue-900">TOFU: Reconocimiento (20%)</span>
+                            <span class="text-[10px] font-mono bg-blue-100 text-blue-800 px-2 py-0.5 rounded">Atracción</span>
+                        </div>
+                        <ul class="text-xs text-slate-700 space-y-2 leading-relaxed">
+                            <li><strong>Objetivo:</strong> Reproducciones de Video / Alcance Local.</li>
+                            <li><strong>Segmentar:</strong> Pereira (radio 15km), Dosquebradas, Manizales y Belén de Umbría (Hombres y Mujeres 18-55 años).</li>
+                            <li><strong>Anuncio:</strong> Storytelling del traslado tras el terremoto y recorrido hacia la sede temporal Mall Muelle 18.</li>
+                            <li><strong>Acción:</strong> Invitar a seguir la cuenta `@laperfumeriaofc`.</li>
+                        </ul>
+                    </div>
+
+                    <!-- MOFU -->
+                    <div class="border border-slate-200 rounded-xl p-5 bg-slate-50 space-y-3">
+                        <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+                            <span class="font-bold text-xs text-brandBlue-900">MOFU: Tráfico WhatsApp (50%)</span>
+                            <span class="text-[10px] font-mono bg-amber-100 text-amber-800 px-2 py-0.5 rounded">Consideración</span>
+                        </div>
+                        <ul class="text-xs text-slate-700 space-y-2 leading-relaxed">
+                            <li><strong>Objetivo:</strong> Mensajes Directos a WhatsApp (Blupit).</li>
+                            <li><strong>Segmentar:</strong> Intereses en fragancias, perfumes de lujo, cosmética + Espectadores de 50%+ del video TOFU.</li>
+                            <li><strong>Anuncio:</strong> Comparativa de "Perfume Original vs Nuestra Inspiración" + Asesoría personalizada gratis.</li>
+                            <li><strong>Acción:</strong> Enviar mensaje a WhatsApp `+57 320 780 2906`.</li>
+                        </ul>
+                    </div>
+
+                    <!-- BOFU -->
+                    <div class="border border-slate-200 rounded-xl p-5 bg-slate-50 space-y-3">
+                        <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+                            <span class="font-bold text-xs text-brandBlue-900">BOFU: Conversión / Recompra (30%)</span>
+                            <span class="text-[10px] font-mono bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">Cierre</span>
+                        </div>
+                        <ul class="text-xs text-slate-700 space-y-2 leading-relaxed">
+                            <li><strong>Objetivo:</strong> Ventas / Retargeting a base de datos.</li>
+                            <li><strong>Segmentar:</strong> Base de clientes históricos (CSV), usuarios que interactuaron en Instagram últimos 60 días.</li>
+                            <li><strong>Anuncio:</strong> Carrusel de catálogo con promociones de reactivación y kits de fragancias para el hogar.</li>
+                            <li><strong>Acción:</strong> Solicitar recompra con beneficio exclusivo por reapertura.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: TikTok Ads (Oculto inicialmente) -->
+            <div id="contentTikTok" class="space-y-6 hidden">
+                <div class="bg-slate-900 text-white rounded-xl p-6 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl">🎵</span>
+                        <div>
+                            <h3 class="text-sm font-bold text-amberGold">Estrategia Dinámica para TikTok Ads (Spark Ads)</h3>
+                            <p class="text-xs text-slate-300">Adaptar los anuncios al lenguaje nativo de entretenimiento de TikTok.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                        <div class="bg-slate-800 p-4 rounded-lg space-y-2 border border-slate-700">
+                            <span class="font-bold text-amberGold text-xs">El Gancho (Hook de 3 Segundos)</span>
+                            <p class="text-slate-300 leading-relaxed">
+                                "El terremoto en Pereira destruyó nuestro local tradicional, pero miren lo que construimos en el Mall Muelle 18..."
+                            </p>
+                        </div>
+                        <div class="bg-slate-800 p-4 rounded-lg space-y-2 border border-slate-700">
+                            <span class="font-bold text-amberGold text-xs">Formatos Visuales de Alto Rendimiento</span>
+                            <p class="text-slate-300 leading-relaxed">
+                                Videos estilo ASMR empacando pedidos de fragancias inspiradas, pruebas de fijación con cronómetro y reacciones a olores.
+                            </p>
+                        </div>
+                        <div class="bg-slate-800 p-4 rounded-lg space-y-2 border border-slate-700">
+                            <span class="font-bold text-amberGold text-xs">Canalización al Enlace Directo</span>
+                            <p class="text-slate-300 leading-relaxed">
+                                Vincular el botón a la URL directa de WhatsApp (+57 320 780 2906) o al perfil de Instagram @laperfumeriaofc.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Protocolo de Atención y Conversión en WhatsApp Blupit -->
+        <section id="whatsapp" class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 space-y-6">
+            <div>
+                <span class="text-xs font-semibold tracking-wider text-brandBlue-700 uppercase bg-blue-50 px-3 py-1 rounded-full border border-blue-100">Gestión Comercial</span>
+                <h2 class="text-2xl font-serif text-brandBlue-900 mt-2 font-bold">Protocolo de Conversión y Reactivación en WhatsApp</h2>
+                <p class="text-xs text-slate-600 mt-1">
+                    Pautas operativas redactadas en infinitivo para atender al usuario proveniente de la pauta y recuperar cartera de clientes.
+                </p>
+            </div>
+
+            <!-- Pasos en Infinitivo -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 space-y-2">
+                    <span class="text-[10px] font-bold text-brandBlue-700 uppercase tracking-widest">Paso 1</span>
+                    <h3 class="font-bold text-slate-900 text-sm">Saludar y Calificar</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Enviar mensaje automático de bienvenida indagando si busca fragancia personal inspirada o fragancia para el hogar.
+                    </p>
+                </div>
+
+                <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 space-y-2">
+                    <span class="text-[10px] font-bold text-brandBlue-700 uppercase tracking-widest">Paso 2</span>
+                    <h3 class="font-bold text-slate-900 text-sm">Asesorar Olfativamente</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Preguntar sobre notas de preferencia (dulce, amaderado, fresco) para recomendar las 2 mejores inspiraciones del catálogo.
+                    </p>
+                </div>
+
+                <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 space-y-2">
+                    <span class="text-[10px] font-bold text-brandBlue-700 uppercase tracking-widest">Paso 3</span>
+                    <h3 class="font-bold text-slate-900 text-sm">Cerrar y Registrar</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Facilitar métodos de pago (Nequi, Daviplata, Bancolombia) y registrar al comprador con etiquetas en Blupit por ciudad.
+                    </p>
+                </div>
+
+                <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 space-y-2">
+                    <span class="text-[10px] font-bold text-brandBlue-700 uppercase tracking-widest">Paso 4</span>
+                    <h3 class="font-bold text-slate-900 text-sm">Reactivar Cartera</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Escribir a clientes antiguos notificando la reapertura en la Calle 18 # 5-30 Local 16, Mall Muelle 18.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Plantilla Interactiva con botón de copiado -->
+            <div class="bg-brandBlue-900 text-white p-6 rounded-xl space-y-4 shadow-inner">
+                <div class="flex justify-between items-center flex-wrap gap-2">
+                    <h3 class="text-xs font-bold text-amberGold uppercase tracking-wider">Plantilla Sugerida para Reactivación de Clientes Históricos</h3>
+                    <button onclick="copyTemplate()" id="copyBtn" class="bg-amberGold hover:bg-amber-400 text-slate-900 text-xs px-3 py-1 rounded font-bold transition">
+                        Copiar Mensaje
+                    </button>
+                </div>
+
+                <div id="templateText" class="bg-brandBlue-800 p-4 rounded-lg text-xs md:text-sm text-slate-200 font-mono leading-relaxed border border-brandBlue-700">
+¡Hola! 👋 Te saludamos desde La Perfumería (@laperfumeriaofc). Queríamos contarte que ya estamos atendiendo en nuestra nueva sede temporal tras el terremoto en Pereira 🏢✨. 
+
+Nos trasladamos a la Calle 18 # 5-30 Local 16 (Mall Muelle 18). Como eres un cliente muy especial para nosotros, queremos ofrecerte un beneficio exclusivo en tu próximo pedido de fragancias inspiradas o para el hogar 🎁.
+
+¿Te gustaría conocer la nueva ubicación en Pereira o consultar nuestro catálogo actualizado para envíos? 📲
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brandBlue-900 text-blue-200 py-6 border-t border-brandBlue-800 mt-10">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs space-y-2">
+            <p class="font-semibold text-amberGold">La Perfumería (@laperfumeriaofc) &bull; Estrategia de Pauta Digital</p>
+            <p class="text-slate-400">Pereira (Mall Muelle 18) &bull; Manizales &bull; Belén de Umbría &bull; Envíos a todo Colombia</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Budget Calculation Logic
+        const budgetInput = document.getElementById('budgetInput');
+        const budgetValue = document.getElementById('budgetValue');
+        const estReach = document.getElementById('estReach');
+        const estClicks = document.getElementById('estClicks');
+        const estChats = document.getElementById('estChats');
+        const estSales = document.getElementById('estSales');
+
+        function formatCOP(amount) {
+            return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(amount);
+        }
+
+        function updateMetrics(budget) {
+            budgetValue.textContent = formatCOP(budget) + ' COP';
+            
+            // Proyecciones estimadas para perfumería en Colombia
+            const minReach = Math.round(budget * 0.12);
+            const maxReach = Math.round(budget * 0.20);
+            const clicks = Math.round(budget / 400); // CPC estimado $400 COP
+            const minChats = Math.round(clicks * 0.10);
+            const maxChats = Math.round(clicks * 0.15);
+            const minSales = Math.round(minChats * 0.10);
+            const maxSales = Math.round(maxChats * 0.15);
+
+            estReach.textContent = `${minReach.toLocaleString('es-CO')} - ${maxReach.toLocaleString('es-CO')}`;
+            estClicks.textContent = clicks.toLocaleString('es-CO');
+            estChats.textContent = `${minChats.toLocaleString('es-CO')} - ${maxChats.toLocaleString('es-CO')}`;
+            estSales.textContent = `${minSales} - ${maxSales} pedidos`;
+        }
+
+        budgetInput.addEventListener('input', (e) => {
+            updateMetrics(e.target.value);
+        });
+
+        // Chart.js Configuration
+        let budgetChart;
+        function initChart() {
+            const ctx = document.getElementById('budgetChart').getContext('2d');
+            budgetChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: [
+                        'TOFU: Reconocimiento / Historia Terremoto (20%)', 
+                        'MOFU: Tráfico WhatsApp + Inspirados (50%)', 
+                        'BOFU: Retargeting / Recompra (30%)'
+                    ],
+                    datasets: [{
+                        data: [20, 50, 30],
+                        backgroundColor: [
+                            '#d4af37', // Amber Gold
+                            '#2563eb', // Brand Blue 500
+                            '#1b365d'  // Brand Blue 900
+                        ],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: {
+                                    size: 10
+                                },
+                                boxWidth: 12
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ` ${context.label}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Filtering Logic for Content Pillars
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const pilarCards = document.querySelectorAll('.pilar-card');
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.getAttribute('data-filter');
+                
+                filterButtons.forEach(b => {
+                    b.classList.remove('bg-brandBlue-900', 'text-white', 'shadow-sm');
+                    b.classList.add('bg-slate-100', 'text-slate-700');
+                });
+                btn.classList.remove('bg-slate-100', 'text-slate-700');
+                btn.classList.add('bg-brandBlue-900', 'text-white', 'shadow-sm');
+
+                pilarCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Switch Platform Tabs (Meta vs TikTok)
+        function switchPlatform(platform) {
+            const tabMeta = document.getElementById('tabMeta');
+            const tabTikTok = document.getElementById('tabTikTok');
+            const contentMeta = document.getElementById('contentMeta');
+            const contentTikTok = document.getElementById('contentTikTok');
+
+            if (platform === 'meta') {
+                tabMeta.classList.add('border-brandBlue-700', 'text-brandBlue-900', 'font-bold');
+                tabMeta.classList.remove('border-transparent', 'text-slate-500', 'font-medium');
+                tabTikTok.classList.remove('border-brandBlue-700', 'text-brandBlue-900', 'font-bold');
+                tabTikTok.classList.add('border-transparent', 'text-slate-500', 'font-medium');
+                
+                contentMeta.classList.remove('hidden');
+                contentTikTok.classList.add('hidden');
+            } else {
+                tabTikTok.classList.add('border-brandBlue-700', 'text-brandBlue-900', 'font-bold');
+                tabTikTok.classList.remove('border-transparent', 'text-slate-500', 'font-medium');
+                tabMeta.classList.remove('border-brandBlue-700', 'text-brandBlue-900', 'font-bold');
+                tabMeta.classList.add('border-transparent', 'text-slate-500', 'font-medium');
+
+                contentTikTok.classList.remove('hidden');
+                contentMeta.classList.add('hidden');
+            }
+        }
+
+        // Copy Template Text Function
+        function copyTemplate() {
+            const textToCopy = document.getElementById('templateText').innerText;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const btn = document.getElementById('copyBtn');
+                btn.textContent = '¡Copiado!';
+                btn.classList.remove('bg-amberGold');
+                btn.classList.add('bg-emerald-500', 'text-white');
+                
+                setTimeout(() => {
+                    btn.textContent = 'Copiar Mensaje';
+                    btn.classList.remove('bg-emerald-500', 'text-white');
+                    btn.classList.add('bg-amberGold');
+                }, 2000);
+            });
+        }
+
+        // Initialization
+        window.addEventListener('DOMContentLoaded', () => {
+            initChart();
+            updateMetrics(budgetInput.value);
+        });
+    </script>
+</body>
+</html>
+```
+
+### Resumen de las optimizaciones aplicadas:
+1. **Identidad de Marca Precisa:** Integración de la marca real **La Perfumería (`@laperfumeriaofc`)**, destacando sus líneas (fragancias inspiradas + fragancias para el hogar).
+2. **Ubicaciones y Enlaces Directos:** Sede temporal en Pereira (Calle 18 # 5-30 Local 16, Mall Muelle 18), sedes en Manizales y Belén de Umbría, y botón directo a su número de WhatsApp (`+57 320 780 2906`).
+3. **Estructura en Verbos Infinitivos:** Todos los objetivos, pilares de contenido, tareas de producción, guiones y protocolos de atención han sido formulados en forma infinitiva (*relatar, promocionar, segmentar, asesorar, reactivar, cerrar*).
+4. **Calculadora e Interactividad:** Simulador de inversión en Pesos Colombianos (COP) para calcular alcance, clics, conversaciones y pedidos estimados con gráfico Chart.js integrado.
