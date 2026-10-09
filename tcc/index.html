@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Level Agency · TCC Envíos Audit Report 2026</title>
+  <!-- Google Fonts: Outfit (Titulares & Display) e Inter (Lectura técnica) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Outfit', 'sans-serif'],
+          },
+          colors: {
+            level: {
+              purple: '#6B21A8',       // Morado insignia Level
+              purpleDark: '#3B0764',   // Morado profundo noche
+              purpleDeep: '#240046',   // Base ultra premium
+              purpleLight: '#8B5CF6',  // Violeta vibrante acento
+              purpleSoft: '#F3E8FF',   // Púrpura suave / lavanda fondo
+              neon: '#A855F7',         // Glow morado eléctrico
+              pink: '#C084FC',
+              slate: '#1E1B4B'
+            },
+            brand: {
+              white: '#FFFFFF',
+              surface: '#FAF7FD',
+              card: '#FFFFFF',
+              border: '#E9D5FF'
+            }
+          },
+          boxShadow: {
+            'level-glow': '0 10px 35px -5px rgba(107, 33, 168, 0.25)',
+            'level-card': '0 12px 30px -4px rgba(59, 7, 100, 0.06), 0 4px 10px -2px rgba(107, 33, 168, 0.04)',
+            'phone': '0 25px 60px -15px rgba(36, 0, 70, 0.35)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #F8F5FC;
+      color: #1E1B4B;
+      font-family: 'Inter', sans-serif;
+    }
+    .font-display {
+      font-family: 'Outfit', sans-serif;
+    }
+    .phone-mockup {
+      border: 10px solid #240046;
+      border-radius: 42px;
+      box-shadow: 0 20px 50px rgba(59, 7, 100, 0.28);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #F8F5FC;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #D8B4FE;
+      border-radius: 999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #A855F7;
+    }
+    @media print {
+      .no-print { display: none !important; }
+      .tab-content { display: block !important; }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-level-purpleSoft selection:text-level-purpleDark">
+
+  <!-- Header Institucional Level Agency x TCC Envíos -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-purple-100 shadow-sm transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- Logo Level & Cobranding TCC -->
+        <div class="flex items-center gap-4">
+          <a href="https://www.tenerlevel.com/" target="_blank" class="flex items-center gap-2 group">
+            <div class="relative flex items-center justify-center bg-gradient-to-br from-level-purple to-level-purpleDark w-12 h-12 rounded-2xl shadow-level-glow border border-purple-400 font-display font-black text-white text-2xl tracking-tighter">
+              <span>L</span>
+              <div class="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-level-neon rounded-full border-2 border-white shadow-xs"></div>
+            </div>
+            <div class="hidden sm:block">
+              <span class="font-display font-extrabold text-level-purpleDark tracking-tight text-xl block leading-tight">LEVEL</span>
+              <span class="text-[10px] text-purple-600 font-bold uppercase tracking-widest block">tenerlevel.com</span>
+            </div>
+          </a>
+
+          <div class="h-8 w-px bg-purple-200 hidden sm:block"></div>
+
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] uppercase tracking-wider font-extrabold text-level-purpleDark bg-level-purpleSoft px-2.5 py-0.5 rounded-md border border-purple-200">
+                Auditoría Influenciadores · Reels
+              </span>
+              <span class="text-[10px] uppercase tracking-wider font-bold text-slate-500 bg-white px-2 py-0.5 rounded-md border border-slate-200">
+                Cliente: TCC Envíos
+              </span>
+            </div>
+            <h1 class="text-base sm:text-lg font-display font-black text-level-slate tracking-tight leading-tight mt-0.5">
+              Informe Técnico de Rendimiento de Campaña
+            </h1>
+          </div>
+        </div>
+
+        <!-- Acciones Rápidas -->
+        <div class="flex items-center gap-2.5 no-print">
+          <button onclick="window.print()" class="hidden sm:inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold text-purple-900 bg-purple-50 hover:bg-purple-100 rounded-xl transition duration-150 border border-purple-200">
+            <i class="fa-solid fa-file-pdf text-level-purple"></i>
+            <span>Exportar PDF</span>
+          </button>
+          <button onclick="copyShareSummary()" class="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold text-white bg-level-purple hover:bg-level-purpleDark rounded-xl shadow-level-glow hover:shadow transition duration-150">
+            <i class="fa-solid fa-copy"></i>
+            <span>Copiar Diagnóstico</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Barra de Pestañas / Navegación Temática Level -->
+  <div class="bg-level-purpleDeep text-white border-b border-purple-900 sticky top-20 z-30 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="flex space-x-1 sm:space-x-3 overflow-x-auto py-2.5 custom-scrollbar" aria-label="Pestañas">
+        <button onclick="switchTab('resumen')" id="tab-btn-resumen" class="tab-button active px-4 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 bg-white text-level-purpleDark transition-all duration-200 whitespace-nowrap shadow-sm">
+          <i class="fa-solid fa-chart-pie"></i>
+          <span>1. Resumen Ejecutivo & KPIs</span>
+        </button>
+        <button onclick="switchTab('benchmark')" id="tab-btn-benchmark" class="tab-button px-4 py-2 rounded-xl text-xs sm:text-sm font-medium flex items-center gap-2 text-purple-200 hover:text-white hover:bg-white/10 transition-all duration-200 whitespace-nowrap">
+          <i class="fa-solid fa-scale-balanced"></i>
+          <span>2. Comparativa Beleño vs Garay</span>
+        </button>
+        <button onclick="switchTab('algoritmo')" id="tab-btn-algoritmo" class="tab-button px-4 py-2 rounded-xl text-xs sm:text-sm font-medium flex items-center gap-2 text-purple-200 hover:text-white hover:bg-white/10 transition-all duration-200 whitespace-nowrap">
+          <i class="fa-solid fa-magnifying-glass-chart"></i>
+          <span>3. Diagnóstico del Algoritmo Reels</span>
+        </button>
+        <button onclick="switchTab('mockup')" id="tab-btn-mockup" class="tab-button px-4 py-2 rounded-xl text-xs sm:text-sm font-medium flex items-center gap-2 text-purple-200 hover:text-white hover:bg-white/10 transition-all duration-200 whitespace-nowrap">
+          <i class="fa-solid fa-mobile-screen-button"></i>
+          <span>4. Visor Reel & Evidencias</span>
+        </button>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Contenedor Principal -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <!-- ==================== PESTAÑA 1: RESUMEN EJECUTIVO ==================== -->
+    <div id="tab-resumen" class="tab-content block space-y-8">
+      
+      <section class="bg-gradient-to-r from-level-purpleDeep via-level-purpleDark to-level-purple rounded-3xl p-6 sm:p-9 text-white relative overflow-hidden shadow-2xl border border-purple-800">
+        <div class="absolute -right-16 -bottom-16 w-80 h-80 bg-level-neon/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-16 -top-16 w-80 h-80 bg-purple-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-7 space-y-3">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-white/15 text-purple-200 border border-white/20">
+              <i class="fa-solid fa-sparkles text-level-neon"></i>
+              <span>Level Agency · Auditoría Especial de Influenciadores</span>
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-display font-extrabold tracking-tight leading-tight">
+              192,349 Reproducciones Totales Verificadas
+            </h2>
+            <p class="text-purple-100 text-sm sm:text-base leading-relaxed font-light">
+              Diagnóstico estratégico de impacto de marca para <strong class="text-white font-bold">TCC Envíos</strong> ejecutado con los creadores 
+              <strong class="text-white font-bold">Samuel Beleño</strong> y <strong class="text-white font-bold">Steven Garay</strong>. Beleño traccionó el <strong>80.7% del volumen</strong> de reproducciones, mientras que el análisis de retención y guardados señala aprendizajes vitales para las próximas fases de activación.
+            </p>
+          </div>
+
+          <!-- Score Card Destacada -->
+          <div class="lg:col-span-5 bg-white/10 backdrop-blur-md rounded-2xl p-5 border border-white/20 space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-white/15">
+              <span class="text-xs font-semibold text-purple-200 uppercase tracking-wider">Engagement Rate Global</span>
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-emerald-400/20 text-emerald-300 border border-emerald-300/30">
+                2.44% ER
+              </span>
+            </div>
+            <div class="grid grid-cols-2 gap-3 text-center">
+              <div class="bg-white/10 p-3 rounded-xl border border-white/15">
+                <span class="text-[11px] text-purple-200 block">Total Interacciones</span>
+                <span class="text-2xl font-display font-black text-white">4,693</span>
+              </div>
+              <div class="bg-white/10 p-3 rounded-xl border border-white/15">
+                <span class="text-[11px] text-purple-200 block">Guardados + Shares</span>
+                <span class="text-2xl font-display font-black text-purple-200">97</span>
+              </div>
+            </div>
+            <p class="text-[11px] text-purple-200 leading-tight text-center font-mono">
+              (4,693 interacciones ÷ 192,349 reproducciones) × 100
+            </p>
+          </div>
+        </div>
+
+        <!-- 4 Tarjetas de Resumen Numérico Oficial -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-8 border-t border-white/15">
+          <div class="bg-white/10 p-4 rounded-2xl border border-white/15">
+            <span class="text-xs text-purple-200 block mb-1">Samuel Beleño</span>
+            <div class="text-2xl sm:text-3xl font-display font-black text-white">155,198</div>
+            <div class="text-[11px] text-purple-200 mt-1 flex items-center justify-between">
+              <span>Reproducciones</span>
+              <span class="font-bold text-emerald-300">2.76% ER</span>
+            </div>
+          </div>
+          <div class="bg-white/10 p-4 rounded-2xl border border-white/15">
+            <span class="text-xs text-purple-200 block mb-1">Steven Garay</span>
+            <div class="text-2xl sm:text-3xl font-display font-black text-white">37,151</div>
+            <div class="text-[11px] text-purple-200 mt-1 flex items-center justify-between">
+              <span>Reproducciones</span>
+              <span class="font-bold text-rose-300">1.10% ER</span>
+            </div>
+          </div>
+          <div class="bg-white/10 p-4 rounded-2xl border border-white/15">
+            <span class="text-xs text-purple-200 block mb-1">Total 'Me Gusta'</span>
+            <div class="text-2xl sm:text-3xl font-display font-black text-white">4,363</div>
+            <div class="text-[11px] text-purple-200 mt-1 flex items-center justify-between">
+              <span>Likes orgánicos</span>
+              <span class="font-bold text-purple-100">93.0% del total</span>
+            </div>
+          </div>
+          <div class="bg-white/10 p-4 rounded-2xl border border-white/15">
+            <span class="text-xs text-purple-200 block mb-1">Guardados Críticos</span>
+            <div class="text-2xl sm:text-3xl font-display font-black text-level-neon">64</div>
+            <div class="text-[11px] text-purple-200 mt-1 flex items-center justify-between">
+              <span>Acción de valor</span>
+              <span class="font-bold text-white">58 SB · 6 SG</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="bg-white rounded-3xl p-6 sm:p-8 shadow-level-card border border-purple-100 space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-purple-100">
+          <div>
+            <div class="flex items-center gap-2 text-xs font-bold text-level-purple uppercase tracking-wider">
+              <i class="fa-solid fa-calculator"></i>
+              <span>Métricas Certificadas por Level Agency</span>
+            </div>
+            <h3 class="text-2xl font-display font-extrabold text-level-purpleDark tracking-tight mt-1">
+              Matriz Comparativa y Cálculo de Engagement Rate (ER)
+            </h3>
+          </div>
+          <div class="text-xs text-purple-800 bg-level-purpleSoft px-3.5 py-2 rounded-xl border border-purple-200 font-mono">
+            <strong>Fórmula:</strong> (Total Interacciones ÷ Reproducciones) × 100
+          </div>
+        </div>
+
+        <!-- Tabla Ejecutiva de Interacciones -->
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs sm:text-sm">
+            <thead>
+              <tr class="bg-purple-50/70 text-purple-900 uppercase text-[11px] font-extrabold tracking-wider border-b border-purple-200">
+                <th class="py-3.5 px-4 rounded-l-xl">Creador</th>
+                <th class="py-3.5 px-3 text-right">Reproducciones</th>
+                <th class="py-3.5 px-3 text-right">Likes</th>
+                <th class="py-3.5 px-3 text-right">Comentarios</th>
+                <th class="py-3.5 px-3 text-right">Reposts</th>
+                <th class="py-3.5 px-3 text-right">Compartidos</th>
+                <th class="py-3.5 px-3 text-right">Guardados</th>
+                <th class="py-3.5 px-3 text-right font-black text-level-purpleDark bg-purple-100/60">Total Interacciones</th>
+                <th class="py-3.5 px-4 text-right rounded-r-xl font-black text-level-purpleDark">ER (%)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-purple-100 font-medium text-slate-700">
+              <!-- Fila Samuel Beleño -->
+              <tr class="hover:bg-purple-50/40 transition-colors">
+                <td class="py-4 px-4 font-bold text-level-purpleDark flex items-center gap-2.5">
+                  <span class="w-8 h-8 rounded-xl bg-level-purple text-white flex items-center justify-center font-extrabold text-xs shadow-sm">SB</span>
+                  <div>
+                    <span class="font-bold text-slate-900 block">Samuel Beleño</span>
+                    <span class="text-[11px] text-purple-600 font-normal">@samuelbeleno · Reel</span>
+                  </div>
+                </td>
+                <td class="py-4 px-3 text-right font-black text-slate-900 text-sm">155,198</td>
+                <td class="py-4 px-3 text-right font-bold text-level-purple">4,000</td>
+                <td class="py-4 px-3 text-right font-bold text-slate-900">163</td>
+                <td class="py-4 px-3 text-right">40</td>
+                <td class="py-4 px-3 text-right">24</td>
+                <td class="py-4 px-3 text-right font-semibold text-slate-900">58</td>
+                <td class="py-4 px-3 text-right font-black text-level-purpleDark bg-purple-50 text-sm">4,285</td>
+                <td class="py-4 px-4 text-right">
+                  <span class="inline-flex items-center px-3 py-1 rounded-xl font-black text-xs sm:text-sm bg-purple-100 text-level-purpleDark border border-purple-200">
+                    2.76%
+                  </span>
+                </td>
+              </tr>
+
+              <!-- Fila Steven Garay -->
+              <tr class="hover:bg-purple-50/40 transition-colors">
+                <td class="py-4 px-4 font-bold text-level-purpleDark flex items-center gap-2.5">
+                  <span class="w-8 h-8 rounded-xl bg-level-purpleDark text-white flex items-center justify-center font-extrabold text-xs shadow-sm">SG</span>
+                  <div>
+                    <span class="font-bold text-slate-900 block">Steven Garay</span>
+                    <span class="text-[11px] text-purple-600 font-normal">@stevengaray · Reel</span>
+                  </div>
+                </td>
+                <td class="py-4 px-3 text-right font-black text-slate-900 text-sm">37,151</td>
+                <td class="py-4 px-3 text-right font-bold text-slate-600">363</td>
+                <td class="py-4 px-3 text-right">23</td>
+                <td class="py-4 px-3 text-right">7</td>
+                <td class="py-4 px-3 text-right">9</td>
+                <td class="py-4 px-3 text-right font-semibold text-slate-900">6</td>
+                <td class="py-4 px-3 text-right font-black text-level-purpleDark bg-purple-50 text-sm">408</td>
+                <td class="py-4 px-4 text-right">
+                  <span class="inline-flex items-center px-3 py-1 rounded-xl font-black text-xs sm:text-sm bg-rose-50 text-rose-700 border border-rose-200">
+                    1.10%
+                  </span>
+                </td>
+              </tr>
+
+              <!-- Fila Consolidado Campaña -->
+              <tr class="bg-purple-100/50 font-bold text-slate-900 border-t-2 border-purple-200">
+                <td class="py-4 px-4 uppercase text-xs tracking-wider text-level-purpleDark">
+                  Total Consolidado Campaña TCC
+                </td>
+                <td class="py-4 px-3 text-right font-black text-base text-level-purpleDark">192,349</td>
+                <td class="py-4 px-3 text-right">4,363</td>
+                <td class="py-4 px-3 text-right font-bold">186</td>
+                <td class="py-4 px-3 text-right">47</td>
+                <td class="py-4 px-3 text-right">33</td>
+                <td class="py-4 px-3 text-right">64</td>
+                <td class="py-4 px-3 text-right font-black text-base text-level-purpleDark bg-purple-200/50">4,693</td>
+                <td class="py-4 px-4 text-right">
+                  <span class="inline-flex items-center px-3.5 py-1 rounded-xl font-black text-sm bg-level-purpleDark text-white shadow-sm">
+                    2.44%
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Cajas de Fórmulas Explicadas Paso a Paso -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+          <div class="bg-purple-50/80 p-4 rounded-2xl border border-purple-200 text-xs space-y-2">
+            <div class="flex items-center justify-between font-extrabold text-level-purpleDark">
+              <span class="flex items-center gap-1.5"><i class="fa-solid fa-square-check text-level-purple"></i> Auditoría Samuel Beleño</span>
+              <span class="font-mono bg-purple-200/80 text-level-purpleDark px-2 py-0.5 rounded font-bold">ER = 2.76%</span>
+            </div>
+            <div class="font-mono text-purple-900 bg-white p-2.5 rounded-xl border border-purple-200 leading-relaxed">
+              • Suma: 4,000 (likes) + 163 (comentarios) + 58 (guardados) + 40 (reposts) + 24 (shares) = <strong>4,285 interacciones</strong><br>
+              • Operación: (4,285 ÷ 155,198) × 100 = <strong>2.761% ≈ 2.76%</strong>
+            </div>
+            <p class="text-[11px] text-slate-600">
+              <strong>Diagnóstico Level:</strong> Alta masa crítica de views y buena respuesta en comentarios (163). Sin embargo, solo 82 personas guardaron o compartieron el Reel.
+            </p>
+          </div>
+
+          <div class="bg-rose-50/80 p-4 rounded-2xl border border-rose-200 text-xs space-y-2">
+            <div class="flex items-center justify-between font-extrabold text-rose-950">
+              <span class="flex items-center gap-1.5"><i class="fa-solid fa-triangle-exclamation text-rose-600"></i> Auditoría Steven Garay</span>
+              <span class="font-mono bg-rose-200/80 text-rose-900 px-2 py-0.5 rounded font-bold">ER = 1.10%</span>
+            </div>
+            <div class="font-mono text-rose-900 bg-white p-2.5 rounded-xl border border-rose-200 leading-relaxed">
+              • Suma: 363 (likes) + 23 (comentarios) + 7 (reposts) + 9 (shares) + 6 (guardados) = <strong>408 interacciones</strong><br>
+              • Operación: (408 ÷ 37,151) × 100 = <strong>1.098% ≈ 1.10%</strong>
+            </div>
+            <p class="text-[11px] text-slate-600">
+              <strong>Diagnóstico Level:</strong> Caída drástica de retención en segundos 0-5. El público deslizó antes de conectar con el mensaje de TCC.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-7 shadow-level-card border border-purple-100 flex flex-col justify-between">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h4 class="text-base sm:text-lg font-display font-bold text-level-purpleDark">
+                Volumen de Vistas vs. Total de Interacciones
+              </h4>
+              <p class="text-xs text-purple-600">Datos reales de campaña auditados por Level</p>
+            </div>
+            <span class="p-2.5 rounded-xl bg-purple-50 text-level-purple border border-purple-200">
+              <i class="fa-solid fa-chart-column"></i>
+            </span>
+          </div>
+          <div class="h-64 sm:h-72 w-full relative">
+            <canvas id="chartComparisonTab1"></canvas>
+          </div>
+          <div class="flex items-center justify-around pt-4 border-t border-purple-100 text-xs text-slate-600 mt-2">
+            <span class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-level-purple"></span>
+              <strong>Samuel Beleño: 155,198 vistas</strong>
+            </span>
+            <span class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-level-purpleDark"></span>
+              <strong>Steven Garay: 37,151 vistas</strong>
+            </span>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-7 shadow-level-card border border-purple-100 flex flex-col justify-between">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h4 class="text-base sm:text-lg font-display font-bold text-level-purpleDark">
+                Distribución de Calidad de Acciones
+              </h4>
+              <p class="text-xs text-purple-600">Interacción pasiva vs. acciones de alto valor</p>
+            </div>
+            <span class="p-2.5 rounded-xl bg-purple-50 text-level-purple border border-purple-200">
+              <i class="fa-solid fa-chart-pie"></i>
+            </span>
+          </div>
+          <div class="h-64 sm:h-72 w-full relative flex items-center justify-center">
+            <canvas id="chartDistributionTab1"></canvas>
+          </div>
+          <div class="pt-4 border-t border-purple-100 text-center text-xs text-slate-500 mt-2">
+            Apenas el <strong>2.1%</strong> de las acciones fueron Guardados o Compartidos (97 acciones de 4,530).
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ==================== PESTAÑA 2: COMPARATIVA HEAD-TO-HEAD ==================== -->
+    <div id="tab-benchmark" class="tab-content hidden space-y-8">
+      
+      <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-level-card border border-purple-100">
+        <div class="max-w-2xl">
+          <span class="text-xs font-bold text-white bg-level-purple px-2.5 py-1 rounded-lg uppercase tracking-wider">
+            Auditoría Frente a Frente
+          </span>
+          <h3 class="text-2xl sm:text-3xl font-display font-extrabold text-level-purpleDark mt-2">
+            Comparación Integral de Rendimiento: Beleño vs Garay
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-500 mt-1">
+            Análisis de tracción, retención y respuesta del algoritmo de Instagram para TCC Envíos.
+          </p>
+        </div>
+
+        <!-- 2 Columnas: Tarjeta Samuel vs Tarjeta Steven -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+          
+          <!-- Columna Samuel Beleño -->
+          <div class="bg-gradient-to-b from-purple-50/60 to-white rounded-3xl p-6 border-2 border-purple-300 shadow-sm space-y-6">
+            <div class="flex items-center justify-between pb-4 border-b border-purple-200">
+              <div class="flex items-center gap-3">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-level-purple to-level-purpleDark text-white font-display font-black text-xl flex items-center justify-center shadow-md">
+                  SB
+                </div>
+                <div>
+                  <h4 class="text-lg font-display font-black text-level-purpleDark">Samuel Beleño</h4>
+                  <span class="text-xs text-level-purple font-bold bg-purple-100 px-2 py-0.5 rounded-full">@samuelbeleno</span>
+                </div>
+              </div>
+              <span class="text-xs font-black text-level-purpleDark bg-purple-200/80 px-3 py-1 rounded-xl">
+                80.7% DE VISTAS
+              </span>
+            </div>
+
+            <!-- KPIs de Beleño -->
+            <div class="grid grid-cols-3 gap-2.5 text-center">
+              <div class="bg-white p-3 rounded-2xl border border-purple-200 shadow-xs">
+                <span class="text-[10px] text-purple-500 uppercase font-bold block">Reproducciones</span>
+                <span class="text-lg font-black text-slate-900">155,198</span>
+              </div>
+              <div class="bg-white p-3 rounded-2xl border border-purple-200 shadow-xs">
+                <span class="text-[10px] text-purple-500 uppercase font-bold block">Me Gusta</span>
+                <span class="text-lg font-black text-level-purple">4,000</span>
+              </div>
+              <div class="bg-white p-3 rounded-2xl border border-purple-200 shadow-xs">
+                <span class="text-[10px] text-purple-500 uppercase font-bold block">ER (%)</span>
+                <span class="text-lg font-black text-emerald-600">2.76%</span>
+              </div>
+            </div>
+
+            <div class="space-y-3 text-xs text-slate-700">
+              <div class="flex items-start gap-2.5">
+                <i class="fa-solid fa-circle-check text-emerald-500 mt-0.5"></i>
+                <span><strong>Acierto Clave:</strong> Excelente retención general por duración adecuada y 163 comentarios generados.</span>
+              </div>
+              <div class="flex items-start gap-2.5">
+                <i class="fa-solid fa-triangle-exclamation text-amber-500 mt-0.5"></i>
+                <span><strong>Punto Crítico:</strong> Storytelling con bajo llamado a guardar (58 saves) o compartir (24 shares).</span>
+              </div>
+              <div class="flex items-start gap-2.5">
+                <i class="fa-solid fa-compass text-level-purple mt-0.5"></i>
+                <span><strong>Métricas de valor:</strong> 163 comentarios, 40 reposts y 24 compartidos directos por DM.</span>
+              </div>
+            </div>
+
+            <button onclick="viewInPhoneMockup('beleno')" class="w-full py-2.5 bg-level-purple hover:bg-level-purpleDark text-white font-bold text-xs rounded-xl transition shadow-level-glow flex items-center justify-center gap-2">
+              <i class="fa-solid fa-mobile-screen"></i> Ver en Simulador de Reel
+            </button>
+          </div>
+
+          <!-- Columna Steven Garay -->
+          <div class="bg-gradient-to-b from-slate-50 to-white rounded-3xl p-6 border-2 border-slate-200 shadow-sm space-y-6">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-200">
+              <div class="flex items-center gap-3">
+                <div class="w-14 h-14 rounded-2xl bg-level-purpleDark text-white font-display font-black text-xl flex items-center justify-center shadow-md">
+                  SG
+                </div>
+                <div>
+                  <h4 class="text-lg font-display font-black text-level-purpleDark">Steven Garay</h4>
+                  <span class="text-xs text-slate-600 font-bold bg-slate-200 px-2 py-0.5 rounded-full">@stevengaray</span>
+                </div>
+              </div>
+              <span class="text-xs font-black text-rose-700 bg-rose-100 px-3 py-1 rounded-xl">
+                19.3% DE VISTAS
+              </span>
+            </div>
+
+            <!-- KPIs de Garay -->
+            <div class="grid grid-cols-3 gap-2.5 text-center">
+              <div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-xs">
+                <span class="text-[10px] text-slate-400 uppercase font-bold block">Reproducciones</span>
+                <span class="text-lg font-black text-slate-900">37,151</span>
+              </div>
+              <div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-xs">
+                <span class="text-[10px] text-slate-400 uppercase font-bold block">Me Gusta</span>
+                <span class="text-lg font-black text-rose-600">363</span>
+              </div>
+              <div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-xs">
+                <span class="text-[10px] text-slate-400 uppercase font-bold block">ER (%)</span>
+                <span class="text-lg font-black text-rose-600">1.10%</span>
+              </div>
+            </div>
+
+            <div class="space-y-3 text-xs text-slate-700">
+              <div class="flex items-start gap-2.5">
+                <i class="fa-solid fa-circle-xmark text-rose-500 mt-0.5"></i>
+                <span><strong>Falla en Segundos 0-5:</strong> Muestra directa del paquete TCC, delatando pauta y provocando scroll inmediato.</span>
+              </div>
+              <div class="flex items-start gap-2.5">
+                <i class="fa-solid fa-circle-xmark text-rose-500 mt-0.5"></i>
+                <span><strong>Sin Hook Inicial:</strong> No formuló intriga o pregunta que atrapara al espectador.</span>
+              </div>
+              <div class="flex items-start gap-2.5">
+                <i class="fa-solid fa-comment-dots text-purple-700 mt-0.5"></i>
+                <span><strong>Métricas de valor:</strong> 23 comentarios, 9 compartidos, 7 reposts y 6 guardados.</span>
+              </div>
+            </div>
+
+            <button onclick="viewInPhoneMockup('garay')" class="w-full py-2.5 bg-level-purpleDark hover:bg-slate-950 text-white font-bold text-xs rounded-xl transition shadow-sm flex items-center justify-center gap-2">
+              <i class="fa-solid fa-mobile-screen"></i> Ver en Simulador de Reel
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Barras Proporcionales Comparativas -->
+        <div class="mt-8 pt-8 border-t border-purple-100 space-y-5">
+          <h4 class="text-sm font-display font-extrabold text-level-purpleDark uppercase tracking-wider">
+            Cuadro de Participación Porcentual
+          </h4>
+
+          <!-- Barra Reproducciones -->
+          <div>
+            <div class="flex justify-between text-xs font-bold text-slate-700 mb-1.5">
+              <span>Reproducciones de Video (Total: 192,349)</span>
+              <span>Beleño 80.7% (155.1K) vs Garay 19.3% (37.1K)</span>
+            </div>
+            <div class="w-full h-4 bg-purple-100 rounded-full overflow-hidden flex">
+              <div style="width: 80.68%" class="bg-level-purple h-full" title="Samuel Beleño: 80.68%"></div>
+              <div style="width: 19.32%" class="bg-level-purpleDark h-full" title="Steven Garay: 19.32%"></div>
+            </div>
+          </div>
+
+          <!-- Barra Me Gusta -->
+          <div>
+            <div class="flex justify-between text-xs font-bold text-slate-700 mb-1.5">
+              <span>Me Gusta Totales (Total: 4,363)</span>
+              <span>Beleño 91.7% (4,000) vs Garay 8.3% (363)</span>
+            </div>
+            <div class="w-full h-4 bg-purple-100 rounded-full overflow-hidden flex">
+              <div style="width: 91.68%" class="bg-level-neon h-full" title="Samuel Beleño: 91.68%"></div>
+              <div style="width: 8.32%" class="bg-purple-950 h-full" title="Steven Garay: 8.32%"></div>
+            </div>
+          </div>
+
+          <!-- Barra Guardados -->
+          <div>
+            <div class="flex justify-between text-xs font-bold text-slate-700 mb-1.5">
+              <span>Guardados de Valor (Total: 64)</span>
+              <span>Beleño 90.6% (58 saves) vs Garay 9.4% (6 saves)</span>
+            </div>
+            <div class="w-full h-4 bg-purple-100 rounded-full overflow-hidden flex">
+              <div style="width: 90.62%" class="bg-purple-600 h-full" title="Samuel Beleño: 90.62%"></div>
+              <div style="width: 9.38%" class="bg-slate-400 h-full" title="Steven Garay: 9.38%"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ==================== PESTAÑA 3: DIAGNÓSTICO DEL ALGORITMO ==================== -->
+    <div id="tab-algoritmo" class="tab-content hidden space-y-8">
+      
+      <section class="bg-white rounded-3xl p-6 sm:p-8 shadow-level-card border border-purple-100 space-y-6">
+        <div>
+          <span class="text-xs font-bold text-level-purple bg-level-purpleSoft px-2.5 py-1 rounded-lg uppercase tracking-wider">
+            Auditoría Algorítmica de Instagram Reels
+          </span>
+          <h3 class="text-2xl sm:text-3xl font-display font-extrabold text-level-purpleDark mt-2">
+            ¿Por qué se produjo la brecha entre 155,198 y 37,151 vistas?
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-500 mt-1">
+            En Level analizamos cómo el algoritmo de Reels califica el contenido en los primeros 3 a 5 segundos de retención. Si detecta desinterés masivo, corta el alcance orgánico.
+          </p>
+        </div>
+
+        <!-- 3 Pilares Algorítmicos Evaluados -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+          
+          <!-- Pilar 1: Primeros 5 Segundos -->
+          <div class="p-5 rounded-2xl bg-rose-50/70 border border-rose-200 space-y-3">
+            <div class="w-10 h-10 rounded-xl bg-rose-500 text-white flex items-center justify-center font-bold text-lg">
+              <i class="fa-solid fa-stopwatch-20"></i>
+            </div>
+            <h4 class="text-base font-display font-bold text-rose-950">1. Retención 0 - 5s</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              <strong>El error de Steven Garay:</strong> Exhibir la caja/paquete de TCC inmediatamente en los primeros fotogramas activó el "filtro mental anti-publicidad" del usuario. Esto causó un salto prematuro (swipe away) que el algoritmo interpretó como contenido poco atractivo.
+            </p>
+            <div class="pt-2 text-[11px] font-bold text-rose-700 flex items-center gap-1">
+              <i class="fa-solid fa-arrow-trend-down"></i> Vistas finales: 37,151
+            </div>
+          </div>
+
+          <!-- Pilar 2: Storytelling vs Engagement -->
+          <div class="p-5 rounded-2xl bg-purple-50/80 border border-purple-200 space-y-3">
+            <div class="w-10 h-10 rounded-xl bg-level-purple text-white flex items-center justify-center font-bold text-lg">
+              <i class="fa-solid fa-book-open"></i>
+            </div>
+            <h4 class="text-base font-display font-bold text-level-purpleDark">2. Storytelling & Hooks</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              <strong>El caso de Samuel Beleño:</strong> La duración y carisma funcionaron para mantener conectada a la audiencia (155,198 vistas), pero el guion se quedó corto en detonar acciones profundas: solo <strong>24 compartidos</strong> y <strong>58 guardados</strong>. Fue visto pasivamente sin fricción viral.
+            </p>
+            <div class="pt-2 text-[11px] font-bold text-level-purple flex items-center gap-1">
+              <i class="fa-solid fa-arrows-split-up-and-left"></i> ER: 2.76% con 163 comentarios y 4,000 likes
+            </div>
+          </div>
+
+          <!-- Pilar 3: El nuevo algoritmo de Guardados & Compartidos -->
+          <div class="p-5 rounded-2xl bg-emerald-50/70 border border-emerald-200 space-y-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-lg">
+              <i class="fa-solid fa-share-nodes"></i>
+            </div>
+            <h4 class="text-base font-display font-bold text-emerald-950">3. Guardados & Compartidos</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              <strong>El verdadero multiplicador:</strong> Hoy Instagram da hasta <strong>5x más peso</strong> a un video guardado (utilidad a futuro) o compartido por DM (validación social) que a un simple 'me gusta'. Ninguno de los dos guiones estructuró una razón explícita para guardar.
+            </p>
+            <div class="pt-2 text-[11px] font-bold text-emerald-700 flex items-center gap-1">
+              <i class="fa-solid fa-bullseye"></i> KPI prioritario para próximas fases
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Propuesta Estratégica Level para TCC -->
+        <div class="bg-gradient-to-r from-level-purpleDeep via-level-purpleDark to-level-purple text-white rounded-3xl p-6 sm:p-8 border border-purple-800 space-y-6 mt-6">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-white text-level-purpleDark flex items-center justify-center font-black text-xl shadow-level-glow">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+            </div>
+            <div>
+              <span class="text-xs font-bold text-level-neon uppercase tracking-wider">Estrategia Recomendada por Level Agency</span>
+              <h4 class="text-xl sm:text-2xl font-display font-extrabold text-white">
+                Mecánica Interactiva con Automatización: «Comenta la palabra TCC»
+              </h4>
+            </div>
+          </div>
+
+          <p class="text-purple-100 text-xs sm:text-sm leading-relaxed font-light">
+            En Level recomendamos que para la próxima activación con creadores, TCC no ejecute videos meramente expositivos. Debe incluir una llamada a la acción irresistible sincronizada con automatización de mensajes directos:
+          </p>
+
+          <div class="bg-white/10 p-4 rounded-2xl border border-white/20 text-xs sm:text-sm font-mono text-purple-200">
+            «Comenta en este video la palabra <strong class="text-white text-base underline underline-offset-4 font-bold">TCC</strong> y te enviamos por mensaje directo un cupón de descuento en tu próximo envío o participas por envíos gratis de paquetería.»
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-purple-200 pt-2">
+            <div class="bg-white/5 p-3 rounded-xl border border-white/10">
+              <strong class="text-white block mb-1">1. Multiplica Comentarios</strong>
+              Provoca cientos de comentarios en los primeros 60 minutos, lo que hace que el algoritmo posicione el Reel en la sección Explorar.
+            </div>
+            <div class="bg-white/5 p-3 rounded-xl border border-white/10">
+              <strong class="text-white block mb-1">2. Dispara el Canal DM</strong>
+              Al iniciar la conversación privada con el usuario, TCC obtiene contacto directo y atribución medible de clics.
+            </div>
+            <div class="bg-white/5 p-3 rounded-xl border border-white/10">
+              <strong class="text-white block mb-1">3. Cero Presupuesto Desperdiciado</strong>
+              Transforma el scroll pasivo en prospectos calificados para envíos personales y de emprendedores.
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ==================== PESTAÑA 4: MOCKUP & EVIDENCIAS REALES ==================== -->
+    <div id="tab-mockup" class="tab-content hidden space-y-8">
+      
+      <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-level-card border border-purple-100">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-purple-100">
+          <div>
+            <span class="text-xs font-bold text-white bg-level-purple px-2.5 py-1 rounded-lg uppercase tracking-wider">
+              Visor Interactivo de Reel
+            </span>
+            <h3 class="text-2xl sm:text-3xl font-display font-extrabold text-level-purpleDark mt-2">
+              Fotogramas Clave & Capturas Certificadas
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-500 mt-1">
+              Selecciona cualquier evidencia para examinarla en el simulador o ampliarla a pantalla completa.
+            </p>
+          </div>
+
+          <!-- Selector de Creador -->
+          <div class="flex items-center gap-2 bg-purple-50 p-1.5 rounded-2xl border border-purple-200">
+            <button onclick="setMockupCreator('beleno')" id="mockup-btn-beleno" class="px-4 py-2 rounded-xl text-xs font-bold transition bg-level-purple text-white shadow-sm">
+              Samuel Beleño (155K)
+            </button>
+            <button onclick="setMockupCreator('garay')" id="mockup-btn-garay" class="px-4 py-2 rounded-xl text-xs font-bold transition text-purple-900 hover:bg-purple-100">
+              Steven Garay (37K)
+            </button>
+          </div>
+        </div>
+
+        <!-- Disposición: Mockup de Celular a la izquierda + Lista de Fotogramas a la derecha -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start pt-6">
+          
+          <!-- Mockup de Smartphone Instagram Reel -->
+          <div class="lg:col-span-5 flex flex-col items-center">
+            <div class="phone-mockup w-full max-w-[320px] aspect-[9/19] bg-level-purpleDeep relative overflow-hidden flex flex-col justify-between">
+              
+              <!-- Barra Superior del Celular -->
+              <div class="absolute top-0 inset-x-0 h-7 bg-black/70 backdrop-blur-sm z-20 flex items-center justify-between px-6 text-[10px] text-white font-semibold">
+                <span>9:41</span>
+                <div class="w-16 h-3.5 bg-black rounded-full"></div>
+                <div class="flex items-center gap-1">
+                  <i class="fa-solid fa-signal text-[9px]"></i>
+                  <i class="fa-solid fa-wifi text-[9px]"></i>
+                  <i class="fa-solid fa-battery-full text-[10px]"></i>
+                </div>
+              </div>
+
+              <!-- Imagen Activa del Reel -->
+              <div class="absolute inset-0 z-0 bg-slate-950 flex items-center justify-center cursor-pointer" onclick="openCurrentInLightbox()">
+                <img id="mockup-main-img" src="https://i.postimg.cc/DyL4csRy/Whats-App-Image-2026-10-05-at-6-47-37-PM-(2).jpg" alt="Reel Frame" class="w-full h-full object-contain">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 pointer-events-none"></div>
+              </div>
+
+              <!-- Iconos de Interacción Nativos Superpuestos -->
+              <div class="absolute right-3 bottom-14 z-20 flex flex-col items-center gap-4 text-white text-xs font-bold drop-shadow-md">
+                <div class="flex flex-col items-center">
+                  <div class="w-9 h-9 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-rose-500">
+                    <i class="fa-solid fa-heart text-base"></i>
+                  </div>
+                  <span id="mockup-likes" class="text-[10px] mt-1 font-bold">4.0K</span>
+                </div>
+                <div class="flex flex-col items-center">
+                  <div class="w-9 h-9 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center">
+                    <i class="fa-solid fa-comment text-base"></i>
+                  </div>
+                  <span id="mockup-comments" class="text-[10px] mt-1 font-bold">—</span>
+                </div>
+                <div class="flex flex-col items-center">
+                  <div class="w-9 h-9 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center">
+                    <i class="fa-solid fa-paper-plane text-base"></i>
+                  </div>
+                  <span id="mockup-shares" class="text-[10px] mt-1 font-bold">24</span>
+                </div>
+                <div class="flex flex-col items-center">
+                  <div class="w-9 h-9 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center">
+                    <i class="fa-solid fa-bookmark text-base"></i>
+                  </div>
+                  <span id="mockup-saves" class="text-[10px] mt-1 font-bold">58</span>
+                </div>
+              </div>
+
+              <!-- Info Inferior del Creador -->
+              <div class="absolute bottom-4 left-3 right-14 z-20 text-white space-y-1 drop-shadow-md">
+                <div class="flex items-center gap-2">
+                  <div id="mockup-avatar" class="w-7 h-7 rounded-full bg-level-purple text-white font-black text-xs flex items-center justify-center border border-white">SB</div>
+                  <span id="mockup-handle" class="text-xs font-bold">@samuelbeleno</span>
+                  <span class="text-[9px] bg-white/20 px-1.5 py-0.5 rounded text-purple-100">Colaboración</span>
+                </div>
+                <p id="mockup-caption" class="text-[11px] text-purple-100 line-clamp-2 leading-tight">
+                  Envíos rápidos y seguros por toda Colombia con @tcc_envios 📦✈️
+                </p>
+                <div class="flex items-center gap-1.5 text-[9px] text-purple-300 font-semibold pt-0.5">
+                  <i class="fa-solid fa-chart-simple"></i>
+                  <span id="mockup-views-label">155,198 reproducciones verificadas</span>
+                </div>
+              </div>
+
+            </div>
+
+            <p class="text-xs text-purple-700 font-medium mt-3 text-center">
+              Haz clic en la imagen del teléfono para ampliarla en alta resolución
+            </p>
+          </div>
+
+          <!-- Lista de Tarjetas de Fotogramas del Creador Activo -->
+          <div class="lg:col-span-7 space-y-4">
+            <h4 id="mockup-list-title" class="text-base font-display font-extrabold text-level-purpleDark">
+              Fotogramas de Samuel Beleño (3 Capturas Oficiales)
+            </h4>
+
+            <div id="mockup-thumbnails-container" class="space-y-3">
+              <!-- Renderizado dinámico vía JavaScript -->
+            </div>
+
+            <!-- Ficha Técnica del Reel Seleccionado -->
+            <div id="mockup-tech-sheet" class="mt-4 p-4 rounded-2xl bg-purple-50/70 border border-purple-200 text-xs space-y-2">
+              <!-- Contenido dinámico -->
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Footer Corporativo Level Agency -->
+  <footer class="bg-white border-t border-purple-100 mt-16 py-8 no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <div class="flex items-center gap-3">
+        <a href="https://www.tenerlevel.com/" target="_blank" class="font-extrabold text-level-purpleDark text-sm font-display hover:text-level-purple transition">
+          LEVEL AGENCY
+        </a>
+        <span>·</span>
+        <span class="text-purple-700">tenerlevel.com</span>
+        <span>·</span>
+        <span>Auditoría de Influenciadores para TCC Envíos</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <span>Samuel Beleño & Steven Garay</span>
+        <span>·</span>
+        <span class="text-slate-400">Despliegue local verificado</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal Lightbox en Pantalla Completa -->
+  <div id="imageLightbox" class="fixed inset-0 z-50 bg-level-purpleDeep/90 backdrop-blur-md hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-4 sm:p-6" onclick="closeLightboxOnBackdrop(event)">
+    <div class="relative max-w-4xl w-full max-h-[92vh] bg-slate-900 border border-purple-800 rounded-3xl overflow-hidden shadow-2xl flex flex-col">
+      <div class="flex items-center justify-between px-6 py-4 border-b border-purple-900 bg-slate-950/90">
+        <div>
+          <h4 id="lightboxTitle" class="text-base font-display font-bold text-white">Captura de Campaña TCC</h4>
+          <p id="lightboxSubtitle" class="text-xs text-purple-300">Evidencia oficial auditada por Level Agency</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <a id="lightboxDownloadBtn" href="#" target="_blank" download class="p-2.5 rounded-xl bg-purple-900/60 hover:bg-purple-800 text-purple-200 text-xs transition" title="Abrir en pestaña nueva">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+          <button onclick="closeLightbox()" class="p-2.5 rounded-xl bg-purple-900/60 hover:bg-rose-500/20 hover:text-rose-400 text-purple-300 text-xs transition" title="Cerrar (Esc)">
+            <i class="fa-solid fa-xmark text-base"></i>
+          </button>
+        </div>
+      </div>
+      <div class="relative flex-grow flex items-center justify-center p-4 bg-black/50 overflow-auto max-h-[75vh]">
+        <img id="lightboxImage" src="" alt="Captura TCC" class="max-h-[70vh] w-auto object-contain rounded-xl shadow-lg border border-purple-900">
+      </div>
+    </div>
+  </div>
+
+  <!-- Script de Interactividad, Pestañas, Lightbox y Gráficos -->
+  <script>
+    // Base de datos de fotogramas y métricas reales
+    const reelData = {
+      beleno: {
+        name: 'Samuel Beleño',
+        handle: '@samuelbeleno',
+        avatarText: 'SB',
+        avatarBg: 'bg-level-purple text-white',
+        views: '155,198',
+        likes: '4,000',
+        comments: '163',
+        shares: '24',
+        reposts: '40',
+        saves: '58',
+        er: '2.76%',
+        caption: 'Envíos rápidos y seguros por toda Colombia con @tcc_envios 📦✈️ Excelente cumplimiento y cobertura en ruta.',
+        images: [
+          {
+            url: 'https://i.postimg.cc/DyL4csRy/Whats-App-Image-2026-10-05-at-6-47-37-PM-(2).jpg',
+            title: 'Fotograma 1: Introducción y Dinamismo',
+            desc: 'Planteamiento del video con buen ritmo visual y visualización del empaque TCC en contexto real.'
+          },
+          {
+            url: 'https://i.postimg.cc/ZKpvL32M/Whats-App-Image-2026-10-05-at-6-47-37-PM-(1).jpg',
+            title: 'Métricas Nativas: 155,198 Vistas Oficiales',
+            desc: 'Panel oficial con 155,198 reproducciones certificadas, 4,000 likes, 163 comentarios, 58 guardados, 40 reposts y 24 compartidos.'
+          },
+          {
+            url: 'https://i.postimg.cc/ncB917NH/Whats-App-Image-2026-10-05-at-6-47-37-PM.jpg',
+            title: 'Fotograma 3: Desenlace y Llamado a la Acción',
+            desc: 'Cierre del Reel recomendando la puntualidad de entrega y cobertura nacional de TCC.'
+          }
+        ]
+      },
+      garay: {
+        name: 'Steven Garay',
+        handle: '@stevengaray',
+        avatarText: 'SG',
+        avatarBg: 'bg-level-purpleDark text-white',
+        views: '37,151',
+        likes: '363',
+        comments: '23',
+        shares: '9',
+        reposts: '7',
+        saves: '6',
+        er: '1.10%',
+        caption: 'Probando el servicio de paquetería de @tcc_envios 📦 Rastreo en tiempo real y entrega directa.',
+        images: [
+          {
+            url: 'https://i.postimg.cc/dtjt19zV/Whats-App-Image-2026-10-08-at-11-37-49-AM.jpg',
+            title: 'Fotograma 1: Apertura con Paquete Prematuro',
+            desc: 'Muestra directa del empaque antes del segundo 5. Delata la pauta de inmediato y generó salto prematuro.'
+          },
+          {
+            url: 'https://i.postimg.cc/kXvX4yk6/Whats-App-Image-2026-10-08-at-11-37-50-AM.jpg',
+            title: 'Métricas Nativas: 37,151 Vistas Oficiales',
+            desc: 'Panel verificado de 37,151 reproducciones, 363 likes, 23 comentarios, 9 compartidos y 6 guardados.'
+          },
+          {
+            url: 'https://i.postimg.cc/R0kzG3km/Whats-App-Image-2026-10-08-at-11-37-49-AM-(1).jpg',
+            title: 'Fotograma 3: Demostración de Rastreo TCC',
+            desc: 'Explicación del rastreo en línea de la transportadora sin construcción de gancho inicial.'
+          }
+        ]
+      }
+    };
+
+    let activeMockupCreator = 'beleno';
+    let activeMockupImageIndex = 0;
+
+    // Lógica de Pestañas
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.add('hidden');
+        tab.classList.remove('block');
+      });
+
+      document.querySelectorAll('.tab-button').forEach(btn => {
+        btn.classList.remove('bg-white', 'text-level-purpleDark', 'shadow-sm', 'font-bold');
+        btn.classList.add('text-purple-200', 'font-medium');
+      });
+
+      const activeContent = document.getElementById(`tab-${tabId}`);
+      if (activeContent) {
+        activeContent.classList.remove('hidden');
+        activeContent.classList.add('block');
+      }
+
+      const activeBtn = document.getElementById(`tab-btn-${tabId}`);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-white', 'text-level-purpleDark', 'shadow-sm', 'font-bold');
+        activeBtn.classList.remove('text-purple-200', 'font-medium');
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Navegación directa al Mockup desde otra pestaña
+    function viewInPhoneMockup(creator) {
+      switchTab('mockup');
+      setMockupCreator(creator);
+    }
+
+    // Selector de creador en el simulador
+    function setMockupCreator(creator) {
+      activeMockupCreator = creator;
+      activeMockupImageIndex = 0;
+
+      const btnBeleno = document.getElementById('mockup-btn-beleno');
+      const btnGaray = document.getElementById('mockup-btn-garay');
+
+      if (creator === 'beleno') {
+        btnBeleno.className = 'px-4 py-2 rounded-xl text-xs font-bold transition bg-level-purple text-white shadow-sm';
+        btnGaray.className = 'px-4 py-2 rounded-xl text-xs font-bold transition text-purple-900 hover:bg-purple-100';
+      } else {
+        btnGaray.className = 'px-4 py-2 rounded-xl text-xs font-bold transition bg-level-purple text-white shadow-sm';
+        btnBeleno.className = 'px-4 py-2 rounded-xl text-xs font-bold transition text-purple-900 hover:bg-purple-100';
+      }
+
+      renderMockupData();
+    }
+
+    // Renderizar datos en el simulador de celular
+    function renderMockupData() {
+      const data = reelData[activeMockupCreator];
+      const activeImg = data.images[activeMockupImageIndex];
+
+      document.getElementById('mockup-main-img').src = activeImg.url;
+      document.getElementById('mockup-likes').textContent = data.likes;
+      document.getElementById('mockup-comments').textContent = data.comments;
+      document.getElementById('mockup-shares').textContent = data.shares;
+      document.getElementById('mockup-saves').textContent = data.saves;
+
+      const avatar = document.getElementById('mockup-avatar');
+      avatar.textContent = data.avatarText;
+      avatar.className = `w-7 h-7 rounded-full ${data.avatarBg} font-black text-xs flex items-center justify-center border border-white`;
+
+      document.getElementById('mockup-handle').textContent = data.handle;
+      document.getElementById('mockup-caption').textContent = data.caption;
+      document.getElementById('mockup-views-label').textContent = `${data.views} reproducciones verificadas (${data.er} ER)`;
+
+      document.getElementById('mockup-list-title').textContent = `Fotogramas Oficiales de ${data.name} (${data.images.length} Capturas)`;
+
+      // Renderizar miniaturas
+      const container = document.getElementById('mockup-thumbnails-container');
+      container.innerHTML = '';
+
+      data.images.forEach((img, idx) => {
+        const isSelected = idx === activeMockupImageIndex;
+        const card = document.createElement('div');
+        card.className = `flex items-center gap-4 p-3 rounded-2xl border transition cursor-pointer ${
+          isSelected 
+            ? 'bg-purple-50 border-level-purple ring-2 ring-purple-300 shadow-sm' 
+            : 'bg-white border-purple-100 hover:bg-purple-50/50'
+        }`;
+        card.onclick = () => selectMockupImage(idx);
+
+        card.innerHTML = `
+          <div class="w-16 h-20 bg-level-purpleDeep rounded-xl overflow-hidden shrink-0 border border-purple-200">
+            <img src="${img.url}" alt="${img.title}" class="w-full h-full object-cover">
+          </div>
+          <div class="flex-grow">
+            <div class="flex items-center justify-between mb-1">
+              <h5 class="text-xs font-bold ${isSelected ? 'text-level-purpleDark' : 'text-slate-800'}">${img.title}</h5>
+              ${isSelected ? '<span class="text-[10px] bg-level-purple text-white font-black px-2 py-0.5 rounded-full">Activo</span>' : ''}
+            </div>
+            <p class="text-[11px] text-slate-500 leading-tight">${img.desc}</p>
+          </div>
+          <button onclick="event.stopPropagation(); openLightbox('${img.url}', '${img.title}', '${img.desc}')" class="p-2 text-purple-400 hover:text-level-purpleDark text-xs" title="Ampliar">
+            <i class="fa-solid fa-expand"></i>
+          </button>
+        `;
+        container.appendChild(card);
+      });
+
+      // Ficha técnica del creador
+      const tech = document.getElementById('mockup-tech-sheet');
+      tech.innerHTML = `
+        <div class="flex items-center justify-between font-bold text-level-purpleDark border-b border-purple-200 pb-2">
+          <span>Resumen de Métricas del Reel (Auditado por Level)</span>
+          <span class="text-level-purple font-mono">ER: ${data.er}</span>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 pt-1 text-[11px]">
+          <div><span class="text-purple-600 block">Vistas:</span><strong>${data.views}</strong></div>
+          <div><span class="text-purple-600 block">Likes:</span><strong>${data.likes}</strong></div>
+          <div><span class="text-purple-600 block">Comentarios:</span><strong>${data.comments}</strong></div>
+          <div><span class="text-purple-600 block">Guardados:</span><strong>${data.saves}</strong></div>
+          <div><span class="text-purple-600 block">Compartidos:</span><strong>${data.shares}</strong></div>
+        </div>
+      `;
+    }
+
+    function selectMockupImage(index) {
+      activeMockupImageIndex = index;
+      renderMockupData();
+    }
+
+    function openCurrentInLightbox() {
+      const data = reelData[activeMockupCreator];
+      const img = data.images[activeMockupImageIndex];
+      openLightbox(img.url, img.title, img.desc);
+    }
+
+    // Modal Lightbox
+    function openLightbox(url, title, subtitle) {
+      const modal = document.getElementById('imageLightbox');
+      const img = document.getElementById('lightboxImage');
+      const titleEl = document.getElementById('lightboxTitle');
+      const subEl = document.getElementById('lightboxSubtitle');
+      const linkEl = document.getElementById('lightboxDownloadBtn');
+
+      img.src = url;
+      titleEl.textContent = title || 'Captura de Campaña TCC';
+      subEl.textContent = subtitle || 'Evidencia auditada por Level Agency';
+      linkEl.href = url;
+
+      modal.classList.remove('hidden');
+      setTimeout(() => modal.classList.remove('opacity-0'), 20);
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      const modal = document.getElementById('imageLightbox');
+      modal.classList.add('opacity-0');
+      setTimeout(() => modal.classList.add('hidden'), 300);
+      document.body.style.overflow = '';
+    }
+
+    function closeLightboxOnBackdrop(e) {
+      if (e.target.id === 'imageLightbox') closeLightbox();
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    // Copiar Resumen Ejecutivo al Portapapeles
+    function copyShareSummary() {
+      const textToCopy = `LEVEL AGENCY (tenerlevel.com) · AUDITORÍA DE REELS PARA TCC ENVÍOS 2026\n\n` +
+        `📊 CONSOLIDADO GENERAL DE CAMPAÑA:\n` +
+        `• Reproducciones Totales: 192,349\n` +
+        `• Total Interacciones: 4,693\n` +
+        `• Engagement Rate Promedio: 2.44%\n\n` +
+        `👤 SAMUEL BELEÑO (@samuelbeleno):\n` +
+        `• 155,198 vistas | 4,000 likes | 163 comentarios | 58 saves | 40 reposts | 24 shares\n` +
+        `• Total Interacciones: 4,285 | Engagement Rate: 2.76%\n` +
+        `• Diagnóstico: Buena retención y dinamismo (163 comentarios). Interacción mayormente pasiva (93% likes), con solo 82 guardados/compartidos.\n\n` +
+        `👤 STEVEN GARAY (@stevengaray):\n` +
+        `• 37,151 vistas | 363 likes | 23 comentarios | 7 reposts | 9 shares | 6 saves\n` +
+        `• Total Interacciones: 408 | Engagement Rate: 1.10%\n` +
+        `• Diagnóstico: Caída temprana por mostrar producto en segundos 0-5 y falta de hook inicial.\n\n` +
+        `💡 ESTRATEGIA LEVEL RECOMENDADA PARA TCC:\n` +
+        `Implementar CTA automatizado: "Comenta la palabra TCC y te enviamos un beneficio por DM" para multiplicar comentarios y tracción algorítmica.`;
+
+      const dummy = document.createElement('textarea');
+      document.body.appendChild(dummy);
+      dummy.value = textToCopy;
+      dummy.select();
+      try {
+        document.execCommand('copy');
+      } catch (err) {}
+      document.body.removeChild(dummy);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderMockupData();
+
+      // Gráfico de Barras: Comparativa
+      const ctxBar = document.getElementById('chartComparisonTab1').getContext('2d');
+      new Chart(ctxBar, {
+        type: 'bar',
+        data: {
+          labels: ['Reproducciones de Reels', 'Total Interacciones'],
+          datasets: [
+            {
+              label: 'Samuel Beleño (ER: 2.76%)',
+              data: [155198, 4285],
+              backgroundColor: '#6B21A8',
+              borderRadius: 8
+            },
+            {
+              label: 'Steven Garay (ER: 1.10%)',
+              data: [37151, 408],
+              backgroundColor: '#240046',
+              borderRadius: 8
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'top',
+              labels: { font: { family: 'Inter', weight: 'bold', size: 11 }, color: '#3B0764' }
+            },
+            tooltip: {
+              backgroundColor: '#240046',
+              padding: 12,
+              cornerRadius: 10,
+              callbacks: {
+                label: function(ctx) {
+                  return ` ${ctx.dataset.label}: ${ctx.raw.toLocaleString('es-CO')}`;
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                font: { family: 'Inter', size: 11 },
+                callback: function(v) { return v.toLocaleString('es-CO'); }
+              }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { font: { family: 'Inter', weight: 'bold' } }
+            }
+          }
+        }
+      });
+
+      // Gráfico Circular: Acciones
+      const ctxDonut = document.getElementById('chartDistributionTab1').getContext('2d');
+      new Chart(ctxDonut, {
+        type: 'doughnut',
+        data: {
+          labels: ['Me Gusta (4,363)', 'Comentarios (186)', 'Guardados (64)', 'Reposts (47)', 'Compartidos (33)'],
+          datasets: [{
+            data: [4363, 186, 64, 47, 33],
+            backgroundColor: ['#6B21A8', '#8B5CF6', '#A855F7', '#3B0764', '#C084FC'],
+            borderWidth: 2,
+            borderColor: '#FFFFFF'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '70%',
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: { boxWidth: 10, font: { family: 'Inter', size: 10.5, weight: '600' }, color: '#3B0764' }
+            },
+            tooltip: {
+              backgroundColor: '#240046',
+              callbacks: {
+                label: function(ctx) {
+                  const pct = ((ctx.raw / 4693) * 100).toFixed(1);
+                  return ` ${ctx.label}: ${pct}% (${ctx.raw})`;
+                }
+              }
+            }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
