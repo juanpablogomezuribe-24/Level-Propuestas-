@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level x Wplay - Propuesta Q4: El Sponsor Oficial de los Hinchas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #080f1d; color: #0F172A; }
+        .text-wplay-gold { color: #FACC15; }
+        .bg-wplay-gold { background-color: #FACC15; }
+        .bg-wplay-blue { background-color: #0A192F; }
+        .border-wplay-gold { border-color: #FACC15; }
+        .active-tab { background-color: #FACC15 !important; color: #0A192F !important; font-weight: 800 !important; }
+        .badge-fee { background-color: #DCFCE7; color: #166534; border: 1px solid #BBF7D0; }
+        .badge-nuevo { background-color: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; }
+        .badge-extra { background-color: #EFF6FF; color: #1E40AF; border: 1px solid #BFDBFE; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #0A192F; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #FACC15; }
+    </style>
+</head>
+<body class="min-h-screen p-2 sm:p-6 flex flex-col justify-between items-center text-slate-800">
+
+    <!-- Contenedor Principal (App Shell) -->
+    <div class="w-full max-w-7xl bg-white rounded-3xl shadow-2xl border border-slate-800/20 overflow-hidden flex flex-col min-h-[92vh]">
+        
+        <!-- Header Superior -->
+        <header class="bg-[#0A192F] text-white px-6 py-4 flex flex-wrap items-center justify-between border-b border-slate-800 gap-4">
+            <div class="flex items-center gap-3.5">
+                <div class="w-11 h-11 bg-[#FACC15] text-[#0A192F] font-black rounded-xl flex items-center justify-center text-xl shadow-lg">
+                    L
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-extrabold tracking-wide text-white text-base sm:text-lg">LEVEL COLOMBIA</span>
+                        <span class="text-xs bg-[#FACC15]/20 text-[#FACC15] px-2 py-0.5 rounded font-black tracking-wider">× WPLAY.CO</span>
+                    </div>
+                    <p class="text-[11px] text-slate-400 font-medium">Q4: El Sponsor Oficial de los Hinchas • Sinergia con Agencia Made</p>
+                </div>
+            </div>
+
+            <!-- Navegación por Pestañas -->
+            <nav class="flex flex-wrap gap-1.5 bg-slate-900/80 p-1.5 rounded-2xl border border-slate-800 text-xs">
+                <button onclick="setTab('partida')" id="tab-btn-partida" class="tab-btn active-tab px-3.5 py-2 rounded-xl font-bold transition flex items-center gap-2 text-slate-300 hover:text-white">
+                    <i class="fa-solid fa-play text-xs"></i> <span>Punto de Partida</span>
+                </button>
+                <button onclick="setTab('circuito')" id="tab-btn-circuito" class="tab-btn px-3.5 py-2 rounded-xl font-bold transition flex items-center gap-2 text-slate-300 hover:text-white">
+                    <i class="fa-brands fa-youtube text-xs"></i> <span>Encartados 360°</span>
+                </button>
+                <button onclick="setTab('pilares')" id="tab-btn-pilares" class="tab-btn px-3.5 py-2 rounded-xl font-bold transition flex items-center gap-2 text-slate-300 hover:text-white">
+                    <i class="fa-solid fa-layer-group text-xs"></i> <span>Los 3 Pilares</span>
+                </button>
+                <button onclick="setTab('silla')" id="tab-btn-silla" class="tab-btn px-3.5 py-2 rounded-xl font-bold transition flex items-center gap-2 text-slate-300 hover:text-white">
+                    <i class="fa-solid fa-chair text-xs"></i> <span>Silla & Teléfono</span>
+                </button>
+                <button onclick="setTab('calendario')" id="tab-btn-calendario" class="tab-btn px-3.5 py-2 rounded-xl font-bold transition flex items-center gap-2 text-slate-300 hover:text-white">
+                    <i class="fa-solid fa-calendar-days text-xs"></i> <span>Calendario Deportivo</span>
+                </button>
+                <button onclick="setTab('deck')" id="tab-btn-deck" class="tab-btn px-3.5 py-2 rounded-xl font-bold transition flex items-center gap-2 text-slate-300 hover:text-white">
+                    <i class="fa-solid fa-desktop text-xs"></i> <span>Modo Deck</span>
+                </button>
+            </nav>
+        </header>
+
+        <!-- Subheader Informativo -->
+        <div class="bg-slate-50 border-b border-slate-200 px-6 py-2.5 flex flex-wrap items-center justify-between text-xs text-slate-600 gap-2">
+            <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                <span class="font-bold text-slate-800">Estrategia Q4:</span>
+                <span>"No patrocinamos la liga, invertimos en los hinchas" (Made + Level)</span>
+            </div>
+            <div class="flex items-center gap-4 text-[11px]">
+                <span class="flex items-center gap-1 font-semibold text-emerald-800"><i class="fa-solid fa-check-circle text-emerald-600"></i> Fee Level Cubierto</span>
+                <span class="flex items-center gap-1 font-semibold text-amber-800"><i class="fa-solid fa-plus-circle text-amber-600"></i> Nueva Acción a Evaluar</span>
+            </div>
+        </div>
+
+        <!-- Contenedor de Vistas -->
+        <main class="flex-1 p-5 sm:p-8 overflow-y-auto bg-white">
+            
+            <!-- VISTA 1: PUNTO DE PARTIDA -->
+            <section id="view-partida" class="view-panel block space-y-6">
+                <div class="max-w-4xl">
+                    <span class="text-xs font-black text-amber-700 uppercase tracking-widest bg-amber-100 px-2.5 py-1 rounded-md">Transparencia Total</span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-slate-900 mt-2">Level ya tiene la maquinaria de Wplay operando</h2>
+                    <p class="text-slate-600 text-sm mt-1 leading-relaxed">
+                        Esta propuesta no viene a inflar costos ni a cobrar una estructura desde cero. Aprovecha la base sólida de 8 años de Level y suma únicamente las activaciones especiales para Q4.
+                    </p>
+                </div>
+
+                <!-- Bento Grid de Certezas -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-amber-400 transition shadow-sm">
+                        <div class="w-10 h-10 rounded-xl bg-[#0A192F] text-[#FACC15] flex items-center justify-center font-black text-lg mb-4">
+                            250
+                        </div>
+                        <h3 class="font-extrabold text-slate-900 text-base mb-1">Contenidos al Mes</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            ~8 piezas diarias producidas y editadas. Meta, TikTok, YouTube y Pauta Digital ya cubiertas bajo el fee actual.
+                        </p>
+                        <div class="mt-4 pt-3 border-t border-slate-200">
+                            <span class="text-[10px] font-black text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded uppercase">100% Cubierto por Fee</span>
+                        </div>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-amber-400 transition shadow-sm">
+                        <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-800 flex items-center justify-center text-lg mb-4">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                        </div>
+                        <h3 class="font-extrabold text-slate-900 text-base mb-1">4 Corresponsales en Cancha</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            Presencia fija en estadios: Bogotá (Millonarios/Santa Fe), Medellín (DIM), Cali y Barranquilla (Junior).
+                        </p>
+                        <div class="mt-4 pt-3 border-t border-slate-200">
+                            <span class="text-[10px] font-black text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded uppercase">Operación Activa</span>
+                        </div>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-amber-400 transition shadow-sm">
+                        <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-800 flex items-center justify-center text-lg mb-4">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <h3 class="font-extrabold text-slate-900 text-base mb-1">Talentos y Embajadores</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            Eduardo Luis, Juan Felipe Cadavid, Sheyla García, Alexis Rodríguez, FSL, Laura Ortiz y Felipe Cerón ya contratados.
+                        </p>
+                        <div class="mt-4 pt-3 border-t border-slate-200">
+                            <span class="text-[10px] font-black text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded uppercase">Sin Costos Duplicados</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cuadro de Sinergia Made x Level -->
+                <div class="bg-gradient-to-r from-[#0A192F] to-slate-900 text-white rounded-2xl p-6 border border-slate-800">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                        <div>
+                            <span class="text-[10px] font-black text-[#FACC15] uppercase tracking-wider block mb-1">La Ecuación Perfecta</span>
+                            <h4 class="text-xl font-black mb-2">Made pone la idea conceptual, Level pone la calle y los hinchas</h4>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                El concepto de Made ("No patrocinamos la liga, invertimos en los hinchas") necesita calle, tribuna y conversación diaria para ser creíble. Level ya tiene la maquinaria encendida para ejecutarlo sin demoras.
+                            </p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3 text-xs">
+                            <div class="bg-white/10 p-3.5 rounded-xl border border-white/10">
+                                <span class="font-black text-[#FACC15] block mb-1">MADE (Estrategia)</span>
+                                <p class="text-[11px] text-slate-200">Manifiesto paraguas, posicionamiento ATL y contrato simbólico.</p>
+                            </div>
+                            <div class="bg-white/10 p-3.5 rounded-xl border border-white/10">
+                                <span class="font-black text-[#FACC15] block mb-1">LEVEL (Digital & Talent)</span>
+                                <p class="text-[11px] text-slate-200">Ejecución en calle, influenciadores, shows en vivo y 250 contenidos/mes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VISTA 2: ENCARTADOS 360 -->
+            <section id="view-circuito" class="view-panel hidden space-y-6">
+                <div class="max-w-4xl">
+                    <span class="text-xs font-black text-red-700 uppercase tracking-widest bg-red-100 px-2.5 py-1 rounded-md">El Altavoz Diario</span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-slate-900 mt-2">Encartados en YouTube: El Circuito de Contenido 360°</h2>
+                    <p class="text-slate-600 text-sm mt-1 leading-relaxed">
+                        El contenido grabado en los estadios no se queda suelto en un Reel: tiene una vitrina diaria en vivo de lunes a viernes (11:00 a 11:40 a.m.) conducida por Eduardo Luis, Sheyla García y Alexis Rodríguez.
+                    </p>
+                </div>
+
+                <!-- Las 3 Fases del Circuito -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <div class="p-6 rounded-2xl bg-slate-50 border-2 border-slate-200 relative">
+                        <span class="w-7 h-7 rounded-full bg-slate-900 text-white font-black text-xs flex items-center justify-center absolute -top-3 left-6">1</span>
+                        <div class="text-amber-500 text-2xl mb-2 mt-2"><i class="fa-solid fa-street-view"></i></div>
+                        <h4 class="font-extrabold text-slate-900 text-base mb-1">EN LA CALLE (Fin de semana)</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            Grabamos las reacciones viscerales de <em>El Desahogo</em>, la previa cómica de <em>Pregunta Divertida</em> y los retos de <em>La Silla de la Suerte</em> en los estadios.
+                        </p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-red-50/50 border-2 border-red-200 relative">
+                        <span class="w-7 h-7 rounded-full bg-red-600 text-white font-black text-xs flex items-center justify-center absolute -top-3 left-6">2</span>
+                        <div class="text-red-600 text-2xl mb-2 mt-2"><i class="fa-brands fa-youtube"></i></div>
+                        <h4 class="font-extrabold text-slate-900 text-base mb-1">EN ENCARTADOS (L-V 11:00 AM)</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            Eduardo Luis, Sheyla y Alexis proyectan los videos, debaten con la audiencia en vivo y comentan las confesiones más insólitas de los hinchas.
+                        </p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-blue-50/50 border-2 border-blue-200 relative">
+                        <span class="w-7 h-7 rounded-full bg-blue-600 text-white font-black text-xs flex items-center justify-center absolute -top-3 left-6">3</span>
+                        <div class="text-blue-600 text-2xl mb-2 mt-2"><i class="fa-solid fa-share-nodes"></i></div>
+                        <h4 class="font-extrabold text-slate-900 text-base mb-1">EN REDES SOCIALES (Tarde/Noche)</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            Recortes dinámicos, Shorts y Reels con los momentos más divertidos del show para sostener alcance orgánico continuo en Instagram y TikTok.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="p-4 rounded-xl bg-slate-900 text-slate-300 text-xs flex items-center justify-between">
+                    <span><strong>Beneficio clave para Wplay:</strong> Se multiplica el valor de la inversión actual del show en YouTube sin gastar en sets adicionales.</span>
+                    <span class="text-emerald-400 font-bold uppercase text-[10px]">Cero sobrecosto de producción</span>
+                </div>
+            </section>
+
+            <!-- VISTA 3: LOS 3 PILARES -->
+            <section id="view-pilares" class="view-panel hidden space-y-6">
+                <div class="max-w-4xl">
+                    <span class="text-xs font-black text-blue-700 uppercase tracking-widest bg-blue-100 px-2.5 py-1 rounded-md">Arquitectura de Contenidos</span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-slate-900 mt-2">Tres Pilares Claros y Ordenados</h2>
+                    <p class="text-slate-600 text-sm mt-1 leading-relaxed">
+                        Dividimos los contenidos para que el equipo de Wplay identifique de inmediato qué entra por fee base y qué es una nueva activación.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Pilar 1 -->
+                    <div class="rounded-2xl border-2 border-emerald-300 bg-white p-5 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-[10px] font-black text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded uppercase">Pilar 01 • Fee Regular</span>
+                                <i class="fa-solid fa-circle-check text-emerald-600"></i>
+                            </div>
+                            <h3 class="font-extrabold text-slate-900 text-lg mb-2">La Tribuna Habla</h3>
+                            <p class="text-xs text-slate-500 mb-4">Formatos que Level ya produce semana a semana y que se enfocarán en las fechas importantes de Q4.</p>
+                            
+                            <ul class="text-xs space-y-2.5 text-slate-700">
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-fire text-amber-500 mt-0.5"></i>
+                                    <div><strong>El Desahogo:</strong> Reacción sin filtro al silbato final (Cali, Millonarios, DIM, Junior).</div>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-face-laugh-beam text-amber-500 mt-0.5"></i>
+                                    <div><strong>Pregunta Divertida:</strong> Arquetipo bufón en la previa, folklore y humor barrista.</div>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-trophy text-amber-500 mt-0.5"></i>
+                                    <div><strong>Top del Hincha & Fijazo:</strong> Rankings históricos y la jugada fija del fin de semana.</div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mt-6 pt-3 border-t border-slate-100 text-[11px] text-emerald-700 font-bold text-center">
+                            100% CUBIERTO POR FEE ACTUAL
+                        </div>
+                    </div>
+
+                    <!-- Pilar 2 -->
+                    <div class="rounded-2xl border-2 border-blue-300 bg-white p-5 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-[10px] font-black text-blue-800 bg-blue-100 px-2 py-0.5 rounded uppercase">Pilar 02 • Contenido Nuevo</span>
+                                <i class="fa-solid fa-video text-blue-600"></i>
+                            </div>
+                            <h3 class="font-extrabold text-slate-900 text-lg mb-2">Historias del Aguante</h3>
+                            <p class="text-xs text-slate-500 mb-4">4 microdocumentales emocionales (90-120 seg) conducidos por un influenciador storyteller de calle.</p>
+                            
+                            <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-700 mb-2">
+                                <div class="bg-slate-50 p-2 rounded-lg border border-slate-200">
+                                    <strong>1. Barbero / Tatuador</strong><br><span class="text-slate-500">Escudos en la piel</span>
+                                </div>
+                                <div class="bg-slate-50 p-2 rounded-lg border border-slate-200">
+                                    <strong>2. Mensajero en Moto</strong><br><span class="text-slate-500">Radio en el casco</span>
+                                </div>
+                                <div class="bg-slate-50 p-2 rounded-lg border border-slate-200">
+                                    <strong>3. Hincha Viajero</strong><br><span class="text-slate-500">A dedo por su club</span>
+                                </div>
+                                <div class="bg-slate-50 p-2 rounded-lg border border-slate-200">
+                                    <strong>4. Cocinera de Cancha</strong><br><span class="text-slate-500">35 años de tribuna</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6 pt-3 border-t border-slate-100 text-[11px] text-blue-700 font-bold text-center">
+                            4 ENTREGAS • A EVALUAR / COTIZAR
+                        </div>
+                    </div>
+
+                    <!-- Pilar 3 -->
+                    <div class="rounded-2xl border-2 border-amber-300 bg-white p-5 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-[10px] font-black text-amber-800 bg-amber-100 px-2 py-0.5 rounded uppercase">Pilar 03 • Activación Calle</span>
+                                <i class="fa-solid fa-bullhorn text-amber-600"></i>
+                            </div>
+                            <h3 class="font-extrabold text-slate-900 text-lg mb-2">Experiencias del Hincha</h3>
+                            <p class="text-xs text-slate-500 mb-4">Intervenciones urbanas sorpresa que invitan al hincha a interactuar de frente con Wplay.</p>
+                            
+                            <ul class="text-xs space-y-2.5 text-slate-700">
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-chair text-amber-500 mt-0.5"></i>
+                                    <div><strong>La Silla de la Suerte:</strong> Butaca de estadio itinerante. "Si te sientas, juegas" por boletas, recargas y abonos.</div>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-phone text-blue-500 mt-0.5"></i>
+                                    <div><strong>¿Qué le dirías a Lucho Díaz?:</strong> Teléfono retro en la calle para dejarle mensajes al crack antes de su partido.</div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mt-6 pt-3 border-t border-slate-100 text-[11px] text-amber-700 font-bold text-center">
+                            ACTIVACIONES TENTPOLE • A EVALUAR / COTIZAR
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VISTA 4: SILLA & TELÉFONO (CON FOTOS REALES) -->
+            <section id="view-silla" class="view-panel hidden space-y-8">
+                <!-- Bloque 1: La Silla de la Suerte -->
+                <div class="border-b border-slate-200 pb-8">
+                    <div class="max-w-4xl mb-4">
+                        <span class="text-xs font-black text-amber-800 uppercase tracking-widest bg-amber-100 px-2.5 py-1 rounded-md">Activación Tentpole</span>
+                        <h2 class="text-2xl sm:text-3xl font-black text-slate-900 mt-2">La Silla de la Suerte</h2>
+                        <p class="text-slate-600 text-sm mt-1">Una propiedad de contenido de Wplay, apalancada por Fútbol Sin Límite y creadores pasionales.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+                        <!-- Foto de Referencia Directa -->
+                        <div class="md:col-span-5 bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 shadow-md flex flex-col">
+                            <div class="relative group h-80 flex items-center justify-center bg-slate-950 p-2">
+                                <img src="https://i.postimg.cc/3rkvm0Nr/Whats-App-Image-2026-10-09-at-5-15-52-PM.jpg" 
+                                     alt="Referencia La Silla del Milagro" 
+                                     class="w-full h-full object-contain rounded-xl transition duration-300 group-hover:scale-105 cursor-pointer"
+                                     onclick="window.open(this.src, '_blank')">
+                                <a href="https://i.postimg.cc/3rkvm0Nr/Whats-App-Image-2026-10-09-at-5-15-52-PM.jpg" target="_blank" class="absolute bottom-3 right-3 bg-black/75 backdrop-blur-sm text-[11px] text-white px-2.5 py-1 rounded-md font-bold flex items-center gap-1.5 hover:bg-black">
+                                    <i class="fa-solid fa-magnifying-glass-plus"></i> Abrir foto
+                                </a>
+                            </div>
+                            <div class="p-3 bg-white text-slate-800 border-t border-slate-200 flex items-center justify-between">
+                                <div>
+                                    <span class="text-[10px] font-black text-slate-400 uppercase tracking-tight block">Inspiración Viral:</span>
+                                    <span class="text-xs font-black text-slate-900">@lasilladelmilagro (103k seguidores)</span>
+                                </div>
+                                <span class="text-[10px] font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded">Formato Probado</span>
+                            </div>
+                        </div>
+
+                        <!-- Mecánica de La Silla -->
+                        <div class="md:col-span-7 space-y-4">
+                            <h3 class="text-base font-extrabold text-slate-900">¿Cómo funciona la dinámica?</h3>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                                <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                                    <span class="w-5 h-5 rounded-full bg-slate-900 text-white font-bold text-[10px] inline-flex items-center justify-center mr-1.5">1</span>
+                                    <strong>Ubicación de Impacto:</strong> Se coloca una butaca marcada con Wplay afuera del estadio o en una esquina futbolera.
+                                </div>
+                                <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                                    <span class="w-5 h-5 rounded-full bg-slate-900 text-white font-bold text-[10px] inline-flex items-center justify-center mr-1.5">2</span>
+                                    <strong>El Reto:</strong> Quien se sienta tiene 30 segundos para una trivia de su club o reto con balón.
+                                </div>
+                                <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                                    <span class="w-5 h-5 rounded-full bg-slate-900 text-white font-bold text-[10px] inline-flex items-center justify-center mr-1.5">3</span>
+                                    <strong>Premio o Penitencia:</strong> Si gana, recargas o boletas; si pierde, penitencia cómica en cámara.
+                                </div>
+                                <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                                    <span class="w-5 h-5 rounded-full bg-slate-900 text-white font-bold text-[10px] inline-flex items-center justify-center mr-1.5">4</span>
+                                    <strong>Distribución:</strong> Los momentos virales se suben a TikTok/Reels y se debaten en vivo en <em>Encartados</em>.
+                                </div>
+                            </div>
+
+                            <div class="p-3.5 bg-amber-50 rounded-xl border border-amber-200 text-xs text-amber-900">
+                                <strong>Nota clave:</strong> No se propone crear un perfil independiente. La silla es una propiedad que vive y suma seguidores a los canales oficiales de <strong>Wplay</strong>.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bloque 2: ¿Qué le dirías a Lucho? -->
+                <div>
+                    <div class="max-w-4xl mb-4">
+                        <span class="text-xs font-black text-blue-800 uppercase tracking-widest bg-blue-100 px-2.5 py-1 rounded-md">Activación de Calle</span>
+                        <h2 class="text-2xl sm:text-3xl font-black text-slate-900 mt-2">¿Qué le dirías a Lucho Díaz?</h2>
+                        <p class="text-slate-600 text-sm mt-1">Un teléfono vintage, una pregunta y mensajes espontáneos con altísimo potencial de conversación.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+                        <!-- Foto de Referencia Directa -->
+                        <div class="md:col-span-5 bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 shadow-md flex flex-col">
+                            <div class="relative group h-80 flex items-center justify-center bg-slate-950 p-2">
+                                <img src="https://i.postimg.cc/SQnMCYRh/Whats-App-Image-2026-10-09-at-5-15-51-PM.jpg" 
+                                     alt="Referencia Teléfono Messi" 
+                                     class="w-full h-full object-contain rounded-xl transition duration-300 group-hover:scale-105 cursor-pointer"
+                                     onclick="window.open(this.src, '_blank')">
+                                <a href="https://i.postimg.cc/SQnMCYRh/Whats-App-Image-2026-10-09-at-5-15-51-PM.jpg" target="_blank" class="absolute bottom-3 right-3 bg-black/75 backdrop-blur-sm text-[11px] text-white px-2.5 py-1 rounded-md font-bold flex items-center gap-1.5 hover:bg-black">
+                                    <i class="fa-solid fa-magnifying-glass-plus"></i> Abrir foto
+                                </a>
+                            </div>
+                            <div class="p-3 bg-white text-slate-800 border-t border-slate-200 flex items-center justify-between">
+                                <div>
+                                    <span class="text-[10px] font-black text-slate-400 uppercase tracking-tight block">Inspiración Viral:</span>
+                                    <span class="text-xs font-black text-slate-900">"¿Qué le dirías a Messi?" (601k likes)</span>
+                                </div>
+                                <span class="text-[10px] font-bold text-blue-800 bg-blue-100 px-2 py-0.5 rounded">Formato Viral</span>
+                            </div>
+                        </div>
+
+                        <!-- Mecánica de El Teléfono -->
+                        <div class="md:col-span-7 space-y-4">
+                            <h3 class="text-base font-extrabold text-slate-900">La Pregunta lo es Todo</h3>
+                            <div class="p-4 bg-slate-50 border border-slate-200 rounded-2xl text-xs space-y-2.5">
+                                <p class="text-slate-700">
+                                    <strong>"Si Lucho Díaz contestara esta llamada en este instante, ¿qué le dirías?"</strong>
+                                </p>
+                                <p class="text-slate-500 leading-relaxed">
+                                    Instalamos una mesa sencilla con un teléfono retro en una plaza concurrida en la previa del partido de Luis Díaz. Los hinchas descolgan y dejan mensajes divertidos, bendiciones y reflexiones sinceras.
+                                </p>
+                            </div>
+
+                            <div class="p-3.5 bg-blue-50 rounded-xl border border-blue-200 text-xs text-blue-900">
+                                <strong>Momento propuesto:</strong> 3 de Noviembre (Atlético de Madrid vs. Bayern Múnich / Partido de Luis Díaz).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VISTA 5: CALENDARIO DEPORTIVO (EXCEL ADAPTADO) -->
+            <section id="view-calendario" class="view-panel hidden space-y-6">
+                <div class="max-w-4xl">
+                    <span class="text-xs font-black text-slate-800 uppercase tracking-widest bg-slate-200 px-2.5 py-1 rounded-md">Portafolio Q4</span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-slate-900 mt-2">Calendario Deportivo & Momentos Clave</h2>
+                    <p class="text-slate-600 text-sm mt-1 leading-relaxed">
+                        Fechas y partidos mapeados para cruzar los formatos actuales de Level con las activaciones especiales propuestas.
+                    </p>
+                </div>
+
+                <!-- Tabla Ejecutiva de Calendario -->
+                <div class="border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+                    <table class="w-full text-left text-xs">
+                        <thead class="bg-slate-900 text-white font-bold text-[11px] uppercase tracking-wider">
+                            <tr>
+                                <th class="p-3.5">Momento / Fecha</th>
+                                <th class="p-3.5">Hito Deportivo</th>
+                                <th class="p-3.5">Formato & Acción</th>
+                                <th class="p-3.5">Talentos Sugeridos</th>
+                                <th class="p-3.5 text-right">Estado Operativo</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 bg-white">
+                            <!-- Hito 1 -->
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="p-3.5 font-bold text-slate-900 whitespace-nowrap">
+                                    <span class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-mono">OCTUBRE</span>
+                                </td>
+                                <td class="p-3.5 font-bold text-slate-800">Lanzamiento del Manifiesto</td>
+                                <td class="p-3.5 text-slate-600">Video Manifiesto + Rueda de Prensa simbólica de hinchas.</td>
+                                <td class="p-3.5 text-slate-700">A cargo de Made + Embajadores Wplay (Cadavid, Eduardo Luis).</td>
+                                <td class="p-3.5 text-right whitespace-nowrap">
+                                    <span class="badge-fee px-2 py-0.5 rounded font-bold text-[10px]">CUBIERTO PARCIAL</span>
+                                </td>
+                            </tr>
+
+                            <!-- Hito 2 -->
+                            <tr class="hover:bg-slate-50 transition bg-amber-50/30">
+                                <td class="p-3.5 font-bold text-slate-900 whitespace-nowrap">
+                                    <span class="bg-amber-100 text-amber-900 px-2 py-0.5 rounded font-mono font-bold">23 OCTUBRE</span>
+                                </td>
+                                <td class="p-3.5 font-bold text-slate-900">
+                                    Clásico Paisa (Copa)<br>
+                                    <span class="text-[11px] font-normal text-slate-500">Nacional vs. Medellín</span>
+                                </td>
+                                <td class="p-3.5 text-slate-700">
+                                    La Tribuna Habla (El Desahogo + Pregunta Divertida) + Creadores barriales.
+                                </td>
+                                <td class="p-3.5 font-semibold text-slate-900">
+                                    La Liendra + Mateo Carvajal<br>
+                                    <span class="text-[10px] text-slate-500">Alt: Valentina Taguado</span>
+                                </td>
+                                <td class="p-3.5 text-right whitespace-nowrap">
+                                    <span class="badge-fee px-2 py-0.5 rounded font-bold text-[10px] block mb-1">TRIBUNA CUBIERTA</span>
+                                    <span class="badge-nuevo px-2 py-0.5 rounded font-bold text-[10px]">CREADORES A COTIZAR</span>
+                                </td>
+                            </tr>
+
+                            <!-- Hito 3 -->
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="p-3.5 font-bold text-slate-900 whitespace-nowrap">
+                                    <span class="bg-blue-100 text-blue-900 px-2 py-0.5 rounded font-mono font-bold">3 NOVIEMBRE</span>
+                                </td>
+                                <td class="p-3.5 font-bold text-slate-800">
+                                    Partido de Luis Díaz<br>
+                                    <span class="text-[11px] font-normal text-slate-500">Atleti vs. Bayern (Internacional)</span>
+                                </td>
+                                <td class="p-3.5 text-slate-700">
+                                    Experiencia del Teléfono: <strong>"¿Qué le dirías a Lucho?"</strong> en calle.
+                                </td>
+                                <td class="p-3.5 text-slate-700">
+                                    Host de calle Level + Comunidad de hinchas.
+                                </td>
+                                <td class="p-3.5 text-right whitespace-nowrap">
+                                    <span class="badge-nuevo px-2 py-0.5 rounded font-bold text-[10px]">ACCIÓN NUEVA</span>
+                                </td>
+                            </tr>
+
+                            <!-- Hito 4 -->
+                            <tr class="hover:bg-slate-50 transition bg-amber-50/30">
+                                <td class="p-3.5 font-bold text-slate-900 whitespace-nowrap">
+                                    <span class="bg-amber-100 text-amber-900 px-2 py-0.5 rounded font-mono font-bold">8 NOVIEMBRE</span>
+                                </td>
+                                <td class="p-3.5 font-bold text-slate-900">
+                                    Fin Todos contra Todos<br>
+                                    <span class="text-[11px] font-normal text-slate-500">Fecha 20 FPC (Definición)</span>
+                                </td>
+                                <td class="p-3.5 text-slate-700">
+                                    Parada #1 de <strong>La Silla de la Suerte</strong>: "¿A qué equipo le das la suerte?".
+                                </td>
+                                <td class="p-3.5 font-semibold text-slate-900">
+                                    Fútbol Sin Límite (FSL) + Corresponsales Level.
+                                </td>
+                                <td class="p-3.5 text-right whitespace-nowrap">
+                                    <span class="badge-nuevo px-2 py-0.5 rounded font-bold text-[10px]">SILLA A COTIZAR</span>
+                                </td>
+                            </tr>
+
+                            <!-- Hito 5 -->
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="p-3.5 font-bold text-slate-900 whitespace-nowrap">
+                                    <span class="bg-yellow-100 text-yellow-900 px-2 py-0.5 rounded font-mono font-bold">13 NOVIEMBRE</span>
+                                </td>
+                                <td class="p-3.5 font-bold text-slate-800">
+                                    Colombia vs. Chile<br>
+                                    <span class="text-[11px] font-normal text-slate-500">Eliminatorias Conmebol en Cali</span>
+                                </td>
+                                <td class="p-3.5 text-slate-700">
+                                    Parada #2 de <strong>La Silla de la Suerte</strong> (Edición Tricolor).
+                                </td>
+                                <td class="p-3.5 font-semibold text-slate-900">
+                                    Garay o Edwin Herrera (Creador local).
+                                </td>
+                                <td class="p-3.5 text-right whitespace-nowrap">
+                                    <span class="badge-nuevo px-2 py-0.5 rounded font-bold text-[10px]">ACCIÓN + CREADOR</span>
+                                </td>
+                            </tr>
+
+                            <!-- Hito 6 -->
+                            <tr class="hover:bg-slate-50 transition bg-amber-50/30">
+                                <td class="p-3.5 font-bold text-slate-900 whitespace-nowrap">
+                                    <span class="bg-amber-100 text-amber-900 px-2 py-0.5 rounded font-mono font-bold">DICIEMBRE</span>
+                                </td>
+                                <td class="p-3.5 font-bold text-slate-900">
+                                    Gran Final FPC<br>
+                                    <span class="text-[11px] font-normal text-slate-500">Partidos de Ida y Vuelta</span>
+                                </td>
+                                <td class="p-3.5 text-slate-700">
+                                    Parada #3: <strong>"El Trono del Campeón"</strong> (Silla) + Desahogo XXL + Boletas.
+                                </td>
+                                <td class="p-3.5 font-semibold text-slate-900">
+                                    2 Creadores de las hinchadas finalistas + Embajadores Wplay.
+                                </td>
+                                <td class="p-3.5 text-right whitespace-nowrap">
+                                    <span class="badge-nuevo px-2 py-0.5 rounded font-bold text-[10px]">A EVALUAR / FINAL</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-500 flex flex-wrap items-center justify-between gap-2">
+                    <span>* Las fechas y partidos están sujetos a confirmación oficial de Dimayor y Conmebol.</span>
+                    <span class="font-bold text-slate-700">Los nombres de creadores son propuestas de casting para validación comercial.</span>
+                </div>
+            </section>
+
+            <!-- VISTA 6: MODO DECK (PRESENTACIÓN DIRECTA) -->
+            <section id="view-deck" class="view-panel hidden space-y-6">
+                <!-- Barra de Navegación del Deck -->
+                <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                    <div>
+                        <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block">Modo Diapositivas</span>
+                        <h3 class="font-black text-slate-900 text-base" id="deck-slide-title">Diapositiva 1 de 6</h3>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="prevSlide()" class="px-3 py-1.5 rounded-lg border border-slate-300 text-xs font-bold hover:bg-slate-100 transition">
+                            <i class="fa-solid fa-arrow-left mr-1"></i> Anterior
+                        </button>
+                        <span id="deck-counter" class="text-xs font-bold text-slate-600 px-2">1 / 6</span>
+                        <button onclick="nextSlide()" class="px-3 py-1.5 rounded-lg bg-slate-900 text-white text-xs font-bold hover:bg-slate-800 transition">
+                            Siguiente <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Contenedor de la Diapositiva Activa -->
+                <div id="deck-container" class="bg-slate-50 rounded-2xl p-6 sm:p-8 border border-slate-200 min-h-[380px] flex flex-col justify-between">
+                    <!-- Contenido inyectado por JS -->
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-slate-900 text-slate-400 px-6 py-3 border-t border-slate-800 flex flex-wrap items-center justify-between text-xs gap-3">
+            <div>
+                <span class="text-white font-bold">Level Colombia</span> • Propuesta Q4 para Wplay.co & Agencia Made
+            </div>
+            <div class="flex items-center gap-4 text-[11px]">
+                <button onclick="setTab('deck')" class="text-[#FACC15] hover:underline font-bold">
+                    <i class="fa-solid fa-expand mr-1"></i> Proyectar Presentación
+                </button>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Scripting -->
+    <script>
+        // Tab switching
+        function setTab(tabName) {
+            document.querySelectorAll('.view-panel').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active-tab'));
+
+            const activeView = document.getElementById(`view-${tabName}`);
+            const activeBtn = document.getElementById(`tab-btn-${tabName}`);
+
+            if(activeView) activeView.classList.remove('hidden');
+            if(activeBtn) activeBtn.classList.add('active-tab');
+
+            if(tabName === 'deck') {
+                renderSlide(currentSlide);
+            }
+        }
+
+        // Slides Deck
+        let currentSlide = 0;
+        const slides = [
+            {
+                tag: "DIAPOSITIVA 01 • PUNTO DE PARTIDA",
+                title: "Wplay: El Sponsor Oficial de los Hinchas",
+                subtitle: "Level ya tiene una operación de contenidos corriendo. Aprovechamos esa base y sumamos acciones clave para Q4.",
+                badge: "OPERACIÓN BASE CUBIERTA",
+                html: `
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                            <span class="text-2xl font-black text-slate-900 block mb-1">~250</span>
+                            <span class="text-xs font-bold text-slate-800 block">Contenidos al Mes</span>
+                            <p class="text-[11px] text-slate-500 mt-1">Producción base en Meta, TikTok, YouTube y Pauta Digital ya cubierta.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                            <span class="text-2xl font-black text-blue-600 block mb-1">4</span>
+                            <span class="text-xs font-bold text-slate-800 block">Corresponsales Fijos</span>
+                            <p class="text-[11px] text-slate-500 mt-1">Bogotá, Medellín, Cali y Barranquilla con presencia en cancha.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                            <span class="text-2xl font-black text-emerald-600 block mb-1">8 Años</span>
+                            <span class="text-xs font-bold text-slate-800 block">Relación de Confianza</span>
+                            <p class="text-[11px] text-slate-500 mt-1">Talentos propios: Cadavid, Eduardo Luis, Sheyla, Alexis, FSL y Cerón.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                tag: "DIAPOSITIVA 02 • ENCARTADOS EN YOUTUBE",
+                title: "¿Cómo va a funcionar? El Circuito 360°",
+                subtitle: "El contenido vive en la calle, se proyecta y comenta al mediodía en Encartados, y se viraliza en redes.",
+                badge: "SHOW EN VIVO",
+                html: `
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-4 text-xs">
+                        <div class="p-4 rounded-xl bg-white border border-slate-200">
+                            <span class="font-black text-slate-900 block text-sm mb-1">01. En la Calle</span>
+                            <p class="text-slate-500">Grabamos reacciones con El Desahogo, retos en La Silla de la Suerte y la previa de los estadios.</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-red-50 border border-red-200">
+                            <span class="font-black text-red-900 block text-sm mb-1">02. En Encartados (11 AM)</span>
+                            <p class="text-red-700">Mostramos lo mejor en el show de YouTube de Wplay con Eduardo Luis, Sheyla y Alexis.</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-blue-50 border border-blue-200">
+                            <span class="font-black text-blue-900 block text-sm mb-1">03. En Redes</span>
+                            <p class="text-blue-700">Cortes dinámicos, Reels y Shorts que sostienen la conversación durante toda la semana.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                tag: "DIAPOSITIVA 03 • LOS TRES PILARES",
+                title: "Tres Pilares Claros de Contenido",
+                subtitle: "Organizamos lo que ya está incluido y lo que requiere presupuesto nuevo de producción.",
+                badge: "ESTRUCTURA",
+                html: `
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-4 text-xs">
+                        <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200">
+                            <span class="text-[10px] font-black text-emerald-800 uppercase block mb-1">Pilar 01 • Fee Level</span>
+                            <h4 class="font-extrabold text-slate-900 text-sm mb-1">La Tribuna Habla</h4>
+                            <p class="text-slate-600">El Desahogo, Pregunta Divertida y Top del Hincha en las 4 ciudades.</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-blue-50 border border-blue-200">
+                            <span class="text-[10px] font-black text-blue-800 uppercase block mb-1">Pilar 02 • A Cotizar</span>
+                            <h4 class="font-extrabold text-slate-900 text-sm mb-1">Historias del Aguante</h4>
+                            <p class="text-slate-600">4 microdocumentales con un storyteller (barbero, mensajero, hincha viajero, cocinera).</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-amber-50 border border-amber-200">
+                            <span class="text-[10px] font-black text-amber-800 uppercase block mb-1">Pilar 03 • A Cotizar</span>
+                            <h4 class="font-extrabold text-slate-900 text-sm mb-1">Experiencias del Hincha</h4>
+                            <p class="text-slate-600">La Silla de la Suerte y El Teléfono de Lucho Díaz en momentos clave.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                tag: "DIAPOSITIVA 04 • EJEMPLOS VISUALES",
+                title: "Referencias Visuales: La Silla & El Teléfono",
+                subtitle: "Formatos probados de alta retención que aterrizan en la comunidad de Wplay.",
+                badge: "FOTOS REALES",
+                html: `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-2 text-xs">
+                        <div class="p-3 bg-white rounded-xl border border-slate-200 flex items-center gap-3">
+                            <img src="https://i.postimg.cc/3rkvm0Nr/Whats-App-Image-2026-10-09-at-5-15-52-PM.jpg" class="w-20 h-28 object-cover rounded-lg border border-slate-300">
+                            <div>
+                                <span class="text-[10px] font-black text-amber-800 bg-amber-100 px-2 py-0.5 rounded">LA SILLA DE LA SUERTE</span>
+                                <h4 class="font-bold text-slate-900 text-xs mt-1">@lasilladelmilagro</h4>
+                                <p class="text-slate-500 text-[11px] mt-0.5">Trivias de 30 segundos, retos y premios en vivo en los estadios.</p>
+                            </div>
+                        </div>
+                        <div class="p-3 bg-white rounded-xl border border-slate-200 flex items-center gap-3">
+                            <img src="https://i.postimg.cc/SQnMCYRh/Whats-App-Image-2026-10-09-at-5-15-51-PM.jpg" class="w-20 h-28 object-cover rounded-lg border border-slate-300">
+                            <div>
+                                <span class="text-[10px] font-black text-blue-800 bg-blue-100 px-2 py-0.5 rounded">¿QUÉ LE DIRÍAS A LUCHO?</span>
+                                <h4 class="font-bold text-slate-900 text-xs mt-1">"¿Qué le dirías a Messi?"</h4>
+                                <p class="text-slate-500 text-[11px] mt-0.5">Teléfono callejero para dejar mensajes directos a Luis Díaz.</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                tag: "DIAPOSITIVA 05 • CALENDARIO DEPORTIVO",
+                title: "Momentos Deportivos Clave de Q4",
+                subtitle: "El cronograma que cruza los hitos del fútbol con las acciones específicas.",
+                badge: "CALENDARIO",
+                html: `
+                    <div class="space-y-2 my-2 text-xs">
+                        <div class="p-2.5 bg-white rounded-xl border border-slate-200 flex items-center justify-between">
+                            <div><strong class="text-amber-800">23 OCT:</strong> Clásico Paisa (Copa) • La Tribuna Habla + Creadores (La Liendra / Mateo Carvajal).</div>
+                            <span class="text-[10px] font-bold text-slate-600">Medellín</span>
+                        </div>
+                        <div class="p-2.5 bg-white rounded-xl border border-slate-200 flex items-center justify-between">
+                            <div><strong class="text-blue-800">3 NOV:</strong> Partido de Luis Díaz • Teléfono "¿Qué le dirías a Lucho?".</div>
+                            <span class="text-[10px] font-bold text-slate-600">Internacional</span>
+                        </div>
+                        <div class="p-2.5 bg-white rounded-xl border border-slate-200 flex items-center justify-between">
+                            <div><strong class="text-amber-800">8 NOV:</strong> Fin Todos contra Todos • La Silla de la Suerte (Parada 1 con FSL).</div>
+                            <span class="text-[10px] font-bold text-slate-600">FPC</span>
+                        </div>
+                        <div class="p-2.5 bg-white rounded-xl border border-slate-200 flex items-center justify-between">
+                            <div><strong class="text-yellow-800">13 NOV:</strong> Colombia vs. Chile • La Silla de la Suerte (Parada 2 con Garay o Herrera).</div>
+                            <span class="text-[10px] font-bold text-slate-600">Cali / Barranquilla</span>
+                        </div>
+                        <div class="p-2.5 bg-white rounded-xl border border-slate-200 flex items-center justify-between">
+                            <div><strong class="text-slate-900">DICIEMBRE:</strong> Gran Final FPC • La Silla: El Trono del Campeón + 2 Creadores de plaza.</div>
+                            <span class="text-[10px] font-bold text-slate-600">Finales</span>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                tag: "DIAPOSITIVA 06 • SIGUIENTES PASOS",
+                title: "Del Concepto a la Ejecución",
+                subtitle: "Tres pasos sencillos para salir a la cancha de inmediato con Wplay.",
+                badge: "PLAN DE ACCIÓN",
+                html: `
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-4 text-xs">
+                        <div class="p-4 rounded-xl bg-white border border-slate-200">
+                            <span class="font-black text-slate-900 block text-sm mb-1">01. Confirmar Fechas</span>
+                            <p class="text-slate-500">Cruzar el portafolio deportivo con el calendario real de partidos.</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-white border border-slate-200">
+                            <span class="font-black text-slate-900 block text-sm mb-1">02. Escoger Módulos</span>
+                            <p class="text-slate-500">Definir en cuáles fechas va La Silla, El Teléfono y las 4 Historias del Aguante.</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-white border border-slate-200">
+                            <span class="font-black text-slate-900 block text-sm mb-1">03. Cerrar Casting</span>
+                            <p class="text-slate-500">Validar los creadores de plaza y los permisos de producción.</p>
+                        </div>
+                    </div>
+                `
+            }
+        ];
+
+        function renderSlide(idx) {
+            const slide = slides[idx];
+            document.getElementById('deck-counter').innerText = `${idx + 1} / ${slides.length}`;
+            document.getElementById('deck-slide-title').innerText = slide.tag;
+
+            const container = document.getElementById('deck-container');
+            container.innerHTML = `
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">${slide.tag}</span>
+                        <span class="text-[10px] font-black text-slate-700 bg-white border border-slate-200 px-2 py-0.5 rounded">${slide.badge}</span>
+                    </div>
+                    <h3 class="text-2xl font-black text-slate-900 mb-1">${slide.title}</h3>
+                    <p class="text-xs text-slate-500">${slide.subtitle}</p>
+                    <div class="mt-4">${slide.html}</div>
+                </div>
+                <div class="pt-4 border-t border-slate-200 flex justify-between items-center text-[11px] text-slate-400">
+                    <span>Level Colombia × Wplay • Q4 2026</span>
+                    <span class="font-bold text-slate-600">Usa las flechas para navegar</span>
+                </div>
+            `;
+        }
+
+        function nextSlide() {
+            if(currentSlide < slides.length - 1) {
+                currentSlide++;
+                renderSlide(currentSlide);
+            }
+        }
+
+        function prevSlide() {
+            if(currentSlide > 0) {
+                currentSlide--;
+                renderSlide(currentSlide);
+            }
+        }
+    </script>
+</body>
+</html>
