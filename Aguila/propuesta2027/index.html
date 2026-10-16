@@ -1,0 +1,2081 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Estrellas Águila 2027 — Propuesta Comercial Level Colombia</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,600;0,700;0,800;0,900;1,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            aguila: {
+              dark: '#031126',
+              navy: '#002454',
+              blue: '#0038A8',
+              sky: '#0066FF',
+              yellow: '#FFD100',
+              gold: '#F5B800'
+            },
+            whatsapp: {
+              teal: '#075E54',
+              green: '#25D366',
+              chat: '#0B141A',
+              bubble: '#1F2C34',
+              out: '#005C4B'
+            },
+            blupit: {
+              purple: '#4F39F6',
+              light: '#F8F9FE'
+            }
+          },
+          fontFamily: {
+            display: ['Montserrat', 'sans-serif'],
+            sans: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #031126;
+      color: #ffffff;
+      overflow: hidden;
+    }
+    h1, h2, h3, h4, .font-display {
+      font-family: 'Montserrat', sans-serif;
+    }
+    .stage-bg {
+      background: radial-gradient(circle at 50% 0%, #0038A8 0%, #001F54 52%, #031126 100%);
+      position: relative;
+    }
+    .stage-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+    .card-clean {
+      background: rgba(255, 255, 255, 0.055);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+    .card-highlight {
+      background: linear-gradient(135deg, rgba(255, 209, 0, 0.14) 0%, rgba(0, 56, 168, 0.38) 100%);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 209, 0, 0.5);
+    }
+    .editable-active [contenteditable="true"] {
+      outline: 1px dashed #FFD100;
+      outline-offset: 3px;
+      border-radius: 4px;
+      cursor: text;
+    }
+    .editable-active [contenteditable="true"]:focus {
+      outline: 2px solid #25D366;
+      background: rgba(255, 209, 0, 0.12);
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(3, 17, 38, 0.6);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 209, 0, 0.45);
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="h-screen w-screen flex flex-col select-none">
+
+  <header class="h-14 bg-aguila-dark/95 border-b border-white/10 px-4 flex items-center justify-between z-30 shrink-0">
+    <div class="flex items-center gap-3">
+      <button onclick="toggleSidebar()" class="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-aguila-yellow hover:text-aguila-dark transition flex items-center gap-2 text-xs font-display font-bold uppercase tracking-wider border border-white/10">
+        <i class="ph-bold ph-list-numbers text-base"></i>
+        <span id="indexButtonLabel">Índice (35)</span>
+      </button>
+      <div class="h-5 w-[1px] bg-white/15 hidden sm:block"></div>
+      <div class="flex items-center gap-2">
+        <span class="px-2.5 py-1 rounded-md bg-aguila-yellow text-aguila-dark font-display font-black text-xs tracking-wider">ESTRELLAS ÁGUILA 2027</span>
+        <span class="text-xs text-white/60 font-medium hidden lg:inline">Propuesta comercial · Level Colombia</span>
+      </div>
+    </div>
+
+    <!-- Global Destination Switcher -->
+    <div class="hidden md:flex items-center gap-2 bg-white/5 px-2.5 py-1 rounded-xl border border-white/10 text-xs">
+      <span class="text-white/60 text-[11px] font-medium">Destino de Participación:</span>
+      <button onclick="setGlobalDestination('BLUPIT')" id="destBtnBlupit" class="px-2.5 py-1 rounded-lg font-bold transition flex items-center gap-1">
+        <i class="ph-fill ph-whatsapp-logo"></i> Con Blupit (WhatsApp)
+      </button>
+      <button onclick="setGlobalDestination('LANDING')" id="destBtnLanding" class="px-2.5 py-1 rounded-lg font-bold transition flex items-center gap-1">
+        <i class="ph-bold ph-globe"></i> Sin Blupit (Landing Oficial)
+      </button>
+    </div>
+
+    <!-- Right Controls -->
+    <div class="flex items-center gap-2">
+      <button id="editModeBtn" onclick="toggleEditMode()" class="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/15 border border-white/15 text-xs font-semibold flex items-center gap-1.5 transition" title="Editar textos directamente en la diapositiva">
+        <i class="ph-bold ph-pencil-simple"></i>
+        <span class="hidden sm:inline">Editar Textos</span>
+      </button>
+      <button onclick="openBlupitModal()" class="px-3 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 text-xs font-display font-black flex items-center gap-1.5 shadow-lg transition">
+        <i class="ph-fill ph-whatsapp-logo text-sm"></i>
+        <span class="hidden sm:inline">Demo Blupit + Admin</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="flex-1 flex overflow-hidden relative">
+    
+    <!-- Slide Index Drawer -->
+    <aside id="slideDrawer" class="w-80 bg-aguila-dark/98 border-r border-white/15 flex flex-col z-40 transition-all duration-300 -ml-80 absolute md:relative h-full">
+      <div class="p-4 border-b border-white/10 flex items-center justify-between">
+        <div>
+          <h3 id="drawerTitle" class="font-display font-bold text-xs text-aguila-yellow uppercase tracking-wider">Navegación Directa (35 Slides)</h3>
+          <p class="text-[11px] text-white/60">Estructura Oficial del Documento Maestro</p>
+        </div>
+        <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-white/10 text-white/70">
+          <i class="ph-bold ph-x"></i>
+        </button>
+      </div>
+      <div id="drawerList" class="flex-1 overflow-y-auto p-3 space-y-1"></div>
+    </aside>
+
+    <!-- Main 16:9 Stage -->
+    <main class="flex-1 stage-bg flex flex-col justify-between overflow-hidden relative">
+      
+      <!-- Discreet Top Indicator -->
+      <div class="px-8 pt-4 pb-1 flex items-center justify-between z-10 shrink-0">
+        <div class="flex items-center gap-3">
+          <span id="slideNumberPill" class="px-2.5 py-0.5 rounded-md bg-aguila-yellow/20 border border-aguila-yellow/50 text-aguila-yellow font-display font-extrabold text-xs">
+            01 / 35
+          </span>
+          <span id="slideFlowLabel" class="text-xs font-medium text-white/60 tracking-wide"></span>
+        </div>
+        <div class="flex items-center gap-3 text-[11px] text-white/50">
+          <span>Objetivo: <strong class="text-white/80">Llegar · Participar · Volver</strong></span>
+        </div>
+      </div>
+
+      <!-- Slide Content Container -->
+      <div id="slideViewport" class="flex-1 overflow-y-auto px-6 md:px-12 py-2 flex items-center justify-center z-10">
+        <div id="slideContainer" class="w-full max-w-6xl mx-auto my-auto transition-all duration-200"></div>
+      </div>
+
+      <!-- Bottom Navigation Bar -->
+      <footer class="h-14 bg-aguila-dark/90 border-t border-white/10 px-6 flex items-center justify-between z-20 shrink-0">
+        <button onclick="prevSlide()" id="prevBtn" class="px-4 py-2 rounded-xl bg-white/5 hover:bg-white/15 border border-white/10 text-xs font-display font-bold uppercase tracking-wider flex items-center gap-2 transition">
+          <i class="ph-bold ph-caret-left"></i> Anterior
+        </button>
+
+        <div class="flex-1 max-w-md mx-4 flex flex-col gap-1">
+          <div class="flex justify-between text-[11px] text-white/70 font-medium">
+            <span id="footerSlideTitle" class="truncate">ESTRELLAS ÁGUILA 2027</span>
+            <span id="footerSlideCounter" class="shrink-0 ml-2">1 / 35</span>
+          </div>
+          <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+            <div id="progressBar" class="h-full bg-aguila-yellow transition-all duration-300" style="width: 2.85%"></div>
+          </div>
+        </div>
+
+        <button onclick="nextSlide()" id="nextBtn" class="px-5 py-2 rounded-xl bg-aguila-yellow hover:bg-aguila-gold text-aguila-dark text-xs font-display font-black uppercase tracking-wider flex items-center gap-2 transition shadow-lg">
+          Siguiente <i class="ph-bold ph-caret-right"></i>
+        </button>
+      </footer>
+    </main>
+  </div>
+
+  <div id="blupitModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden items-center justify-center p-4">
+    <div class="bg-aguila-dark border border-white/20 rounded-3xl max-w-6xl w-full p-6 shadow-2xl flex flex-col lg:flex-row gap-6 max-h-[92vh] overflow-y-auto">
+      
+      <!-- Left: Realistic WhatsApp Phone for Daniel -->
+      <div class="w-full lg:w-[360px] shrink-0 mx-auto bg-zinc-950 rounded-[36px] p-3 border-4 border-zinc-800 shadow-2xl flex flex-col h-[580px]">
+        <div class="bg-whatsapp-teal text-white px-4 py-3 rounded-t-[26px] flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-full bg-aguila-yellow text-aguila-dark flex items-center justify-center font-display font-black text-base">⚽</div>
+            <div>
+              <div class="flex items-center gap-1">
+                <span class="font-bold text-sm">Estrellas Águila</span>
+                <i class="ph-fill ph-seal-check text-emerald-300 text-xs"></i>
+              </div>
+              <p class="text-[10px] text-emerald-100">Tecnología Blupit (Demo Local)</p>
+            </div>
+          </div>
+          <span id="modalPointsPill" class="px-2.5 py-0.5 rounded-full bg-aguila-yellow text-aguila-dark font-display font-black text-xs">165 PTS</span>
+        </div>
+
+        <div id="modalPhoneBody" class="flex-1 bg-whatsapp-chat text-white p-3.5 overflow-y-auto space-y-2.5 text-xs"></div>
+
+        <div class="bg-zinc-900 p-2.5 rounded-b-[26px] border-t border-zinc-800 flex items-center justify-between text-[11px] text-zinc-300">
+          <span>Participante: <strong>Daniel</strong></span>
+          <button onclick="resetDemoState()" class="text-red-400 font-bold hover:underline">Reiniciar experiencia</button>
+        </div>
+      </div>
+
+      <!-- Right: Controls & Connected Admin Panel -->
+      <div class="flex-1 flex flex-col justify-between space-y-4">
+        <div class="flex items-start justify-between">
+          <div>
+            <span class="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-xs font-display font-bold uppercase">Simulación Local Conectada · Datos Demostrativos</span>
+            <h3 class="font-display font-black text-2xl mt-1.5 text-aguila-yellow">Recorrido Blupit + Panel Administrativo</h3>
+            <p class="text-xs text-white/70">Navega por las etapas de Daniel o interactúa directamente en las diapositivas 05 a 11.</p>
+          </div>
+          <button onclick="closeBlupitModal()" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold flex items-center gap-1">
+            Regresar a presentación <i class="ph-bold ph-x"></i>
+          </button>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+          <button onclick="goToSlide(4); closeBlupitModal();" class="p-2.5 rounded-xl bg-white/5 hover:bg-white/15 border border-white/10 text-left">
+            <div class="text-[10px] text-aguila-yellow font-bold">Slide 05</div>
+            <div class="font-bold">1. Conoce al hincha</div>
+          </button>
+          <button onclick="goToSlide(5); closeBlupitModal();" class="p-2.5 rounded-xl bg-white/5 hover:bg-white/15 border border-white/10 text-left">
+            <div class="text-[10px] text-aguila-yellow font-bold">Slide 06</div>
+            <div class="font-bold">2. Base de Datos</div>
+          </button>
+          <button onclick="goToSlide(6); closeBlupitModal();" class="p-2.5 rounded-xl bg-white/5 hover:bg-white/15 border border-white/10 text-left">
+            <div class="text-[10px] text-aguila-yellow font-bold">Slide 07</div>
+            <div class="font-bold">3. Votación WhatsApp</div>
+          </button>
+          <button onclick="goToSlide(8); closeBlupitModal();" class="p-2.5 rounded-xl bg-white/5 hover:bg-white/15 border border-white/10 text-left">
+            <div class="text-[10px] text-aguila-yellow font-bold">Slide 09</div>
+            <div class="font-bold">4. Marketplace</div>
+          </button>
+        </div>
+
+        <div id="modalAdminSummary" class="card-clean rounded-2xl p-4 space-y-3"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const demoState = {
+      userName: 'Daniel Restrepo',
+      userPhone: '+573104829104',
+      userEmail: 'daniel.hincha@correo.com',
+      userCity: 'Bogotá',
+      flowStep: 3,
+      blupitViewTab: 'LIVE_CHAT',
+      showExecuteFlowModal: false,
+      selectedFlowInModal: 'Conoce a tu hincha',
+      flowToastVisible: false,
+      inspectingContactId: 'daniel',
+      ageAndTermsAccepted: true,
+      commercialOptIn: true,
+      favoriteTeam: 'Millonarios',
+      selectedMatch: 'Mill vs. Nac',
+      voteFlowStep: 3,
+      votedPlayer: 'James Rodriguez',
+      voteConfirmed: true,
+      points: 165,
+      triviaAnswered: 11,
+      selectedBenefit: 'Experiencia futbolera digital',
+      benefitRedeemed: false,
+      reactivationReplied: false,
+      adminTeamFilter: 'TODOS',
+      adminMediaFilter: 'TODOS',
+      globalDestination: 'BLUPIT'
+    };
+
+    function setGlobalDestination(dest) {
+      demoState.globalDestination = dest;
+      updateDestinationButtons();
+      updateAllViews();
+    }
+
+    function updateDestinationButtons() {
+      const btnBlupit = document.getElementById('destBtnBlupit');
+      const btnLanding = document.getElementById('destBtnLanding');
+      if (!btnBlupit || !btnLanding) return;
+      if (demoState.globalDestination === 'BLUPIT') {
+        btnBlupit.className = 'px-2.5 py-1 rounded-lg font-bold transition flex items-center gap-1 bg-aguila-yellow text-aguila-dark shadow';
+        btnLanding.className = 'px-2.5 py-1 rounded-lg font-bold transition flex items-center gap-1 text-white/60 hover:text-white';
+      } else {
+        btnLanding.className = 'px-2.5 py-1 rounded-lg font-bold transition flex items-center gap-1 bg-sky-500 text-white shadow';
+        btnBlupit.className = 'px-2.5 py-1 rounded-lg font-bold transition flex items-center gap-1 text-white/60 hover:text-white';
+      }
+    }
+
+    function advanceFlowStep(step, teamChoice) {
+      const prevStep = demoState.flowStep;
+      demoState.flowStep = step;
+      if (step >= 2) demoState.ageAndTermsAccepted = true;
+      if (teamChoice) {
+        demoState.favoriteTeam = teamChoice;
+        demoState.flowStep = 3;
+        if (prevStep < 3 && demoState.points < 165) demoState.points = 165;
+      }
+      updateAllViews();
+    }
+
+    function resetDemoState() {
+      demoState.flowStep = 1;
+      demoState.voteFlowStep = 1;
+      demoState.voteConfirmed = false;
+      demoState.votedPlayer = null;
+      demoState.points = 0;
+      demoState.triviaAnswered = 0;
+      updateAllViews();
+    }
+
+    function selectVoteMatch(matchName) {
+      demoState.selectedMatch = matchName;
+      demoState.voteFlowStep = 2;
+      demoState.voteConfirmed = false;
+      demoState.votedPlayer = null;
+      updateAllViews();
+    }
+
+    function castDemoVote(player) {
+      const wasConfirmed = demoState.voteConfirmed;
+      demoState.votedPlayer = player;
+      demoState.voteConfirmed = true;
+      demoState.voteFlowStep = 3;
+      if (!wasConfirmed) demoState.points += 15;
+      updateAllViews();
+    }
+
+    function triggerReactivationReply() {
+      demoState.reactivationReplied = true;
+      updateAllViews();
+    }
+
+    function setAdminFilter(teamFilter, mediaFilter) {
+      demoState.adminTeamFilter = teamFilter;
+      demoState.adminMediaFilter = mediaFilter;
+      updateAllViews();
+    }
+
+    function openBlupitModal() {
+      const m = document.getElementById('blupitModal');
+      m.classList.remove('hidden');
+      m.classList.add('flex');
+      updateAllViews();
+    }
+
+    function closeBlupitModal() {
+      const m = document.getElementById('blupitModal');
+      m.classList.add('hidden');
+      m.classList.remove('flex');
+    }
+
+    function updateAllViews() {
+      renderCurrentSlide();
+      const modalBody = document.getElementById('modalPhoneBody');
+      if (modalBody) {
+        modalBody.innerHTML = `
+          <div class="bg-zinc-900 p-2.5 rounded-xl border border-white/10">
+            <strong>1. Registro:</strong> Equipo favorito: <span class="text-aguila-yellow font-bold">${demoState.favoriteTeam}</span>
+          </div>
+          <div class="bg-zinc-900 p-2.5 rounded-xl border border-white/10">
+            <strong>2. Votación:</strong> ${demoState.voteConfirmed ? `Voto por <strong>${demoState.votedPlayer}</strong>` : 'Pendiente'}
+          </div>
+          <div class="bg-zinc-900 p-2.5 rounded-xl border border-white/10">
+            <strong>3. Puntos Totales:</strong> <span class="text-aguila-yellow font-black">${demoState.points} PTS</span>
+          </div>
+        `;
+      }
+      const modalPts = document.getElementById('modalPointsPill');
+      if (modalPts) modalPts.textContent = `${demoState.points} PTS`;
+
+      const adminBox = document.getElementById('modalAdminSummary');
+      if (adminBox) {
+        adminBox.innerHTML = `
+          <div class="text-xs font-display font-bold uppercase text-aguila-yellow">Estado Compartido en Memoria Local</div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+            <div class="bg-black/30 p-2 rounded-xl"><span>Participante</span><br><strong>${demoState.userName}</strong></div>
+            <div class="bg-black/30 p-2 rounded-xl"><span>Equipo</span><br><strong class="text-sky-300">${demoState.favoriteTeam}</strong></div>
+            <div class="bg-black/30 p-2 rounded-xl"><span>Voto</span><br><strong class="text-emerald-300">${demoState.votedPlayer || 'Pendiente'}</strong></div>
+            <div class="bg-black/30 p-2 rounded-xl"><span>Puntos</span><br><strong class="text-aguila-yellow">${demoState.points} pts</strong></div>
+          </div>
+        `;
+      }
+    }
+
+    const slides = [
+      // 01 — PORTADA
+      {
+        num: 1, flow: 'Apertura Comercial', title: 'ESTRELLAS ÁGUILA 2027',
+        render: () => `
+          <div class="card-highlight rounded-3xl p-8 md:p-12 border-2 border-aguila-yellow/60 relative overflow-hidden shadow-2xl">
+            <div class="max-w-4xl space-y-5">
+              <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-aguila-yellow text-aguila-dark font-display font-black text-xs uppercase tracking-widest shadow-md">
+                <i class="ph-fill ph-star"></i> Evolución de la Experiencia · 2027
+              </div>
+              <h1 class="font-display font-black text-4xl sm:text-6xl md:text-7xl tracking-tight leading-none text-white drop-shadow">
+                ESTRELLAS <span class="text-aguila-yellow drop-shadow">ÁGUILA 2027</span>
+              </h1>
+              <p class="font-display font-bold text-xl sm:text-3xl text-sky-200">
+                Más hinchas. Más participación. Más razones para volver.
+              </p>
+              <div class="pt-4 border-t border-white/15 flex flex-wrap items-center justify-between gap-4">
+                <span class="text-sm font-display font-bold text-white/80 uppercase tracking-wider">
+                  Una propuesta de <strong class="text-aguila-yellow">Level Colombia</strong> para Bavaria / Águila
+                </span>
+                <button onclick="nextSlide()" class="px-5 py-2.5 rounded-xl bg-aguila-yellow hover:bg-aguila-gold text-aguila-dark font-display font-black text-xs uppercase tracking-wider shadow-lg transition">
+                  Iniciar recorrido →
+                </button>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      // 02 — NUESTRO OBJETIVO
+      {
+        num: 2, flow: 'Objetivo de Marca', title: 'Queremos que más hinchas vivan Estrellas Águila.',
+        render: () => `
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+            <div class="lg:col-span-7 space-y-5">
+              <span class="text-xs font-display font-bold uppercase tracking-widest text-aguila-yellow">Nuestro Objetivo</span>
+              <h2 class="font-display font-black text-3xl sm:text-5xl leading-tight text-white drop-shadow">
+                Queremos que más hinchas vivan <span class="text-aguila-yellow">Estrellas Águila</span>.
+              </h2>
+              <p class="text-base sm:text-lg text-white/95 leading-relaxed font-sans">
+                Nuestro objetivo es ampliar la participación y fortalecer la conexión entre Estrellas Águila y los hinchas del fútbol colombiano, creando más oportunidades para interactuar durante todo el año.
+              </p>
+            </div>
+            <div class="lg:col-span-5 card-clean rounded-3xl p-6 border-2 border-aguila-yellow/60 text-center space-y-4 shadow-2xl bg-gradient-to-tr from-aguila-yellow/30 via-aguila-blue/70 to-aguila-navy/95 relative overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-r from-aguila-yellow/20 to-aguila-sky/30 rounded-2xl pointer-events-none"></div>
+              <div class="h-48 rounded-2xl bg-gradient-to-br from-aguila-blue to-aguila-dark border border-aguila-yellow/80 flex flex-col items-center justify-center p-6 shadow-2xl relative">
+                <i class="ph-fill ph-users-four text-6xl text-aguila-yellow mb-2 drop-shadow-lg"></i>
+                <span class="font-display font-black text-lg text-white drop-shadow">La pasión vibrante de los hinchas con Águila en el centro</span>
+              </div>
+              <p class="text-xs font-display font-bold uppercase tracking-wider text-aguila-yellow">
+                Hacer de Estrellas Águila una experiencia más participativa, cercana y presente
+              </p>
+            </div>
+          </div>
+        `
+      },
+      // 03 — LA OPORTUNIDAD
+      {
+        num: 3, flow: 'La Oportunidad Comercial', title: 'Que más hinchas lleguen, participen y tengan razones para volver.',
+        render: () => `
+          <div class="space-y-6">
+            <div>
+              <span class="text-xs font-display font-bold uppercase tracking-widest text-aguila-yellow">La Oportunidad</span>
+              <h2 class="font-display font-black text-3xl sm:text-4xl mt-1 text-white">
+                Que más hinchas lleguen, participen y tengan razones para volver.
+              </h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+              <div class="card-clean p-6 rounded-3xl border-t-4 border-t-sky-400 space-y-3 shadow-xl bg-aguila-navy/50">
+                <div class="w-11 h-11 rounded-2xl bg-sky-500/30 text-sky-300 flex items-center justify-center font-display font-black text-lg shadow">1</div>
+                <h3 class="font-display font-black text-2xl text-sky-300">LLEGAR</h3>
+                <p class="text-sm text-white/85">Descubrir Estrellas Águila mediante contenidos y medios donde ya conversa la audiencia.</p>
+              </div>
+              <div class="card-highlight p-6 rounded-3xl border-t-4 border-t-aguila-yellow space-y-3 shadow-xl bg-gradient-to-b from-aguila-yellow/20 to-aguila-blue/40">
+                <div class="w-11 h-11 rounded-2xl bg-aguila-yellow text-aguila-dark flex items-center justify-center font-display font-black text-lg shadow">2</div>
+                <h3 class="font-display font-black text-2xl text-aguila-yellow">PARTICIPAR</h3>
+                <p class="text-sm text-white">Votar por su Estrella Águila, opinar, responder preguntas y vivir experiencias en su celular.</p>
+              </div>
+              <div class="card-clean p-6 rounded-3xl border-t-4 border-t-emerald-400 space-y-3 shadow-xl bg-aguila-navy/50">
+                <div class="w-11 h-11 rounded-2xl bg-emerald-500/30 text-emerald-300 flex items-center justify-center font-display font-black text-lg shadow">3</div>
+                <h3 class="font-display font-black text-2xl text-emerald-300">VOLVER</h3>
+                <p class="text-sm text-white/85">Encontrar nuevas dinámicas, juegos, puntos y conversaciones que mantengan vivo el interés.</p>
+              </div>
+            </div>
+            <div class="card-clean p-4 rounded-2xl text-center border border-aguila-yellow/50 bg-aguila-blue/30 shadow-lg">
+              <p class="font-display font-bold text-sm sm:text-base text-aguila-yellow">
+                “La oportunidad no es solamente conseguir más votos en un partido. Es aumentar la participación a lo largo del tiempo.”
+              </p>
+            </div>
+          </div>
+        `
+      },
+      // 04 — NUESTRA SOLUCIÓN
+      {
+        num: 4, flow: 'Arquitectura Modular', title: 'Dos soluciones. Una misma meta.',
+        render: () => `
+          <div class="space-y-5">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+              <div>
+                <span class="text-xs font-display font-bold uppercase tracking-widest text-aguila-yellow">Propuesta Modular e Independiente</span>
+                <h2 class="font-display font-black text-3xl sm:text-4xl mt-1 text-white">Dos soluciones. Una misma meta.</h2>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 font-display font-bold text-xs shadow">
+                Blupit es nuestra recomendación tecnológica, no un requisito para contratar contenidos
+              </span>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+              <div class="card-highlight p-6 rounded-3xl flex flex-col justify-between space-y-4 shadow-2xl bg-gradient-to-br from-emerald-950/40 via-aguila-navy to-aguila-dark border-2 border-emerald-500/50">
+                <div class="space-y-3">
+                  <div class="flex items-center justify-between">
+                    <span class="px-3 py-1 rounded-lg bg-emerald-500 text-zinc-950 font-display font-black text-xs uppercase shadow">Solución A · Recomendación Tecnológica</span>
+                    <i class="ph-fill ph-whatsapp-logo text-2xl text-emerald-300"></i>
+                  </div>
+                  <h3 class="font-display font-black text-2xl sm:text-3xl text-white">BLUPIT</h3>
+                  <p class="text-sm text-white/90">Una evolución de la experiencia de participación mediante WhatsApp.</p>
+                  <ul class="space-y-1.5 text-xs text-white/90 pt-1">
+                    <li class="flex items-center gap-2"><i class="ph-bold ph-check-circle text-aguila-yellow"></i> Conocimiento voluntario del hincha y su equipo favorito.</li>
+                    <li class="flex items-center gap-2"><i class="ph-bold ph-check-circle text-aguila-yellow"></i> Votaciones oficiales ágiles dentro de WhatsApp.</li>
+                    <li class="flex items-center gap-2"><i class="ph-bold ph-check-circle text-aguila-yellow"></i> Gamificación, puntos, beneficios y analítica en tiempo real.</li>
+                  </ul>
+                </div>
+                <button onclick="goToSlide(4)" class="w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-display font-black text-xs uppercase tracking-wider shadow-lg transition">
+                  Ver recorrido de Blupit (Slides 05-10) →
+                </button>
+              </div>
+              <div class="card-clean p-6 rounded-3xl border-2 border-sky-400/50 flex flex-col justify-between space-y-4 shadow-2xl bg-gradient-to-br from-sky-950/40 via-aguila-navy to-aguila-dark">
+                <div class="space-y-3">
+                  <div class="flex items-center justify-between">
+                    <span class="px-3 py-1 rounded-lg bg-sky-500/20 text-sky-300 border border-sky-400/40 font-display font-bold text-xs uppercase">Solución B · Audiencia y Conversación</span>
+                    <i class="ph-fill ph-television text-2xl text-sky-300"></i>
+                  </div>
+                  <h3 class="font-display font-black text-2xl sm:text-3xl text-white">CONTENIDOS Y MEDIOS</h3>
+                  <p class="text-sm text-white/90">Formatos deportivos, programas, creadores, canales de YouTube y medios digitales.</p>
+                  <ul class="space-y-1.5 text-xs text-white/85 pt-1">
+                    <li class="flex items-center gap-2"><i class="ph-bold ph-check-circle text-sky-300"></i> <strong>Con Blupit:</strong> el destino de participación es WhatsApp.</li>
+                    <li class="flex items-center gap-2"><i class="ph-bold ph-check-circle text-sky-300"></i> <strong>Sin Blupit:</strong> los medios dirigen a la landing u otro destino oficial.</li>
+                  </ul>
+                </div>
+                <button onclick="goToSlide(10)" class="w-full py-2.5 rounded-xl bg-aguila-yellow hover:bg-aguila-gold text-aguila-dark font-display font-black text-xs uppercase tracking-wider shadow-lg transition">
+                  Ver Formatos y Pool de Medios (Slides 11-35) →
+                </button>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      // 05 — BLUPIT: CONOCE A TU HINCHA
+      {
+        num: 5, flow: 'Blupit · Conoce a tu hincha', title: 'Empecemos por conocer a nuestros hinchas.',
+        render: () => `
+          <div class="space-y-3">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+              <div>
+                <span class="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-300 font-display font-bold text-xs uppercase shadow">Simulación Interactiva · Conoce a tu hincha (+150 puntos Águila)</span>
+                <h2 class="font-display font-black text-2xl sm:text-3xl mt-0.5 text-white">Empecemos por conocer a nuestros hinchas.</h2>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-aguila-blue text-xs text-white font-display font-bold shadow">Equipo: ${demoState.favoriteTeam} · ${demoState.points} PTS</span>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+              <div class="lg:col-span-5 flex justify-center">
+                <div class="w-full max-w-[325px] bg-[#0B141A] rounded-[34px] p-2.5 border-4 border-zinc-800 shadow-2xl flex flex-col h-[460px] text-white font-sans text-xs">
+                  <div class="bg-whatsapp-teal px-3.5 pt-2 pb-2 rounded-t-[24px] border-b border-white/5 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <span class="text-white/80 font-bold">&lt; 27</span>
+                      <div class="w-7 h-7 rounded-full bg-aguila-yellow text-aguila-dark flex items-center justify-center font-display font-black text-xs">℟</div>
+                      <div>
+                        <div class="font-display font-bold text-xs text-white leading-tight">Blupit</div>
+                        <div class="text-[9px] text-emerald-400">En línea</div>
+                      </div>
+                    </div>
+                    <span class="px-2 py-0.5 rounded-full bg-aguila-yellow text-aguila-dark font-display font-black text-[10px]">${demoState.points} PTS</span>
+                  </div>
+                  <div class="flex-1 bg-[#0B141A] p-3 overflow-y-auto space-y-2.5 text-[11px]">
+                    <div class="flex justify-end"><div class="bg-[#005C4B] text-white px-3 py-1 rounded-xl rounded-tr-none shadow font-medium">Hola</div></div>
+                    <div class="bg-[#1F2C34] p-2.5 rounded-2xl rounded-tl-none border border-white/10 space-y-1.5 shadow">
+                      <p>¡Hola! ⚽ Bienvenido a Estrellas Águila 2027.</p>
+                      <p>Aquí podrás participar, jugar y vivir la pasión del fútbol colombiano.</p>
+                      <p>Antes de empezar, necesitamos confirmar tu edad y que conozcas las condiciones de participación y tratamiento de datos.</p>
+                      <div class="pt-1.5 space-y-1">
+                        <button onclick="advanceFlowStep(2)" class="w-full text-left py-1 px-2 rounded bg-black/40 border border-white/10 text-emerald-300 font-display font-bold flex items-center justify-between hover:bg-black/65 transition"><span>↩ Aceptar</span></button>
+                        <a href="https://api.whatsapp.com" target="_blank" rel="noopener noreferrer" class="block py-1 px-2 rounded bg-black/40 border border-white/10 text-sky-300 font-display font-bold hover:bg-black/65 transition">↗ Ver TYC</a>
+                      </div>
+                    </div>
+                    ${demoState.flowStep >= 2 ? `
+                      <div class="flex justify-end">
+                        <div class="bg-[#005C4B] text-white px-3.5 py-1.5 rounded-2xl rounded-tr-none shadow text-[10px] space-y-0.5">
+                          <div class="text-white/70 text-[9px] border-b border-white/10 pb-0.5 mb-1">Blupit: ¡Hola! ⚽ Bienvenido...</div>
+                          <div class="font-display font-bold">Aceptar</div>
+                        </div>
+                      </div>
+                      <div class="bg-[#1F2C34] p-2.5 rounded-2xl rounded-tl-none border border-white/10 space-y-1.5 shadow">
+                        <p class="font-semibold">¡Queremos conocerte mejor! ¿De qué equipo eres hincha?</p>
+                        <div class="space-y-1 pt-1">
+                          <button onclick="advanceFlowStep(3, 'Nacional')" class="w-full text-left py-1 px-2 rounded bg-black/40 border border-white/10 text-emerald-300 font-display font-bold hover:bg-black/65 transition">↩ Nacional</button>
+                          <button onclick="advanceFlowStep(3, 'Millonarios')" class="w-full text-left py-1 px-2 rounded bg-black/40 border border-white/10 text-emerald-300 font-display font-bold hover:bg-black/65 transition">↩ Millonarios</button>
+                          <button onclick="advanceFlowStep(3, 'Junior')" class="w-full text-left py-1 px-2 rounded bg-black/40 border border-white/10 text-emerald-300 font-display font-bold hover:bg-black/65 transition">↩ Junior</button>
+                        </div>
+                      </div>
+                    ` : ''}
+                    ${demoState.flowStep >= 3 ? `
+                      <div class="flex justify-end">
+                        <div class="bg-[#005C4B] text-white px-3.5 py-1.5 rounded-2xl rounded-tr-none shadow text-[10px] space-y-0.5">
+                          <div class="text-white/70 text-[9px] border-b border-white/10 pb-0.5 mb-1">Blupit: ¿De qué equipo eres hincha?</div>
+                          <div class="font-display font-bold">${demoState.favoriteTeam}</div>
+                        </div>
+                      </div>
+                      <div class="bg-[#1F2C34] p-2.5 rounded-2xl rounded-tl-none border border-emerald-500/40 space-y-1 shadow">
+                        <p class="text-white font-display font-semibold">¡Perfecto! 🔵 Ya sabemos cuál es tu equipo favorito.</p>
+                        <p class="font-display font-bold text-amber-300">Sumaste 150 puntos Aguila</p>
+                        <p class="text-[10px] text-white/80">Ahora podrás explorar las actividades disponibles de Estrellas Águila.</p>
+                      </div>
+                    ` : ''}
+                  </div>
+                  <div class="bg-[#1F2C34] px-3 py-1.5 rounded-b-[24px] text-[10px] text-white/50 text-center">Toca los botones para interactuar en vivo</div>
+                </div>
+              </div>
+              <div class="lg:col-span-7">
+                <div class="bg-white text-slate-800 rounded-2xl border border-slate-200 shadow-2xl overflow-hidden flex h-[460px] text-xs">
+                  <div class="w-56 border-r border-slate-200 flex flex-col bg-slate-50 shrink-0">
+                    <div class="p-3 border-b border-slate-200 font-display font-bold text-slate-900 flex items-center justify-between">
+                      <span>Conversaciones</span>
+                      <span class="text-[10px] bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded font-display font-bold">313</span>
+                    </div>
+                    <div class="flex-1 overflow-y-auto divide-y divide-slate-100 text-[11px]">
+                      <div class="p-2.5 bg-indigo-50 border-l-4 border-blupit-purple">
+                        <div class="flex justify-between font-display font-bold text-slate-900"><span>${demoState.userName}</span><span class="text-[9px] text-emerald-600">En línea</span></div>
+                        <div class="text-slate-500 truncate mt-0.5">Equipo: ${demoState.favoriteTeam}</div>
+                      </div>
+                      <div class="p-2.5 hover:bg-slate-100 text-slate-600 font-display font-medium">Jimena Palacios (Bogotá)</div>
+                      <div class="p-2.5 hover:bg-slate-100 text-slate-600 font-display font-medium">Seleccionado Remakia</div>
+                    </div>
+                  </div>
+                  <div class="flex-1 flex flex-col bg-[#F8F9FE] overflow-hidden">
+                    <div class="h-11 bg-white border-b border-slate-200 px-3 flex items-center justify-between">
+                      <span class="font-display font-bold text-slate-900">Asistiré (Chat en Vivo)</span>
+                      <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-display font-bold text-[10px]">● WhatsApp Conectado</span>
+                    </div>
+                    <div class="flex-1 p-3 overflow-y-auto space-y-2 text-[11px]">
+                      <div class="flex justify-end"><div class="bg-[#DCF8C6] p-2 rounded-xl text-slate-900 font-display font-medium">Hola</div></div>
+                      <div class="flex justify-start"><div class="bg-white border p-2 rounded-xl shadow-xs text-slate-800">¡Hola! ⚽ Bienvenido a Estrellas Águila 2027...</div></div>
+                      <div class="flex justify-end"><div class="bg-[#DCF8C6] p-2 rounded-xl font-display font-bold text-slate-900">${demoState.favoriteTeam}</div></div>
+                      <div class="flex justify-start"><div class="bg-white border p-2 rounded-xl shadow-xs border-l-4 border-emerald-500 text-slate-800">¡Perfecto! 🔵 Sumaste <strong>150 puntos Aguila</strong>.</div></div>
+                    </div>
+                  </div>
+                  <div class="w-60 border-l border-slate-200 bg-white p-3 flex flex-col justify-between shrink-0">
+                    <div class="space-y-2">
+                      <div class="font-display font-bold text-slate-900 pb-1 border-b border-slate-100 text-[11px]">Información del contacto</div>
+                      <div class="text-center py-1">
+                        <div class="w-10 h-10 rounded-full bg-purple-100 text-blupit-purple font-display font-black text-xs flex items-center justify-center mx-auto shadow">DR</div>
+                        <div class="font-display font-bold text-xs text-slate-900 mt-1">${demoState.userName}</div>
+                        <div class="text-[10px] text-slate-400">${demoState.userPhone}</div>
+                      </div>
+                      <div class="space-y-1 text-[11px]">
+                        <div class="flex justify-between py-0.5 border-b border-slate-100"><span class="text-slate-500">Equipo</span><strong class="text-sky-600">${demoState.favoriteTeam}</strong></div>
+                        <div class="flex justify-between py-0.5 border-b border-slate-100"><span class="text-slate-500">Puntos</span><strong class="text-amber-600">${demoState.points} PTS</strong></div>
+                      </div>
+                      <div>
+                        <div class="text-[9px] font-display font-bold text-slate-400 uppercase mb-1">Tags asignados</div>
+                        <div class="flex flex-wrap gap-1 text-[9px] font-display font-bold">
+                          <span class="px-2 py-0.5 rounded-full bg-sky-100 text-sky-800">⚽ ${demoState.favoriteTeam}</span>
+                          <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">+150 pts</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      // 06 — BLUPIT: BASE DE DATOS Y CONTACTOS
+      {
+        num: 6, flow: 'Blupit · Base de Datos y Contactos', title: 'Base de Datos Blupit: Segmentación por Club y CRM en Vivo.',
+        render: () => `
+          <div class="space-y-4">
+            <div>
+              <span class="px-2.5 py-1 rounded bg-purple-500/20 text-purple-300 font-display font-bold text-xs uppercase shadow">Backoffice Oficial Blupit · Gestión de Audiencia y Equipos</span>
+              <h2 class="font-display font-black text-2xl sm:text-3xl mt-1 text-white">Base de Datos unificada con segmentación por club y puntos en QGames.</h2>
+            </div>
+            <div class="bg-white text-slate-800 rounded-3xl border border-slate-200 shadow-2xl overflow-hidden flex flex-col h-[400px] text-xs">
+              <div class="bg-[#F8F9FE] px-4 py-3 border-b border-slate-200 flex items-center justify-between shrink-0">
+                <div class="flex items-center gap-2">
+                  <span class="font-display font-bold text-slate-900 text-sm">Contactos (313 total)</span>
+                  <span class="px-2 py-0.5 rounded bg-purple-100 text-blupit-purple font-display font-bold text-[10px]">Filtro: Activos FPC</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800 font-display font-bold">● CRM Sincronizado</span>
+                </div>
+              </div>
+              <div class="flex-1 overflow-y-auto p-2">
+                <table class="w-full text-left border-collapse">
+                  <thead>
+                    <tr class="border-b border-slate-200 text-[10px] font-display font-bold text-slate-400 uppercase bg-slate-50">
+                      <th class="py-2.5 px-3">CONTACTO</th>
+                      <th class="py-2.5 px-2">TELÉFONO</th>
+                      <th class="py-2.5 px-2">ETAPA</th>
+                      <th class="py-2.5 px-2">EQUIPO (HINCHA)</th>
+                      <th class="py-2.5 px-2">ETIQUETAS</th>
+                      <th class="py-2.5 px-2">PUNTOS</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-100 font-display font-medium text-xs">
+                    <tr class="bg-indigo-50/70 font-display font-bold">
+                      <td class="py-2.5 px-3 flex items-center gap-2"><div class="w-6 h-6 rounded-full bg-purple-100 text-blupit-purple flex items-center justify-center text-[10px] font-display font-black">DR</div>${demoState.userName}</td>
+                      <td class="py-2.5 px-2 text-slate-600">${demoState.userPhone}</td>
+                      <td class="py-2.5 px-2"><span class="px-2 py-0.5 rounded bg-purple-100 text-purple-700 text-[9px] font-display font-bold">ENTRANTES</span></td>
+                      <td class="py-2.5 px-2 text-sky-600 font-display font-bold">${demoState.favoriteTeam}</td>
+                      <td class="py-2.5 px-2 text-[10px]"><span class="px-1.5 py-0.5 rounded bg-sky-100 text-sky-800 font-display font-bold">⚽ ${demoState.favoriteTeam}</span> <span class="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-display font-bold">TYC OK</span></td>
+                      <td class="py-2.5 px-2 font-display font-black text-amber-600">${demoState.points} PTS</td>
+                    </tr>
+                    <tr class="hover:bg-slate-50">
+                      <td class="py-2.5 px-3 flex items-center gap-2"><div class="w-6 h-6 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center text-[10px] font-display font-bold">JP</div>Jimena Palacios</td>
+                      <td class="py-2.5 px-2 text-slate-600">+57 315 892 0144</td>
+                      <td class="py-2.5 px-2"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[9px] font-display font-bold">ENTRANTES</span></td>
+                      <td class="py-2.5 px-2 text-sky-600">Millonarios</td>
+                      <td class="py-2.5 px-2 text-[10px]"><span class="px-1.5 py-0.5 rounded bg-sky-100 text-sky-800 font-display font-bold">Votante Fecha 14</span></td>
+                      <td class="py-2.5 px-2 font-display font-black text-amber-600">20 PTS</td>
+                    </tr>
+                    <tr class="hover:bg-slate-50">
+                      <td class="py-2.5 px-3 flex items-center gap-2"><div class="w-6 h-6 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center text-[10px] font-display font-bold">SR</div>Seleccionado Remakia</td>
+                      <td class="py-2.5 px-2 text-slate-600">+57 321 272 1382</td>
+                      <td class="py-2.5 px-2"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[9px] font-display font-bold">ENTRANTES</span></td>
+                      <td class="py-2.5 px-2 text-emerald-600">Atlético Nacional</td>
+                      <td class="py-2.5 px-2 text-[10px]"><span class="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-display font-bold">El Parche del Fútbol</span></td>
+                      <td class="py-2.5 px-2 font-display font-black text-amber-600">97 PTS</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      // 07 — BLUPIT: VOTACIÓN OFICIAL EN WHATSAPP Y CRM
+      {
+        num: 7, flow: 'Blupit · Votación en WhatsApp', title: 'Votación oficial sincronizada en el CRM de Blupit.',
+        render: () => `
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+            <div class="lg:col-span-5 flex justify-center">
+              <div class="w-full max-w-[325px] bg-[#0B141A] rounded-[34px] p-2.5 border-4 border-zinc-800 shadow-2xl flex flex-col h-[450px] text-white font-sans text-xs">
+                <div class="bg-whatsapp-teal px-3.5 pt-2 pb-2 rounded-t-[24px] border-b border-white/5 flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <span class="text-white/80 font-display font-bold">&lt; 26</span>
+                    <div class="w-7 h-7 rounded-full bg-aguila-yellow text-aguila-dark flex items-center justify-center font-display font-black text-xs">℟</div>
+                    <div>
+                      <div class="font-display font-bold text-xs text-white leading-tight">Blupit · Votación</div>
+                      <div class="text-[9px] text-emerald-400">En línea</div>
+                    </div>
+                  </div>
+                  <span class="px-2 py-0.5 rounded-full bg-aguila-yellow text-aguila-dark font-display font-black text-[10px]">${demoState.points} PTS</span>
+                </div>
+                <div class="flex-1 bg-[#0B141A] p-3 overflow-y-auto space-y-2.5 text-[11px]">
+                  <div class="bg-[#1F2C34] p-2.5 rounded-2xl rounded-tl-none border border-white/10 space-y-1.5 shadow">
+                    <p class="font-display font-bold">⭐ ¡Es momento de elegir tu Estrella Águila!</p>
+                    <p>Selecciona el partido en el que quieres participar.</p>
+                    <button onclick="selectVoteMatch('Mill vs. Nac')" class="w-full py-1.5 rounded-xl bg-aguila-blue/40 border border-aguila-blue text-aguila-yellow font-display font-bold text-xs text-center hover:bg-aguila-blue/65 transition">↩ Mill vs. Nac</button>
+                  </div>
+                  ${demoState.voteFlowStep >= 2 ? `
+                    <div class="flex justify-end"><div class="bg-[#005C4B] text-white px-2.5 py-1 rounded-xl rounded-tr-none shadow font-display font-medium">Mill vs. Nac</div></div>
+                    <div class="bg-[#1F2C34] p-2.5 rounded-2xl rounded-tl-none border border-white/10 space-y-2 shadow">
+                      <p class="font-display font-semibold">Vota por tu jugador favorito</p>
+                      <div class="grid grid-cols-2 gap-1">
+                        <button onclick="castDemoVote('James')" class="py-1 px-2 rounded bg-black/40 border border-white/10 text-emerald-300 font-display font-bold text-center hover:bg-black/65 transition">↩ James</button>
+                        <button onclick="castDemoVote('Leo Castro')" class="py-1 px-2 rounded bg-black/40 border border-white/10 text-emerald-300 font-display font-bold text-center hover:bg-black/65 transition">↩ Leo Castro</button>
+                      </div>
+                    </div>
+                  ` : ''}
+                  ${demoState.voteFlowStep >= 3 ? `
+                    <div class="bg-[#1F2C34] p-2.5 rounded-2xl rounded-tl-none border border-emerald-500/40 space-y-1 shadow">
+                      <p class="text-white font-display font-semibold">✅ ¡Listo! Tu voto por <strong>${demoState.votedPlayer}</strong> fue registrado.</p>
+                      <p class="font-display font-bold text-amber-300">Sumaste 15 puntos Aguila.</p>
+                    </div>
+                  ` : ''}
+                </div>
+                <div class="bg-[#1F2C34] px-3 py-1.5 rounded-b-[24px] text-[10px] text-white/50 text-center">Toca para registrar tu voto</div>
+              </div>
+            </div>
+            <div class="lg:col-span-7 space-y-4">
+              <div>
+                <span class="px-2.5 py-1 rounded bg-aguila-yellow/20 text-aguila-yellow font-display font-bold text-xs uppercase shadow">Mecanismo Principal · Votación en WhatsApp</span>
+                <h2 class="font-display font-black text-2xl sm:text-3xl mt-1 text-white">Votación oficial sincronizada en el CRM de Blupit.</h2>
+                <p class="text-xs text-white/80 mt-1">Cada voto registra automáticamente al jugador y suma puntos al perfil del hincha, actualizando los contadores en tiempo real.</p>
+              </div>
+              <div class="grid grid-cols-3 gap-2 text-xs">
+                <div class="card-clean p-3 rounded-xl shadow"><span class="text-[10px] text-white/50 block">Partido</span><strong>${demoState.selectedMatch}</strong></div>
+                <div class="card-clean p-3 rounded-xl shadow"><span class="text-[10px] text-white/50 block">Jugador Votado</span><strong class="text-emerald-300">${demoState.votedPlayer || 'Pendiente'}</strong></div>
+                <div class="card-clean p-3 rounded-xl shadow"><span class="text-[10px] text-white/50 block">Puntos Totales</span><strong class="text-aguila-yellow">${demoState.points} PTS</strong></div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      // 08 — BLUPIT: MARKETPLACE Y PUNTOS
+      {
+        num: 8, flow: 'Blupit · Marketplace y Puntos', title: 'Marketplace de Premios: Conversación del usuario y Dashboard de Blupit.',
+        render: () => `
+          <div class="space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+              <div>
+                <span class="px-2.5 py-1 rounded bg-purple-500/20 text-purple-300 font-display font-bold text-xs uppercase shadow">Módulo Marketplace · Catálogo, Puntos y Stock Verificado</span>
+                <h2 class="font-display font-black text-2xl sm:text-3xl mt-0.5 text-white">Marketplace y Puntos: el hincha canjea y el dashboard administra.</h2>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-aguila-yellow text-aguila-dark font-display font-black text-xs shadow">
+                Saldo Actual: ${demoState.points} PTS
+              </span>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+              <div class="lg:col-span-4 flex justify-center">
+                <div class="w-full max-w-[280px] bg-[#0B141A] rounded-[28px] p-2 border-4 border-zinc-800 shadow-2xl flex flex-col h-[380px] text-white font-sans text-xs">
+                  <div class="bg-whatsapp-teal px-3 py-2 rounded-t-[20px] border-b border-white/5 flex items-center justify-between">
+                    <span class="font-display font-bold text-xs">Blupit · Mis Puntos</span>
+                    <span class="px-2 py-0.5 rounded-full bg-aguila-yellow text-aguila-dark font-display font-black text-[10px]">${demoState.points} PTS</span>
+                  </div>
+                  <div class="flex-1 bg-[#0B141A] p-2.5 overflow-y-auto space-y-2 text-[11px]">
+                    <div class="flex justify-end"><div class="bg-[#005C4B] text-white px-2.5 py-1 rounded-xl rounded-tr-none shadow font-display font-medium">Hola, quiero saber cuántos puntos tengo</div></div>
+                    <div class="bg-[#1F2C34] p-2.5 rounded-2xl rounded-tl-none border border-white/10 space-y-1 shadow">
+                      <p>¡Hola, ${demoState.userName}! Tienes actualmente <strong>${demoState.points} puntos Aguila</strong> acumulados. ⚽</p>
+                      <p class="text-white/80">¿Quieres ver qué puedes canjear en el Marketplace?</p>
+                    </div>
+                    <div class="flex justify-end"><div class="bg-[#005C4B] text-white px-2.5 py-1 rounded-xl rounded-tr-none shadow font-display font-bold">Sí, ver beneficios</div></div>
+                    <div class="bg-[#1F2C34] p-2.5 rounded-2xl rounded-tl-none border border-aguila-yellow/40 space-y-1 shadow">
+                      <p class="font-display font-bold text-aguila-yellow">🎁 Catálogo de Premios:</p>
+                      <p class="text-[10px] text-white/90">1. Experiencia futbolera digital (80 pts)<br>2. Camiseta firmada por James (500 pts)<br>3. Boletas Selección Colombia (1000 pts)</p>
+                    </div>
+                  </div>
+                  <div class="bg-[#1F2C34] px-3 py-1.5 rounded-b-[20px] text-[10px] text-white/50 text-center">Canje automático vía WhatsApp</div>
+                </div>
+              </div>
+              <div class="lg:col-span-8 bg-white text-slate-800 rounded-2xl border border-slate-200 shadow-2xl overflow-hidden flex flex-col h-[380px]">
+                <div class="bg-[#F8F9FE] px-4 py-2.5 border-b border-slate-200 flex items-center justify-between shrink-0">
+                  <span class="font-display font-bold text-slate-900 text-xs">Blupit Marketplace (Inventario de Premios y Puntos)</span>
+                  <span class="px-2 py-0.5 rounded bg-purple-100 text-blupit-purple font-display font-bold text-[10px]">4 productos activos</span>
+                </div>
+                <div class="flex-1 overflow-y-auto p-3 bg-white">
+                  <table class="w-full text-left border-collapse text-xs">
+                    <thead>
+                      <tr class="border-b border-slate-200 text-[10px] font-display font-bold text-slate-400 uppercase bg-slate-50">
+                        <th class="py-2 px-3">PRODUCTO</th>
+                        <th class="py-2 px-2">CATEGORÍA</th>
+                        <th class="py-2 px-2">PUNTOS</th>
+                        <th class="py-2 px-2">STOCK</th>
+                        <th class="py-2 px-2">ESTADO</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 font-display font-medium">
+                      <tr class="hover:bg-slate-50">
+                        <td class="py-2 px-3 font-display font-bold text-slate-900 flex items-center gap-2"><div class="w-6 h-6 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center font-display font-bold text-[10px]">⚽</div>Experiencia futbolera digital</td>
+                        <td class="py-2 px-2"><span class="px-2 py-0.5 rounded bg-purple-100 text-purple-700 font-display font-bold text-[9px]">Bonos</span></td>
+                        <td class="py-2 px-2 font-display font-black text-indigo-600">80 pts</td>
+                        <td class="py-2 px-2 font-display font-bold text-slate-700">15</td>
+                        <td class="py-2 px-2"><span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 font-display font-bold text-[9px]">● Activo</span></td>
+                      </tr>
+                      <tr class="hover:bg-slate-50">
+                        <td class="py-2 px-3 font-display font-bold text-slate-900 flex items-center gap-2"><div class="w-6 h-6 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center font-display font-bold text-[10px]">⭐</div>Camiseta firmada por James</td>
+                        <td class="py-2 px-2"><span class="px-2 py-0.5 rounded bg-purple-100 text-purple-700 font-display font-bold text-[9px]">Bonos</span></td>
+                        <td class="py-2 px-2 font-display font-black text-indigo-600">500 pts</td>
+                        <td class="py-2 px-2 font-display font-bold text-slate-700">3</td>
+                        <td class="py-2 px-2"><span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 font-display font-bold text-[9px]">● Activo</span></td>
+                      </tr>
+                      <tr class="hover:bg-slate-50">
+                        <td class="py-2 px-3 font-display font-bold text-slate-900 flex items-center gap-2"><div class="w-6 h-6 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-display font-bold text-[10px]">🎟️</div>Boletas Selección Colombia</td>
+                        <td class="py-2 px-2"><span class="px-2 py-0.5 rounded bg-indigo-100 text-indigo-700 font-display font-bold text-[9px]">Experiencias</span></td>
+                        <td class="py-2 px-2 font-display font-black text-indigo-600">1000 pts</td>
+                        <td class="py-2 px-2 font-display font-bold text-slate-700">2</td>
+                        <td class="py-2 px-2"><span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 font-display font-bold text-[9px]">● Activo</span></td>
+                      </tr>
+                      <tr class="hover:bg-slate-50">
+                        <td class="py-2 px-3 font-display font-bold text-slate-900 flex items-center gap-2"><div class="w-6 h-6 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-display font-bold text-[10px]">🏟️</div>Boletas Millonarios vs. Nacional</td>
+                        <td class="py-2 px-2"><span class="px-2 py-0.5 rounded bg-indigo-100 text-indigo-700 font-display font-bold text-[9px]">Experiencias</span></td>
+                        <td class="py-2 px-2 font-display font-black text-indigo-600">300 pts</td>
+                        <td class="py-2 px-2 font-display font-bold text-slate-700">10</td>
+                        <td class="py-2 px-2"><span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 font-display font-bold text-[9px]">● Activo</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      // 09 — BLUPIT: QUE EL HINCHA REGRESE
+      {
+        num: 9, flow: 'Blupit · Remarketing Autorizado', title: 'La conversación puede continuar después del partido.',
+        render: () => `
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+            <div class="lg:col-span-7 space-y-4">
+              <div>
+                <span class="px-2.5 py-1 rounded bg-sky-500/20 text-sky-300 font-display font-bold text-xs uppercase shadow">Segmentación y Comunicación Posterior Autorizada</span>
+                <h2 class="font-display font-black text-2xl sm:text-3xl mt-1 text-white">La conversación puede continuar después del partido.</h2>
+                <p class="text-xs sm:text-sm text-white/80 mt-1">Podemos pasar de medir únicamente cuántas personas votaron a construir experiencias que las inviten a participar nuevamente.</p>
+              </div>
+              <div class="card-clean p-5 rounded-2xl space-y-3 shadow-xl">
+                <div class="flex items-center justify-between border-b border-white/10 pb-2">
+                  <span class="text-xs font-display font-bold uppercase text-aguila-yellow">Panel de Campañas (Vista Demostrativa)</span>
+                </div>
+                <div class="space-y-2 text-xs">
+                  <div class="bg-black/30 p-3 rounded-xl border border-white/10 shadow">
+                    <span class="text-white/50 uppercase text-[10px] block">Campaña ficticia:</span>
+                    <strong class="text-white">“Jornada ${demoState.favoriteTeam} — Estrellas Águila”</strong>
+                  </div>
+                  <div class="bg-black/30 p-3 rounded-xl border border-white/10 shadow">
+                    <span class="text-white/50 uppercase text-[10px] block">Segmento seleccionado:</span>
+                    <span class="text-sky-200">Adultos elegibles que declararon ser hinchas de <strong>${demoState.favoriteTeam}</strong> y aceptaron recibir comunicaciones.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="lg:col-span-5 flex justify-center">
+              <div class="w-[330px] bg-zinc-950 rounded-[34px] p-2.5 border-4 border-zinc-800 shadow-2xl flex flex-col h-[420px]">
+                <div class="bg-whatsapp-teal text-white px-3.5 py-2.5 rounded-t-[24px] flex items-center justify-between">
+                  <div class="font-display font-bold text-xs">⚽ Estrellas Águila</div>
+                  <span class="text-[10px] bg-black/30 px-2 py-0.5 rounded font-display font-bold">Remarketing</span>
+                </div>
+                <div class="flex-1 bg-whatsapp-chat text-white p-3 overflow-y-auto space-y-2.5 text-xs">
+                  <div class="bg-[#1F2C34] p-3 rounded-xl shadow-sm space-y-2">
+                    <p>¡Hola, <strong>Daniel</strong>! 🔵⚽ Hoy vuelve a jugar tu equipo (<strong>${demoState.favoriteTeam}</strong>).</p>
+                    <p>Ya puedes consultar las actividades disponibles de Estrellas Águila. ¿Quieres participar?</p>
+                    <button onclick="triggerReactivationReply()" class="w-full py-2 rounded-lg bg-aguila-blue text-white font-display font-bold text-xs shadow hover:bg-aguila-sky transition">
+                      ¡Sí, quiero participar!
+                    </button>
+                  </div>
+                  ${demoState.reactivationReplied ? `
+                    <div class="bg-[#005C4B] p-2.5 rounded-xl shadow-sm font-display font-bold text-right text-white">¡Sí, quiero participar!</div>
+                    <div class="bg-[#1F2C34] p-2.5 rounded-xl shadow-sm space-y-1 shadow">
+                      <div class="font-display font-bold text-emerald-300">✅ Actividades habilitadas:</div>
+                      <div class="text-[11px] text-white/90">1. Votar por tu Estrella Águila</div>
+                      <div class="text-[11px] text-white/90">2. Jugar Trivia de la Fecha</div>
+                    </div>
+                  ` : ''}
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      // 10 — BLUPIT: PANEL ADMINISTRATIVO PROFESIONAL
+      {
+        num: 10, flow: 'Blupit · Analítica y Backoffice', title: 'Panel Administrativo Blupit: analítica en tiempo real por filtros y clubes.',
+        render: () => `
+          <div class="space-y-4">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-2">
+              <div>
+                <span class="px-2.5 py-1 rounded bg-indigo-500/20 text-indigo-300 font-display font-bold text-xs uppercase shadow">Backoffice Oficial Blupit · Analítica y Filtros por Club</span>
+                <h2 class="font-display font-black text-2xl sm:text-3xl mt-0.5 text-white">Panel Administrativo Blupit: analítica en tiempo real.</h2>
+              </div>
+              <div class="flex items-center gap-2 text-xs">
+                <button onclick="setAdminFilter('TODOS','TODOS')" class="px-3 py-1.5 rounded-xl border font-display font-bold transition shadow ${demoState.adminTeamFilter === 'TODOS' ? 'bg-blupit-purple text-white' : 'bg-white/5 text-white'}">
+                  Todos los Clubes
+                </button>
+                <button onclick="setAdminFilter('MILLONARIOS','TODOS')" class="px-3 py-1.5 rounded-xl border font-display font-bold transition shadow ${demoState.adminTeamFilter === 'MILLONARIOS' ? 'bg-sky-500 text-white' : 'bg-white/5 text-white'}">
+                  Filtro: Millonarios
+                </button>
+              </div>
+            </div>
+
+            <div class="bg-[#F8F9FE] text-slate-800 rounded-3xl border border-slate-200 shadow-2xl p-5 space-y-4">
+              <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-8 h-8 rounded-lg bg-blupit-purple text-white font-display font-bold text-sm flex items-center justify-center shadow">b</div>
+                  <div>
+                    <span class="font-display font-bold text-slate-900 text-sm">Dashboard Analítico · Estrellas Águila 2027</span>
+                    <p class="text-[10px] text-slate-500">Filtro activo: <strong>${demoState.adminTeamFilter}</strong></p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="px-3 py-1 rounded-xl bg-emerald-100 text-emerald-800 font-display font-bold">● Sistema en Línea</span>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 text-center">
+                <div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-xs"><div class="text-[10px] text-slate-500 font-display font-bold">Usuarios únicos</div><div class="font-display font-black text-base text-blupit-purple mt-1">${demoState.adminTeamFilter === 'MILLONARIOS' ? '7,770' : '18,500'}</div></div>
+                <div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-xs"><div class="text-[10px] text-slate-500 font-display font-bold">Votantes únicos</div><div class="font-display font-black text-base text-blupit-purple mt-1">${demoState.adminTeamFilter === 'MILLONARIOS' ? '5,120' : '12,400'}</div></div>
+                <div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-xs"><div class="text-[10px] text-slate-500 font-display font-bold">Votos válidos</div><div class="font-display font-black text-base text-blupit-purple mt-1">${demoState.adminTeamFilter === 'MILLONARIOS' ? '6,200' : '14,800'}</div></div>
+                <div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-xs"><div class="text-[10px] text-slate-500 font-display font-bold">Juegos / Trivias</div><div class="font-display font-black text-base text-blupit-purple mt-1">${demoState.adminTeamFilter === 'MILLONARIOS' ? '3,800' : '9,200'}</div></div>
+                <div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-xs"><div class="text-[10px] text-slate-500 font-display font-bold">Puntos acum.</div><div class="font-display font-black text-base text-amber-600 mt-1">${demoState.adminTeamFilter === 'MILLONARIOS' ? '195K' : '480K'}</div></div>
+                <div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-xs"><div class="text-[10px] text-slate-500 font-display font-bold">Beneficios cons.</div><div class="font-display font-black text-base text-purple-600 mt-1">${demoState.adminTeamFilter === 'MILLONARIOS' ? '2,100' : '5,100'}</div></div>
+                <div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-xs"><div class="text-[10px] text-slate-500 font-display font-bold">Recurrentes</div><div class="font-display font-black text-base text-emerald-600 mt-1">${demoState.adminTeamFilter === 'MILLONARIOS' ? '1,850' : '4,300'}</div></div>
+                <div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-xs"><div class="text-[10px] text-slate-500 font-display font-bold">Tasa Conversión</div><div class="font-display font-black text-base text-emerald-600 mt-1">67.0%</div></div>
+              </div>
+
+              <div class="bg-white p-4 rounded-2xl border border-slate-200 space-y-3 text-xs">
+                <div class="font-display font-bold text-slate-900">Participación por Club y Atribución de Tráfico</div>
+                <div class="space-y-2">
+                  <div>
+                    <div class="flex justify-between mb-0.5 text-slate-700"><span>Millonarios</span><span class="font-display font-bold">7,770 votantes (42%)</span></div>
+                    <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden"><div class="bg-sky-500 h-full" style="width: 42%"></div></div>
+                  </div>
+                  <div>
+                    <div class="flex justify-between mb-0.5 text-slate-700"><span>Atlético Nacional</span><span class="font-display font-bold">4,625 votantes (25%)</span></div>
+                    <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden"><div class="bg-emerald-500 h-full" style="width: 25%"></div></div>
+                  </div>
+                  <div>
+                    <div class="flex justify-between mb-0.5 text-slate-700"><span>América de Cali / Junior / Otros</span><span class="font-display font-bold">6,105 votantes (33%)</span></div>
+                    <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden"><div class="bg-blupit-purple h-full" style="width: 33%"></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      // 11 — NUEVAS PROPUESTAS: INTRODUCCIÓN SOLUCIÓN B
+      {
+        num: 11, flow: 'Solución B · Nuevas Propuestas', title: 'Nuevos formatos para conectar con los hinchas.',
+        render: () => `
+          <div class="space-y-6">
+            <div class="max-w-4xl">
+              <span class="text-xs font-display font-bold uppercase tracking-widest text-aguila-yellow">Solución B · Ecosistema de Contenidos, Formatos y Medios</span>
+              <h2 class="font-display font-black text-3xl sm:text-4xl mt-1 text-white">
+                Nuevos formatos para conectar con los hinchas.
+              </h2>
+              <p class="text-sm text-white/85 mt-2 font-sans">
+                Queremos llevar Águila y Estrellas Águila a contenidos capaces de generar conversaciones, entretener y darles protagonismo a las personas. Presentaremos propuestas originales, nuevas secciones para programas existentes y formatos creados con inteligencia artificial.
+              </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+              <div class="card-highlight p-6 rounded-3xl space-y-3 shadow-xl bg-gradient-to-br from-aguila-yellow/25 to-aguila-navy border border-aguila-yellow/50">
+                <div class="w-10 h-10 rounded-xl bg-aguila-yellow text-aguila-dark flex items-center justify-center font-display font-black shadow">1</div>
+                <h3 class="font-display font-black text-xl text-white">Entretenimiento Futbolero</h3>
+                <p class="text-xs text-white/90">Formatos creados alrededor del fútbol, sus hinchas, rivalidades e historias (Cronómetro, Frente a frente, Hincha vs Periodista, Futto, etc.).</p>
+              </div>
+              <div class="card-clean p-6 rounded-3xl space-y-3 border border-sky-400/40 shadow-xl bg-aguila-navy/50">
+                <div class="w-10 h-10 rounded-xl bg-sky-500/30 text-sky-300 flex items-center justify-center font-display font-black shadow">2</div>
+                <h3 class="font-display font-black text-xl text-sky-300">Entretenimiento General</h3>
+                <p class="text-xs text-white/85">Programas de humor, entrevistas y conversación donde desarrollaremos secciones patrocinadas por Águila (Pa' Picar).</p>
+              </div>
+              <div class="card-clean p-6 rounded-3xl space-y-3 border border-emerald-400/40 shadow-xl bg-aguila-navy/50">
+                <div class="w-10 h-10 rounded-xl bg-emerald-500/30 text-emerald-300 flex items-center justify-center font-display font-black shadow">3</div>
+                <h3 class="font-display font-black text-xl text-emerald-300">AI Content Studio</h3>
+                <p class="text-xs text-white/85">Nueva capacidad de producción de Level para desarrollar avatares UGC, personajes y contenidos con IA (Juanito Pérez y avatares a la medida).</p>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      // 12 — CRONÓMETRO ÁGUILA
+      {
+        num: 12, flow: 'Entretenimiento Futbolero · Cronómetro Águila', title: 'Cronómetro Águila: el concepto y la mecánica.',
+        render: () => `
+          <div class="space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+              <div>
+                <span class="text-xs font-display font-bold uppercase tracking-widest text-aguila-yellow">Formato Propietario Level · Game Show de Fútbol</span>
+                <h2 class="font-display font-black text-2xl sm:text-3xl mt-0.5 text-white">Cronómetro Águila: debates, contrarreloj y poderes.</h2>
+              </div>
+              <a href="https://drive.google.com/drive/u/6/folders/1sexDXnEBusQWCe1vaqDPDEw5wkQJdbr6" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-xl bg-aguila-yellow text-aguila-dark text-xs font-display font-bold flex items-center gap-1.5 shadow-lg hover:bg-aguila-gold transition">
+                <i class="ph-bold ph-google-drive-logo text-base"></i> Carpeta Drive (Cronómetro) ↗
+              </a>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+              <div class="lg:col-span-7 space-y-3">
+                <div class="card-clean p-4 rounded-2xl space-y-2 text-xs shadow-xl">
+                  <div class="font-display font-bold text-aguila-yellow uppercase">Mecánica del Juego y Alianzas con Medios:</div>
+                  <ul class="space-y-1.5 text-white/90">
+                    <li>1. <strong>Aliados de Producción y Emisión:</strong> Ideal para producirse en alianza con canales y creadores de alto impacto como <strong>El Parche del Fútbol</strong>, <strong>Eduardo Luis</strong>, <strong>Camilo MD</strong> o <strong>Habla Deportes</strong>, donde se reúne la mayor comunidad de hinchas.</li>
+                    <li>2. Dos participantes se enfrentan en duelos de debate seleccionando botellas y retos.</li>
+                    <li>3. Comienza el cronómetro en cuenta regresiva y se utilizan tarjetas de poderes.</li>
+                  </ul>
+                </div>
+                <div class="card-highlight p-4 rounded-2xl text-xs space-y-1 shadow-xl bg-gradient-to-r from-aguila-yellow/20 to-aguila-blue/40">
+                  <span class="font-display font-bold text-aguila-yellow block">Inversión de Referencia:</span>
+                  <p class="text-white/90">Aprox. <strong>$8.000.000 a $10.000.000 COP</strong> por cada episodio producido y emitido con El Parche, Eduardo Luis, Camilo MD o Habla Deportes.</p>
+                </div>
+              </div>
+              <div class="lg:col-span-5 card-clean p-4 rounded-3xl border border-aguila-yellow/40 text-center space-y-3 shadow-2xl bg-aguila-navy/60">
+                <div class="rounded-2xl overflow-hidden border border-aguila-yellow/50 shadow-lg bg-aguila-navy">
+                  <img src="https://i.postimg.cc/mr0X1whv/Crono-metro-Aguila-LEVEL-(1)-pdf.png" alt="Cronómetro Águila" class="w-full h-auto object-cover" onerror="this.src='https://placehold.co/600x400/002454/FFD100?text=Cronometro+Aguila';" />
+                </div>
+                <span class="text-[11px] text-white/70 block">Programa semanal adaptable a YouTube / streaming / clips</span>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      // 13 — CRONÓMETRO ÁGUILA: ASÍ SE JUEGA
+      {
+        num: 13, flow: 'Entretenimiento Futbolero · Cronómetro Águila', title: 'Cronómetro Águila: así se juega y participa.',
+        render: () => `
+          <div class="space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+              <div>
+                <span class="text-xs font-display font-bold uppercase tracking-widest text-aguila-yellow">Dinámica Interactiva y Alianzas con Medios</span>
+                <h2 class="font-display font-black text-2xl sm:text-3xl mt-1 text-white">Poderes, tarjetas y emisión con El Parche, Eduardo Luis, Camilo MD o Habla Deportes.</h2>
+              </div>
+              <a href="https://drive.google.com/drive/u/6/folders/1sexDXnEBusQWCe1vaqDPDEw5wkQJdbr6" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-xl bg-aguila-yellow text-aguila-dark text-xs font-display font-bold flex items-center gap-1.5 shadow-lg hover:bg-aguila-gold transition">
+                <i class="ph-bold ph-google-drive-logo text-base"></i> Carpeta Drive (Cronómetro) ↗
+              </a>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+              <div class="card-clean p-4 rounded-2xl space-y-2 border border-aguila-yellow/40 shadow-xl bg-aguila-navy/60">
+                <div class="rounded-xl overflow-hidden border border-aguila-yellow/30 bg-aguila-navy">
+                  <img src="https://i.postimg.cc/4Nd6ZcxJ/Crono-metro-Aguila-2.png" alt="Cronómetro Águila 2" class="w-full h-auto object-cover" onerror="this.src='https://placehold.co/600x300/002454/FFD100?text=Cronometro+Detalle+2';" />
+                </div>
+                <strong class="text-sky-300 block font-display text-xs mt-1">Selección de Retos y Botellas</strong>
+                <p class="text-white/85 text-[11px]">Los participantes eligen entre 5 botellas Águila para destapar preguntas candentes del fútbol colombiano.</p>
+              </div>
+              <div class="card-clean p-4 rounded-2xl space-y-2 border border-aguila-yellow/40 shadow-xl bg-aguila-navy/60">
+                <div class="rounded-xl overflow-hidden border border-aguila-yellow/30 bg-aguila-navy">
+                  <img src="https://i.postimg.cc/QxypMMFc/Crono-metro-Aguila-3.png" alt="Cronómetro Águila 3" class="w-full h-auto object-cover" onerror="this.src='https://placehold.co/600x300/002454/FFD100?text=Cronometro+Detalle+3';" />
+                </div>
+                <strong class="text-aguila-yellow block font-display text-xs mt-1">Poderes y Tarjetas</strong>
+                <p class="text-white/85 text-[11px]">Uso estratégico de tarjetas Amarilla, Azul, Roja y VAR para obligar al rival a re-explicar su argumento.</p>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      // 14 — DE FRENTE CON EL RIVAL
+      {
+        num: 14, flow: 'Entretenimiento Futbolero · De Frente con el Rival', title: 'De frente con el rival: pasión y argumentos.',
+        render: () => `
+          <div class="space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-white/15 pb-2">
+              <div>
+                <span class="text-xs font-display font-bold uppercase tracking-widest text-aguila-yellow">Entretenimiento Futbolero · Formato de Debate con Medios Aliados</span>
+                <h2 class="font-display font-black text-2xl sm:text-3xl mt-0.5 text-white">De frente con el rival: pasión, debate y alianzas.</h2>
+              </div>
+              <div class="flex items-center gap-2">
+                <a href="https://www.youtube.com/watch?v=8UAh5ruRlCw" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-xl bg-red-600 text-white text-xs font-display font-bold flex items-center gap-1.5 shadow-lg hover:bg-red-500 transition">
+                  <i class="ph-bold ph-youtube-logo text-base"></i> Ver Referencia YouTube ↗
+                </a>
+                <span class="px-3 py-1 rounded-full bg-aguila-blue text-xs text-white font-display font-bold shadow">Marca: Águila</span>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+              <div class="lg:col-span-5 card-clean rounded-3xl p-4 border border-white/20 text-center space-y-3 shadow-2xl bg-aguila-navy/60">
+                <div class="rounded-2xl overflow-hidden border border-aguila-yellow/40 bg-aguila-navy">
+                  <img src="https://i.postimg.cc/XYnqHV5v/Whats-App-Image-2026-10-16-at-8-48-08-AM.jpg" alt="De frente con el rival" class="w-full h-auto object-cover" onerror="this.src='https://placehold.co/600x400/002454/FFD100?text=De+Frente+con+el+Rival';" />
+                </div>
+                <span class="text-[11px] text-white/70 block">Producido en alianza con <strong>El Parche del Fútbol</strong>, <strong>Eduardo Luis</strong> o <strong>Camilo MD</strong></span>
+              </div>
+              <div class="lg:col-span-7 space-y-3 text-xs">
+                <div class="card-clean p-3.5 rounded-2xl space-y-1 shadow">
+                  <span class="text-[10px] uppercase font-display font-bold text-sky-300">Concepto y Alianza con Medios</span>
+                  <p class="font-display font-semibold text-white">Dos hinchas de equipos rivales se sientan frente a frente para defender por qué su equipo es más grande. <strong>Este formato se produce en alianza con canales clave como El Parche del Fútbol, Eduardo Luis o Camilo MD</strong>, donde están los hinchas.</p>
+                </div>
+                <div class="card-clean p-3.5 rounded-2xl space-y-1 shadow">
+                  <span class="text-[10px] uppercase font-display font-bold text-emerald-300">¿Cómo entra la marca y cuál es la inversión?</span>
+                  <p class="text-white/90">Patrocinio del enfrentamiento, identidad gráfica en set brandeado y votaciones de la audiencia. Inversión de referencia: <strong>$8.000.000 COP</strong> por episodio.</p>
+                </div>
+                <div class="card-highlight p-3 rounded-2xl flex items-center justify-between shadow">
+                  <div><span class="text-[9px] uppercase font-display font-bold text-white/60 block">Entregables</span><span class="font-display font-bold text-white">Episodio completo y clips verticales</span></div>
+                  <span class="px-2.5 py-1 rounded bg-aguila-yellow text-aguila-dark font-display font-black text-[10px]">$8M COP / ep</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      // 15 — EL HINCHA CONTRA EL PERIODISTA
+      {
+        num: 15, flow: 'Entretenimiento Futbolero · El Hincha contra el Periodista', title: 'El hincha contra el periodista.',
+        render: () => `
+          <div class="space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-white/15 pb-2">
+              <div>
+                <span class="text-xs font-display font-bold uppercase tracking-widest text-aguila-yellow">Entretenimiento Futbolero · Debate Abierto con Medios Aliados</span>
+                <h2 class="font-display font-black text-2xl sm:text-3xl mt-0.5 text-white">El hincha contra el periodista.</h2>
+              </div>
+              <div class="flex items-center gap-2">
+                <a href="https://www.youtube.com/watch?v=R7f78roHzZk" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-xl bg-red-600 text-white text-xs font-display font-bold flex items-center gap-1.5 shadow-lg hover:bg-red-500 transition">
+                  <i class="ph-bold ph-youtube-logo text-base"></i> Ver Referencia YouTube ↗
+                </a>
+                <span class="px-3 py-1 rounded-full bg-aguila-blue text-xs text-white font-display font-bold shadow">Marca: Estrellas Águila</span>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+              <div class="lg:col-span-5 card-clean rounded-3xl p-4 border border-white/20 text-center space-y-3 shadow-2xl bg-aguila-navy/60">
+                <div class="rounded-2xl overflow-hidden border border-aguila-yellow/40 bg-aguila-navy">
+                  <img src="https://i.postimg.cc/yNk68VSg/Debate-futbolero-hincha-contra-periodista.png" alt="El hincha contra el periodista" class="w-full h-auto object-cover" onerror="this.src='https://placehold.co/600x400/002454/FFD100?text=Hincha+contra+Periodista';" />
+                </div>
+                <span class="text-[11px] text-white/70 block">Producido en alianza con <strong>El Parche del Fútbol</strong>, <strong>Eduardo Luis</strong>, <strong>Camilo MD</strong> o <strong>Habla Deportes</strong></span>
+              </div>
+              <div class="lg:col-span-7 space-y-3 text-xs">
+                <div class="card-clean p-3.5 rounded-2xl space-y-1 shadow">
+                  <span class="text-[10px] uppercase font-display font-bold text-sky-300">Concepto y Alianza con Medios</span>
+                  <p class="font-display font-semibold text-white">Un periodista reconocido defiende una posición futbolera frente a varios hinchas que intentan refutarlo. <strong>Ideal para emitirse en canales aliados como El Parche del Fútbol, Eduardo Luis, Camilo MD o Habla Deportes</strong>.</p>
+                </div>
+                <div class="card-clean p-3.5 rounded-2xl space-y-1 shadow">
+                  <span class="text-[10px] uppercase font-display font-bold text-emerald-300">¿Cómo entra la marca y cuál es la inversión?</span>
+                  <p class="text-white/90">Patrocinio de la mesa, preguntas enviadas por hinchas vía Blupit/landing y votación de opinión. Inversión de referencia: <strong>$8.000.000 a $10.000.000 COP</strong> por episodio.</p>
+                </div>
+                <div class="card-highlight p-3 rounded-2xl flex items-center justify-between shadow">
+                  <div><span class="text-[9px] uppercase font-display font-bold text-white/60 block">Entregables</span><span class="font-display font-bold text-white">Episodio en video, clips de debate y reacciones</span></div>
+                  <span class="px-2.5 py-1 rounded bg-aguila-yellow text-aguila-dark font-display font-black text-[10px]">$8M - $10M / ep</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      // 16 — FUTTO / FUT (PATROCINIO TIGER 3)
+      {
+        num: 16, flow: 'Entretenimiento Futbolero · FUTTO / FUT', title: 'FUTTO: Patrocinio Oficial Tiger 3.',
+        render: () => `
+          <div class="space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-white/15 pb-2">
+              <div>
+                <span class="text-xs font-display font-bold uppercase tracking-widest text-aguila-yellow">FUT / FUTTO · Patrocinio Oficial Tiger 3</span>
+                <h2 class="font-display font-black text-2xl sm:text-3xl mt-0.5 text-white">FUTTO: Torneos de barrio, 1.200 streams y base de datos.</h2>
+              </div>
+              <div class="flex items-center gap-2">
+                <a href="https://drive.google.com/drive/u/6/folders/1tQYtMIRDZFGQN6WPBUMZrfr81c9uB7Ia" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-xl bg-aguila-yellow text-aguila-dark text-xs font-display font-bold flex items-center gap-1.5 shadow-lg hover:bg-aguila-gold transition">
+                  <i class="ph-bold ph-google-drive-logo text-base"></i> Ver Presentación de Patrocinio (Drive) ↗
+                </a>
+                <a href="https://www.youtube.com/@futtotv" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-xl bg-red-600 text-white text-xs font-display font-bold flex items-center gap-1.5 shadow-lg hover:bg-red-500 transition">
+                  <i class="ph-bold ph-youtube-logo text-base"></i> Canal @futtotv ↗
+                </a>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+              <div class="lg:col-span-5 card-clean rounded-3xl p-4 border border-white/20 text-center space-y-3 shadow-2xl bg-aguila-navy/60">
+                <div class="rounded-2xl overflow-hidden border border-aguila-yellow/40 bg-aguila-navy">
+                  <img src="https://i.postimg.cc/pXwJZTPR/Infografi-a-FUTTO-y-A-guila-El-fu-tbol-nos-une.png" alt="Futto e Infografía Águila" class="w-full h-auto object-cover" onerror="this.src='https://placehold.co/600x400/002454/FFD100?text=Futto+y+Aguila';" />
+                </div>
+                <span class="text-[11px] text-white/70 block">Patrocinio Tiger 3 · 420 Millones de Impresiones al Año</span>
+              </div>
+              <div class="lg:col-span-7 space-y-2.5 text-xs">
+                <div class="card-clean p-3.5 rounded-2xl space-y-1.5 shadow">
+                  <span class="text-[10px] uppercase font-display font-bold text-sky-300">El Paquete Tiger 3 Disponible Contempla:</span>
+                  <ul class="space-y-1 text-white/90">
+                    <li>• <strong>Streams en YouTube (1.200 al año):</strong> Aparición de marca con pop-up dinámico durante las transmisiones en directo.</li>
+                    <li>• <strong>Presencia Física en Cancha:</strong> 2 vallas físicas + 2 pendones oficiales visibles en transmisiones y torneos.</li>
+                    <li>• <strong>Sección en Redes Sociales:</strong> Segmento especial <em>"La Estrella Águila de la Semana"</em> destacando al jugador destacado.</li>
+                    <li>• <strong>Torneos Activos (4 en total):</strong> Incluye Liga Banquitas Cali, Rey del Barrio en Bogotá y dos torneos adicionales.</li>
+                    <li>• <strong>Base de Datos y Publicidad:</strong> Acceso a la base de datos de todos los jugadores registrados para campañas directas.</li>
+                  </ul>
+                </div>
+                <div class="card-highlight p-3 rounded-2xl flex items-center justify-between shadow bg-gradient-to-r from-aguila-yellow/20 to-aguila-blue/40">
+                  <div><span class="text-[9px] uppercase font-display font-bold text-white/60 block">Inversión Estimada Referencia</span><span class="font-display font-bold text-white">$450.000.000 COP (Patrocinio Tiger 3)</span></div>
+                  <span class="px-2.5 py-1 rounded bg-aguila-yellow text-aguila-dark font-display font-black text-[10px]">$450M COP</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      // 17 — ¿Y CÓMO DIJO? — ¿QUIÉN SABE MÁS DE FÚTBOL?
+      {
+        num: 17, flow: 'Entretenimiento Futbolero · ¿Y Cómo Dijo?', title: '¿Y Cómo Dijo? — ¿Quién sabe más de fútbol?',
+        render: () => `
+          <div class="space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-white/15 pb-2">
+              <div>
+                <span class="text-xs font-display font-bold uppercase tracking-widest text-aguila-yellow">Entretenimiento Futbolero · Duelo Callejero</span>
+                <h2 class="font-display font-black text-2xl sm:text-3xl mt-0.5 text-white">¿Y Cómo Dijo? — ¿Quién sabe más de fútbol?</h2>
+              </div>
+              <div class="flex items-center gap-2">
+                <a href="https://www.tiktok.com/@ycomodijo69?_r=1&_t=ZS-9AaTSYI48iC" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-xs font-display font-bold flex items-center gap-1.5 shadow-lg hover:bg-zinc-800 transition">
+                  <i class="ph-bold ph-tiktok-logo text-base"></i> TikTok @ycomodijo69 ↗
+                </a>
+                <span class="px-3 py-1 rounded-full bg-aguila-blue text-xs text-white font-display font-bold shadow">Marca: Águila</span>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+              <div class="lg:col-span-5 card-clean rounded-3xl p-4 border border-white/20 text-center space-y-3 shadow-2xl bg-aguila-navy/60">
+                <div class="rounded-2xl overflow-hidden border border-aguila-yellow/40 bg-aguila-navy">
+                  <img src="https://i.postimg.cc/Z5z6NML5/Tri-ptico-de-fu-tbol-pasio-n-y-A-guila.png" alt="¿Y Cómo Dijo?" class="w-full h-auto object-cover" onerror="this.src='https://placehold.co/600x400/002454/FFD100?text=Y+Como+Dijo';" />
+                </div>
+                <span class="text-[11px] text-white/70 block">Duelo callejero de preguntas, humor y rivalidad entre hinchas</span>
+              </div>
+              <div class="lg:col-span-7 space-y-3 text-xs">
+                <div class="card-clean p-3.5 rounded-2xl space-y-1 shadow">
+                  <span class="text-[10px] uppercase font-display font-bold text-sky-300">Concepto</span>
+                  <p class="font-display font-semibold text-white">Un duelo callejero donde dos hinchas de equipos rivales compiten respondiendo preguntas sobre fútbol colombiano. El humor, las equivocaciones y las reacciones espontáneas son protagonistas.</p>
+                </div>
+                <div class="card-clean p-3.5 rounded-2xl space-y-1 shadow">
+                  <span class="text-[10px] uppercase font-display font-bold text-emerald-300">¿Cómo funciona?</span>
+                  <p class="text-white/90">Los creadores hacen preguntas rápidas a dos hinchas adultos. Cada respuesta correcta suma un punto. Al finalizar, anuncian al ganador y capturan las mejores reacciones.</p>
+                </div>
+                <div class="card-clean p-3.5 rounded-2xl space-y-1 shadow">
+                  <span class="text-[10px] uppercase font-display font-bold text-aguila-yellow">¿Cómo entra Águila? y Tarifa</span>
+                  <p class="text-white/90">Patrocinio de la sección, micrófono personalizado, marcador con identidad de marca e inversión de referencia de <strong>$5.000.000 a $6.000.000 COP</strong> por video.</p>
+                </div>
+                <div class="card-highlight p-3 rounded-2xl flex items-center justify-between shadow">
+                  <div><span class="text-[9px] uppercase font-display font-bold text-white/60 block">Entregables</span><span class="font-display font-bold text-white">1 jornada de grabación y 4 a 6 videos verticales</span></div>
+                  <span class="px-2.5 py-1 rounded bg-aguila-yellow text-aguila-dark font-display font-black text-[10px]">$5M - $6M / video</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      // 18 — JOGA MELITO — LA PREVIA DE ÁGUILA (MICRÓFONO ABIERTO CALLEJERO)
+      {
+        num: 18, flow: 'Entretenimiento Futbolero · Joga Melito', title: 'La Previa de Águila.',
+        render: () => `
+          <div class="space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-white/15 pb-2">
+              <div>
+                <span class="text-xs font-display font-bold uppercase tracking-widest text-aguila-yellow">Entretenimiento Futbolero · Micrófono Abierto Callejero</span>
+                <h2 class="font-display font-black text-2xl sm:text-3xl mt-0.5 text-white">La Previa de Águila.</h2>
+              </div>
+              <div class="flex items-center gap-2">
+                <a href="https://www.instagram.com/joga.melito/reels/" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-display font-bold flex items-center gap-1.5 shadow-lg hover:opacity-90 transition">
+                  <i class="ph-bold ph-instagram-logo text-base"></i> Instagram Reels ↗
+                </a>
+                <span class="px-3 py-1 rounded-full bg-aguila-blue text-xs text-white font-display font-bold shadow">Marca: Águila</span>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+              <div class="lg:col-span-5 card-clean rounded-3xl p-4 border border-white/20 text-center space-y-3 shadow-2xl bg-aguila-navy/60">
+                <div class="rounded-2xl overflow-hidden border border-aguila-yellow/40 bg-aguila-navy">
+                  <img src="https://i.postimg.cc/s26c5JXJ/Whats-App-Image-2026-10-15-at-7-11-08-PM-(1).jpg" alt="Joga Melito La Previa" class="w-full h-auto object-cover" onerror="this.src='https://placehold.co/600x400/002454/FFD100?text=La+Previa+de+Aguila';" />
+                </div>
+                <span class="text-[11px] text-white/70 block">Micrófono personalizado y letrero con pregunta en los exteriores del estadio</span>
+              </div>
+              <div class="lg:col-span-7 space-y-3 text-xs">
+                <div class="card-clean p-3.5 rounded-2xl space-y-1 shadow">
+                  <span class="text-[10px] uppercase font-display font-bold text-sky-300">Concepto</span>
+                  <p class="font-display font-semibold text-white">Un espacio de micrófono abierto para escuchar las historias, rituales y ocurrencias de los hinchas antes de cada partido.</p>
+                </div>
+                <div class="card-clean p-3.5 rounded-2xl space-y-1 shadow">
+                  <span class="text-[10px] uppercase font-display font-bold text-emerald-300">¿Cómo funciona?</span>
+                  <p class="text-white/90">Instalamos un micrófono y una pregunta de Águila en un punto de encuentro cercano al estadio. Los aficionados participan con respuestas espontáneas que se convierten en contenido para redes.</p>
+                </div>
+                <div class="card-clean p-3.5 rounded-2xl space-y-1 shadow">
+                  <span class="text-[10px] uppercase font-display font-bold text-aguila-yellow">¿Cómo entra Águila? y Tarifa</span>
+                  <p class="text-white/90">Branding del micrófono, letrero, identidad de la sección y publicaciones digitales con inversión de referencia de <strong>$2.500.000 a $3.000.000 COP</strong> por video.</p>
+                </div>
+                <div class="card-highlight p-3 rounded-2xl flex items-center justify-between shadow">
+                  <div><span class="text-[9px] uppercase font-display font-bold text-white/60 block">Entregables</span><span class="font-display font-bold text-white">Coberturas por fecha y clips verticales callejeros</span></div>
+                  <span class="px-2.5 py-1 rounded bg-aguila-yellow text-aguila-dark font-display font-black text-[10px]">$2.5M - $3M / video</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      // 19 — PA' PICAR — LA PREGUNTA QUE PICA (MARCA: ÁGUILA)
+      {
+        num: 19, flow: 'Entretenimiento General · Pa\' Picar', title: 'La pregunta que pica',
+        render: () => `
+          <div class="space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-white/15 pb-2">
+              <div>
+                <span class="text-xs font-display font-bold uppercase tracking-widest text-aguila-yellow">Entretenimiento General · Pa' Picar (Conversaciones Auténticas)</span>
+                <h2 class="font-display font-black text-2xl sm:text-3xl mt-0.5 text-white">La pregunta que pica</h2>
+              </div>
+              <div class="flex items-center gap-2">
+                <a href="https://www.youtube.com/@pa.picartv" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-xl bg-red-600 text-white text-xs font-display font-bold flex items-center gap-1.5 shadow-lg hover:bg-red-500 transition">
+                  <i class="ph-bold ph-youtube-logo text-base"></i> YouTube @pa.picartv ↗
+                </a>
+                <span class="px-3 py-1 rounded-full bg-aguila-blue text-xs text-white font-display font-bold shadow">Marca: Águila</span>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+              <div class="lg:col-span-5 card-clean rounded-3xl p-4 border border-white/20 text-center space-y-3 shadow-2xl bg-aguila-navy/60">
+                <div class="rounded-2xl overflow-hidden border border-aguila-yellow/40 bg-aguila-navy">
+                  <img src="https://i.postimg.cc/cJRWHrLB/La-pregunta-que-pica-conversaciones-que-unen.png" alt="La pregunta que pica" class="w-full h-auto object-cover" onerror="this.src='https://placehold.co/600x400/002454/FFD100?text=La+Pregunta+Que+Pica';" />
+                </div>
+                <span class="text-[11px] text-white/70 block">Conversaciones espontáneas sobre vida, relaciones y anécdotas</span>
+              </div>
+              <div class="lg:col-span-7 space-y-3 text-xs">
+                <div class="card-clean p-3.5 rounded-2xl space-y-1 shadow">
+                  <span class="text-[10px] uppercase font-display font-bold text-sky-300">Concepto</span>
+                  <p class="font-display font-semibold text-white">Una sección patrocinada por Águila donde los presentadores e invitados responden preguntas inesperadas que generan confesiones, risas y conversaciones auténticas.</p>
+                </div>
+                <div class="card-clean p-3.5 rounded-2xl space-y-1 shadow">
+                  <span class="text-[10px] uppercase font-display font-bold text-emerald-300">¿Cómo funciona?</span>
+                  <p class="text-white/90"><strong>1. La sección:</strong> Cortinilla breve: «La pregunta que pica, presentada por Águila».<br><strong>2. La pregunta:</strong> Participantes sacan una tarjeta de una caja con identidad Águila (ej. <em>«¿Qué es lo más loco que has hecho por un amigo?»</em>).<br><strong>3. La conversación:</strong> Anécdotas y risas; los mejores momentos se convierten en clips para redes.</p>
+                </div>
+                <div class="card-clean p-3.5 rounded-2xl space-y-1 shadow">
+                  <span class="text-[10px] uppercase font-display font-bold text-aguila-yellow">¿Cómo entra la marca y cuál es la inversión?</span>
+                  <p class="text-white/90">Cortinilla, tarjetas, caja personalizada y detalles visuales sutiles con inversión de referencia de <strong>$7.000.000 COP</strong> por episodio.</p>
+                </div>
+                <div class="card-highlight p-3 rounded-2xl flex items-center justify-between shadow">
+                  <div><span class="text-[9px] uppercase font-display font-bold text-white/60 block">Entregables</span><span class="font-display font-bold text-white">1 integración en YouTube y 4 a 6 clips verticales para TikTok/Reels</span></div>
+                  <span class="px-2.5 py-1 rounded bg-aguila-yellow text-aguila-dark font-display font-black text-[10px]">$7M / ep</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      // 20 — UN BREAK PODCAST: CONCEPTO Y DEMOGRAFÍA
+      {
+        num: 20, flow: 'Entretenimiento General · Un Break Podcast', title: 'Un Break × Águila: Las historias del fútbol también merecen un break.',
+        render: () => `
+          <div class="space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-white/15 pb-2">
+              <div>
+                <span class="text-xs font-display font-bold uppercase tracking-widest text-sky-300">Entretenimiento General · Entrevistas Semanales con Protagonistas</span>
+                <h2 class="font-display font-black text-2xl sm:text-3xl mt-0.5 text-white">UN BREAK × ÁGUILA</h2>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-aguila-blue text-xs text-white font-display font-bold shadow">Marca: Águila</span>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+              <div class="lg:col-span-5 card-clean rounded-3xl p-4 border border-white/20 text-center space-y-3 shadow-2xl bg-aguila-navy/60">
+                <div class="rounded-2xl overflow-hidden border border-sky-400/40 bg-aguila-navy">
+                  <img src="https://i.postimg.cc/DydJHdGC/Propuesta-A-guila-x-Un-Break.png" alt="Propuesta Águila x Un Break" class="w-full h-auto object-cover" onerror="this.src='https://placehold.co/600x400/002454/0066FF?text=Un+Break+x+Aguila';" />
+                </div>
+                <span class="text-[11px] text-white/70 block">Conversaciones humanas y cercanas con figuras del deporte</span>
+              </div>
+              <div class="lg:col-span-7 space-y-2.5 text-xs">
+                <div class="card-clean p-3 rounded-2xl space-y-1 shadow">
+                  <span class="text-[10px] uppercase font-display font-bold text-sky-300">¿Qué es Un Break?</span>
+                  <p class="font-display font-semibold text-white">Un formato de entrevistas semanales que conversa con jugadores, entrenadores y protagonistas del deporte, mostrando sus historias personales y profesionales desde una perspectiva cercana y humana.</p>
+                </div>
+                <div class="card-clean p-3 rounded-2xl space-y-1 shadow">
+                  <span class="text-[10px] uppercase font-display font-bold text-emerald-300">¿Cómo entra Águila y se amplifica?</span>
+                  <p class="text-white/90">• <strong>Integración en YouTube:</strong> presencia visual en escenario, apertura o sección presentada por la marca y menciones.<br>• <strong>Amplificación:</strong> Shorts, Reels y TikToks con identidad de Águila.</p>
+                </div>
+                <div class="card-highlight p-3 rounded-2xl space-y-1 shadow bg-gradient-to-r from-aguila-yellow/20 to-aguila-blue/40">
+                  <span class="text-[10px] uppercase font-display font-bold text-aguila-yellow">Audiencia Reportada y Demografía Clave</span>
+                  <p class="text-white/90">10K subs YT · 20K IG · 30K TikTok · +800K views · 92K-234K vistas/mes. Principalmente Colombia (Medellín 20.1%, Bogotá 9.5%, Cali 3.9%, Barranquilla 3.7%), +87% hombres adultos.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      // 21 — UN BREAK PODCAST: PAQUETES COMERCIALES
+      {
+        num: 21, flow: 'Entretenimiento General · Un Break Paquetes', title: 'Un Break Pódcast: Paquetes Comerciales Oficiales.',
+        render: () => `
+          <div class="space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-white/15 pb-2">
+              <div>
+                <span class="text-xs font-display font-bold uppercase tracking-widest text-aguila-yellow">Inversión y Patrocinio · Un Break (\`@UnBreakOficial\`)</span>
+                <h2 class="font-display font-black text-2xl sm:text-3xl mt-0.5 text-white">Paquetes Comerciales Oficiales</h2>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+              <div class="card-clean p-4 rounded-2xl space-y-2 border-t-4 border-t-sky-400 shadow-xl bg-aguila-navy/60">
+                <span class="px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 font-display font-bold text-[10px]">PAQUETE 1</span>
+                <h3 class="font-display font-black text-lg text-white">Presencia</h3>
+                <div class="font-display font-black text-xl text-aguila-yellow">$3.500.000 COP</div>
+                <p class="text-white/85 text-[11px]">Ideal para probar el formato.</p>
+                <ul class="space-y-1 text-white/90 pt-1 text-[11px]">
+                  <li>• 1 fragmento orgánico con logo (Instagram, TikTok o YouTube Shorts).</li>
+                  <li>• 3 historias en secuencia: contexto, integración y llamado a la acción.</li>
+                  <li>• 1 mención hablada o visual dentro del episodio completo.</li>
+                  <li>• Reporte básico de resultados a los 7 días.</li>
+                </ul>
+              </div>
+              <div class="card-highlight p-4 rounded-2xl space-y-2 border-t-4 border-t-aguila-yellow shadow-xl bg-gradient-to-b from-aguila-yellow/20 to-aguila-blue/40">
+                <span class="px-2 py-0.5 rounded bg-aguila-yellow text-aguila-dark font-display font-black text-[10px]">PAQUETE 2</span>
+                <h3 class="font-display font-black text-lg text-white">Integración</h3>
+                <div class="font-display font-black text-xl text-aguila-yellow">$5.500.000 COP</div>
+                <p class="text-white/90 text-[11px]">Para campañas tácticas, dentro y fuera del episodio.</p>
+                <ul class="space-y-1 text-white pt-1 text-[11px]">
+                  <li>• 1 reel/TikTok cocreado con la marca y el invitado, con idea aprobada previamente.</li>
+                  <li>• Ráfaga de historias durante el mes (2 secuencias de 3).</li>
+                  <li>• Mención hablada + banner o recurso visual en la entrevista.</li>
+                  <li>• 1 fragmento editorial con logo en redes + reporte consolidado.</li>
+                </ul>
+              </div>
+              <div class="card-clean p-4 rounded-2xl space-y-2 border-t-4 border-t-emerald-400 shadow-xl bg-aguila-navy/60">
+                <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-display font-bold text-[10px]">M Á S C O M P L E T O · P A Q U E T E 3</span>
+                <h3 class="font-display font-black text-lg text-white">Patrocinio Oficial</h3>
+                <div class="font-display font-black text-xl text-aguila-yellow">$8M - $9M COP</div>
+                <p class="text-white/85 text-[11px]">Alianza de temporada con exclusividad de categoría.</p>
+                <ul class="space-y-1 text-white/90 pt-1 text-[11px]">
+                  <li>• Exclusividad de categoría durante las 4 entrevistas contratadas.</li>
+                  <li>• Patrocinio oficial: apertura o sección presentada por la marca.</li>
+                  <li>• 1 reel/TikTok cocreado con el invitado + 2 secuencias de historias por entrevista.</li>
+                  <li>• Presencia completa en YouTube: branding, banner y mención hablada. Instagram @unbreak</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      // 22 — AVATARES UGC CREADOS PARA ÁGUILA
+      {
+        num: 22, flow: 'AI Content Studio · Avatares UGC', title: 'Avatares UGC creados para Águila.',
+        render: () => `
+          <div class="space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-white/15 pb-2">
+              <div>
+                <span class="text-xs font-display font-bold uppercase tracking-widest text-emerald-300">Capacidad Tecnológica Propietaria de Level · AI Content Studio</span>
+                <h2 class="font-display font-black text-2xl sm:text-3xl mt-0.5 text-white">Avatares UGC creados para Águila.</h2>
+              </div>
+              <a href="https://drive.google.com/drive/u/6/folders/1XTTEKHGGYYxZJXpHdl5jZoJXaKK2smtS" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-xl bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-display font-bold flex items-center gap-1.5 shadow">
+                <i class="ph-bold ph-google-drive-logo text-base"></i> Carpeta Drive "UGC LEVEL / AGUILA" ↗
+              </a>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+              <div class="lg:col-span-5 grid grid-cols-2 gap-2">
+                <div class="rounded-2xl overflow-hidden border border-emerald-400/40 bg-aguila-navy shadow-xl">
+                  <img src="https://i.postimg.cc/qMjB2myn/Whats-App-Image-2026-10-15-at-10-03-36-PM.jpg" alt="AI Studio 1" class="w-full h-auto object-cover" onerror="this.src='https://placehold.co/300x300/002454/25D366?text=AI+Studio+1';" />
+                </div>
+                <div class="rounded-2xl overflow-hidden border border-emerald-400/40 bg-aguila-navy shadow-xl">
+                  <img src="https://i.postimg.cc/Th83Gxhh/Whats-App-Image-2026-10-15-at-10-03-51-PM.jpg" alt="AI Studio 2" class="w-full h-auto object-cover" onerror="this.src='https://placehold.co/300x300/002454/25D366?text=AI+Studio+2';" />
+                </div>
+              </div>
+              <div class="lg:col-span-7 space-y-3 text-xs">
+                <div class="card-clean p-4 rounded-2xl space-y-2 shadow">
+                  <strong class="text-emerald-300 block font-display text-sm">Capacidades y Tarifas Oficiales</strong>
+                  <ul class="space-y-1.5 text-white/85">
+                    <li>• <strong>Creación del Avatar:</strong> $2.000.000 COP (pago único de configuración).</li>
+                    <li>• <strong>Producción de Videos (15-30s):</strong> $400.000 COP c/u.</li>
+                    <li>• Personajes digitales consistentes para campañas de Águila y FPC.</li>
+                  </ul>
+                </div>
+                <div class="card-highlight p-3 rounded-2xl flex items-center justify-between shadow">
+                  <div><span class="text-[9px] uppercase font-display font-bold text-white/60 block">Inversión Oficial</span><span class="font-display font-bold text-white">Avatar: $2M (setup único) · Video: $400K c/u</span></div>
+                  <span class="px-2.5 py-1 rounded bg-aguila-yellow text-aguila-dark font-display font-black text-[10px]">AI Studio</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      // 23 — RESUMEN DEL PORTAFOLIO DE NUEVAS PROPUESTAS
+      {
+        num: 23, flow: 'Resumen · Portafolio Solución B', title: 'Portafolio de Nuevas Propuestas de Contenido.',
+        render: () => `
+          <div class="space-y-3">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-white/15 pb-2">
+              <div>
+                <span class="px-2.5 py-1 rounded bg-aguila-yellow/20 text-aguila-yellow text-xs font-display font-bold uppercase shadow">Matriz Comercial · Solución B</span>
+                <h2 class="font-display font-black text-2xl sm:text-3xl mt-0.5 text-white">Una propuesta creativa para cada manera de vivir el fútbol.</h2>
+              </div>
+            </div>
+            <div class="overflow-x-auto card-clean rounded-2xl max-h-[390px] shadow-2xl">
+              <table class="w-full text-left border-collapse text-[11px]">
+                <thead class="sticky top-0 bg-aguila-navy text-aguila-yellow font-display uppercase">
+                  <tr>
+                    <th class="p-2.5">Formato</th>
+                    <th class="p-2.5">Medio / Aliado Estratégico</th>
+                    <th class="p-2.5">Categoría</th>
+                    <th class="p-2.5">Plataformas</th>
+                    <th class="p-2.5">Marca Principal</th>
+                    <th class="p-2.5">Inversión de Referencia</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-white/10 font-display font-medium">
+                  <tr><td class="p-2.5 font-bold text-white">Cronómetro Águila</td><td class="p-2.5 text-sky-300">Parche / Eduardo Luis / Camilo MD</td><td class="p-2.5">Entret. Futbolero</td><td class="p-2.5">YouTube / Streaming</td><td class="p-2.5">Águila / Estrellas</td><td class="p-2.5 text-aguila-yellow font-bold">$8M - $10M / ep</td></tr>
+                  <tr><td class="p-2.5 font-bold text-white">De frente con el rival</td><td class="p-2.5 text-sky-300">El Parche / Eduardo Luis / Camilo MD</td><td class="p-2.5">Entret. Futbolero</td><td class="p-2.5">YouTube / Redes</td><td class="p-2.5">Águila</td><td class="p-2.5 text-aguila-yellow font-bold">$8M COP / ep</td></tr>
+                  <tr><td class="p-2.5 font-bold text-white">El hincha vs. periodista</td><td class="p-2.5 text-sky-300">Parche / Eduardo Luis / Camilo MD</td><td class="p-2.5">Entret. Futbolero</td><td class="p-2.5">Streaming / Redes</td><td class="p-2.5">Estrellas Águila</td><td class="p-2.5 text-aguila-yellow font-bold">$8M - $10M / ep</td></tr>
+                  <tr><td class="p-2.5 font-bold text-white">FUT / FUTTO (Tiger 3)</td><td class="p-2.5 text-emerald-300">FUTTO</td><td class="p-2.5">Entret. Futbolero</td><td class="p-2.5">Torneos / Streams</td><td class="p-2.5">Águila</td><td class="p-2.5 text-aguila-yellow font-bold">$450.000.000 COP</td></tr>
+                  <tr><td class="p-2.5 font-bold text-white">¿Y Cómo Dijo?</td><td class="p-2.5 text-emerald-300">¿Y Cómo Dijo?</td><td class="p-2.5">Entret. Futbolero</td><td class="p-2.5">Redes Sociales</td><td class="p-2.5">Águila</td><td class="p-2.5 text-aguila-yellow font-bold">$5M - $6M / video</td></tr>
+                  <tr><td class="p-2.5 font-bold text-white">Joga Melito (La Previa)</td><td class="p-2.5 text-emerald-300">Joga Melito</td><td class="p-2.5">Entret. Futbolero</td><td class="p-2.5">Estadio / Redes</td><td class="p-2.5">Águila</td><td class="p-2.5 text-aguila-yellow font-bold">$2.5M - $3M / video</td></tr>
+                  <tr><td class="p-2.5 font-bold text-white">La pregunta que pica</td><td class="p-2.5 text-purple-300">Pa' Picar (@pa.picartv)</td><td class="p-2.5">Entret. General</td><td class="p-2.5">YouTube / TikTok</td><td class="p-2.5">Águila</td><td class="p-2.5 text-aguila-yellow font-bold">$7M / ep</td></tr>
+                  <tr><td class="p-2.5 font-bold text-white">Un Break Podcast</td><td class="p-2.5 text-sky-300">Un Break (@UnBreakOficial)</td><td class="p-2.5">Entret. General</td><td class="p-2.5">YouTube / Spotify</td><td class="p-2.5">Águila</td><td class="p-2.5 text-aguila-yellow font-bold">$3.5M / $5.5M / $8M</td></tr>
+                  <tr><td class="p-2.5 font-bold text-white">Avatares UGC</td><td class="p-2.5 text-emerald-300">Level AI Studio</td><td class="p-2.5">AI Content Studio</td><td class="p-2.5">Redes Sociales</td><td class="p-2.5">Águila</td><td class="p-2.5 text-aguila-yellow font-bold">$2M (setup) + $400K/vid</td></tr>
+                  <tr><td class="p-2.5 font-bold text-white">Juanito Pérez (IA)</td><td class="p-2.5 text-emerald-300">Fútbol Sin Límite</td><td class="p-2.5">AI Content Studio</td><td class="p-2.5">Redes Sociales</td><td class="p-2.5">Águila</td><td class="p-2.5 text-aguila-yellow font-bold">$1.5M (idea) + $400K/vid</td></tr>
+                  <tr><td class="p-2.5 font-bold text-white">Fútbol Sin Límite (POV)</td><td class="p-2.5 text-sky-300">Fútbol Sin Límite</td><td class="p-2.5">Redes / Canchas</td><td class="p-2.5">Reels / POV</td><td class="p-2.5">Águila</td><td class="p-2.5 text-aguila-yellow font-bold">$3.5M / video (Bogotá)</td></tr>
+                  <tr><td class="p-2.5 font-bold text-white">El Desahogo Águila</td><td class="p-2.5 text-sky-300">Fútbol Sin Límite</td><td class="p-2.5">Redes / Estadios</td><td class="p-2.5">Reels / Calle</td><td class="p-2.5">Águila</td><td class="p-2.5 text-aguila-yellow font-bold">$3.5M / video</td></tr>
+                  <tr><td class="p-2.5 font-bold text-white">La Gallina Azul (Sección)</td><td class="p-2.5 text-purple-300">La Gallina Azul</td><td class="p-2.5">Humor / Parodia</td><td class="p-2.5">IG / YouTube</td><td class="p-2.5">Águila</td><td class="p-2.5 text-aguila-yellow font-bold">$3.000.000 COP</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `
+      },
+      // 24 — NUESTRA RED DE AMPLIFICACIÓN DIGITAL
+      {
+        num: 24, flow: 'Amplificación Digital · Introducción', title: 'Una red de medios que conecta con los hinchas.',
+        render: () => `
+          <div class="space-y-5">
+            <div class="max-w-4xl">
+              <span class="text-xs font-display font-bold uppercase tracking-widest text-aguila-yellow">Sección Final · Medios Digitales, YouTube y Redes Existentes</span>
+              <h2 class="font-display font-black text-3xl sm:text-4xl mt-1 text-white">
+                Una red de medios que conecta con los hinchas.
+              </h2>
+              <p class="text-sm text-white/85 mt-2 font-sans">
+                Level Colombia cuenta con relaciones y antecedentes de trabajo con medios deportivos que generan conversaciones alrededor del fútbol colombiano. Estos medios nos permiten llevar los mensajes de Águila y Estrellas Águila a diferentes comunidades mediante contenido editorial, entretenimiento y publicaciones digitales.
+              </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div class="card-highlight p-6 rounded-3xl space-y-3 shadow-xl bg-gradient-to-br from-aguila-yellow/20 to-aguila-navy border border-aguila-yellow/40">
+                <i class="ph-fill ph-chats-teardrop text-3xl text-aguila-yellow"></i>
+                <h3 class="font-display font-black text-xl text-white">Medios con Formatos Establecidos</h3>
+                <p class="text-xs text-white/90">Espacios que ya cuentan con contenidos reconocibles y donde podemos integrar la marca (Fútbol Sin Límite, La Gallina Azul).</p>
+              </div>
+              <div class="card-clean p-6 rounded-3xl space-y-3 border border-sky-400/40 shadow-xl bg-aguila-navy/50">
+                <i class="ph-fill ph-share-network text-3xl text-sky-300"></i>
+                <h3 class="font-display font-black text-xl text-sky-300">Medios de Amplificación</h3>
+                <p class="text-xs text-white/85">Cuentas deportivas con capacidad de distribuir publicaciones, Reels, historias y contenidos asociados a campañas.</p>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      // 25 — JUANITO PÉREZ — CORRESPONSAL IA
+      {
+        num: 25, flow: 'AI Content Studio · Juanito Pérez', title: 'Juanito Pérez: corresponsal de inteligencia artificial.',
+        render: () => `
+          <div class="space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-white/15 pb-2">
+              <div>
+                <span class="text-xs font-display font-bold uppercase tracking-widest text-emerald-300">Caso de Éxito Probado · Fútbol Sin Límite</span>
+                <h2 class="font-display font-black text-2xl sm:text-3xl mt-0.5 text-white">Juanito Pérez: humor, IA y fútbol.</h2>
+              </div>
+              <a href="https://drive.google.com/drive/u/6/folders/14Q2Sk-j02skj1ua2PBRcND-UXUhaTIcK" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-xl bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-display font-bold flex items-center gap-1.5 shadow">
+                <i class="ph-bold ph-google-drive-logo text-base"></i> Carpeta Drive Juanito Pérez ↗
+              </a>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+              <div class="lg:col-span-5 flex justify-center">
+                <div class="w-full max-w-[280px] rounded-2xl overflow-hidden border border-emerald-400/40 bg-aguila-navy shadow-2xl">
+                  <img src="https://i.postimg.cc/MTB9xQZz/Whats-App-Image-2026-10-15-at-4-46-46-PM.jpg" alt="Juanito Pérez IA" class="w-full h-auto object-cover" onerror="this.src='https://placehold.co/400x400/002454/25D366?text=Juanito+Perez+IA';" />
+                </div>
+              </div>
+              <div class="lg:col-span-7 space-y-3 text-xs">
+                <div class="card-clean p-4 rounded-2xl space-y-2 shadow">
+                  <strong class="text-emerald-300 block font-display text-sm">Escenarios de Participación y Tarifas Oficiales</strong>
+                  <ul class="space-y-1 text-white/85">
+                    <li>• Juanito presenta la previa o el resumen con su estilo característico.</li>
+                    <li>• Interactúa con hinchas reales en cápsulas digitales y votaciones.</li>
+                    <li>• <strong>Inversión Oficial:</strong> $1.500.000 COP por storytelling/idea + $400.000 COP por cada video producido.</li>
+                  </ul>
+                </div>
+                <div class="card-highlight p-3 rounded-2xl flex items-center justify-between shadow">
+                  <div><span class="text-[9px] uppercase font-display font-bold text-white/60 block">Inversión Oficial</span><span class="font-display font-bold text-white">$1.5M (storytelling) + $400K / video</span></div>
+                  <span class="px-2.5 py-1 rounded bg-aguila-yellow text-aguila-dark font-display font-black text-[10px]">$1.5M + $400K</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      // 26 — FÚTBOL SIN LÍMITE: GAFAS POV / REELS VERTICALES
+      {
+        num: 26, flow: 'Redes Sociales · Fútbol Sin Límite (POV)', title: 'Fútbol Sin Límite: Gafas POV en canchas sintéticas.',
+        render: () => `
+          <div class="space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-white/15 pb-2">
+              <div>
+                <span class="text-xs font-display font-bold uppercase tracking-widest text-aguila-yellow">Fútbol Sin Límite · Nueva Experiencia POV</span>
+                <h2 class="font-display font-black text-2xl sm:text-3xl mt-0.5 text-white">Canchas sintéticas, gafas POV y conversación real.</h2>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-aguila-blue text-xs text-white font-display font-bold shadow">Marca: Águila</span>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+              <div class="lg:col-span-5 card-clean rounded-3xl p-4 border border-white/20 text-center space-y-3 shadow-2xl bg-aguila-navy/60">
+                <div class="rounded-2xl overflow-hidden border border-aguila-yellow/40 bg-aguila-navy">
+                  <img src="https://i.postimg.cc/sf82rYZc/Whats-App-Image-2026-10-16-at-8-48-08-AM-(1).jpg" alt="Fútbol Sin Límite POV" class="w-full h-auto object-cover" onerror="this.src='https://placehold.co/600x400/002454/FFD100?text=Fútbol+Sin+Límite+POV';" />
+                </div>
+                <span class="text-[11px] text-white/70 block">Inmersión total en canchas sintéticas con cámara POV ($3.5M / video)</span>
+              </div>
+              <div class="lg:col-span-7 space-y-3 text-xs">
+                <div class="card-clean p-3.5 rounded-2xl space-y-1 shadow">
+                  <span class="text-[10px] uppercase font-display font-bold text-sky-300">Concepto</span>
+                  <p class="font-display font-semibold text-white">Un creador de Fútbol Sin Límite recorre canchas sintéticas y, desde una cámara tipo gafas, conversa con jugadores adultos al terminar sus partidos.</p>
+                </div>
+                <div class="card-clean p-3.5 rounded-2xl space-y-1 shadow">
+                  <span class="text-[10px] uppercase font-display font-bold text-emerald-300">¿Cómo funciona?</span>
+                  <p class="text-white/90">Dinámica centrada en preguntas de fútbol, retos y respuestas espontáneas. Águila aparece en el encuentro posterior al juego, promoviendo el consumo responsable.</p>
+                </div>
+                <div class="card-clean p-3.5 rounded-2xl space-y-1 shadow">
+                  <span class="text-[10px] uppercase font-display font-bold text-aguila-yellow">Formato e Inversión Oficial</span>
+                  <p class="text-white/90">Reels verticales / POV inmersivo. Inversión: <strong>$3.500.000 COP</strong> por video (únicamente en Bogotá).</p>
+                </div>
+                <div class="card-highlight p-3 rounded-2xl flex items-center justify-between shadow">
+                  <div><span class="text-[9px] uppercase font-display font-bold text-white/60 block">Formato e Inversión</span><span class="font-display font-bold text-white">Reels verticales / POV ($3.5M / video)</span></div>
+                  <span class="px-2.5 py-1 rounded bg-aguila-yellow text-aguila-dark font-display font-black text-[10px]">$3.5M / video</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      // 27 — FÚTBOL SIN LÍMITE (EL DESAHOGO)
+      {
+        num: 27, flow: 'Redes Sociales · Fútbol Sin Límite', title: 'Fútbol Sin Límite: la voz de los hinchas también es protagonista.',
+        render: () => `
+          <div class="space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-white/15 pb-2">
+              <div>
+                <span class="text-xs font-display font-bold uppercase tracking-widest text-aguila-yellow">Formato Destacado · El Desahogo Águila</span>
+                <h2 class="font-display font-black text-2xl sm:text-3xl mt-0.5 text-white">El Desahogo x Águila: la voz real de los hinchas.</h2>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-aguila-blue text-xs text-white font-display font-bold shadow">Marca: Águila</span>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+              <div class="lg:col-span-5 card-clean rounded-3xl p-4 border border-white/20 text-center space-y-3 shadow-2xl bg-aguila-navy/60">
+                <div class="rounded-2xl overflow-hidden border border-aguila-yellow/40 bg-aguila-navy">
+                  <img src="https://i.postimg.cc/br5YbrSs/El-Desahogo-Historias-de-Hinchas.png" alt="El Desahogo Historias de Hinchas" class="w-full h-auto object-cover" onerror="this.src='https://placehold.co/600x400/002454/FFD100?text=El+Desahogo';" />
+                </div>
+                <span class="text-[11px] text-white/70 block">Corresponsales en las plazas principales del FPC ($3.5M / video)</span>
+              </div>
+              <div class="lg:col-span-7 space-y-3 text-xs">
+                <div class="card-clean p-3.5 rounded-2xl space-y-1 shadow">
+                  <span class="text-[10px] uppercase font-display font-bold text-sky-300">¿Qué es El Desahogo?</span>
+                  <p class="font-display font-semibold text-white">Entrevistas espontáneas a hinchas al finalizar los partidos en Bogotá, Medellín, Cali y Barranquilla, expresando sus emociones sin filtro.</p>
+                </div>
+                <div class="card-clean p-3.5 rounded-2xl space-y-1 shadow">
+                  <span class="text-[10px] uppercase font-display font-bold text-emerald-300">¿Cómo entra la marca? y Tarifa Oficial</span>
+                  <p class="text-white/90">Micrófono personalizado con cubo/lata de Águila, identidad gráfica en apertura/cierre y llamado final. Inversión oficial: <strong>$3.500.000 COP</strong> por video.</p>
+                </div>
+                <div class="card-highlight p-3 rounded-2xl flex items-center justify-between shadow">
+                  <div><span class="text-[9px] uppercase font-display font-bold text-white/60 block">Entregables e Inversión</span><span class="font-display font-bold text-white">Coberturas por jornada y Reels colaborativos</span></div>
+                  <span class="px-2.5 py-1 rounded bg-aguila-yellow text-aguila-dark font-display font-black text-[10px]">$3.5M / video</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      // 28 — LA GALLINA AZUL
+      {
+        num: 28, flow: 'Redes Sociales · La Gallina Azul', title: 'La Gallina Azul: el fútbol también tiene su propio noticiero de humor.',
+        render: () => `
+          <div class="space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-white/15 pb-2">
+              <div>
+                <span class="text-xs font-display font-bold uppercase tracking-widest text-aguila-yellow">Formato de Humor · Parodia y Actualidad</span>
+                <h2 class="font-display font-black text-2xl sm:text-3xl mt-0.5 text-white">La Gallina Azul: noticiero paródico de humor.</h2>
+              </div>
+              <div class="flex items-center gap-2">
+                <a href="https://www.instagram.com/la.gallina.azul/?hl=es" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-display font-bold flex items-center gap-1 shadow">
+                  <i class="ph-bold ph-instagram-logo"></i> IG ↗
+                </a>
+                <a href="https://www.youtube.com/@LaGallinaAzulOficial" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 rounded-xl bg-red-600 text-white text-xs font-display font-bold flex items-center gap-1 shadow">
+                  <i class="ph-bold ph-youtube-logo"></i> YT ↗
+                </a>
+                <span class="px-3 py-1 rounded-full bg-aguila-blue text-xs text-white font-display font-bold shadow">Marca: Águila</span>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+              <div class="lg:col-span-5 grid grid-cols-2 gap-2">
+                <div class="rounded-2xl overflow-hidden border border-aguila-yellow/40 bg-aguila-navy shadow-xl">
+                  <img src="https://i.postimg.cc/jjdW5sqh/Whats-App-Image-2026-10-16-at-8-48-08-AM-(2).jpg" alt="La Gallina Azul Branded" class="w-full h-auto object-cover" onerror="this.src='https://placehold.co/300x300/002454/FFD100?text=Gallina+Branded';" />
+                </div>
+                <div class="rounded-2xl overflow-hidden border border-aguila-yellow/40 bg-aguila-navy shadow-xl">
+                  <img src="https://i.postimg.cc/xjPkVJ3w/Whats-App-Image-2026-10-16-at-8-31-10-AM.jpg" alt="La Gallina Azul 2" class="w-full h-auto object-cover" onerror="this.src='https://placehold.co/300x300/002454/FFD100?text=Gallina+2';" />
+                </div>
+              </div>
+              <div class="lg:col-span-7 space-y-3 text-xs">
+                <div class="card-clean p-3.5 rounded-2xl space-y-1 shadow">
+                  <span class="text-[10px] uppercase font-display font-bold text-sky-300">¿Qué es?</span>
+                  <p class="font-display font-semibold text-white">Noticiero paródico de humor que cuenta la actualidad futbolera imitando personajes, técnicos y polémicas con marionetas e inteligencia artificial.</p>
+                </div>
+                <div class="card-clean p-3.5 rounded-2xl space-y-1 shadow">
+                  <span class="text-[10px] uppercase font-display font-bold text-emerald-300">Propuesta de integración</span>
+                  <p class="text-white/90">La Gallina Azul se vestirá de Águila y, durante el clip o el programa, hablaremos y promoveremos la votación de Estrellas Águila con su característico humor ($3.000.000 COP).</p>
+                </div>
+                <div class="card-highlight p-3 rounded-2xl flex items-center justify-between shadow">
+                  <div><span class="text-[9px] uppercase font-display font-bold text-white/60 block">Inversión Oficial</span><span class="font-display font-bold text-white">Sección patrocinada ($3.000.000 COP)</span></div>
+                  <span class="px-2.5 py-1 rounded bg-aguila-yellow text-aguila-dark font-display font-black text-[10px]">$3.000.000 COP</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      // 29 — CATÁLOGO DE MEDIOS DIGITALES (PARTE 1)
+      {
+        num: 29, flow: 'Catálogo de Medios · Redes Sociales (1)', title: 'Más medios para amplificar cada mensaje (1).',
+        render: () => `
+          <div class="space-y-3">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-white/15 pb-2">
+              <div>
+                <span class="text-xs font-display font-bold uppercase tracking-widest text-aguila-yellow">Inventario Oficial AGUILA MEDIOS.xlsx · Parte 1</span>
+                <h2 class="font-display font-black text-2xl sm:text-3xl mt-0.5 text-white">Catálogo Comercial de Medios Digitales (1).</h2>
+              </div>
+            </div>
+            <div class="overflow-x-auto card-clean rounded-2xl max-h-[360px] shadow-2xl">
+              <table class="w-full text-left border-collapse text-[11px]">
+                <thead class="sticky top-0 bg-aguila-navy text-aguila-yellow font-display uppercase">
+                  <tr>
+                    <th class="p-2.5">Medio</th>
+                    <th class="p-2.5">Red Social</th>
+                    <th class="p-2.5">Formato Disponible</th>
+                    <th class="p-2.5">Propuesta de Integración</th>
+                    <th class="p-2.5">Tarifa Ref. (Venta)</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-white/10 font-display font-medium">
+                  <tr><td class="p-2.5 font-bold text-white"><a href="https://www.instagram.com/lapelotona/" target="_blank" rel="noopener noreferrer" class="text-aguila-yellow hover:underline flex items-center gap-1">La Pelotona <i class="ph-bold ph-arrow-square-out text-xs"></i></a></td><td class="p-2.5 text-sky-300">IG (150K)</td><td class="p-2.5">Carruseles</td><td class="p-2.5 text-white/80">Carrusel informativo con mención de marca</td><td class="p-2.5 text-aguila-yellow font-bold">$2.500.000 COP</td></tr>
+                  <tr><td class="p-2.5 font-bold text-white"><a href="https://www.instagram.com/futbolrecargadooficial/" target="_blank" rel="noopener noreferrer" class="text-aguila-yellow hover:underline flex items-center gap-1">Fútbol Recargado <i class="ph-bold ph-arrow-square-out text-xs"></i></a></td><td class="p-2.5 text-sky-300">IG (120K)</td><td class="p-2.5">Posts Informativos</td><td class="p-2.5 text-white/80">Publicación destacada de la fecha</td><td class="p-2.5 text-aguila-yellow font-bold">$1.500.000 COP</td></tr>
+                  <tr><td class="p-2.5 font-bold text-white"><a href="https://www.instagram.com/LAFECHADEPORTES/?__d=1%2F" target="_blank" rel="noopener noreferrer" class="text-aguila-yellow hover:underline flex items-center gap-1">Flecha Deportes <i class="ph-bold ph-arrow-square-out text-xs"></i></a></td><td class="p-2.5 text-sky-300">IG (180K)</td><td class="p-2.5">Videos Verticales</td><td class="p-2.5 text-white/80">Reel colaborativo de previa/post</td><td class="p-2.5 text-aguila-yellow font-bold">$3.000.000 COP</td></tr>
+                  <tr><td class="p-2.5 font-bold text-white"><a href="https://www.instagram.com/juezcentral/" target="_blank" rel="noopener noreferrer" class="text-aguila-yellow hover:underline flex items-center gap-1">Juez Central <i class="ph-bold ph-arrow-square-out text-xs"></i></a></td><td class="p-2.5 text-sky-300">IG (287K)</td><td class="p-2.5">Historias / Debate</td><td class="p-2.5 text-white/80">Historias interactivas y menciones</td><td class="p-2.5 text-aguila-yellow font-bold">USD 1.000</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `
+      },
+      // 30 — CATÁLOGO DE MEDIOS DIGITALES (PARTE 2)
+      {
+        num: 30, flow: 'Catálogo de Medios · Redes Sociales (2)', title: 'Más medios para amplificar cada mensaje (2).',
+        render: () => `
+          <div class="space-y-3">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-white/15 pb-2">
+              <div>
+                <span class="text-xs font-display font-bold uppercase tracking-widest text-aguila-yellow">Inventario Oficial AGUILA MEDIOS.xlsx · Parte 2</span>
+                <h2 class="font-display font-black text-2xl sm:text-3xl mt-0.5 text-white">Catálogo Comercial de Medios Digitales (2).</h2>
+              </div>
+            </div>
+            <div class="overflow-x-auto card-clean rounded-2xl max-h-[360px] shadow-2xl">
+              <table class="w-full text-left border-collapse text-[11px]">
+                <thead class="sticky top-0 bg-aguila-navy text-aguila-yellow font-display uppercase">
+                  <tr>
+                    <th class="p-2.5">Medio</th>
+                    <th class="p-2.5">Red Social</th>
+                    <th class="p-2.5">Formato Disponible</th>
+                    <th class="p-2.5">Propuesta de Integración</th>
+                    <th class="p-2.5">Tarifa Ref. (Venta)</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-white/10 font-display font-medium">
+                  <tr><td class="p-2.5 font-bold text-white"><a href="https://www.instagram.com/hablaelbalon/" target="_blank" rel="noopener noreferrer" class="text-aguila-yellow hover:underline flex items-center gap-1">Habla el Balón <i class="ph-bold ph-arrow-square-out text-xs"></i></a></td><td class="p-2.5 text-sky-300">TikTok / IG</td><td class="p-2.5">Posts, Debate</td><td class="p-2.5 text-white/80">Pregunta de debate e invitación a participar</td><td class="p-2.5 text-aguila-yellow font-bold">$2.300.000 COP</td></tr>
+                  <tr><td class="p-2.5 font-bold text-white"><a href="https://www.instagram.com/futbolintacto/" target="_blank" rel="noopener noreferrer" class="text-aguila-yellow hover:underline flex items-center gap-1">Fútbol Intacto <i class="ph-bold ph-arrow-square-out text-xs"></i></a></td><td class="p-2.5 text-sky-300">IG / TikTok</td><td class="p-2.5">Reel o Publicación</td><td class="p-2.5 text-white/80">Publicación o reel con llamado a la acción</td><td class="p-2.5 text-aguila-yellow font-bold">$1.500.000 COP</td></tr>
+                  <tr><td class="p-2.5 font-bold text-white"><a href="https://www.instagram.com/fichajesdefpc_/" target="_blank" rel="noopener noreferrer" class="text-aguila-yellow hover:underline flex items-center gap-1">Fichajes del FPC <i class="ph-bold ph-arrow-square-out text-xs"></i></a></td><td class="p-2.5 text-sky-300">X / IG / FB</td><td class="p-2.5">Reel o Publicación</td><td class="p-2.5 text-white/80">Post replicado en Facebook e Instagram</td><td class="p-2.5 text-aguila-yellow font-bold">$2.000.000 COP</td></tr>
+                  <tr><td class="p-2.5 font-bold text-white"><a href="https://www.instagram.com/la.gallina.azul/?hl=es" target="_blank" rel="noopener noreferrer" class="text-aguila-yellow hover:underline flex items-center gap-1">La Gallina Azul <i class="ph-bold ph-arrow-square-out text-xs"></i></a></td><td class="p-2.5 text-sky-300">IG / YouTube</td><td class="p-2.5">Noticiero Humor</td><td class="p-2.5 text-white/80">Sección patrocinada especial</td><td class="p-2.5 text-aguila-yellow font-bold">$3.000.000 COP</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `
+      },
+      // 31 — YOUTUBE: INTRODUCCIÓN
+      {
+        num: 31, flow: 'YouTube · Conversación Deportiva', title: 'La conversación del fútbol también se vive en YouTube.',
+        render: () => `
+          <div class="space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-white/15 pb-2">
+              <div>
+                <span class="text-xs font-display font-bold uppercase tracking-widest text-sky-300">Ecosistema Audiovisual · Canales de YouTube</span>
+                <h2 class="font-display font-black text-2xl sm:text-3xl mt-0.5 text-white">Transmisiones, reacciones y programas de análisis.</h2>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-aguila-blue text-xs text-white font-display font-bold shadow">Marca: Estrellas Águila / Águila</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div class="card-clean p-6 rounded-3xl space-y-3 border border-sky-400/40 shadow-xl bg-aguila-navy/50">
+                <i class="ph-fill ph-video-camera text-3xl text-sky-300"></i>
+                <h3 class="font-display font-black text-xl text-sky-300">Transmisiones y Reacciones en Directo</h3>
+                <p class="text-xs text-white/85">QR en pantalla, menciones, enlaces y convocatorias durante ventanas autorizadas de votación.</p>
+              </div>
+              <div class="card-highlight p-6 rounded-3xl space-y-3 shadow-xl bg-gradient-to-br from-aguila-yellow/20 to-aguila-navy border border-aguila-yellow/40">
+                <i class="ph-fill ph-microphone text-3xl text-aguila-yellow"></i>
+                <h3 class="font-display font-black text-xl text-white">Programas de Análisis y Conversación</h3>
+                <p class="text-xs text-white/90">Preguntas, encuestas, segmentos editoriales e invitación directa a participar en la plataforma oficial.</p>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      // 32 — EL PARCHE DEL FÚTBOL + CAMILO MD (IMAGEN GRANDE)
+      {
+        num: 32, flow: 'YouTube · En Directo', title: 'La emoción del partido también se vive en directo.',
+        render: () => `
+          <div class="space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-white/15 pb-2">
+              <div>
+                <span class="text-xs font-display font-bold uppercase tracking-widest text-sky-300">Reacciones y Streaming en Vivo</span>
+                <h2 class="font-display font-black text-2xl sm:text-3xl mt-0.5 text-white">El Parche del Fútbol y Camilo MD en directo.</h2>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div class="card-clean p-5 rounded-3xl space-y-3 border border-emerald-400/40 shadow-xl bg-aguila-navy/60">
+                <div class="flex items-center justify-between">
+                  <span class="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-300 text-xs font-display font-bold uppercase shadow">El Parche del Fútbol</span>
+                  <span class="px-2.5 py-1 rounded bg-aguila-yellow text-aguila-dark text-xs font-display font-black shadow">$6.000.000 COP</span>
+                </div>
+                <div class="h-64 rounded-2xl overflow-hidden border border-emerald-400/40 bg-aguila-navy shadow-inner">
+                  <img src="https://i.postimg.cc/7P92hns5/Imagen-de-Chat-GPT-15-oct-2026-23-02-52.png" alt="El Parche del Fútbol" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x400/002454/25D366?text=El+Parche+del+Futbol';" />
+                </div>
+                <p class="text-xs text-white/85">Integración de Estrellas Águila durante transmisiones o reacciones seleccionadas mediante QR en pantalla, mención del presentador y llamado a votar ($6.000.000 COP).</p>
+              </div>
+              <div class="card-clean p-5 rounded-3xl space-y-3 border border-sky-400/40 shadow-xl bg-aguila-navy/60">
+                <div class="flex items-center justify-between">
+                  <a href="https://www.youtube.com/@CAMILOMD" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded bg-sky-500/20 text-sky-300 text-xs font-display font-bold uppercase shadow hover:underline flex items-center gap-1">Camilo MD <i class="ph-bold ph-arrow-square-out text-xs"></i></a>
+                  <span class="px-2.5 py-1 rounded bg-aguila-yellow text-aguila-dark text-xs font-display font-black shadow">$5.000.000 COP</span>
+                </div>
+                <div class="h-64 rounded-2xl overflow-hidden border border-sky-400/40 bg-aguila-navy shadow-inner">
+                  <img src="https://i.postimg.cc/kX5tbRzS/Imagen-de-Chat-GPT-15-oct-2026-23-02-59.png" alt="Camilo MD" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x400/002454/0066FF?text=Camilo+MD';" />
+                </div>
+                <p class="text-xs text-white/85">Integración dentro de las reacciones a partidos del FPC con QR o enlace, menciones del creador y convocatoria a la votación oficial ($5.000.000 COP).</p>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      // 33 — EDUARDO LUIS + CLÁSICO PAISA + JUAN FELIPE CADAVID (IMAGEN GRANDE)
+      {
+        num: 33, flow: 'YouTube · Análisis y Tertulias', title: 'La conversación futbolera también mueve la participación.',
+        render: () => `
+          <div class="space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-white/15 pb-2">
+              <div>
+                <span class="text-xs font-display font-bold uppercase tracking-widest text-sky-300">Magazines, Tertulias y Programas de Análisis</span>
+                <h2 class="font-display font-black text-2xl sm:text-3xl mt-0.5 text-white">Eduardo Luis, Clásico Paisa y Juan Felipe Cadavid.</h2>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+              <div class="card-clean p-4 rounded-2xl space-y-2 border-t-4 border-t-aguila-yellow shadow-xl bg-aguila-navy/60">
+                <div class="flex items-center justify-between">
+                  <a href="https://www.youtube.com/@EduardoLuisOficial" target="_blank" rel="noopener noreferrer" class="text-aguila-yellow font-display text-sm font-bold hover:underline flex items-center gap-1">Eduardo Luis <i class="ph-bold ph-arrow-square-out text-xs"></i></a>
+                  <span class="px-2 py-0.5 rounded bg-aguila-yellow text-aguila-dark text-[10px] font-display font-black">$4M COP/ep</span>
+                </div>
+                <div class="h-48 rounded-xl overflow-hidden border border-aguila-yellow/30 bg-aguila-navy shadow-inner">
+                  <img src="https://i.postimg.cc/ydVNCwzn/Imagen-de-Chat-GPT-15-oct-2026-23-06-45.png" alt="Eduardo Luis" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x300/002454/FFD100?text=Eduardo+Luis';" />
+                </div>
+                <p class="text-white/85 text-[11px]">Pregunta o segmento de conversación que invita a la audiencia a participar ($4.000.000 COP/ep).</p>
+              </div>
+              <div class="card-clean p-4 rounded-2xl space-y-2 border-t-4 border-t-sky-400 shadow-xl bg-aguila-navy/60">
+                <div class="flex items-center justify-between">
+                  <a href="https://www.youtube.com/@ClasicoPaisa_" target="_blank" rel="noopener noreferrer" class="text-sky-300 font-display text-sm font-bold hover:underline flex items-center gap-1">Clásico Paisa <i class="ph-bold ph-arrow-square-out text-xs"></i></a>
+                  <span class="px-2 py-0.5 rounded bg-sky-500 text-white text-[10px] font-display font-black">$2M COP/ep</span>
+                </div>
+                <div class="h-48 rounded-xl overflow-hidden border border-sky-400/30 bg-aguila-navy shadow-inner">
+                  <img src="https://i.postimg.cc/SKbsDnTw/Imagen-de-Chat-GPT-15-oct-2026-23-06-36.png" alt="Clásico Paisa" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x300/002454/0066FF?text=Clasico+Paisa';" />
+                </div>
+                <p class="text-white/85 text-[11px]">Integración adaptada al contenido regional de análisis y debate sobre el fútbol antioqueño ($2.000.000 COP/ep).</p>
+              </div>
+              <div class="card-clean p-4 rounded-2xl space-y-2 border-t-4 border-t-purple-400 shadow-xl bg-aguila-navy/60">
+                <div class="flex items-center justify-between">
+                  <strong class="text-purple-300 font-display text-sm">Juan Felipe Cadavid</strong>
+                  <span class="px-2 py-0.5 rounded bg-purple-500 text-white text-[10px] font-display font-black">$2M COP/ep</span>
+                </div>
+                <div class="h-48 rounded-xl overflow-hidden border border-purple-400/30 bg-aguila-navy shadow-inner">
+                  <img src="https://i.postimg.cc/SsDxSDyg/Imagen-de-Chat-GPT-15-oct-2026-23-06-51.png" alt="Juan Felipe Cadavid" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x300/002454/A855F7?text=Juan+Felipe+Cadavid';" />
+                </div>
+                <p class="text-white/85 text-[11px]">Integración dentro de sus programas y análisis deportivos with preguntas de la fecha ($2.000.000 COP/ep).</p>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      // 34 — RESUMEN COMERCIAL Y DIRECTORIO DE CANALES DE YOUTUBE
+      {
+        num: 34, flow: 'Resumen · Canales YouTube y Tarifas', title: 'Resumen comercial de canales de YouTube y tarifas.',
+        render: () => `
+          <div class="space-y-3">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-white/15 pb-2">
+              <div>
+                <span class="px-2.5 py-1 rounded bg-aguila-yellow/20 text-aguila-yellow font-display font-bold text-xs uppercase shadow">Resumen Tarifario Oficial · Canales de YouTube</span>
+                <h2 class="font-display font-black text-2xl sm:text-3xl mt-0.5 text-white">Inversión y Tarifas de Canales de YouTube.</h2>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+              <div class="lg:col-span-7 overflow-x-auto card-clean rounded-2xl shadow-xl max-h-[380px]">
+                <table class="w-full text-left border-collapse text-[11px]">
+                  <thead class="sticky top-0 bg-aguila-navy text-aguila-yellow font-display uppercase">
+                    <tr>
+                      <th class="p-2.5">Canal / Creador</th>
+                      <th class="p-2.5">Tipo de Integración</th>
+                      <th class="p-2.5">Inversión de Referencia</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-white/10 font-medium">
+                    <tr><td class="p-2.5 font-bold text-white">El Parche del Fútbol</td><td class="p-2.5 text-sky-300">Transmisión en directo / Reacciones</td><td class="p-2.5 text-aguila-yellow font-bold">$6.000.000 COP / ep</td></tr>
+                    <tr><td class="p-2.5 font-bold text-white"><a href="https://www.youtube.com/@CAMILOMD" target="_blank" rel="noopener noreferrer" class="text-aguila-yellow hover:underline flex items-center gap-1">Camilo MD <i class="ph-bold ph-arrow-square-out text-xs"></i></a></td><td class="p-2.5 text-sky-300">Reacciones en directo / QR</td><td class="p-2.5 text-aguila-yellow font-bold">$5.000.000 COP / ep</td></tr>
+                    <tr><td class="p-2.5 font-bold text-white"><a href="https://www.youtube.com/@EduardoLuisOficial" target="_blank" rel="noopener noreferrer" class="text-aguila-yellow hover:underline flex items-center gap-1">Eduardo Luis <i class="ph-bold ph-arrow-square-out text-xs"></i></a></td><td class="p-2.5 text-sky-300">Magacín y mención destacada</td><td class="p-2.5 text-aguila-yellow font-bold">$4.000.000 COP / ep</td></tr>
+                    <tr><td class="p-2.5 font-bold text-white"><a href="https://www.youtube.com/@ClasicoPaisa_" target="_blank" rel="noopener noreferrer" class="text-aguila-yellow hover:underline flex items-center gap-1">Clásico Paisa <i class="ph-bold ph-arrow-square-out text-xs"></i></a></td><td class="p-2.5 text-sky-300">Análisis regional y debate</td><td class="p-2.5 text-aguila-yellow font-bold">$2.000.000 COP / ep</td></tr>
+                    <tr><td class="p-2.5 font-bold text-white">Juan Felipe Cadavid</td><td class="p-2.5 text-sky-300">Tertulia y preguntas de la fecha</td><td class="p-2.5 text-aguila-yellow font-bold">$2.000.000 COP / ep</td></tr>
+                    <tr><td class="p-2.5 font-bold text-white">Resto de canales de YouTube</td><td class="p-2.5 text-emerald-300">Sujeto a negociación</td><td class="p-2.5 text-aguila-yellow font-bold">$600K - $2M COP / int.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="lg:col-span-5 card-highlight p-4 rounded-2xl space-y-2 text-xs shadow-xl">
+                <span class="font-display font-bold text-aguila-yellow uppercase block">Estrategia de Amplificación Audiovisual</span>
+                <p class="text-white/90">Este esquema tarifario permite combinar transmisiones en directo de alta masividad (El Parche, Camilo MD) con programas de opinión recurrentes (Eduardo Luis, Clásico Paisa, Juan Felipe Cadavid) para mantener presencia continua durante todo el campeonato.</p>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      // 35 — CATÁLOGO COMPLETO DE GOOGLE DRIVE (YOUTUBE)
+      {
+        num: 35, flow: 'Directorio General · Google Drive', title: 'Catálogo de todos los canales deportivos de youtube.',
+        render: () => `
+          <div class="space-y-6 max-w-4xl mx-auto text-center">
+            <div>
+              <span class="px-3 py-1 rounded-full bg-aguila-yellow/20 text-aguila-yellow font-display font-bold text-xs uppercase shadow">Directorio Maestro · Google Drive</span>
+              <h2 class="font-display font-black text-3xl sm:text-4xl mt-2 text-white">Catálogo de todos los canales deportivos de youtube</h2>
+              <p class="text-sm text-white/80 mt-2">Accede a la carpeta oficial con el inventario completo, métricas detalladas y propuestas audiovisuales de todos los medios aliados.</p>
+            </div>
+            <div class="card-highlight p-8 rounded-3xl border-2 border-aguila-yellow/60 space-y-6 shadow-2xl bg-gradient-to-b from-aguila-yellow/20 via-aguila-navy to-aguila-dark">
+              <div class="w-16 h-16 rounded-2xl bg-aguila-yellow text-aguila-dark flex items-center justify-center text-3xl mx-auto shadow-xl">
+                <i class="ph-bold ph-folder-open"></i>
+              </div>
+              <div class="space-y-2">
+                <h3 class="font-display font-black text-xl text-white">Carpeta Oficial de Canales y Medios</h3>
+                <p class="text-xs text-white/85 max-w-xl mx-auto">Consulta todos los datos actualizados, carpetas multimedia y especificaciones técnicas para cada canal de YouTube.</p>
+              </div>
+              <a href="https://drive.google.com/drive/u/6/folders/19HVNs_ZSYl6u110-wJOFiZIjd93_o6ib" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-aguila-yellow hover:bg-aguila-gold text-aguila-dark font-display font-black text-xs uppercase tracking-wider shadow-2xl transition transform hover:scale-105">
+                <i class="ph-bold ph-google-drive-logo text-base"></i> Abrir Carpeta Google Drive (YouTube) ↗
+              </a>
+            </div>
+          </div>
+        `
+      }
+    ];
+
+    let currentSlideIndex = 0;
+    let isEditMode = false;
+
+    function renderDrawer() {
+      const list = document.getElementById('drawerList');
+      if (!list) return;
+      document.getElementById('indexButtonLabel').textContent = `Índice (${slides.length})`;
+      document.getElementById('drawerTitle').textContent = `Navegación Directa (${slides.length} Slides)`;
+      list.innerHTML = slides.map((s, idx) => `
+        <button onclick="goToSlide(${idx}); toggleSidebar();" class="w-full text-left p-2 rounded-xl border transition flex items-center gap-2.5 ${currentSlideIndex === idx ? 'bg-aguila-yellow text-aguila-dark border-white font-bold shadow' : 'bg-white/5 hover:bg-white/10 border-white/10 text-white/80'}">
+          <span class="w-6 h-6 rounded-lg ${currentSlideIndex === idx ? 'bg-aguila-dark text-aguila-yellow' : 'bg-white/10 text-aguila-yellow'} font-display font-black text-[11px] flex items-center justify-center shrink-0">${String(s.num).padStart(2, '0')}</span>
+          <span class="text-xs truncate">${s.title}</span>
+        </button>
+      `).join('');
+    }
+
+    function renderCurrentSlide() {
+      const slide = slides[currentSlideIndex];
+      const container = document.getElementById('slideContainer');
+      container.innerHTML = slide.render();
+
+      if (isEditMode) {
+        container.querySelectorAll('h1, h2, h3, h4, p, td, li').forEach(el => {
+          el.setAttribute('contenteditable', 'true');
+        });
+      }
+
+      document.getElementById('slideNumberPill').textContent = `${String(slide.num).padStart(2, '0')} / ${slides.length}`;
+      document.getElementById('slideFlowLabel').textContent = slide.flow;
+      document.getElementById('footerSlideTitle').textContent = `${slide.num}. ${slide.title}`;
+      document.getElementById('footerSlideCounter').textContent = `${slide.num} / ${slides.length}`;
+      document.getElementById('progressBar').style.width = `${((slide.num) / slides.length) * 100}%`;
+
+      const prevBtn = document.getElementById('prevBtn');
+      prevBtn.disabled = currentSlideIndex === 0;
+      prevBtn.style.opacity = currentSlideIndex === 0 ? '0.4' : '1';
+      renderDrawer();
+    }
+
+    function nextSlide() {
+      if (currentSlideIndex < slides.length - 1) {
+        currentSlideIndex++;
+        renderCurrentSlide();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlideIndex > 0) {
+        currentSlideIndex--;
+        renderCurrentSlide();
+      }
+    }
+
+    function goToSlide(idx) {
+      currentSlideIndex = idx;
+      renderCurrentSlide();
+    }
+
+    function toggleSidebar() {
+      document.getElementById('slideDrawer').classList.toggle('-ml-80');
+    }
+
+    function toggleEditMode() {
+      isEditMode = !isEditMode;
+      const btn = document.getElementById('editModeBtn');
+      const vp = document.getElementById('slideViewport');
+      if (isEditMode) {
+        vp.classList.add('editable-active');
+        btn.className = 'px-3 py-1.5 rounded-xl bg-aguila-yellow text-aguila-dark text-xs font-bold flex items-center gap-1.5 transition';
+        btn.innerHTML = '<i class="ph-bold ph-pencil-simple"></i><span class="hidden sm:inline">Edición: ON</span>';
+      } else {
+        vp.classList.remove('editable-active');
+        btn.className = 'px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/15 border border-white/15 text-xs font-semibold flex items-center gap-1.5 transition';
+        btn.innerHTML = '<i class="ph-bold ph-pencil-simple"></i><span class="hidden sm:inline">Editar Textos</span>';
+      }
+      renderCurrentSlide();
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (isEditMode) return;
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+
+    window.onload = function () {
+      updateDestinationButtons();
+      renderCurrentSlide();
+    };
+  </script>
+</body>
+</html>
