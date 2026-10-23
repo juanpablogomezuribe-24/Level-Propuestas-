@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Balance enero a septiembre de 2026 y ruta de renovación de la operación digital de Wplay con Level.">
+  <title>Wplay 2027 | Balance y renovación</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <button class="icon-button" id="openIndex" type="button" aria-label="Abrir índice">
+        <span class="hamburger" aria-hidden="true"></span>
+        <span>Índice</span>
+      </button>
+      <div class="brand-lockup" aria-label="Level y Wplay">
+        <div class="brand-mark">W</div>
+        <div>
+          <strong>WPLAY <span>2027</span></strong>
+          <small>Balance y renovación · Level Colombia</small>
+        </div>
+      </div>
+      <div class="moment-switch" aria-label="Momentos de la propuesta">
+        <button type="button" data-jump="0" class="moment active"><span>01</span> Lo que tenemos</button>
+        <button type="button" data-jump="13" class="moment"><span>02</span> Lo que sigue</button>
+      </div>
+      <button class="source-button" id="openSources" type="button">Fuentes y criterios</button>
+    </header>
+
+    <div class="presentation">
+      <aside class="index-panel" id="indexPanel" aria-hidden="true">
+        <div class="index-head">
+          <div><small>RECORRIDO</small><h2>Propuesta interactiva</h2></div>
+          <button class="close-button" id="closeIndex" type="button" aria-label="Cerrar índice">×</button>
+        </div>
+        <div class="index-list" id="indexList"></div>
+      </aside>
+      <button class="scrim" id="scrim" type="button" aria-label="Cerrar índice"></button>
+
+      <main class="stage" id="stage" tabindex="-1">
+        <div class="stage-meta">
+          <div class="chapter-pill" id="chapterPill">MOMENTO 01 · BALANCE</div>
+          <div class="slide-position"><span id="slideCounter">01 / 15</span><span id="slideKicker">Apertura</span></div>
+        </div>
+        <section class="slide" id="slide" aria-live="polite"></section>
+      </main>
+    </div>
+
+    <footer class="footerbar">
+      <button class="nav-button secondary" id="prevSlide" type="button">← Anterior</button>
+      <div class="progress-wrap">
+        <div class="progress-copy"><span id="progressTitle">Wplay 2027</span><span id="progressCount">1 de 15</span></div>
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      </div>
+      <button class="nav-button primary" id="nextSlide" type="button">Siguiente →</button>
+    </footer>
+  </div>
+
+  <dialog class="modal" id="sourcesModal">
+    <div class="modal-head">
+      <div><small>TRAZABILIDAD</small><h2>Fuentes y criterios de lectura</h2></div>
+      <button class="close-button" data-close-modal="sourcesModal" type="button">×</button>
+    </div>
+    <div class="modal-body source-grid">
+      <article><span class="number-tag">01</span><h3>Periodo principal</h3><p>Enero a septiembre de 2026. Las cifras de apertura corresponden al acumulado reportado en el overview disponible.</p></article>
+      <article><span class="number-tag">02</span><h3>Comparaciones</h3><p>Los ejemplos se comparan dentro del mismo activo, red y formato. La mediana describe el grupo; no demuestra causalidad.</p></article>
+      <article><span class="number-tag">03</span><h3>Pauta</h3><p>La etiqueta proviene de la base. Sin inversión, objetivo y costo por resultado no se afirma eficiencia publicitaria.</p></article>
+      <article><span class="number-tag">04</span><h3>Audiencia</h3><p>La base anual contiene vistas e interacciones, pero no alcance único. El alcance se incorporará cuando esté disponible en las analíticas de cada plataforma. Las colaboraciones pueden aparecer en más de un activo y no se suman de nuevo.</p></article>
+      <article><span class="number-tag">05</span><h3>Catálogo</h3><p>Los 194 registros son un banco de exploración. Medio, afinidad, seguidores y casa de apuestas deben verificarse antes de una contratación.</p></article>
+      <article><span class="number-tag">06</span><h3>Decisiones</h3><p>Renovar, ajustar y potenciar son opciones de trabajo. Ninguna contratación, prueba de pauta o nueva propuesta aparece como aprobada.</p></article>
+      <article><span class="number-tag">07</span><h3>Promedios</h3><p>Cada promedio divide las vistas o interacciones registradas entre el número de contenidos válidos del activo o formato. Las filas de total se excluyen.</p></article>
+      <article><span class="number-tag">08</span><h3>Renovación</h3><p>La calculadora usa valores mensuales y distribución contractual confirmados el 21 de octubre de 2026. El IPC es editable y funciona como referencia provisional.</p></article>
+    </div>
+  </dialog>
+
+  <dialog class="modal result-modal" id="detailModal">
+    <div class="modal-head">
+      <div><small id="detailEyebrow">DETALLE</small><h2 id="detailTitle">Resultado</h2></div>
+      <button class="close-button" data-close-modal="detailModal" type="button">×</button>
+    </div>
+    <div class="modal-body" id="detailBody"></div>
+  </dialog>
+
+  <script src="catalog-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
