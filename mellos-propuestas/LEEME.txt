@@ -1,0 +1,30 @@
+MELLOS · TRES PROPUESTAS INTERACTIVAS
+Destino previsto: https://levelpropuestas.com/mellos-propuestas/
+
+CONTENIDO
+index.html + style.css + app.js + logo.png + 5 QR SVG.
+La portada compara tres rutas. Parámetros:
+?op=fisica&boleta=123 (también 124 y 125)
+?op=web
+?op=whatsapp
+?vista=comparar
+?vista=pruebas
+
+PRUEBA
+Celular ficticio 3000000000, nombre Cliente de prueba, documento 00000000.
+Primera vez: completar datos y marcar ambas casillas.
+Siguientes: mismo celular, mismo navegador. No pide otra vez datos.
+Factura 300 mil genera 3; 250 mil genera 2; 90 mil no cumple el mínimo de este ejemplo.
+Se pueden probar borrosa y duplicada. Reiniciar pruebas borra solo mellos-three-v1.
+
+LIMITACIONES
+No backend, no conexión WhatsApp/Sisplus/caja. No lectura OCR ni autenticidad real.
+Fotos predefinidas, no permite carga de documentos reales.
+Almacena avance ficticio en localStorage de este navegador. No guarda nombre, cédula ni celular legible.
+QR de cada opción apuntan al destino de dominio anterior: necesitan ese despliegue.
+Reglas, premios, fechas, tratamiento de datos y requisitos legales deben aprobarse antes de campaña real.
+40.000 x $300 = $12.000.000 es escenario supuesto, no cotización confirmada.
+
+PRUEBAS
+Sintaxis JS y pruebas automatizadas de lógica aprobadas el 8 noviembre 2026.
+Pendiente QA visual final y publicación cuando el Mac/repo esté disponible.
