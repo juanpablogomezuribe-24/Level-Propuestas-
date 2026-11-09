@@ -65,8 +65,8 @@ window.granadaFormats=[
       ]
     ],
     "purpose": "Saber qué se prometió a cada cliente, cómo va su pedido y qué falta hacer para cumplirle.",
-    "process": "Cada pedido aparece una sola vez con su número. Se consulta su entrega acordada y el siguiente paso; no se confunden consultas con ventas.",
-    "roles": "Mostrador registra su canal; atención registra WhatsApp; Farfán pasa los pedidos de Eduardo. Nelson confirma alistamiento y Lucho confirma salida.",
+    "process": "Cada pedido aparece una sola vez. En mayoristas: Eduardo envía foto por WhatsApp a Farfán; Farfán usa Claude para organizar el pedido. La factura la hace Farfán o Eduardo, responsable por definir, sin pasar por Steven.",
+    "roles": "Mostrador registra su canal; atención registra WhatsApp; Farfán organiza mayoristas con Claude. Nelson actualiza Recibido, Alistando y Entregado a Lucho; Lucho confirma Despachado.",
     "update": "Al tomar el pedido y cada vez que cambien fecha, cantidades, pago confirmado o avance físico. Pago y factura se controlan por separado.",
     "automation": "Conectar el mismo número de pedido entre Sisplus, el registro elegido y Trello. Primero acordar responsables, datos y probar; hoy no hay conexión.",
     "notes": [
@@ -161,10 +161,10 @@ window.granadaFormats=[
       ]
     ],
     "purpose": "Saber qué se compró, qué falta llegar y qué diferencia hay que reclamar antes de cerrar la compra.",
-    "process": "Comparar lo cotizado, lo facturado y lo recibido en la misma unidad. Revisar también referencia, precio y fechas; igual cantidad no basta.",
+    "process": "Comparar cotización, factura y recepción en la misma unidad, con referencia, precio y fechas. Registrar faltantes y devoluciones con soporte y seguimiento; no cerrar por la sola llegada de mercancía.",
     "roles": "Juan Carlos registra la compra y revisa documentos. Lucho cuenta lo recibido y aporta soporte. Juan Carlos sigue la diferencia hasta resolverla.",
     "update": "Al acordar la compra, recibir mercancía y resolver una novedad. Una celda vacía no significa que llegaron cero unidades.",
-    "automation": "Leer documentos y sugerir diferencias para revisión humana, sin crear notas ni movimientos de inventario automáticamente. Hoy no hay conexión.",
+    "automation": "En el futuro, Claude podrá ayudar a comparar documentos, señalar faltantes/devoluciones, proponer alertas y un informe mensual para revisión. No hay conexión, alertas ni informe automático activos.",
     "notes": [
       "Lucho verifica lo físico. Juan Carlos concilia. Una factura no prueba recepción; una compra con diferencia no se cierra sin solución documentada.",
       "Responsable de registro, datos obligatorios, soporte de recepción y evidencia necesaria para cerrar un reclamo."
@@ -218,62 +218,40 @@ window.granadaFormats=[
     "closure": "Cuando se confirma con soporte la recepción de cada entrega y se resuelven las novedades. Marcar salida del camión no significa entrega; responsable de confirmación por acordar."
   },
   {
-    "title": "Pagos y facturas · Excel existente",
+    "title": "Cierre de caja",
     "gid": 900107,
     "headers": [
-      "Qué revisar",
-      "Cómo debería funcionar",
-      "Quién participa",
-      "Qué falta confirmar"
+      "Venta",
+      "Valor",
+      "Medio de pago"
     ],
     "rows": [
       [
-        "Excel actual",
-        "Revisar columnas y guardar una versión controlada en nube",
-        "Steven",
-        "Ver archivo y elegir ubicación"
+        "VENTA-EJ-001",
+        "$160.000",
+        "Efectivo"
       ],
       [
-        "Transferencias",
-        "Confirmar ingreso, no confiar solo en foto",
-        "Steven",
-        "Soporte y acceso autorizado"
+        "VENTA-EJ-002",
+        "$240.000",
+        "Transferencia Bancolombia"
       ],
       [
-        "Dos tickets",
-        "Conservar ticket cliente y copia Lucho mientras se implementa",
-        "Steven y Lucho",
-        "Prueba sin cambiar control actual"
-      ],
-      [
-        "Consulta del pago",
-        "El tablero consulta estado y referencia; no vuelve a llevar caja",
-        "Steven",
-        "Cómo transmitir estado y quién puede verlo"
-      ],
-      [
-        "Crédito mayorista",
-        "Solo salir con autorización válida",
-        "Responsable por definir",
-        "Quién aprueba y quién factura"
-      ],
-      [
-        "Datos privados",
-        "No compartir movimientos de caja con todo el equipo",
-        "Responsables por definir",
-        "Permisos separados de la vista bodega"
+        "VENTA-EJ-003",
+        "$300.000",
+        "Nequi"
       ]
     ],
-    "purpose": "Revisar y mejorar el control de caja que ya lleva Steven sin crear otra lista de dinero.",
-    "process": "Inspeccionar el Excel actual, definir qué estado necesita consultar bodega y conservar sus referencias. Esta hoja es un checklist, no una caja nueva.",
-    "roles": "Steven confirma los pagos. Debe definirse quién autoriza crédito y factura mayoristas. Lucho consulta autorización antes de entregar.",
-    "update": "El control existente se actualiza al verificar pago o emitir factura; este checklist cambia cuando el equipo acuerda una mejora.",
-    "automation": "Compartir solo estado y referencia autorizados con los tableros, no todos los movimientos. No se ha migrado ni vinculado el Excel de Steven.",
+    "purpose": "Registrar cada venta de caja, cuánto fue y por qué medio se pagó.",
+    "process": "Al generar la factura, Steven pregunta el medio de pago, verifica el ingreso y registra una sola vez la venta, su valor y el medio. Los pedidos mayoristas no pasan por Steven para facturarse.",
+    "roles": "Steven registra las ventas de caja. La facturación mayorista queda a cargo de Farfán o Eduardo, por definir.",
+    "update": "Con cada venta de caja, después de verificar el pago.",
+    "automation": "En el futuro, traer la venta desde la fuente elegida sin volver a digitar. No hay conexión activa y el Excel real de Steven no se reemplaza sin revisarlo.",
     "notes": [
-      "Esta hoja es un checklist. No contiene movimientos ni saldos, no reemplaza el Excel actual y no confirma pagos reales.",
-      "Ubicación segura, permisos, control de soportes, crédito mayorista y continuidad de los dos tickets actuales."
+      "Ejemplos ficticios. No son ventas ni pagos reales.",
+      "Revisar el Excel existente y acordar el procedimiento de cierre sin añadir campos a estas tres columnas."
     ],
-    "closure": "Esta revisión termina cuando las mejoras al control existente están acordadas y probadas con Steven. No significa que el Excel ya esté migrado ni que se hayan confirmado pagos reales."
+    "closure": "Al final del día Steven revisa los registros frente a los soportes y el dinero recibido. Esta tabla no demuestra por sí sola que la caja cuadre; falta acordar el procedimiento de conciliación."
   },
   {
     "title": "Cumplimiento del proveedor",
@@ -326,5 +304,57 @@ window.granadaFormats=[
       "Período y criterios de comparación. El porcentaje es líneas sin diferencias / líneas revisadas, no porcentaje de compras completas."
     ],
     "closure": "Se revisa con la periodicidad que acuerde el equipo y se deja el seguimiento necesario. Este indicador no cierra compras ni sustituye la resolución de diferencias."
+  },
+  {
+    "title": "Control de cartera",
+    "gid": 900110,
+    "headers": [
+      "Factura",
+      "Cliente",
+      "Valor facturado",
+      "Abonos",
+      "Saldo",
+      "Fecha de vencimiento",
+      "Próxima gestión"
+    ],
+    "rows": [
+      [
+        "FACT-EJ-001",
+        "Juan Pablo Gómez (ejemplo)",
+        "$840.000",
+        "$240.000",
+        "$600.000",
+        "15/11/2026",
+        "Confirmar fecha de pago"
+      ],
+      [
+        "FACT-EJ-002",
+        "Sebastián Torres (ejemplo)",
+        "$300.000",
+        "$100.000",
+        "$200.000",
+        "20/11/2026",
+        "Recordar saldo antes del vencimiento"
+      ],
+      [
+        "FACT-EJ-003",
+        "Sebastián Farfán (ejemplo)",
+        "$420.000",
+        "$420.000",
+        "$0",
+        "18/11/2026",
+        "Verificar soporte y cerrar"
+      ]
+    ],
+    "purpose": "Saber qué facturas quedan pendientes de cobrar y qué gestión sigue con cada cliente.",
+    "process": "Registrar cada factura una sola vez, actualizar los abonos verificados y calcular saldo como valor facturado menos abonos. Revisar vencimiento y siguiente gestión.",
+    "roles": "Steven actualiza la cartera. Sebastián Torres la revisa diariamente. Esto no significa que Steven facture los pedidos mayoristas.",
+    "update": "Cuando se registra una factura pendiente, se verifica un abono o cambia la próxima gestión; revisión diaria de Sebastián Torres.",
+    "automation": "En el futuro, conectar facturas y abonos verificados con la fuente acordada. No hay sincronización ni mensajes de cobro automáticos activos.",
+    "notes": [
+      "Facturas, importes y fechas ficticios. Los nombres se usan solo para ilustrar; no representan deudas reales.",
+      "Acordar fuente de facturas, soporte de abonos y permisos antes de cargar cartera real."
+    ],
+    "closure": "Una factura se cierra cuando el saldo queda en cero y los abonos tienen soporte verificado. Una promesa de pago no cancela la deuda."
   }
 ];
