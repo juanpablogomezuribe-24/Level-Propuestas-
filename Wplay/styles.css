@@ -297,3 +297,86 @@ a.detail-button { display:inline-flex; align-items:center; text-decoration:none;
 .roster-table td { padding: 11px 12px; line-height: 1.45; }
 .roster-profile { display: block; margin-top: 5px; color: #6931bb; font-size: 11px; text-decoration: underline; text-underline-offset: 3px; }
 @media (max-width: 640px) { .roster-table-wrap { max-height: 52vh; } .roster-table { min-width: 850px; } }
+
+
+/* Shared interior language: the catalogue is the visual reference, never a target.
+   Existing table classes and markup remain intact; the same rules serve both decks. */
+:root {
+  --table-surface: #f7f5fb;
+  --table-head: var(--navy-3);
+  --table-emphasis: #ede6f6;
+  --table-divider: rgba(65,36,103,.07);
+  --table-radius: 18px;
+}
+.metric-table:not(table), .renewal-table-wrap, .opportunity-table-wrap {
+  min-width: 0;
+  max-width: 100%;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--table-radius);
+  background: var(--table-surface);
+  isolation: isolate;
+}
+.metric-table table, .renewal-table, .opportunity-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--table-surface);
+}
+.metric-table table thead, .renewal-table thead, .opportunity-table thead {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--table-head);
+}
+.metric-table table thead th, .renewal-table thead th, .opportunity-table thead th {
+  color: var(--yellow);
+  background: var(--table-head);
+  font-weight: 700;
+  padding: 11px;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  text-align: left;
+}
+.metric-table table th, .metric-table table td {
+  border-bottom: 0;
+}
+.metric-table table td, .renewal-table td, .opportunity-table td {
+  padding: 9px 11px;
+  border-top: 1px solid var(--table-divider);
+}
+.metric-table table td, .renewal-table td, .opportunity-table td {
+  color: #505063;
+  vertical-align: middle;
+  line-height: 1.45;
+}
+.metric-table table tbody td:first-child,
+.renewal-table tbody td:nth-child(2),
+.opportunity-table tbody td:first-child {
+  color: var(--ink);
+  font-weight: 800;
+}
+.metric-table table td:last-child {
+  font-variant-numeric: tabular-nums;
+}
+.metric-table table tr:last-child td { border-bottom: 0; }
+.metric-table table .total td, .metric-table table tfoot td {
+  color: #5b328d;
+  background: var(--table-emphasis);
+  font-weight: 800;
+  border-top: 1px solid #cfbee4;
+}
+.metric-table > .excel-bar {
+  margin: 0;
+  padding: 11px;
+  background: #faf8fd;
+  border-bottom: 1px solid var(--table-divider);
+}
+.metric-table table a:not(.detail-button) { color: var(--yellow); }
+.card, .metric-card, .source-grid article {
+  border-radius: var(--table-radius);
+  background-color: var(--table-surface);
+}
+.modal-head { background: #f3eef9; }
+@media (max-width: 640px) {
+  .metric-table > .excel-bar { padding: 11px; }
+}

@@ -28,8 +28,6 @@
 .road-end .nav-button { margin: 0; }
 .excel-view, .table-scroll { overflow: auto; max-width: 100%; }
 .excel-bar { color: var(--yellow); padding: 0 0 10px; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: .09em; }
-.metric-table .total td { background: #f0eafa; color: #5b328d; font-weight: 700; }
-.metric-table td:last-child { font-variant-numeric: tabular-nums; }
 .asset-link { display: inline-block; color: var(--yellow); font-size: inherit; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
 .plan-grid, .merch-gallery { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; }
 .kit-budget-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }

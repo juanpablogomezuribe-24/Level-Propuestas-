@@ -1,22 +1,18 @@
 /* One institutional opening and one header identity, shared by both decks.
-   Interior components, typography and breakpoints come from the unmodified /Wplay/styles.css. */
+   Interior components, typography, table surfaces and breakpoints are shared in /Wplay/styles.css. */
 .brand-mark { width: 72px; height: 42px; flex: 0 0 72px; padding: 2px 6px; }
 .brand-mark img { display: block; width: 60px; height: 38px; object-fit: contain; }
 
 /* The reference is rebuilt as live HTML, not a screenshot with duplicated chrome. */
-.level-hero { min-height: 610px; position: relative; isolation: isolate; border-radius: 30px; overflow: hidden; padding: 55px; background: #201034; color: #f8f6ff; }
+.level-hero { min-height: 570px; display: flex; flex-direction: column; justify-content: center; position: relative; isolation: isolate; border-radius: 30px; overflow: hidden; padding: 55px; background: #201034; color: #f8f6ff; }
 .level-hero::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(110deg,#1e1036,#351b56 65%,#59358c); }
-.level-sign { display: flex; align-items: center; gap: 25px; }
-.level-sign img { width: 125px; height: 65px; object-fit: contain; }
-.level-sign span { border-left: 1px solid #d4b8f766; padding-left: 25px; letter-spacing: 4px; font-size: 13px; }
-.cover-copy { margin-top: 65px; }
+.cover-copy { margin: 0; }
 .cover-copy .eyebrow { color: #a075ff; }
-.cover-copy h1 { font-size: clamp(50px,7vw,100px); line-height: .98; letter-spacing: -.05em; margin: 20px 0; }
+.cover-copy h1 { font-size: clamp(44px,6.4vw,88px); line-height: .98; letter-spacing: -.05em; margin: 20px 0 30px; }
 .cover-copy em { color: #a075ff; font-style: normal; }
-.cover-copy > p:not(.eyebrow) { color: #f8f6ff; font-size: 24px; line-height: 1.5; }
-.cover-button { background: #6530c6; border: 0; color: #fff; padding: 20px 28px; font-size: 18px; font-weight: 700; }
+.cover-button { background: #6530c6; border: 0; color: #fff; padding: 20px 28px; border-radius: 12px; font-size: 18px; font-weight: 700; }
 .cover-button:hover { background: #7138d8; }
-.cover-bottom { margin-top: 30px; text-align: right; font-size: clamp(28px,4vw,58px); letter-spacing: -.04em; font-weight: 900; color: #a075ff; }
+.cover-bottom { margin: 45px 0 0; text-align: right; font-size: clamp(24px,3.3vw,42px); letter-spacing: -.04em; font-weight: 900; color: #a075ff; }
 
 /* Scope dark styling to the opening's visible shell. Index and dialogs retain the white canon. */
 body.cover-mode { background: #160e26; }
@@ -47,13 +43,9 @@ body.cover-mode { background: #160e26; }
 @media (max-width: 640px) {
   .brand-mark { width: 56px; height: 34px; flex-basis: 56px; padding: 2px 5px; }
   .brand-mark img { width: 46px; height: 30px; }
-  .level-hero { padding: 26px; min-height: 570px; border-radius: 30px; }
-  .cover-copy { margin-top: 45px; }
-  .cover-copy h1 { font-size: clamp(40px,11vw,60px); letter-spacing: -.05em; }
-  .level-sign { gap: 10px; }
-  .level-sign span { font-size: 9px; letter-spacing: 1px; padding-left: 10px; }
-  .level-sign img { width: 90px; }
-  .cover-copy > p:not(.eyebrow) { font-size: 18px; }
+  .level-hero { padding: 26px; min-height: 490px; border-radius: 24px; }
+  .cover-copy { margin: 0; }
+  .cover-copy h1 { font-size: clamp(38px,10vw,60px); letter-spacing: -.05em; }
   .cover-button { padding: 16px 20px; font-size: 16px; }
-  .cover-bottom { margin-top: 38px; font-size: 28px; }
+  .cover-bottom { margin: 38px 0 0; font-size: 26px; }
 }
