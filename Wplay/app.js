@@ -1,17 +1,6 @@
 const catalog = Array.isArray(window.WPLAY_CATALOG) ? window.WPLAY_CATALOG : [];
 
-const journalistDeals = {
-  "Steven Arce": {
-    current: "Referencia verbal por validar: ≈ $8.000.000 COP mensuales con Stake.",
-    proposal: "$10.000.000 COP mensuales",
-    decision: "Ha manifestado interés en vincularse con Wplay bajo esta propuesta económica."
-  },
-  "César Augusto Londoño": {
-    current: "Conversación comercial reportada por Level; sin tarifa vigente registrada en este catálogo.",
-    proposal: "$10.000.000 COP mensuales",
-    decision: "Ha manifestado interés en vincularse con Wplay bajo esta propuesta económica."
-  }
-};
+const journalistDeals = {};
 
 const journalistSharedDeal = {
   rights: "Derechos de imagen, derechos de pauta y exclusividad de categoría, sujetos a contrato.",
@@ -25,7 +14,6 @@ const renewalAssets = [
   { id: "03", name: "Eduardo Luis", contract: "Docuverso", level: 0, docuverso: 12500000, rights: "Pendiente" },
   { id: "04", name: "Fútbol Sin Límite", contract: "Level", level: 5035000, docuverso: 0, rights: "Pendiente" },
   { id: "05", name: "Laura Ortiz", contract: "Level", level: 2000000, docuverso: 0, rights: "Pendiente" },
-  { id: "06", name: "Felipe Cerón / Chuby", contract: "Level", level: 2300000, docuverso: 0, rights: "Pendiente" },
   { id: "07", name: "Alexis Rodríguez", contract: "Docuverso", level: 0, docuverso: 2000000, rights: "Pendiente" },
   { id: "08", name: "Corresponsales", contract: "Level", level: 4800000, docuverso: 0, rights: "No aplica" },
   { id: "09", name: "Juan Pablo Gómez", contract: "Level", level: 0, docuverso: 0, rights: "Pendiente" },
@@ -34,7 +22,7 @@ const renewalAssets = [
   { id: "12", name: "Noticias / Wplay Sports", contract: "Docuverso", level: 0, docuverso: 1387000, rights: "No aplica" }
 ];
 
-const renewalState = renewalAssets.map(asset => ({ ...asset, ipc: 6.29, renew: false, revealed: false }));
+const renewalState = renewalAssets.map(asset => ({ ...asset, ipc: 6.29, renew: ["01", "02", "03", "04", "05", "07", "09"].includes(asset.id), revealed: false }));
 let renewalAmountsVisible = false;
 let renewalGlobalIpc = 6.29;
 let counterAnimationFrame = null;
@@ -124,7 +112,7 @@ const details = {
       <div class="pauta-analysis-grid">
         <article class="card highlight"><small>LECTURA CORRECTA</small><h3>Capacidad creativa comprobada</h3><p>Eduardo Luis llega hasta 2 millones de vistas; Fútbol Sin Límite, 996.000; Juan Felipe, 751.000; Felipe Cerón, 549.000; Sheyla García, 348.000; y Laura Ortiz, 73.400.</p><p class="fineprint">Son resultados reportados de publicaciones individuales. No equivalen a alcance único, eficiencia, conversión o retorno. Sin inversión comparable no afirmamos que Eduardo sea más eficiente ni que Laura tenga menor valor comercial.</p></article>
         <article class="card blue"><small>DATOS QUE DEBEMOS CRUZAR</small><h3>Inversión y resultado por pieza</h3><ul><li>Inversión y alcance.</li><li>Reproducciones completas o retención.</li><li>Costo por reproducción o resultado.</li><li>Interacciones, clics y conversiones.</li><li>Resultado por talento y formato.</li></ul></article>
-        <article class="card purple"><small>PAQUETES COMPETITIVOS</small><h3>Laura y Felipe aportan más que un Reel</h3><p>Laura Ortiz: $2.000.000 COP mensuales. Felipe Cerón: $2.300.000 COP mensuales. Los paquetes reportados incluyen contenidos, imagen, pauta y exclusividad, sujetos a revisión contractual por territorio, periodo, plataforma y uso con IA.</p></article>
+        <article class="card purple"><small>PAQUETES COMPETITIVOS</small><h3>Referencia histórica de paquetes 2026</h3><p>Laura Ortiz: $2.000.000 COP mensuales. Felipe Cerón: $2.300.000 COP mensuales. Los paquetes históricos reportados incluyen contenidos, imagen, pauta y exclusividad. Laura continúa; Felipe no se renueva para 2027. Juan Pablo Pinilla lo reemplaza, con condiciones por formalizar.</p></article>
       </div>
       <div class="card green"><small>RECOMENDACIÓN COMERCIAL</small><h3>Renovar esta línea de producción y amplificación</h3><p>El siguiente paso es identificar qué combinación de talento, mensaje y formato genera mejores resultados para Wplay y concentrar allí la inversión.</p></div>
       <p class="fineprint">Pendiente de cruce con pauta ejecutada directamente por Wplay. No se calculan indicadores de eficiencia sin los datos necesarios. Las decisiones definitivas de amplificación se revisarán cuando estén disponibles la inversión y los resultados de campaña.</p>`
@@ -133,134 +121,60 @@ const details = {
 
 const opportunities = [
   {
-    id: "01", group: "existing", groupLabel: "Integración en formato existente",
-    name: "Clásico Paisa × Wplay", title: "La conversación del fútbol también se vive con Wplay.",
-    type: "Integración en programa existente", medium: "Clásico Paisa", platforms: "YouTube · Redes sociales", format: "Programa de conversación y análisis",
-    concept: "Clásico Paisa ya cuenta con identidad y comunidad propias. Wplay puede integrarse a su conversación sobre resultados, polémicas, actualidad y rendimiento.",
-    mechanic: "Los periodistas conservan el formato remoto y su estilo editorial mientras activan secciones o preguntas patrocinadas.",
-    integration: "Presencia gráfica, banners, menciones acordadas, secciones especiales y cápsulas para redes.",
-    deliverables: ["Integración en programa", "Sección patrocinada", "Cápsulas en redes"],
-    image: "assets/opportunities/clasico-paisa.png", alt: "Montaje aprobado de Clásico Paisa con Wplay",
-    price: "≈ $6.000.000 COP", unit: "Referencia mensual de Stake", status: "Negociación por validar",
-    commercialNote: "Referencia de negociación, no tarifa confirmada para Wplay. Pilar está interesada en escuchar una propuesta como embajadora; Óscar ya mantiene relación comercial con Wplay.",
-    pending: "Validar disponibilidad, exclusividad de categoría, derechos y posible embajaduría de Pilar."
-  },
-  {
-    id: "02", group: "existing", groupLabel: "Integración en formato existente",
-    name: "Un Break × Wplay", title: "Las historias detrás del fútbol también merecen un break.",
-    type: "Integración en programa existente", medium: "Un Break", platforms: "YouTube · Shorts · Reels · TikTok", format: "Entrevista larga + clips verticales",
-    concept: "Un formato cercano para conocer las historias personales y profesionales de jugadores, entrenadores y otras figuras del deporte.",
-    mechanic: "Una entrevista extensa produce historias, anécdotas y momentos que después se editan como contenidos verticales.",
-    integration: "Apertura o sección presentada por Wplay, presencia visual, mención acordada e identidad en clips derivados.",
-    deliverables: ["Entrevista completa", "Integración de marca", "Shorts, Reels y clips"],
-    image: "assets/opportunities/un-break.png", alt: "Montaje aprobado de Un Break con Wplay",
-    price: "Desde $3.500.000 COP", unit: "Tres paquetes oficiales", status: "Paquetes comerciales oficiales", unbreakPackages: true
-  },
-  {
-    id: "03", group: "existing", groupLabel: "Integración en medio existente",
-    name: "¿Y Cómo Dijo? × Wplay", title: "¿Quién sabe más de fútbol?",
-    type: "Nueva sección patrocinada", medium: "¿Y Cómo Dijo?", platforms: "Reels · TikTok · Shorts", format: "Videos verticales de competencia callejera",
-    concept: "Una competencia de conocimientos futboleros entre hinchas adultos, presentada por Wplay.",
-    mechanic: "Dos aficionados responden preguntas rápidas, acumulan puntos y convierten sus aciertos, errores y reacciones en entretenimiento.",
-    integration: "Patrocinio de la sección, micrófono, marcador, gráficas e identidad de Wplay en las publicaciones del medio.",
-    deliverables: ["Video vertical", "Grabación y edición", "Publicación en el medio"],
-    image: "assets/opportunities/y-como-dijo.png", alt: "Montaje aprobado de ¿Y Cómo Dijo? con Wplay",
-    price: "$5.000.000–$6.000.000 COP", unit: "Por video", status: "Rango de referencia",
-    pending: "Confirmar grabación, edición, publicación, derechos de pauta, uso de imagen y demás entregables incluidos."
-  },
-  {
-    id: "04", group: "existing", groupLabel: "Integración en formato existente",
-    name: "La Previa con Joga Melito × Wplay", title: "El micrófono es de los hinchas.",
-    type: "Integración en formato existente", medium: "Joga Melito", platforms: "Reels · TikTok · Shorts", format: "Micrófono abierto en exteriores autorizados",
-    concept: "Una experiencia previa al partido que captura respuestas espontáneas, humor, cábalas y pasión de aficionados adultos.",
-    mechanic: "Un micrófono fijo y un letrero con una pregunta invitan a participar; Joga acompaña y las mejores respuestas se editan.",
-    integration: "Patrocinio, identidad en micrófono y letrero, elementos gráficos, cortinillas y publicaciones.",
-    deliverables: ["Activación en jornada", "Video vertical", "Publicación acordada"],
-    image: "assets/opportunities/la-previa.png", alt: "Montaje aprobado de La Previa con Joga Melito y Wplay",
-    price: "$2.500.000–$3.000.000 COP", unit: "Por video", status: "Rango de referencia",
-    pending: "Precisar jornadas, ubicación autorizada, duración, entregables, publicaciones y derechos."
-  },
-  {
-    id: "05", group: "new", groupLabel: "Nuevo formato para Wplay",
-    name: "Creadores digitales / UGC con IA", title: "Dos caminos para producir contenido UGC con mayor velocidad.",
-    type: "Avatares para contenido editorial, promocional y de pauta", medium: "Level Colombia · Producción propia", platforms: "Redes Wplay · Pauta autorizada", format: "Videos verticales con avatares digitales",
-    concept: "Wplay puede crear un personaje desde cero o digitalizar a uno de sus embajadores. Ambos caminos usan el mismo modelo de producción y tienen el mismo costo.",
-    mechanic: "Primero creamos o digitalizamos el avatar; después desarrollamos una bolsa de contenidos para producir versiones, probar mensajes y aprender con mayor rapidez.",
-    integration: "El avatar puede protagonizar contenidos editoriales, promocionales o de pauta. Si representa a un embajador, su contrato debe autorizar expresamente el uso digital y publicitario.",
-    deliverables: ["Avatar listo para producir", "Bolsa de contenidos", "Versiones para pruebas"],
-    images: [
-      { src: "assets/opportunities/ugc-wplay-1.jpeg", alt: "Presentadora digital de Wplay con micrófono", label: "UGC · REACCIÓN DEPORTIVA" },
-      { src: "assets/opportunities/ugc-wplay-2.jpeg", alt: "Presentadora digital de Wplay durante un viaje", label: "UGC · CONTEXTO Y EXPERIENCIA" }
+    "id": "01",
+    "group": "existing",
+    "groupLabel": "Integración seleccionada",
+    "name": "Clásico Paisa × Wplay",
+    "title": "Clásico Paisa se suma a Wplay.",
+    "type": "Integración en programa existente",
+    "medium": "Clásico Paisa",
+    "platforms": "YouTube · Redes sociales",
+    "format": "Conversación y análisis de fútbol",
+    "concept": "La comunidad y el estilo editorial de Clásico Paisa se integran a la conversación de Wplay sobre fútbol colombiano.",
+    "mechanic": "Definir con el programa las menciones, presencia gráfica y secciones de marca dentro de su formato habitual.",
+    "integration": "Presencia de marca y contenidos acordados. El detalle de frecuencia, derechos y entregables queda por formalizar.",
+    "deliverables": [
+      "Integración en programa",
+      "Entregables por formalizar"
     ],
-    price: "$1.000.000 avatar + $300.000 contenido", unit: "Mismo costo en ambas rutas", status: "Modelo comercial editable", calculator: true, avatarPaths: true,
-    commercialNote: "Para digitalizar embajadores, el contrato debe incluir autorización de imagen, voz, creación del avatar, uso con IA, pauta, plataformas, territorio y vigencia."
+    "image": "assets/opportunities/clasico-paisa.png",
+    "alt": "Referencia visual de Clásico Paisa con Wplay",
+    "price": "$6.000.000 COP",
+    "unit": "Mensuales libres",
+    "status": "Valor aceptado",
+    "commercialNote": "Valor mensual libre aceptado por Clásico Paisa, según la decisión comunicada por Level. No se convierte en una tarifa final facturada sin confirmar el tratamiento tributario.",
+    "pending": "Formalizar entregables, frecuencia, derechos, vigencia y tratamiento de impuestos y retenciones."
   },
   {
-    id: "06", group: "new", groupLabel: "Nuevo formato para Wplay",
-    name: "Noticiero Wplay", title: "El fútbol colombiano, como nunca lo habías visto.",
-    type: "Humor e inteligencia artificial", medium: "Propiedad editorial propia de Wplay", platforms: "Reels · TikTok · Shorts · YouTube Wplay", format: "Noticiero paródico recurrente",
-    concept: "Un noticiero de humor con versiones digitales autorizadas de los embajadores de Wplay. Convierte la actualidad del fútbol colombiano en una propiedad editorial reconocible, recurrente y fácil de distribuir.",
-    mechanic: "Cada semana Level selecciona los acontecimientos más interesantes, desarrolla el guion y produce un episodio con inteligencia artificial, animación y edición audiovisual.",
-    integration: "Wplay no entra como patrocinador externo: el programa es una propiedad original de la marca, con identidad en apertura, escenario digital, gráficas y publicaciones.",
-    deliverables: ["Desarrollo y piloto", "Guiones y episodios", "Adaptaciones verticales"],
-    video: "assets/opportunities/noticiero/noticiero-wplay-2026.mp4", alt: "Montaje del Noticiero Wplay con embajadores convertidos en personajes digitales",
-    price: "Por cotizar", unit: "Según alcance y frecuencia", status: "Propiedad editorial propuesta", noticiero: true,
-    commercialNote: "Jorge Barón, Juan Felipe Cadavid, Eduardo Luis y Sheyla García conforman el elenco inicial propuesto. Las caracterizaciones, representaciones digitales, imitaciones de voz y usos de imagen requieren autorización expresa.",
-    pending: "Definir el piloto, frecuencia, duración, autorizaciones y modalidad corta o extendida."
-  },
-  {
-    id: "07", group: "new", groupLabel: "Nuevo formato · Experiencia con hinchas",
-    name: "La Silla de la Suerte", title: "¿Hasta dónde llegarías por tu equipo?",
-    type: "Experiencia participativa con hinchas adultos", medium: "Activación propia de Wplay", platforms: "Reels · TikTok · Shorts · Colaboraciones", format: "Activación de calle + videos verticales",
-    concept: "Una silla azul instalada en puntos autorizados cerca de los estadios invita a los hinchas adultos a contar promesas futboleras memorables o asumir retos voluntarios, divertidos y seguros.",
-    mechanic: "Un influenciador conversa con quien decide sentarse. La persona cuenta su promesa o elige un reto seguro; grabamos la reacción y, cuando la historia lo amerite, hacemos seguimiento.",
-    integration: "La silla puede vivir sin logo. El contenido se publica en las redes de Wplay y puede amplificarse mediante colaboraciones con creadores y medios.",
-    deliverables: ["Jornada de activación", "Videos verticales", "Colaboraciones y seguimiento"],
-    images: [
-      { src: "assets/opportunities/silla-suerte/silla-01.png", alt: "Silla azul frente al estadio con invitación a hacer lo que fuera por el equipo", label: "PROMESA FUTBOLERA" },
-      { src: "assets/opportunities/silla-suerte/silla-02.png", alt: "Silla azul frente al estadio con invitación a contar una apuesta memorable", label: "APUESTA MEMORABLE" },
-      { src: "assets/opportunities/silla-suerte/silla-03.png", alt: "Silla azul frente al estadio con invitación a comenzar un reto memorable", label: "RETO MEMORABLE" }
+    "id": "02",
+    "group": "existing",
+    "groupLabel": "Producción interna Level",
+    "name": "El micrófono de los hinchas",
+    "title": "El micrófono es de los hinchas.",
+    "type": "Formato recurrente producido por Level",
+    "medium": "Level · Red de corresponsales",
+    "platforms": "Canales acordados con Wplay",
+    "format": "4 videos verticales al mes en estadios de Colombia",
+    "concept": "Conversaciones espontáneas con aficionados adultos: actualidad, opinión y pasión por su equipo en distintos estadios de Colombia.",
+    "mechanic": "Level desarrolla el formato y lo produce mensualmente con los corresponsales disponibles en cada ciudad. La operación no depende de contratar un formato externo.",
+    "integration": "Micrófono y gráficas de marca, edición y publicación en los canales que se acuerden con Wplay.",
+    "deliverables": [
+      "4 videos al mes",
+      "Producción interna Level",
+      "Estadios de Colombia"
     ],
-    price: "Por cotizar", unit: "Por activación y alcance", status: "Formato original", chair: true,
-    commercialNote: "Puede amplificarse con talentos como La Liendra, sujeto a contratación y disponibilidad.",
-    pending: "Definir frecuencia, ciudades, número de piezas, permisos de locación, imagen y publicación. Participación voluntaria y exclusiva para adultos elegibles; retos seguros, sin apuestas monetarias ni premios condicionados al juego."
-  },
-  {
-    id: "08", group: "new", groupLabel: "Nuevo formato para Wplay",
-    name: "De Frente con el Rival", title: "Fútbol, opinión y rivalidad sin filtros.",
-    type: "Nuevo formato de debate", medium: "Clásico Paisa · Eduardo Luis · aliado aprobado", platforms: "YouTube · Clips para redes", format: "Debate entre dos hinchas rivales",
-    concept: "Dos hinchas de equipos rivales se enfrentan con argumentos para defender a su club.",
-    mechanic: "Un moderador presenta preguntas; cada hincha defiende su postura con humor, rivalidad y datos futboleros.",
-    integration: "Patrocinio principal, micrófonos, pantalla, set, menciones y cápsulas derivadas.",
-    deliverables: ["Episodio completo", "Fragmentos derivados", "Producción y logística"],
-    image: "assets/opportunities/de-frente-rival.png", alt: "Montaje aprobado de estudio para De Frente con el Rival",
-    price: "$5.000.000–$6.000.000 COP", unit: "Por episodio", status: "Rango preliminar",
-    pending: "No incluye automáticamente honorarios adicionales, alquileres extraordinarios, pauta o distribución."
-  },
-  {
-    id: "09", group: "new", groupLabel: "Nuevo formato para Wplay",
-    name: "El Hincha vs. el Periodista", title: "La pasión desafía la mirada profesional.",
-    type: "Nuevo formato de debate", medium: "Clásico Paisa · Eduardo Luis · aliado aprobado", platforms: "YouTube · Redes sociales", format: "Debate entre periodista e hincha",
-    concept: "Un programa que enfrenta la mirada profesional del periodista con la pasión y los argumentos de los hinchas.",
-    mechanic: "El periodista plantea una opinión; uno o varios hinchas sostienen una postura contraria con argumentos, datos y experiencias.",
-    integration: "Patrocinio del formato, presencia visual y distribución acordada.",
-    deliverables: ["Episodio completo", "Clips para redes", "Producción y logística"],
-    image: "assets/opportunities/hincha-periodista.png", alt: "Montaje aprobado de El Hincha contra el Periodista",
-    price: "$5.000.000–$6.000.000 COP", unit: "Por episodio", status: "Rango preliminar",
-    pending: "Los honorarios de talentos y derechos adicionales requieren validación independiente."
-  },
-  {
-    id: "10", group: "extension", groupLabel: "Evolución de activo vigente",
-    name: "Juanito Pérez × Fútbol Sin Límite", title: "Un corresponsal IA dentro de un activo que Wplay ya tiene.",
-    type: "Contenido adicional en activo vigente", medium: "Fútbol Sin Límite", platforms: "Ecosistema Fútbol Sin Límite", format: "Cápsulas de corresponsal con IA",
-    concept: "Juanito Pérez cuenta historias, noticias, curiosidades y situaciones del fútbol colombiano a través del humor.",
-    mechanic: "Los contenidos responden a la actualidad deportiva y se publican dentro de Fútbol Sin Límite según los acuerdos comerciales.",
-    integration: "Identidad de Wplay en micrófono y gráficos, patrocinio de cápsulas y ampliación del contenido dentro del medio actual.",
-    deliverables: ["Bolsa de 10 cápsulas", "Guion y producción", "Distribución acordada"],
-    image: "assets/opportunities/juanito-perez-wplay.png", alt: "Juanito Pérez con micrófono de Wplay frente al estadio",
-    price: "$4.000.000 COP", unit: "Bolsa de 10 contenidos", status: "Extensión de activo vigente", packages: true,
-    commercialNote: "La bolsa equivale a $400.000 por contenido. Alternativa mensual: 4 contenidos por $2.000.000, equivalentes a $500.000 por pieza.",
-    pending: "Definir vigencia, revisiones, tiempos, publicación, pauta y distribución. No sumar de nuevo la mensualidad base de Fútbol Sin Límite."
+    "price": "Por definir",
+    "unit": "Costo interno y alcance por cerrar",
+    "status": "Formato seleccionado",
+    "placeholderTitle": "4 videos · cada mes",
+    "placeholderCopy": "La voz de los hinchas, desde los estadios de Colombia. Producción Level.",
+    "placeholder": [
+      "Corresponsales",
+      "Fútbol colombiano",
+      "Voces reales"
+    ],
+    "commercialNote": "Reemplaza la propuesta de contratación externa de La Previa. No se conserva la tarifa anterior por video.",
+    "pending": "Calendario, ciudades, distribución, costos y permisos de imagen y locación."
   }
 ];
 
@@ -356,7 +270,7 @@ function renderOpportunitySummary() {
     <div class="opportunity-table-wrap"><table class="opportunity-table"><thead><tr><th>Oportunidad</th><th>Tipo</th><th>Medio o canal</th><th>Formato</th><th>Entregables</th><th>Precio o rango</th><th>Unidad</th><th>Estado comercial</th></tr></thead><tbody>
       ${opportunities.map(item => `<tr data-summary-group="${item.group}"><td><b>${item.id}</b> ${escapeHtml(item.name)}</td><td>${escapeHtml(item.groupLabel)}</td><td>${escapeHtml(item.medium)}</td><td>${escapeHtml(item.format)}</td><td>${escapeHtml(item.deliverables.join(" · "))}</td><td><strong>${escapeHtml(item.price)}</strong></td><td>${escapeHtml(item.unit)}</td><td><span class="summary-status">${escapeHtml(item.status)}</span></td></tr>`).join("")}
     </tbody></table></div>
-    <div class="summary-legend"><span><b>01–04</b> Integraciones en formatos existentes</span><span><b>05–09</b> Nuevos formatos para Wplay</span><span><b>10</b> Extensión de activo vigente</span></div>`;
+    <p class="fineprint">Clásico Paisa: valor mensual libre aceptado. Micrófono de los hinchas: producción interna de Level, sin tarifa externa heredada. Los demás formatos explorados quedan fuera del plan.</p>`;
 }
 
 function renderPautaCard(post) {
@@ -370,7 +284,7 @@ function renderPautaCard(post) {
 function renderPautaSlide() {
   return `
     <div class="pauta-head">
-      <div><div class="eyebrow">CONTENIDOS DE PAUTA 2026</div><h2 class="section-title">Seis talentos. Diferentes estilos. <em>Contenidos que podemos amplificar.</em></h2><p>Seleccionamos tres publicaciones destacadas de cada creador para mostrar el alcance registrado y analizar cómo potenciar esta línea en 2027.</p></div>
+      <div><div class="eyebrow">CONTENIDOS DE PAUTA 2026</div><h2 class="section-title">Seis talentos. Diferentes estilos. <em>Contenidos que podemos amplificar.</em></h2><p>Seleccionamos tres publicaciones destacadas de cada creador para mostrar las reproducciones registradas y analizar cómo potenciar esta línea en 2027.</p></div>
       <div class="pauta-metrics"><article><strong>6</strong><span>talentos</span></article><article><strong>18</strong><span>contenidos seleccionados</span></article><article><strong>2 M</strong><span>mayor volumen registrado</span></article></div>
     </div>
     <p class="pauta-scope-note">Esta es una selección de publicaciones destacadas; no representa todo el inventario de contenidos de Wplay.</p>
@@ -381,7 +295,7 @@ function renderPautaSlide() {
     </section>
     <div class="pauta-bottom-grid">
       <article class="pauta-recommendations"><div><small>¿QUÉ RECOMENDAMOS PARA 2027?</small><h3>Producir, comparar y amplificar mejor.</h3></div><ol><li><b>01</b><span>Conservar personalidades, audiencias y estilos distintos, sin depender de un único creador.</span></li><li><b>02</b><span>Probar aperturas, mensajes, versiones y formatos; amplificar los que respondan mejor al objetivo.</span></li><li><b>03</b><span>Solicitar a Wplay inversión, alcance, retención, costos, interacciones, clics y conversiones.</span></li></ol></article>
-      <article class="pauta-package-note"><small>LECTURA COMERCIAL</small><h3>El valor del paquete no depende de un solo Reel.</h3><p>Laura Ortiz · $2.000.000/mes. Felipe Cerón · $2.300.000/mes. Contenidos, imagen, pauta y exclusividad reportados; derechos y alcances deben revisarse en cada contrato.</p><button class="detail-button" data-detail="pauta">Ver análisis y criterios de medición →</button></article>
+      <article class="pauta-package-note"><small>LECTURA COMERCIAL</small><h3>El valor del paquete no depende de un solo Reel.</h3><p>Valores históricos 2026: Laura Ortiz · $2.000.000/mes; Felipe Cerón · $2.300.000/mes. Laura continúa; Felipe no se renueva y será reemplazado por Juan Pablo Pinilla. No son nuevas tarifas 2027.</p><button class="detail-button" data-detail="pauta">Ver análisis y criterios de medición →</button></article>
     </div>
     <div class="pauta-conclusion"><strong>Recomendamos renovar los contenidos de pauta como una línea estratégica de producción y amplificación.</strong><span>Identifiquemos qué combinación de talento, mensaje y formato genera mejores resultados para concentrar allí la inversión.</span><small>Pendiente de cruce con pauta ejecutada directamente por Wplay.</small></div>`;
 }
@@ -758,11 +672,71 @@ const slides = [
 const [juanSlide, fslSlide, eduardoSlide, sheylaSlide, packagesSlide, alexisSlide] = slides.splice(3, 6);
 slides.splice(3, 0, sheylaSlide, juanSlide, eduardoSlide, fslSlide, packagesSlide, alexisSlide);
 
-// Consolidado de octubre: conserva cortes históricos y escenarios previos.
-slides[0].render = (() => { const previous = slides[0].render; return () => previous().replace("Un balance de lo realizado entre enero y septiembre de 2026 y una ruta de trabajo para el próximo año.", "Balance actualizado a octubre de 2026, con cortes históricos identificados y una ruta de trabajo para 2027."); })();
-slides[2] = { chapter: "BALANCE · ENERO–OCTUBRE 2026", kicker: "Consolidado actualizado", title: "Resultados a octubre de 2026", render: () => "<div class=\"eyebrow\">BALANCE ACTUALIZADO · ENERO–OCTUBRE 2026</div><h2>Lo que seguimos construyendo</h2><p>Octubre suma <strong>67 registros y 3.529.669 reproducciones</strong>. El acumulado corresponde a los siete activos registrados en esta base; no es el total de producción de todos los canales.</p><div style=\"overflow-x:auto\"><table style=\"width:100%;border-collapse:collapse;font-size:clamp(12px,1.2vw,17px)\"><thead><tr><th style=\"padding:12px;text-align:left;border-bottom:2px solid #9765ed\">Activo</th><th style=\"padding:12px;text-align:left;border-bottom:2px solid #9765ed\">Registros octubre</th><th style=\"padding:12px;text-align:left;border-bottom:2px solid #9765ed\">Vistas octubre</th><th style=\"padding:12px;text-align:left;border-bottom:2px solid #9765ed\">Registros ene–oct</th><th style=\"padding:12px;text-align:left;border-bottom:2px solid #9765ed\">Vistas ene–oct</th></tr></thead><tbody><tr><td style=\"padding:12px;border-bottom:1px solid #9874b755\">Juan Felipe Cadavid</td><td style=\"padding:12px;border-bottom:1px solid #9874b755\">24</td><td style=\"padding:12px;border-bottom:1px solid #9874b755\">1.913.832</td><td style=\"padding:12px;border-bottom:1px solid #9874b755\">433</td><td style=\"padding:12px;border-bottom:1px solid #9874b755\">22.906.194</td></tr><tr><td style=\"padding:12px;border-bottom:1px solid #9874b755\">Fútbol Sin Límite</td><td style=\"padding:12px;border-bottom:1px solid #9874b755\">29</td><td style=\"padding:12px;border-bottom:1px solid #9874b755\">679.437</td><td style=\"padding:12px;border-bottom:1px solid #9874b755\">403</td><td style=\"padding:12px;border-bottom:1px solid #9874b755\">20.427.999</td></tr><tr><td style=\"padding:12px;border-bottom:1px solid #9874b755\">Eduardo Luis</td><td style=\"padding:12px;border-bottom:1px solid #9874b755\">9</td><td style=\"padding:12px;border-bottom:1px solid #9874b755\">860.100</td><td style=\"padding:12px;border-bottom:1px solid #9874b755\">46</td><td style=\"padding:12px;border-bottom:1px solid #9874b755\">12.882.066</td></tr><tr><td style=\"padding:12px;border-bottom:1px solid #9874b755\">Sheyla García</td><td style=\"padding:12px;border-bottom:1px solid #9874b755\">2</td><td style=\"padding:12px;border-bottom:1px solid #9874b755\">67.600</td><td style=\"padding:12px;border-bottom:1px solid #9874b755\">32</td><td style=\"padding:12px;border-bottom:1px solid #9874b755\">1.941.112</td></tr><tr><td style=\"padding:12px;border-bottom:1px solid #9874b755\">Alexis Rodríguez</td><td style=\"padding:12px;border-bottom:1px solid #9874b755\">1</td><td style=\"padding:12px;border-bottom:1px solid #9874b755\">1.372</td><td style=\"padding:12px;border-bottom:1px solid #9874b755\">31</td><td style=\"padding:12px;border-bottom:1px solid #9874b755\">386.770</td></tr><tr><td style=\"padding:12px;border-bottom:1px solid #9874b755\">Felipe Cerón</td><td style=\"padding:12px;border-bottom:1px solid #9874b755\">Sin registro</td><td style=\"padding:12px;border-bottom:1px solid #9874b755\">0</td><td style=\"padding:12px;border-bottom:1px solid #9874b755\">9</td><td style=\"padding:12px;border-bottom:1px solid #9874b755\">848.150</td></tr><tr><td style=\"padding:12px;border-bottom:1px solid #9874b755\">Laura Ortiz</td><td style=\"padding:12px;border-bottom:1px solid #9874b755\">2</td><td style=\"padding:12px;border-bottom:1px solid #9874b755\">7.328</td><td style=\"padding:12px;border-bottom:1px solid #9874b755\">11</td><td style=\"padding:12px;border-bottom:1px solid #9874b755\">227.132</td></tr></tbody></table></div><p><strong>Acumulado: 965 registros · 59.619.423 reproducciones.</strong> Las reproducciones no equivalen a personas únicas. No se suman a los indicadores históricos de YouTube o Wplay Sports.</p><details><summary style=\"cursor:pointer;padding:12px 0\">Ver alcance y validaciones del corte</summary><p>Se contaron filas de contenido de las pestañas individuales, excluyendo encabezados, totales y filas vacías. General conserva conteos distintos: Juan Felipe 436 frente a 433; Fútbol Sin Límite 375 frente a 403; Eduardo 37 frente a 46; Sheyla 30 frente a 32; Laura 10 frente a 11. Las vistas acumuladas sí coinciden.</p><p>Interacciones pendientes de validación: Eduardo Luis, filas 40–47, y Sheyla García, filas 32–33, tienen valores idénticos a las vistas. No presentamos un total de interacciones como validado. Felipe Cerón no tiene registros de octubre; esto no prueba ausencia de actividad.</p><p>El informe anual sigue abierto: faltan noviembre y diciembre. Los cortes anteriores de otros canales mantienen sus fechas originales.</p></details><a href=\"https://docs.google.com/spreadsheets/d/1S9mvKfYQsDOF7lZWiAQzp9YZUm-Bi01imCpn4twBp6Q/edit?gid=808395923#gid=808395923\" target=\"_blank\" rel=\"noopener\">Consultar reporte fuente ↗</a>" };
+const verifiedMetrics = {"source":"https://docs.google.com/spreadsheets/d/1S9mvKfYQsDOF7lZWiAQzp9YZUm-Bi01imCpn4twBp6Q/edit","checkedAt":"2026-11-11","method":"Filas de contenido con título, enlace y mes enero–octubre. Excluye encabezados, filas vacías, totales y una fila con solo Octubre en Fútbol Sin Límite. Son registros por publicación/plataforma, no piezas creativas únicas. Interacciones son valores reportados sin validación externa.","assets":[{"name":"Juan Felipe Cadavid","sheet":"Juan Felipe","gid":1778025225,"source":"https://docs.google.com/spreadsheets/d/1S9mvKfYQsDOF7lZWiAQzp9YZUm-Bi01imCpn4twBp6Q/edit#gid=1778025225","janOct":{"records":433,"views":22906194,"interactionsReported":743841},"october":{"records":24,"views":1913832,"interactionsReported":44741},"formats":{"Video redes":{"janOct":{"records":235,"views":13209768,"interactionsReported":463862},"october":{"records":3,"views":198273,"interactionsReported":7378}},"Post partido":{"janOct":{"records":129,"views":6762827,"interactionsReported":257588},"october":{"records":20,"views":1458559,"interactionsReported":33606}},"Clip Encartados":{"janOct":{"records":52,"views":171651,"interactionsReported":2231},"october":{"records":0,"views":0,"interactionsReported":0}},"Pauta":{"janOct":{"records":10,"views":2330976,"interactionsReported":11332},"october":{"records":0,"views":0,"interactionsReported":0}},"Short dinamico":{"janOct":{"records":7,"views":430972,"interactionsReported":8828},"october":{"records":1,"views":257000,"interactionsReported":3757}}},"warnings":[],"missing":[],"sourceDataRange":"'Juan Felipe'!A2:H436","octoberRows":[411,412,413,414,415,416,417,418,419,420,421,422,423,424,425,426,427,428,429,430,431,432,433,434]},{"name":"Fútbol Sin Límite","sheet":"Futbol sin limite","gid":2012801719,"source":"https://docs.google.com/spreadsheets/d/1S9mvKfYQsDOF7lZWiAQzp9YZUm-Bi01imCpn4twBp6Q/edit#gid=2012801719","janOct":{"records":403,"views":20427999,"interactionsReported":364375},"october":{"records":29,"views":679437,"interactionsReported":10634},"formats":{"Pauta":{"janOct":{"records":29,"views":3226317,"interactionsReported":44596},"october":{"records":2,"views":44629,"interactionsReported":925}},"Desahogo":{"janOct":{"records":209,"views":9635689,"interactionsReported":191859},"october":{"records":19,"views":528008,"interactionsReported":8711}},"Memes":{"janOct":{"records":50,"views":4666818,"interactionsReported":84261},"october":{"records":0,"views":0,"interactionsReported":0}},"Video redes":{"janOct":{"records":67,"views":2378130,"interactionsReported":39278},"october":{"records":4,"views":75466,"interactionsReported":730}},"Cortitas Alexis":{"janOct":{"records":33,"views":308191,"interactionsReported":2375},"october":{"records":0,"views":0,"interactionsReported":0}},"Tomando el microfono":{"janOct":{"records":4,"views":82773,"interactionsReported":783},"october":{"records":0,"views":0,"interactionsReported":0}},"Short dinamico":{"janOct":{"records":11,"views":130081,"interactionsReported":1223},"october":{"records":4,"views":31334,"interactionsReported":268}}},"warnings":[],"missing":[],"sourceDataRange":"'Futbol sin limite'!A2:H406","octoberRows":[376,377,378,379,380,381,382,383,384,385,386,387,388,389,390,391,392,393,394,395,396,397,398,399,400,401,402,403,404]},{"name":"Eduardo Luis","sheet":"Eduardo Luis","gid":1658043030,"source":"https://docs.google.com/spreadsheets/d/1S9mvKfYQsDOF7lZWiAQzp9YZUm-Bi01imCpn4twBp6Q/edit#gid=1658043030","janOct":{"records":46,"views":12882066,"interactionsReported":1158255},"october":{"records":9,"views":860100,"interactionsReported":759304},"formats":{"Pauta":{"janOct":{"records":7,"views":3034337,"interactionsReported":7551},"october":{"records":0,"views":0,"interactionsReported":0}},"Video redes":{"janOct":{"records":7,"views":1188588,"interactionsReported":25398},"october":{"records":0,"views":0,"interactionsReported":0}},"Post partido":{"janOct":{"records":28,"views":8316341,"interactionsReported":1074123},"october":{"records":7,"views":819200,"interactionsReported":718404}},"Short dinamico":{"janOct":{"records":4,"views":342800,"interactionsReported":51183},"october":{"records":2,"views":40900,"interactionsReported":40900}}},"warnings":[{"row":40,"views":67800,"interactions":67800,"month":"Octubre","reason":"Interacciones idénticas a vistas"},{"row":41,"views":11400,"interactions":11400,"month":"Octubre","reason":"Interacciones idénticas a vistas"},{"row":42,"views":64400,"interactions":64400,"month":"Octubre","reason":"Interacciones idénticas a vistas"},{"row":43,"views":115000,"interactions":115000,"month":"Octubre","reason":"Interacciones idénticas a vistas"},{"row":44,"views":233000,"interactions":233000,"month":"Octubre","reason":"Interacciones idénticas a vistas"},{"row":45,"views":133000,"interactions":133000,"month":"Octubre","reason":"Interacciones idénticas a vistas"},{"row":46,"views":29500,"interactions":29500,"month":"Octubre","reason":"Interacciones idénticas a vistas"},{"row":47,"views":99000,"interactions":99000,"month":"Octubre","reason":"Interacciones idénticas a vistas"}],"missing":[],"sourceDataRange":"'Eduardo Luis'!A2:H49","octoberRows":[39,40,41,42,43,44,45,46,47]},{"name":"Sheyla García","sheet":"Sheyla García","gid":596973606,"source":"https://docs.google.com/spreadsheets/d/1S9mvKfYQsDOF7lZWiAQzp9YZUm-Bi01imCpn4twBp6Q/edit#gid=596973606","janOct":{"records":32,"views":1941112,"interactionsReported":219026},"october":{"records":2,"views":67600,"interactionsReported":67600},"formats":{"Las 3 de semana":{"janOct":{"records":22,"views":1108312,"interactionsReported":165405},"october":{"records":1,"views":23000,"interactionsReported":23000}},"Pauta":{"janOct":{"records":8,"views":769900,"interactionsReported":8025},"october":{"records":0,"views":0,"interactionsReported":0}},"Short dinamico":{"janOct":{"records":2,"views":62900,"interactionsReported":45596},"october":{"records":1,"views":44600,"interactionsReported":44600}}},"warnings":[{"row":2,"views":50100,"interactions":52086,"month":"Enero","reason":"Interacciones superiores a vistas"},{"row":3,"views":20300,"interactions":20859,"month":"Enero","reason":"Interacciones superiores a vistas"},{"row":8,"views":41700,"interactions":43182,"month":"Marzo","reason":"Interacciones superiores a vistas"},{"row":32,"views":23000,"interactions":23000,"month":"Octubre","reason":"Interacciones idénticas a vistas"},{"row":33,"views":44600,"interactions":44600,"month":"Octubre","reason":"Interacciones idénticas a vistas"}],"missing":[],"sourceDataRange":"'Sheyla García'!A2:H35","octoberRows":[32,33]},{"name":"Alexis Rodríguez","sheet":"Alexis Rodriguez","gid":1085899697,"source":"https://docs.google.com/spreadsheets/d/1S9mvKfYQsDOF7lZWiAQzp9YZUm-Bi01imCpn4twBp6Q/edit#gid=1085899697","janOct":{"records":31,"views":386770,"interactionsReported":3115},"october":{"records":1,"views":1372,"interactionsReported":34},"formats":{"Cortitas":{"janOct":{"records":31,"views":386770,"interactionsReported":3115},"october":{"records":1,"views":1372,"interactionsReported":34}}},"warnings":[],"missing":[],"sourceDataRange":"'Alexis Rodriguez'!A2:H33","octoberRows":[32]},{"name":"Felipe Cerón","sheet":"Felipe Cerón","gid":746476724,"source":"https://docs.google.com/spreadsheets/d/1S9mvKfYQsDOF7lZWiAQzp9YZUm-Bi01imCpn4twBp6Q/edit#gid=746476724","janOct":{"records":9,"views":848150,"interactionsReported":9550},"october":{"records":0,"views":0,"interactionsReported":0},"formats":{"Pauta":{"janOct":{"records":7,"views":823650,"interactionsReported":9188},"october":{"records":0,"views":0,"interactionsReported":0}},"Short dinamico":{"janOct":{"records":2,"views":24500,"interactionsReported":362},"october":{"records":0,"views":0,"interactionsReported":0}}},"warnings":[],"missing":[],"sourceDataRange":"'Felipe Cerón'!A2:H12","octoberRows":[]},{"name":"Laura Ortiz","sheet":"Laura Ortiz","gid":203013200,"source":"https://docs.google.com/spreadsheets/d/1S9mvKfYQsDOF7lZWiAQzp9YZUm-Bi01imCpn4twBp6Q/edit#gid=203013200","janOct":{"records":11,"views":227132,"interactionsReported":1750},"october":{"records":2,"views":7328,"interactionsReported":129},"formats":{"Pauta":{"janOct":{"records":7,"views":203599,"interactionsReported":1450},"october":{"records":0,"views":0,"interactionsReported":0}},"Short dinamico":{"janOct":{"records":4,"views":23533,"interactionsReported":300},"october":{"records":2,"views":7328,"interactionsReported":129}}},"warnings":[],"missing":[],"sourceDataRange":"'Laura Ortiz'!A2:H13","octoberRows":[11,12]}],"total":{"janOct":{"records":965,"views":59619423,"interactionsReported":2499912},"october":{"records":67,"views":3529669,"interactionsReported":882442}}};
+const number = value => new Intl.NumberFormat("es-CO", { maximumFractionDigits: 0 }).format(value);
+const baseLink = 'https://docs.google.com/spreadsheets/d/1S9mvKfYQsDOF7lZWiAQzp9YZUm-Bi01imCpn4twBp6Q/edit?gid=808395923#gid=808395923';
+const metricByName = name => verifiedMetrics.assets.find(asset => asset.name === name);
+const sourceLink = (href, label = 'Ver base completa') => `<a class="detail-button" href="${href}" target="_blank" rel="noopener">${label} ↗</a>`;
+const selected2027 = ['Juan Felipe Cadavid', 'Sheyla García', 'Alexis Rodríguez', 'Eduardo Luis', 'Laura Ortiz', 'Fútbol Sin Límite', 'Juan Pablo Gómez'];
+const new2027 = ['Luis Londoño', 'Daniel Angulo', 'Andrés · Opina con Fútbol', 'Pilar Velásquez', 'Juan Pablo Pinilla'];
+const portraits = {'Sheyla García':'sheyla-garcia.jpeg','Juan Felipe Cadavid':'juan-felipe-cadavid.avif','Eduardo Luis':'eduardo-luis.webp','Alexis Rodríguez':'alexis-rodriguez.jpeg','Laura Ortiz':'laura-ortiz.jpg','Felipe Cerón':'felipe-ceron.jpeg'};
+const strategy = {
+ 'Sheyla García':['Una voz propia dentro de la agenda','Conservar Las 3 de la Semana y probar aperturas más directas, versiones y distribución por plataforma.'],
+ 'Juan Felipe Cadavid':['Actualidad y postpartido como ejes','Mantener la conversación de actualidad y adaptar los mejores temas a cada plataforma. Octubre aporta 20 registros de postpartido.'],
+ 'Eduardo Luis':['Potenciar la reacción inmediata','Priorizar los grandes hitos y una tesis clara desde el primer segundo. En octubre, el postpartido aporta 819.200 vistas.'],
+ 'Fútbol Sin Límite':['Un sistema multiplataforma','Conservar Desahogo y Memes, adaptar el empaque por red y medir cada versión durante la misma ventana.'],
+ 'Alexis Rodríguez':['Una novedad y una consecuencia por pieza','Convertir la lista de noticias en contenidos más directos y crear versiones específicas para cada plataforma.'],
+ 'Laura Ortiz':['Continuidad con una línea editorial medible','Laura continúa en 2027. Fortalecer una serie editorial comparable, con medición por plataforma.'],
+ 'Felipe Cerón':['Balance histórico y cierre de ciclo','Felipe no se renueva para 2027. Juan Pablo Pinilla lo reemplaza; no se traslada automáticamente su tarifa.']
+};
+function formatCards(asset) {
+ return Object.entries(asset.formats).sort((a,b)=>b[1].janOct.views-a[1].janOct.views).map(([format, values])=>`<article class="card"><small>${escapeHtml(format)} · ${values.janOct.records} REGISTROS</small><h3>${number(values.janOct.views)} vistas</h3><p>Octubre: ${values.october.records ? `${values.october.records} registros · ${number(values.october.views)} vistas` : 'sin registros en este formato'}.</p><div class="average-line">PROMEDIO ENE–OCT · ${number(values.janOct.views/values.janOct.records)} vistas por registro</div></article>`).join('');
+}
+function interactionNote(asset) {
+ if (asset.warnings.length) return `<p class="fineprint">Interacciones en revisión. ${asset.name === 'Eduardo Luis' ? 'Las filas 40–47 de octubre repiten el valor de vistas en interacciones.' : 'Las filas 32–33 de octubre repiten vistas e interacciones; también hay valores de interacciones superiores a vistas en filas 2, 3 y 8.'} No mostramos un acumulado validado.</p>`;
+ return `<p class="fineprint">Interacciones reportadas: ${number(asset.janOct.interactionsReported)} enero–octubre y ${number(asset.october.interactionsReported)} en octubre. Son valores de la fuente, no auditoría de plataforma.</p>`;
+}
+function metricStrip(asset) {
+ return `<div class="impact-strip"><div><strong>${number(asset.janOct.records)}</strong><span>registros enero–octubre</span></div><div><strong>${number(asset.janOct.views)}</strong><span>reproducciones enero–octubre</span></div><div><strong>${number(asset.janOct.views/asset.janOct.records)}</strong><span>vistas promedio por registro</span></div></div><div class="oct-summary"><strong>OCTUBRE, POR SEPARADO</strong><span>${asset.october.records ? `${asset.october.records} registros · ${number(asset.october.views)} reproducciones` : 'Sin registros en la hoja. No implica ausencia de actividad.'}</span></div>`;
+}
+function assetDetail(name, key) {
+ const asset = metricByName(name);
+ const old = details[key]?.body || '';
+ const proof = old.match(/<div class="proof-list">[\s\S]*?<\/div>/)?.[0] || '';
+ details[key] = {eyebrow:'RESULTADOS ENERO–OCTUBRE 2026',title:name,body:`${metricStrip(asset)}<div class="grid-2">${formatCards(asset)}</div>${interactionNote(asset)}${sourceLink(asset.source,'Abrir hoja del activo')}${proof ? `<h3>Ejemplos del corte histórico</h3>${proof}` : ""}<p class="fineprint">Los enlaces de ejemplo conservan su corte histórico. El acumulado y el detalle por formato de arriba ya incorporan octubre. Registros por publicación/plataforma; no piezas creativas únicas ni personas únicas.</p>`};
+}
+function assetSlide(name,key) {
+ const asset = metricByName(name), text = strategy[name], portrait = portraits[name];
+ return `<div class="asset-intro"><div><div class="eyebrow">BALANCE · ENERO–OCTUBRE 2026</div><h2 class="section-title asset-name">${escapeHtml(name)}</h2><span class="selection-badge">${name==='Felipe Cerón'?'Cierre 2026 · no continúa':'Continúa en 2027'}</span></div>${portrait?`<figure class="asset-portrait"><img src="assets/${portrait}" alt="${escapeHtml(name)}"><figcaption>CONTENIDO · COMUNIDAD · DISTRIBUCIÓN</figcaption></figure>`:''}</div>${metricStrip(asset)}<div class="grid-3">${Object.entries(asset.formats).sort((a,b)=>b[1].janOct.views-a[1].janOct.views).slice(0,3).map(([format,v])=>`<article class="card"><small>${escapeHtml(format)} · ${v.janOct.records} REGISTROS</small><h3>${number(v.janOct.views)} vistas</h3><p>Octubre: ${v.october.records} registros · ${number(v.october.views)} vistas.</p></article>`).join('')}</div><div class="card highlight"><small>LECTURA PARA 2027</small><h3>${text[0]}</h3><p>${text[1]}</p><button class="detail-button" type="button" data-detail="${key}">Ver formatos y fuente →</button></div>${interactionNote(asset)}<p class="fineprint">Cada fila es un registro de publicación por plataforma. Reproducciones no equivalen a alcance único.</p>`;
+}
+[['Sheyla García','sheyla'],['Juan Felipe Cadavid','juanFelipe'],['Eduardo Luis','eduardo'],['Fútbol Sin Límite','fsl'],['Alexis Rodríguez','alexis']].forEach(([name,key])=>{
+ assetDetail(name,key); const slide=slides.find(item=>item.title===name); slide.render=()=>assetSlide(name,key); slide.chapter='MOMENTO 01 · ACTIVOS A OCTUBRE';
+});
+assetDetail('Laura Ortiz','laura'); assetDetail('Felipe Cerón','felipe');
+const packages = slides.find(item=>item.title==='Laura Ortiz y Felipe Cerón');
+packages.kicker='Continuidad y cambio';
+packages.render=()=>`<div class="eyebrow">BALANCE ENERO–OCTUBRE · DECISIÓN 2027</div><h2 class="section-title">Laura continúa.<br><em>Pinilla reemplaza a Felipe.</em></h2><div class="grid-2">${['Laura Ortiz','Felipe Cerón'].map((name,i)=>{const a=metricByName(name);return `<article class="card talent-card"><img src="assets/${portraits[name]}" alt="${name}"><div class="talent-card-body"><span class="selection-badge">${i?'No se renueva':'Continúa en 2027'}</span><h3>${name}</h3><p><b>${number(a.janOct.views)} vistas</b> · ${a.janOct.records} registros ene–oct</p><p>Octubre: ${i?'sin registros':`${a.october.records} registros · ${number(a.october.views)} vistas`}.</p><p>${strategy[name][1]}</p><button type="button" class="detail-button" data-detail="${i?'felipe':'laura'}">Ver resultados completos →</button></div></article>`}).join('')}</div><div class="card purple"><small>NUEVA SELECCIÓN 2027</small><h3>Juan Pablo Pinilla</h3><p>Reemplaza a Felipe Cerón. Su tarifa, entregables y condiciones se formalizarán por separado. No se le asignan resultados históricos de Felipe.</p></div><p class="fineprint">Resultados de la base por plataforma. No equivalen a personas únicas. Felipe sin octubre no prueba que no haya tenido actividad.</p>`;
+slides[0].render=()=>`<div class="hero-card"><div class="eyebrow">LEVEL COLOMBIA × WPLAY · NOVIEMBRE 2026</div><h1 class="display">Un equipo que evoluciona.<br><em>Un plan para crecer.</em></h1><p class="lead">Balance a octubre de 2026 y plan de trabajo 2027. Resultados verificables, continuidad de talentos y decisiones actualizadas.</p><div class="tag-row"><span class="tag">Balance enero–octubre</span><span class="tag">Selección 2027</span><span class="tag">Producción Level</span></div>${sourceLink(baseLink)}</div>`;
+slides[2]={chapter:'MOMENTO 01 · BALANCE A OCTUBRE',kicker:'Overview de resultados',title:'Resultados a octubre de 2026',render:()=>`<div class="eyebrow">SIETE ACTIVOS · ENERO–OCTUBRE 2026</div><h2 class="section-title">Resultados que podemos<br><em>recorrer y comprobar.</em></h2><div class="metric-grid"><article class="metric-card"><strong class="metric-value">59,62 M</strong><span class="metric-label">reproducciones registradas</span><p class="metric-note">59.619.423 exactas · no audiencia única</p></article><article class="metric-card"><strong class="metric-value">965</strong><span class="metric-label">registros de publicación</span><p class="metric-note">Por plataforma, no piezas creativas únicas</p></article><article class="metric-card"><strong class="metric-value">3,53 M</strong><span class="metric-label">reproducciones en octubre</span><p class="metric-note">3.529.669 exactas · 67 registros</p></article></div><div class="metric-table"><table><thead><tr><th>Activo</th><th>Registros ene–oct</th><th>Vistas ene–oct</th><th>Registros oct.</th><th>Vistas oct.</th></tr></thead><tbody>${verifiedMetrics.assets.map(a=>`<tr><td>${a.name}</td><td>${number(a.janOct.records)}</td><td><b>${number(a.janOct.views)}</b></td><td>${a.october.records||'Sin registro'}</td><td>${number(a.october.views)}</td></tr>`).join('')}</tbody></table></div>${sourceLink(baseLink)}<details class="card"><summary>Alcance y validaciones del corte</summary><p>Se excluyen encabezados, totales y filas vacías. Se cuentan registros por publicación/plataforma, que pueden corresponder a contenidos compartidos. Las reproducciones no son alcance único.</p><p>La pestaña General conserva conteos distintos: Juan Felipe 436 frente a 433; Fútbol Sin Límite 375 frente a 403; Eduardo 37 frente a 46; Sheyla 30 frente a 32; Laura 10 frente a 11. Usamos el recuento de las hojas individuales.</p><p>Interacciones de Eduardo y Sheyla pendientes de validar. No presentamos un total global validado. Felipe Cerón no tiene registros de octubre, lo que no demuestra ausencia de actividad.</p><p>Este balance no es el total de producción de todos los canales. YouTube y Wplay Sports mantienen sus periodos y no se suman de nuevo. Noviembre y diciembre quedan fuera de este corte.</p></details>`};
+// Preserve historic operating context but label its exact scope.
+const operation = slides[1], oldOperation=operation.render;
+operation.title='La operación construida en 2026'; operation.kicker='Contexto histórico';
+operation.render=()=>oldOperation().replace('Todo lo que Wplay <em>tiene hoy</em>','La operación que <em>construimos en 2026</em>').replace('<div class="eyebrow">UNA OPERACIÓN · VARIOS FRENTES</div>','<div class="eyebrow">CONTEXTO HISTÓRICO 2026 · SELECCIÓN 2027 MÁS ADELANTE</div>');
+const renewal = slides.find(item=>item.title==='Overview — Renovación 2027');
+const simulator=renewal.render;
+renewal.chapter='MOMENTO 02 · EQUIPO Y DECISIONES';
+renewal.render=()=>`<div class="eyebrow">PLAN 2027 · SELECCIÓN DEFINIDA</div><h2 class="section-title">La continuidad tiene base.<br><em>El equipo se amplía.</em></h2><div class="decisions-grid"><article class="card current-roster"><small>CONTINÚAN</small><h3>7 talentos y activos</h3><div class="roster-chips">${selected2027.map(n=>`<span>${n}</span>`).join('')}</div></article><article class="card purple"><small>SE SUMAN</small><h3>5 perfiles seleccionados</h3><div class="roster-chips">${new2027.map(n=>`<span>${n}</span>`).join('')}</div><p>Juan Pablo Pinilla reemplaza a Felipe Cerón. Tarifas, entregables y derechos de los nuevos perfiles pendientes de formalización.</p></article></div><div class="grid-2"><article class="card highlight"><small>CLÁSICO PAISA</small><h3>$6.000.000 mensuales libres</h3><p>Valor aceptado. Formalizar el alcance y tratamiento tributario antes de consolidar la facturación.</p></article><article class="card"><small>PRODUCCIÓN INTERNA LEVEL</small><h3>4 videos de hinchas al mes</h3><p>Un formato recurrente desde los estadios de Colombia, producido con nuestra red de corresponsales.</p></article></div><p class="fineprint">La selección está definida; no representa contratos firmados ni un presupuesto final. Los formatos descartados no forman parte de este plan.</p><details class="card"><summary>Consultar simulador de referencias contractuales</summary>${simulator().replace('Evaluemos los activos actuales y construyamos el escenario de renovación de Wplay para el próximo año.','Referencias contractuales existentes, sin Felipe Cerón. Los cinco nuevos perfiles y Clásico Paisa no están incluidos en este subtotal. Juan Pablo Gómez no tiene tarifa registrada; cero es un dato pendiente, no una contratación gratuita.').replace('TOTAL RENOVACIÓN 2027','SUBTOTAL DE REFERENCIAS').replace('CALCULADORA COMERCIAL · VALORES MENSUALES EN COP','SIMULACIÓN · NO ES COTIZACIÓN FINAL')}</details>`;
+const influencers = slides.find(item=>item.kicker==='Influenciadores 2027');
+influencers.title='Nuevos perfiles seleccionados';
+influencers.render=()=>`<div class="eyebrow">NUEVOS PERFILES · SELECCIÓN 2027</div><h2 class="section-title">Más voces para<br><em>la conversación del fútbol.</em></h2><div class="grid-3">${new2027.map((name,i)=>`<article class="card"><div class="icon-token">${String(i+1).padStart(2,'0')}</div><small>PERFIL SELECCIONADO</small><h3>${name}</h3><p>${name==='Juan Pablo Pinilla'?'Reemplaza a Felipe Cerón.':'Se incorpora a la selección 2027.'}</p><p class="fineprint">Tarifa, entregables, derechos y contratación por formalizar.</p></article>`).join('')}</div><div class="card highlight"><h3>El siguiente paso es cerrar un alcance comparable.</h3><p>Definir por perfil la frecuencia, canales, entregables, derechos de imagen y pauta, exclusividad, territorio y vigencia. No asignar tarifas ni compromisos no acordados.</p></div>`;
+const opening=slides.find(item=>item.kicker==='Nuevas oportunidades');
+opening.title='Dos líneas para activar el plan';
+opening.render=()=>`<div class="hero-card"><div class="eyebrow">PLAN DE TRABAJO 2027</div><h1 class="display">Conversación en pantalla.<br><em>Pasión en los estadios.</em></h1><p class="lead">Dos líneas seleccionadas: integración con Clásico Paisa y cuatro videos mensuales del micrófono de los hinchas, producidos internamente por Level.</p><div class="grid-2"><article class="card"><small>01 · INTEGRACIÓN</small><h3>Clásico Paisa</h3><p>$6 millones mensuales libres aceptados. Alcance por formalizar.</p></article><article class="card purple"><small>02 · PRODUCCIÓN INTERNA</small><h3>El micrófono de los hinchas</h3><p>4 videos al mes, distintos estadios de Colombia y corresponsales Level.</p></article></div></div>`;
+// No orphan transitions for concepts that the client removed.
+for(let i=slides.length-1;i>=0;i--) if(slides[i].kicker==='Transición') slides.splice(i,1);
+const summary=slides.find(item=>item.kicker==='Resumen comercial');
+summary.title='Plan de trabajo seleccionado';
 
-for (let i = 3; i <= 9; i++) { const previous = slides[i].render; slides[i].render = () => `<p class="fineprint">Detalle del corte anterior. Consulta el consolidado enero–octubre en «Resultados a octubre de 2026».</p>` + previous(); }
 let currentSlide = 0;
 const slideEl = document.getElementById("slide");
 const indexPanel = document.getElementById("indexPanel");
@@ -1165,10 +1139,14 @@ document.querySelectorAll("dialog").forEach(dialog => dialog.addEventListener("c
 }));
 window.addEventListener("keydown", event => {
   const tag = document.activeElement?.tagName;
+  if (event.key === "Escape") closeIndex();
+  if (document.querySelector("dialog[open]")) return;
   if (["INPUT", "SELECT", "TEXTAREA"].includes(tag)) return;
   if (event.key === "ArrowRight" || event.key === "PageDown") goToSlide(currentSlide + 1);
   if (event.key === "ArrowLeft" || event.key === "PageUp") goToSlide(currentSlide - 1);
   if (event.key.toLowerCase() === "i") openIndex();
 });
 
+const nextMomentButton = document.querySelectorAll(".moment")[1];
+if (nextMomentButton) nextMomentButton.dataset.jump = slides.findIndex(item => item.chapter.startsWith("MOMENTO 02"));
 renderSlide();
