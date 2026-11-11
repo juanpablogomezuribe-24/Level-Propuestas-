@@ -7,8 +7,9 @@
   <title>Balance y renovación 2027 | Level Colombia × Wplay</title>
   <link rel="stylesheet" href="styles.css?v=20261111-columns">
   <link rel="stylesheet" href="institutional.css?v=20261111-columns">
+  <link rel="stylesheet" href="balance-v5.css?v=20261111-balance-v5">
 </head>
-<body class="cover-mode">
+<body class="cover-mode balance-v5">
   <div class="app-shell">
     <header class="topbar">
       <button class="icon-button" id="openIndex" type="button" aria-label="Abrir índice">
@@ -23,8 +24,8 @@
         </div>
       </div>
       <div class="moment-switch" aria-label="Momentos de la propuesta">
-        <button type="button" data-jump="0" class="moment active"><span>01</span> Lo que tenemos</button>
-        <button type="button" data-jump="14" class="moment"><span>02</span> Lo que sigue</button>
+        <button type="button" data-jump="0" class="moment active"><span>01</span> Balance 2026</button>
+        <button type="button" data-jump="16" class="moment"><span>02</span> Plan 2027</button>
       </div>
       <a class="base-link" href="https://docs.google.com/spreadsheets/d/1S9mvKfYQsDOF7lZWiAQzp9YZUm-Bi01imCpn4twBp6Q/edit?gid=808395923#gid=808395923" target="_blank" rel="noopener">Ver base completa ↗</a>
       <button class="source-button" id="openSources" type="button">Fuentes y criterios</button>
@@ -43,7 +44,7 @@
       <main class="stage" id="stage" tabindex="-1">
         <div class="stage-meta">
           <div class="chapter-pill" id="chapterPill">MOMENTO 01 · BALANCE</div>
-          <div class="slide-position"><span id="slideCounter">01 / 22</span><span id="slideKicker">Balance y renovación</span></div>
+          <div class="slide-position"><span id="slideCounter">01</span><span id="slideKicker">Balance y renovación</span></div>
         </div>
         <section class="slide" id="slide" aria-live="polite"></section>
       </main>
@@ -52,7 +53,7 @@
     <footer class="footerbar">
       <button class="nav-button secondary" id="prevSlide" type="button">← Anterior</button>
       <div class="progress-wrap">
-        <div class="progress-copy"><span id="progressTitle">Balance y renovación 2027</span><span id="progressCount">1 de 22</span></div>
+        <div class="progress-copy"><span id="progressTitle">Balance y renovación 2027</span><span id="progressCount">1 de 21</span></div>
         <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
       </div>
       <button class="nav-button primary" id="nextSlide" type="button">Siguiente →</button>
@@ -85,6 +86,7 @@
   </dialog>
 
   <script src="catalog-data.js"></script>
-  <script src="app.js?v=20261111-columns"></script>
+  <script src="balance-v5.js?v=20261111-balance-v5"></script>
+  <script src="app.js?v=20261111-balance-v5"></script>
 </body>
 </html>

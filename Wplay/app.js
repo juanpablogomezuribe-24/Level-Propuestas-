@@ -770,6 +770,9 @@ slides[0].title = "Balance y renovación 2027";
 slides[0].kicker = "Balance y renovación";
 slides[0].render = () => "<div class=\"level-hero\"><div class=\"cover-copy\"><p class=\"eyebrow\">LEVEL COLOMBIA × WPLAY</p><h1>Balance y renovación<br><em>2027</em></h1><button type=\"button\" data-jump=\"1\" class=\"cover-button\">Ver propuesta <span aria-hidden=\"true\">→</span></button></div><p class=\"cover-bottom\">IDEAS QUE CONECTAN</p></div>";
 
+// Main deck presentation refinement. No shared merch assets are modified.
+configureBalanceV5();
+
 let currentSlide = 0;
 const slideEl = document.getElementById("slide");
 const indexPanel = document.getElementById("indexPanel");
@@ -806,13 +809,14 @@ function renderSlide() {
   }
   document.body.classList.toggle("cover-mode", currentSlide === 0);
   const item = slides[currentSlide];
+  slideEl.dataset.slideKey = item.balanceKey;
   slideEl.style.animation = "none";
   void slideEl.offsetHeight;
   slideEl.style.animation = "";
   slideEl.classList.toggle("pauta-mode", item.title === "Contenidos de pauta 2026");
   slideEl.innerHTML = item.render();
   document.getElementById("chapterPill").textContent = item.chapter;
-  document.getElementById("slideCounter").textContent = `${String(currentSlide + 1).padStart(2, "0")} / ${slides.length}`;
+  document.getElementById("slideCounter").textContent = String(currentSlide + 1).padStart(2, "0");
   document.getElementById("slideKicker").textContent = item.kicker;
   document.getElementById("progressTitle").textContent = item.title;
   document.getElementById("progressCount").textContent = `${currentSlide + 1} de ${slides.length}`;
@@ -824,7 +828,7 @@ function renderSlide() {
   renderIndex();
   if (item.title === "Catálogo interactivo") setupCatalog();
   if (item.title === "Nueve meses de operación") runMetricCounters();
-  if (item.title === "Overview — Renovación 2027") setupRenewal();
+  if (slideEl.querySelector("[data-renewal-row]")) setupRenewal();
   if (item.title === "Contenidos de pauta 2026") setupPauta();
   if (slideEl.querySelector("[data-ugc-calculator]")) setupUgcCalculator();
   document.getElementById("stage").scrollTop = 0;
@@ -1013,7 +1017,7 @@ function setupPauta() {
     if (pautaTalentSelected === "Todos") {
       posts.classList.add("all-mode");
       viewLabel.textContent = "RESUMEN POR TALENTO";
-      viewTitle.textContent = "Seis voces · seis resultados destacados";
+      viewTitle.textContent = "Máximo de vistas por talento";
       viewCount.textContent = "18 disponibles";
       posts.innerHTML = `<div class="pauta-summary-grid">${talentOrder.map(talent => {
         const group = pautaPosts.filter(post => post.talent === talent).sort((a,b) => a.position - b.position);
