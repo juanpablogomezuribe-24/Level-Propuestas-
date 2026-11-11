@@ -283,3 +283,17 @@ input, select { color-scheme: light; }
 .card summary { cursor:pointer; font-weight:800; color:#6931bb; min-height:40px; padding:8px 0; }
 a.detail-button { display:inline-flex; align-items:center; text-decoration:none; margin-top:12px; }
 @media(max-width:640px){.decisions-grid{grid-template-columns:1fr}.oct-summary{align-items:flex-start;flex-direction:column;gap:7px}.impact-strip strong{font-size:clamp(20px,5.5vw,28px)}}
+
+/* Selected profiles and final roster, November 2026 */
+.profile-link { display: inline-flex; align-items: center; min-height: 42px; margin-top: 10px; text-decoration: none; }
+.roster-table-counts { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
+.roster-table-counts span { border: 1px solid var(--line); background: #f6f1fc; border-radius: 999px; padding: 8px 12px; color: #51465f; font-size: 12px; }
+.roster-table-counts b { color: #6931bb; margin-right: 4px; }
+.roster-table-wrap { max-height: 48vh; }
+.roster-table { min-width: 940px; font-size: 11px; }
+.roster-table th { font-size: 10px; padding: 11px 12px; }
+.roster-table tbody th { width: 220px; min-width: 190px; border-top: 1px solid rgba(65,36,103,.07); text-transform: none; font-size: 11px; letter-spacing: normal; color: #282333; background: #faf8fd; }
+.roster-table tbody th b { color: #6931bb; margin-right: 6px; }
+.roster-table td { padding: 11px 12px; line-height: 1.45; }
+.roster-profile { display: block; margin-top: 5px; color: #6931bb; font-size: 11px; text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 640px) { .roster-table-wrap { max-height: 52vh; } .roster-table { min-width: 850px; } }

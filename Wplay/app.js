@@ -678,7 +678,15 @@ const baseLink = 'https://docs.google.com/spreadsheets/d/1S9mvKfYQsDOF7lZWiAQzp9
 const metricByName = name => verifiedMetrics.assets.find(asset => asset.name === name);
 const sourceLink = (href, label = 'Ver base completa') => `<a class="detail-button" href="${href}" target="_blank" rel="noopener">${label} ↗</a>`;
 const selected2027 = ['Juan Felipe Cadavid', 'Sheyla García', 'Alexis Rodríguez', 'Eduardo Luis', 'Laura Ortiz', 'Fútbol Sin Límite', 'Juan Pablo Gómez'];
-const new2027 = ['Luis Londoño', 'Daniel Angulo', 'Andrés · Opina con Fútbol', 'Pilar Velásquez', 'Juan Pablo Pinilla'];
+const new2027 = ['Luisa Londoño', 'Daniel Angulo', 'Andrés · Opina con Fútbol', 'Pilar Velásquez', 'Juan Pablo Pinilla'];
+const newProfileLinks = {
+  'Luisa Londoño': {url:'https://www.instagram.com/luilondo_/', handle:'@luilondo_'},
+  'Daniel Angulo': {url:'https://www.instagram.com/danielangulor/', handle:'@danielangulor'},
+  'Andrés · Opina con Fútbol': {url:'https://www.instagram.com/opinaconfutbol/', handle:'@opinaconfutbol'},
+  'Pilar Velásquez': {url:'https://www.instagram.com/pilarvelasquezv/', handle:'@pilarvelasquezv'},
+  'Juan Pablo Pinilla': {url:'https://www.instagram.com/juanpablo_ft/', handle:'@juanpablo_ft'}
+};
+const renderProfileLink = name => { const profile=newProfileLinks[name]; return profile ? `<a class="detail-button profile-link" href="${profile.url}" target="_blank" rel="noopener noreferrer" aria-label="Ver Instagram de ${escapeHtml(name)}">Ver perfil · ${profile.handle} ↗</a>` : '<p class="fineprint">Enlace de perfil por confirmar.</p>'; };
 const portraits = {'Sheyla García':'sheyla-garcia.jpeg','Juan Felipe Cadavid':'juan-felipe-cadavid.avif','Eduardo Luis':'eduardo-luis.webp','Alexis Rodríguez':'alexis-rodriguez.jpeg','Laura Ortiz':'laura-ortiz.jpg','Felipe Cerón':'felipe-ceron.jpeg'};
 const strategy = {
  'Sheyla García':['Una voz propia dentro de la agenda','Conservar Las 3 de la Semana y probar aperturas más directas, versiones y distribución por plataforma.'],
@@ -728,7 +736,7 @@ renewal.chapter='MOMENTO 02 · EQUIPO Y DECISIONES';
 renewal.render=()=>`<div class="eyebrow">PLAN 2027 · SELECCIÓN DEFINIDA</div><h2 class="section-title">La continuidad tiene base.<br><em>El equipo se amplía.</em></h2><div class="decisions-grid"><article class="card current-roster"><small>CONTINÚAN</small><h3>7 talentos y activos</h3><div class="roster-chips">${selected2027.map(n=>`<span>${n}</span>`).join('')}</div></article><article class="card purple"><small>SE SUMAN</small><h3>5 perfiles seleccionados</h3><div class="roster-chips">${new2027.map(n=>`<span>${n}</span>`).join('')}</div><p>Juan Pablo Pinilla reemplaza a Felipe Cerón. Tarifas, entregables y derechos de los nuevos perfiles pendientes de formalización.</p></article></div><div class="grid-2"><article class="card highlight"><small>CLÁSICO PAISA</small><h3>$6.000.000 mensuales libres</h3><p>Valor aceptado. Formalizar el alcance y tratamiento tributario antes de consolidar la facturación.</p></article><article class="card"><small>PRODUCCIÓN INTERNA LEVEL</small><h3>4 videos de hinchas al mes</h3><p>Un formato recurrente desde los estadios de Colombia, producido con nuestra red de corresponsales.</p></article></div><p class="fineprint">La selección está definida; no representa contratos firmados ni un presupuesto final. Los formatos descartados no forman parte de este plan.</p><details class="card"><summary>Consultar simulador de referencias contractuales</summary>${simulator().replace('Evaluemos los activos actuales y construyamos el escenario de renovación de Wplay para el próximo año.','Referencias contractuales existentes, sin Felipe Cerón. Los cinco nuevos perfiles y Clásico Paisa no están incluidos en este subtotal. Juan Pablo Gómez no tiene tarifa registrada; cero es un dato pendiente, no una contratación gratuita.').replace('TOTAL RENOVACIÓN 2027','SUBTOTAL DE REFERENCIAS').replace('CALCULADORA COMERCIAL · VALORES MENSUALES EN COP','SIMULACIÓN · NO ES COTIZACIÓN FINAL')}</details>`;
 const influencers = slides.find(item=>item.kicker==='Influenciadores 2027');
 influencers.title='Nuevos perfiles seleccionados';
-influencers.render=()=>`<div class="eyebrow">NUEVOS PERFILES · SELECCIÓN 2027</div><h2 class="section-title">Más voces para<br><em>la conversación del fútbol.</em></h2><div class="grid-3">${new2027.map((name,i)=>`<article class="card"><div class="icon-token">${String(i+1).padStart(2,'0')}</div><small>PERFIL SELECCIONADO</small><h3>${name}</h3><p>${name==='Juan Pablo Pinilla'?'Reemplaza a Felipe Cerón.':'Se incorpora a la selección 2027.'}</p><p class="fineprint">Tarifa, entregables, derechos y contratación por formalizar.</p></article>`).join('')}</div><div class="card highlight"><h3>El siguiente paso es cerrar un alcance comparable.</h3><p>Definir por perfil la frecuencia, canales, entregables, derechos de imagen y pauta, exclusividad, territorio y vigencia. No asignar tarifas ni compromisos no acordados.</p></div>`;
+influencers.render=()=>`<div class="eyebrow">NUEVOS PERFILES · SELECCIÓN 2027</div><h2 class="section-title">Más voces para<br><em>la conversación del fútbol.</em></h2><div class="grid-3">${new2027.map((name,i)=>`<article class="card"><div class="icon-token">${String(i+1).padStart(2,'0')}</div><small>PERFIL SELECCIONADO</small><h3>${name}</h3><p>${name==='Juan Pablo Pinilla'?'Reemplaza a Felipe Cerón.':'Se incorpora a la selección 2027.'}</p><p class="fineprint">Tarifa, entregables, derechos y contratación por formalizar.</p>${renderProfileLink(name)}</article>`).join('')}</div><div class="card highlight"><h3>El siguiente paso es cerrar un alcance comparable.</h3><p>Definir por perfil la frecuencia, canales, entregables, derechos de imagen y pauta, exclusividad, territorio y vigencia. No asignar tarifas ni compromisos no acordados.</p></div>`;
 const opening=slides.find(item=>item.kicker==='Nuevas oportunidades');
 opening.title='Dos líneas para activar el plan';
 opening.render=()=>`<div class="hero-card"><div class="eyebrow">PLAN DE TRABAJO 2027</div><h1 class="display">Conversación en pantalla.<br><em>Pasión en los estadios.</em></h1><p class="lead">Dos líneas seleccionadas: integración con Clásico Paisa y cuatro videos mensuales del micrófono de los hinchas, producidos internamente por Level.</p><div class="grid-2"><article class="card"><small>01 · INTEGRACIÓN</small><h3>Clásico Paisa</h3><p>$6 millones mensuales libres aceptados. Alcance por formalizar.</p></article><article class="card purple"><small>02 · PRODUCCIÓN INTERNA</small><h3>El micrófono de los hinchas</h3><p>4 videos al mes, distintos estadios de Colombia y corresponsales Level.</p></article></div></div>`;
@@ -736,6 +744,26 @@ opening.render=()=>`<div class="hero-card"><div class="eyebrow">PLAN DE TRABAJO 
 for(let i=slides.length-1;i>=0;i--) if(slides[i].kicker==='Transición') slides.splice(i,1);
 const summary=slides.find(item=>item.kicker==='Resumen comercial');
 summary.title='Plan de trabajo seleccionado';
+
+
+const completeRoster2027 = [
+  ...selected2027.map(name=>({name,category:name==='Fútbol Sin Límite'?'Medio / comunidad':'Talento',status:'Continúa',scope:'Continuidad en el plan 2027',terms:'Condiciones de renovación por formalizar'})),
+  ...new2027.map(name=>({name,category:'Nuevo perfil',status:'Seleccionado',scope:name==='Juan Pablo Pinilla'?'Reemplaza a Felipe Cerón':'Se incorpora al equipo 2027',terms:'Tarifa, entregables y derechos por formalizar'})),
+  {name:'Clásico Paisa',category:'Integración en programa',status:'Valor aceptado',scope:'Integración de Wplay en el programa',terms:'$6.000.000 COP mensuales libres · alcance e impuestos por formalizar'},
+  {name:'El micrófono de los hinchas',category:'Producción interna Level',status:'Formato seleccionado',scope:'4 videos al mes en estadios de Colombia, con corresponsales Level',terms:'Costo interno y calendario por definir'}
+];
+slides.push({chapter:'MOMENTO 02 · EQUIPO Y ACTIVOS',kicker:'Todos los activos 2027',title:'El equipo completo para 2027',render:()=>`
+  <div class="eyebrow">RESUMEN FINAL · 14 ACTIVOS SELECCIONADOS</div>
+  <h2 class="section-title">Todo el equipo.<br><em>Un mismo plan.</em></h2>
+  <p class="section-intro">7 talentos y activos que continúan, 5 perfiles nuevos y 2 formatos seleccionados. Una sola vista para revisar la composición del plan 2027.</p>
+  <div class="roster-table-counts"><span><b>7</b> continúan</span><span><b>5</b> nuevos perfiles</span><span><b>2</b> formatos</span></div>
+  <div class="opportunity-table-wrap roster-table-wrap" tabindex="0" role="region" aria-label="Tabla completa de activos 2027, desplazable">
+    <table class="opportunity-table roster-table"><thead><tr><th scope="col">Activo</th><th scope="col">Tipo</th><th scope="col">Estado 2027</th><th scope="col">Participación</th><th scope="col">Condiciones</th></tr></thead><tbody>
+      ${completeRoster2027.map((asset,i)=>`<tr><th scope="row"><b>${String(i+1).padStart(2,'0')}</b> ${escapeHtml(asset.name)}${newProfileLinks[asset.name]?`<a class="roster-profile" href="${newProfileLinks[asset.name].url}" target="_blank" rel="noopener noreferrer">Ver perfil ↗</a>`:''}</th><td>${escapeHtml(asset.category)}</td><td><span class="summary-status">${escapeHtml(asset.status)}</span></td><td>${escapeHtml(asset.scope)}</td><td>${escapeHtml(asset.terms)}</td></tr>`).join('')}
+    </tbody></table>
+  </div>
+  <p class="fineprint">Los canales y la operación editorial se detallan en el balance: Wplay Sports, YouTube, Encartados y red de corresponsales. No son perfiles adicionales ni se duplican en este conteo. Esta selección no equivale a contratos firmados ni a un presupuesto final.</p>
+`});
 
 let currentSlide = 0;
 const slideEl = document.getElementById("slide");
