@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 893 1600" fill="none" role="img" aria-label="Simulación de patrocinio: Tu marca aquí en el lado izquierdo de la chaqueta y en el micrófono; escudo original a la derecha">
+  <defs>
+    <linearGradient id="patchFabric" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#15283f"/><stop offset="1" stop-color="#0a1628"/></linearGradient>
+    <linearGradient id="cubeNavy" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#273e66"/><stop offset="1" stop-color="#17294d"/></linearGradient>
+    <filter id="patchShadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="1" dy="2" stdDeviation="1.2" flood-color="#000" flood-opacity=".6"/></filter>
+  </defs>
+  <!-- Original photo is 893 × 1600. Overlay retains its exact coordinate system. -->
+  <!-- Sponsor on viewer's LEFT chest. The historical FSL shield on viewer's RIGHT is untouched. -->
+  <g transform="translate(282 915) rotate(4 45 32)" filter="url(#patchShadow)">
+    <rect x="0" y="0" width="91" height="68" rx="2" fill="url(#patchFabric)" stroke="#a88b3c" stroke-width="2"/>
+    <rect x="3.5" y="3.5" width="84" height="61" rx="1" stroke="#dfc378" stroke-width="1" stroke-dasharray="1.4 1.6"/>
+    <g fill="#f6f1e2" font-family="'Arial Narrow', Impact, sans-serif" font-size="17" font-weight="700" text-anchor="middle" letter-spacing=".25">
+      <text x="45.5" y="23">TU</text><text x="45.5" y="41">MARCA</text><text x="45.5" y="59">AQUÍ</text>
+    </g>
+  </g>
+  <!-- The front plane alone covers the existing sponsor, leaving the microphone and hand intact. -->
+  <g transform="matrix(1 .39 -.44 1 266 690)">
+    <path d="M0 0H105V59H0Z" fill="url(#cubeNavy)" stroke="#516788" stroke-width=".8"/>
+    <path d="M0 53H105V59H0Z" fill="#d5b344"/>
+    <g fill="#fffdf7" font-family="'Arial Narrow', Impact, sans-serif" font-size="15.5" font-weight="700" text-anchor="middle" letter-spacing=".35">
+      <text x="52.5" y="17">TU</text><text x="52.5" y="33">MARCA</text><text x="52.5" y="49">AQUÍ</text>
+    </g>
+  </g>
+</svg>
