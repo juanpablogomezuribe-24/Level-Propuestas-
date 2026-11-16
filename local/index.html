@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffbf3c">
+<meta name="description" content="Explora los recuerdos de Colombia en la máquina virtual de LOCAL.">
+<title>LOCAL — Máquina de recuerdos</title>
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="style.css">
+<script defer src="app.js"></script>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="#" aria-label="LOCAL, inicio"><img src="assets/logo.png" alt="LOCAL"></a>
+  <nav aria-label="Navegación principal"><a href="#maquina">La máquina</a><a href="#bogota">Mapa de Bogotá ↗</a></nav>
+</header>
+<main>
+<section class="hero" aria-labelledby="machine-title">
+  <div class="wrap hero-stage">
+    <section id="maquina" class="machine" aria-labelledby="machine-title">
+      <div class="marquee"><img src="assets/logo.png" alt="LOCAL"><h1 id="machine-title">RECUERDOS<br>DE COLOMBIA</h1><i class="flag" aria-hidden="true"></i></div>
+      <div class="machine-body">
+        <div class="window">
+          <div class="shelves" id="shelves" aria-label="Productos"></div>
+        </div>
+        <div class="console">
+          <div class="screen" aria-live="polite">
+            <span id="status">● SELECCIONADO</span>
+            <strong id="selection">A1</strong>
+            <span id="selection-name">Libreta Bogotá D.C.</span>
+          </div>
+          <div id="keys" class="keys" aria-label="Teclado de productos"></div>
+          <button class="vend" id="vend">Dispensar <span aria-hidden="true">↓</span></button>
+        </div>
+        <div class="lower-cabinet">
+          <div id="tray" class="tray">
+            <div class="tray-content"><span aria-hidden="true">↓</span> BANDEJA DE ENTREGA</div>
+            <button id="collect" hidden><span id="tray-preview" aria-hidden="true"></span><span>Recoger recuerdo ↗</span></button>
+          </div>
+          <div class="service-vent" aria-hidden="true"></div>
+        </div>
+      </div>
+      <div class="machine-foot"><span>LOCAL / BOGOTÁ D.C.</span><span>SELECCIONA UN PRODUCTO ↑</span></div>
+    </section>
+    <p class="note">Elige un producto y pulsa Dispensar · Simulación sin cobro</p>
+  </div>
+</section>
+<section id="bogota" class="locations wrap" aria-labelledby="map-title">
+  <div class="map-intro"><div class="origin"><span class="flag"></span> BOGOTÁ D.C.</div><h2 id="map-title">¿Dónde pondrías una LOCAL?</h2><p>Toca un punto para explorar las zonas propuestas para las primeras máquinas.</p></div>
+  <div class="map-layout">
+    <div class="map" aria-label="Mapa esquemático de zonas candidatas de Bogotá">
+      <div class="mountains" aria-hidden="true"></div>
+      <span class="map-label north" aria-hidden="true">↑ N</span>
+      <span class="map-label hills" aria-hidden="true">CERROS ORIENTALES</span>
+      <div id="pins"></div>
+      <span class="map-label schematic">Mapa esquemático</span>
+    </div>
+    <div class="place-panel">
+      <div id="place-tabs" aria-label="Zonas candidatas"></div>
+      <figure class="place-figure">
+        <img id="place-image" width="1200" height="800" alt="">
+        <figcaption>Montaje conceptual</figcaption>
+      </figure>
+      <div aria-live="polite"><h3 id="place-title"></h3><p id="place-desc"></p></div>
+      <a id="place-link" target="_blank" rel="noopener">Ver ubicación ↗</a>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="wrap"><img src="assets/logo.png" alt="LOCAL"><span>Recuerdos de Colombia</span><a href="#maquina">Volver a la máquina ↑</a></footer>
+<dialog id="product" aria-labelledby="product-title">
+  <form class="product-close" method="dialog"><button class="close" aria-label="Cerrar ficha">×</button></form>
+  <div class="product-photo"><div class="product-object" id="product-visual"></div></div>
+  <div class="product-copy"><div class="origin" id="product-code"></div><h2 id="product-title"></h2><p id="product-desc"></p>
+  <form method="dialog"><button class="cta">Volver a la máquina ↗</button></form></div>
+</dialog>
+</body>
+</html>
