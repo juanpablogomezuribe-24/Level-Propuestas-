@@ -100,15 +100,15 @@ function configureBalanceV5() {
     ${heading('Plan de trabajo <em>2027</em>', 'Continúan siete talentos y activos, se suman cinco perfiles y se incorporan dos formatos.')}
     <div class="v5-rosters"><article class="card"><div class="v5-roster-head"><b>7</b><div><small>CONTINÚAN</small><h3>Equipo actual</h3></div></div><ul class="v5-roster-list">${selected2027.map(name=>`<li><span>${escapeHtml(name)}</span></li>`).join('')}</ul></article><article class="card purple"><div class="v5-roster-head"><b>5</b><div><small>SE SUMAN</small><h3>Nuevos perfiles</h3></div></div><ul class="v5-roster-list new">${new2027.map(name=>`<li><span>${escapeHtml(name)}${name==='Juan Pablo Pinilla'?'<small>Reemplaza a Felipe Cerón</small>':''}</span><a href="${newProfileLinks[name].url}" target="_blank" rel="noopener noreferrer" aria-label="Ver perfil de ${escapeHtml(name)}">Ver perfil ↗</a></li>`).join('')}</ul></article></div>
     <div class="v5-section-label">DOS FORMATOS SELECCIONADOS</div><div class="v5-jump-grid">${jump(17,'Clásico Paisa','Patrocinio del canal de YouTube. $6.000.000 mensuales libres aceptados.','live')}${jump(18,'El micrófono de los hinchas','Producción interna Level: cuatro videos al mes en estadios de Colombia.','clips')}</div>
-    <p class="v5-condition">Selección definida, no contratos firmados ni presupuesto final. Tarifas, frecuencia, canales, entregables, derechos de imagen y pauta, exclusividad, territorio y vigencia de los nuevos perfiles deben formalizarse. Clásico Paisa requiere confirmar alcance e impuestos.</p>
+    <p class="v5-condition">Selección sujeta a formalización contractual, dentro del total mensual presentado de $114.119.057 COP, IVA incluido. Tarifas, frecuencia, canales, entregables, derechos de imagen y pauta, exclusividad, territorio y vigencia de los nuevos perfiles deben formalizarse. Clásico Paisa requiere confirmar alcance e impuestos.</p>
   `);
 
   // Two format details, with the same commercial conditions and larger copy.
   old[18].title = 'Clásico Paisa';
   old[18].render = () => wrap('v5-opportunity', `
     ${heading('Clásico <em>Paisa</em>', 'Patrocinio e integración de Wplay en el canal de YouTube.')}
-    <div class="v5-opportunity-grid"><figure class="v5-visual"><img src="assets/opportunities/clasico-paisa.png" alt="Referencia visual de Clásico Paisa con Wplay"></figure><div class="v5-opportunity-facts"><article class="card purple"><small>VALOR ACEPTADO</small><h3>$6.000.000</h3><p>Mensuales libres · COP</p></article><article class="card"><h3>Integración en el programa</h3><p>Menciones, presencia gráfica y secciones de marca por acordar con el programa de conversación y análisis de fútbol.</p></article><article class="card green"><h3>Por formalizar</h3><p>Entregables, frecuencia, derechos, vigencia, impuestos y retenciones.</p></article></div></div>
-    <p class="v5-condition">Valor mensual libre aceptado por Clásico Paisa. No equivale a una tarifa final facturada sin confirmar el tratamiento tributario.</p>
+    <div class="v5-opportunity-grid"><figure class="v5-visual"><img src="assets/opportunities/clasico-paisa.png" alt="Referencia visual de Clásico Paisa con Wplay"></figure><div class="v5-opportunity-facts"><article class="card purple"><small>VALOR ACEPTADO</small><h3>$6.000.000</h3><p>Mensuales netos al proveedor · COP</p></article><article class="card"><h3>Integración en el programa</h3><p>Menciones, presencia gráfica y secciones de marca por acordar con el programa de conversación y análisis de fútbol.</p></article><article class="card green"><h3>Por formalizar</h3><p>Entregables, frecuencia, derechos, vigencia, impuestos y retenciones.</p></article></div></div>
+    <p class="v5-condition">Clásico Paisa conserva $6.000.000 COP mensuales netos al proveedor. No se etiqueta este neto como IVA incluido. Cualquier efecto tributario se revisará dentro del presupuesto presentado, sin modificar la oferta ni agregar un cobro.</p>
   `);
   old[19].title = 'El micrófono de los hinchas';
   old[19].render = () => wrap('v5-opportunity', `
@@ -121,13 +121,35 @@ function configureBalanceV5() {
   const calculatorMarkup = () => simulator().replace('Evaluemos los activos actuales y construyamos el escenario de renovación de Wplay para el próximo año.', 'Referencias contractuales existentes, sin Felipe Cerón. Los cinco nuevos perfiles y Clásico Paisa no están incluidos en este subtotal. Juan Pablo Gómez no tiene tarifa registrada; cero es un dato pendiente, no una contratación gratuita.').replace('TOTAL RENOVACIÓN 2027','SUBTOTAL DE REFERENCIAS').replace('CALCULADORA COMERCIAL · VALORES MENSUALES EN COP','SIMULACIÓN · NO ES COTIZACIÓN FINAL');
   old[20].title = 'Condiciones comerciales';
   old[20].render = () => wrap('v5-commercial', `
-    ${heading('Condiciones <em>comerciales</em>', 'Las dos líneas tienen condiciones distintas. La producción interna aún no tiene un costo cerrado.')}
-    <div class="v5-commercial-grid"><article class="card purple"><small>CLÁSICO PAISA · INTEGRACIÓN</small><h3>$6.000.000</h3><p>Mensuales libres · COP</p><ul><li>Valor aceptado.</li><li>Entregables y frecuencia por formalizar.</li><li>Derechos, vigencia e impuestos por confirmar.</li></ul></article><article class="card green"><small>MICRÓFONO DE LOS HINCHAS · LEVEL</small><h3>4 videos al mes</h3><p>Producción interna · estadios de Colombia</p><ul><li>Formato seleccionado.</li><li>Costo interno y calendario por definir.</li><li>No conserva la tarifa externa por video.</li></ul></article></div>
+    ${heading('Condiciones <em>comerciales</em>', 'Total comercial del Plan 2027: $114.119.057 COP mensuales, IVA incluido. Las condiciones internas pendientes no incrementan esta oferta.')}
+    <div class="v5-commercial-grid"><article class="card purple"><small>CLÁSICO PAISA · INTEGRACIÓN</small><h3>$6.000.000</h3><p>Mensuales netos al proveedor · COP</p><ul><li>Valor aceptado.</li><li>Entregables y frecuencia por formalizar.</li><li>Derechos, vigencia e impuestos por confirmar.</li></ul></article><article class="card green"><small>MICRÓFONO DE LOS HINCHAS · LEVEL</small><h3>4 videos al mes</h3><p>Producción interna · estadios de Colombia</p><ul><li>Formato seleccionado.</li><li>Costo interno y calendario por definir.</li><li>No conserva la tarifa externa por video.</li></ul></article></div>
     <p class="v5-condition">Los demás formatos explorados quedan fuera del plan. No se suman referencias con unidades distintas ni costos pendientes.</p>
     <details class="v5-disclosure v5-simulator"><summary>Simular las referencias contractuales actuales</summary>${calculatorMarkup()}</details>
   `);
 
-  // Merge previous 17 + 18; keep the final table's render function byte-for-byte untouched.
+  // Shared commercial close: totals already quoted, not additions to the simulator.
+  const commercialClose = () => `
+    <section class="card highlight" aria-label="Resumen comercial del Plan 2027">
+      <h3>Resumen comercial · IVA incluido</h3>
+      <div class="v5-commercial-grid">
+        <article class="card purple"><small>PLAN 2027 · TOTAL MENSUAL</small><h3>$114.119.057 COP</h3><p>IVA incluido. Se conserva el total original presentado.</p></article>
+        <article class="card green"><small>MERCH · PEDIDO COTIZADO</small><h3>$29.782.993 COP</h3><p>IVA incluido. Total del pedido, no mensual. Bolsa y estampado incluidos: no se suman otra vez.</p></article>
+      </div>
+      <p>Juan Camilo Vargas declinó. Su cupo original permanece como bolsa pendiente de asignación: $3.000.000 + $450.000 de comisión = $3.450.000 COP (aprox. $3,5 millones), ya contemplados dentro del presupuesto, no un cargo adicional.</p>
+      <p>La diferencia Cerón–Pinilla se revisa dentro del presupuesto existente, sin sumarla al total. Clásico Paisa conserva $6.000.000 COP mensuales netos al proveedor; cualquier efecto se revisa internamente sin cambiar la oferta.</p>
+      <details class="v5-disclosure"><summary>Desglose de los totales · base + IVA 19 %</summary>
+        <p>Plan mensual: base $95.898.367 + IVA $18.220.690 = <b>$114.119.057 COP</b>.</p>
+        <p>Merch: base $25.027.725 + IVA $4.755.268 = <b>$29.782.993 COP</b>.</p>
+        <p>Desglose informativo redondeado al peso de totales que ya incluyen IVA. No se agrega IVA nuevamente ni se suman el pedido de merch y el valor mensual como si tuvieran la misma periodicidad. Referencias históricas, simulador y netos al proveedor conservan su naturaleza y no constituyen nuevas cotizaciones.</p>
+      </details>
+    </section>`;
+  const conditionsRender = old[20].render;
+  old[20].render = () => conditionsRender() + commercialClose();
+  const finalRoster = old[old.length - 1];
+  const finalRosterRender = finalRoster.render;
+  finalRoster.render = () => finalRosterRender().replace('Esta selección no equivale a contratos firmados ni a un presupuesto final.', 'La selección requiere formalización contractual; el total comercial se conserva en el cierre siguiente.') + commercialClose();
+
+  // Merge previous 17 + 18; retain source-backed metrics and catalogue unchanged.
   slides.splice(0, slides.length, ...old.slice(0, 17), ...old.slice(18));
   slides.forEach((slide, index) => {
     slide.balanceKey = index === 0 ? 'cover' : index === 15 ? 'catalog' : index === 20 ? 'roster-final' : 'readable';
